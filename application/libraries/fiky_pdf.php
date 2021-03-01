@@ -1,8 +1,60 @@
-<?php
-/*   __________________________________________________
-    |  Script by : Fiky Ashariza                       |
-    |              on 1.8.11              |
-    |    email : ikangurame3@gmail.com    |
-    |__________________________________________________|
-*/
- defined("\x42\101\123\105\120\x41\x54\110") or die("\x4e\157\x20\144\x69\162\145\x63\x74\x20\x73\x63\162\x69\160\164\40\141\x63\x63\145\163\163\x20\x61\154\x6c\157\x77\x65\144"); require_once dirname(__FILE__) . "\57\146\x69\x6b\x79\x5f\x70\144\x66\137\x64\151\x72\145\x63\164\x6f\162\x79\x2f\141\165\164\x6f\154\x6f\141\x64\x2e\x69\x6e\143\x2e\160\150\x70"; Dompdf\Autoloader::register(); use YD4lR\yd4Lr as yd4lr; use YD4lR\p3ft2 as P3Ft2; class Fiky_pdf extends Dompdf { protected function ci() { return get_instance(); } public function what_u_can_see($dtTiI, $cdJYM = array()) { $AY1Xx = $this->ci()->load->view($dtTiI, $cdJYM, TRUE); $this->load_html($AY1Xx); } public function set_what_u_have_paper($zgaKG, $HaYa1) { $this->set_paper($zgaKG, $HaYa1); } public function set_what_u_will_generate() { $this->render(); } public function set_option_parser($sjB1Z) { goto qa_Nu; gMPdj: goto V5fyT; goto icLrP; Qtp10: goto PvdzP; goto oHesJ; vAc9I: goto YgnKQ; goto a_Kve; Rg9Bb: fAaxy: goto F6SfH; VKpqm: xY0ws: goto PDoCe; MEL8G: goto XzMFB; goto rHqxH; wWyD6: goto Fj6GB; goto f6ToA; pYmcJ: Etw1G: goto gtwTh; IBrVx: kp2G7: goto rjg_t; FQa33: zL_dC: goto nfGfG; EylyX: goto zL_dC; goto zN68J; CXrcW: R8DqT: goto tHfAD; em0cF: goto ZaSbC; goto hzShY; wXMFP: V5fyT: goto Uz8WL; gtwTh: goto sai8k; goto KXIwT; aDcgR: goto Etw1G; goto IFoUL; k1jsO: goto vdIVk; goto FQa33; eHB5l: Fj6GB: goto iu1X3; F6SfH: goto KGFII; goto u8ezb; RpgsT: Hr8NH: goto VKpqm; IFoUL: Tq8t9: goto DWrtA; k_0at: RB0Nh: goto hzo6L; nVziU: goto u2lD9; goto eSOge; K8VaJ: ZaSbC: goto ZwTeH; pGhRL: goto eS8cE; goto W0EkS; qa_Nu: goto uGTGF; goto hKtF9; r4XVI: sfzmM: goto eHB5l; ZwTeH: XzMFB: goto UM7jc; cAWm7: lGcQk: goto mxE4p; uAqY3: goto hXgh_; goto d2Dm8; a_Kve: tdfQv: goto K5p_c; hzo6L: n1it0: goto C3jko; XOqib: iQbH8: goto vB_Uc; D0zUK: PvdzP: goto y32fH; hDPyT: HOFXS: goto kq_Sk; Nl_7Q: Pk4T2: goto cTQUV; f2DWE: goto yK3T1; goto gMPdj; Qauq8: goto D_7mU; goto y1o1m; nfGfG: goto B_Sza; goto QGp1P; y32fH: goto BLOwU; goto UthZL; d2Dm8: w1rT0: goto IzVCn; m21X2: goto Tq8t9; goto ZCEnW; Q9yLr: xiW91: goto oJaVk; QmCRJ: u2lD9: goto NGOBJ; IzVCn: YJpyY: goto nVziU; ko1KS: hXgh_: goto wWyD6; hKtF9: KGFII: goto fS11c; KAvs0: sai8k: goto NP8xJ; zN68J: IGkxD: goto t_FY0; gK9Eu: T88A_: goto OytJo; C3jko: goto R8DqT; goto r4XVI; hzShY: MPaYt: goto TH2Qj; VqyJ3: goto mAiDf; goto xtR5B; eSOge: uGTGF: goto Qauq8; ZCEnW: QFgBz: goto OyH7h; TH2Qj: D_7mU: goto z2yV7; Uz8WL: goto nLMFZ; goto R4crV; KXIwT: goto IGkxD; goto Zqo81; tHfAD: $QBhAy->set("\145\156\x61\x62\x6c\145\137\x68\x74\155\x6c\65\x5f\160\141\x72\x73\x65\162", $sjB1Z); goto EylyX; iu1X3: goto QFgBz; goto wXMFP; KMCgY: goto sfzmM; goto x_lgk; cTQUV: zEhnF: goto swbRy; NGOBJ: goto T88A_; goto vAc9I; UM7jc: goto iQbH8; goto hDPyT; sjDFW: Wh7bE: goto KAvs0; u8ezb: vdIVk: goto okXZk; z2yV7: goto jmx5e; goto K8VaJ; icLrP: MnQWR: goto XWq2K; x_lgk: eS8cE: goto D0zUK; y1o1m: goto lGcQk; goto Nl_7Q; okXZk: q4B5D: goto RSX91; VEAtS: yK3T1: goto uAqY3; oJaVk: lE3UJ: goto em0cF; f6ToA: goto Pk4T2; goto pYmcJ; Zqo81: s1QLA: goto MEL8G; t_FY0: B_Sza: goto itbaz; K5p_c: goto zEhnF; goto sNTft; md1va: goto fAaxy; goto PafjJ; sNTft: goto w1rT0; goto sjDFW; x3uux: mAiDf: goto Rg9Bb; DWrtA: goto YJpyY; goto KMCgY; QGp1P: goto Wh7bE; goto Psn3j; rjg_t: new Dompdf($QBhAy); goto m21X2; swbRy: goto GwezF; goto cAWm7; itbaz: goto s1QLA; goto IBrVx; XWq2K: goto xY0ws; goto c3l7z; mxE4p: nLMFZ: goto VqyJ3; rHqxH: goto aY2HL; goto QmCRJ; oHesJ: goto xiW91; goto x3uux; PDoCe: goto HOFXS; goto e71Fj; xtR5B: GwezF: goto gK9Eu; GFHAn: goto lE3UJ; goto pGhRL; OytJo: goto MnQWR; goto ko1KS; RSX91: goto kp2G7; goto k_0at; c3l7z: goto Hr8NH; goto CXrcW; Jn1LH: jmx5e: goto f2DWE; PafjJ: goto tdfQv; goto Q9yLr; NP8xJ: goto d5asV; goto XOqib; vB_Uc: goto q4B5D; goto k1jsO; e71Fj: YgnKQ: goto Qtp10; fS11c: goto n1it0; goto rFgAK; rFgAK: goto MPaYt; goto RpgsT; OyH7h: $QBhAy = new Options(); goto aDcgR; W0EkS: BLOwU: goto VEAtS; UthZL: aY2HL: goto GFHAn; Psn3j: d5asV: goto md1va; R4crV: goto RB0Nh; goto Jn1LH; kq_Sk: } }
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+/**
+ * Created by PhpStorm.
+ *  * User: FIKY-PC
+ *  * Date: 12/13/19, 2:35 PM
+ *  * Last Modified: 12/13/19, 2:33 PM.
+ *  Developed By: Fiky Ashariza Powered By PhpStorm
+ *  Copyright© 2019 .All rights reserved.
+ *
+ */
+
+require_once(dirname(__FILE__) . '/fiky_pdf_directory/autoload.inc.php');
+Dompdf\Autoloader::register();
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
+class Fiky_pdf extends Dompdf
+{
+	/**
+	 * Get an instance of CodeIgniter
+	 *
+	 * @access	protected
+	 * @return	void
+	 */
+    protected function ci()
+    {
+        return get_instance();
+
+    }
+
+	/**
+	 * Load a CodeIgniter view into domPDF
+	 *
+	 * @access	public
+	 * @param	string	$view The view to load
+	 * @param	array	$data The view data
+	 * @return	void
+	 */
+	public function what_u_can_see($view, $data = array())
+	{
+        $html = $this->ci()->load->view($view, $data, TRUE);
+        $this->load_html($html);
+	}
+
+	public function set_what_u_have_paper($type,$orientation)
+    {
+	    $this->set_paper($type,$orientation);
+    }
+    public function set_what_u_will_generate()
+    {
+        $this->render();
+    }
+    public function set_option_parser($param)
+    {
+        $options = new Options();
+        $options->set('enable_html5_parser', $param);
+        new Dompdf($options);
+    }
+
+}

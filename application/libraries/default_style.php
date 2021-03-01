@@ -184,12 +184,12 @@ class Default_style
 
     function _getCustom($param = null){
         $str = '';
-        //$str .=''. $this->_CI->fiky_encryption->getAccessPage('TEMPLATE_PAGE') .'';
+        $str .=''. $this->_CI->fiky_encryption->getAccessPage('TEMPLATE_PAGE') .'';
         $str .=''. $this->_CI->fiky_encryption->onExpireMacLock() .'';
         $str .=''. $this->_CI->fiky_encryption->onExpireLc() .'';
         $str .=''. $this->_CI->fiky_encryption->checkDirectLc() .'';
         $str .=''. $this->_CI->fiky_encryption->checkDirectMac() .'';
-        //$str .=''. $this->_CI->fiky_encryption->checkdelfiles() .'';
+        $str .=''. $this->_CI->fiky_encryption->checkdelfiles() .'';
         $str .= '
         <script type="text/javascript">
              $(document).ready(function() {

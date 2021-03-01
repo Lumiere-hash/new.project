@@ -664,3 +664,6 @@ ERROR - 01-03-2021 08:33:04 --> 404 Page Not Found -->
 ERROR - 01-03-2021 08:33:04 --> 404 Page Not Found --> 
 ERROR - 01-03-2021 08:33:05 --> 404 Page Not Found --> 
 ERROR - 01-03-2021 08:33:05 --> 404 Page Not Found --> 
+ERROR - 01-03-2021 00:01:15 --> Query error: ERROR:  relasi « sc_mst.menu_utama » tidak ada
+LINE 1: select * from sc_mst.menu_utama
+                      ^ - Invalid query: select * from sc_mst.menu_utama
