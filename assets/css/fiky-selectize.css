@@ -1,0 +1,34 @@
+/*
+ * Created by PhpStorm.
+ *  * User: FIKY-PC
+ *  * Date: 4/25/19 9:46 AM
+ *  * Last Modified: 4/25/19 9:45 AM.
+ *  Developed By: Fiky Ashariza Powered By PhpStorm
+ *  Copyright© 2019 .All rights reserved.
+ *
+ */
+
+
+.selectize-input {
+    overflow: visible;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+.selectize-input.dropdown-active {
+    min-height: 30px;
+    line-height: normal;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+.selectize-dropdown, .selectize-input, .selectize-input input {
+    min-height: 30px;
+    line-height: normal;
+}
+.loading .selectize-dropdown-content:after {
+    content: 'loading...';
+    height: 30px;
+    display: block;
+    text-align: center;
+}

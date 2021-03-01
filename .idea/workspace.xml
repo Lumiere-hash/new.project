@@ -1,0 +1,1060 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="" />
+    <ignored path="hrdnew.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="HRDNUSANEW@localhost" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="HRDNUSANEW@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="HRDNUSANEW@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="HRDNUSANEW: database" type="6d9b600a:PostgresImplModel$Database" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="HRDNUSANEW@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="HRDNUSANEW: database" type="6d9b600a:PostgresImplModel$Database" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="HRDNUSANEW@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="HRDNUSANEW: database" type="6d9b600a:PostgresImplModel$Database" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="sc_his: schema" type="a16502c0:PostgresImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="HRDNUSANEW@localhost" type="feb32156:DbDataSourceImpl" />
+        <item name="databases" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="HRDNUSANEW: database" type="6d9b600a:PostgresImplModel$Database" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="sc_his: schema" type="a16502c0:PostgresImplModel$Schema" />
+        <item name="tables" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="hrdnew" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="web.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/modules/web/controllers/web.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="731">
+              <caret line="43" column="5" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fiky_encryption.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/libraries/fiky_encryption.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="284">
+              <caret line="935" column="14" selection-start-line="935" selection-start-column="14" selection-end-line="935" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="import.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/modules/payroll/controllers/import.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="182">
+              <caret line="848" column="45" selection-start-line="848" selection-start-column="45" selection-end-line="848" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="template.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/views/template.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="286">
+              <caret line="118" column="53" selection-start-line="118" selection-start-column="53" selection-end-line="118" selection-end-column="53" />
+              <folding>
+                <element signature="e#4427#14052#0#PHP" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#a#0;n#li#1;n#ul#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#a#0;n#li#2;n#ul#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#a#0;n#li#3;n#ul#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AdminLTE.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/css/AdminLTE.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="165">
+              <caret line="481" selection-start-line="481" selection-end-line="481" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AdminLTE.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/assets/dist/css/AdminLTE.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="182">
+              <caret line="295" column="17" lean-forward="true" selection-start-line="295" selection-start-column="17" selection-end-line="295" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sidebar.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/views/template/sidebar.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="7" column="41" selection-start-line="7" selection-start-column="41" selection-end-line="7" selection-end-column="41" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="m_import.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/modules/payroll/models/m_import.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5423">
+              <caret line="319" column="28" selection-start-line="319" selection-start-column="13" selection-end-line="319" selection-end-column="28" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="default_style.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/libraries/default_style.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2975">
+              <caret line="183" column="68" selection-start-line="183" selection-start-column="68" selection-end-line="183" selection-end-column="68" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="m_master.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/modules/payroll/models/m_master.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3026">
+              <caret line="183" column="32" selection-start-line="179" selection-start-column="8" selection-end-line="183" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>ajax_update</find>
+      <find>tgllahi</find>
+      <find>e_exportcsvmst</find>
+      <find>e_csvmstriwrkmds</find>
+      <find>i_csvmstriwrkmds</find>
+      <find>e_csv_mstkaryawan</find>
+      <find>vers</find>
+      <find>ratakanan</find>
+      <find>tetap</find>
+      <find>reca</find>
+      <find>loader</find>
+      <find>$t_wilayah_sal</find>
+      <find>t_wilayah_sal</find>
+      <find>modal</find>
+      <find>modal-xl</find>
+      <find>$exppn</find>
+      <find>s</find>
+      <find>lockingmode/b</find>
+      <find>checkdel</find>
+      <find>checkdelfil</find>
+      <find>i_csvmstjabatan</find>
+      <find>auto</find>
+      <find>.sidebar-collapse</find>
+      <find>.user-panel &gt; .image &gt; img {</find>
+      <find>.user-panel</find>
+      <find>.user-panel &gt; .image &gt; img</find>
+      <find>.user-panel &gt; .image</find>
+      <find>.user-panel &gt;</find>
+      <find>.image</find>
+      <find>.main-header .logo .logo-mini {</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>m_indoc</replace>
+      <replace>m_arsipdokumen</replace>
+      <replace>nodoktmp</replace>
+      <replace>docnotmp</replace>
+      <replace>list_aksesperdepcuti</replace>
+      <replace />
+      <replace>$nama=$this-&gt;session-&gt;userdata('nik');</replace>
+      <replace>-&gt;_CI-&gt;m_akses</replace>
+      <replace>list_maswil_salary</replace>
+      <replace>'</replace>
+      <replace>$this-&gt;fiky_encryption-&gt;enkript(</replace>
+      <replace>$this-&gt;fiky_encryption-&gt;dekript(</replace>
+      <replace>t_historygaji</replace>
+      <replace>&gt;</replace>
+      <replace>media</replace>
+      <replace>=\&quot;.'.</replace>
+      <replace>. '.</replace>
+      <replace>&quot;.</replace>
+      <replace>&quot;'</replace>
+      <replace>'\</replace>
+      <replace>'.</replace>
+      <replace>&quot;</replace>
+      <replace>$this-&gt;_Cfiky_encryption</replace>
+      <replace>$this-&gt;_CI-&gt;fiky_encryption</replace>
+      <replace>$this-&gt;_CI-&gt;db-&gt;query</replace>
+      <replace>$this-&gt;_CI-&gt;fiky_encryption-&gt;bf_fiky_enkrip</replace>
+      <replace>impotan_class</replace>
+      <replace>$this-&gt;fiky_ecopos_printer-&gt;WindowsPrintConnector</replace>
+      <replace>tj_masakerja</replace>
+    </replaceStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/application/modules/pinjaman/views/pinjaman/v_master_lvlgp.php" />
+        <option value="$PROJECT_DIR$/application/modules/payroll/views/master/v_master_lvlgp.php" />
+        <option value="$PROJECT_DIR$/application/modules/payroll/controllers/setting.php" />
+        <option value="$PROJECT_DIR$/application/modules/pinjaman/controllers/pinjaman.php" />
+        <option value="$PROJECT_DIR$/application/modules/payroll/views/import/v_e_csv_mstkaryawan.php" />
+        <option value="$PROJECT_DIR$/application/modules/payroll/views/import/v_load_import_data.php" />
+        <option value="$PROJECT_DIR$/application_debug/views/leavesession/v_grid_karkon.php" />
+        <option value="$PROJECT_DIR$/application/modules/bantuan/controllers/backupdb.php" />
+        <option value="$PROJECT_DIR$/application/libraries/this_akses_db.php" />
+        <option value="$PROJECT_DIR$/application/libraries/fiky_version.php" />
+        <option value="$PROJECT_DIR$/application/config/database.php" />
+        <option value="$PROJECT_DIR$/application/libraries/impotan_class.php" />
+        <option value="$PROJECT_DIR$/application/libraries/important_class.php" />
+        <option value="$PROJECT_DIR$/application/views/leavesession/v_new_installation_success.php" />
+        <option value="$PROJECT_DIR$/application/modules/master/controllers/jabatan.php" />
+        <option value="$PROJECT_DIR$/application/modules/web/models/m_user.php" />
+        <option value="$PROJECT_DIR$/application/modules/web/views/web/index.php" />
+        <option value="$PROJECT_DIR$/application/views/leavesession/v_new_installation.php" />
+        <option value="$PROJECT_DIR$/application/views/leavesession/v_new_lc.php" />
+        <option value="$PROJECT_DIR$/application/libraries/template.php" />
+        <option value="$PROJECT_DIR$/application/modules/payroll/models/m_master.php" />
+        <option value="$PROJECT_DIR$/application/modules/payroll/views/master/v_masa_kerja.php" />
+        <option value="$PROJECT_DIR$/application/modules/payroll/views/master/v_master_wilayah.php" />
+        <option value="$PROJECT_DIR$/application/modules/payroll/controllers/master.php" />
+        <option value="$PROJECT_DIR$/application/modules/payroll/views/master/v_master_wilayah_salary.php" />
+        <option value="$PROJECT_DIR$/application/libraries/modifPos.php" />
+        <option value="$PROJECT_DIR$/application/libraries/nyetak.php" />
+        <option value="$PROJECT_DIR$/application/libraries/escpos_php/fiky_ecopos_conf.php" />
+        <option value="$PROJECT_DIR$/application/libraries/ecopos_php/fiky_ecopos_conf.php" />
+        <option value="$PROJECT_DIR$/application/controllers/test.php" />
+        <option value="$PROJECT_DIR$/application/libraries/fiky_ecopos_printer.php" />
+        <option value="$PROJECT_DIR$/application/modules/payroll/models/m_tetap.php" />
+        <option value="$PROJECT_DIR$/application/modules/payroll/controllers/tetap.php" />
+        <option value="$PROJECT_DIR$/application/libraries/default_style.php" />
+        <option value="$PROJECT_DIR$/application/modules/payroll/views/tetap/v_modalinput.php" />
+        <option value="$PROJECT_DIR$/application/modules/trans/models/m_karyawan.php" />
+        <option value="$PROJECT_DIR$/application/modules/trans/views/karyawan/v_karyawan.php" />
+        <option value="$PROJECT_DIR$/application/modules/trans/controllers/karyawan.php" />
+        <option value="$PROJECT_DIR$/application/libraries/fiky_wilayah.php" />
+        <option value="$PROJECT_DIR$/application/modules/trans/views/karyawan/v_detailhrdkary.php" />
+        <option value="$PROJECT_DIR$/application/modules/trans/views/karyawan/v_editkary.php" />
+        <option value="$PROJECT_DIR$/application/modules/web/controllers/web.php" />
+        <option value="$PROJECT_DIR$/application/controllers/lockingmode.php" />
+        <option value="$PROJECT_DIR$/application/modules/payroll/models/m_import.php" />
+        <option value="$PROJECT_DIR$/application/modules/payroll/controllers/import.php" />
+        <option value="$PROJECT_DIR$/application/modules/payroll/views/tetap/v_input.php" />
+        <option value="$PROJECT_DIR$/application/libraries/fiky_encryption.php" />
+        <option value="$PROJECT_DIR$/application/views/template/sidebar.php" />
+        <option value="$PROJECT_DIR$/application/views/template.php" />
+        <option value="$PROJECT_DIR$/assets/css/AdminLTE.css" />
+        <option value="$PROJECT_DIR$/assets/dist/css/AdminLTE.css" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="NodePackageJsonFileManager">
+    <packageJsonPaths>
+      <path value="$PROJECT_DIR$/assets/css/bootstrap-datetimepicker-master/bootstrap-datetimepicker-master/package.json" />
+      <path value="$PROJECT_DIR$/assets/js/plugins/chain/package.json" />
+    </packageJsonPaths>
+  </component>
+  <component name="PhpDebugGeneral" listening_started="true" />
+  <component name="PhpServers">
+    <servers />
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="-7" />
+    <option name="y" value="2" />
+    <option name="width" value="1378" />
+    <option name="height" value="733" />
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State>
+            <id />
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>Blade files</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="hrdnew" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hrdnew" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hrdnew" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hrdnew" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hrdnew" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hrdnew" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="enc_libraries" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hrdnew" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hrdnew" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hrdnew" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hrdnew" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="template" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hrdnew" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hrdnew" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hrdnew" type="b2602c69:ProjectViewProjectNode" />
+              <item name="hrdnew" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="css" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="hrdnew" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="bcb0276e:PhpExternalLibrariesNodePatcher$PatchedExternalLibrariesNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="SearchEverywhereHistoryKey" value="adminlte.c&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/assets/dist/css/AdminLTE.css&#10;.userpanel&#9;null&#9;null&#10;templ&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/views/template.php&#10;m_imp&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/models/m_import.php&#10;impor&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/controllers/import.php&#10;defau&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/libraries/default_style.php&#10;fiky_&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/libraries/fiky_encryption.php&#10;m_master&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/models/m_master.php&#10;web/&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/web/views/web&#10;v_detaip&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/views/detail/v_detail.php&#10;inputpdc&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/pdca/views/pdca/v_input_pdca_tmp.php&#10;pdca&#9;null&#9;null&#10;v_master_wilayah_salary&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/views/master/v_master_wilayah_salary.php&#10;payroll/master&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/controllers/master.php&#10;defa&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/libraries/default_style.php&#10;tetap/v&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/views/tetap/v_input.php&#10;tetap&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/controllers/tetap.php&#10;detai_pa&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/controllers/detail_payroll.php&#10;v_im&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/views/import/v_importcsv.php&#10;templat&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/views/template.php&#10;instoc&#9;null&#9;null&#10;payroll/imp&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/controllers/import.php&#10;lockin&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/controllers/lockingmode.php&#10;index&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/web/views/web/index.php&#10;web&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/web/controllers/web.php&#10;fiky_encryption&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/libraries/fiky_encryption.php&#10;payroll/ce&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/controllers/ceklembur.php&#10;template&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/views/template.php&#10;fiky_wil&#9;null&#9;null&#10;wilayah&#9;null&#9;null&#10;v_editka&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/trans/views/karyawan/v_editkary.php&#10;m_karyaw&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/trans/models/m_karyawan.php&#10;trans/karyawan/v_detailhrdkary&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/trans/views/karyawan/v_detailhrdkary.php&#10;M_KARYAW&#9;null&#9;null&#10;karya&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/trans/controllers/karyawan.php&#10;v&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/views/master/v_master_wilayah_salary.php&#10;v_kar&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/trans/views/karyawan/v_karyawan.php&#10;config/database&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/config/database.php&#10;bantuan&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/bantuan&#10;master&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/controllers/master.php&#10;config/config&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/config/config.php&#10;fiky&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/libraries/fiky_encryption.php&#10;m_menu&#9;null&#9;null&#10;m_me&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/models/m_menu.php&#10;m_akses&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/master/models/m_akses.php&#10;views/temp&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/views/template.php&#10;/web/index.php&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/web/views/web/index.php&#10;m_user&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/web/models/m_user.php&#10;v_harap&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/views/detail/v_harap_tunggu.php&#10;gene&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/controllers/generate.php" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="com.intellij.database.dataSource.DataSourceTemplate" value="PostgreSQL" />
+    <property name="database.console.LAST_STATE" value="true" />
+    <property name="database.data.extractors.current.id" value="SQL-Insert-Statements.sql.groovy" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../tools/adminlte" />
+    <property name="settings.editor.selected.configurable" value="copyright.profiles" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\WAPP\apache2\htdocs\hrdnew\assets" />
+      <recent name="D:\WAPP\apache2\htdocs\hrdnew\assets\less" />
+      <recent name="D:\WAPP\apache2\htdocs\hrdnew\application\libraries" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\WAPP\apache2\htdocs\hrdnew\application\views\leavesession" />
+      <recent name="D:\WAPP\apache2\htdocs\hrdnew\application\libraries\fiky_ecopos" />
+      <recent name="D:\WAPP\apache2\htdocs\hrdnew\application\libraries" />
+      <recent name="D:\WAPP\apache2\htdocs\hrdnew\application\controllers" />
+      <recent name="D:\WAPP\apache2\htdocs\hrdnew\application\libraries\escpos_php" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="" />
+      <created>1482369575705</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1482369575705</updated>
+      <workItem from="1482369577236" duration="2871000" />
+      <workItem from="1482455214511" duration="17091000" />
+      <workItem from="1482542765154" duration="8409000" />
+      <workItem from="1482556971774" duration="2311000" />
+      <workItem from="1482717542810" duration="10075000" />
+      <workItem from="1482908859370" duration="2350000" />
+      <workItem from="1482979800242" duration="2293000" />
+      <workItem from="1483064218085" duration="7258000" />
+      <workItem from="1483405546647" duration="4034000" />
+      <workItem from="1485504988981" duration="1213000" />
+      <workItem from="1489808473623" duration="94000" />
+      <workItem from="1524536828224" duration="11140000" />
+      <workItem from="1524622741540" duration="7761000" />
+      <workItem from="1524707205146" duration="3290000" />
+      <workItem from="1524795945436" duration="9078000" />
+      <workItem from="1524879513240" duration="62000" />
+      <workItem from="1524889015411" duration="3145000" />
+      <workItem from="1525051143776" duration="772000" />
+      <workItem from="1525056517901" duration="2116000" />
+      <workItem from="1525323169386" duration="9473000" />
+      <workItem from="1527470991699" duration="17154000" />
+      <workItem from="1527660356327" duration="8469000" />
+      <workItem from="1527728861911" duration="8316000" />
+      <workItem from="1527742657685" duration="1508000" />
+      <workItem from="1527749465282" duration="1196000" />
+      <workItem from="1528245360011" duration="2384000" />
+      <workItem from="1531986919706" duration="599000" />
+      <workItem from="1532662492981" duration="1067000" />
+      <workItem from="1533179810784" duration="15464000" />
+      <workItem from="1533259743476" duration="12688000" />
+      <workItem from="1533346201138" duration="8078000" />
+      <workItem from="1533539207286" duration="5934000" />
+      <workItem from="1533606418967" duration="8935000" />
+      <workItem from="1533693111171" duration="18524000" />
+      <workItem from="1533779172417" duration="6581000" />
+      <workItem from="1533870984202" duration="10171000" />
+      <workItem from="1533955963649" duration="2768000" />
+      <workItem from="1534392954076" duration="905000" />
+      <workItem from="1534556936409" duration="4342000" />
+      <workItem from="1534813421114" duration="621000" />
+      <workItem from="1534989050549" duration="7239000" />
+      <workItem from="1535074483481" duration="8783000" />
+      <workItem from="1535512973416" duration="2184000" />
+      <workItem from="1535596274469" duration="18331000" />
+      <workItem from="1535698733975" duration="3722000" />
+      <workItem from="1535766168857" duration="3728000" />
+      <workItem from="1535936410439" duration="6151000" />
+      <workItem from="1536196354225" duration="5938000" />
+      <workItem from="1536220597743" duration="783000" />
+      <workItem from="1536293540714" duration="1919000" />
+      <workItem from="1537146329765" duration="10014000" />
+      <workItem from="1537234013354" duration="971000" />
+      <workItem from="1537243717290" duration="26000" />
+      <workItem from="1537589442994" duration="634000" />
+      <workItem from="1537944340943" duration="7000" />
+      <workItem from="1538015216355" duration="660000" />
+      <workItem from="1538362944549" duration="53000" />
+      <workItem from="1538729456444" duration="845000" />
+      <workItem from="1538963535952" duration="618000" />
+      <workItem from="1539135261999" duration="788000" />
+      <workItem from="1539329015909" duration="9000" />
+      <workItem from="1542075933698" duration="9068000" />
+      <workItem from="1542097087411" duration="765000" />
+      <workItem from="1542160220170" duration="23000" />
+      <workItem from="1543374326196" duration="6682000" />
+      <workItem from="1546390166644" duration="10935000" />
+      <workItem from="1546478615798" duration="46000" />
+      <workItem from="1546582664575" duration="1554000" />
+      <workItem from="1546651588093" duration="1219000" />
+      <workItem from="1548471574039" duration="3644000" />
+      <workItem from="1548638761862" duration="1228000" />
+      <workItem from="1548641867923" duration="15207000" />
+      <workItem from="1548726229395" duration="14886000" />
+      <workItem from="1548812427601" duration="1865000" />
+      <workItem from="1549077847889" duration="308000" />
+      <workItem from="1550200056651" duration="884000" />
+      <workItem from="1551254569649" duration="27000" />
+      <workItem from="1551254612301" duration="16000" />
+      <workItem from="1552639959860" duration="598000" />
+      <workItem from="1552700485930" duration="674000" />
+      <workItem from="1554948023482" duration="7367000" />
+      <workItem from="1555018230149" duration="4346000" />
+      <workItem from="1555031786055" duration="23354000" />
+      <workItem from="1555125475443" duration="10109000" />
+      <workItem from="1555290989627" duration="20912000" />
+      <workItem from="1555315286660" duration="3933000" />
+      <workItem from="1555378681049" duration="35000" />
+      <workItem from="1555399106988" duration="6453000" />
+      <workItem from="1555422318665" duration="377000" />
+      <workItem from="1555423049684" duration="18574000" />
+      <workItem from="1555473957908" duration="11602000" />
+      <workItem from="1555485917816" duration="3293000" />
+      <workItem from="1555548844881" duration="14994000" />
+      <workItem from="1555571445962" duration="9120000" />
+      <workItem from="1555596616302" duration="17355000" />
+      <workItem from="1555895607302" duration="22744000" />
+      <workItem from="1555947168468" duration="1390000" />
+      <workItem from="1555983816557" duration="15424000" />
+      <workItem from="1556029143931" duration="27147000" />
+      <workItem from="1556154584159" duration="20272000" />
+      <workItem from="1556201033463" duration="14000" />
+      <workItem from="1556242880445" duration="17610000" />
+      <workItem from="1556327685956" duration="5538000" />
+      <workItem from="1556395436287" duration="13000" />
+      <workItem from="1556504594159" duration="2833000" />
+      <workItem from="1556519449090" duration="8939000" />
+      <workItem from="1556542611652" duration="7810000" />
+      <workItem from="1556586590765" duration="19000" />
+      <workItem from="1556587922163" duration="18827000" />
+      <workItem from="1556633434270" duration="915000" />
+      <workItem from="1556759780268" duration="16660000" />
+      <workItem from="1556847129859" duration="24583000" />
+      <workItem from="1556876164387" duration="50000" />
+      <workItem from="1556894107134" duration="2695000" />
+      <workItem from="1556903536234" duration="22000" />
+      <workItem from="1556934066665" duration="5613000" />
+      <workItem from="1557104416517" duration="17385000" />
+      <workItem from="1557127714141" duration="506000" />
+      <workItem from="1557129298883" duration="133000" />
+      <workItem from="1557197544656" duration="67000" />
+      <workItem from="1557197955952" duration="10632000" />
+      <workItem from="1557243071041" duration="2550000" />
+      <workItem from="1557278708691" duration="14792000" />
+      <workItem from="1557365822358" duration="21525000" />
+      <workItem from="1557468995829" duration="26000" />
+      <workItem from="1557469581539" duration="3302000" />
+      <workItem from="1557473573916" duration="3297000" />
+      <workItem from="1557630617479" duration="3951000" />
+      <workItem from="1557709138306" duration="21699000" />
+      <workItem from="1557807188465" duration="16672000" />
+      <workItem from="1557885016273" duration="15914000" />
+      <workItem from="1557956549299" duration="6258000" />
+      <workItem from="1557969567725" duration="25000" />
+      <workItem from="1557971151559" duration="24585000" />
+      <workItem from="1558040412094" duration="233000" />
+      <workItem from="1558040772454" duration="4610000" />
+      <workItem from="1558056610106" duration="10712000" />
+      <workItem from="1558151911543" duration="3698000" />
+      <workItem from="1558218033684" duration="1630000" />
+      <workItem from="1558315777486" duration="875000" />
+      <workItem from="1558402709390" duration="5633000" />
+      <workItem from="1558413777490" duration="11341000" />
+      <workItem from="1558455158144" duration="1378000" />
+      <workItem from="1558474769922" duration="4444000" />
+      <workItem from="1558488014957" duration="10521000" />
+      <workItem from="1558501498684" duration="143000" />
+      <workItem from="1558506363466" duration="9717000" />
+      <workItem from="1558647325452" duration="6710000" />
+      <workItem from="1558661512284" duration="18482000" />
+      <workItem from="1558716426416" duration="7040000" />
+      <workItem from="1558749891195" duration="7862000" />
+      <workItem from="1558921721635" duration="6929000" />
+      <workItem from="1558933215866" duration="1500000" />
+      <workItem from="1558937973903" duration="5482000" />
+      <workItem from="1559013878472" duration="8993000" />
+      <workItem from="1559022909175" duration="4513000" />
+      <workItem from="1559030336641" duration="895000" />
+      <workItem from="1559080745847" duration="2864000" />
+      <workItem from="1559094804017" duration="18786000" />
+      <workItem from="1559178834394" duration="7528000" />
+      <workItem from="1559197417844" duration="7243000" />
+      <workItem from="1559270770298" duration="711000" />
+      <workItem from="1559443823844" duration="1208000" />
+      <workItem from="1560129944736" duration="747000" />
+      <workItem from="1560305242640" duration="18291000" />
+      <workItem from="1560483405538" duration="5930000" />
+      <workItem from="1560560810648" duration="4409000" />
+      <workItem from="1560741284379" duration="99000" />
+      <workItem from="1560897105084" duration="79000" />
+      <workItem from="1561690033926" duration="5426000" />
+      <workItem from="1561709351705" duration="732000" />
+      <workItem from="1561711916686" duration="2159000" />
+      <workItem from="1561780956805" duration="883000" />
+      <workItem from="1561948403891" duration="3052000" />
+      <workItem from="1562030389036" duration="680000" />
+      <workItem from="1562031103086" duration="74000" />
+      <workItem from="1562742077682" duration="603000" />
+      <workItem from="1562903085441" duration="2814000" />
+      <workItem from="1562985449876" duration="4522000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="1120014000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="2" width="1378" height="733" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" weight="0.21699545" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
+      <window_info anchor="right" id="Database" order="3" weight="0.055219363" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Database Console" order="11" visible="true" weight="0.32838285" />
+      <window_info anchor="bottom" id="Find" order="1" />
+    </layout>
+    <layout-to-restore>
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21699545" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="right" id="Database" order="3" weight="0.055219363" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Version Control" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
+      <window_info anchor="bottom" id="Database Console" order="11" visible="true" weight="0.32838285" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="8" />
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/application/libraries/ecopos_php/src/Mike42/Escpos/Printer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-8535" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/test.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="26" column="4" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/libraries/fiky_ecopos_printer.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="20" column="25" lean-forward="true" selection-start-line="20" selection-start-column="25" selection-end-line="20" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/libraries/ecopos_php/autoload.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/libraries/Excel_reader/Excel_reader.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="24" column="32" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/payroll/models/m_tetap.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1615">
+          <caret line="95" column="30" selection-start-line="95" selection-start-column="13" selection-end-line="95" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/payroll/views/tetap/v_modalinput.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1547">
+          <caret line="91" selection-start-line="91" selection-end-line="91" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/payroll/views/detail/v_harap_tunggu.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/payroll/controllers/generate.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="24" column="25" selection-start-line="24" selection-start-column="13" selection-end-line="24" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/libraries/template.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="8" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/m_menu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/master/models/m_akses.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2023">
+          <caret line="119" selection-start-line="119" selection-end-line="122" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/master/models/m_menu.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1275">
+          <caret line="75" selection-start-line="75" selection-end-line="84" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/config/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6188">
+          <caret line="364" column="37" selection-start-line="364" selection-start-column="37" selection-end-line="364" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/bantuan/controllers/transfer.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/config/database.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3094">
+          <caret line="182" column="26" selection-start-line="182" selection-start-column="26" selection-end-line="182" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/trans/views/karyawan/v_karyawan.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="22916">
+          <caret line="1369" column="42" selection-start-line="1369" selection-start-column="42" selection-end-line="1369" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/trans/models/m_karyawan.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2958">
+          <caret line="174" column="30" selection-start-line="174" selection-start-column="20" selection-end-line="174" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/master/controllers/wilayah.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2312">
+          <caret line="136" column="40" selection-start-line="136" selection-start-column="34" selection-end-line="136" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/libraries/fiky_wilayah.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3825">
+          <caret line="233" column="56" selection-start-line="233" selection-start-column="45" selection-end-line="233" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/trans/views/karyawan/v_detailhrdkary.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3060">
+          <caret line="180" column="38" selection-start-line="180" selection-start-column="38" selection-end-line="180" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/trans/controllers/karyawan.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9129">
+          <caret line="537" column="22" selection-start-line="537" selection-start-column="12" selection-end-line="537" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/trans/views/karyawan/v_editkary.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1479">
+          <caret line="89" column="110" selection-start-line="89" selection-start-column="103" selection-end-line="89" selection-end-column="110" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/payroll/controllers/ceklembur.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6766">
+          <caret line="401" column="90" selection-start-line="401" selection-start-column="90" selection-end-line="401" selection-end-column="90" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/leavesession/v_new_installation.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/controllers/lockingmode.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/ga/controllers/instock.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2125">
+          <caret line="19" column="4" lean-forward="true" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/payroll/views/tetap/v_input.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2516">
+          <caret line="156" column="48" selection-start-line="156" selection-start-column="41" selection-end-line="156" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/payroll/controllers/tetap.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4522">
+          <caret line="269" column="36" selection-start-line="269" selection-start-column="36" selection-end-line="269" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/payroll/views/import/v_importcsv.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/css/fiky-css-loader.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/css/fiky-selectize.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="1" selection-start-line="16" selection-end-line="16" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/payroll/views/master/v_master_wilayah_salary.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3009">
+          <caret line="182" selection-start-line="182" selection-end-line="184" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/pdca/controllers/pdca.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="11" column="6" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/pdca/views/pdca/v_input_pdca_tmp.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6528">
+          <caret line="384" column="53" selection-start-line="384" selection-start-column="49" selection-end-line="384" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/payroll/controllers/detail_payroll.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="6" column="25" selection-start-line="6" selection-start-column="25" selection-end-line="6" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/payroll/views/detail/v_detail.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/payroll/controllers/master.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2737">
+          <caret line="169" column="73" selection-start-line="169" selection-start-column="43" selection-end-line="169" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/web/models/m_user.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="21" selection-start-line="4" selection-start-column="20" selection-end-line="4" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/web/views/web/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="30" column="57" selection-start-line="30" selection-start-column="57" selection-end-line="30" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/payroll/models/m_master.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3026">
+          <caret line="183" column="32" selection-start-line="179" selection-start-column="8" selection-end-line="183" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/web/controllers/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="731">
+          <caret line="43" column="5" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/libraries/default_style.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2975">
+          <caret line="183" column="68" selection-start-line="183" selection-start-column="68" selection-end-line="183" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/enc_libraries/excel_generator.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/payroll/models/m_import.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5423">
+          <caret line="319" column="28" selection-start-line="319" selection-start-column="13" selection-end-line="319" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/payroll/controllers/import.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="848" column="45" selection-start-line="848" selection-start-column="45" selection-end-line="848" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/template.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="118" column="53" selection-start-line="118" selection-start-column="53" selection-end-line="118" selection-end-column="53" />
+          <folding>
+            <element signature="e#4427#14052#0#PHP" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#a#0;n#li#1;n#ul#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#a#0;n#li#2;n#ul#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#div#0;n#a#0;n#li#3;n#ul#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/css/AdminLTE.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="481" selection-start-line="481" selection-end-line="481" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/libraries/fiky_encryption.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="935" column="14" selection-start-line="935" selection-start-column="14" selection-end-line="935" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/template/sidebar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="7" column="41" selection-start-line="7" selection-start-column="41" selection-end-line="7" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/dist/css/AdminLTE.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="295" column="17" lean-forward="true" selection-start-line="295" selection-start-column="17" selection-end-line="295" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="Copyright.UI">
+        <settings>
+          <last-edited>Copyrigth Fiky</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
