@@ -10,7 +10,8 @@ class Final_payroll extends MX_Controller{
         parent::__construct();
 
 		$this->load->model(array('m_final','m_generate'));
-        $this->load->library(array('form_validation','template','upload','pdf','Excel_generator','Fiky_version','Fiky_string','Fiky_menu','Fiky_encryption','Fiky_mailer','fiky_pdf','fiky_pdf_mpdf_extension'));
+//        $this->load->library(array('form_validation','template','upload','pdf','Excel_generator','Fiky_version','Fiky_string','Fiky_menu','Fiky_encryption','Fiky_mailer','fiky_pdf','fiky_pdf_mpdf_extension'));
+        $this->load->library(array('form_validation','template','upload','pdf','Excel_generator','Fiky_version','Fiky_string','Fiky_menu','Fiky_encryption','Fiky_mailer','fiky_pdf'));
 		 if(!$this->session->userdata('nik')){
             redirect('dashboard');
         }

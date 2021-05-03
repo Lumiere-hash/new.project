@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="dataSourceStorageLocal">
-    <data-source name="HRDNUSANEW@localhost" uuid="fdc1e559-5166-4201-958e-edf5daf0a55a">
-      <database-info product="PostgreSQL" version="9.5.2" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.2.2">
+  <component name="dataSourceStorageLocal" created-in="PS-211.7142.44">
+    <data-source name="postgres@localhost" uuid="fdc1e559-5166-4201-958e-edf5daf0a55a">
+      <database-info product="PostgreSQL" version="9.5.2" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.2.5" dbms="POSTGRES" exact-version="9.5.2" exact-driver-version="42.2">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
       <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
       <secret-storage>master_key</secret-storage>
       <user-name>postgres</user-name>
-      <introspection-schemas>HRDNUSANEW:*</introspection-schemas>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="database" qname="hrms">
+            <node kind="schema" negative="1" />
+          </node>
+        </introspection-scope>
+      </schema-mapping>
     </data-source>
   </component>
 </project>

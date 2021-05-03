@@ -716,8 +716,64 @@ class M_report extends CI_Model{
 	
 	
 	}
-	
-	
+
+    function q_idbu(){
+        return $this->db->query("select * from sc_crm.carea order by areaname");
+    }
+
+    function q_op($idbu, $tglAwal, $tglAkhir) {
+	    $whereIdbu = $whereTglAwal = $whereTglAkhir = $whereThnAwal = $whereThnAkhir = "";
+	    if(!is_null($idbu) && $idbu != "") {
+	        $whereIdbu = "where x3.area='$idbu'";
+        }
+        if(!is_null($tglAwal) && $tglAwal != "") {
+            $whereTglAwal = "and a.orderdate>='$tglAwal'";
+            $whereThnAwal = "and left(orderdate,4)>=left('$tglAwal',4)";
+        }
+        if(!is_null($tglAkhir) && $tglAkhir != "") {
+            $whereTglAkhir = "and a.orderdate<='$tglAkhir'";
+            $whereThnAkhir = "and left(orderdate,4)<=left('$tglAkhir',4)";
+        }
+        return $this->db->query("
+            select x3.areaname,x3.nip,x4.nmlengkap,x1.*,x2.orderid,
+            case
+                when x2.status='F' then 'Faktur/SJ'
+                when x2.status='U' then 'Konfirmasi'
+                when x2.status='P' then 'Pending(OD/Plafon)'
+                when x2.status='A' then 'Perlu Persetujuan'
+            else 'NN' end as Status						
+            from (
+                select a.orderdate,a.userid,count(a.orderid) as jmlorder
+                from sc_crm.order a
+                where a.status in ('F','U') 
+                $whereTglAwal 
+                $whereTglAkhir  
+                group by a.orderdate,a.userid
+            ) as x1
+            left outer join (
+                select a.orderdate,a.userid,a.orderid,a.status
+                from sc_crm.order a
+                where a.status in ('F','U')
+                $whereTglAwal 
+                $whereTglAkhir
+            ) as x2 on x1.userid=x2.userid and x1.orderdate=x2.orderdate
+            left outer join (
+                select x1.*,x2.nip,x2.custarea,x3.area,x3.areaname
+                from (
+                    select distinct userid
+                    from sc_crm.order
+                    where 1=1 
+                    $whereThnAwal 
+                    $whereThnAkhir
+                ) as x1
+                left outer join sc_crm.user x2 on x1.userid=x2.userid
+                left outer join sc_crm.carea x3 on x2.custarea=x3.area
+            ) as x3 on x1.userid=x3.userid
+            left outer join sc_mst.karyawan x4 on x3.nip = x4.nik
+            $whereIdbu
+            order by x4.nmlengkap,x1.orderdate,x2.orderid
+        ");
+    }
 	
 
 }

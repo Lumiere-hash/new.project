@@ -458,7 +458,67 @@ class Report extends MX_Controller{
         $this->excel_generator->exportTo2007("Laporan Turn Over Periode Bulan $bln Tahun $tahun");
 	
 	}
-	
-	
+
+    function op_index(){
+        $data['title']="Filter Laporan OP";
+        $data['idbu']=$this->m_report->q_idbu()->result();
+        $this->template->display('trans/report/view_filter_reportop',$data);
+    }
+
+    function op_filter(){
+        $idbu = $this->input->post('idbu');
+        $tanggal_awal = explode(" - ", $this->input->post('tanggal'))[0];
+        $tanggal_selesai = explode(" - ", $this->input->post('tanggal'))[1];
+        $tanggal_awal = date_format(date_create($tanggal_awal),"Y-m-d");
+        $tanggal_selesai = date_format(date_create($tanggal_selesai),"Y-m-d");
+
+        $data['title'] = "Filter Laporan OP";
+        $data["idbu"] = $idbu;
+        $data["tanggal_awal"] = $tanggal_awal;
+        $data["tanggal_selesai"] = $tanggal_selesai;
+        $this->template->display('trans/report/view_op',$data);
+    }
+
+    function op_json($idbu, $tanggal_awal, $tanggal_selesai){
+        $idbu = $this->input->get('idbu');
+        $tanggal_awal = $this->input->get('tanggal_awal');
+        $tanggal_selesai = $this->input->get('tanggal_selesai');
+        $data['list_op']=$this->m_report->q_op($idbu, $tanggal_awal, $tanggal_selesai)->result();
+        $bulan = [
+            1 => 'Januari',
+                 'Februari',
+                 'Maret',
+                 'April',
+                 'Mei',
+                 'Juni',
+                 'Juli',
+                 'Agustus',
+                 'September',
+                 'Oktober',
+                 'November',
+                 'Desember'
+        ];
+        $list_op = [];
+        $no = 1;
+        foreach($data['list_op'] as $v) {
+            $tanggal = implode(" ", [
+                explode("-", $v->orderdate)[2],
+                $bulan[(int)explode("-", $v->orderdate)[1]],
+                explode("-", $v->orderdate)[0]
+            ]);
+            $list_op[] = [
+                $no,
+                $v->nip,
+                $v->nmlengkap,
+                $v->areaname,
+                $tanggal,
+                number_format($v->jmlorder,0,",","."),
+                $v->orderid,
+                $v->status
+            ];
+            $no++;
+        }
+        echo json_encode($list_op);
+    }
 	
 }

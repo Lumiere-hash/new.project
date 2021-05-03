@@ -170,10 +170,9 @@ class Ijin_karyawan extends MX_Controller{
 		$data['list_lk']=$this->m_ijin_karyawan->list_karyawan_index($nik)->result();
 		if($userhr>0){
 			$data['list_ijin']=$this->m_ijin_karyawan->list_ijin()->result();
-		} else{
-			$data['list_ijin']=$this->m_ijin_karyawan->list_ijin_khusus()->result();
-		}
-
+		} else {
+            $data['list_ijin'] = $this->m_ijin_karyawan->list_ijin_khusus()->result();
+        }
 		//$data['list_trxtype']=$this->m_lembur->list_trxtype()->result();
 		$this->template->display('trans/ijin_karyawan/v_input',$data);
 	}

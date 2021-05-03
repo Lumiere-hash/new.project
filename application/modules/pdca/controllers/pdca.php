@@ -868,7 +868,7 @@ class Pdca extends MX_Controller{
 		$enc_doctype=bin2hex($this->encrypt->encode($doctype));
 		$enc_docdate=bin2hex($this->encrypt->encode($docdate));
 		$setupbackwards=$this->m_pdca->q_setup_day_backwards()->row_array();
-		
+
 		if ($type=='INPUT_MST_PDCA_ISL'){
 			
 			$parameter_2=" and nik='$nik' and docno='$nama' and doctype='$doctype'";
@@ -1348,7 +1348,7 @@ class Pdca extends MX_Controller{
 									$this->db->insert('sc_mst.trxerror',$infotrxerror);
 									redirect("pdca/pdca/edit_pdca/$enc_nik/$enc_doctype/$enc_docdate");
 									
-								} else { $counter=900;			
+								} else { $counter=900;
 										foreach($idbu as $index => $temp){
 										
 											$info[$index]['nik']=$nik;//$noktp;
@@ -1568,7 +1568,7 @@ class Pdca extends MX_Controller{
 			$parameter_2=" and nik='$nik' and docno='$nama' and doctype='$doctype'";
 			$dtlarray=$this->m_pdca->q_tmp_pdca_mst_param($parameter_2)->row_array();
 			$do_c_date=explode(' ',$do_c);
-			
+
 			if (($dtlarray['lvl_jabatan'])=='C') {			
 			/*	if (date('Y-m-d',strtotime($dtlarray['tglakhir']))<	date('Y-m-d',strtotime($do_c_date[0])) 
 					OR
@@ -1676,7 +1676,6 @@ class Pdca extends MX_Controller{
 				}
 				
 			}
-			
 		} else if ($type=='PROSES_APPROV_CENTANG_DTL_PDCA_ISL') {
 				$lb=$this->input->post('checkItem');
 
@@ -1861,7 +1860,7 @@ class Pdca extends MX_Controller{
 		$enc_doctype=bin2hex($this->encrypt->encode(trim($dtlmst['doctype'])));
 		$enc_docdate=bin2hex($this->encrypt->encode(trim($dtlmst['docdate'])));
 		$enc_planperiod=bin2hex($this->encrypt->encode(trim($dtlmst['planperiod'])));
-		
+
 		if(empty($dtlmst['docdate']) or $dtldtl==0 and ($status_master=='I')){
 								$this->db->where('userid',$nama);
 								$this->db->where('modul','PDCA');
@@ -2934,13 +2933,12 @@ class Pdca extends MX_Controller{
 		$data['tglmodal']		=$tglmodal=$this->input->post('tglmodal');
 		$type=strtoupper($this->input->post('type'));
 		$doctype='BRK';
-		
+
 		$enc_nik=bin2hex($this->encrypt->encode($nik));
 		$enc_doctype=bin2hex($this->encrypt->encode($doctype));
 		$enc_periode=bin2hex($this->encrypt->encode($planperiod));
 		//$param_status=" and nik='$nik' and planperiod='$planperiod' and doctype='BRK'";
 		//$dtl_periode=$this->m_pdca->q_view_periode_nik_pdca($param_status)->row_array();
-
 
 		$param_status=" and nik='$nik' and planperiod='$planperiod' and nomor='999' and urutcategory='10' ";
 		$dtl_periode=$this->m_pdca->q_his_pdca_list_gen($param_status)->row_array();
@@ -3046,7 +3044,6 @@ class Pdca extends MX_Controller{
 				}
 						
 
-				
 				$this->db->where('nik',$nik);
 				$this->db->where('nomor',$nomor);
 				$this->db->where('planperiod',$planperiod);
@@ -3554,7 +3551,7 @@ class Pdca extends MX_Controller{
 		$data['dtlnik']=$this->m_akses->list_karyawan_param($paramniknya)->row_array();
 		$data['list_pdca']=$this->m_pdca->q_pdca_recapitulation_of_the_month_oh_yes_oh_no_yes_no_ah_uh_ah_crooot($param)->result();
 		///$data['list_nik']=$this->m_akses->list_karyawan_param($param_list_akses_nik)->result();
-		$this->template->display('pdca/pdca/v_list_report_recapitulation_month',$data);
+        $this->template->display('pdca/pdca/v_list_report_recapitulation_month',$data);
 	}
 	
 	

@@ -1,16 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="" />
-    <ignored path="hrdnew.iws" />
-    <ignored path=".idea/workspace.xml" />
-    <ignored path=".idea/dataSources.local.xml" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
+    <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/pg_temp_1.zkWuFg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/pg_toast.33HYYw.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/pg_toast_temp_1.5ixBaA.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/public.abK9xQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/sc_his.IyndyQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/sc_im.cwGDBg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/sc_log.1TjdyQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/sc_mst.Hz3dyQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/sc_rec.IU7dyQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/sc_retable.jHp04Q.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/sc_tmp.qFbdyQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/sc_trx.S1fdyQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/hrdnew.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/hrms.nusa.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/config/autoload.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/config/autoload.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-03-01.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/logs/log-2021-03-01.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/payroll/controllers/final_payroll.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/payroll/controllers/final_payroll.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/pdca/controllers/pdca.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/pdca/controllers/pdca.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/ijin_karyawan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/ijin_karyawan.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/report.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/report.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/models/m_report.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/m_report.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/views/template.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/template.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1614582416.0768.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1614582424.5328.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1614585195.7413.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1614585204.1163.jpg" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -71,107 +107,6 @@
   </component>
   <component name="FavoritesManager">
     <favorites_list name="hrdnew" />
-  </component>
-  <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="web.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/modules/web/controllers/web.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="731">
-              <caret line="43" column="5" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="fiky_encryption.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/libraries/fiky_encryption.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="284">
-              <caret line="935" column="14" selection-start-line="935" selection-start-column="14" selection-end-line="935" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="import.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/modules/payroll/controllers/import.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="848" column="45" selection-start-line="848" selection-start-column="45" selection-end-line="848" selection-end-column="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="template.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/views/template.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="118" column="53" selection-start-line="118" selection-start-column="53" selection-end-line="118" selection-end-column="53" />
-              <folding>
-                <element signature="e#4427#14052#0#PHP" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#0;n#a#0;n#li#0;n#ul#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#0;n#a#0;n#li#1;n#ul#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#0;n#a#0;n#li#2;n#ul#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#0;n#a#0;n#li#3;n#ul#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AdminLTE.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/css/AdminLTE.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="481" selection-start-line="481" selection-end-line="481" selection-end-column="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AdminLTE.css" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/assets/dist/css/AdminLTE.css">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="295" column="17" lean-forward="true" selection-start-line="295" selection-start-column="17" selection-end-line="295" selection-end-column="17" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="sidebar.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/views/template/sidebar.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="7" column="41" selection-start-line="7" selection-start-column="41" selection-end-line="7" selection-end-column="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="m_import.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/modules/payroll/models/m_import.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5423">
-              <caret line="319" column="28" selection-start-line="319" selection-start-column="13" selection-end-line="319" selection-end-column="28" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="default_style.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/libraries/default_style.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2975">
-              <caret line="183" column="68" selection-start-line="183" selection-start-column="68" selection-end-line="183" selection-end-column="68" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="m_master.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/modules/payroll/models/m_master.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3026">
-              <caret line="183" column="32" selection-start-line="179" selection-start-column="8" selection-end-line="183" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -237,6 +172,27 @@
       <replace>$this-&gt;fiky_ecopos_printer-&gt;WindowsPrintConnector</replace>
       <replace>tj_masakerja</replace>
     </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="hiddenUrls">
+      <set>
+        <option value="https://github.com/nusantaragroup/hrms.nusa" />
+      </set>
+    </option>
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/application/modules/trans/models/m_lembur.php" root0="FORCE_HIGHLIGHTING" root1="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -317,6 +273,7 @@
     <option name="width" value="1378" />
     <option name="height" value="733" />
   </component>
+  <component name="ProjectId" id="1pEGtPi3P9ZWC2RPWvAdEn3bOUZ" />
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
       <profile-state>
@@ -333,6 +290,7 @@
       </profile-state>
     </entry>
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -391,51 +349,53 @@
       <pane id="Scope" />
     </panes>
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="postgresql" />
     <property name="SearchEverywhereHistoryKey" value="adminlte.c&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/assets/dist/css/AdminLTE.css&#10;.userpanel&#9;null&#9;null&#10;templ&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/views/template.php&#10;m_imp&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/models/m_import.php&#10;impor&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/controllers/import.php&#10;defau&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/libraries/default_style.php&#10;fiky_&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/libraries/fiky_encryption.php&#10;m_master&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/models/m_master.php&#10;web/&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/web/views/web&#10;v_detaip&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/views/detail/v_detail.php&#10;inputpdc&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/pdca/views/pdca/v_input_pdca_tmp.php&#10;pdca&#9;null&#9;null&#10;v_master_wilayah_salary&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/views/master/v_master_wilayah_salary.php&#10;payroll/master&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/controllers/master.php&#10;defa&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/libraries/default_style.php&#10;tetap/v&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/views/tetap/v_input.php&#10;tetap&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/controllers/tetap.php&#10;detai_pa&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/controllers/detail_payroll.php&#10;v_im&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/views/import/v_importcsv.php&#10;templat&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/views/template.php&#10;instoc&#9;null&#9;null&#10;payroll/imp&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/controllers/import.php&#10;lockin&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/controllers/lockingmode.php&#10;index&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/web/views/web/index.php&#10;web&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/web/controllers/web.php&#10;fiky_encryption&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/libraries/fiky_encryption.php&#10;payroll/ce&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/controllers/ceklembur.php&#10;template&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/views/template.php&#10;fiky_wil&#9;null&#9;null&#10;wilayah&#9;null&#9;null&#10;v_editka&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/trans/views/karyawan/v_editkary.php&#10;m_karyaw&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/trans/models/m_karyawan.php&#10;trans/karyawan/v_detailhrdkary&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/trans/views/karyawan/v_detailhrdkary.php&#10;M_KARYAW&#9;null&#9;null&#10;karya&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/trans/controllers/karyawan.php&#10;v&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/views/master/v_master_wilayah_salary.php&#10;v_kar&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/trans/views/karyawan/v_karyawan.php&#10;config/database&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/config/database.php&#10;bantuan&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/bantuan&#10;master&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/controllers/master.php&#10;config/config&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/config/config.php&#10;fiky&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/libraries/fiky_encryption.php&#10;m_menu&#9;null&#9;null&#10;m_me&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/models/m_menu.php&#10;m_akses&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/master/models/m_akses.php&#10;views/temp&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/views/template.php&#10;/web/index.php&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/web/views/web/index.php&#10;m_user&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/web/models/m_user.php&#10;v_harap&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/views/detail/v_harap_tunggu.php&#10;gene&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/controllers/generate.php" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="PostgreSQL" />
     <property name="database.console.LAST_STATE" value="true" />
     <property name="database.data.extractors.current.id" value="SQL-Insert-Statements.sql.groovy" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../tools/adminlte" />
-    <property name="settings.editor.selected.configurable" value="copyright.profiles" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/application/modules/trans/views/report" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="ts.external.directory.path" value="D:\JetBrains\apps\PhpStorm\ch-0\203.7148.74\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\application\modules\trans\views\report" />
+      <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\application\libraries" />
+      <recent name="D:\WAPP\apache2\htdocs\hrdnew\application\views\leavesession" />
+      <recent name="D:\WAPP\apache2\htdocs\hrdnew\application\libraries\fiky_ecopos" />
+      <recent name="D:\WAPP\apache2\htdocs\hrdnew\application\libraries" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\application\libraries" />
       <recent name="D:\WAPP\apache2\htdocs\hrdnew\assets" />
       <recent name="D:\WAPP\apache2\htdocs\hrdnew\assets\less" />
       <recent name="D:\WAPP\apache2\htdocs\hrdnew\application\libraries" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\WAPP\apache2\htdocs\hrdnew\application\views\leavesession" />
-      <recent name="D:\WAPP\apache2\htdocs\hrdnew\application\libraries\fiky_ecopos" />
-      <recent name="D:\WAPP\apache2\htdocs\hrdnew\application\libraries" />
-      <recent name="D:\WAPP\apache2\htdocs\hrdnew\application\controllers" />
-      <recent name="D:\WAPP\apache2\htdocs\hrdnew\application\libraries\escpos_php" />
-    </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+    <configuration name="inventaris.php" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$PROJECT_DIR$/application/modules/ga/controllers/inventaris.php">
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp">
       <node-interpreter>project</node-interpreter>
       <node-options />
       <gulpfile />
       <tasks />
       <arguments />
       <envs />
+      <method v="2" />
     </configuration>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -625,6 +585,29 @@
       <workItem from="1562742077682" duration="603000" />
       <workItem from="1562903085441" duration="2814000" />
       <workItem from="1562985449876" duration="4522000" />
+      <workItem from="1614741057298" duration="12775000" />
+      <workItem from="1614820013690" duration="15061000" />
+      <workItem from="1614843662602" duration="4958000" />
+      <workItem from="1614906330007" duration="18946000" />
+      <workItem from="1614994756987" duration="11004000" />
+      <workItem from="1615166225433" duration="10072000" />
+      <workItem from="1615186446382" duration="4969000" />
+      <workItem from="1615191883907" duration="244000" />
+      <workItem from="1615192142015" duration="430000" />
+      <workItem from="1615192584684" duration="1066000" />
+      <workItem from="1615252020667" duration="7928000" />
+      <workItem from="1615261156393" duration="13219000" />
+      <workItem from="1615280623624" duration="56000" />
+      <workItem from="1615338129889" duration="21957000" />
+      <workItem from="1615511207829" duration="769000" />
+      <workItem from="1615512991131" duration="19667000" />
+      <workItem from="1615597488595" duration="17179000" />
+      <workItem from="1615770413826" duration="21097000" />
+      <workItem from="1615857120763" duration="10852000" />
+      <workItem from="1615880707255" duration="1492000" />
+      <workItem from="1617146683963" duration="159000" />
+      <workItem from="1619751797675" duration="2231000" />
+      <workItem from="1620007335050" duration="16839000" />
     </task>
     <servers />
   </component>
@@ -680,7 +663,7 @@
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="1" />
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -689,14 +672,6 @@
     <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
       <collection />
     </option>
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <option name="time" value="8" />
-    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/application/libraries/ecopos_php/src/Mike42/Escpos/Printer.php">
