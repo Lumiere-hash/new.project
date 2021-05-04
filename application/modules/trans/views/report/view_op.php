@@ -31,7 +31,23 @@
                 "<'row'<'col-sm-12'tr>>" +
                 "<'row'<'col-sm-5'i><'col-sm-7'p>>",
             buttons: [
-                'pdf', 'excel'
+                {
+                    extend: 'pdfHtml5',
+                    customize: function(doc) {
+                        doc.styles.tableHeader.fontSize = 9;
+                        doc.defaultStyle.fontSize = 8;
+                        doc.content[1].table.widths = [
+                            'auto',
+                            'auto',
+                            'auto',
+                            'auto',
+                            'auto',
+                            'auto',
+                            '20%',
+                            'auto'
+                        ]
+                    }
+                }, 'excel'
             ]
         });
     });
@@ -50,11 +66,11 @@
                         <tr>
                           <th align="justify" style="width: 1%;"><div align="center">No</div></th>
                           <th align="justify"><div align="center">NIP</div></th>
-                          <th align="justify"><div align="center">Nama Lengkap</div></th>
+                          <th align="justify"><div align="center">Sales</div></th>
                           <th align="justify"><div align="center">IDBU</div></th>
-                          <th align="justify"><div align="center">Tanggal Order</div></th>
-                          <th align="justify"><div align="center">Jumlah Order</div></th>
-                          <th align="justify"><div align="center">Order ID</div></th>
+                          <th align="justify"><div align="center">Tgl OP</div></th>
+                          <th align="justify"><div align="center">Jml OP</div></th>
+                          <th align="justify" style="width: 20%;"><div align="center">Order ID</div></th>
                           <th align="justify"><div align="center">Status</div></th>
                       </tr>
                     </thead>

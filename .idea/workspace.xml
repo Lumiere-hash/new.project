@@ -5,40 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/pg_temp_1.zkWuFg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/pg_toast.33HYYw.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/pg_toast_temp_1.5ixBaA.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/public.abK9xQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/sc_his.IyndyQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/sc_im.cwGDBg.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/sc_log.1TjdyQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/sc_mst.Hz3dyQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/sc_rec.IU7dyQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/sc_retable.jHp04Q.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/sc_tmp.qFbdyQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/storage_v2/_src_/database/HRDNUSANEW.UZ1Ffg/schema/sc_trx.S1fdyQ.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/hrdnew.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/hrms.nusa.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/config/autoload.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/config/autoload.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-03-01.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/logs/log-2021-03-01.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/payroll/controllers/final_payroll.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/payroll/controllers/final_payroll.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/pdca/controllers/pdca.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/pdca/controllers/pdca.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/ijin_karyawan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/ijin_karyawan.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/report.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/report.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/models/m_report.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/m_report.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/views/template.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/views/template.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1614582416.0768.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1614582424.5328.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1614585195.7413.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1614585204.1163.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/report/view_op.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/report/view_op.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1620007348.5696.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1620007359.0016.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -360,7 +332,7 @@
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="PostgreSQL" />
     <property name="database.console.LAST_STATE" value="true" />
     <property name="database.data.extractors.current.id" value="SQL-Insert-Statements.sql.groovy" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/application/modules/trans/views/report" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="D:\JetBrains\apps\PhpStorm\ch-0\203.7148.74\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
@@ -607,7 +579,9 @@
       <workItem from="1615880707255" duration="1492000" />
       <workItem from="1617146683963" duration="159000" />
       <workItem from="1619751797675" duration="2231000" />
-      <workItem from="1620007335050" duration="16839000" />
+      <workItem from="1620007335050" duration="17436000" />
+      <workItem from="1620090390353" duration="628000" />
+      <workItem from="1620103820374" duration="2501000" />
     </task>
     <servers />
   </component>
