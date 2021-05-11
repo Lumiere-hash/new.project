@@ -1,4 +1,5 @@
 branch;kdjabatan;nmjabatan;kddept;kdsubdept;kdgrade;costcenter;uraian;shift;lembur;input_date;input_by;update_date;update_by;kdlvl;nominal
+SBYNSA                   ;SO    ;SOPIR;NB    ;PE    ;;;;;;;;;;D     ;
 SBYNSA                   ;PR    ;PROGRAMMER;IT    ;I2    ;;;;;;;;;;C     ;
 SBYNSA                   ;A1    ;SPV AKUTANSI;FA    ;AK    ;;;;;;;;;;C     ;
 SBYNSA                   ;A2    ;STAFF AKUTANSI;FA    ;AK    ;;;;;;;;;;D     ;
@@ -14,7 +15,6 @@ SBYNSA                   ;D1    ;DIREKTUR UTAMA;DI    ;DR    ;;;;;;;;;;A     ;
 SBYNSA                   ;D2    ;DIREKTUR KEUANGAN;DI    ;DR    ;;;;;;;;;;A     ;
 SBYNSA                   ;DB    ;DATABASE ADMINISTRATOR;IT    ;I2    ;;;;;;;;;;B     ;
 SBYNSA                   ;JR    ;NETWORK IT;IT    ;I2    ;;;;;;;;;;B     ;
-SBYNSA                   ;SO    ;SOPIR;NB    ;PE    ;;;;;;;;;;D     ;
 SBYNSA                   ;P1    ;SALES ENGINEER;PY    ;SP    ;;;;;;;;;;      ;
 SBYNSA                   ;P2    ;SALES ENGINEER;PY    ;PT    ;;;;;;;;;;      ;
 SBYNSA                   ;P3    ;ESTIMATOR;PY    ;PT    ;;;;;;;;;;      ;
@@ -143,4 +143,28 @@ SBYNSA                   ;K5    ;STAFF PEMBAYARAN;FA    ;KU    ;1A    ;      ;""
 ;ACF   ;ACCOUNT EXECUTIVE SELATAN;NR    ;NS    ;1A    ;      ;"";F;F;2019-05-23 09:18:22;0418.318            ;2019-05-23 09:20:24;0418.318;;
 SBYNSA                   ;T1    ;SUPERVISOR PIC OPERASIONAL IT;IT    ;I1    ;1C    ;      ;"";F;F;;;2019-07-22 10:44:42;0917.282;E     ;0.00
 SBYNSA                   ;T3    ;PIC OPERASIONAL IT;IT    ;I1    ;1C    ;      ;"";F;F;;;2019-07-31 15:38:27;0917.282;E     ;250000.00
-;SPVPEN;SUPERVISOR PENAGIHAN;FA    ;P5    ;1C    ;      ;"";F;T;2020-01-22 14:08:54;0418.318            ;2020-01-22 14:22:16;0418.318;E     ;
+;SPVPEN;SUPERVISOR PENAGIHAN;FA    ;P5    ;1C    ;      ;"";T;T;2020-01-22 14:08:54;0418.318            ;2020-01-22 14:22:16;0418.318;E     ;
+;MET   ;SPV PRODUCT METALCO;PR    ;1M    ;1A    ;      ;"";F;F;2020-01-27 11:07:09;0418.318            ;;;      ;
+;CTC   ;SPV PRODUCT CITICON;PR    ;2M    ;1A    ;      ;"";F;F;2020-01-27 11:07:52;0418.318            ;;;      ;
+;PT1   ;SUPERVISOR PENAGIHAN;FA    ;P5    ;1A    ;      ;"";F;F;2020-02-19 09:33:13;0418.318            ;;;      ;
+;SM    ;SALES METALCO;PR    ;1M    ;1C    ;      ;"";F;F;2020-04-20 09:53:51;0418.318            ;;;E     ;
+;SCI   ;SALES CITICON;PR    ;2M    ;1C    ;      ;"";F;F;2020-04-20 09:54:43;0418.318            ;;;E     ;
+;ADMPEN;ADMIN PENJUALAN;FA    ;P2    ;1A    ;      ;"";F;F;2020-04-30 13:30:58;0418.318            ;;;      ;
+;PYK   ;SPV SALES PROYEK;NK    ;NP    ;1A    ;      ;"";F;F;2020-04-30 15:02:35;0418.318            ;;;      ;
+;ADMPYK;ADMIN PIUTANG PROYEK;FA    ;P5    ;1A    ;      ;"";F;F;2020-04-30 15:03:16;0418.318            ;;;      ;
+;ADMP  ;ADMIN PIUTANG CABANG;FA    ;P5    ;1A    ;      ;"";F;F;2020-04-30 15:03:51;0418.318            ;;;      ;
+;PYK1  ;ADMIN PENJUALAN PROYEK;FA    ;P2    ;1A    ;      ;"";F;F;2020-04-30 15:06:38;0418.318            ;;;      ;
+;SD    ;STAFF DIREKSI;DI    ;DR    ;1A    ;      ;"";F;F;2020-05-04 10:37:55;0418.318            ;;;      ;
+;ST    ;ACCOUNT EXECUTIVE TIMUR;NR    ;NT    ;1A    ;      ;"";F;F;2020-06-04 14:02:40;0418.318            ;;;      ;
+;FC1   ;SUPERVISOR PENJUALAN AAC TENGAH;NK    ;F1    ;1A    ;      ;"";F;F;2020-11-04 14:56:16;0418.318            ;;;      ;
+;FC2   ;SUPERVISOR PENJUALAN AAC BARAT;NK    ;F1    ;1A    ;      ;"";F;F;2020-11-04 14:56:54;0418.318            ;;;      ;
+;FC3   ;SUPERVISOR PENJUALAN ACC TENGAH;NK    ;FC    ;1A    ;      ;"";F;F;2020-11-04 14:57:16;0418.318            ;;;      ;
+;FC4   ;SUPERVISOR PENJUALAN AAC TIMUR;NK    ;FC    ;1A    ;      ;"";F;F;2020-11-04 14:57:51;0418.318            ;;;      ;
+;PRO   ;STAF PROMOSI;PR    ;2M    ;1A    ;      ;"";F;F;2020-12-12 08:28:44;1119.373            ;;;      ;
+;TS    ;TECHNICAL SERVICE;PR    ;2M    ;1A    ;      ;"";F;F;2020-12-12 08:30:26;1119.373            ;;;      ;
+;SFC   ;SALES EXECUTIVE PENJUALAN FC AREA TENGAH;NK    ;FC    ;1A    ;      ;"";F;F;2020-12-16 09:10:37;1119.373            ;;;      ;
+;MPR   ;MANAGER PRODUK;MP    ;MP    ;1A    ;      ;"";F;F;2021-01-08 09:45:01;1119.373            ;;;      ;
+;MM    ;MANAGER PRODUK;PR    ;MM    ;1A    ;      ;"";F;F;2021-01-08 09:53:02;1119.373            ;;;      ;
+;P     ;PERENCANAAN BISNIS;P     ;P     ;1A    ;      ;"";F;F;2021-01-21 13:53:05;1119.373            ;;;      ;
+;CS    ;CUSTOMER SERVICE;NR    ;CS    ;1A    ;      ;"";F;F;2021-01-21 13:59:56;1119.373            ;;;      ;
+;SMR   ;SALES MORTAR;PR    ;2M    ;1A    ;      ;"";F;F;2021-02-09 11:28:02;1119.373            ;;;      ;

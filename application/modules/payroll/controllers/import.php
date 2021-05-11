@@ -20,7 +20,7 @@ class Import extends CI_Controller {
             redirect('dashboard');
         }
     }*/
-	
+
 	function __construct()  {
  		parent::__construct();
         error_reporting(E_ALL);
@@ -883,10 +883,27 @@ class Import extends CI_Controller {
 
 		}
 
-        $path = "./assets/export_directory/";
-       //$this->zip->read_file($path, TRUE);
-        $this->zip->read_dir($path, false);
-        $this->zip->download('my_data.zip');
+        require_once('application\libraries\ipworkszip\ipworkszip.php');
+        $zip = new IPWorksZip_Zip();
+        $zip->setRuntimeLicense('315A50464142474630334B575538564B42344159534D00000000000000000000000000000000000038304539533647310000545444465230344D413237430000');
+
+        $zip->setArchiveFile(realpath(".") . '\assets\export_hrd.zip');
+        $zip->setRecurseSubdirectories(true);
+        $zip->doIncludeFiles(realpath(".") . '\assets\export_directory\*');
+        $zip->setPassword("111111");
+        $zip->doCompress();
+
+        header("Content-type: application/zip");
+        header("Content-Disposition: attachment; filename=export_hrd.zip");
+        header("Pragma: no-cache");
+        header("Expires: 0");
+        readfile(realpath(".") . '\assets\export_hrd.zip');
+        exit;
+
+        redirect('payroll/import/e_csv_mstkaryawan');
+//        $this->zip->read_file($path, TRUE);
+//        $this->zip->read_dir($path, false);
+//        $this->zip->download('my_data.zip');
 	}
 
 
@@ -989,7 +1006,7 @@ class Import extends CI_Controller {
     function post_import_data()
     {
 
-        $path = "./assets/import_directory/";
+        $path = realpath(".") . "/assets/import_directory/";
         if (!is_dir($path)) {
             mkdir($path, 0777, TRUE);
         }
@@ -1015,16 +1032,25 @@ class Import extends CI_Controller {
             $file_path = $path . $file_name;
             $file_size = $upil['file_size'];
 
-            $zip = new ZipArchive;
-            $res = $zip->open($path.$file_name);
+//            $zip = new ZipArchive;
+//            $res = $zip->open($path.$file_name);
+            require_once('application\libraries\ipworkszip\ipworkszip.php');
+            $zip = new IPWorksZip_Zip();
+            $zip->setRuntimeLicense('315A50464142474630334B575538564B42344159534D00000000000000000000000000000000000038304539533647310000545444465230344D413237430000');
+            $zip->setArchiveFile($path.$file_name);
+            $res = !($zip->lastErrorCode());
+
             if ($res === TRUE) {
 
                 // Unzip path
                 $extractpath = $path;
 
                 // Extract file
-                $zip->extractTo($extractpath);
-                $zip->close();
+//                $zip->extractTo($extractpath);
+//                $zip->close();
+                $zip->setExtractToPath($extractpath . "/export_directory/");
+                $zip->setPassword("111111");
+                $zip->doExtractAll();
 
                 $show = $file_name.' SUKSES TERUPLOAD';
                 $arr = array('status' => 'true', 'show' => $show);
