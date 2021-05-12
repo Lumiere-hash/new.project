@@ -830,7 +830,8 @@ class Import extends CI_Controller {
 		$rows=$this->m_import->e_exportcsv()->result();
 		foreach ($rows as $i) {
 		$nodokdir=trim($i->nodok);
-		$patch=trim($i->dir_source).trim($i->dir_list);
+//		$patch=trim($i->dir_source).trim($i->dir_list);
+		$patch=realpath(".").'\assets\export_directory\\'.trim($i->dir_list);
 
             if($nodokdir=='MST0001'){
             $this->m_import->e_csvmstkaryawan($patch);
@@ -930,6 +931,8 @@ class Import extends CI_Controller {
 		foreach ($rows as $i) {
 			$nodokdir=trim($i->nodok);
             $patch=trim($i->dir_source).trim($i->dir_list);
+            $patch=realpath(".").'\assets\import_directory\export_directory\\'.trim($i->dir_list);
+
 			if($nodokdir=='MST0001'){ 
 			    $this->m_import->i_csvmstkaryawan($patch);
 			} else if ($nodokdir=='MST0002'){
