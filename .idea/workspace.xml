@@ -7,17 +7,16 @@
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/payroll/controllers/import.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/payroll/controllers/import.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1620707185.629.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1620707193.8723.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1620707226.0381.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1620707231.684.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/export_directory/CEK_ABSEN.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/CEK_ABSEN.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/export_directory/MST_JABATAN.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/MST_JABATAN.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/export_directory/MST_KARYAWAN.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/MST_KARYAWAN.CSV" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-05-12.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/logs/log-2021-05-12.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1620782190.4552.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1620782200.8126.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/CEK_ABSEN.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/CEK_ABSEN.CSV" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/CEK_LEMBUR.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/CEK_LEMBUR.CSV" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/JADWAL_KERJA.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/JADWAL_KERJA.CSV" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_JABATAN.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_JABATAN.CSV" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_KARYAWAN.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_KARYAWAN.CSV" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_STATPEG.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_STATPEG.CSV" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/TRANSREADY.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/TRANSREADY.CSV" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -594,7 +593,8 @@
       <workItem from="1620350066471" duration="9000" />
       <workItem from="1620696943519" duration="19831000" />
       <workItem from="1620782421593" duration="457000" />
-      <workItem from="1620782907459" duration="688000" />
+      <workItem from="1620782907459" duration="1284000" />
+      <workItem from="1620785363909" duration="1269000" />
     </task>
     <servers />
   </component>
