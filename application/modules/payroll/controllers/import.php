@@ -938,6 +938,10 @@ class Import extends CI_Controller {
 	}
 
 	function i_csv_mstkaryawan_all(){
+        $this->m_import->i_export_csv(realpath(".").'\assets\import_directory\export_directory\EXPORTCSV.CSV');
+        $this->m_import->i_import_csv(realpath(".").'\assets\import_directory\export_directory\IMPORTCSV.CSV');
+        $this->db->query("select sc_im.pr_load_export_import();");
+
 		$rows=$this->m_import->i_importcsv()->result();
 		foreach ($rows as $i) {
 			$nodokdir=trim($i->nodok);
