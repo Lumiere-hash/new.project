@@ -7,16 +7,37 @@
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-05-12.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/logs/log-2021-05-12.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1620782190.4552.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1620782200.8126.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/payroll/controllers/generate.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/payroll/controllers/generate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/payroll/controllers/import.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/payroll/controllers/import.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/payroll/controllers/tetap.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/payroll/controllers/tetap.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/payroll/models/m_import.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/payroll/models/m_import.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1620793304.7365.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1620793313.1641.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1620793671.0679.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1620793739.0143.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/export_directory/CEK_ABSEN.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/CEK_ABSEN.CSV" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/export_directory/CEK_LEMBUR.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/CEK_LEMBUR.CSV" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/export_directory/JADWAL_KERJA.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/JADWAL_KERJA.CSV" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/export_directory/MST_BPJS.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/MST_BPJS.CSV" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/export_directory/MST_JABATAN.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/MST_JABATAN.CSV" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/export_directory/MST_KARYAWAN.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/MST_KARYAWAN.CSV" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/export_directory/MST_RIWKEL.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/MST_RIWKEL.CSV" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/export_directory/MST_RIWPEND.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/MST_RIWPEND.CSV" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/export_directory/MST_RIWPENG.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/MST_RIWPENG.CSV" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/export_directory/MST_STATPEG.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/MST_STATPEG.CSV" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/export_directory/TRANSREADY.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/TRANSREADY.CSV" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/export_directory/m_wilayah_nominal.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/m_wilayah_nominal.CSV" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/CEK_ABSEN.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/CEK_ABSEN.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/CEK_LEMBUR.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/CEK_LEMBUR.CSV" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/JADWAL_KERJA.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/JADWAL_KERJA.CSV" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_BPJS.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_BPJS.CSV" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_JABATAN.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_JABATAN.CSV" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_KARYAWAN.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_KARYAWAN.CSV" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_RIWKEL.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_RIWKEL.CSV" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_RIWPEND.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_RIWPEND.CSV" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_RIWPENG.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_RIWPENG.CSV" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_STATPEG.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_STATPEG.CSV" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/TRANSREADY.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/TRANSREADY.CSV" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/m_wilayah_nominal.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/m_wilayah_nominal.CSV" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -594,7 +615,11 @@
       <workItem from="1620696943519" duration="19831000" />
       <workItem from="1620782421593" duration="457000" />
       <workItem from="1620782907459" duration="1284000" />
-      <workItem from="1620785363909" duration="1269000" />
+      <workItem from="1620785363909" duration="2071000" />
+      <workItem from="1621214060307" duration="9469000" />
+      <workItem from="1621305525247" duration="10522000" />
+      <workItem from="1621387535436" duration="4570000" />
+      <workItem from="1621474112722" duration="4183000" />
     </task>
     <servers />
   </component>

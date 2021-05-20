@@ -827,6 +827,9 @@ class Import extends CI_Controller {
                 unlink($file); // delete file
         }
 
+        $this->m_import->e_export_csv(realpath(".").'\assets\export_directory\EXPORTCSV.CSV');
+        $this->m_import->e_import_csv(realpath(".").'\assets\export_directory\IMPORTCSV.CSV');
+
 		$rows=$this->m_import->e_exportcsv()->result();
 		foreach ($rows as $i) {
 		$nodokdir=trim($i->nodok);
@@ -834,29 +837,39 @@ class Import extends CI_Controller {
 		$patch=realpath(".").'\assets\export_directory\\'.trim($i->dir_list);
 
             if($nodokdir=='MST0001'){
-            $this->m_import->e_csvmstkaryawan($patch);
+                $this->m_import->e_csvmstkaryawan($patch);
             } else if ($nodokdir=='MST0002'){
-            $this->m_import->e_csvmststatpeg($patch);
+                $this->m_import->e_csvmststatpeg($patch);
             } else if ($nodokdir=='MST0003'){
-            $this->m_import->e_csvmstbpjs($patch);
+                $this->m_import->e_csvmstbpjs($patch);
             } else if ($nodokdir=='MST0004'){
-            $this->m_import->e_csvmstriwkel($patch);
+                $this->m_import->e_csvmstriwkel($patch);
             } else if ($nodokdir=='MST0005'){
-            $this->m_import->e_csvmstriwkes($patch);
+                $this->m_import->e_csvmstriwkes($patch);
             } else if ($nodokdir=='MST0006'){
-            $this->m_import->e_csvmstriwkompt($patch);
+                $this->m_import->e_csvmstriwkompt($patch);
             } else if ($nodokdir=='MST0007'){
-            $this->m_import->e_csvmstriwpend($patch);
+                $this->m_import->e_csvmstriwpend($patch);
             } else if ($nodokdir=='MST0008'){
-            $this->m_import->e_csvmstriwpend_nf($patch);
+                $this->m_import->e_csvmstriwpend_nf($patch);
             } else if ($nodokdir=='MST0009'){
-            $this->m_import->e_csvmstriwpeng($patch);
+                $this->m_import->e_csvmstriwpeng($patch);
             } else if ($nodokdir=='MST0010'){
-            $this->m_import->e_csvmstriwrkmds($patch);
+                $this->m_import->e_csvmstriwrkmds($patch);
             } else if ($nodokdir=='MST0011'){
-            $this->m_import->e_csvmstjabatan($patch);
+                $this->m_import->e_csvmstjabatan($patch);
+            } else if ($nodokdir=='MST0012'){
+                $this->m_import->e_detail_formula($patch);
+            } else if ($nodokdir=='MST0013'){
+                $this->m_import->e_group_penggajian($patch);
+            } else if ($nodokdir=='MST0014'){
+                $this->m_import->e_departmen($patch);
+            } else if ($nodokdir=='MST0015'){
+                $this->m_import->e_komponen_bpjs($patch);
+            } else if ($nodokdir=='MST0016'){
+                $this->m_import->e_option($patch);
             } else if ($nodokdir=='006'){
-            $this->m_import->e_transready($patch);
+                $this->m_import->e_transready($patch);
             } else if ($nodokdir=='005'){
                 $this->m_import->e_jadwalkerja($patch);
             } else if ($nodokdir=='004'){
@@ -876,12 +889,10 @@ class Import extends CI_Controller {
             } else if ($nodokdir=='PY0004'){
                 $this->m_import->e_m_wilayah_nominal($patch);
             } else if ($nodokdir=='PY0005'){
-                $this->m_import->jobgrade($patch);
+                $this->m_import->e_jobgrade($patch);
             } else if ($nodokdir=='PY0006'){
-                $this->m_import->m_grade_jabatan($patch);
+                $this->m_import->e_m_grade_jabatan($patch);
             }
-
-
 		}
 
         require_once('application\libraries\ipworkszip\ipworkszip.php');
@@ -955,7 +966,17 @@ class Import extends CI_Controller {
 			    $this->m_import->i_csvmstriwrkmds($patch);
             } else if ($nodokdir=='MST0011'){
                 $this->m_import->i_csvmstjabatan($patch);
-		    } else if ($nodokdir=='006'){
+		    } else if ($nodokdir=='MST0012'){
+                $this->m_import->i_detail_formula($patch);
+            } else if ($nodokdir=='MST0013'){
+                $this->m_import->i_group_penggajian($patch);
+            } else if ($nodokdir=='MST0014'){
+                $this->m_import->i_departmen($patch);
+            } else if ($nodokdir=='MST0015'){
+                $this->m_import->i_komponen_bpjs($patch);
+            } else if ($nodokdir=='MST0016'){
+                $this->m_import->i_option($patch);
+            } else if ($nodokdir=='006'){
                 $this->m_import->i_csvtransready($patch);
             } else if ($nodokdir=='005'){
                 $this->m_import->i_csvjadwal_kerja($patch);
@@ -978,6 +999,14 @@ class Import extends CI_Controller {
             } else if ($nodokdir=='PY0005'){
                 $this->m_import->i_jobgrade($patch);
             } else if ($nodokdir=='PY0006'){
+                $this->m_import->i_m_grade_jabatan($patch);
+            } else if ($nodokdir=='PY0007'){
+                $this->m_import->i_m_wilayah($patch);
+            } else if ($nodokdir=='PY0008'){
+                $this->m_import->i_m_wilayah_nominal($patch);
+            } else if ($nodokdir=='PY0009'){
+                $this->m_import->i_jobgrade($patch);
+            } else if ($nodokdir=='PY0010'){
                 $this->m_import->i_m_grade_jabatan($patch);
             }
 		}

@@ -236,7 +236,6 @@ class Tetap extends MX_Controller{
 
         $this->db->query("update sc_mst.dtlgaji_karyawan set status='P' where nik='$nik'");
 
-        /*
         $this->db->query("update sc_mst.karyawan set gajitetap=
                         (select sum(nominal) from sc_mst.dtlgaji_karyawan where nik='$nik')
                         where nik='$nik'");
@@ -246,7 +245,6 @@ class Tetap extends MX_Controller{
         $this->db->query("update sc_mst.karyawan set gajipokok=
                         (select sum(nominal) from sc_mst.dtlgaji_karyawan where nik='$nik' and no_urut='1')
                         where nik='$nik'");
-        */
 
         $this->db->query("update sc_mst.karyawan set gajibpjs=$gajibpjs where nik='$nik'");
         $this->db->query("update sc_mst.karyawan set gajinaker=$gajinaker where nik='$nik'");

@@ -1,0 +1,6 @@
+kode_bpjs;kodekomponen;namakomponen;besaranperusahaan;besarankaryawan;totalbesaran
+BPJSTK      ;JKK         ;JAMINAN KECELAKAAN KERJA                          ;0.89;0.00;0.89
+BPJSTK      ;JKM         ;JAMINAN KEMATIAN                                  ;0.30;0.00;0.3
+BPJSTK      ;JHT         ;JAMINAN HARI TUA                                  ;3.70;2.00;5.7
+BPJSTK      ;JP          ;JAMINAN PENSIUN                                   ;2.00;1.00;3
+BPJSKES     ;BPJSKES     ;JAMINAN KESEHATAN                                 ;4.00;1.00;5
