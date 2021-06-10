@@ -32,8 +32,8 @@
 										<tr>											
 											
 											<th>No.</th>
-											<th>Kode Level Jabatan</th>
-											<th>Nama Level Jabatan</th>
+											<th>Kode Job Grade</th>
+											<th>Nama Job Grade</th>
 											<th>Input Date</th>
 											<th>Input By</th>	
 											<th>Update Date</th>
@@ -70,13 +70,13 @@
 	<div class="modal-content">
 	  <div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-		<h4 class="modal-title" id="myModalLabel">INPUT MASTER LEVEL JABATAN</h4>
+		<h4 class="modal-title" id="myModalLabel">INPUT MASTER JOB GRADE</h4>
 	  </div>
 	  
 		<div class="modal-body">
 		<form role="form" action="<?php echo site_url('master/jabatan/add_lvljabatan');?>" method="post">
 			<div class="form-group">
-				 <label class="col-sm-12">Kode Level Jabatan</label>
+				 <label class="col-sm-12">Kode Job Grade</label>
 				<div class="col-sm-24">
 					
 						<input type="text" id="kdlvl" name="kdlvl"  class="form-control" maxlength="3" style="text-transform:uppercase" required>
@@ -87,7 +87,7 @@
 					
 										
 			<div class="form-group">
-				 <label class="col-sm-12">Nama Level Jabatan</label>
+				 <label class="col-sm-12">Nama Job Grade</label>
 				<div class="col-sm-24">
 
 						<input type="text" id="nmjbt" name="nmjbt"  class="form-control" style="text-transform:uppercase" required>
@@ -136,13 +136,13 @@
 	<div class="modal-content">
 	  <div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-		<h4 class="modal-title" id="myModalLabel">Edit MASTER LEVEL JABATAN</h4>
+		<h4 class="modal-title" id="myModalLabel">Edit MASTER JOB GRADE</h4>
 	  </div>
 	  
 		<div class="modal-body">
 		<form role="form" action="<?php echo site_url('master/jabatan/edit_lvljabatan');?>" method="post">
 			<div class="form-group">
-				 <label class="col-sm-12">Kode Level Jabatan</label>
+				 <label class="col-sm-12">Kode Job Grade</label>
 				<div class="col-sm-24">
 					
 						<input type="text" id="kdlvl" name="kdlvl"  value="<?php echo $lj->kdlvl;?>" class="form-control" readonly>
@@ -153,7 +153,7 @@
 
 								
 			<div class="form-group">
-				 <label class="col-sm-12">Nama Jabatan</label>
+				 <label class="col-sm-12">Nama Job Grade</label>
 				<div class="col-sm-24">
 
 						<input type="text" id="nmjbt" name="nmjbt"  value="<?php echo $lj->nmlvljabatan;?>" class="form-control" style="text-transform:uppercase">

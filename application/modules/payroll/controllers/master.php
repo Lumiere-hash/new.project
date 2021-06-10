@@ -561,7 +561,7 @@ class Master extends MX_Controller
 /* START VIEW LEVEL GAJI 1-37 MOHON JANGAN DIHAPUS */
 
     function mas_lvlgp(){
-        $data['title']='MASTER NOMINAL LEVEL PAYROLL';
+        $data['title']='MASTER NOMINAL GOLONGAN PAYROLL';
         /* CODE UNTUK VERSI*/
         $nama=trim($this->session->userdata('nik'));
         $kodemenu='I.P.I.6'; $versirelease='I.P.I.6/ALPHA.001'; $releasedate=date('2019-04-12 00:00:00');

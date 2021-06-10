@@ -50,7 +50,7 @@
             <thead>
             <tr>
                 <th width="1%" >No.</th>
-                <th>Kode Level</th>
+                <th>Kode Golongan</th>
                 <th>Nominal</th>
                 <th>Hold</th>
                 <th width="10%">Action</th>
@@ -68,16 +68,16 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h3 class="modal-title">Input Level Gaji</h3>
+                <h3 class="modal-title">Input Golongan Gaji</h3>
             </div>
             <div class="modal-body form">
                 <form action="#" id="form" class="form-horizontal">
                     <input type="hidden" value="INPUT" name="type"/>
                     <div class="form-body">
                         <div class="form-group">
-                            <label class="control-label col-md-3">KODE OPTION</label>
+                            <label class="control-label col-md-3">KODE GOLONGAN</label>
                             <div class="col-md-9">
-                                <input name="kdlvlgp" id="kdlvlgp" placeholder="KODE LEVEL GP" class="form-control inform" type="text" style="text-transform:uppercase;"  MAXLENGTH="4" required>
+                                <input name="kdlvlgp" id="kdlvlgp" placeholder="KODE GOLONGAN" class="form-control inform" type="text" style="text-transform:uppercase;"  MAXLENGTH="4" required>
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -202,7 +202,7 @@
             keyboard: false,
             show: true
         }); // show bootstrap modal
-        $('.modal-title').text('Input Kode Level & Nominal'); // Set Title to Bootstrap modal title
+        $('.modal-title').text('Input Kode Golongan & Nominal'); // Set Title to Bootstrap modal title
         $('[name="type"]').val('INPUT');
         $('#btnSave').removeClass("btn-danger").addClass("btn-primary").text('Simpan');
         $('[name="kdlvlgp"]').prop("required", true);

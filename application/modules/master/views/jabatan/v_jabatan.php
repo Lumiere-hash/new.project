@@ -34,7 +34,7 @@
 											<th>No.</th>
 											<th>Nama Department</th>
 											<th>Nama Sub Department</th>
-											<th>Nama Jobgrade</th>
+											<th>Nama Level Grade</th>
 											<th>Kode Jabatan</th>
 											<th>Nama Jabatan</th>
 											<th>Cost Center</th>
@@ -120,7 +120,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label  class="col-sm-12">Job Grade</label>
+					<label  class="col-sm-12">Level Grade</label>
 					<div class="col-sm-12">
 						<select class="form-control input-sm" name="kdgrade" id="kdgrade" required>
 						  <?php foreach($list_jobgrade as $listkan){?>
@@ -264,7 +264,7 @@
 					</div>
 				</div>
 				<div class="form-group">
-					<label  class="col-sm-12">Job Grade</label>
+					<label  class="col-sm-12">Level Grade</label>
 					<div class="col-sm-12">
 						<select class="form-control input-sm" name="kdgrade" id="kdgrade" required>
 						  <?php foreach($list_jobgrade as $listkan){?>

@@ -32,8 +32,8 @@
 										<tr>											
 											<th>No.</th>
 											<!--<th>Nama Level Jabatan</th>-->
-											<th>Kode Job Grade</th>
-											<th>Nama Job grade</th>
+											<th>Kode Level Grade</th>
+											<th>Nama Level grade</th>
 											<th>Bobot-1</th>
 											<th>Bobot-2</th>
 											<th>Keterangan</th>
@@ -75,7 +75,7 @@
 	<div class="modal-content">
 	  <div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-		<h4 class="modal-title" id="myModalLabel">INPUT MASTER JOBGRADE</h4>
+		<h4 class="modal-title" id="myModalLabel">INPUT MASTER LEVEL GRADE</h4>
 	  </div>
 	  
 		<div class="modal-body">
@@ -93,7 +93,7 @@
 			</div>-->
 					<div class="col-sm-6">
 					<div class="form-group">
-						 <label class="col-sm-12">Kode jobgrade</label>
+						 <label class="col-sm-12">Kode Level Grade</label>
 						<div class="col-sm-24">
 							
 								<input type="text" id="kdgrade" name="kdgrade"  class="form-control" maxlength="2"  style="text-transform:uppercase" required>
@@ -109,7 +109,7 @@
 				  });
 				</script>	
 				<div class="form-group">
-				 <label class="col-sm-12">Nama Job Grade</label>
+				 <label class="col-sm-12">Nama Level Grade</label>
 					<div class="col-sm-24">
 
 						<input type="text" id="nmjg" name="nmjg"  class="form-control"  maxlength ="20" style="text-transform:uppercase" required>
@@ -130,7 +130,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-				 <label class="col-sm-12">bobot-2</label>
+				 <label class="col-sm-12">Bobot-2</label>
 				<div class="col-sm-24">
 
 						<input type="text" id="bobot2" name="bobot2" data-inputmask='"mask": "999"' data-mask="" class="form-control" >
@@ -140,10 +140,10 @@
 			</div>
 				</div>
             <div class="form-group">
-                <label class="col-sm-12">Level Jabatan</label>
+                <label class="col-sm-12">Job Grade</label>
                 <div class="col-sm-12">
                     <select class="form-control input-sm" name="kdlvl" id="kdlvl" required>
-                        <option value="" ><?php echo '-- PILIH LEVEL JABATAN ---';?></option>
+                        <option value="" ><?php echo '-- PILIH JOB GRADE ---';?></option>
                         <?php foreach($list_lvljabatan as $lkd){?>
                             <option value="<?php echo trim($lkd->kdlvl);?>" ><?php echo $lkd->kdlvl.' | | '.$lkd->nmlvljabatan;?></option>
                         <?php }?>
@@ -221,7 +221,7 @@
 	<div class="modal-content">
 	  <div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-		<h4 class="modal-title" id="myModalLabel">Edit MASTER JOB GRADE</h4>
+		<h4 class="modal-title" id="myModalLabel">Edit MASTER LEVEL GRADE</h4>
 	  </div>
 	  
 		<div class="modal-body">
@@ -229,7 +229,7 @@
 			<div class="row">
 			<div class="col-sm-6">
 			<div class="form-group">
-				 <label class="col-sm-12">Kode Job Grade</label>
+				 <label class="col-sm-12">Kode Level Grade</label>
 				<div class="col-sm-24">
 					
 						<input type="text" id="kdgrade" name="kdgrade"  value="<?php echo $lg->kdgrade;?>" class="form-control" readonly>
@@ -239,7 +239,7 @@
 			</div>
 					
 			<div class="form-group">
-				 <label class="col-sm-12">Nama Job Grade</label>
+				 <label class="col-sm-12">Nama Level Grade</label>
 				<div class="col-sm-24">
 
 						<input type="text" id="nmjg" name="nmjg"  value="<?php echo $lg->nmgrade;?>" class="form-control" style="text-transform:uppercase">
@@ -259,7 +259,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				 <label class="col-sm-12">bobot-2</label>
+				 <label class="col-sm-12">Bobot-2</label>
 				<div class="col-sm-12">
 
 						<input type="text" id="bobot2" name="bobot2"  value="<?php echo $lg->bobot2;?>"  data-inputmask='"mask": "999"' data-mask="" class="form-control">
@@ -269,10 +269,10 @@
 			</div>
 			</div>
             <div class="form-group">
-                <label class="col-sm-12">Level Jabatan</label>
+                <label class="col-sm-12">Job Grade</label>
                 <div class="col-sm-12">
                     <select class="form-control input-sm" name="kdlvl" id="kdlvl" required>
-                        <option value="" ><?php echo '-- PILIH LEVEL JABATAN ---';?></option>
+                        <option value="" ><?php echo '-- PILIH JOB GRADE ---';?></option>
                         <?php foreach($list_lvljabatan as $lkd){?>
                             <option  <?php if (trim($lkd->kdlvl)==trim($lg->kdlvl)) { echo 'selected';}?>  value="<?php echo trim($lkd->kdlvl);?>" ><?php echo $lkd->kdlvl.' | | '.$lkd->nmlvljabatan;?></option>
                         <?php }?>

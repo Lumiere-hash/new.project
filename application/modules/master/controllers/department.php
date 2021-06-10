@@ -11,7 +11,7 @@ class Department extends MX_Controller{
         parent::__construct();
 		       
 		$this->load->model('m_department');
-        $this->load->library(array('form_validation','template','upload','pdf')); 
+        $this->load->library(array('form_validation','template','upload','pdf','Fiky_version','Fiky_string','Fiky_menu','Fiky_encryption','Fiky_wilayah','Fiky_grade'));
 		 if(!$this->session->userdata('nik')){
             redirect('dashboard');
         }
@@ -167,6 +167,39 @@ class Department extends MX_Controller{
 		//echo "sukses";
 		redirect('master/department/subdepartment');
 	}
-	
-	
+
+    function req_department($search=null){
+        $data = json_encode(
+            array(
+                'search' => $this->input->post('_search_'),
+                'perpage' => $this->input->post('_perpage_'),
+                'page' => $this->input->post('_page_')
+            ),JSON_PRETTY_PRINT
+        );
+        echo $this->fiky_grade->getDepartment($data);
+    }
+
+    function req_subdepartment($search=null){
+        $data = json_encode(
+            array(
+                'search' => $this->input->post('_search_'),
+                'perpage' => $this->input->post('_perpage_'),
+                'page' => $this->input->post('_page_'),
+                'kddept' => $this->input->post('kddept'),
+            ),JSON_PRETTY_PRINT
+        );
+        echo $this->fiky_grade->getSubDepartment($data);
+    }
+
+    function req_jabatan($search=null){
+        $data = json_encode(
+            array(
+                'search' => $this->input->post('_search_'),
+                'perpage' => $this->input->post('_perpage_'),
+                'page' => $this->input->post('_page_'),
+                'kdsubdept' => $this->input->post('kdsubdept'),
+            ),JSON_PRETTY_PRINT
+        );
+        echo $this->fiky_grade->getJabatan($data);
+    }
 }

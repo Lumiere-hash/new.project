@@ -1,44 +1,19 @@
 kdrumus;no_urut;tipe;keterangan;input_date;input_by;update_date;update_by;aksi_tipe;aksi;taxable;tetap;deductible;regular;cash;kode
-PR          ;18;OTOMATIS            ;JHT - PERUSAHAAN                                  ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_jht_per                           ;D;F;; ;T;F;
-PR          ;20;OTOMATIS            ;JP - PERUSAHAAN                                   ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_jp_per                            ;D;F;; ;T;F;
-PR          ;19;OTOMATIS            ;BPJS KESEHATAN - PERUSAHAAN                       ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_bpjs_per                          ;D;T;; ;T;F;
-PR          ;21;OTOMATIS            ;JHT - KARYAWAN                                    ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_jht_kar                           ;B; ;;T; ;T;
-PR          ;22;OTOMATIS            ;BPJS KESEHATAN - KARYAWAN                         ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_bpjs_kar                          ;B; ;;F; ;T;
-PR          ;23;OTOMATIS            ;JP - KARYAWAN                                     ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_jp_kar                            ;B; ;;T; ;T;
-PR          ;25;INPUT MANUAL        ;DEPOSIT - SERAGAM                                 ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_input_global                            ;C;;;;;T;
-PR          ;4;OTOMATIS            ;POTONGAN ABSENSI/IZIN/CUTI                        ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_potongan_absen                          ;B;T;; ;T;T;3.001 
-PR          ;1;LINK                ;GAJI POKOK                                        ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_gp                                ;A;T;T; ;T;T;1.001 
 PR          ;15;INPUT MANUAL        ;PENGOBATAN                                        ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_input_global                            ;A;T;F;;T;T;2.008 
 PR          ;6;OTOMATIS            ;UPAH BORONG PROGRESIF                             ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_upah_borong                             ;A;T;; ;T;T;2.002 
 PR          ;10;OTOMATIS            ;TUNJANGAN SHIFT                                   ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_tunjangan_shift                         ;A;T;; ;T;T;2.003 
-PR          ;11;OTOMATIS            ;LEMBUR                                            ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_tunjangan_lembur                        ;A;T;; ;T;T;2.004 
-PR          ;8;LINK                ;TUNJANGAN MASA KERJA                              ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_tm                                ;A;T;T; ;T;T;1.003 
-PR          ;9;LINK                ;TUNJANGAN PRESTASI                                ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_tp                                ;A;T;T; ;T;T;1.004 
-PR          ;7;LINK                ;TUNJANGAN JABATAN                                 ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_tj                                ;A;T;T; ;T;T;1.002 
-P21         ;4;LINK                ;TUNJANGAN PRESTASI                                ;;;;;sc_trx.pr_ambil_tp_21                             ;A;T; ;T;T;T;
-P21         ;61;OTOMATIS            ;PPH 21 PENGHASILAN REGULAR                        ;;;;;sc_trx.pr_pph21blnjlnnr_21                        ;D;T; ;T;T;T;
-PR          ;2;LINK                ;GAJI BPJS                                         ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_gajibpjs                          ;D; ; ; ; ; ;4.001 
-PR          ;12;INPUT MANUAL        ;INSENTIF PRODUKSI                                 ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_input_global                            ;A;T;F; ;F;T;2.005 
-PR          ;13;INPUT MANUAL        ;THR                                               ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_input_global                            ;A;T;F; ;F;T;2.006 
-PR          ;14;INPUT MANUAL        ;BONUS                                             ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_input_global                            ;A;T;F; ;F;T;2.007 
-PR          ;5;INPUT MANUAL        ;KOREKSI A BULAN LALU                              ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_input_global                            ;A;T;F; ;F;T;2.001 
-P21         ;5;LINK                ;TUNJANGAN SHIFT                                   ;;;;;sc_trx.pr_ambil_ts_21                             ;A;T;T; ;T;T;
-P21         ;1;LINK                ;GAJI POKOK                                        ;;;;;sc_trx.pr_ambil_gp_21                             ;A;T;T; ;T;T;
-P21         ;2;LINK                ;TUNJANGAN JABATAN                                 ;;;;;sc_trx.pr_ambil_tj_21                             ;A;T;T; ;T;T;
-PR          ;28;OTOMATIS            ;PPH 21                                            ;;;;;sc_trx.pr_ambil_pph21                             ;B;T; ; ; ;T;
-P21         ;3;LINK                ;TUNJANGAN MASA KERJA                              ;;;;;sc_trx.pr_ambil_tm_21                             ;A;T;T; ;T;T;
-P21         ;63;OTOMATIS            ;TOTAL PPH 21                                      ;;;;;sc_trx.pr_totalpph21_21                           ;D;T; ;T;T;T;
-P21         ;62;OTOMATIS            ;PPH 21 PENGHASILAN NON REGULAR                    ;;;;;sc_trx.pr_pph21nrjln_21                           ;D;T; ;T;T;T;
-P21         ;50;OTOMATIS            ;SELISIH                                           ;;;;;sc_trx.pr_selisih_21                              ;D;T; ;T;T;T;
-P21         ;52;OTOMATIS            ;PPH 21 KURANG DIBAYAR S/D BULAN BERJALAN          ;;;;;sc_trx.pr_pph21krgbyr_21                          ;D;T; ;T;T;T;
-P21         ;51;OTOMATIS            ;PPH 21 BULAN BERJALAN (BELUM NORMALISASI)         ;;;;;sc_trx.pr_pph21blnjln_21                          ;D;T; ;T;T;T;
-P21         ;53;OTOMATIS            ;SELISIH (2-1)                                     ;;;;;sc_trx.pr_pph21selisih_21                         ;D;T; ;T;T;T;
-P21         ;54;OTOMATIS            ;SISA BULAN AMORTISASI                             ;;;;;sc_trx.pr_pph21sisablnamor_21                     ;D;T; ;T;T;T;
-P21         ;55;OTOMATIS            ;AMORTISASI BULAN BERJALAN                         ;;;;;sc_trx.pr_amorblnjln_21                           ;D;T; ;T;T;T;
-P21         ;56;OTOMATIS            ;PPH 21 BULAN BERJALAN DINORMALISASI               ;;;;;sc_trx.pr_pph21blnjlnnr_21                        ;D;T; ;T;T;T;
-P21         ;60;OTOMATIS            ;PPH 21 PENGHASILAN NON REGULAR BULAN BERJALAN     ;;;;;sc_trx.pr_pph21nrjln_21                           ;D;T; ;T;T;T;
-P21         ;59;OTOMATIS            ;PPH 21 PENGHASILAN DISETAHUNKAN (NON REGULER)     ;;;;;sc_trx.pr_pph21nr_21                              ;D;T; ;T;T;T;
-PR          ;17;OTOMATIS            ;JKM                                               ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_jkm_per                           ;D;T; ; ;T;F;2.010 
+P21         ;23;OTOMATIS            ;TOTAL PERKIRAAN PENGHASILAN REGULAR DISETAHUNKAN  ;;;;;sc_trx.pr_total_pro_21                            ;D;T; ;T;T;T;
+P21         ;22;OTOMATIS            ;PROYEKSI SISA PENGHASILAN REGULAR TAHUN BERJALAN  ;;;;;sc_trx.pr_pro_reg_21                              ;D;T; ;T;T;T;
+P21         ;21;OTOMATIS            ;PENGHASILAN REGULAR S/D BULAN BERJALAN            ;;;;;sc_trx.pr_peng_reg_21                             ;D; ; ; ;T;T;
+P21         ;20;OTOMATIS            ;TOTAL PENGHASILAN NETTO                           ;;;;;sc_trx.pr_ambil_netto_21                          ;D;T; ;T;T;T;
+P21         ;19;OTOMATIS            ;SUBTOTAL POTONGAN                                 ;;;;;sc_trx.pr_subtotal_potong_21                      ;D; ; ; ; ;T;
+PR          ;3;LINK                ;GAJI NAKER                                        ;;;;;sc_trx.pr_ambil_gajinaker                         ;D; ; ;F; ;T;
+P21         ;18;OTOMATIS            ;JP - KARYAWAN                                     ;;;;;sc_trx.pr_ambil_jp_kar_21                         ;B; ; ;T; ;T;
+P21         ;17;LINK                ;JHT - KARYAWAN                                    ;;;;;sc_trx.pr_ambil_jht_kar_21                        ;B; ; ;T; ;T;
+P21         ;16;OTOMATIS            ;BIAYA JABATAN                                     ;;;;;sc_trx.pr_biaya_jabatan_21                        ;B;T; ;T;T;T;
+P1721       ;10;OTOMATIS            ;IURAN PENSIUN ATAU IURAN THT/JHT                  ;;                    ;;"";sc_trx.pr_1721_jht_tht                            ;B; ; ; ; ; ;      
+P1721       ;9;OTOMATIS            ;BIAYA JABATAN/BIAYA PENSIUN                       ;;                    ;;"";sc_trx.pr_1721_biaya_jabatan                      ;B; ; ; ; ; ;      
+P1721       ;8;OTOMATIS            ;JUMLAH PENGHASILAN BRUTTO                         ;;                    ;;"";sc_trx.pr_1721_subtotal_bruto                     ;A; ; ; ; ; ;      
 P21         ;58;OTOMATIS            ;PPH 21 PENGHASILAN DISETAHUNKAN (REGULER)         ;;;;;sc_trx.pr_pphsetahunreg_21                        ;D;T; ;T;T;T;
 P21         ;57;OTOMATIS            ;PPH 21 PENGHASILAN DISETAHUNKAN (ALL)             ;;;;;sc_trx.pr_pphsetahun_21                           ;D;T; ;T;T;T;
 P21         ;49;OTOMATIS            ;PPH 21 S/D BULAN BERJALAN                         ;;;;;sc_trx.pr_pph21blnsd_21                           ;D;T; ;T;T;T;
@@ -51,7 +26,41 @@ P21         ;43;OTOMATIS            ;PTKP REGULER                               
 P21         ;42;OTOMATIS            ;TOTAL PENGHASILAN NETTO (DISETAHUNKAN) REGULER    ;;;;;sc_trx.pr_netto_setahunreg_21                     ;D;T; ;T;T;T;
 P21         ;41;OTOMATIS            ;TOTAL POTONGAN DISETAHUNKAN(REGULER)              ;;;;;sc_trx.pr_totalptgsthnreg_21                      ;D;T; ;T;T;T;
 P21         ;40;OTOMATIS            ;PROYEKSI SISA POTONGAN JP REGULER                 ;;;;;sc_trx.pr_sisajpreg_21                            ;D;T; ;T;T;T;
+PR          ;11;OTOMATIS            ;LEMBUR                                            ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_tunjangan_lembur                        ;A;T;; ;T;T;2.004 
+PR          ;8;LINK                ;TUNJANGAN MASA KERJA                              ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_tm                                ;A;T;T; ;T;T;1.003 
+PR          ;9;LINK                ;TUNJANGAN PRESTASI                                ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_tp                                ;A;T;T; ;T;T;1.004 
+PR          ;7;LINK                ;TUNJANGAN JABATAN                                 ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_tj                                ;A;T;T; ;T;T;1.002 
+P21         ;4;LINK                ;TUNJANGAN PRESTASI                                ;;;;;sc_trx.pr_ambil_tp_21                             ;A;T; ;T;T;T;
+P21         ;61;OTOMATIS            ;PPH 21 PENGHASILAN REGULAR                        ;;;;;sc_trx.pr_pph21blnjlnnr_21                        ;D;T; ;T;T;T;
+PR          ;2;LINK                ;GAJI BPJS                                         ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_gajibpjs                          ;D; ; ; ; ; ;4.001 
+PR          ;12;INPUT MANUAL        ;INSENTIF PRODUKSI                                 ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_input_global                            ;A;T;F; ;F;T;2.005 
+PR          ;13;INPUT MANUAL        ;THR                                               ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_input_global                            ;A;T;F; ;F;T;2.006 
+PR          ;14;INPUT MANUAL        ;BONUS                                             ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_input_global                            ;A;T;F; ;F;T;2.007 
+PR          ;5;INPUT MANUAL        ;KOREKSI A BULAN LALU                              ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_input_global                            ;A;T;F; ;F;T;2.001 
+P21         ;1;LINK                ;GAJI POKOK                                        ;;;;;sc_trx.pr_ambil_gp_21                             ;A;T;T; ;T;T;
+P21         ;2;LINK                ;TUNJANGAN JABATAN                                 ;;;;;sc_trx.pr_ambil_tj_21                             ;A;T;T; ;T;T;
+PR          ;28;OTOMATIS            ;PPH 21                                            ;;;;;sc_trx.pr_ambil_pph21                             ;B;T; ; ; ;T;
 P21         ;39;OTOMATIS            ;POTONGAN JP REGULER                               ;;;;;sc_trx.pr_jpblnjalanreg_21                        ;D;T; ;T;T;T;
+P21         ;3;LINK                ;TUNJANGAN MASA KERJA                              ;;;;;sc_trx.pr_ambil_tm_21                             ;A;T;T; ;T;T;
+P21         ;63;OTOMATIS            ;TOTAL PPH 21                                      ;;;;;sc_trx.pr_totalpph21_21                           ;D;T; ;T;T;T;
+P21         ;62;OTOMATIS            ;PPH 21 PENGHASILAN NON REGULAR                    ;;;;;sc_trx.pr_pph21nrjln_21                           ;D;T; ;T;T;T;
+P21         ;50;OTOMATIS            ;SELISIH                                           ;;;;;sc_trx.pr_selisih_21                              ;D;T; ;T;T;T;
+P21         ;52;OTOMATIS            ;PPH 21 KURANG DIBAYAR S/D BULAN BERJALAN          ;;;;;sc_trx.pr_pph21krgbyr_21                          ;D;T; ;T;T;T;
+P21         ;51;OTOMATIS            ;PPH 21 BULAN BERJALAN (BELUM NORMALISASI)         ;;;;;sc_trx.pr_pph21blnjln_21                          ;D;T; ;T;T;T;
+P21         ;53;OTOMATIS            ;SELISIH (2-1)                                     ;;;;;sc_trx.pr_pph21selisih_21                         ;D;T; ;T;T;T;
+P21         ;54;OTOMATIS            ;SISA BULAN AMORTISASI                             ;;;;;sc_trx.pr_pph21sisablnamor_21                     ;D;T; ;T;T;T;
+P21         ;55;OTOMATIS            ;AMORTISASI BULAN BERJALAN                         ;;;;;sc_trx.pr_amorblnjln_21                           ;D;T; ;T;T;T;
+P21         ;56;OTOMATIS            ;PPH 21 BULAN BERJALAN DINORMALISASI               ;;;;;sc_trx.pr_pph21blnjlnnr_21                        ;D;T; ;T;T;T;
+P1721       ;99;OTOMATIS            ;NOMOR BUKTI POTONG                                ;;                    ;;"";sc_trx.pr_1721_penomoran_buktipotong              ;N; ; ; ; ; ;      
+PR          ;31;INPUT MANUAL        ;TUNJANGAN PAJAK                                   ;;;;;sc_trx.pr_input_global                            ;A;F; ;F;F;T;
+PR          ;32;INPUT MANUAL        ;PESANGON                                          ;;;;;sc_trx.pr_input_global                            ;A; ;F; ; ;T;
+PR          ;26;OTOMATIS            ;PINJAMAN                                          ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_pinjaman                          ;B;;;;;T;
+P21         ;14;OTOMATIS            ;PENGHASILAN NON REGULAR                           ;;;;;sc_trx.pr_bonus_21                                ;D;T; ;T;T;T;
+PR          ;22;OTOMATIS            ;BPJS KESEHATAN - KARYAWAN                         ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_bpjs_kar                          ;B; ;;F; ;T;
+PR          ;23;OTOMATIS            ;JP - KARYAWAN                                     ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_jp_kar                            ;B; ;;T; ;T;
+PR          ;25;INPUT MANUAL        ;DEPOSIT - SERAGAM                                 ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_input_global                            ;C;;;;;T;
+PR          ;4;OTOMATIS            ;POTONGAN ABSENSI/IZIN/CUTI                        ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_potongan_absen                          ;B;T;; ;T;T;3.001 
+PR          ;1;LINK                ;GAJI POKOK                                        ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_gp                                ;A;T;T; ;T;T;1.001 
 P21         ;38;OTOMATIS            ;PROYEKSI SISA POTONGAN JHT REGULER                ;;;;;sc_trx.pr_sisajhtreg_21                           ;D;T; ;T;T;T;
 P21         ;37;OTOMATIS            ;POTONGAN JHT REGULER                              ;;;;;sc_trx.pr_jhtblnjalanreg_21                       ;D;T; ;T;T;T;
 P21         ;36;OTOMATIS            ;BIAYA JABATAN (REGULER)                           ;;;;;sc_trx.pr_jbtsetahunreg_21                        ;D;T; ;T;T;T;
@@ -67,29 +76,11 @@ P21         ;27;OTOMATIS            ;POTONGAN JHT S/D BULAN BERJALAN            
 P21         ;26;OTOMATIS            ;BIAYA JABATAN (DARI PENGHASILAN YANG DISETAHUNKAN);;;;;sc_trx.pr_jbtsetahun_21                           ;D;T; ;T;T;T;
 P21         ;25;OTOMATIS            ;TOTAL PERKIRAAN PENGHASILAN BRUTO DISETAHUNKAN    ;;;;;sc_trx.pr_total_bruto_21                          ;D;T; ;T;T;T;
 P21         ;24;OTOMATIS            ;PENGHASILAN NON REGULAR S/D BULAN BERJALAN        ;;;;;sc_trx.pr_peng_nonreg_21                          ;D;T; ;T;T;T;
-P21         ;23;OTOMATIS            ;TOTAL PERKIRAAN PENGHASILAN REGULAR DISETAHUNKAN  ;;;;;sc_trx.pr_total_pro_21                            ;D;T; ;T;T;T;
-P21         ;22;OTOMATIS            ;PROYEKSI SISA PENGHASILAN REGULAR TAHUN BERJALAN  ;;;;;sc_trx.pr_pro_reg_21                              ;D;T; ;T;T;T;
-P21         ;21;OTOMATIS            ;PENGHASILAN REGULAR S/D BULAN BERJALAN            ;;;;;sc_trx.pr_peng_reg_21                             ;D; ; ; ;T;T;
-P21         ;20;OTOMATIS            ;TOTAL PENGHASILAN NETTO                           ;;;;;sc_trx.pr_ambil_netto_21                          ;D;T; ;T;T;T;
-P21         ;19;OTOMATIS            ;SUBTOTAL POTONGAN                                 ;;;;;sc_trx.pr_subtotal_potong_21                      ;D; ; ; ; ;T;
-PR          ;3;LINK                ;GAJI NAKER                                        ;;;;;sc_trx.pr_ambil_gajinaker                         ;D; ; ;F; ;T;
-P21         ;18;OTOMATIS            ;JP - KARYAWAN                                     ;;;;;sc_trx.pr_ambil_jp_kar_21                         ;B; ; ;T; ;T;
-P21         ;17;LINK                ;JHT - KARYAWAN                                    ;;;;;sc_trx.pr_ambil_jht_kar_21                        ;B; ; ;T; ;T;
-P21         ;16;OTOMATIS            ;BIAYA JABATAN                                     ;;;;;sc_trx.pr_biaya_jabatan_21                        ;B;T; ;T;T;T;
-P21         ;15;OTOMATIS            ;SUBTOTAL PENGHASILAN BRUTO                        ;;;;;sc_trx.pr_bruto_21                                ;D;T; ;T;T;T;
-P21         ;14;OTOMATIS            ;PENGHASILAN NON REGULAR                           ;;;;;sc_trx.pr_bonus_21                                ;D;T; ;T;T;T;
-P21         ;13;OTOMATIS            ;SUBTOTAL PENGHASILAN REGULAR                      ;;;;;sc_trx.pr_subtotal_reguler_21                     ;D; ; ; ;T;T;
+P21         ;5;LINK                ;TUNJANGAN SHIFT                                   ;;;;;sc_trx.pr_ambil_ts_21                             ;A;T;T; ;T;T;
 P21         ;12;LINK                ;BPJS KESEHATAN - PERUSAHAAN                       ;;;;;sc_trx.pr_ambil_bpjs_per_21                       ;A;T; ; ;T;F;
 P21         ;11;LINK                ;JKM                                               ;;;;;sc_trx.pr_ambil_jkm_per_21                        ;A;T; ; ;T;F;
 P21         ;10;LINK                ;JKK                                               ;;;;;sc_trx.pr_ambil_jkk_per_21                        ;A;T; ; ;T;F;
 P21         ;9;OTOMATIS            ;PENGOBATAN                                        ;;;;;sc_trx.pr_pengobatan_21                           ;A;T;F; ;T;T;
-P21         ;8;LINK                ;LEMBUR                                            ;;;;;sc_trx.pr_tunjangan_lembur_21                     ;A;T; ; ;T;T;
-P21         ;6;LINK                ;TUNJANGAN LAIN-LAIN                               ;;;;;sc_trx.pr_ambil_tl_21                             ;A;T; ;T;T;T;
-P21         ;7;LINK                ;UPAH BORONG PROGRESIF                             ;;;;;sc_trx.pr_ambil_ub_21                             ;A;T; ;T;T;T;
-PR          ;24;INPUT MANUAL        ;POTONGAN ID CARD (HILANG)                         ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_input_global                            ;B; ; ;F; ;T;
-PR          ;29;INPUT MANUAL        ;POTONGAN LAIN LAIN                                ;;;;;sc_trx.pr_input_global                            ;B; ;; ; ;T;
-PR          ;16;OTOMATIS            ;JKK                                               ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_jkk_per                           ;D;T; ; ;T;F;2.009 
-PR          ;30;INPUT MANUAL        ;POTONGAN KOPERASI                                 ;;;;;sc_trx.pr_input_global                            ;B; ;; ; ;T;
 P1721       ;1;OTOMATIS            ;GAJI/PENSIUN ATAU THT/JHT                         ;;                    ;;"";sc_trx.pr_1721_ambil_gp                           ;A; ; ; ; ; ;      
 P1721       ;2;OTOMATIS            ;TUNJANGAN PPH                                     ;;                    ;;"";sc_trx.pr_1721_ambil_tj                           ;A; ; ; ; ; ;      
 P1721       ;3;OTOMATIS            ;TUNJANGAN LAINNYA, UANG LEMBUR DAN SEBAGAINYA     ;;                    ;;"";sc_trx.pr_1721_ambil_tj_lain                      ;A; ; ; ; ; ;      
@@ -97,6 +88,11 @@ P1721       ;4;OTOMATIS            ;HONORARIUM DAN IMBALAN LAIN SEJENISNYA      
 P1721       ;5;OTOMATIS            ;PREMI ASURANSI YANG DIBAYAR PEMBERI KERJA         ;;                    ;;"";sc_trx.pr_1721_ambil_premiasuransi                ;A; ; ; ; ; ;      
 P1721       ;6;OTOMATIS            ;PENERIMAAN DALAM BENTUK NATURA                    ;;                    ;;"";sc_trx.pr_1721_ambil_penerimaan_natuna            ;A; ; ; ; ; ;      
 P1721       ;7;OTOMATIS            ;INSENTIF PRODUKSI,BONUS,GRATIFIKASI,THR           ;;                    ;;"";sc_trx.pr_1721_ambil_bonus                        ;A; ; ; ; ; ;      
+P21         ;60;OTOMATIS            ;PPH 21 PENGHASILAN NON REGULAR BULAN BERJALAN     ;;;;;sc_trx.pr_pph21nrjln_21                           ;D;T; ;T;T;T;
+P21         ;59;OTOMATIS            ;PPH 21 PENGHASILAN DISETAHUNKAN (NON REGULER)     ;;;;;sc_trx.pr_pph21nr_21                              ;D;T; ;T;T;T;
+PR          ;17;OTOMATIS            ;JKM                                               ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_jkm_per                           ;D;T; ; ;T;F;2.010 
+P21         ;15;OTOMATIS            ;SUBTOTAL PENGHASILAN BRUTO                        ;;;;;sc_trx.pr_bruto_21                                ;D;T; ;T;T;T;
+P21         ;13;OTOMATIS            ;SUBTOTAL PENGHASILAN REGULAR                      ;;;;;sc_trx.pr_subtotal_reguler_21                     ;D; ; ; ;T;T;
 P1721       ;20;OTOMATIS            ;PPH 21 DAN PPH 28 YANG TELAH DIPOTONG/DILUNASI    ;;                    ;;"";sc_trx.pr_1721_pph21_dipotong_lunas               ;D; ; ; ; ; ;      
 P1721       ;19;OTOMATIS            ;PPH 21 TERHUTANG                                  ;;                    ;;"";sc_trx.pr_1721_pph21_terutang                     ;D; ; ; ; ; ;      
 P1721       ;18;OTOMATIS            ;PPH 21 YANG TELAH DIPOTONG MASA SEBELUMNYA        ;;                    ;;"";sc_trx.pr_1721_pph21_setahun_masa_sebelumnya      ;D; ; ; ; ; ;      
@@ -107,10 +103,14 @@ P1721       ;14;OTOMATIS            ;JUMLAH PENGHASILAN NETTO UNTUK PERHITUNGAN 
 P1721       ;13;OTOMATIS            ;PENGHASILAN NETTO MASA SEBELUMNYA                 ;;                    ;;"";sc_trx.pr_1721_penghasilan_netto_masa_sebelumnya  ;D; ; ; ; ; ;      
 P1721       ;12;OTOMATIS            ;JUMLAH PENGHASILAN NETTO                          ;;                    ;;"";sc_trx.pr_1721_penghasilan_netto(                 ;D; ; ; ; ; ;      
 P1721       ;11;OTOMATIS            ;JUMLAH PENGURANGAN                                ;;                    ;;"";sc_trx.pr_1721_subtotal_potongan                  ;B; ; ; ; ; ;      
-P1721       ;10;OTOMATIS            ;IURAN PENSIUN ATAU IURAN THT/JHT                  ;;                    ;;"";sc_trx.pr_1721_jht_tht                            ;B; ; ; ; ; ;      
-P1721       ;9;OTOMATIS            ;BIAYA JABATAN/BIAYA PENSIUN                       ;;                    ;;"";sc_trx.pr_1721_biaya_jabatan                      ;B; ; ; ; ; ;      
-P1721       ;8;OTOMATIS            ;JUMLAH PENGHASILAN BRUTTO                         ;;                    ;;"";sc_trx.pr_1721_subtotal_bruto                     ;A; ; ; ; ; ;      
-P1721       ;99;OTOMATIS            ;NOMOR BUKTI POTONG                                ;;                    ;;"";sc_trx.pr_1721_penomoran_buktipotong              ;N; ; ; ; ; ;      
-PR          ;31;INPUT MANUAL        ;TUNJANGAN PAJAK                                   ;;;;;sc_trx.pr_input_global                            ;A;F; ;F;F;T;
-PR          ;32;INPUT MANUAL        ;PESANGON                                          ;;;;;sc_trx.pr_input_global                            ;A; ;F; ; ;T;
-PR          ;26;OTOMATIS            ;PINJAMAN                                          ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_pinjaman                          ;B;;;;;T;
+PR          ;18;OTOMATIS            ;JHT - PERUSAHAAN                                  ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_jht_per                           ;D;F;; ;T;F;
+PR          ;20;OTOMATIS            ;JP - PERUSAHAAN                                   ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_jp_per                            ;D;F;; ;T;F;
+PR          ;19;OTOMATIS            ;BPJS KESEHATAN - PERUSAHAAN                       ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_bpjs_per                          ;D;T;; ;T;F;
+PR          ;21;OTOMATIS            ;JHT - KARYAWAN                                    ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_jht_kar                           ;B; ;;T; ;T;
+P21         ;8;LINK                ;LEMBUR                                            ;;;;;sc_trx.pr_tunjangan_lembur_21                     ;A;T; ; ;T;T;
+P21         ;6;LINK                ;TUNJANGAN LAIN-LAIN                               ;;;;;sc_trx.pr_ambil_tl_21                             ;A;T; ;T;T;T;
+P21         ;7;LINK                ;UPAH BORONG PROGRESIF                             ;;;;;sc_trx.pr_ambil_ub_21                             ;A;T; ;T;T;T;
+PR          ;24;INPUT MANUAL        ;POTONGAN ID CARD (HILANG)                         ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_input_global                            ;B; ; ;F; ;T;
+PR          ;29;INPUT MANUAL        ;POTONGAN LAIN LAIN                                ;;;;;sc_trx.pr_input_global                            ;B; ;; ; ;T;
+PR          ;16;OTOMATIS            ;JKK                                               ;2016-04-07 09:35:20;12345               ;;;sc_trx.pr_ambil_jkk_per                           ;D;T; ; ;T;F;2.009 
+PR          ;30;INPUT MANUAL        ;POTONGAN KOPERASI                                 ;;;;;sc_trx.pr_input_global                            ;B; ;; ; ;T;

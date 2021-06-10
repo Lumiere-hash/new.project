@@ -877,64 +877,181 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-sm-3">Department</label>
                                                     <div class="col-sm-8">
-                                                        <select name="bag_dept" id='dept' class="form-control col-sm-12" >
-                                                            <?php foreach ($list_opt_dept as $lodept){ ?>
-                                                                <option value="<?php echo trim($lodept->kddept);?>" ><?php echo trim($lodept->nmdept);?></option>
-                                                            <?php };?>
+                                                        <select name="bag_dept" class="form-control input-sm " placeholder="---KETIK DEPARTEMENT---" id="dept">
+                                                            <option value="" class=""></option>
                                                         </select>
                                                     </div>
                                                 </div>
+                                                <script type="text/javascript">
+                                                    $(function() {
+                                                        var totalCount,
+                                                            page,
+                                                            perPage = 7;
+                                                        $('#dept').selectize({
+                                                            plugins: ['hide-arrow', 'selectable-placeholder', 'infinite-scroll'],
+                                                            valueField: 'kddept',
+                                                            labelField: 'nmdept',
+                                                            searchField: ['nmdept'],
+                                                            options: [],
+                                                            create: false,
+                                                            render: {
+                                                                option: function(item, escape) {
+                                                                    return '' +
+                                                                        '<div class=\'row\'>' +
+                                                                        '<div class=\'col-xs-2 col-md-2 text-nowrap\'>' + escape(item.kddept) + '</div>' +
+                                                                        '<div class=\'col-xs-5 col-md-5 text-nowrap\'>' + escape(item.nmdept) + '</div>' +
+                                                                        '</div>' +
+                                                                    '';
+                                                                }
+                                                            },
+                                                            load: function(query, callback) {
+                                                                query = JSON.parse(query);
+                                                                page = query.page || 1;
+
+                                                                if(!totalCount || totalCount > ((page - 1) * perPage)) {
+                                                                    $.post(base('master/department/req_department'), {
+                                                                        _search_: query.search,
+                                                                        _perpage_: perPage,
+                                                                        _page_: page
+                                                                    }).done(function(json) {
+                                                                        totalCount = json.totalcount;
+                                                                        callback(json.group);
+                                                                    }).fail(function(jqxhr, textStatus, error) {
+                                                                        callback();
+                                                                    });
+                                                                } else {
+                                                                    callback();
+                                                                }
+                                                            }
+                                                        }).on('change click', function() {
+                                                            $('#subdept').selectize()[0].selectize.clearOptions();
+                                                            $('#jabatan').selectize()[0].selectize.clearOptions();
+                                                        });
+                                                    });
+                                                </script>
                                                 <div class="form-group">
                                                     <label class="control-label col-sm-3">Sub Department</label>
                                                     <div class="col-sm-8">
-                                                        <select name="subbag_dept" id='subdept' class="form-control col-sm-12" >
-                                                            <option value="">-KOSONG-</option>
-                                                            <?php foreach ($list_opt_subdept as $losdept){ ?>
-                                                                <option value="<?php echo trim($losdept->kdsubdept);?>" class="<?php echo trim($losdept->kddept);?>"><?php echo trim($losdept->nmsubdept);?></option>
-                                                            <?php };?>
+                                                        <select name="subbag_dept" class="form-control input-sm " placeholder="---KETIK SUB DEPARTEMENT---" id="subdept">
+                                                            <option value="" class=""></option>
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <script type="text/javascript" charset="utf-8">
+                                                <script type="text/javascript">
                                                     $(function() {
-                                                        $('#dept').selectize();
-                                                        //$('#jobgrade').selectize();
-                                                        $("#subdept").chained("#dept");
-                                                        //$('#subdept').selectize();
-                                                        $("#jabatan").chained("#dept");
+                                                        var totalCount,
+                                                            page,
+                                                            perPage = 7;
+                                                        $('#subdept').selectize({
+                                                            plugins: ['hide-arrow', 'selectable-placeholder', 'infinite-scroll'],
+                                                            valueField: 'kdsubdept',
+                                                            labelField: 'nmsubdept',
+                                                            searchField: ['nmsubdept'],
+                                                            options: [],
+                                                            create: false,
+                                                            render: {
+                                                                option: function(item, escape) {
+                                                                    return '' +
+                                                                        '<div class=\'row\'>' +
+                                                                        '<div class=\'col-xs-2 col-md-2 text-nowrap\'>' + escape(item.kdsubdept) + '</div>' +
+                                                                        '<div class=\'col-xs-5 col-md-5 text-nowrap\'>' + escape(item.nmsubdept) + '</div>' +
+                                                                        '</div>' +
+                                                                        '';
+                                                                }
+                                                            },
+                                                            load: function(query, callback) {
+                                                                query = JSON.parse(query);
+                                                                page = query.page || 1;
 
-                                                        ///$("#jobgrade").chained("#jabatan");
-
-                                                        //
-                                                        //$('#jabatan').selectize();
+                                                                if(!totalCount || totalCount > ((page - 1) * perPage)) {
+                                                                    $.post(base('master/department/req_subdepartment'), {
+                                                                        _search_: query.search,
+                                                                        _perpage_: perPage,
+                                                                        _page_: page,
+                                                                        kddept: $('#dept').val()
+                                                                    }).done(function(json) {
+                                                                        totalCount = json.totalcount;
+                                                                        callback(json.group);
+                                                                    }).fail(function(jqxhr, textStatus, error) {
+                                                                        callback();
+                                                                    });
+                                                                } else {
+                                                                    callback();
+                                                                }
+                                                            }
+                                                        }).on('change click', function() {
+                                                            $('#jabatan').selectize()[0].selectize.clearOptions();
+                                                        });
                                                     });
                                                 </script>
                                                 <div class="form-group">
                                                     <label class="control-label col-sm-3">Jabatan</label>
                                                     <div class="col-sm-8">
-                                                        <select name="jabatan" id='jabatan' class="form-control col-sm-12" >
-                                                            <option value="">-KOSONG-</option>
-                                                            <?php foreach ($list_opt_jabt as $lojab){ ?>
-                                                                <option value="<?php echo trim($lojab->kdjabatan);?>" class="<?php echo trim($lojab->kddept);?>"><?php echo trim($lojab->nmjabatan);?></option>
-                                                            <?php };?>
+                                                        <select name="jabatan" class="form-control input-sm " placeholder="---KETIK JABATAN---" id="jabatan">
+                                                            <option value="" class=""></option>
                                                         </select>
                                                     </div>
                                                 </div>
+                                                <script type="text/javascript">
+                                                    $(function() {
+                                                        var totalCount,
+                                                            page,
+                                                            perPage = 7;
+                                                        $('#jabatan').selectize({
+                                                            plugins: ['hide-arrow', 'selectable-placeholder', 'infinite-scroll'],
+                                                            valueField: 'kdjabatan',
+                                                            labelField: 'nmjabatan',
+                                                            searchField: ['nmjabatan'],
+                                                            options: [],
+                                                            create: false,
+                                                            render: {
+                                                                option: function(item, escape) {
+                                                                    return '' +
+                                                                        '<div class=\'row\'>' +
+                                                                        '<div class=\'col-xs-2 col-md-2 text-nowrap\'>' + escape(item.kdjabatan) + '</div>' +
+                                                                        '<div class=\'col-xs-5 col-md-5 text-nowrap\'>' + escape(item.nmjabatan) + '</div>' +
+                                                                        '</div>' +
+                                                                        '';
+                                                                }
+                                                            },
+                                                            load: function(query, callback) {
+                                                                query = JSON.parse(query);
+                                                                page = query.page || 1;
+
+                                                                if(!totalCount || totalCount > ((page - 1) * perPage)) {
+                                                                    $.post(base('master/department/req_jabatan'), {
+                                                                        _search_: query.search,
+                                                                        _perpage_: perPage,
+                                                                        _page_: page,
+                                                                        kdsubdept: $('#subdept').val()
+                                                                    }).done(function(json) {
+                                                                        totalCount = json.totalcount;
+                                                                        callback(json.group);
+                                                                    }).fail(function(jqxhr, textStatus, error) {
+                                                                        callback();
+                                                                    });
+                                                                } else {
+                                                                    callback();
+                                                                }
+                                                            }
+                                                        });
+                                                    });
+                                                </script>
+<!--                                                <div class="form-group">-->
+<!--                                                    <label class="control-label col-sm-3">Grading Level Jabatan</label>-->
+<!--                                                    <div class="col-sm-8">-->
+<!--                                                        <select name="kdgradejabatan" id='kdgradejabatan' class="form-control col-sm-12" >-->
+<!--                                                            <option value="">-KOSONG-</option>-->
+<!--                                                            --><?php //foreach ($list_opt_m_grade_jabatan as $xjab){ ?>
+<!--                                                                <option value="--><?php //echo trim($xjab->kdgradejabatan);?><!--">--><?php //echo trim($xjab->nmgradejabatan);?><!--</option>-->
+<!--                                                            --><?php //};?>
+<!--                                                        </select>-->
+<!--                                                    </div>-->
+<!--                                                </div>-->
                                                 <div class="form-group">
-                                                    <label class="control-label col-sm-3">Grading Level Jabatan</label>
+                                                    <label class="control-label col-sm-3">Job Grade</label>
                                                     <div class="col-sm-8">
-                                                        <select name="kdgradejabatan" id='kdgradejabatan' class="form-control col-sm-12" >
-                                                            <option value="">-KOSONG-</option>
-                                                            <?php foreach ($list_opt_m_grade_jabatan as $xjab){ ?>
-                                                                <option value="<?php echo trim($xjab->kdgradejabatan);?>"><?php echo trim($xjab->nmgradejabatan);?></option>
-                                                            <?php };?>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="control-label col-sm-3">Level Jabatan</label>
-                                                    <div class="col-sm-8">
-                                                        <select name="lvl_jabatan" class="form-control input-sm " placeholder="---KETIK LEVEL JABATAN---" id="lvl_jabatan">
+                                                        <select name="lvl_jabatan" class="form-control input-sm " placeholder="---KETIK JOB GRADE---" id="lvl_jabatan">
                                                             <option value="" class=""></option>
                                                         </select>
                                                     </div>
@@ -955,7 +1072,7 @@
                                                                 option: function(item, escape) {
                                                                     return '' +
                                                                         '<div class=\'row\'>' +
-                                                                        '<div class=\'col-xs-5 col-md-5 text-nowrap\'>' + escape(item.kdlvl) + '</div>' +
+                                                                        '<div class=\'col-xs-2 col-md-2 text-nowrap\'>' + escape(item.kdlvl) + '</div>' +
                                                                         '<div class=\'col-xs-5 col-md-5 text-nowrap\'>' + escape(item.nmlvljabatan) + '</div>' +
                                                                         '</div>' +
                                                                         '';
@@ -969,34 +1086,29 @@
                                                                     $.post(base('master/jabatan/req_lvljabatan'), {
                                                                         _search_: query.search,
                                                                         _perpage_: perPage,
-                                                                        _page_: page,
-                                                                        _paramlvljab_: ""
-                                                                    })
-                                                                        .done(function(json) {
-                                                                            console.log('JSON Data: ' + JSON.stringify(json, null, '\t'));
-                                                                            totalCount = json.totalcount;
-                                                                            callback(json.group);
-                                                                        })
-                                                                        .fail(function( jqxhr, textStatus, error ) {
-                                                                            callback();
-                                                                        });
+                                                                        _page_: page
+                                                                    }).done(function(json) {
+                                                                        totalCount = json.totalcount;
+                                                                        callback(json.group);
+                                                                    }).fail(function( jqxhr, textStatus, error ) {
+                                                                        callback();
+                                                                    });
                                                                 } else {
                                                                     callback();
                                                                 }
                                                             }
                                                         }).on('change click', function() {
-                                                            console.log('lvl_jabatan >> on.change');
-                                                            console.log('grade_golongan >> clear');
-                                                            $('#grade_golongan')[0].selectize.clearOptions();
+                                                            $('#grade_golongan').selectize()[0].selectize.clearOptions();
+                                                            $('#kdlvlgp').selectize()[0].selectize.clearOptions();
                                                         });
 
 
                                                     });
                                                 </script>
                                                 <div class="form-group">
-                                                    <label class="control-label col-sm-3">Job Grade</label>
+                                                    <label class="control-label col-sm-3">Level Grade</label>
                                                     <div class="col-sm-8">
-                                                        <select name="grade_golongan" class="form-control input-sm " placeholder="---KETIK JOB GRADE---" id="grade_golongan">
+                                                        <select name="grade_golongan" class="form-control input-sm " placeholder="---KETIK LEVEL GRADE---" id="grade_golongan">
                                                             <option value="" class=""></option>
                                                         </select>
                                                     </div>
@@ -1017,7 +1129,7 @@
                                                                 option: function(item, escape) {
                                                                     return '' +
                                                                         '<div class=\'row\'>' +
-                                                                        '<div class=\'col-xs-5 col-md-5 text-nowrap\'>' + escape(item.kdgrade) + '</div>' +
+                                                                        '<div class=\'col-xs-2 col-md-2 text-nowrap\'>' + escape(item.kdgrade) + '</div>' +
                                                                         '<div class=\'col-xs-5 col-md-5 text-nowrap\'>' + escape(item.nmgrade) + '</div>' +
                                                                         '</div>' +
                                                                         '';
@@ -1032,33 +1144,28 @@
                                                                         _search_: query.search,
                                                                         _perpage_: perPage,
                                                                         _page_: page,
-                                                                        _lvl_jabatan_: $('#lvl_jabatan').val()
-                                                                    })
-                                                                        .done(function(json) {
-                                                                            console.log('JSON Data: ' + JSON.stringify(json, null, '\t'));
-                                                                            totalCount = json.totalcount;
-                                                                            callback(json.group);
-                                                                        })
-                                                                        .fail(function( jqxhr, textStatus, error ) {
-                                                                            callback();
-                                                                        });
+                                                                        lvl_jabatan: $('#lvl_jabatan').val()
+                                                                    }).done(function(json) {
+                                                                        totalCount = json.totalcount;
+                                                                        callback(json.group);
+                                                                    }).fail(function( jqxhr, textStatus, error ) {
+                                                                        callback();
+                                                                    });
                                                                 } else {
                                                                     callback();
                                                                 }
                                                             }
                                                         }).on('change click', function() {
-                                                            console.log('grade_golongan >> on.change');
-                                                            console.log('kdlvlgp >> clear');
-                                                            $('#kdlvlgp')[0].selectize.clearOptions();
+                                                            $('#kdlvlgp').selectize()[0].selectize.clearOptions();
                                                         });
 
 
                                                     });
                                                 </script>
                                                 <div class="form-group">
-                                                    <label class="control-label col-sm-3">Level Grade</label>
+                                                    <label class="control-label col-sm-3">Golongan</label>
                                                     <div class="col-sm-8">
-                                                        <select name="kdlvlgp" class="form-control input-sm " placeholder="---KETIK LEVEL GRADE---" id="kdlvlgp">
+                                                        <select name="kdlvlgp" class="form-control input-sm " placeholder="---KETIK GOLONGAN---" id="kdlvlgp">
                                                             <option value="" class=""></option>
                                                         </select>
                                                     </div>
@@ -1093,16 +1200,13 @@
                                                                         _search_: query.search,
                                                                         _perpage_: perPage,
                                                                         _page_: page,
-                                                                        _grade_golongan_: $('#grade_golongan').val()
-                                                                    })
-                                                                        .done(function(json) {
-                                                                            console.log('JSON Data: ' + JSON.stringify(json, null, '\t'));
-                                                                            totalCount = json.totalcount;
-                                                                            callback(json.group);
-                                                                        })
-                                                                        .fail(function( jqxhr, textStatus, error ) {
-                                                                            callback();
-                                                                        });
+                                                                        grade_golongan: $('#grade_golongan').val()
+                                                                    }).done(function(json) {
+                                                                        totalCount = json.totalcount;
+                                                                        callback(json.group);
+                                                                    }).fail(function( jqxhr, textStatus, error ) {
+                                                                        callback();
+                                                                    });
                                                                 } else {
                                                                     callback();
                                                                 }
@@ -1248,7 +1352,7 @@
                                                 <div class="form-group">
                                                     <label class="control-label col-sm-3">Nama BANK</label>
                                                     <div class="col-sm-9">
-                                                        <select name="namabank" id='dept' class="form-control col-sm-12" >
+                                                        <select name="namabank" id='namabank' class="form-control col-sm-12" >
                                                             <?php foreach ($list_opt_bank as $lbank){ ?>
                                                                 <option value="<?php echo trim($lbank->kdbank);?>" ><?php echo trim($lbank->nmbank);?></option>
                                                             <?php };?>

@@ -29,6 +29,18 @@ class Fiky_grade
          */
     }
 
+    function list_department($param = null){
+        return $this->_CI->db->query("select * from sc_mst.departmen where kddept is not null $param order by kddept asc");
+    }
+
+    function list_subdepartment($param = null){
+        return $this->_CI->db->query("select * from sc_mst.subdepartmen where kdsubdept is not null $param order by kdsubdept asc");
+    }
+
+    function list_jabatan($param = null){
+        return $this->_CI->db->query("select * from sc_mst.jabatan where kdjabatan is not null $param order by kdjabatan asc");
+    }
+
     function list_lvljabatan($param = null){
         return $this->_CI->db->query("select * from sc_mst.lvljabatan where kdlvl is not null $param order by kdlvl asc");
     }
@@ -47,6 +59,111 @@ class Fiky_grade
                                         order by kdlvlgp");
     }
 
+    function getDepartment($p){
+        $gmed=json_decode($p);
+        $gmed->search;
+        $search = $gmed->search;
+        $perpage = $gmed->perpage;
+        $page = $gmed->page;
+        $param_c="";
+        $count = $this->list_department($param_c)->num_rows();
+        $search = strtoupper(urldecode($search));
+
+        $perpage = intval($perpage);
+        $perpage = $perpage < 1 ? $count : $perpage;
+
+
+        $page = intval($page);
+        $limit = $perpage * $page;
+
+        $param=" and (kddept ilike '%$search%' or nmdept ilike '%$search%')";
+        $result = $this->list_department($param)->result();
+        header('Content-Type: application/json');
+        $datanya = json_encode(
+            array(
+                'totalcount' => $count,
+                'search' => $search,
+                'perpage' => $perpage,
+                'page' => $page,
+                'limit' => $limit,
+                'group' => $result
+            ),
+            JSON_PRETTY_PRINT
+        );
+        return $datanya;
+    }
+
+    function getSubDepartment($p){
+        $gmed=json_decode($p);
+        $gmed->search;
+        $search = $gmed->search;
+        $perpage = $gmed->perpage;
+        $page = $gmed->page;
+        $kddept = $gmed->kddept;
+        $param_c="";
+        $count = $this->list_subdepartment($param_c)->num_rows();
+        $search = strtoupper(urldecode($search));
+
+        $perpage = intval($perpage);
+        $perpage = $perpage < 1 ? $count : $perpage;
+
+
+        $page = intval($page);
+        $limit = $perpage * $page;
+
+        $param=" and kddept = '$kddept' and (kdsubdept ilike '%$search%' or nmsubdept ilike '%$search%')";
+        $result = $this->list_subdepartment($param)->result();
+        header('Content-Type: application/json');
+        $datanya = json_encode(
+            array(
+                'totalcount' => $count,
+                'search' => $search,
+                'perpage' => $perpage,
+                'page' => $page,
+                'limit' => $limit,
+                'group' => $result,
+                'kddept' => $kddept
+            ),
+            JSON_PRETTY_PRINT
+        );
+        return $datanya;
+    }
+
+    function getJabatan($p){
+        $gmed=json_decode($p);
+        $gmed->search;
+        $search = $gmed->search;
+        $perpage = $gmed->perpage;
+        $page = $gmed->page;
+        $kdsubdept = $gmed->kdsubdept;
+        $param_c="";
+        $count = $this->list_jabatan($param_c)->num_rows();
+        $search = strtoupper(urldecode($search));
+
+        $perpage = intval($perpage);
+        $perpage = $perpage < 1 ? $count : $perpage;
+
+
+        $page = intval($page);
+        $limit = $perpage * $page;
+
+        $param=" and kdsubdept = '$kdsubdept' and (kdjabatan ilike '%$search%' or nmjabatan ilike '%$search%')";
+        $result = $this->list_jabatan($param)->result();
+        header('Content-Type: application/json');
+        $datanya = json_encode(
+            array(
+                'totalcount' => $count,
+                'search' => $search,
+                'perpage' => $perpage,
+                'page' => $page,
+                'limit' => $limit,
+                'group' => $result,
+                'kdsubdept' => $kdsubdept
+            ),
+            JSON_PRETTY_PRINT
+        );
+        return $datanya;
+    }
 
    function getLvljabatan($p){
        $gmed=json_decode($p);
@@ -54,7 +171,6 @@ class Fiky_grade
        $search = $gmed->search;
        $perpage = $gmed->perpage;
        $page = $gmed->page;
-       $paramlvljab = $gmed->paramlvljab;
        $param_c="";
        $count = $this->list_lvljabatan($param_c)->num_rows();
        $search = strtoupper(urldecode($search));
@@ -66,7 +182,7 @@ class Fiky_grade
        $page = intval($page);
        $limit = $perpage * $page;
 
-       $param=" and (kdlvl like '%$search%' $paramlvljab ) or (nmlvljabatan like '%$search%' $paramlvljab )";
+       $param=" and (kdlvl ilike '%$search%' or nmlvljabatan ilike '%$search%')";
        $result = $this->list_lvljabatan($param)->result();
        header('Content-Type: application/json');
        $datanya = json_encode(
@@ -76,8 +192,7 @@ class Fiky_grade
                'perpage' => $perpage,
                'page' => $page,
                'limit' => $limit,
-               'group' => $result,
-               'paramlvljab' => $paramlvljab
+               'group' => $result
            ),
            JSON_PRETTY_PRINT
        );
@@ -102,7 +217,7 @@ class Fiky_grade
 
        $page = intval($page);
        $limit = $perpage * $page;
-       $param=" and (kdlvl='$lvl_jabatan' and nmgrade like '%$search%') or (kdlvl='$lvl_jabatan' and nmgrade like '%$search%')";
+       $param=" and kdlvl = '$lvl_jabatan' and (nmgrade ilike '%$search%' or nmgrade ilike '%$search%')";
        $result = $this->list_grade($param)->result();
        header('Content-Type: application/json');
        echo json_encode(
@@ -129,8 +244,8 @@ class Fiky_grade
 
 
         $dtlgrade= $this->list_grade(" and kdgrade='$grade_golongan'")->row_array();
-        $kdlvlgpmin = $dtlgrade['kdlvlgpmin'];
-        $kdlvlgpmax = $dtlgrade['kdlvlgpmax'];
+        $kdlvlgpmin = trim($dtlgrade['kdlvlgpmin']);
+        $kdlvlgpmax = trim($dtlgrade['kdlvlgpmax']);
 
         $param_c="";
         $count = $this->list_lvlgaji($param_c)->num_rows();
@@ -142,7 +257,7 @@ class Fiky_grade
 
         $page = intval($page);
         $limit = $perpage * $page;
-        $param=" and (kdlvlgp between '$kdlvlgpmin' and '$kdlvlgpmax' and kdlvlgp like '%$search%')";
+        $param=" and kdlvlgp between '$kdlvlgpmin' and '$kdlvlgpmax' and kdlvlgp ilike '%$search%'";
         $result = $this->list_lvlgaji($param)->result();
         header('Content-Type: application/json');
         echo json_encode(

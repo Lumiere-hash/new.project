@@ -42,7 +42,7 @@ class Jabatan extends MX_Controller{
 	function lvljabatan(){
         //echo "test";
 		$nama=$this->session->userdata('nik');
-		$data['title']="List Master Level Jabatan";
+		$data['title']="List Master Job Grade";
 		
 		if($this->uri->segment(4)=="kode_failed")
             $data['message']="<div class='alert alert-warning'>Kode Sudah Ada</div>";
@@ -62,7 +62,7 @@ class Jabatan extends MX_Controller{
 	function jobgrade(){
         //echo "test";
 		$nama=$this->session->userdata('nik');
-		$data['title']="List Master Job Grade";
+		$data['title']="List Master Level Grade";
 		
 		if($this->uri->segment(4)=="kode_failed")
             $data['message']="<div class='alert alert-warning'>Kode Sudah Ada</div>";
@@ -359,8 +359,7 @@ class Jabatan extends MX_Controller{
             array(
                 'search' => $this->input->post('_search_'),
                 'perpage' => $this->input->post('_perpage_'),
-                'page' => $this->input->post('_page_'),
-                'paramlvljab' => $this->input->post('_paramlvljab_'),
+                'page' => $this->input->post('_page_')
             ),JSON_PRETTY_PRINT
         );
         echo $this->fiky_grade->getLvljabatan($data);
@@ -372,7 +371,7 @@ class Jabatan extends MX_Controller{
                 'search' => $this->input->post('_search_'),
                 'perpage' => $this->input->post('_perpage_'),
                 'page' => $this->input->post('_page_'),
-                'lvl_jabatan' => $this->input->post('_lvl_jabatan_'),
+                'lvl_jabatan' => $this->input->post('lvl_jabatan'),
             ),JSON_PRETTY_PRINT
         );
         echo $this->fiky_grade->getJobgrade($data);
@@ -386,7 +385,7 @@ class Jabatan extends MX_Controller{
                 'search' => $this->input->post('_search_'),
                 'perpage' => $this->input->post('_perpage_'),
                 'page' => $this->input->post('_page_'),
-                'grade_golongan' => $this->input->post('_grade_golongan_'),
+                'grade_golongan' => $this->input->post('grade_golongan'),
             ),JSON_PRETTY_PRINT
         );
         echo $this->fiky_grade->getKdlvlgp($data);
