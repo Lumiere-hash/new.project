@@ -5,50 +5,88 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/config/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/config/config.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/config/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/config/database.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/libraries/fiky_grade.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_grade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/master/controllers/department.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/master/controllers/department.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/master/controllers/jabatan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/master/controllers/jabatan.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/master/views/jabatan/v_jabatan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/master/views/jabatan/v_jabatan.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/master/views/jobgrade/v_jobgrade.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/master/views/jobgrade/v_jobgrade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/master/views/lvljabatan/v_lvljabatan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/master/views/lvljabatan/v_lvljabatan.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/payroll/controllers/master.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/payroll/controllers/master.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/payroll/views/master/v_master_lvlgp.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/payroll/views/master/v_master_lvlgp.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-01-26.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-01-27.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-01-28.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-01-29.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-01-30.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-01-31.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-01.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-02.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-03.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-04.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-05.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-06.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-07.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-08.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-09.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-10.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-11.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-12.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-13.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-14.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-15.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-16.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-17.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-18.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-19.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-20.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-21.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-22.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-23.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-24.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-25.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-26.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-27.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-02-28.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-03-01.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-03-02.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-03-03.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-03-04.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-03-05.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-03-07.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-03-08.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-03-09.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-03-10.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-03-12.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-03-13.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-03-15.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-03-16.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-03-19.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-03-25.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-04-01.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-04-09.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-04-21.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-04-30.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-05-03.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-05-04.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-05-05.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-05-11.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-05-12.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-05-17.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-05-18.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-05-19.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-05-20.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-05-21.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-05-31.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-06-07.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-06-09.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/logs/log-2021-06-10.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/master/models/m_jabatan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/master/models/m_jabatan.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/karyawan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/karyawan.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan/v_detailhrdkary.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/karyawan/v_detailhrdkary.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan/v_editkary.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/karyawan/v_editkary.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan/v_karyawan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/karyawan/v_karyawan.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1621473296.9578.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1621473307.2858.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/export_directory/DEPARTMEN.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/DEPARTMEN.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/export_directory/DETAIL_FORMULA.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/DETAIL_FORMULA.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/export_directory/EXPORTCSV.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/EXPORTCSV.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/export_directory/IMPORTCSV.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/IMPORTCSV.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/export_directory/JADWAL_KERJA.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/JADWAL_KERJA.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/export_directory/MST_BPJS.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/MST_BPJS.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/export_directory/MST_JABATAN.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/MST_JABATAN.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/export_directory/MST_KARYAWAN.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/MST_KARYAWAN.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/export_directory/MST_RIWKEL.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/MST_RIWKEL.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/export_directory/MST_RIWPEND.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/MST_RIWPEND.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/export_directory/MST_RIWPENG.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/MST_RIWPENG.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/export_directory/MST_STATPEG.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/MST_STATPEG.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/export_directory/OPTION.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/OPTION.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/export_directory/TRANSREADY.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/export_directory/TRANSREADY.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/DEPARTMEN.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/DEPARTMEN.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/DETAIL_FORMULA.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/DETAIL_FORMULA.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/EXPORTCSV.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/EXPORTCSV.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/JADWAL_KERJA.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/JADWAL_KERJA.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_BPJS.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_BPJS.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_JABATAN.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_JABATAN.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_KARYAWAN.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_KARYAWAN.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_RIWKEL.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_RIWKEL.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_RIWPEND.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_RIWPEND.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_RIWPENG.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_RIWPENG.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_STATPEG.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/MST_STATPEG.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/OPTION.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/OPTION.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/TRANSREADY.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/TRANSREADY.CSV" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/import_directory/export_directory/m_wilayah_nominal.CSV" beforeDir="false" afterPath="$PROJECT_DIR$/assets/import_directory/export_directory/m_wilayah_nominal.CSV" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1623300763.6539.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1623300771.0145.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1623300775.0892.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1623306027.24.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migration/20210610.sql" beforeDir="false" afterPath="$PROJECT_DIR$/migration/20210610.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -370,7 +408,7 @@
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="PostgreSQL" />
     <property name="database.console.LAST_STATE" value="true" />
     <property name="database.data.extractors.current.id" value="SQL-Insert-Statements.sql.groovy" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/application/views" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="D:\JetBrains\apps\PhpStorm\ch-0\203.7148.74\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
@@ -378,11 +416,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\application\views" />
+      <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\application\controllers" />
       <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\application\modules\trans\views\report" />
       <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\application\libraries" />
       <recent name="D:\WAPP\apache2\htdocs\hrdnew\application\views\leavesession" />
-      <recent name="D:\WAPP\apache2\htdocs\hrdnew\application\libraries\fiky_ecopos" />
-      <recent name="D:\WAPP\apache2\htdocs\hrdnew\application\libraries" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\application\libraries" />
@@ -641,7 +679,12 @@
       <workItem from="1623042254983" duration="587000" />
       <workItem from="1623050316921" duration="670000" />
       <workItem from="1623219429788" duration="5467000" />
-      <workItem from="1623287565521" duration="10381000" />
+      <workItem from="1623287565521" duration="17517000" />
+      <workItem from="1623383207461" duration="14000" />
+      <workItem from="1623383485049" duration="146000" />
+      <workItem from="1623385265707" duration="11000" />
+      <workItem from="1623401366949" duration="190000" />
+      <workItem from="1623461748188" duration="5608000" />
     </task>
     <servers />
   </component>

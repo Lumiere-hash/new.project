@@ -1052,7 +1052,7 @@
 				<div class="col-sm-12">
 				  <h3> Step 6</h3>
 					<div class="form-group">
-						<label class="control-label col-sm-3">Department</label>
+						<label class="control-label col-sm-3">Departemen</label>
 						<div class="col-sm-8">
 							<select name="dept" id='dept' class="form-control col-sm-12">
 								<?php foreach ($list_opt_dept as $lodept){ ?>
@@ -1062,7 +1062,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label col-sm-3">Sub Department</label>
+						<label class="control-label col-sm-3">Sub Departemen</label>
 						<div class="col-sm-8" >
 							<select name="subbag_dept" id='subdept' class="form-control col-sm-12" >
 								<option value="">-KOSONG-</option>
@@ -1076,7 +1076,8 @@
 					  $(function() {
 						$("#subdept").chained("#dept");
 						$("#jabatan").chained("#subdept");
-						///$("#jobgrade").chained("#lvljabatan");
+                        $("#grade_golongan").chained("#lvl_jabatan");
+                        $("#kdlvlgp").chained("#grade_golongan");
 					  });
 					</script>
 					<div class="form-group">
@@ -1090,198 +1091,50 @@
 							</select>
 						</div>
 					</div>
+<!--                    <div class="form-group">-->
+<!--                        <label class="control-label col-sm-3">Grading Level Jabatan</label>-->
+<!--                        <div class="col-sm-8">-->
+<!--                            <select name="kdgradejabatan" id='kdgradejabatan' class="form-control col-sm-12" >-->
+<!--                                <option value="">-KOSONG-</option>-->
+<!--                                --><?php //foreach ($list_opt_m_grade_jabatan as $xjab){ ?>
+<!--                                    <option value="--><?php //echo trim($xjab->kdgradejabatan);?><!--"--><?php //if (trim($dtl['kdgradejabatan'])===trim($xjab->kdgradejabatan)) { echo 'selected';}?><!-- >--><?php //echo trim($xjab->nmgradejabatan);?><!--</option>-->
+<!--                                --><?php //};?>
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                    </div>-->
                     <div class="form-group">
-                        <label class="control-label col-sm-3">Grading Level Jabatan</label>
+                        <label class="control-label col-sm-3">Job Grade</label>
                         <div class="col-sm-8">
-                            <select name="kdgradejabatan" id='kdgradejabatan' class="form-control col-sm-12" >
+                            <select name="lvl_jabatan" id='lvl_jabatan' class="form-control col-sm-12" >
                                 <option value="">-KOSONG-</option>
-                                <?php foreach ($list_opt_m_grade_jabatan as $xjab){ ?>
-                                    <option value="<?php echo trim($xjab->kdgradejabatan);?>"<?php if (trim($dtl['kdgradejabatan'])===trim($xjab->kdgradejabatan)) { echo 'selected';}?> ><?php echo trim($xjab->nmgradejabatan);?></option>
+                                <?php foreach ($list_opt_lvljabt as $lo_ljabt){ ?>
+                                    <option value="<?php echo trim($lo_ljabt->kdlvl);?>" <?php if (trim($dtl['lvl_jabatan'])==trim($lo_ljabt->kdlvl)) { echo 'selected';}?>><?php echo trim($lo_ljabt->nmlvljabatan);?></option>
                                 <?php };?>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-3">Level Jabatan</label>
-                        <div class="col-sm-8">
-                            <select name="lvl_jabatan" class="form-control input-sm " placeholder="---KETIK LEVEL JABATAN---" id="lvl_jabatan">
-                                <option value="<?php echo trim($dtl['lvl_jabatan']);?>" class=""><?php echo trim($dtl['nmlvljabatan']);?></option>
-                            </select>
-                        </div>
-                    </div>
-<script type="text/javascript">
-                        $(function() {
-                            var totalCount,
-                                page,
-                                perPage = 7;
-                            $('#lvl_jabatan').selectize({
-                                plugins: ['hide-arrow', 'selectable-placeholder', 'infinite-scroll'],
-                                valueField: 'kdlvl',
-                                labelField: 'nmlvljabatan',
-                                searchField: ['nmlvljabatan'],
-                                options: [],
-                                create: false,
-                                render: {
-                                    option: function(item, escape) {
-                                        return '' +
-                                            '<div class=\'row\'>' +
-                                            '<div class=\'col-xs-5 col-md-5 text-nowrap\'>' + escape(item.kdlvl) + '</div>' +
-                                            '<div class=\'col-xs-5 col-md-5 text-nowrap\'>' + escape(item.nmlvljabatan) + '</div>' +
-                                            '</div>' +
-                                            '';
-                                    }
-                                },
-                                load: function(query, callback) {
-                                    query = JSON.parse(query);
-                                    page = query.page || 1;
-
-                                    if( ! totalCount || totalCount > ( (page - 1) * perPage) ){
-                                        $.post(base('master/jabatan/req_lvljabatan'), {
-                                            _search_: query.search,
-                                            _perpage_: perPage,
-                                            _page_: page,
-                                            _paramlvljab_: ""
-                                        })
-                                            .done(function(json) {
-                                                console.log('JSON Data: ' + JSON.stringify(json, null, '\t'));
-                                                totalCount = json.totalcount;
-                                                callback(json.group);
-                                            })
-                                            .fail(function( jqxhr, textStatus, error ) {
-                                                callback();
-                                            });
-                                    } else {
-                                        callback();
-                                    }
-                                }
-                            }).on('change click', function() {
-                                console.log('lvl_jabatan >> on.change');
-                                console.log('grade_golongan >> clear');
-                                $('#grade_golongan')[0].selectize.clearOptions();
-                            });
-
-
-                        });
-                    </script>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3">Job Grade</label>
-                        <div class="col-sm-8">
-                            <select name="grade_golongan" class="form-control input-sm " placeholder="---KETIK JOB GRADE---" id="grade_golongan">
-                                <option value="<?php echo trim($dtl['grade_golongan']);?>" class=""><?php echo trim($dtl['nmgrade']);?></option>
-                            </select>
-                        </div>
-                    </div>
-<script type="text/javascript">
-                        $(function() {
-                            var totalCount,
-                                page,
-                                perPage = 7;
-                            $('#grade_golongan').selectize({
-                                plugins: ['hide-arrow', 'selectable-placeholder', 'infinite-scroll'],
-                                valueField: 'kdgrade',
-                                labelField: 'nmgrade',
-                                searchField: ['nmgrade'],
-                                options: [],
-                                create: false,
-                                render: {
-                                    option: function(item, escape) {
-                                        return '' +
-                                            '<div class=\'row\'>' +
-                                            '<div class=\'col-xs-5 col-md-5 text-nowrap\'>' + escape(item.kdgrade) + '</div>' +
-                                            '<div class=\'col-xs-5 col-md-5 text-nowrap\'>' + escape(item.nmgrade) + '</div>' +
-                                            '</div>' +
-                                            '';
-                                    }
-                                },
-                                load: function(query, callback) {
-                                    query = JSON.parse(query);
-                                    page = query.page || 1;
-
-                                    if( ! totalCount || totalCount > ( (page - 1) * perPage) ){
-                                        $.post(base('master/jabatan/req_jobgrade'), {
-                                            _search_: query.search,
-                                            _perpage_: perPage,
-                                            _page_: page,
-                                            _lvl_jabatan_: $('#lvl_jabatan').val()
-                                        })
-                                            .done(function(json) {
-                                                console.log('JSON Data: ' + JSON.stringify(json, null, '\t'));
-                                                totalCount = json.totalcount;
-                                                callback(json.group);
-                                            })
-                                            .fail(function( jqxhr, textStatus, error ) {
-                                                callback();
-                                            });
-                                    } else {
-                                        callback();
-                                    }
-                                }
-                            }).on('change click', function() {
-                                console.log('grade_golongan >> on.change');
-                                console.log('kdlvlgp >> clear');
-                                $('#kdlvlgp')[0].selectize.clearOptions();
-                            });
-
-
-                        });
-                    </script>
-                    <div class="form-group">
                         <label class="control-label col-sm-3">Level Grade</label>
                         <div class="col-sm-8">
-                            <select name="kdlvlgp" class="form-control input-sm " placeholder="---KETIK LEVEL GRADE---" id="kdlvlgp">
-                                <option value="<?php echo trim($dtl['kdlvlgp']);?>" class=""><?php echo trim($dtl['kdlvlgp']);?></option>
+                            <select name="grade_golongan" id='grade_golongan' class="form-control col-sm-12" >
+                                <option value="">-KOSONG-</option>
+                                <?php foreach ($list_opt_goljabt as $lo_gjabt){ ?>
+                                    <option value="<?php echo trim($lo_gjabt->kdgrade);?>" <?php if (trim($dtl['grade_golongan'])==trim($lo_gjabt->kdgrade)) { echo 'selected';}?> class="<?php echo trim($lo_gjabt->kdlvl);?>"><?php echo trim($lo_gjabt->nmgrade);?></option>
+                                <?php };?>
                             </select>
                         </div>
                     </div>
-<script type="text/javascript">
-                        $(function() {
-                            var totalCount,
-                                page,
-                                perPage = 7;
-                            $('#kdlvlgp').selectize({
-                                plugins: ['hide-arrow', 'selectable-placeholder', 'infinite-scroll'],
-                                valueField: 'kdlvlgp',
-                                labelField: 'kdlvlgp',
-                                searchField: ['kdlvlgp'],
-                                options: [],
-                                create: false,
-                                render: {
-                                    option: function(item, escape) {
-                                        return '' +
-                                            '<div class=\'row\'>' +
-                                            '<div class=\'col-xs-5 col-md-5 text-nowrap\'>' + escape(item.kdlvlgp) + '</div>' +
-                                            '</div>' +
-                                            '';
-                                    }
-                                },
-                                load: function(query, callback) {
-                                    query = JSON.parse(query);
-                                    page = query.page || 1;
-
-                                    if( ! totalCount || totalCount > ( (page - 1) * perPage) ){
-                                        $.post(base('master/jabatan/req_kdlvlgp'), {
-                                            _search_: query.search,
-                                            _perpage_: perPage,
-                                            _page_: page,
-                                            _grade_golongan_: $('#grade_golongan').val()
-                                        })
-                                            .done(function(json) {
-                                                console.log('JSON Data: ' + JSON.stringify(json, null, '\t'));
-                                                totalCount = json.totalcount;
-                                                callback(json.group);
-                                            })
-                                            .fail(function( jqxhr, textStatus, error ) {
-                                                callback();
-                                            });
-                                    } else {
-                                        callback();
-                                    }
-                                }
-                            });
-
-
-                        });
-                    </script>
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">Golongan</label>
+                        <div class="col-sm-8">
+                            <select name="kdlvlgp" id='kdlvlgp' class="form-control col-sm-12" >
+                                <option value="">-KOSONG-</option>
+                                <?php foreach ($list_opt_lvlgp as $lo_lvlgp){ ?>
+                                    <option value="<?php echo trim($lo_lvlgp->kdlvlgp);?>" <?php if (trim($dtl['kdlvlgp'])==trim($lo_lvlgp->kdlvlgp)) { echo 'selected';}?> class="<?php echo trim($lo_lvlgp->kdgrade);?>"><?php echo trim($lo_lvlgp->kdlvlgp);?></option>
+                                <?php };?>
+                            </select>
+                        </div>
+                    </div>
 					<div class="form-group">
 						<label class="control-label col-sm-3">Atasan</label>
 						<div class="col-sm-8">

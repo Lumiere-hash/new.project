@@ -39,10 +39,7 @@ if (defined('ENVIRONMENT'))
 	
 		case 'testing':
 		case 'production':
-//			error_reporting(0);
-            error_reporting(E_ALL ^ E_NOTICE);
-
-            // Don't display errors (they can still be logged)
+			error_reporting(0);
             ini_set('display_errors', 0);
 		break;
 

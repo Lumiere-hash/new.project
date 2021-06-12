@@ -245,7 +245,7 @@ $config['encryption_key'] = 'sdflsdfase34534sdfpweroawewauascvasvasd23423asdkwje
 |
 */
 $config['sess_cookie_name']		= 'osin_session';
-$config['sess_expiration']		= 7200;
+$config['sess_expiration']		= 0;
 $config['sess_expire_on_close']	= TRUE;
 $config['sess_encrypt_cookie']	= FALSE;
 $config['sess_use_database']	= TRUE;

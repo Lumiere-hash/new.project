@@ -56,7 +56,9 @@ class M_jabatan extends CI_Model{
 	}
 
 	function q_lvlgp($param=null){
-	    return $this->db->query("select * from sc_mst.m_lvlgp where kdlvlgp is not null $param order by kdlvlgp asc");
+	    return $this->db->query("select a.*, b.kdgrade from sc_mst.m_lvlgp a
+        left join sc_mst.jobgrade b on a.kdlvlgp between b.kdlvlgpmin and b.kdlvlgpmax
+        where a.kdlvlgp is not null and a.c_hold ='NO' $param order by a.kdlvlgp asc");
     }
 
     function q_m_grade_jabatan(){
@@ -66,4 +68,3 @@ class M_jabatan extends CI_Model{
 
 
 
-	

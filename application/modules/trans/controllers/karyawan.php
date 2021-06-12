@@ -327,6 +327,7 @@ class Karyawan extends MX_Controller {
         $data['list_opt_m_grade_jabatan']=$this->m_jabatan->q_m_grade_jabatan()->result();
 		$data['list_opt_lvljabt']=$this->m_jabatan->q_lvljabatan()->result();
         $data['list_opt_goljabt']=$this->m_jabatan->q_jobgrade()->result();
+        $data['list_opt_lvlgp']=$this->m_jabatan->q_lvlgp()->result();
 		$data['list_opt_atasan']=$this->m_karyawan->list_karyawan()->result();
 
 		$data['list_opt_ptkp']=$this->m_bpjs->list_ptkp()->result();

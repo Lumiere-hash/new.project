@@ -64,7 +64,7 @@ error_reporting(0);
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputsub" class="col-sm-4 control-label">Divisi</label>
+                                    <label for="inputsub" class="col-sm-4 control-label">Sub Departemen</label>
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control input-sm" id="nama" name="nama" value="<?php echo $lp['nmsubdept'];?>" readonly>
                                     </div>
@@ -77,9 +77,23 @@ error_reporting(0);
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="darah" class="col-sm-4 control-label">Level Jabatan</label>
+                                    <label for="darah" class="col-sm-4 control-label">Job Grade</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control input-sm" value="<?php echo $lp['lvl_jabatan'];?>" readonly>
+                                        <input type="text" class="form-control input-sm" value="<?php echo $lp['nmlvljabatan'];?>" readonly>
+                                    </div>
+                                    <div class="col-sm-10"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="darah" class="col-sm-4 control-label">Level Grade</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control input-sm" value="<?php echo $lp['nmgrade'];?>" readonly>
+                                    </div>
+                                    <div class="col-sm-10"></div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="darah" class="col-sm-4 control-label">Golongan</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control input-sm" value="<?php echo $lp['kdlvlgp'];?>" readonly>
                                     </div>
                                     <div class="col-sm-10"></div>
                                 </div>
