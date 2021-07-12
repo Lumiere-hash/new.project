@@ -157,6 +157,7 @@ class Mailserver extends MX_Controller{
         else
             $data['message']='';
 		$no_dok='NSANBI';
+
 		$data['dtl_smtp']=$this->m_mailserver->q_smtp($no_dok)->row_array();
 		$this->template->display('mail/mail/v_setup_smtp',$data);
 	}

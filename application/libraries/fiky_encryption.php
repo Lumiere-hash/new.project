@@ -254,6 +254,7 @@ class Fiky_encryption
     }
 
     function createtable(){
+        return null;
         /* Create tabel data */
         return $this->_CI->db->query("
 CREATE TABLE IF NOT EXISTS sc_log.log_time_ext (

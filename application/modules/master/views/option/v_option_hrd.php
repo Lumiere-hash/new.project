@@ -214,7 +214,7 @@
 
     <!-- NOTIF RECEIVER-->
     <div class="tab-pane" id="tab_5" style="position: relative; height: 300px;" >
-        <legend><?php echo $title4;?></legend>
+        <legend><?php echo $title5;?></legend>
         <?php echo $message;?>
         <div class="row">
             <div class="col-xs-12">

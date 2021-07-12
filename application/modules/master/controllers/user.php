@@ -220,7 +220,7 @@ class User extends MX_Controller{
 
 		$expdate=$this->input->post('expdate');
 		$hold=$this->input->post('hold');
-		$cek_user=$this->m_user->cek_user($nama)->num_rows();
+		$cek_user=$this->m_user->cek_user($username)->num_rows();
 		if ($tipe=='input') {
 			if ($cek_user>0){
 				redirect('master/user/index/exist');

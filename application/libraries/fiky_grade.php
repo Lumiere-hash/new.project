@@ -257,7 +257,7 @@ class Fiky_grade
 
         $page = intval($page);
         $limit = $perpage * $page;
-        $param=" and kdlvlgp between '$kdlvlgpmin' and '$kdlvlgpmax' and kdlvlgp ilike '%$search%'";
+        $param=" and kdlvlgp::INT between '$kdlvlgpmin'::INT and '$kdlvlgpmax'::INT and kdlvlgp ilike '%$search%'";
         $result = $this->list_lvlgaji($param)->result();
         header('Content-Type: application/json');
         echo json_encode(

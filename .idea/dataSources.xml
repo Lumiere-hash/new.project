@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/hrms</jdbc-url>
       <vm-options>-Duser.timezone=posix/Asia/Jakartas</vm-options>
     </data-source>
+    <data-source source="LOCAL" name="notification_apps_13012020.DB" uuid="d9ca43c6-06d8-46df-a745-33508f90b1cf">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/../../../../Application/mobile.approval/app/src/main/assets/notification_apps_13012020.DB</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
