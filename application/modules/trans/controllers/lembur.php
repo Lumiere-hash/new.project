@@ -38,7 +38,9 @@ class Lembur extends MX_Controller{
         if(isset($dtlerror['nomorakhir1'])) { $nomorakhir1=trim($dtlerror['nomorakhir1']); } else { $nomorakhir1='';  }
         if(isset($dtlerror['errorcode'])) { $errorcode=trim($dtlerror['errorcode']); } else { $errorcode='';  }
 
-        if($count_err>0 and $errordesc<>''){
+        if($this->uri->segment(4) == "lembur_failed") {
+            $data['message']="<div class='alert alert-danger'>Tanggal Dan Jam Lembur Sudah Ada Harap Input Yang Lain</div>";
+        } else if($count_err>0 and $errordesc<>''){
             if ($dtlerror['errorcode']==0){
                 $data['message']="<div class='alert alert-info'>DATA SUKSES DISIMPAN/DIUBAH $nomorakhir1 </div>";
             } else {

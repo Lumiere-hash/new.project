@@ -6,14 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/karyawan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/karyawan.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan/v_detailhrdkary.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/karyawan/v_detailhrdkary.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan/v_editkary.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/karyawan/v_editkary.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan/v_karyawan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/karyawan/v_karyawan.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1625363026.3363.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1625363034.5034.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migration/20210610.sql" beforeDir="false" afterPath="$PROJECT_DIR$/migration/20210610.Job-Grade/20210610.00.Menu.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/lembur.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/lembur.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -629,7 +622,8 @@
       <workItem from="1625039180791" duration="1321000" />
       <workItem from="1626062691330" duration="5271000" />
       <workItem from="1626225137578" duration="588000" />
-      <workItem from="1627002614539" duration="6104000" />
+      <workItem from="1627002614539" duration="6705000" />
+      <workItem from="1627011264724" duration="536000" />
     </task>
     <servers />
   </component>
