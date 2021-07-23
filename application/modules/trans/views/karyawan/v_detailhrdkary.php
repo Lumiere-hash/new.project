@@ -295,6 +295,13 @@ error_reporting(0);
                                     <div class="col-sm-10"></div>
                                 </div>
                                 <div class="form-group">
+                                    <label for="darah" class="col-sm-4 control-label">Initial</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control input-sm" value="<?php echo $lp['initial'];?>" readonly>
+                                    </div>
+                                    <div class="col-sm-10"></div>
+                                </div>
+                                <div class="form-group">
                                     <label for="darah" class="col-sm-4 control-label">Email</label>
                                     <div class="col-sm-8">
                                         <input type="text" class="form-control input-sm" value="<?php echo $lp['email'];?>" readonly>

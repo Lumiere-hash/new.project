@@ -1421,6 +1421,12 @@
                                                         <input name="cardnumber" style="text-transform:uppercase;" maxlength="12" placeholder="Card Number" class="form-control" type="text">
                                                     </div>
                                                 </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-3">Initial</label>
+                                                    <div class="col-sm-9">
+                                                        <input name="initial" style="text-transform:uppercase;" maxlength="3" placeholder="Initial" class="form-control" type="text">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
