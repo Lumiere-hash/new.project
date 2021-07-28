@@ -104,7 +104,7 @@
 								<label class="col-sm-4">NIK | NAMA PEGAWAI</label>	
 								<div class="col-sm-8">
 									<input type="hidden" class="form-control input-sm-4" value="input" id="tipe" name="tipe" required>
-									<select id="nik" name="nik" class="col-sm-12">
+									<select class="form-control input-sm-4" id="nik" name="nik" class="col-sm-12">
 									<option value=""><?php echo '--PILIH KARYAWAN--';?></option>	
 										<?php
 											foreach ($list_kary as $lk){
@@ -117,26 +117,26 @@
 							<div class="form-group">
 								<label class="col-sm-4">USERNAME</label>	
 								<div class="col-sm-8">    
-									<input type="input" id="username" name="username" style="text-transform: uppercase">
+									<input type="input" class="form-control input-sm-4" id="username" name="username" style="text-transform: uppercase">
 								</div>
 							</div>	
 							<div class="form-group">
 								<label class="col-sm-4">PASSWORD</label>	
 								<div class="col-sm-8">    
-									<input type="password" id="password1" name="passwordweb" pattern=".{6,}" required title="Panjang minimal 6 Karakter, dan terdiri dari angka dan huruf">
+									<input type="password" class="form-control input-sm-4" id="password1" name="passwordweb" pattern=".{6,}" required title="Panjang minimal 6 Karakter, dan terdiri dari angka dan huruf">
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-4">ULANG PASSWORD</label>	
 								<div class="col-sm-8">    
-									<input type="password" id="password2" name="passwordweb2" pattern=".{6,}" required title="Masukan Ulang Password Sama dengan sebelumnya"></input>
+									<input type="password" class="form-control input-sm-4" id="password2" name="passwordweb2" pattern=".{6,}" required title="Masukan Ulang Password Sama dengan sebelumnya"></input>
 								</div>
 							</div>	
 							<div class="form-group">
 								<label class="col-sm-4">LEVEL ID</label>	
 							<div class="col-sm-8">
 									<input type="hidden" class="form-control input-sm-4" value="input" id="tipe" name="tipe" required>
-									<select id="lvlid" name="lvlid" class="col-sm-12">
+									<select class="form-control input-sm-4" id="lvlid" name="lvlid" class="col-sm-12">
 									<option value=""><?php echo '--LEVEL ID--';?></option>	
 										<?php
 											foreach ($list_lvljbt as $lk){
@@ -150,7 +150,7 @@
 								<label class="col-sm-4">LEVEL AKSES</label>	
 							<div class="col-sm-8">
 									<input type="hidden" class="form-control input-sm-4" value="input" id="tipe" name="tipe" required>
-									<select id="lvlakses" name="lvlakses" class="col-sm-12">
+									<select class="form-control input-sm-4" id="lvlakses" name="lvlakses" class="col-sm-12">
 									<option value=""><?php echo '--LEVEL AKSES--';?></option>	
 										<?php
 											foreach ($list_lvljbt as $lk){
@@ -163,7 +163,7 @@
 							<div class="form-group">
 								<label class="col-sm-4">HOLD</label>	
 								<div class="col-sm-8">    
-									<select name="hold" class="col-sm-12">
+									<select class="form-control input-sm-4" name="hold" class="col-sm-12">
 										<option value="N">TIDAK</option>;																																													
 										<option value="Y">IYA</option>;																																																							
 									</select>
@@ -172,9 +172,15 @@
 							<div class="form-group">
 								<label class="col-sm-4">EXPIRED DATE</label>	
 									<div class="col-sm-8">    
-										<input type="text" name="expdate" id="dateinput" required data-date-format="dd-mm-yyyy"></input>
+										<input type="text" class="form-control input-sm-4" name="expdate" id="dateinput" required data-date-format="dd-mm-yyyy"></input>
 									</div>
-							</div>																																			
+							</div>
+                            <div class="form-group">
+                                <label class="col-sm-4">INITIAL</label>
+                                <div class="col-sm-8">
+                                    <input type="input" class="form-control input-sm-4" id="initial" name="initial" style="text-transform: uppercase" maxlength="3">
+                                </div>
+                            </div>
 						</div>
 					</div><!-- /.box-body -->													
 				</div><!-- /.box --> 

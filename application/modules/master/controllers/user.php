@@ -216,6 +216,7 @@ class User extends MX_Controller{
 		$password=md5(($this->input->post('passwordweb')));
 		$lvlid=strtoupper(trim($this->input->post('lvlid')));
 		$lvlakses=strtoupper(trim($this->input->post('lvlakses')));
+		$initial=strtoupper(trim($this->input->post('initial')));
 
 
 		$expdate=$this->input->post('expdate');
@@ -233,6 +234,7 @@ class User extends MX_Controller{
 					'level_id'=>$lvlid,
 					'level_akses'=>$lvlakses,
 					'expdate'=>$expdate,
+					'initial'=>$initial,
 					'hold_id'=>$hold,
 					'image'=>'admin.jpg',
 					'inputdate'=>date('d-m-Y'),
@@ -246,6 +248,7 @@ class User extends MX_Controller{
 			if (empty($password) or $password==''){
 				$info_edit1=array(
 					'expdate'=>$expdate,
+                    'initial'=>$initial,
 					'hold_id'=>$hold,
 					'level_id'=>$lvlid,
 					'level_akses'=>$lvlakses,
@@ -260,6 +263,7 @@ class User extends MX_Controller{
 				$info_edit2=array(
 					'passwordweb'=>$password,
 					'expdate'=>$expdate,
+                    'initial'=>$initial,
 					'hold_id'=>$hold,
 					'level_id'=>$lvlid,
 					'level_akses'=>$lvlakses,
