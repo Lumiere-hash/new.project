@@ -67,8 +67,8 @@ class M_karyawan extends CI_Model {
                                         i4.namakeldesa as nmdesatinggal
                                         from sc_mst.karyawan a
                                             left outer join sc_mst.departmen c on a.bag_dept=c.kddept  
-                                            left outer join sc_mst.subdepartmen d on a.subbag_dept=d.kdsubdept and d.kddept=c.kddept
-                                            left outer join sc_mst.jabatan b on a.subbag_dept=d.kdsubdept and d.kddept=b.kddept and a.jabatan=b.kdjabatan 
+                                            left outer join sc_mst.subdepartmen d on a.subbag_dept=d.kdsubdept and a.bag_dept=d.kddept
+                                            left outer join sc_mst.jabatan b on a.subbag_dept=b.kdsubdept and a.bag_dept=b.kddept and a.jabatan=b.kdjabatan 
                                             left outer join sc_mst.lvljabatan e on a.lvl_jabatan=e.kdlvl
                                             left outer join sc_mst.jobgrade f on a.grade_golongan=f.kdgrade
                                     
@@ -102,8 +102,8 @@ class M_karyawan extends CI_Model {
                                         i4.namakeldesa as nmdesatinggal
                                         from sc_mst.karyawan a
                                             left outer join sc_mst.departmen c on a.bag_dept=c.kddept  
-                                            left outer join sc_mst.subdepartmen d on a.subbag_dept=d.kdsubdept and d.kddept=c.kddept
-                                            left outer join sc_mst.jabatan b on a.subbag_dept=d.kdsubdept and d.kddept=b.kddept and a.jabatan=b.kdjabatan 
+                                            left outer join sc_mst.subdepartmen d on a.subbag_dept=d.kdsubdept and a.bag_dept=d.kddept
+                                            left outer join sc_mst.jabatan b on a.subbag_dept=b.kdsubdept and a.bag_dept=b.kddept and a.jabatan=b.kdjabatan 
                                             left outer join sc_mst.lvljabatan e on a.lvl_jabatan=e.kdlvl
                                             left outer join sc_mst.jobgrade f on a.grade_golongan=f.kdgrade
                                     

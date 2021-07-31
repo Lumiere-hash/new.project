@@ -5,18 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d9ca43c6-06d8-46df-a745-33508f90b1cf.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/d9ca43c6-06d8-46df-a745-33508f90b1cf.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/master/controllers/user.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/master/controllers/user.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/master/views/user/v_edituser.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/master/views/user/v_edituser.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/master/views/user/v_user.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/master/views/user/v_user.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/karyawan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/karyawan.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan/v_detailhrdkary.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/karyawan/v_detailhrdkary.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan/v_editkary.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/karyawan/v_editkary.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan/v_karyawan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/karyawan/v_karyawan.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1627003134.3729.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1627003142.5998.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migration/20210723.Karyawan/20210723.00.Karyawan.sql" beforeDir="false" afterPath="$PROJECT_DIR$/migration/20210723.Karyawan/20210723.00.Karyawan.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/models/m_karyawan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/m_karyawan.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/migration/20210728.User/20210728.00.Karyawan.sql" beforeDir="false" afterPath="$PROJECT_DIR$/migration/20210728.User/20210728.00.Karyawan.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -338,7 +333,7 @@
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="PostgreSQL" />
     <property name="database.console.LAST_STATE" value="true" />
     <property name="database.data.extractors.current.id" value="SQL-Insert-Statements.sql.groovy" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/migration/20210728.User" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/migration" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="D:\JetBrains\apps\PhpStorm\ch-0\203.7148.74\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
@@ -346,8 +341,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\migration\20210728.User" />
       <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\migration" />
+      <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\migration\20210728.User" />
       <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\migration\20210723.Karyawan" />
       <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\assets" />
       <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\application\errors" />
@@ -636,7 +631,8 @@
       <workItem from="1627011264724" duration="1136000" />
       <workItem from="1627032110611" duration="1558000" />
       <workItem from="1627285961885" duration="4467000" />
-      <workItem from="1627436338672" duration="3252000" />
+      <workItem from="1627436338672" duration="4387000" />
+      <workItem from="1627702189015" duration="955000" />
     </task>
     <servers />
   </component>
