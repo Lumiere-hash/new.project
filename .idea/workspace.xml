@@ -5,12 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d9ca43c6-06d8-46df-a745-33508f90b1cf/entities/entities.dat" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/d9ca43c6-06d8-46df-a745-33508f90b1cf/entities/entities.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/d9ca43c6-06d8-46df-a745-33508f90b1cf/entities/entities.dat.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/d9ca43c6-06d8-46df-a745-33508f90b1cf/entities/entities.dat.values.at" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/entities/entities.dat" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/entities/entities.dat" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/entities/entities.dat.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/fdc1e559-5166-4201-958e-edf5daf0a55a/entities/entities.dat.values.at" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/master/models/m_akses.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/master/models/m_akses.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -632,7 +627,7 @@
       <workItem from="1627285961885" duration="4467000" />
       <workItem from="1627436338672" duration="4387000" />
       <workItem from="1627702189015" duration="2530000" />
-      <workItem from="1628039689044" duration="182000" />
+      <workItem from="1628039689044" duration="381000" />
     </task>
     <servers />
   </component>
