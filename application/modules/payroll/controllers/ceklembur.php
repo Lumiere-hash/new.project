@@ -5,7 +5,7 @@
 */
 //error_reporting(0)
 class Ceklembur extends MX_Controller{
-    
+
     function __construct(){
         parent::__construct();
 		       
