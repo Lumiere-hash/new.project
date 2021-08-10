@@ -678,7 +678,7 @@ class Ceklembur extends MX_Controller{
                 }
                 if ($cekhistorygaji == 0) {
                     $this->db->query("insert into sc_his.history_gaji (branch,nik,periode,nominal,inputdate,inputby,updatedate,updateby,gajipokok,gajitj)
-				values ($branch,'$nik','$periodegaji',$gajitetap,'$tglinput','$nama',null,null,$gajipokok,$gajitj);");
+				values ('$branch','$nik','$periodegaji',$gajitetap,'$tglinput','$nama',null,null,$gajipokok,$gajitj);");
                 }
                 $looping_absen = array(
                     'nik' => $nik,

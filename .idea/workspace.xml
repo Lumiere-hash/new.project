@@ -6,6 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/payroll/controllers/ceklembur.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/payroll/controllers/ceklembur.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/payroll/views/import/v_load_import_data.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/payroll/views/import/v_load_import_data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1628482594.9185.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1628482603.3766.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/migration/20210809.Export-Import-Rev/20210809.00.Jadwal-Kerja.sql" beforeDir="false" afterPath="$PROJECT_DIR$/migration/20210809.Export-Import-Rev/20210809.00.Import.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -327,7 +333,7 @@
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="PostgreSQL" />
     <property name="database.console.LAST_STATE" value="true" />
     <property name="database.data.extractors.current.id" value="SQL-Insert-Statements.sql.groovy" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/migration" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/migration/20210809.Export-Import-Rev" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="D:\JetBrains\apps\PhpStorm\ch-0\203.7148.74\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
@@ -335,11 +341,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\migration\20210809.Export-Import-Rev" />
       <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\migration" />
       <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\migration\20210728.User" />
       <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\migration\20210723.Karyawan" />
       <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\assets" />
-      <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\application\errors" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\migration\20210610.Job-Grade" />
@@ -628,6 +634,8 @@
       <workItem from="1627436338672" duration="4387000" />
       <workItem from="1627702189015" duration="2530000" />
       <workItem from="1628039689044" duration="381000" />
+      <workItem from="1628482542083" duration="2890000" />
+      <workItem from="1628562223414" duration="7375000" />
     </task>
     <servers />
   </component>
