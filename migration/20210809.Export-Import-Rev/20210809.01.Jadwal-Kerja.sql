@@ -12,7 +12,7 @@ BEGIN
     LEFT OUTER JOIN sc_mst.regu_opr b ON a.kdregu = b.kdregu
     LEFT OUTER JOIN sc_mst.karyawan c ON c.nik = b.nik
     LEFT OUTER JOIN sc_mst.jabatan e ON c.jabatan = e.kdjabatan AND e.kddept = c.bag_dept AND e.kdsubdept = c.subbag_dept
-    WHERE a.kdregu = new.kdregu AND tgl = new.tgl
+    WHERE a.kdregu = new.kdregu AND tgl = new.tgl AND coalesce(c.nik, '') != ''
     ON CONFLICT (nik, tgl)
     DO NOTHING;
 
@@ -40,7 +40,7 @@ BEGIN
     LEFT OUTER JOIN sc_mst.regu_opr b ON a.kdregu = b.kdregu
     LEFT OUTER JOIN sc_mst.karyawan c ON c.nik = b.nik
     LEFT OUTER JOIN sc_mst.jabatan e ON c.jabatan = e.kdjabatan AND e.kddept = c.bag_dept AND e.kdsubdept = c.subbag_dept
-    WHERE a.kdregu = new.kdregu AND tgl = new.tgl
+    WHERE a.kdregu = new.kdregu AND tgl = new.tgl AND coalesce(c.nik, '') != ''
 	ON CONFLICT (nik, tgl)
     DO NOTHING;
 
