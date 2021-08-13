@@ -26,7 +26,7 @@ class Import extends CI_Controller {
         error_reporting(E_ALL);
     		//$this->load->library(array('PHPExcel/PHPExcel','PHPExcel/PHPExcel/IOFactory','template','upload','zip','Fiky_version','Fiky_string','Fiky_menu','Fiky_encryption'));
     		$this->load->library(array('template','upload','zip','Fiky_version','Fiky_string','Fiky_menu','Fiky_encryption'));
-			$this->load->model(array('m_import'));
+			$this->load->model(array('m_import', 'master/m_akses'));
 			$this->load->helper(array('form', 'url'));
 		if(!$this->session->userdata('nik')){            
 			redirect('dashboard');				
@@ -821,11 +821,24 @@ class Import extends CI_Controller {
 
 
 	function e_csv_mstkaryawan_all(){
+        $branch = $this->m_akses->q_branch()->row();
+
+        $files = glob('assets/' . $branch->branch . '-PAYROLL-*'); // get all file names
+        foreach ($files as $file) { // iterate files
+            if (is_file($file))
+                unlink($file); // delete file
+        }
+
         $files = glob('assets/export_directory/*'); // get all file names
         foreach ($files as $file) { // iterate files
             if (is_file($file))
                 unlink($file); // delete file
         }
+
+        $content = $this->fiky_encryption->enkript($branch->branch);
+        $fp = fopen(realpath(".") . "\assets\\export_directory\\" . "branch.txt","wb");
+        fwrite($fp, $content);
+        fclose($fp);
 
         $this->m_import->e_export_csv(realpath(".").'\assets\export_directory\EXPORTCSV.CSV');
         $this->m_import->e_import_csv(realpath(".").'\assets\export_directory\IMPORTCSV.CSV');
@@ -896,20 +909,21 @@ class Import extends CI_Controller {
 		}
 
         require_once('application\libraries\ipworkszip\ipworkszip.php');
+        $zip_name = $branch->branch . "-PAYROLL-" . date("YmdHis") . ".zip";
         $zip = new IPWorksZip_Zip();
         $zip->setRuntimeLicense('315A50464142474630334B575538564B42344159534D00000000000000000000000000000000000038304539533647310000545444465230344D413237430000');
 
-        $zip->setArchiveFile(realpath(".") . '\assets\export_hrd.zip');
+        $zip->setArchiveFile(realpath(".") . "\assets\\$zip_name");
         $zip->setRecurseSubdirectories(true);
         $zip->doIncludeFiles(realpath(".") . '\assets\export_directory\*');
         $zip->setPassword("111111");
         $zip->doCompress();
 
         header("Content-type: application/zip");
-        header("Content-Disposition: attachment; filename=export_hrd.zip");
+        header("Content-Disposition: attachment; filename=$zip_name");
         header("Pragma: no-cache");
         header("Expires: 0");
-        readfile(realpath(".") . '\assets\export_hrd.zip');
+        readfile(realpath(".") . "\assets\\$zip_name");
         exit;
 
         redirect('payroll/import/e_csv_mstkaryawan');
@@ -1041,12 +1055,17 @@ class Import extends CI_Controller {
 
     function post_import_data()
     {
-
+        $branch = $this->m_akses->q_branch()->row();
         $path = realpath(".") . "/assets/import_directory/";
         if (!is_dir($path)) {
             mkdir($path, 0777, TRUE);
         }
         $files = glob('assets/import_directory/*'); // get all file names
+        foreach ($files as $file) { // iterate files
+            if (is_file($file))
+                unlink($file); // delete file
+        }
+        $files = glob('assets/import_directory/export_directory/*'); // get all file names
         foreach ($files as $file) { // iterate files
             if (is_file($file))
                 unlink($file); // delete file
@@ -1088,9 +1107,23 @@ class Import extends CI_Controller {
                 $zip->setPassword("111111");
                 $zip->doExtractAll();
 
-                $show = $file_name.' SUKSES TERUPLOAD';
-                $arr = array('status' => 'true', 'show' => $show);
-                echo json_encode($arr);
+                $fh = fopen($extractpath . "/export_directory/" . "branch.txt","r");
+                $can_import = false;
+                while($line = fgets($fh)) {
+                    if($branch->branch === $this->fiky_encryption->dekript($line)) {
+                        $can_import = true;
+                    }
+                }
+                fclose($fh);
+                if($can_import) {
+                    $show = $file_name;
+                    $arr = array('status' => 'true', 'show' => $show);
+                    echo json_encode($arr);
+                } else {
+                    $show = $file_name . ' -> BUKAN FILE MILIK ' . strtoupper($branch->branchname);
+                    $arr = array('status' => 'false', 'show' => $show);
+                    echo json_encode($arr);
+                }
                // $this->session->set_flashdata('msg','Upload & Extract successfully.');
             } else {
                 //$this->session->set_flashdata('msg','Failed to extract.');

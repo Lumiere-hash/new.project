@@ -155,8 +155,8 @@
                 </div>
 
             </div>
-            <div class="msg alert alert-info text-left" style="display:none">
-            </div>
+            <div class="msg alert alert-info text-left" style="display:none"></div>
+            <div class="msg-danger alert alert-danger text-left" style="display:none"></div>
         </div>
         <div class="clearfix"></div>
     </div>
@@ -182,6 +182,7 @@
             formdata.append("media", file);
 
             $('.msg').hide();
+            $('.msg-danger').hide();
             $('.progress').show();
 
             var filename = $("#media").val();
@@ -223,7 +224,6 @@
                     success: function (response) {
                         $('form')[0].reset();
                         $('.progress').hide();
-                        $('.msg').show();
                         console.log(response);
                         if (response == "") {
                             console.log(formdata.status);
@@ -246,30 +246,37 @@
                                         if (data.status = true) {
                                             console.log(data.status);
                                             $("#loadMe").modal("hide");
-                                            var msg = 'File berhasil di upload. ID file = ' + response.show;
+                                            var msg = 'FILE ' + response.show + ' -> BERHASIL DI UPLOAD';
                                             $('.msg').html(msg);
+                                            $('.msg').show();
                                         } else {
                                             //end ajax here
                                             console.log(data.status);
                                             $("#loadMe").modal("hide");
-                                            var msg = 'File Dan Data Gagal Di Proses!!!, Pastikan Data Benar!!';
-                                            $('.msg').html(msg);
+                                            var msg = 'FILE DAN DATA GAGAL DI PROSES!!!, PASTIKAN DATA BENAR!!';
+                                            $('.msg-danger').html(msg);
+                                            $('.msg-danger').show();
                                         }
                                     } ,
                                     error: function (textStatus, errorThrown) {
                                         $("#loadMe").modal("hide");
-                                        var msg = 'File Dan Data Gagal Di Proses!!!, Pastikan Data Benar!!';
-                                        $('.msg').html(msg);
+                                        var msg = 'FILE DAN DATA GAGAL DI PROSES!!!, PASTIKAN DATA BENAR!!';
+                                        $('.msg-danger').html(msg);
+                                        $('.msg-danger').show();
                                     }
                                 });
                                 // console.log(response.status);
                                 // var msg = 'File berhasil di upload. ID file = ' + response.show;
                                 // $('.msg').html(msg);
                                 //end ajax here
-
+                            } else if(response.status==='false') {
+                                $("#loadMe").modal("hide");
+                                $('.msg-danger').html("FILE DAN DATA GAGAL DI PROSES!!!, PASTIKAN DATA BENAR!!<br>" + response.show);
+                                $('.msg-danger').show();
                             } else {
-                                var msg = 'File Gagal Di Upload';
-                                $('.msg').html(msg);
+                                var msg = 'FILE GAGAL DI UPLOAD';
+                                $('.msg-danger').html(msg);
+                                $('.msg-danger').show();
                             }
 
                         }
