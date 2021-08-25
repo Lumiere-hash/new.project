@@ -28,7 +28,7 @@
 	</ul>
 </div>	
 <div class="tab-content">
-	<div class="chart tab-pane active" id="tab_1" style="position: relative; height: 300px;" >
+	<div class="chart tab-pane active" id="tab_1" style="position: relative;" >
 		<legend>Daftar Uang Makan</legend>
 		<div class="row">
 			<div class="col-xs-12">

@@ -12,11 +12,11 @@ class M_absensi extends CI_Model {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->dbsby = $this->load->database('SBYMRG', TRUE);
-		$this->dbdmk = $this->load->database('SMGDMK', TRUE);
-		$this->dbcnd = $this->load->database('SMGCND', TRUE);
-		$this->dbjkt = $this->load->database('JKTKPK', TRUE);
-		$this->dbskhrj = $this->load->database('SKHRJ', TRUE);
+//		$this->dbsby = $this->load->database('SBYMRG', TRUE);
+//		$this->dbdmk = $this->load->database('SMGDMK', TRUE);
+//		$this->dbcnd = $this->load->database('SMGCND', TRUE);
+//		$this->dbjkt = $this->load->database('JKTKPK', TRUE);
+//		$this->dbskhrj = $this->load->database('SKHRJ', TRUE);
 	}
 
 	function q_trxabsen(){
@@ -28,77 +28,108 @@ class M_absensi extends CI_Model {
 
 
 	function show_user_sby($tgl1,$tgl2){
-		return $this->dbsby->query("select top 10000 * from CHECKINOUT
+        $this->dbsby = $this->load->database('SBYMRG', TRUE);
+        $result = $this->dbsby->query("select top 10000 * from CHECKINOUT
 								LEFT JOIN USERINFO on USERINFO.USERID=CHECKINOUT.USERID
 								where CHECKTIME between #$tgl1# and #$tgl2#
 								order by CHECKTIME ,Name asc
-								");
+								")->result();
+        $this->dbsby->close();
+        return $result;
 	}
 
 	function show_user_dmk($tgl1,$tgl2){
-		return $this->dbdmk->query("select top 10000 * from CHECKINOUT
+        $this->dbdmk = $this->load->database('SMGDMK', TRUE);
+		$result = $this->dbdmk->query("select top 10000 * from CHECKINOUT
 								LEFT JOIN USERINFO on USERINFO.USERID=CHECKINOUT.USERID
 								where CHECKTIME between #$tgl1# and #$tgl2#
 								order by CHECKTIME ,Name asc
-								");
+								")->result();
+        $this->dbdmk->close();
+        return $result;
 	}
 
 	function show_user_cnd($tgl1,$tgl2){
-		return $this->dbcnd->query("select top 10000 * from CHECKINOUT
+        $this->dbcnd = $this->load->database('SMGCND', TRUE);
+        $result = $this->dbcnd->query("select top 10000 * from CHECKINOUT
 								LEFT JOIN USERINFO on USERINFO.USERID=CHECKINOUT.USERID
 								where CHECKTIME between #$tgl1# and #$tgl2#
 								order by CHECKTIME ,Name asc
-								");
+								")->result();
+        $this->dbcnd->close();
+        return $result;
 	}
+
 	function show_user_jkt($tgl1,$tgl2){
-		return $this->dbjkt->query("select top 10000 * from CHECKINOUT
+        $this->dbjkt = $this->load->database('JKTKPK', TRUE);
+        $result = $this->dbjkt->query("select top 10000 * from CHECKINOUT
 								LEFT JOIN USERINFO on USERINFO.USERID=CHECKINOUT.USERID
 								where CHECKTIME between #$tgl1# and #$tgl2#
 								order by CHECKTIME ,Name asc
-								");
+								")->result();
+        $this->dbjkt->close();
+        return $result;
 	}
 
 	function show_user_skhrj($tgl1,$tgl2){
-		return $this->dbskhrj->query("select top 10000 * from CHECKINOUT
+        $this->dbskhrj = $this->load->database('SKHRJ', TRUE);
+        $result = $this->dbskhrj->query("select top 10000 * from CHECKINOUT
 								LEFT JOIN USERINFO on USERINFO.USERID=CHECKINOUT.USERID
 								where CHECKTIME between #$tgl1# and #$tgl2#
 								order by CHECKTIME ,Name asc
-								");
+								")->result();
+        $this->dbskhrj->close();
+        return $result;
 	}
 
 	function ttldata_sby($tgl1,$tgl2){
-		return $this->dbsby->query("select count(*) as jumlah from CHECKINOUT
+        $this->dbsby = $this->load->database('SBYMRG', TRUE);
+        $result = $this->dbsby->query("select count(*) as jumlah from CHECKINOUT
 								LEFT JOIN USERINFO on USERINFO.USERID=CHECKINOUT.USERID
 								where CHECKTIME between #$tgl1# and #$tgl2#								
-								");
+								")->row_array();
+        $this->dbsby->close();
+        return $result;
 	}
 
 	function ttldata_dmk($tgl1,$tgl2){
-		return $this->dbdmk->query("select count(*) as jumlah from CHECKINOUT
+        $this->dbdmk = $this->load->database('SMGDMK', TRUE);
+        $result = $this->dbdmk->query("select count(*) as jumlah from CHECKINOUT
 								LEFT JOIN USERINFO on USERINFO.USERID=CHECKINOUT.USERID
 								where CHECKTIME between #$tgl1# and #$tgl2#								
-								");
+								")->row_array();
+        $this->dbdmk->close();
+        return $result;
 	}
 
 	function ttldata_cnd($tgl1,$tgl2){
-		return $this->dbcnd->query("select count(*) as jumlah from CHECKINOUT
+        $this->dbcnd = $this->load->database('SMGCND', TRUE);
+        $result = $this->dbcnd->query("select count(*) as jumlah from CHECKINOUT
 								LEFT JOIN USERINFO on USERINFO.USERID=CHECKINOUT.USERID
 								where CHECKTIME between #$tgl1# and #$tgl2#								
-								");
+								")->row_array();
+        $this->dbcnd->close();
+        return $result;
 	}
 
 	function ttldata_jkt($tgl1,$tgl2){
-		return $this->dbjkt->query("select count(*) as jumlah from CHECKINOUT
+        $this->dbjkt = $this->load->database('JKTKPK', TRUE);
+        $result = $this->dbjkt->query("select count(*) as jumlah from CHECKINOUT
 								LEFT JOIN USERINFO on USERINFO.USERID=CHECKINOUT.USERID
 								where CHECKTIME between #$tgl1# and #$tgl2#								
-								");
+								")->row_array();
+        $this->dbjkt->close();
+        return $result;
 	}
 
 	function ttldata_skhrj($tgl1,$tgl2){
-		return $this->dbjkt->query("select count(*) as jumlah from CHECKINOUT
+        $this->dbskhrj = $this->load->database('SKHRJ', TRUE);
+        $result = $this->dbskhrj->query("select count(*) as jumlah from CHECKINOUT
 								LEFT JOIN USERINFO on USERINFO.USERID=CHECKINOUT.USERID
 								where CHECKTIME between #$tgl1# and #$tgl2#								
-								");
+								")->row_array();
+        $this->dbskhrj->close();
+        return $result;
 	}
 
 	function simpan($info){

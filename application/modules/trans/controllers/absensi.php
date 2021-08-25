@@ -120,20 +120,20 @@ class Absensi extends MX_Controller {
 		$data['kdcabang']=$kdcabang;
 		$data['message']='';
 		if($kdcabang=='SBYMRG'){
-				$data['ttldata']=$this->m_absensi->ttldata_sby($tgl1,$tgl2)->row_array();
-				$data['list_absen']=$this->m_absensi->show_user_sby($tgl1,$tgl2)->result();
+            $data['ttldata']=$this->m_absensi->ttldata_sby($tgl1,$tgl2);
+            $data['list_absen']=$this->m_absensi->show_user_sby($tgl1,$tgl2);
 		} else if($kdcabang=='SMGDMK'){
-				$data['ttldata']=$this->m_absensi->ttldata_dmk($tgl1,$tgl2)->row_array();
-				$data['list_absen']=$this->m_absensi->show_user_dmk($tgl1,$tgl2)->result();
+				$data['ttldata']=$this->m_absensi->ttldata_dmk($tgl1,$tgl2);
+				$data['list_absen']=$this->m_absensi->show_user_dmk($tgl1,$tgl2);
 		} else if($kdcabang=='SMGCND'){
-				$data['ttldata']=$this->m_absensi->ttldata_cnd($tgl1,$tgl2)->row_array();
-				$data['list_absen']=$this->m_absensi->show_user_cnd($tgl1,$tgl2)->result();
+				$data['ttldata']=$this->m_absensi->ttldata_cnd($tgl1,$tgl2);
+				$data['list_absen']=$this->m_absensi->show_user_cnd($tgl1,$tgl2);
 		} else if($kdcabang=='JKTKPK'){
-				$data['ttldata']=$this->m_absensi->ttldata_jkt($tgl1,$tgl2)->row_array();
-				$data['list_absen']=$this->m_absensi->show_user_jkt($tgl1,$tgl2)->result();
+				$data['ttldata']=$this->m_absensi->ttldata_jkt($tgl1,$tgl2);
+				$data['list_absen']=$this->m_absensi->show_user_jkt($tgl1,$tgl2);
 		} else if($kdcabang=='SKHRJ'){
-				$data['ttldata']=$this->m_absensi->ttldata_skhrj($tgl1,$tgl2)->row_array();
-				$data['list_absen']=$this->m_absensi->show_user_skhrj($tgl1,$tgl2)->result();
+				$data['ttldata']=$this->m_absensi->ttldata_skhrj($tgl1,$tgl2);
+				$data['list_absen']=$this->m_absensi->show_user_skhrj($tgl1,$tgl2);
 		}else { redirect('trans/absensi/filter'); }
 
 		$this->template->display('trans/absensi/v_absensi',$data);
@@ -193,15 +193,15 @@ class Absensi extends MX_Controller {
 		$kdcabang=$this->input->post('kdcabang');
 
 		if($kdcabang=='SBYMRG'){
-				$datane=$this->m_absensi->show_user_sby($tgl1,$tgl2)->result();
+				$datane=$this->m_absensi->show_user_sby($tgl1,$tgl2);
 		} else if($kdcabang=='SMGDMK'){
-				$datane=$this->m_absensi->show_user_dmk($tgl1,$tgl2)->result();
+				$datane=$this->m_absensi->show_user_dmk($tgl1,$tgl2);
 		} else if($kdcabang=='SMGCND'){
-				$datane=$this->m_absensi->show_user_cnd($tgl1,$tgl2)->result();
+				$datane=$this->m_absensi->show_user_cnd($tgl1,$tgl2);
 		} else if($kdcabang=='JKTKPK'){
-				$datane=$this->m_absensi->show_user_jkt($tgl1,$tgl2)->result();
+				$datane=$this->m_absensi->show_user_jkt($tgl1,$tgl2);
 		} else if($kdcabang=='SKHRJ'){
-				$datane=$this->m_absensi->show_user_skhrj($tgl1,$tgl2)->result();
+				$datane=$this->m_absensi->show_user_skhrj($tgl1,$tgl2);
 		} else { redirect('trans/absensi/filter'); }
 
 
