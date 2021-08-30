@@ -120,10 +120,14 @@
                     </ul>
                 </li>
                 <!-- Control Sidebar Toggle Button -->
-                <?php if (trim($user_menu['level_akses'])=='A') { ?>
-                <li>
-                    <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-                </li>
+                <?php if(trim($user_menu["level_akses"]) == "A" && in_array($_SERVER["REMOTE_ADDR"], ["127.0.0.1", "::1"])) { ?>
+                    <li>
+                        <a href="<?php echo site_url('update');?>" title="Cek Update"><i class="fa fa-gears"></i></a>
+                    </li>
+                <?php } else { ?>
+                    <li>
+                        <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                    </li>
                 <?php } ?>
             </ul>
         </div>

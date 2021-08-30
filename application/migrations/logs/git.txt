@@ -1,0 +1,30 @@
+2021-08-27 13:46:53
+
+BEGIN EXECUTING "git remote set-url origin https://nusantaragroup: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@github.com/itcenternusantaragroup/hrms.sni"...
+
+[]
+
+BEGIN EXECUTING "git fetch"...
+
+[]
+
+BEGIN EXECUTING "git status -uno"...
+
+[
+    "On branch main",
+    "Your branch is up to date with 'origin\/main'.",
+    "",
+    "Changes not staged for commit:",
+    "  (use \"git add\/rm <file>...\" to update what will be committed)",
+    "  (use \"git restore <file>...\" to discard changes in working directory)",
+    "\tmodified:   .idea\/vcs.xml",
+    "\tmodified:   .idea\/workspace.xml",
+    "\tmodified:   application\/controllers\/update.php",
+    "\tmodified:   application\/migrations\/logs\/git.txt",
+    "\tmodified:   application\/views\/template.php",
+    "\tdeleted:    assets\/captcha\/1628497857.4075.jpg",
+    "\tmodified:   system\/libraries\/Migration.php",
+    "",
+    "no changes added to commit (use \"git add\" and\/or \"git commit -a\")"
+]
+

@@ -66,16 +66,28 @@ class CI_Migration {
 		$this->lang->load('migration');
 
 		// They'll probably be using dbforge
-		$this->load->dbforge();
+//		$this->load->dbforge();
 
 		// If the migrations table is missing, make it
-		if ( ! $this->db->table_exists('migrations'))
+        if ( ! $this->db->table_exists('migrations'))
 		{
-			$this->dbforge->add_field(array(
-				'version' => array('type' => 'INT', 'constraint' => 3),
-			));
+//			$this->dbforge->add_field(array(
+//				'version' => array('type' => 'INT', 'constraint' => 3),
+//			));
+//
+//			$this->dbforge->create_table('migrations', TRUE);
 
-			$this->dbforge->create_table('migrations', TRUE);
+            $this->db->query("
+                CREATE TABLE public.migrations (
+                    version INTEGER NOT NULL,
+                    CONSTRAINT pk_version PRIMARY KEY (version)
+                )
+                WITH (
+                    OIDS = FALSE
+                );
+                ALTER TABLE public.migrations
+                    OWNER TO postgres;
+            ");
 
 			$this->db->insert('migrations', array('version' => 0));
 		}
@@ -98,28 +110,30 @@ class CI_Migration {
 		$start = $current_version = $this->_get_version();
 		$stop = $target_version;
 
-		if ($target_version > $current_version)
-		{
+        echo 'Current Migration Version: <b>' . $current_version . '</b><br><br>';
+
+		if($target_version > $current_version) {
 			// Moving Up
 			++$start;
 			++$stop;
 			$step = 1;
-		}
-
-		else
-		{
+		} else if($target_version < $current_version) {
 			// Moving Down
 			$step = -1;
-		}
+		} else {
+            echo 'Current Migration Version Already <b>Up To Date</b><br><br>';
+		    return TRUE;
+        }
 		
 		$method = $step === 1 ? 'up' : 'down';
 		$migrations = array();
+		$seq = array();
 
 		// We now prepare to actually DO the migrations
 		// But first let's make sure that everything is the way it should be
 		for ($i = $start; $i != $stop; $i += $step)
 		{
-			$f = glob(sprintf($this->_migration_path . '%03d_*.php', $i));
+			$f = glob(sprintf($this->_migration_path . '%05d_*.php', $i));
 
 			// Only one migration per step is permitted
 			if (count($f) > 1)
@@ -148,7 +162,7 @@ class CI_Migration {
 			$name = basename($f[0], '.php');
 
 			// Filename validations
-			if (preg_match('/^\d{3}_(\w+)$/', $name, $match))
+			if (preg_match('/^\d{5}_(\w+)$/', $name, $match))
 			{
 				$match[1] = strtolower($match[1]);
 
@@ -175,6 +189,7 @@ class CI_Migration {
 				}
 
 				$migrations[] = $match[1];
+				$seq[] = $match[0];
 			}
 			else
 			{
@@ -194,19 +209,32 @@ class CI_Migration {
 		}
 
 		log_message('debug', 'Migrating from ' . $method . ' to version ' . $version);
+		echo 'Migrating From Version <b>' . $current_version . ' ' . strtoupper($method) . '</b> To Version <b>' . $version . '</b><br><br>';
+
+        $filelog = APPPATH . "migrations/logs/db.txt";
+        file_put_contents($filelog, date("Y-m-d H:i:s") . "\n\n");
+        $this->db->trans_begin();
 
 		// Loop through the migrations
-		foreach ($migrations AS $migration)
-		{
+		foreach ($migrations AS $k => $migration) {
 			// Run the migration class
 			$class = 'Migration_' . ucfirst(strtolower($migration));
-			call_user_func(array(new $class, $method));
+			$filename = APPPATH . "migrations/" . $seq[$k] . ".php";
+            file_put_contents($filelog,  "BEGIN EXECUTING \"$filename\"...\n\n", FILE_APPEND);
+			if(call_user_func(array(new $class, $method)) === FALSE) {
+                echo 'Failed Migrating To Version <b>' . $current_version . '</b>.<br><br>Check Log File <b>' . $filelog . '</b>';
+			    return FALSE;
+            }
+            file_put_contents($filelog,  "FINISH EXECUTE \"$filename\"...\n\n", FILE_APPEND);
+            file_put_contents($filelog,  "-----------------------------------------------------------------------------------------------------------------------------\n\n", FILE_APPEND);
 
 			$current_version += $step;
 			$this->_update_version($current_version);
 		}
+        $this->db->trans_commit();
 
 		log_message('debug', 'Finished migrating to '.$current_version);
+		echo 'Successfully Migrating To Version <b>' . $current_version . '</b>';
 
 		return $current_version;
 	}
