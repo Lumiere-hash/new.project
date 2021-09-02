@@ -25,6 +25,7 @@
         <?php echo $_ini_customnya;?>
         <!-- CUSTOM JS TARUH DI BAWAH SINI -->
         <script type="text/javascript">
+            var HOST_URL = '<?php echo base_url();?>';
             //<![CDATA[
             var base = function(url){
                 return '<?php echo base_url();?>' + url;
