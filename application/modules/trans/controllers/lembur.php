@@ -65,15 +65,21 @@ class Lembur extends MX_Controller {
 		$userinfo = $this->m_akses->q_user_check()->row_array();
 		$userhr = $this->m_akses->list_aksesperdep()->num_rows();
 		$level_akses = strtoupper(trim($userinfo["level_akses"]));
+        $karyawan_filter = "";
+        $data["karyawan_filter"] = true;
 
-		if(($userhr > 0 || $level_akses == "A")) {
+		if($userhr > 0 || $level_akses == "A") {
 			$nikatasan = "";
-		} else if($ceknikatasan1 > 0 && $userhr == 0 && ($level_akses == "B" || $level_akses == "C" || $level_akses == "D")) {
+		} else if($ceknikatasan1 > 0 && $userhr == 0 && in_array($level_akses, ["B", "C", "D"])) {
 			$nikatasan = "WHERE x1.nik IN (SELECT TRIM(nik) FROM sc_mst.karyawan WHERE nik_atasan = '$nik') OR x1.nik = '$nik'";
-		} else if($ceknikatasan2 > 0 && $userhr == 0 && ($level_akses == "B" || $level_akses == "C" || $level_akses == "D")) {
+            $karyawan_filter = " AND (a.nik = '$nik' OR a.nik_atasan = '$nik')";
+		} else if($ceknikatasan2 > 0 && $userhr == 0 && in_array($level_akses, ["B", "C", "D"])) {
 			$nikatasan = "WHERE x1.nik IN (SELECT TRIM(nik) FROM sc_mst.karyawan WHERE nik_atasan2 = '$nik') OR x1.nik = '$nik'";
+            $karyawan_filter = " AND (a.nik = '$nik' OR a.nik_atasan2 = '$nik')";
 		} else {
 			$nikatasan = "WHERE x1.nik = '$nik'";
+            $karyawan_filter = " AND a.nik = '$nik'";
+            $data["karyawan_filter"] = false;
 		}
 		$data["nama"] = $nik;
 		$data["userhr"] = $userhr;
@@ -83,7 +89,7 @@ class Lembur extends MX_Controller {
 		$kmenu = "I.T.B.3";
 		$data["akses"] = $this->m_akses->list_aksespermenu($nik, $kmenu)->row_array();
 		$data["list_lembur_edit"] = $this->m_lembur->list_lembur()->result();
-		$data["list_karyawan"] = $this->m_lembur->list_karyawan()->result();
+		$data["list_karyawan"] = $this->m_lembur->list_karyawan($karyawan_filter)->result();
 		$data["list_lembur"] = $this->m_lembur->q_lembur($periode, $status, $nik2, $nikatasan)->result();
 		$data["list_lembur_dtl"] = $this->m_lembur->q_lembur_dtl()->result();
 		$data["list_trxtype"] = $this->m_lembur->list_trxtype()->result();

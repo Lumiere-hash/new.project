@@ -140,48 +140,50 @@
                             </script>
                         </div>
 		            </div>
-                    <div class="form-group input-sm ">
-                        <label class="label-form col-sm-3">Karyawan</label>
-                        <div class="col-sm-9">
-                            <select class="form-control input-sm" id="pilihkaryawan" name="nik">
-                                <option value="">--SEMUA KARYAWAN--</option>
-                                <?php foreach ($list_karyawan as $v) { ?>
-                                    <?php $result = array_map('trim', (array)$v); ?>
-                                    <option value="<?php echo $result['nik']; ?>" data-data='<?php echo json_encode($result, JSON_HEX_APOS); ?>'></option>
-                                <?php } ?>
-                            </select>
-                            <script type="text/javascript">
-                                $('#pilihkaryawan').selectize({
-                                    plugins: ['hide-arrow', 'selectable-placeholder'],
-                                    valueField: 'nik',
-                                    searchField: ['nik', 'nmlengkap'],
-                                    options: [],
-                                    create: false,
-                                    initData: true,
-                                    render: {
-                                        option: function(item, escape) {
-                                            return '' +
-                                                '<div class=\'row\'>' +
-                                                    '<div class=\'col-md-3 text-nowrap\'>' + escape(item.nik) + '</div>' +
-                                                    '<div class=\'col-md-9 text-nowrap\'>' + escape(item.nmlengkap) + '</div>' +
-                                                '</div>' +
-                                            '';
-                                        },
-                                        item: function(item, escape) {
-                                            return '' +
-                                                '<div>' +
-                                                    escape(item.nik) + ' - ' +
-                                                    escape(item.nmlengkap) +
-                                                '</div>'
-                                            ;
+                    <?php if($karyawan_filter): ?>
+                        <div class="form-group input-sm ">
+                            <label class="label-form col-sm-3">Karyawan</label>
+                            <div class="col-sm-9">
+                                <select class="form-control input-sm" id="pilihkaryawan" name="nik">
+                                    <option value="">--SEMUA KARYAWAN--</option>
+                                    <?php foreach ($list_karyawan as $v) { ?>
+                                        <?php $result = array_map('trim', (array)$v); ?>
+                                        <option value="<?php echo $result['nik']; ?>" data-data='<?php echo json_encode($result, JSON_HEX_APOS); ?>'></option>
+                                    <?php } ?>
+                                </select>
+                                <script type="text/javascript">
+                                    $('#pilihkaryawan').selectize({
+                                        plugins: ['hide-arrow', 'selectable-placeholder'],
+                                        valueField: 'nik',
+                                        searchField: ['nik', 'nmlengkap'],
+                                        options: [],
+                                        create: false,
+                                        initData: true,
+                                        render: {
+                                            option: function(item, escape) {
+                                                return '' +
+                                                    '<div class=\'row\'>' +
+                                                        '<div class=\'col-md-3 text-nowrap\'>' + escape(item.nik) + '</div>' +
+                                                        '<div class=\'col-md-9 text-nowrap\'>' + escape(item.nmlengkap) + '</div>' +
+                                                    '</div>' +
+                                                '';
+                                            },
+                                            item: function(item, escape) {
+                                                return '' +
+                                                    '<div>' +
+                                                        escape(item.nik) + ' - ' +
+                                                        escape(item.nmlengkap) +
+                                                    '</div>'
+                                                ;
+                                            }
                                         }
-                                    }
-                                });
-                                $("#pilihkaryawan").addClass("selectize-hidden-accessible");
-                                $('#pilihkaryawan')[0].selectize.setValue("<?php echo trim($nik); ?>");
-                            </script>
+                                    });
+                                    $("#pilihkaryawan").addClass("selectize-hidden-accessible");
+                                    $('#pilihkaryawan')[0].selectize.setValue("<?php echo trim($nik); ?>");
+                                </script>
+                            </div>
                         </div>
-                    </div>
+                    <?php endif; ?>
                 </div>
                 <div class="modal-footer">
                     <button type="reset" id="btn-reset" class="btn btn-warning">Reset</button>

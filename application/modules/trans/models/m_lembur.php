@@ -1,17 +1,16 @@
 <?php
-class M_lembur extends CI_Model{
-
-
-
-
-	function list_karyawan(){
-		return $this->db->query("select a.*,b.nmdept from sc_mst.karyawan a
-		left outer join sc_mst.departmen b on a.bag_dept=b.kddept
-		left outer join sc_mst.subdepartmen c on a.bag_dept=c.kddept and a.subbag_dept=c.kdsubdept
-		left outer join sc_mst.jabatan d on a.bag_dept=d.kddept and a.subbag_dept=d.kdsubdept and a.jabatan=d.kdjabatan
-		where coalesce(upper(a.statuskepegawaian),'')!='KO'
-		order by nmlengkap asc");
-
+class M_lembur extends CI_Model {
+	function list_karyawan($param = "") {
+		return $this->db->query("
+            SELECT a.*, b.nmdept 
+            FROM sc_mst.karyawan a
+            LEFT OUTER JOIN sc_mst.departmen b ON a.bag_dept = b.kddept
+            LEFT OUTER JOIN sc_mst.subdepartmen c ON a.bag_dept = c.kddept AND a.subbag_dept = c.kdsubdept
+            LEFT OUTER JOIN sc_mst.jabatan d ON a.bag_dept = d.kddept AND a.subbag_dept = d.kdsubdept AND a.jabatan = d.kdjabatan
+            WHERE COALESCE(UPPER(a.statuskepegawaian), '') != 'KO'
+            $param
+            ORDER BY nmlengkap
+        ");
 	}
 
 	function list_lembur(){
