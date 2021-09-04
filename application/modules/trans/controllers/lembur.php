@@ -1,183 +1,121 @@
 <?php
-/*
-	@author : randy
-	13-04-2015
-*/
-//error_reporting(0)
-class Lembur extends MX_Controller{
 
-    function __construct(){
+class Lembur extends MX_Controller {
+    function __construct() {
         parent::__construct();
-
-		$this->load->model(array('m_lembur','master/m_akses'));
-        $this->load->library(array('form_validation','template','upload','pdf','fiky_encryption','Fiky_notification_push'));
-		 if(!$this->session->userdata('nik')){
+		$this->load->model(['m_lembur', 'master/m_akses']);
+        $this->load->library(['form_validation', 'template', 'upload', 'pdf', 'fiky_encryption', 'Fiky_notification_push']);
+        if(!$this->session->userdata('nik')) {
             redirect('dashboard');
         }
     }
-	function index(){
-        //echo "test";
 
+	function index() {
+		$nik = $this->session->userdata("nik");
+		$data["title"] = "List Lembur Karyawan";
 
-		$nama=$this->session->userdata('nik');
-		$data['title']="List Lembur Karyawan";
+        $paramerror = " AND userid = '$nik' AND modul = 'LEMBUR'";
+        $dtlerror = $this->m_lembur->q_trxerror($paramerror)->row_array();
+        $errordesc = isset($dtlerror["description"]) ? strtoupper(trim($dtlerror["description"])) : "";
+        $nomorakhir1 = isset($dtlerror["nomorakhir1"]) ? trim($dtlerror["nomorakhir1"]) : "";
+        $errorcode = isset($dtlerror["errorcode"]) ? trim($dtlerror["errorcode"]) : "";
 
-        /* CODE UNTUK VERSI*/
-        $nama=trim($this->session->userdata('nik'));
-        $kodemenu='I.T.B.3'; $versirelease='I.T.B.3/ALPHA.001'; $releasedate=date('2019-04-12 00:00:00');
-        $versidb=$this->fiky_version->version($kodemenu,$versirelease,$releasedate,$nama);
-        $x=$this->fiky_menu->menus($kodemenu,$versirelease,$releasedate);
-        $data['x'] = $x['rows']; $data['y'] = $x['res']; $data['t'] = $x['xn'];
-        $data['kodemenu']=$kodemenu; $data['version']=$versidb;
-        /* END CODE UNTUK VERSI */
-
-        $paramerror=" and userid='$nama' and modul='LEMBUR'";
-        $dtlerror=$this->m_lembur->q_trxerror($paramerror)->row_array();
-        $count_err=$this->m_lembur->q_trxerror($paramerror)->num_rows();
-        if(isset($dtlerror['description'])) { $errordesc=trim($dtlerror['description']); } else { $errordesc='';  }
-        if(isset($dtlerror['nomorakhir1'])) { $nomorakhir1=trim($dtlerror['nomorakhir1']); } else { $nomorakhir1='';  }
-        if(isset($dtlerror['errorcode'])) { $errorcode=trim($dtlerror['errorcode']); } else { $errorcode='';  }
-
-        if($this->uri->segment(4) == "lembur_failed") {
-            $data['message']="<div class='alert alert-danger'>Tanggal Dan Jam Lembur Sudah Ada Harap Input Yang Lain</div>";
-        } else if($count_err>0 and $errordesc<>''){
-            if ($dtlerror['errorcode']==0){
-                $data['message']="<div class='alert alert-info'>DATA SUKSES DISIMPAN/DIUBAH $nomorakhir1 </div>";
-            } else {
-                $data['message']="<div class='alert alert-info'>$errordesc</div>";
-            }
-
-        }else {
-            if ($errorcode=='0'){
-                $data['message']="<div class='alert alert-info'>DATA SUKSES DISIMPAN/DIUBAH $nomorakhir1 </div>";
-            } else {
-                $data['message']="";
+        $data['message'] = "";
+        if($dtlerror) {
+            if($errorcode == 0) {
+                $data['message'] = "<div class='alert alert-info'>DATA SUKSES DISIMPAN/DIUBAH: $nomorakhir1</div>";
+            } else if($errordesc <> '') {
+                $data['message'] = "<div class='alert alert-warning'>$errordesc</div>";
             }
         }
 
-		$thn=$this->input->post('tahun');
-		$bln=$this->input->post('bulan');
-		$status1=$this->input->post('status');
-		$nik1=$this->input->post('nik');
+		$periode = $this->input->post("periode");
+		$status1 = $this->input->post("status");
+		$nik1 = $this->input->post("nik");
 
-		if (empty($thn)){
-			$tahun=date('Y'); $bulan=date('m'); $tgl=$bulan.$tahun;
-			$status='is not NULL';
-			$nik2='is not NULL';
+		if(empty($periode)) {
+            $periode = date("m-Y");
+		}
+        if($status1 == "") {
+            $status = "IS NOT NULL";
+        } else {
+            $status = "= '$status1'";
+        }
+        if($nik1 == "") {
+            $nik2 = "IS NOT NULL";
+        } else {
+            $nik2 = "= '$nik1'";
+        }
+		$cek2 = $this->m_lembur->cek_position($nik)->num_rows();
+		if($cek2 <= 0) {
+			$position = "IT";
 		} else {
-			$tahun=$thn; $bulan=$bln; $tgl=$bulan.$tahun;
-			//$status="='$status1'";
-			if ($status1==""){
-				$status='is not NULL';
-			} else {
-				$status="='$status1'";
-			}
-
-			if ($nik1==""){
-				$nik2='is not NULL';
-			} else {
-				$nik2="='$nik1'";
-
-			}
+			$cek = $this->m_lembur->cek_position($nik)->row_array();
+			$position = trim($cek["bag_dept"]);
 		}
-		switch ($bulan){
-			case '01': $bul='Januari'; break;
-			case '02': $bul='Februari'; break;
-			case '03': $bul='Maret'; break;
-			case '04': $bul='April'; break;
-			case '05': $bul='Mei'; break;
-			case '06': $bul='Juni'; break;
-			case '07': $bul='Juli'; break;
-			case '08': $bul='Agustus'; break;
-			case '09': $bul='September'; break;
-			case '10': $bul='Oktober'; break;
-			case '11': $bul='November'; break;
-			case '12': $bul='Desember'; break;
-		}
+        $data["position"] = $position;
+        $data["periode"] = $periode;
+        $data["nik"] = $nik1;
+        $data["status"] = $status1;
 
-		//echo $status;
-		//echo $nik2;
-		$cek2=$this->m_lembur->cek_position($nama)->num_rows();
+		/* AKSES APPROVE ATASAN */
+		$ceknikatasan1 = $this->m_akses->list_aksesatasan1($nik)->num_rows();
+		$ceknikatasan2 = $this->m_akses->list_aksesatasan2($nik)->num_rows();
 
-		if ($cek2<=0){
-			$position='IT';
+		$userinfo = $this->m_akses->q_user_check()->row_array();
+		$userhr = $this->m_akses->list_aksesperdep()->num_rows();
+		$level_akses = strtoupper(trim($userinfo["level_akses"]));
 
+		if(($userhr > 0 || $level_akses == "A")) {
+			$nikatasan = "";
+		} else if($ceknikatasan1 > 0 && $userhr == 0 && ($level_akses == "B" || $level_akses == "C" || $level_akses == "D")) {
+			$nikatasan = "WHERE x1.nik IN (SELECT TRIM(nik) FROM sc_mst.karyawan WHERE nik_atasan = '$nik') OR x1.nik = '$nik'";
+		} else if($ceknikatasan2 > 0 && $userhr == 0 && ($level_akses == "B" || $level_akses == "C" || $level_akses == "D")) {
+			$nikatasan = "WHERE x1.nik IN (SELECT TRIM(nik) FROM sc_mst.karyawan WHERE nik_atasan2 = '$nik') OR x1.nik = '$nik'";
 		} else {
-			$cek=$this->m_lembur->cek_position($nama)->row_array();
-			$position=trim($cek['bag_dept']);
+			$nikatasan = "WHERE x1.nik = '$nik'";
 		}
-
-		/* akses approve atasan */
-		$ceknikatasan1=$this->m_akses->list_aksesatasan1($nama)->num_rows();
-		$ceknikatasan2=$this->m_akses->list_aksesatasan2($nama)->num_rows();
-		$nikatasan1=$this->m_akses->list_aksesatasan1($nama)->result();
-		$nikatasan2=$this->m_akses->list_aksesatasan2($nama)->result();
-
-		$userinfo=$this->m_akses->q_user_check()->row_array();
-		$userhr=$this->m_akses->list_aksesperdep()->num_rows();
-		$level_akses=strtoupper(trim($userinfo['level_akses']));
-
-		if(($userhr>0 or $level_akses=='A')){
-			$nikatasan='';
-		}
-		else if (($ceknikatasan1)>0 and $userhr==0 and ($level_akses=='B' OR $level_akses=='C' OR $level_akses=='D')){
-			$nikatasan="where x1.nik in (select trim(nik) from sc_mst.karyawan where nik_atasan='$nama') or x1.nik='$nama'";
-
-		}
-		else if (($ceknikatasan2)>0 and $userhr==0 and ($level_akses=='B' OR $level_akses=='C' OR $level_akses=='D')){
-			$nikatasan="where x1.nik in (select trim(nik) from sc_mst.karyawan where nik_atasan2='$nama') or x1.nik='$nama'";
-		}
-		else {
-			$nikatasan="where x1.nik='$nama'";
-		}
-		$data['nama']=$nama;
-		$data['userhr']=$userhr;
-		$data['level_akses']=$level_akses;
+		$data["nama"] = $nik;
+		$data["userhr"] = $userhr;
+		$data["level_akses"] = $level_akses;
 		/* END APPROVE ATASAN */
 
-		$kmenu='I.T.B.3';
-		$data['akses']=$this->m_akses->list_aksespermenu($nama,$kmenu)->row_array();
-		$data['position']=$position;
-		$data['list_lembur_edit']=$this->m_lembur->list_lembur()->result();
-		$data['list_karyawan']=$this->m_lembur->list_karyawan()->result();
-		$data['list_lembur']=$this->m_lembur->q_lembur($tgl,$status,$nik2,$nikatasan)->result();
-		$data['list_lembur_dtl']=$this->m_lembur->q_lembur_dtl()->result();
-		$data['list_trxtype']=$this->m_lembur->list_trxtype()->result();
+		$kmenu = "I.T.B.3";
+		$data["akses"] = $this->m_akses->list_aksespermenu($nik, $kmenu)->row_array();
+		$data["list_lembur_edit"] = $this->m_lembur->list_lembur()->result();
+		$data["list_karyawan"] = $this->m_lembur->list_karyawan()->result();
+		$data["list_lembur"] = $this->m_lembur->q_lembur($periode, $status, $nik2, $nikatasan)->result();
+		$data["list_lembur_dtl"] = $this->m_lembur->q_lembur_dtl()->result();
+		$data["list_trxtype"] = $this->m_lembur->list_trxtype()->result();
 
-        $this->template->display('trans/lembur/v_list',$data);
+        $this->template->display("trans/lembur/v_list", $data);
 
-        $paramerror=" and userid='$nama'";
-        $dtlerror=$this->m_lembur->q_deltrxerror($paramerror);
+        $paramerror = " AND userid = '$nik'";
+        $dtlerror = $this->m_lembur->q_deltrxerror($paramerror);
     }
-	function karyawan(){
-		//$data['title']="List Master Riwayat Keluarga";
+    
+	function karyawan() {
+		$data["title"] = "List Karyawan";
+		$userinfo = $this->m_akses->q_user_check()->row_array();
+		$userhr = $this->m_akses->list_aksesperdep()->num_rows();
+		$level_akses = strtoupper(trim($userinfo["level_akses"]));
 
-		$data['title']="List Karyawan";
-		$userinfo=$this->m_akses->q_user_check()->row_array();
-		$userhr=$this->m_akses->list_aksesperdep()->num_rows();
-		$level_akses=strtoupper(trim($userinfo['level_akses']));
-
-		if($userhr>0 or $level_akses=='A'){
-			$data['list_karyawan']=$this->m_akses->list_karyawan()->result();
-		} else{
-			$data['list_karyawan']=$this->m_akses->list_akses_alone()->result();
+		if($userhr > 0 || $level_akses == "A") {
+			$data["list_karyawan"] = $this->m_akses->list_karyawan()->result();
+		} else {
+			$data["list_karyawan"] = $this->m_akses->list_akses_alone()->result();
 		}
-		$data['list_lembur']=$this->m_lembur->list_lembur()->result();
-		$data['list_trxtype']=$this->m_lembur->list_trxtype()->result();
-		//$data['list_lk2']=$this->m_lembur->list_karyawan_index($nik)->row_array();
-		//$data['list_lk']=$this->m_lembur->list_karyawan_index()->result();
-		$this->template->display('trans/lembur/v_list_karyawan',$data);
+		$this->template->display("trans/lembur/v_list_karyawan", $data);
 	}
 
 
-	function proses_input($nik){
-		$data['title']="List Karyawan";
-		$data['list_lk']=$this->m_lembur->list_karyawan_index($nik)->result();
-		$data['list_lembur']=$this->m_lembur->list_lembur()->result();
-		$data['list_trxtype']=$this->m_lembur->list_trxtype()->result();
-		$this->template->display('trans/lembur/v_input',$data);
+	function proses_input($nik) {
+		$data["title"] = "Input Data Lembur";
+		$data["list_lk"] = $this->m_lembur->list_karyawan_index($nik)->result();
+		$data["list_lembur"] = $this->m_lembur->list_lembur()->result();
+		$data["list_trxtype"] = $this->m_lembur->list_trxtype()->result();
+		$this->template->display("trans/lembur/v_input", $data);
 	}
-
 
 	function add_lembur(){
 		//$nik1=explode('|',);
@@ -279,31 +217,24 @@ class Lembur extends MX_Controller{
 
 	}
 
-	function edit($nodok){
-		//echo "test";
-
-
-		$data['title']='EDIT DATA LEMBUR';
-		if($this->uri->segment(5)=="upsuccess"){
-			$data['message']="<div class='alert alert-success'>Data Berhasil di update </div>";
+	function edit($nodok) {
+		$data["title"] = "Edit Data Lembur";
+		if($this->uri->segment(5) == "upsuccess") {
+			$data['message'] = "<div class='alert alert-success'>Data Berhasil di update </div>";
+		} else {
+			$data["message"] = "";
 		}
-		else {
-			$data['message']='';
-		}
-			$nik=$this->uri->segment(4);
-		//$data['nik']=$nik;
-		$data['list_lembur_edit']=$this->m_lembur->list_lembur()->result();
-		//$data['list_lembur']=$this->m_lembur->q_lembur($tgl,$status)->result();
-		$data['list_lembur_dtl']=$this->m_lembur->q_lembur_edit($nodok)->result();
-		$data['list_trxtype']=$this->m_lembur->list_trxtype()->result();
-		$this->template->display('trans/lembur/v_edit',$data);
-
+        $nik = $this->uri->segment(4);
+		$data["list_lembur_edit"] = $this->m_lembur->list_lembur()->result();
+		$data["list_lembur_dtl"] = $this->m_lembur->q_lembur_edit($nodok)->result();
+		$data["list_trxtype"] = $this->m_lembur->list_trxtype()->result();
+		$this->template->display("trans/lembur/v_edit", $data);
 	}
 
 	function detail($nodok){
 		//echo "test";
 		$nama=trim($this->session->userdata('nik'));
-		$data['title']='DETAIL DATA LEMBUR';
+		$data['title'] = 'Detail Data Lembur';
 		if($this->uri->segment(5)=="upsuccess"){
 			$data['message']="<div class='alert alert-success'>Data Berhasil di update </div>";
 		}
@@ -465,22 +396,33 @@ class Lembur extends MX_Controller{
 		}
 	}
 
-	function approval($nik,$nodok){
-		$nik=$this->input->post('nik');
-		$nodok=$this->input->post('nodok');
-		$tgl_input=$this->input->post('tgl');
-		$inputby=$this->input->post('inputby');
-		$cek=$this->m_lembur->cek_dokumen($nodok)->num_rows();
-		$cek2=$this->m_lembur->cek_dokumen2($nodok)->num_rows();
-			if ($cek>0) {
-				redirect("trans/lembur/index/kode_failed");
-			} else if ($cek2>0){
-				redirect("trans/lembur/index/kode_failed");
-			} else {
-				$this->m_lembur->tr_app($nodok,$inputby,$tgl_input);
-				redirect("trans/lembur/index/app_succes");
-			}
-		//echo $cek2;
+	function approval() {
+		$submit = $this->input->post("submit");
+        $nodok = $this->input->post("nodok");
+        $tgl_input = $this->input->post("tgl");
+        $inputby = $this->input->post("inputby");
+        $cek = $this->m_lembur->cek_dokumen($nodok)->num_rows();
+        $cek2 = $this->m_lembur->cek_dokumen2($nodok)->num_rows();
+
+        if($submit == "approve") {
+            if ($cek > 0) {
+                redirect("trans/lembur/index/kode_failed");
+            } else if ($cek2 > 0) {
+                redirect("trans/lembur/index/kode_failed");
+            } else {
+                $this->m_lembur->tr_app($nodok, $inputby, $tgl_input);
+                redirect("trans/lembur/index/app_succes");
+            }
+        } else if($submit == "cancel") {
+            if($cek>0) {
+                redirect("trans/lembur/index/kode_failed");
+            } else if($cek2>0) {
+                redirect("trans/lembur/index/kode_failed");
+            } else {
+                $this->m_lembur->tr_cancel($nodok, $inputby, $tgl_input);
+                redirect("trans/lembur/index/cancel_succes");
+            }
+        }
 	}
 
 	function cancel($nik,$nodok){
@@ -500,4 +442,68 @@ class Lembur extends MX_Controller{
 			}
 
 	}
+
+    function checkConflict() {
+        $request_body = file_get_contents('php://input');
+        $data = json_decode($request_body);
+        $tgl_awal = explode(" ", $data->jam_awal)[0];
+        $tgl_selesai = explode(" ", $data->jam_selesai)[0];
+
+        $result = [
+            "status" => true,
+            "message" => ""
+        ];
+        $error = [];
+        $bulan = ["JANUARI", "FEBRUARI", "MARET", "APRIL", "MEI", "JUNI", "JULI", "AGUSTUS", "SEPTEMBER", "OKTOBER", "NOVEMBER", "DESEMBER"];
+
+        $check = $this->m_lembur->q_checkConflict($data->nik, $data->nodok, $data->jam_awal, $data->jam_selesai)->result_array();
+        if(is_null($check[0]["is_conflict"]) && $check[0]["tgl_masuk"] != $check[0]["tgl_pulang"]) {
+            $error[] = $bulan[date_format(date_create($check[0]["tgl"]),"m") - 1] . " " . date_format(date_create($check[0]["tgl"]),"Y");
+        }
+        if(is_null($check[1]["is_conflict"])) {
+            $error[] = $bulan[date_format(date_create($check[1]["tgl"]),"m") - 1] . " " . date_format(date_create($check[1]["tgl"]),"Y");
+        }
+        if(is_null($check[2]["is_conflict"]) && $tgl_awal != $tgl_selesai) {
+            $error[] = $bulan[date_format(date_create($check[2]["tgl"]),"m") - 1] . " " . date_format(date_create($check[2]["tgl"]),"Y");
+        }
+        $error = array_unique($error);
+        if(sizeof($error) > 0) {
+            $result = [
+                "status" => false,
+                "message" => "PERINGATAN!! ANDA BELUM MEMILIKI JADWAL PADA BULAN " . (implode(" DAN ", $error)) . ". HARAP SEGERA HUBUNGI HRD."
+            ];
+        } else {
+            $error = [];
+
+            if($check[0]["is_conflict"] == 't' && $check[0]["tgl_masuk"] != $check[0]["tgl_pulang"]) {
+                $error[] = "* " . date_format(date_create($check[0]["tgl_masuk"]),"d-m-Y") . " " . $check[0]["jam_masuk"] . " S/D " . date_format(date_create($check[0]["tgl_pulang"]),"d-m-Y") . " " . $check[0]["jam_pulang"] . ".";
+            }
+            if($check[1]["is_conflict"] == 't') {
+                $error[] = "* " . date_format(date_create($check[1]["tgl_masuk"]),"d-m-Y") . " " . $check[1]["jam_masuk"] . " S/D " . date_format(date_create($check[1]["tgl_pulang"]),"d-m-Y") . " " . $check[1]["jam_pulang"] . ".";
+            }
+            if($check[2]["is_conflict"] == 't' && $tgl_awal != $tgl_selesai) {
+                $error[] = "* " . date_format(date_create($check[2]["tgl_masuk"]),"d-m-Y")  . " " . $check[2]["jam_masuk"] . " S/D " . date_format(date_create($check[2]["tgl_pulang"]),"d-m-Y") . " " . $check[2]["jam_pulang"] . ".";
+            }
+            if(sizeof($error) > 0) {
+                $result = [
+                    "status" => false,
+                    "message" => "PERINGATAN!! ANDA TIDAK DAPAT MENGAJUKAN LEMBUR SAAT JAM KERJA. PERHATIKAN JADWAL KERJA BERIKUT:<br>" . implode("<br>", $error)
+                ];
+            } else {
+                $error = [];
+                for($i = 3; $i < sizeof($check); $i++) {
+                    if($check[$i]["is_conflict"] == 't') {
+                        $error[] = "* NODOK: " . $check[$i]["nodok"] . " (" . date_format(date_create($check[$i]["tgl_masuk"]),"d-m-Y") . " " . $check[$i]["jam_masuk"] . " S/D " . date_format(date_create($check[$i]["tgl_pulang"]),"d-m-Y") . " " . $check[$i]["jam_pulang"] . ").";
+                    }
+                }
+                if(sizeof($error) > 0) {
+                    $result = [
+                        "status" => false,
+                        "message" => "PERINGATAN!! ANDA SUDAH MENGAJUKAN LEMBUR PADA HARI DAN JAM TERSEBUT. PERHATIKAN PENGAJUAN LEMBUR BERIKUT:<br>" . implode("<br>", $error)
+                    ];
+                }
+            }
+        }
+        echo json_encode($result);
+    }
 }

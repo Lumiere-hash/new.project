@@ -56,7 +56,7 @@ class M_lembur extends CI_Model{
 									left outer join sc_mst.trxtype h on a.kdtrx=h.kdtrx and trim(h.jenistrx)='ALASAN LEMBUR'
 									left outer join sc_mst.karyawan i on a.nmatasan=i.nik
 									left outer join sc_mst.trxtype j on a.status=j.kdtrx and j.jenistrx='LEMBUR'
-									where to_char(a.tgl_dok,'mmYYYY')='$tgl' and a.status $status and a.nik $nik2
+									where to_char(a.tgl_dok,'mm-YYYY')='$tgl' and a.status $status and a.nik $nik2
 									order by a.nodok desc) as x1
 									$nikatasan
 								");
@@ -78,7 +78,7 @@ class M_lembur extends CI_Model{
 								left outer join sc_mst.departmen c on a.kddept=c.kddept
 								left outer join sc_mst.subdepartmen d on a.kdsubdept=d.kdsubdept and d.kddept=c.kddept
 								left outer join sc_mst.lvljabatan e on a.kdlvljabatan=e.kdlvl
-								left outer join sc_mst.jabatan f on a.kdjabatan=f.kdjabatan and f.kdsubdept=d.kdsubdept and f.kddept=c.kddept
+								left outer join sc_mst.jabatan f on b.bag_dept=f.kddept and b.subbag_dept=f.kdsubdept and b.jabatan=f.kdjabatan
 								left outer join sc_mst.trxtype h on a.kdtrx=h.kdtrx and trim(h.jenistrx)='ALASAN LEMBUR'
 								left outer join sc_mst.karyawan i on a.nmatasan=i.nik
 								left outer join sc_mst.trxtype j on a.status=j.kdtrx and j.jenistrx='LEMBUR'
@@ -164,5 +164,38 @@ class M_lembur extends CI_Model{
 
     function q_deltrxerror($paramtrxerror){
         return $this->db->query("delete from sc_mst.trxerror where userid is not null $paramtrxerror");
+    }
+
+    function q_checkConflict($nik, $nodok, $jam_awal, $jam_akhir) {
+        return $this->db->query("
+            WITH x AS (
+                SELECT '$nik'::TEXT AS nik, '$jam_awal'::TIMESTAMP AS jam_awal, '$jam_akhir'::TIMESTAMP AS jam_akhir
+            )
+            (SELECT dd::DATE AS tgl, '' AS nodok, a.tgl::TEXT AS tgl_masuk, (a.tgl + (b.jam_masuk >= b.jam_pulang)::INT)::TEXT AS tgl_pulang, 
+            b.jam_masuk::TEXT AS jam_masuk, b.jam_pulang::TEXT AS jam_pulang, 
+            CASE 
+                WHEN a.kdjamkerja IS NULL AND c.nik IS NOT NULL
+                THEN FALSE
+                ELSE ((a.tgl || ' ' || b.jam_masuk)::TIMESTAMP, (a.tgl + (b.jam_masuk >= b.jam_pulang)::INT || ' ' || b.jam_pulang)::TIMESTAMP) OVERLAPS (x.jam_awal, x.jam_akhir) 
+            END AS is_conflict
+            FROM x
+            LEFT JOIN GENERATE_SERIES((x.jam_awal::DATE - 1)::TIMESTAMP, (x.jam_awal::DATE + 1)::TIMESTAMP, '1 DAY'::INTERVAL) dd ON TRUE
+            LEFT JOIN sc_trx.dtljadwalkerja a ON a.tgl = dd::DATE AND a.nik = x.nik
+            LEFT JOIN sc_mst.jam_kerja b ON b.kdjam_kerja = a.kdjamkerja
+            LEFT JOIN sc_trx.listjadwalkerja c ON c.nik = x.nik AND c.tahun = TO_CHAR(dd, 'YYYY') AND c.bulan = TO_CHAR(dd, 'MM')
+            ORDER BY 1)
+            UNION ALL
+            (SELECT COALESCE(a.tgl_kerja, x.jam_awal::DATE) AS tgl, a.nodok, a.tgl_jam_mulai::DATE::TEXT AS tgl_masuk, a.tgl_jam_selesai::DATE::TEXT AS tgl_pulang, 
+            a.tgl_jam_mulai::TIME::TEXT AS jam_masuk, a.tgl_jam_selesai::TIME::TEXT AS jam_pulang,
+            CASE
+                WHEN a.tgl_kerja IS NULL
+                THEN FALSE
+                ELSE (a.tgl_jam_mulai, a.tgl_jam_selesai) OVERLAPS (x.jam_awal, x.jam_akhir)
+            END AS is_conflict 
+            FROM x
+            LEFT JOIN sc_trx.lembur a ON a.nik = x.nik AND a.status IN ('A', 'P')
+            WHERE a.nodok <> '$nodok'
+            ORDER BY a.tgl_jam_mulai, a.tgl_jam_selesai)
+        ");
     }
 }
