@@ -72,22 +72,18 @@
                                         <a href="<?php $nodok = trim($lu->nodok); echo site_url("trans/lembur/detail/$nodok"); ?>" class="btn btn-info btn-sm">
                                             <i class="fa fa-eye"></i>&nbsp; Detail
                                         </a>
-                                        <?php if(trim($lu->status) <> 'P') { ?>
-                                            <?php if(trim($akses['aksesupdate'] == 't')) { ?>
-                                                <?php if(trim($lu->status) <> 'C'  and trim($lu->status) <> 'D') { ?>
+                                        <?php if(trim($lu->status) == "A" && (trim($lu->input_by) == trim($nama) || $userhr > 0 || $level_akses == "A")): ?>
+                                            <?php if(trim($akses["aksesupdate"]) == "t"): ?>
                                                 <a href="<?php $nodok = trim($lu->nodok); echo site_url("trans/lembur/edit/$nodok"); ?>"  class="btn btn-primary btn-sm">
                                                     <i class="fa fa-edit"></i>&nbsp; Edit
                                                 </a>
-                                                <?php } ?>
-                                            <?php } ?>
-                                            <?php if(trim($akses['aksesdelete'] == 't')) { ?>
-                                                <?php if(trim($position == "HR") or trim($position == 'IT')) { ?>
+                                            <?php endif; ?>
+                                            <?php if(trim($akses["aksesdelete"]) == "t"): ?>
                                                 <a href="<?php $nodok = trim($lu->nodok); echo site_url("trans/lembur/hps_lembur/$nodok"); ?>" onclick="return confirm('Anda Yakin Hapus Data ini?')" class="btn btn-danger btn-sm">
                                                     <i class="fa fa-trash-o"></i>&nbsp; Hapus
                                                 </a>
-                                                <?php } ?>
-                                            <?php } ?>
-                                        <?php } ?>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
