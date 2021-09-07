@@ -4,7 +4,8 @@ class Migrate extends CI_Controller {
     function __construct() {
         parent::__construct();
 
-        $this->load->library("migration");
+        $this->load->model(["master/m_akses"]);
+        $this->load->library(["migration"]);
         $nik = trim($this->session->userdata("nik"));
         $userinfo = $this->m_akses->q_user_check()->row_array();
         $level_akses = strtoupper(trim($userinfo["level_akses"]));

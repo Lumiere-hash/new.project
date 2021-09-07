@@ -6,7 +6,8 @@ class Update extends CI_Controller {
     function __construct() {
         parent::__construct();
 
-        $this->load->library(["template", "migration"]);
+        $this->load->model(["master/m_akses"]);
+        $this->load->library(["template"]);
         $nik = trim($this->session->userdata("nik"));
         $userinfo = $this->m_akses->q_user_check()->row_array();
         $level_akses = strtoupper(trim($userinfo["level_akses"]));
@@ -56,6 +57,7 @@ class Update extends CI_Controller {
             ];
         }
         ob_start();
+        $this->load->library(["migration"]);
         if($this->migration->current() === TRUE && $arr["status"] == "false") {
             $arr = [
                 "status" => "false"
