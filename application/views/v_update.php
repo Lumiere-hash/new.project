@@ -25,21 +25,29 @@
     <div class="well text-center">
         <h2>UPDATE WEBSITE</h2>
         <hr>
-        <div class="col-md-8 col-md-offset-2">
-            <div class="loader"></div>
-            <div class="msg alert alert-success text-center" style="display: none; font-size: large; margin-bottom: 0;"></div>
+        <div class="col-md-10 col-md-offset-1">
+            <div class="btn btn-warning btn-cek" onclick="updateWeb();" style="margin-bottom: 25px;">Cek Update</div>
+            <div class="loader" style="display: none;"></div>
+            <div class="msg alert alert-success text-center" style="display: none; font-size: large; margin-bottom: 0;">WEBSITE BERHASIL DI UPDATE !!!</div>
             <div class="msg-info alert alert-info text-center" style="display: none; font-size: large; margin-bottom: 0;"></div>
             <div class="msg-danger alert alert-danger text-center" style="display: none; font-size: large; margin-bottom: 0;"></div>
+
+            <div class="panel panel-default text-left log-box" style="display: none; margin-top: 25px;">
+                <div class="panel-heading"><h5 class="text-bold">LOG PERUBAHAN</h5></div>
+                <div class="panel-body log-box-body"></div>
+            </div>
         </div>
         <div class="clearfix"></div>
     </div>
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function() {
+    function updateWeb() {
+        $('.btn-cek').hide();
         $('.msg').hide();
         $('.msg-info').hide();
         $('.msg-danger').hide();
+        $('.log-box').hide();
         $('.loader').show();
 
         $.ajax({
@@ -50,12 +58,17 @@
             processData: false,
             success: function (response) {
                 $('.loader').hide();
+                $('.btn-cek').show();
 
-                if(response.status === "true") {
+                if (response.status === "true") {
                     $("#loadMe").modal("hide");
                     $('.msg').html("WEBSITE BERHASIL DI UPDATE !!!");
                     $('.msg').show();
-                } else if(response.status === "false") {
+                    if(response.logResult != "") {
+                        $('.log-box').show();
+                        $('.log-box-body').html(response.logResult);
+                    }
+                } else if (response.status === "false") {
                     var msg = "WEBSITE SUDAH UP-TO-DATE !!";
                     $('.msg-info').html(msg);
                     $('.msg-info').show();
@@ -66,5 +79,5 @@
                 }
             }
         });
-    });
+    }
 </script>

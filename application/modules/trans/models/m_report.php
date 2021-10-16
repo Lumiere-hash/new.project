@@ -774,6 +774,76 @@ class M_report extends CI_Model{
             order by x4.nmlengkap,x1.orderdate,x2.orderid
         ");
     }
+
+function q_remind_cuti(){
+        return $this->db->query("select a.nik,nmlengkap,nmdept as bagian,to_char(now(),'DD-MM-YYYY') as tgl,a.keterangan
+									from sc_trx.cuti_karyawan a
+									left outer join sc_mst.karyawan b on a.nik=b.nik
+									left outer join sc_mst.departmen c on b.bag_dept=c.kddept
+									where a.status<>'C' 
+									and to_char(now(),'YYYYMMDD') >= to_char(tgl_mulai,'YYYYMMDD')  
+									and to_char(now(),'YYYYMMDD')<= to_char(tgl_selesai,'YYYYMMDD')
+									");
+    }
+
+    function q_remind_dinas() {
+        return $this->db->query("select a.nik,nmlengkap,nmdept as bagian,to_char(now(),'DD-MM-YYYY') as tgl,a.tujuan
+								from sc_trx.dinas a
+								left outer join sc_mst.karyawan b on a.nik=b.nik
+								left outer join sc_mst.departmen c on b.bag_dept=c.kddept
+								where a.status<>'C' 
+								and to_char(now(),'YYYYMMDD') >= to_char(tgl_mulai,'YYYYMMDD')  
+								and to_char(now(),'YYYYMMDD')<= to_char(tgl_selesai,'YYYYMMDD')
+
+								");
+    }
+
+    function q_remind_ijin() {
+        return $this->db->query("select a.nodok,a.nik,nmlengkap,nmdept as bagian,to_char(now(),'DD-MM-YYYY') as tgl,
+								tgl_jam_mulai as jam_awal,tgl_jam_selesai as jam_akhir,
+								nmijin_absensi as tipe_ijin,d.uraian as kategori,a.keterangan
+								from sc_trx.ijin_karyawan a
+								left outer join sc_mst.karyawan b on a.nik=b.nik
+								left outer join sc_mst.departmen c on b.bag_dept=c.kddept
+								left outer join (select * from sc_mst.trxtype where jenistrx='IJIN INPUT') as d on a.type_ijin=d.kdtrx
+								left outer join sc_mst.ijin_absensi e on a.kdijin_absensi=e.kdijin_absensi
+								where a.status<>'C' 
+								and to_char(now(),'YYYYMMDD') >= to_char(tgl_kerja,'YYYYMMDD')  
+								and to_char(now(),'YYYYMMDD')<= to_char(tgl_kerja,'YYYYMMDD')
+		");
+    }
+
+    function q_remind_lembur() {
+        return $this->db->query("select to_char(a.tgl_dok,'dd-mm-yyyy')as tgl_dok1,
+                                        to_char(a.tgl_kerja,'dd-mm-yyyy')as tgl_kerja1,
+                                        a.status, 
+                                        case
+                                        when a.status='P' then 'DISETUJUI/PRINT'
+                                        when a.status='C' then 'DIBATALKAN'
+                                        when a.status='I' then 'INPUT'
+                                        when a.status='A' then 'PERLU PERSETUJUAN'
+                                        when a.status='D' then 'DIHAPUS'
+                                        end as status1,
+                                        a.*,b.nmlengkap,c.nmdept,d.nmsubdept,e.nmlvljabatan,f.nmjabatan,h.uraian,i.nmlengkap as nmatasan1,
+                                        cast(cast(floor(durasi/60.) as integer)as character(12))|| ' Jam '||
+                                        cast(cast((durasi-(floor(durasi/60.)*60)) as integer)as character(12))||' Menit' as jam,
+                                case when a.jenis_lembur='D1' then 'DI-DURASI ABSEN'
+                                when a.jenis_lembur='D2' then 'D2-NON DURASI'
+                                else 'UNKNOWN' end as nmjenis_lembur
+                                        from sc_trx.lembur a 
+                                        left outer join sc_mst.karyawan b on a.nik=b.nik
+                                        left outer join sc_mst.departmen c on a.kddept=c.kddept
+                                        left outer join sc_mst.subdepartmen d on b.bag_dept=d.kddept and b.subbag_dept=d.kdsubdept
+                                        left outer join sc_mst.lvljabatan e on a.kdlvljabatan=e.kdlvl
+                                        left outer join sc_mst.jabatan f on b.bag_dept=f.kddept and b.subbag_dept=f.kdsubdept and b.jabatan=f.kdjabatan
+                                        left outer join sc_mst.trxtype h on a.kdtrx=h.kdtrx and trim(h.jenistrx)='ALASAN LEMBUR'
+                                        left outer join sc_mst.karyawan i on a.nmatasan=i.nik
+                                        where a.status<>'C' 
+                                            and to_char(now(),'YYYYMMDD') >= to_char(tgl_kerja,'YYYYMMDD')  
+                                            and to_char(now(),'YYYYMMDD')<= to_char(tgl_kerja,'YYYYMMDD')
+                                        order by a.nodok desc
+                                        ");
+    }
 	
 
 }

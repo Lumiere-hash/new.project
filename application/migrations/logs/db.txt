@@ -1,56 +1,20 @@
-2021-08-27 09:57:13
+2021-10-16 08:23:29
 
-BEGIN EXECUTING "application/migrations/00001_replikasi_ga.php"...
+BEGIN EXECUTING "application/migrations/00001_dashboard.php"...
 
-	BEGIN EXECUTING "application/migrations/sql/00001.20210825.10.Replikasi-Ga/+up/001.alter.add.sc_mst.msupplier.sql"...
-
-		[SUCCESS]
-
-	FINISH
-
-	BEGIN EXECUTING "application/migrations/sql/00001.20210825.10.Replikasi-Ga/+up/002.alter.add.sc_his.po_mst.sql"...
+	BEGIN EXECUTING "application/migrations/sql/00001.20211016.08.Dashboard/+up/001.alter.sc_mst.option.sql"...
 
 		[SUCCESS]
 
 	FINISH
 
-	BEGIN EXECUTING "application/migrations/sql/00001.20210825.10.Replikasi-Ga/+up/003.insert.sc_mst.trxtype.sql"...
+	BEGIN EXECUTING "application/migrations/sql/00001.20211016.08.Dashboard/+up/002.insert.sc_mst.option.sql"...
 
 		[SUCCESS]
 
 	FINISH
 
-	BEGIN EXECUTING "application/migrations/sql/00001.20210825.10.Replikasi-Ga/+up/004.create.sc_rep.sql"...
-
-		[SUCCESS]
-
-	FINISH
-
-	BEGIN EXECUTING "application/migrations/sql/00001.20210825.10.Replikasi-Ga/+up/005.create.sc_rep.supplier.sql"...
-
-		[SUCCESS]
-
-	FINISH
-
-	BEGIN EXECUTING "application/migrations/sql/00001.20210825.10.Replikasi-Ga/+up/006.create.sc_rep.pr_supplier_replication.sql"...
-
-		[SUCCESS]
-
-	FINISH
-
-	BEGIN EXECUTING "application/migrations/sql/00001.20210825.10.Replikasi-Ga/+up/007.create.sc_rep.pomstserv.sql"...
-
-		[SUCCESS]
-
-	FINISH
-
-	BEGIN EXECUTING "application/migrations/sql/00001.20210825.10.Replikasi-Ga/+up/008.create.sc_rep.pr_pomstserv_replication.sql"...
-
-		[SUCCESS]
-
-	FINISH
-
-FINISH EXECUTE "application/migrations/00001_replikasi_ga.php"...
+FINISH EXECUTE "application/migrations/00001_dashboard.php"...
 
 -----------------------------------------------------------------------------------------------------------------------------
 

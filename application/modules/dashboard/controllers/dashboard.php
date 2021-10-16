@@ -7,7 +7,7 @@
 class Dashboard extends MX_Controller{
     function __construct(){
         parent::__construct();
-        $this->load->model(array('m_modular','m_geografis','web/m_user'));
+        $this->load->model(array('m_modular','m_geografis','web/m_user', "master/m_akses", "trans/m_stspeg", "trans/m_report"));
         $this->load->library(array('form_validation','template','Excel_Generator'));
         if(!$this->session->userdata('nik')){
             redirect('web');
@@ -16,31 +16,41 @@ class Dashboard extends MX_Controller{
     }
     
     function index(){
-        $data['title']="Home";
-		$jumlah_karyawan=$this->db->query("select *,case when kuranghari<0 then 'TERLEWAT'
-											else 'AKAN HABIS' 
-											end as keteranganhari  from 
-											(select a.nmlengkap,b.tgl_selesai-cast(now() as date) as kuranghari,a.nik,b.nodok,a.statuskepegawaian,b.keterangan,c.nmkepegawaian,
-											to_char(b.tgl_mulai,'DD-MM-YYYY') as tgl_mulai1,
-											to_char(b.tgl_selesai,'DD-MM-YYYY') as tgl_selesai1
-											from sc_mst.karyawan a
-											left outer join sc_trx.status_kepegawaian b on a.nik=b.nik and a.statuskepegawaian=b.kdkepegawaian
-											left outer join sc_mst.status_kepegawaian c on b.kdkepegawaian=c.kdkepegawaian
-											where a.statuskepegawaian<>'KO' and a.statuskepegawaian<>'KT' 
-											and to_char(tgl_selesai,'YYYYMM') between to_char(now() - interval '1 Months','YYYYMM') and  to_char(now(),'YYYYMM')) as t1 
-											")->num_rows();
-		$data['jumlah_karyawan']=$jumlah_karyawan;
-		$jumlah_pensiun=$this->db->query("select  a.nmlengkap,to_char(age(a.tgllahir),'YY'),cast(to_char(tgllahir,'DD-MM')||'-'||to_char(now(),'YYYY')as date) as tglultah,a.nik,b.nodok,b.kdkepegawaian,b.keterangan,c.nmkepegawaian,
-											to_char(b.tgl_mulai,'DD-MM-YYYY') as tgl_mulai1,
-											to_char(b.tgl_selesai,'DD-MM-YYYY') as tgl_selesai1
-											from sc_mst.karyawan a
-											left outer join sc_trx.status_kepegawaian b on a.statuskepegawaian=b.kdkepegawaian and a.nik=b.nik
-											left outer join sc_mst.status_kepegawaian c on b.kdkepegawaian=c.kdkepegawaian
-											where to_char(age(a.tgllahir),'YY')>='56' AND b.kdkepegawaian<>'KO' and b.kdkepegawaian<>'KP'  
+        $data["title"] = "Home";
+        $data["rowakses"] = $this->m_akses->list_aksesperdep()->num_rows();
+        $data["level"] = $this->session->userdata("lvl");
 
-										")->num_rows();
-		$data['jumlah_pensiun']=$jumlah_pensiun;								
-        $this->template->display('dashboard/dashboard/index',$data);
+        if($data["rowakses"] > 0 || $data["level"] == "A") {
+            $data["list_ojt"] = $this->m_stspeg->q_list_ojt()->result();
+            $data["title_ojt"] = "Karyawan OJT (On Job Training)";
+
+            $data["list_kontrak"] = $this->m_stspeg->q_list_karkon()->result();
+            $data["title_kontrak"] = "Karyawan Kontrak";
+
+            $data["list_pensiun"] = $this->m_stspeg->q_list_karpen()->result();
+            $data["title_pensiun"] = "Karyawan Pensiun";
+
+            $data["list_magang"] = $this->m_stspeg->q_list_magang()->result();
+            $data["title_magang"] = "Karyawan Magang";
+        }
+
+        $data["list_cuti"] = $this->m_report->q_remind_cuti()->result();
+        $data["title_cuti"] = "Karyawan Cuti / Cuti Khusus Harian";
+
+        $data["list_dinas"] = $this->m_report->q_remind_dinas()->result();
+        $data["title_dinas"] = "Karyawan Dinas";
+
+        $data["list_ijin"] = $this->m_report->q_remind_ijin()->result();
+        $data["title_ijin"] = "Karyawan Ijin";
+
+        $data["list_lembur"] = $this->m_report->q_remind_lembur()->result();
+        $data["title_lembur"] = "Karyawan Lembur";
+
+        $day = 4;
+        $data["title_recent"] = "Aktifitas ". $day ." Hari Terakhir (Recent Latest Employee Activity)";
+
+        $data['dtlbroadcast'] = $this->m_modular->q_broadcast_dashboard()->row_array();
+        $this->template->display("dashboard/dashboard/index",$data);
 				
     }
     
