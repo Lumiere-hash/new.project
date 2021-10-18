@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Dashboard extends CI_Migration {
-    protected $_version =  "00001.20211016.08.Dashboard";
+class Migration_Option_block extends CI_Migration {
+    protected $_version =  "00002.20211018.09.Option-Block";
 
     ################################################## DO NOT CHANGE THIS LINE !!! ##################################################
     public function up() {

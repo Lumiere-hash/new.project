@@ -1,7 +1,9 @@
 <script type="text/javascript">
     var $jenis_lembur;
     $(function() {
-        $("#tgl_kerja").datepicker();
+        $("#tgl_kerja").datepicker({
+            startDate: '<?= $opsi_lembur ?>'
+        });
         $("[data-mask]").inputmask();
         $('.tgllin').hide();
         $('#durasi').val("0 Jam 0 Menit");

@@ -104,7 +104,7 @@
 				 <label class="col-sm-12">Value 1</label>
 				<div class="col-sm-12">
 
-						<input type="text" placeholder="character" id="nmdept" name="value1"  maxlength="20" style="text-transform:uppercase" class="form-control" >
+						<input type="text" placeholder="character" id="nmdept" name="value1" style="text-transform:uppercase" class="form-control" >
 
 					<!-- /.input group -->
 				</div>
@@ -218,7 +218,7 @@
 				 <label class="col-sm-12">Value 1</label>
 				<div class="col-sm-12">
 
-						<input type="text" placeholder="character" value="<?php echo trim($lk->value1);?>" id="nmdept" name="value1"  maxlength="20" style="text-transform:uppercase" class="form-control" >
+						<input type="text" placeholder="character" value="<?php echo trim($lk->value1);?>" id="nmdept" name="value1" style="text-transform:uppercase" class="form-control" >
 
 					<!-- /.input group -->
 				</div>

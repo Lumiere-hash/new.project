@@ -3,7 +3,7 @@
 class Lembur extends MX_Controller {
     function __construct() {
         parent::__construct();
-		$this->load->model(['m_lembur', 'master/m_akses']);
+		$this->load->model(['m_lembur', 'master/m_akses', 'master/m_option']);
         $this->load->library(['form_validation', 'template', 'upload', 'pdf', 'fiky_encryption', 'Fiky_notification_push']);
         if(!$this->session->userdata('nik')) {
             redirect('dashboard');
@@ -117,9 +117,24 @@ class Lembur extends MX_Controller {
 
 	function proses_input($nik) {
 		$data["title"] = "Input Data Lembur";
+        $nama=$this->session->userdata('nik');
+        $userinfo=$this->m_akses->q_user_check()->row_array();
+        $userhr=$this->m_akses->list_aksesperdepcuti()->num_rows();
+        $level_akses=strtoupper(trim($userinfo['level_akses']));
+        $data['nama']=$nama;
+        $data['userhr']=$userhr;
+        $data['level_akses']=$level_akses;
+
 		$data["list_lk"] = $this->m_lembur->list_karyawan_index($nik)->result();
 		$data["list_lembur"] = $this->m_lembur->list_lembur()->result();
 		$data["list_trxtype"] = $this->m_lembur->list_trxtype()->result();
+        $data['opsi_lembur'] = null;
+        if($data['userhr'] == 0) {
+            $opsi_lembur = $this->m_option->q_cekoption('BLKLB')->row();
+            if($opsi_lembur->status == "T") {
+                $data['opsi_lembur'] = strtolower($opsi_lembur->value1);
+            }
+        }
 		$this->template->display("trans/lembur/v_input", $data);
 	}
 
@@ -231,9 +246,24 @@ class Lembur extends MX_Controller {
 			$data["message"] = "";
 		}
         $nik = $this->uri->segment(4);
+        $nama=$this->session->userdata('nik');
+        $userinfo=$this->m_akses->q_user_check()->row_array();
+        $userhr=$this->m_akses->list_aksesperdepcuti()->num_rows();
+        $level_akses=strtoupper(trim($userinfo['level_akses']));
+        $data['nama']=$nama;
+        $data['userhr']=$userhr;
+        $data['level_akses']=$level_akses;
+
 		$data["list_lembur_edit"] = $this->m_lembur->list_lembur()->result();
 		$data["list_lembur_dtl"] = $this->m_lembur->q_lembur_edit($nodok)->result();
 		$data["list_trxtype"] = $this->m_lembur->list_trxtype()->result();
+        $data['opsi_lembur'] = null;
+        if($data['userhr'] == 0) {
+            $opsi_lembur = $this->m_option->q_cekoption('BLKLB')->row();
+            if($opsi_lembur->status == "T") {
+                $data['opsi_lembur'] = strtolower($opsi_lembur->value1);
+            }
+        }
 		$this->template->display("trans/lembur/v_edit", $data);
 	}
 

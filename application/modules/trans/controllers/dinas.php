@@ -10,7 +10,7 @@ class Dinas extends MX_Controller{
         parent::__construct();
         //$enc_nodok=bin2hex($this->encrypt->encode(trim($dtledit['nodoktmp'])));
         //$nodok=$this->encrypt->decode(hex2bin(trim($this->uri->segment(4))));
-		$this->load->model(array('m_dinas','master/m_akses'));
+		$this->load->model(array('m_dinas','master/m_akses','master/m_option'));
         $this->load->library(array('form_validation','template','upload','pdf','Excel_generator','Fiky_encryption','Fiky_version','fiky_notification_push'));
 		 if(!$this->session->userdata('nik')){
             redirect('dashboard');
@@ -161,6 +161,16 @@ class Dinas extends MX_Controller{
 		} else{
 			$data['list_karyawan']=$this->m_akses->list_akses_alone()->result();
 		}
+        $data['default_date'] = date('d-m-Y');
+        $data['opsi_dinas'] = null;
+        if($userhr == 0) {
+            $opsi_dinas = $this->m_option->q_cekoption('BLKDN')->row();
+            if($opsi_dinas->status == "T") {
+                $value = strtolower($opsi_dinas->value1);
+                $value = str_replace("d", " day", $value);
+                $data['default_date'] = $data['opsi_dinas'] = date('d-m-Y', strtotime($value));
+            }
+        }
 		$this->template->display('trans/dinas/v_list_karyawan',$data);
 	}
 
@@ -360,7 +370,7 @@ class Dinas extends MX_Controller{
 	function edit(){
 		//echo "test";
         $nodok=$this->encrypt->decode(hex2bin(trim($this->uri->segment(4))));
-		$data['title']='EDIT DATA IJIN KARYAWAN';
+		$data['title']='EDIT DATA DINAS KARYAWAN';
 		if($this->uri->segment(5)=="upsuccess"){
 			$data['message']="<div class='alert alert-success'>Data Berhasil di update </div>";
 		}
@@ -375,6 +385,17 @@ class Dinas extends MX_Controller{
 		$data['list_dinas_karyawan']=$this->m_dinas->q_dinas_karyawan_dtl($nodok)->result();
 		//$cok=$this->m_dinas->q_dinas_karyawan_dtl($nodok)->row_array();
 		//echo $cok['kdkategori'];
+        $data['default_date'] = date('d-m-Y');
+        $data['opsi_dinas'] = null;
+        if($userhr == 0) {
+            $opsi_dinas = $this->m_option->q_cekoption('BLKDN')->row();
+            if($opsi_dinas->status == "T") {
+                $value = strtolower($opsi_dinas->value1);
+                $value = str_replace("d", " day", $value);
+                $data['default_date'] = $data['opsi_dinas'] = date('d-m-Y', strtotime($value));
+            }
+        }
+
 		$this->template->display('trans/dinas/v_edit',$data);
 
 	}

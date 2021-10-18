@@ -155,8 +155,12 @@
 							</div>
 							<script type="text/javascript">
 								$(function() {                         
-									$("#dateinput<?php echo trim($dtl['nodok']);?>").datepicker();                               
-									$("#dateinput1<?php echo trim($dtl['nodok']);?>").datepicker();    
+									$("#dateinput<?php echo trim($dtl['nodok']);?>").datepicker({
+                                        startDate: '<?= $opsi_cuti ?>'
+                                    });
+									$("#dateinput1<?php echo trim($dtl['nodok']);?>").datepicker({
+                                        startDate: '<?= $opsi_cuti ?>'
+                                    });
 									$("#kdtrx").selectize();	
 								});
 							</script>	
