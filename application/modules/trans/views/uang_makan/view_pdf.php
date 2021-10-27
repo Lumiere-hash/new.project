@@ -68,8 +68,8 @@
             <th bgcolor="#CCCCCC"><div align="center">Tanggal</div></th>
             <th bgcolor="#CCCCCC"><div align="center">Checktime</div></th>
             <?php if($kdregu == "SL"): ?>
-                <th bgcolor="#CCCCCC"><div align="center">Rencana Callplan</div></th>
-                <th bgcolor="#CCCCCC"><div align="center">Realisasi Callplan</div></th>
+                <th bgcolor="#CCCCCC"><div align="center">Callplan</div></th>
+                <th bgcolor="#CCCCCC"><div align="center">Realisasi</div></th>
             <?php endif; ?>
             <th bgcolor="#CCCCCC"><div align="center">Status</div></th>
             <th bgcolor="#CCCCCC"><div align="center">Keterangan</div></th>

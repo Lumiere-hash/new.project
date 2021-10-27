@@ -112,7 +112,7 @@ class Uang_makan extends MX_Controller {
         $datane = $this->m_uang_makan->q_uangmakan_regu($kdcabang, $awal, $akhir, $regu);
         $this->excel_generator->set_query($datane);
         if($regu == "SL") {
-            $this->excel_generator->set_header(array('NO', 'NIK', 'NAMA', 'DEPARTEMEN', 'JABATAN', 'TANGGAL', 'CHECKTIME', 'RENCANA CALLPLAN', 'REALISASI CALLPLAN','KETERANGAN', 'UANG MAKAN'));
+            $this->excel_generator->set_header(array('NO', 'NIK', 'NAMA', 'DEPARTEMEN', 'JABATAN', 'TANGGAL', 'CHECKTIME', 'CALLPLAN', 'REALISASI','KETERANGAN', 'UANG MAKAN'));
             $this->excel_generator->set_column(array('no', 'nik', 'nmlengkap', 'nmdept', 'nmjabatan', 'tglhari', 'checktime', 'rencanacallplan', 'realisasicallplan', 'keterangan', 'nominalrp'));
             $this->excel_generator->set_width(array(5, 12, 25, 25, 25, 25, 25, 25, 25, 25, 25));
         } else {

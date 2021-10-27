@@ -140,8 +140,8 @@
                             <th>Tanggal</th>
                             <th>Checktime</th>
                             <?php if($regu == "SL"): ?>
-                                <th>Rencana Callplan</th>
-                                <th>Realisasi Callplan</th>
+                                <th>Callplan</th>
+                                <th>Realisasi</th>
                             <?php endif; ?>
                             <th>Keterangan</th>
                             <th>Uang Makan</th>
@@ -284,13 +284,13 @@
     </div>
 </div>
 
-<!--Modal Untuk Rencana Callplan-->
+<!--Modal Untuk Callplan-->
 <div class="modal fade" id="rencana" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Rencana Callplan</h4>
+                <h4 class="modal-title" id="myModalLabel">Callplan</h4>
             </div>
             <div class="modal-body">
                 <input type="hidden" id="rencana_nik" name="rencana_nik" class="form-control" value="0419.350">
@@ -328,13 +328,13 @@
     </div>
 </div>
 
-<!--Modal Untuk Realisasi Callplan-->
+<!--Modal Untuk Realisasi-->
 <div class="modal fade" id="realisasi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">Realisasi Callplan</h4>
+                <h4 class="modal-title" id="myModalLabel">Realisasi</h4>
             </div>
             <div class="modal-body">
                 <input type="hidden" id="realisasi_nik" name="realisasi_nik" class="form-control" value="0419.350">
