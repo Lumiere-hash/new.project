@@ -1,8 +1,8 @@
 <?php
 class M_uang_makan extends CI_Model{
 
-	function q_uangmakan_absensi($kdcabang,$awal,$akhir){
-		return $this->db->query("	
+    function q_uangmakan_absensi($kdcabang,$awal,$akhir){
+        return $this->db->query("	
 		/*select * from sc_trx.qv_uangmakan where nik in (select trim(nik) from sc_mst.karyawan where kdcabang='$kdcabang') and (to_char(tgl,'yyyy-mm-dd') between '$awal' and '$akhir')*/
 		
 		select *,cast(nominal as money) as nominalrp from (
@@ -71,14 +71,14 @@ class M_uang_makan extends CI_Model{
 
 	
 								");
-	}
-	function q_uangmakan_mst_json($kdcabang,$awal,$akhir,$nama){
-		return $this->db->query("select desc_cabang::text as cabang,to_char('$awal'::date,'dd-mm-yyyy') as awal,to_char('$akhir'::date,'dd-mm-yyyy') as akhir,'$nama'::text as username 
+    }
+    function q_uangmakan_mst_json($kdcabang,$awal,$akhir,$nama){
+        return $this->db->query("select desc_cabang::text as cabang,to_char('$awal'::date,'dd-mm-yyyy') as awal,to_char('$akhir'::date,'dd-mm-yyyy') as akhir,'$nama'::text as username 
 									from sc_mst.kantorwilayah where kdcabang='$kdcabang';");
-	}
-	
-	function q_uangmakan_absensi_json($kdcabang,$awal,$akhir){
-		return $this->db->query("select
+    }
+
+    function q_uangmakan_absensi_json($kdcabang,$awal,$akhir){
+        return $this->db->query("select
 											trim(coalesce(nomor       ,0)::text)as  nomor    ,
 											trim(coalesce(nmlengkap ,'')::text)as  nmlengkap ,
 											trim(coalesce(nmdept    ,'')::text)as  nmdept    ,
@@ -153,73 +153,115 @@ class M_uang_makan extends CI_Model{
 														order by nik,tgl) as t1
 														group by nik,nmdept,nmjabatan,nmlengkap ) as x
 														group by nik,nmlengkap,nmdept,nmjabatan,tglhari,checktime,keterangan ) as x2) as a");
-	}
-	
-	
-	function q_kanwil(){
-		return $this->db->query("select * from sc_mst.kantorwilayah order by desc_cabang");
-	}
-	function q_kanwil_dtl($kdcabang){
-		return $this->db->query("select * from sc_mst.kantorwilayah where kdcabang='$kdcabang' order by desc_cabang");
-	}
-	
-	//list kantor
-	function q_kantor(){
-		return $this->db->query("select * from sc_mst.kantor");
-	}
-	
-	function q_listpeg(){		
-			return $this->db->query("select a.nip as list_nip,* from sc_hrd.pegawai a
+    }
+
+    function q_uangmakan_regu($kdcabang, $awal, $akhir, $regu) {
+        return $this->db->query("
+            SELECT ROW_NUMBER() OVER () AS no, a.nik, a.tgl, CASE WHEN GROUPING(b.nmlengkap) = 0 THEN b.nmlengkap ELSE 'GRAND TOTAL UANG MAKAN' END AS nmlengkap, 
+            b.callplan, c.nmdept, e.nmjabatan, TO_CHAR(a.tgl, 'TMDAY, DD-MM-YYYY') AS tglhari, a.checkin, a.checkout, 
+            CASE 
+                WHEN GROUPING(b.nmlengkap) = 0 AND GROUPING(keterangan) = 0 AND (a.checkin IS NOT NULL OR a.checkout IS NOT NULL)
+                    THEN CONCAT(LPAD(a.checkin::TEXT, 8), ' | ', a.checkout::TEXT)
+            END AS checktime, a.rencanacallplan, a.realisasicallplan,
+            CASE 
+                WHEN GROUPING(b.nmlengkap) = 0 AND GROUPING(keterangan) = 0 THEN keterangan 
+                WHEN GROUPING(b.nmlengkap) = 0 AND GROUPING(keterangan) = 1 THEN 'TOTAL' 
+            END AS keterangan, SUM(a.nominal) AS nominalrp, GROUPING(b.nmlengkap) AS group_nmlengkap, GROUPING(keterangan) AS group_keterangan
+            FROM sc_trx.uangmakan a 
+            LEFT JOIN sc_mst.karyawan b ON a.nik = b.nik
+            LEFT JOIN sc_mst.departmen c ON b.bag_dept = c.kddept 
+            LEFT JOIN sc_mst.subdepartmen d ON b.bag_dept = d.kddept AND b.subbag_dept = d.kdsubdept 
+            LEFT JOIN sc_mst.jabatan e ON b.bag_dept = e.kddept AND b.jabatan = e.kdjabatan AND b.subbag_dept = e.kdsubdept 
+            LEFT JOIN sc_mst.regu_opr f ON b.nik = f.nik
+            WHERE kdcabang = '$kdcabang' AND tgl::DATE BETWEEN '$awal' AND '$akhir' AND kdregu = '$regu'
+            GROUP BY GROUPING SETS (
+                (a.nik, a.tgl, b.nmlengkap, b.callplan, c.nmdept, e.nmjabatan, a.checkin, a.checkout, a.rencanacallplan, a.realisasicallplan, a.keterangan), 
+                (a.nik, b.nmlengkap), 
+                ()
+            )
+            ORDER BY b.nmlengkap, tgl
+        ");
+    }
+
+    function q_kanwil(){
+        return $this->db->query("select * from sc_mst.kantorwilayah order by desc_cabang");
+    }
+
+    function q_regu($params = "") {
+        return $this->db->query("
+            SELECT DISTINCT a.kdregu, nmregu
+            FROM sc_mst.regu_opr a
+            INNER JOIN sc_mst.regu b ON b.kdregu = a.kdregu
+            $params
+            ORDER BY nmregu        
+        ");
+    }
+
+    function q_kanwil_dtl($kdcabang){
+        return $this->db->query("select * from sc_mst.kantorwilayah where kdcabang='$kdcabang' order by desc_cabang");
+    }
+
+    function q_regu_dtl($kdregu){
+        return $this->db->query("select * from sc_mst.regu where kdregu='$kdregu'");
+    }
+
+    //list kantor
+    function q_kantor(){
+        return $this->db->query("select * from sc_mst.kantor");
+    }
+
+    function q_listpeg(){
+        return $this->db->query("select a.nip as list_nip,* from sc_hrd.pegawai a
 								left outer join sc_hrd.jabatan b on a.kdjabatan=b.kdjabatan
 								left outer join sc_hrd.departement c on a.kddept=c.kddept
 								left outer join sc_mst.carea d on a.wilayah=d.area
 								left outer join sc_hrd.agama e on a.kdagama=e.kode_agama
 								left outer join sc_mst.user f on a.nip=f.nip
-								order by a.nmlengkap");		
-	}
-	
-	function q_sisa(){
-		return $this->db->query("select * 
+								order by a.nmlengkap");
+    }
+
+    function q_sisa(){
+        return $this->db->query("select * 
 		from sc_hrd.pegawai a, sc_hrd.jabatan b, sc_hrd.departement c, sc_hrd.jumlahcuti d
 		where a.kddept=c.kddept and a.kdjabatan=b.kdjabatan and a.nip=d.nip and tahun='2014' order by a.nip");
-	}
-	
+    }
 
-	
-	function simpan_finger($info_finger){
-		$this->db->insert("sc_hrd.fingerprint",$info_finger);
-	}
-	
-	function edit_finger($info_finger,$ip){
-		$this->db->where("ipaddress",$ip);
-		$this->db->update("sc_hrd.fingerprint",$info_finger);
-	}
-	function cek_finger($idfinger,$ip,$wil){
-		return $this->db->query("select * from sc_hrd.fingerprint where fingerid='$idfinger' and wilayah='$wil' and ipaddress='$ip' ");
-	}
-	//download user dari finger
-	function cek_userfp($ipne,$uid,$idfp,$namafp){
-		return $this->db->query("select * from sc_hrd.user_finger where ipaddress='$ipne' and uid='$uid' and id='$idfp' and nama='$namafp'");
-	}
-	
-	function simpan_tarik_user($info_userfp){
-		$this->db->insert("sc_hrd.user_finger",$info_userfp);
-	}
-	//download log attedance
-	function cek_idlogfp($userid,$uid,$ipne,$cktype,$ckdate,$cktime){
-		return $this->db->query("select * from sc_hrd.transready where userid='$userid' and ipaddress='$ipne' 
+
+
+    function simpan_finger($info_finger){
+        $this->db->insert("sc_hrd.fingerprint",$info_finger);
+    }
+
+    function edit_finger($info_finger,$ip){
+        $this->db->where("ipaddress",$ip);
+        $this->db->update("sc_hrd.fingerprint",$info_finger);
+    }
+    function cek_finger($idfinger,$ip,$wil){
+        return $this->db->query("select * from sc_hrd.fingerprint where fingerid='$idfinger' and wilayah='$wil' and ipaddress='$ip' ");
+    }
+    //download user dari finger
+    function cek_userfp($ipne,$uid,$idfp,$namafp){
+        return $this->db->query("select * from sc_hrd.user_finger where ipaddress='$ipne' and uid='$uid' and id='$idfp' and nama='$namafp'");
+    }
+
+    function simpan_tarik_user($info_userfp){
+        $this->db->insert("sc_hrd.user_finger",$info_userfp);
+    }
+    //download log attedance
+    function cek_idlogfp($userid,$uid,$ipne,$cktype,$ckdate,$cktime){
+        return $this->db->query("select * from sc_hrd.transready where userid='$userid' and ipaddress='$ipne' 
 								and badgenumber=(select id from sc_hrd.user_finger where uid='$userid' and ipaddress='$ipne')
 								and checkdate='$ckdate' and checktime='$cktime' and checktype='$cktype'
 								");
-	}
-	function simpan_logatt($userid,$uid,$ipne,$cktype,$ckdate,$cktime){
-		//$this->db->insert("sc_hrd.transready",$info_logfp);
-		$this->db->query("INSERT INTO sc_hrd.transready (userid,badgenumber,ipaddress,checktype,checkdate,checktime) VALUES ('$userid', 
+    }
+    function simpan_logatt($userid,$uid,$ipne,$cktype,$ckdate,$cktime){
+        //$this->db->insert("sc_hrd.transready",$info_logfp);
+        $this->db->query("INSERT INTO sc_hrd.transready (userid,badgenumber,ipaddress,checktype,checkdate,checktime) VALUES ('$userid', 
 							(select id from sc_hrd.user_finger where uid='$userid' and ipaddress='$ipne'), '$ipne', '$cktype','$ckdate' ,'$cktime')");
-	}
-	
-	function q_absensi_old($branch,$awal,$akhir){
-		return $this->db->query("
+    }
+
+    function q_absensi_old($branch,$awal,$akhir){
+        return $this->db->query("
 								select nmlengkap,badgenumber,checkdate,checkin,checkout,hari,uangmakan,deskripsi,departement,
 								case	
 									when checkin<'08:00:00' and checkout>'16:00:00' and checkout<'17:00:00' and hari<>'Sabtu' then 'Tepat Waktu'
@@ -368,91 +410,91 @@ class M_uang_makan extends CI_Model{
 								order by nmlengkap,checkdate
 								) as um
 							");
-	}
-	
-	function q_pegabsen($branch,$awal,$akhir){
-		return $this->db->query("select distinct nmlengkap from sc_hrd.pegawai b
+    }
+
+    function q_pegabsen($branch,$awal,$akhir){
+        return $this->db->query("select distinct nmlengkap from sc_hrd.pegawai b
 								left outer join sc_hrd.transready a  on b.badgenumber=a.badgenumber
 								where checkdate between '$awal' and '$akhir' and checktype<>'INOUT' and a.ipaddress='$branch'
 								order by nmlengkap");
-	}
-	
-	function q_uang(){
-		return $this->db->query("select ID_UM,b.deskripsi as DEKRIPSI,FM_BESARAN from sc_hrd.uangmakan a
+    }
+
+    function q_uang(){
+        return $this->db->query("select ID_UM,b.deskripsi as DEKRIPSI,FM_BESARAN from sc_hrd.uangmakan a
 								left outer join sc_hrd.jabatan b on b.kdjabatan=a.KDJABATAN");
-	}
-	
-	function simpan_um($info){
-		$this->db->insert("sc_hrd.uangmakan",$info);
-	}
-	
-	function q_jabatan(){
-		return $this->db->query("select * from sc_hrd.jabatan");
-	}
-	
-	function q_departement(){
-		return $this->db->query("select * from sc_hrd.departement");
-	}
-	
-	function q_subdepartement(){
-		return $this->db->query("select * from sc_hrd.subdepartement");
-	}
-	function q_agama(){
-		return $this->db->query("select kode as kode_agama,upper(deskripsi) as desc_agama from sc_mst.trxstatus
+    }
+
+    function simpan_um($info){
+        $this->db->insert("sc_hrd.uangmakan",$info);
+    }
+
+    function q_jabatan(){
+        return $this->db->query("select * from sc_hrd.jabatan");
+    }
+
+    function q_departement(){
+        return $this->db->query("select * from sc_hrd.departement");
+    }
+
+    function q_subdepartement(){
+        return $this->db->query("select * from sc_hrd.subdepartement");
+    }
+    function q_agama(){
+        return $this->db->query("select kode as kode_agama,upper(deskripsi) as desc_agama from sc_mst.trxstatus
 								 where trx='HRDA'");
-	}
-	//Pelatihan
-	function q_pelatihan($nip){
-		return $this->db->query("select * from sc_hrd.pelatihan where nip='$nip'");
-	}
-	
-	function q_kdpelatihan(){
-		return $this->db->query("select max(kdpelatihan)as kdpelatihan from sc_hrd.pelatihan");
-	}
-	
-	function input_pelatihan($info_pel){
-		$this->db->insert("sc_hrd.pelatihan",$info_pel);
-	}
-	
-	function edit_pelatihan($nip,$kdpelatihan,$info_pel){
-		$this->db->where("nip",$nip);
-		$this->db->where("kdpelatihan",$kdpelatihan);
-		$this->db->update("sc_hrd.pelatihan",$info_pel);
-	}
-	function hapus_pelatihan($nip,$kdpelatihan){
-		$this->db->where("nip",$nip);
-		$this->db->where("kdpelatihan",$kdpelatihan);
-		$this->db->delete("sc_hrd.pelatihan");
-	}
-	
-	//simpan data pegawai
-	function save_peg($info_peg){
-		$this->db->insert("sc_tmp.pegawai",$info_peg);
-	}
-	//edit data pegawai
-	function edit_peg($oldnip,$info_peg){
-		$this->db->where('nip',$oldnip);
-		$this->db->update('sc_hrd.pegawai',$info_peg);
-	}
-	//simpan data jumlah cuti
-	function save_jmlcuti($info_cuti){
-		$this->db->insert("sc_hrd.jumlahcuti",$info_cuti);
-	}
-	//simpan foto
-	function save_foto($nip,$info){
-		$this->db->where('nip',$nip);
-		$this->db->update('sc_hrd.pegawai',$info);
-	}
-	
-	function q_pegawai_filter(){
-		if($this->session->userdata('level')=='A'){
-			$peg=" ";
-		} else
-		{
-			$nip=$this->session->userdata('nip');
-			$peg=$nip;			
-		}
-		return $this->db->query("select a.nip as list_nip,
+    }
+    //Pelatihan
+    function q_pelatihan($nip){
+        return $this->db->query("select * from sc_hrd.pelatihan where nip='$nip'");
+    }
+
+    function q_kdpelatihan(){
+        return $this->db->query("select max(kdpelatihan)as kdpelatihan from sc_hrd.pelatihan");
+    }
+
+    function input_pelatihan($info_pel){
+        $this->db->insert("sc_hrd.pelatihan",$info_pel);
+    }
+
+    function edit_pelatihan($nip,$kdpelatihan,$info_pel){
+        $this->db->where("nip",$nip);
+        $this->db->where("kdpelatihan",$kdpelatihan);
+        $this->db->update("sc_hrd.pelatihan",$info_pel);
+    }
+    function hapus_pelatihan($nip,$kdpelatihan){
+        $this->db->where("nip",$nip);
+        $this->db->where("kdpelatihan",$kdpelatihan);
+        $this->db->delete("sc_hrd.pelatihan");
+    }
+
+    //simpan data pegawai
+    function save_peg($info_peg){
+        $this->db->insert("sc_tmp.pegawai",$info_peg);
+    }
+    //edit data pegawai
+    function edit_peg($oldnip,$info_peg){
+        $this->db->where('nip',$oldnip);
+        $this->db->update('sc_hrd.pegawai',$info_peg);
+    }
+    //simpan data jumlah cuti
+    function save_jmlcuti($info_cuti){
+        $this->db->insert("sc_hrd.jumlahcuti",$info_cuti);
+    }
+    //simpan foto
+    function save_foto($nip,$info){
+        $this->db->where('nip',$nip);
+        $this->db->update('sc_hrd.pegawai',$info);
+    }
+
+    function q_pegawai_filter(){
+        if($this->session->userdata('level')=='A'){
+            $peg=" ";
+        } else
+        {
+            $nip=$this->session->userdata('nip');
+            $peg=$nip;
+        }
+        return $this->db->query("select a.nip as list_nip,
 									case when a.keluarkerja is null then age(a.masukkerja)
 									else age(a.keluarkerja,a.masukkerja)
 									end as masakerja,g.nmlengkap as nama_atasan,
@@ -472,11 +514,11 @@ class M_uang_makan extends CI_Model{
 									left outer join sc_hrd.uangmakan k on k.kdjabatan=a.kduangmkn
 									where a.nip='$peg'
 									order by right(a.nip,3)");
-	}
-	
-	function q_absensi($branch,$awal,$akhir){
-		
-		return $this->db->query("select ipaddress,nmlengkap,badgenumber,checkdate,checkin,checkout,hari,uangmakan,deskripsi,departement,
+    }
+
+    function q_absensi($branch,$awal,$akhir){
+
+        return $this->db->query("select ipaddress,nmlengkap,badgenumber,checkdate,checkin,checkout,hari,uangmakan,deskripsi,departement,
 										case	
 											when checkin<'08:00:00' and checkout>'16:00:00' and checkout<'17:00:00' and hari<>'Sabtu' then 'Tepat Waktu'
 											when checkin<'08:00:00' and checkout>'13:00:00' and hari='Sabtu' then 'Tepat Waktu'
@@ -746,6 +788,68 @@ class M_uang_makan extends CI_Model{
 											left outer join sc_hrd.uangmakan c on c.kdjabatan=t2.kduangmkn) as ttl
 										order by nmlengkap,checkdate
 										) as um		");
-		
-	}
+
+    }
+
+    function insert_rencana_kunjungan($host, $dbname, $dbuser, $dbpass, $awal, $akhir) {
+        $nik = $this->session->userdata('nik');
+
+        $this->db->query("DELETE FROM sc_tmp.scheduletolocation WHERE scheduledate BETWEEN '$awal' AND '$akhir'");
+        return $this->db->query("
+            INSERT INTO sc_tmp.scheduletolocation
+            SELECT *
+            FROM dblink (
+                'hostaddr=$host dbname=$dbname user=$dbuser password=$dbpass',
+                'SELECT s.branch, s.userid, u.nip AS nik, s.scheduleid, s.scheduledate, sl.locationid, sl.locationidlocal,
+                c.custname, c.grdpaymt AS customertype, ''$nik''::TEXT AS createby, NOW() AS createdate
+                FROM sc_trx.schedule s
+                INNER JOIN sc_trx.scheduletolocation sl ON sl.scheduleid = s.scheduleid
+                LEFT JOIN sc_mst.\"user\" u ON REGEXP_REPLACE(u.userid::TEXT, ''\s'', '''', ''g'') = REGEXP_REPLACE(s.userid::TEXT, ''\s'', '''', ''g'')
+                LEFT JOIN sc_mst.customer c ON COALESCE(c.custcode, c.customercodelocal) = COALESCE(sl.locationid, sl.locationidlocal)
+                WHERE scheduledate BETWEEN ''$awal'' AND ''$akhir''
+                ORDER BY scheduledate DESC, userid'
+            ) AS t1 (
+                branch CHARACTER VARYING, userid CHARACTER VARYING, nik CHARACTER(12), scheduleid CHARACTER VARYING, 
+                scheduledate DATE, locationid CHARACTER VARYING, locationidlocal CHARACTER VARYING,
+                custname CHARACTER VARYING(70), customertype CHARACTER(1),
+                createby CHARACTER VARYING, createdate TIMESTAMP WITHOUT TIME ZONE
+            );
+        ");
+    }
+
+    function list_rencana_kunjungan($nik, $tgl) {
+        $tgl = $tgl ?: date("Y-m-d");
+
+        return $this->db->query("
+            SELECT NULL AS no, locationid, locationidlocal, custname, customertype,
+            CASE
+                WHEN customertype = 'A' THEN 'KANTOR'
+                WHEN customertype = 'B' THEN 'BANK'
+                WHEN customertype = 'C' THEN 'CUSTOMER/TOKO'
+                ELSE 'BELUM TERDEFINISI'
+            END AS nmcustomertype
+            FROM sc_tmp.scheduletolocation
+            WHERE nik = '$nik' AND scheduledate = '$tgl'::DATE
+            ORDER BY custname
+        ");
+    }
+
+    function list_realisasi_kunjungan($nik, $tgl) {
+        $tgl = $tgl ?: date("Y-m-d");
+
+        return $this->db->query("
+            SELECT a.customeroutletcode, a.customercodelocal, a.custname, a.customertype,
+           CASE
+                WHEN customertype = 'A' THEN 'KANTOR'
+                WHEN customertype = 'B' THEN 'BANK'
+                WHEN customertype = 'C' THEN 'CUSTOMER/TOKO'
+                ELSE 'BELUM TERDEFINISI'
+            END AS nmcustomertype, MIN(checktime::TIME) AS checkin, MAX(checktime::TIME) AS checkout
+            FROM sc_tmp.checkinout a
+            INNER JOIN sc_mst.user b ON b.username = a.userid AND b.nik = '$nik'
+            WHERE a.checktime::DATE = '$tgl'
+            GROUP BY 1, 2, 3, 4
+            ORDER BY 6, 7
+        ");
+    }
 }

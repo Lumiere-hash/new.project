@@ -194,7 +194,8 @@ class M_inventaris extends CI_Model{
                                     trim(coalesce(nmmohon   ::text,'')) as    nmmohon,
                                     trim(coalesce(nmapprovalby   ::text,'')) as    nmapprovalby,
                                     trim(coalesce(nmdeptmohon    ::text,'')) as    nmdeptmohon              ,
-                                    trim(coalesce(nmsubdeptmohon ::text,'')) as    nmsubdeptmohon  
+                                    trim(coalesce(nmsubdeptmohon ::text,'')) as    nmsubdeptmohon,
+									trim(coalesce(nodoktmp ::text,'')) as    nodoktmp  
                                      from (
                                     select x.*,a.nmlengkap,a.bag_dept,a.subbag_dept,a.jabatan,a.kdcabang,b.nmdept,c.nmsubdept,d.nmjabatan as jabpengguna,e.nmlengkap as nmpemohon,h.nmjabatan as jabpemohon,count(i.nodok) as spk,case when count(i.nodok)=0 then 'TIDAK' else 'ADA' end as nmspk ,j.uraian as nmstatus,k.nmlengkap as nmatasan1 
                                     ,e.nmlengkap as nmmohon,l.nmlengkap as nmapprovalby,f.nmdept as nmdeptmohon,g.nmsubdept as nmsubdeptmohon

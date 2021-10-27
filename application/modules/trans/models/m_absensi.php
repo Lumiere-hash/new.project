@@ -896,48 +896,95 @@ class M_absensi extends CI_Model {
 								where b.kdcabang='$kdcabang'");
     }
 
-    function read_dblink($host,$dbname,$dbuser,$dbpass){
-	    return $this->db->query("select * from dblink(
-                                       'hostaddr=$host dbname=$dbname user=$dbuser password=$dbpass',
-                                       'select userid,usersname,nik,checktime from sc_trx.v_checkin_mobile')
-                                    as t1(
-                                      userid character(20),
-                                      usersname character(20),
-                                      nik character(20),
-                                      checktime timestamp without time zone
-                                    );");
+    function read_dblink($host, $dbname, $dbuser, $dbpass) {
+	    return $this->db->query("
+            SELECT * 
+            FROM dblink (
+                'hostaddr=$host dbname=$dbname user=$dbuser password=$dbpass',
+                'SELECT userid, usersname, nik, checktime 
+                FROM sc_trx.v_checkin_mobile'
+            ) AS t1 (
+                userid CHARACTER(20), usersname CHARACTER(20), nik CHARACTER(20), checktime TIMESTAMP WITHOUT TIME ZONE
+            );
+        ");
     }
 
-    function read_dblink_join_karyawan($host,$dbname,$dbuser,$dbpass,$tgl1,$tgl2,$kdcabang){
-        return $this->db->query("select * from (select a.*,b.idabsen,b.kdcabang,b.nmlengkap from 
-                                        (select * from dblink(
-                                            'hostaddr=$host dbname=$dbname user=$dbuser password=$dbpass',
-                                           'select userid,usersname,nik,checktime from sc_trx.v_checkin_mobile')
-                                        as t1(
-                                          userid character(20),
-                                          usersname character(20),
-                                          nik character(20),
-                                          checktime timestamp without time zone
-                                        )) a left outer join sc_mst.karyawan b on a.nik=b.nik) as x where userid is not null and 
-                                        to_char(checktime,'yyyy-mm-dd HH24:mi:ss') between '$tgl1' and '$tgl2' and kdcabang='$kdcabang'
-                                    ORDER BY usersname,checktime desc
-                                    ");
+    function read_dblink_join_karyawan($host, $dbname, $dbuser, $dbpass, $tgl1, $tgl2, $kdcabang) {
+        return $this->db->query("
+            SELECT * 
+            FROM (
+                SELECT a.*, b.idabsen, b.kdcabang, b.nmlengkap 
+                FROM (
+                    SELECT * 
+                    FROM dblink (
+                        'hostaddr=$host dbname=$dbname user=$dbuser password=$dbpass',
+                        'SELECT userid, usersname, nik, checktime, customeroutletcode, customercodelocal, custname, customertype
+                        FROM (
+                            SELECT x.userid, x.usersname, x.nik, x.checktime, x.customeroutletcode, x.customercodelocal, x.custname, x.customertype
+                            FROM ( 
+                                SELECT b.userid, b.usersname, b.nip AS nik,
+                                    ((a.checkindate::TEXT || '' ''::TEXT) || a.checkintime::TEXT)::TIMESTAMP WITHOUT TIME ZONE AS checktime,
+                                    COALESCE(a.customeroutletcode, '''') AS customeroutletcode, COALESCE(a.customercodelocal, '''') AS customercodelocal,
+                                    c.custname, c.grdpaymt AS customertype
+                                FROM sc_trx.checkin a
+                                LEFT JOIN sc_mst.\"user\" b ON BTRIM(a.userid::TEXT) = BTRIM(b.userid::TEXT)
+                                LEFT JOIN sc_mst.customer c ON a.customeroutletcode = c.custcode AND a.customercodelocal = c.customercodelocal
+                                UNION ALL
+                                SELECT b.userid, b.usersname, b.nip AS nik,
+                                    ((a.checkindate::TEXT || '' ''::TEXT) || a.checkouttime::TEXT)::TIMESTAMP WITHOUT TIME ZONE AS checktime,
+                                    COALESCE(a.customeroutletcode, '''') AS customeroutletcode, COALESCE(a.customercodelocal, '''') AS customercodelocal,
+                                    c.custname, c.grdpaymt AS customertype
+                                FROM sc_trx.checkin a
+                                LEFT JOIN sc_mst.\"user\" b ON BTRIM(a.userid::TEXT) = BTRIM(b.userid::TEXT)
+                                LEFT JOIN sc_mst.customer c ON a.customeroutletcode = c.custcode AND a.customercodelocal = c.customercodelocal
+                            ) x
+                            WHERE COALESCE(x.userid, ''''::BPCHAR) <> ''''::BPCHAR
+                            GROUP BY x.userid, x.usersname, x.nik, x.checktime, x.customeroutletcode, x.customercodelocal, x.custname, x.customertype
+                            ORDER BY x.checktime DESC
+                        ) z'
+                    ) AS t1 (
+                        userid CHARACTER(20), usersname CHARACTER(20), nik character(20), checktime TIMESTAMP WITHOUT TIME ZONE,
+                        customeroutletcode CHARACTER(20), customercodelocal CHARACTER(18), custname CHARACTER VARYING(70), customertype CHARACTER(1)
+                    )
+                ) a 
+                LEFT OUTER JOIN sc_mst.karyawan b ON a.nik = b.nik
+            ) AS x 
+            WHERE userid IS NOT NULL AND TO_CHAR(checktime, 'YYYY-MM-DD HH24:MI:SS') BETWEEN '$tgl1' AND '$tgl2' AND kdcabang = '$kdcabang'
+            ORDER BY usersname, checktime DESC
+        ");
     }
 
-    function read_dblink_join_karyawan_mabs($host,$dbname,$dbuser,$dbpass,$tgl1,$tgl2,$kdcabang){
-        return $this->db->query("select * from (select a.*,b.idabsen,b.kdcabang,b.nmlengkap from 
-                                        (select * from dblink(
-                                            'hostaddr=$host dbname=$dbname user=$dbuser password=$dbpass',
-                                           'select userid,usersname,nik,checktime from sc_trx.v_checkin_mobile_v2')
-                                        as t1(
-                                          userid character(20),
-                                          usersname character(20),
-                                          nik character(20),
-                                          checktime timestamp without time zone
-                                        )) a left outer join sc_mst.karyawan b on a.nik=b.nik) as x where userid is not null and 
-                                        to_char(checktime,'yyyy-mm-dd HH24:mi:ss') between '$tgl1' and '$tgl2' and kdcabang='$kdcabang'
-                                    ORDER BY usersname,checktime desc
-                                    ");
+    function read_dblink_join_karyawan_mabs($host, $dbname, $dbuser, $dbpass, $tgl1, $tgl2, $kdcabang) {
+        return $this->db->query("
+            SELECT * 
+            FROM (
+                SELECT a.*, b.idabsen, b.kdcabang, b.nmlengkap 
+                FROM (
+                    SELECT * 
+                    FROM dblink (
+                        'hostaddr=$host dbname=$dbname user=$dbuser password=$dbpass',
+                        'SELECT userid, usersname, nik, checktime, customeroutletcode, customercodelocal, custname, customertype
+                        FROM (
+                            SELECT x.userid, x.usersname, x.nik, x.checktime, x.customeroutletcode, x.customercodelocal, x.custname, x.customertype
+                            FROM (
+                                SELECT b.userid, b.usersname, b.nip AS nik, a.checktime,
+                                    NULL AS customeroutletcode, NULL AS customercodelocal,
+                                    NULL AS custname, NULL AS customertype
+                                FROM sc_tmp.absent a
+                                LEFT JOIN sc_mst.\"user\" b ON BTRIM(a.userid::TEXT) = BTRIM(b.userid::TEXT)
+                            ) x
+                            LIMIT 10000
+                        ) z'
+                    ) AS t1 (
+                        userid CHARACTER(20), usersname CHARACTER(20), nik character(20), checktime TIMESTAMP WITHOUT TIME ZONE,
+                        customeroutletcode CHARACTER(20), customercodelocal CHARACTER(18), custname CHARACTER VARYING(70), customertype CHARACTER(1)
+                    )
+                ) a 
+                LEFT OUTER JOIN sc_mst.karyawan b ON a.nik = b.nik
+            ) AS x 
+            WHERE userid IS NOT NULL AND TO_CHAR(checktime, 'YYYY-MM-DD HH24:MI:SS') BETWEEN '$tgl1' AND '$tgl2' AND kdcabang = '$kdcabang'
+            ORDER BY usersname, checktime DESC
+        ");
     }
 
 }

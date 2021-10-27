@@ -980,25 +980,16 @@ class Absensi extends MX_Controller {
         $dtl_opt=$this->m_absensi->q_dblink_option()->row_array();
         $host = base64_decode($dtl_opt['c_hostaddr']); $dbname = base64_decode($dtl_opt['c_dbname']);
         $userpg = base64_decode($dtl_opt['c_userpg']); $passpg = base64_decode($dtl_opt['c_passpg']);
-        //$dtl_result = $this->m_absensi->read_dblink_join_karyawan($host,$dbname,$userpg,$passpg)->result();
 
         if ($maplikasi==='MCRM') {
-            $data['ttldata']=$this->m_absensi->read_dblink_join_karyawan($host,$dbname,$userpg,$passpg,$tgl1,$tgl2,$kdcabang)->num_rows();
             $data['list_absen']=$this->m_absensi->read_dblink_join_karyawan($host,$dbname,$userpg,$passpg,$tgl1,$tgl2,$kdcabang)->result();
+            $data['ttldata']=sizeof($data['list_absen']);
         } else if ($maplikasi==='MABS') {
-            $data['ttldata']=$this->m_absensi->read_dblink_join_karyawan_mabs($host,$dbname,$userpg,$passpg,$tgl1,$tgl2,$kdcabang)->num_rows();
             $data['list_absen']=$this->m_absensi->read_dblink_join_karyawan_mabs($host,$dbname,$userpg,$passpg,$tgl1,$tgl2,$kdcabang)->result();
+            $data['ttldata']=sizeof($data['list_absen']);
         }
 
-
         $this->template->display('trans/absensi/v_absensi_mobile',$data);
-
-//        foreach ($dtl_result as $dt) {
-//            echo $dt->nik.'   '.$dt->checktime;
-//            echo '</br>';
-//        }
-//        echo $host.$dbname.$userpg.$passpg;
-
     }
 
     function tarik_data_mobile(){
@@ -1027,6 +1018,10 @@ class Absensi extends MX_Controller {
             $badgenumber=trim($dta->idabsen);
             $userid=trim($dta->userid);
             $checktime=trim($dta->checktime);
+            $customeroutletcode=trim($dta->customeroutletcode);
+            $customercodelocal=trim($dta->customercodelocal);
+            $custname=trim($dta->custname);
+            $customertype=trim($dta->customertype);
             $this->db->query("delete from sc_tmp.checkinout where userid='$userid' and badgenumber='$badgenumber' and checktime='$checktime'");
             $cek_fingerid=$this->m_absensi->q_cek_fingerid($badgenumber)->num_rows();
             if($cek_fingerid>0){
@@ -1035,10 +1030,14 @@ class Absensi extends MX_Controller {
                     'badgenumber'=>$badgenumber,
                     'nama'=>trim($dta->usersname),
                     'checktime'=>$checktime,
+                    'customeroutletcode'=>$customeroutletcode,
+                    'customercodelocal'=>$customercodelocal,
+                    'custname'=>$custname,
+                    'customertype'=>$customertype,
                     'inputan'=>'S',
                     'inputby'=>$this->session->userdata('nik')
                 );
-            $this->db->insert('sc_tmp.checkinout',$info);
+                $this->db->insert('sc_tmp.checkinout',$info);
             }
 
         }

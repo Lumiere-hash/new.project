@@ -1325,6 +1325,19 @@
 								</select>
 						</div>
 					</div>
+
+                    <div class="form-group">
+                        <label class="control-label col-sm-3">Callplan</label>
+                        <div class="col-sm-9">
+                            <select type="text" class="form-control" name="callplan" id="callplan">
+                                <option  <?php if(trim($dtl['callplan'])=='') { echo 'selected';} ?> value="f">--PILIH CALLPLAN--</option>
+                                <option  <?php if(trim($dtl['callplan'])=='t') { echo 'selected';} ?> value="t"> YA</option>
+                                <option  <?php if(trim($dtl['callplan'])=='f') { echo 'selected';} ?> value="f"> TIDAK</option>
+
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <label class="control-label col-sm-3">Mobile Device ID</label>
                         <div class="col-sm-9">

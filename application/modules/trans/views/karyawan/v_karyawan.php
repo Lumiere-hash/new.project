@@ -1460,6 +1460,16 @@
                                                     </div>
                                                 </div>
 
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-3">CALLPLAN</label>
+                                                    <div class="col-sm-9">
+                                                        <select type="text" class="form-control" name="callplan" id="callplan">
+                                                            <option   value="f"> TIDAK</option>
+                                                            <option   value="t"> YA</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
