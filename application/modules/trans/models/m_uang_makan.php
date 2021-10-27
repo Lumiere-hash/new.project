@@ -805,8 +805,8 @@ class M_uang_makan extends CI_Model{
                 FROM sc_trx.schedule s
                 INNER JOIN sc_trx.scheduletolocation sl ON sl.scheduleid = s.scheduleid
                 LEFT JOIN sc_mst.\"user\" u ON REGEXP_REPLACE(u.userid::TEXT, ''\s'', '''', ''g'') = REGEXP_REPLACE(s.userid::TEXT, ''\s'', '''', ''g'')
-                LEFT JOIN sc_mst.customer c ON COALESCE(c.custcode, c.customercodelocal) = COALESCE(sl.locationid, sl.locationidlocal)
-                WHERE scheduledate BETWEEN ''$awal'' AND ''$akhir''
+                LEFT JOIN sc_mst.customer c ON COALESCE(NULLIF(c.custcode, ''''), c.customercodelocal) = COALESCE(NULLIF(sl.locationid, ''''), sl.locationidlocal)
+                WHERE COALESCE(NULLIF(sl.locationid, ''''), sl.locationidlocal) != '''' AND scheduledate BETWEEN ''$awal'' AND ''$akhir''
                 ORDER BY scheduledate DESC, userid'
             ) AS t1 (
                 branch CHARACTER VARYING, userid CHARACTER VARYING, nik CHARACTER(12), scheduleid CHARACTER VARYING, 
