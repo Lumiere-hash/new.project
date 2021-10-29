@@ -1,1361 +1,1638 @@
-<?php
-/*
-	@author : junis \m/
-*/
-?>
 <script type="text/javascript">
-            $(function() {
-                $("#example1").dataTable();
-                $("#example2").dataTable();
-                $("#example4").dataTable();
-                $("#nikatasan1").selectize();
-                $("#nikatasan2").selectize();
-				//datemask
-				//$("#datemaskinput").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-				//$("#datemaskinput").daterangepicker();
-				$("#dateinput").datepicker();
-				$("#tgl").datepicker();
-				$(".tgl").datepicker();
-				$("#tglktp").datepicker();
-				$("#tgl2").datepicker();
-				$("#tglmasuk").datepicker();
-				$("#tglmasuk2").datepicker();
-				$("#tglnpwp2").datepicker();
-            });
+    $(document).ready(function() {
+        $("#tglahir").datepicker();
+        $("#tgldikeluarkan").datepicker();
+        $("#tglberlaku").datepicker();
+        $("#tglnpwp").datepicker();
+        $("#tglmasukkerja").datepicker();
+    });
+
+    var firstLoad = true;
 </script>
 
 <ol class="breadcrumb">
-    <div class="pull-right"><i style="color:transparent;"><?php echo $t; ?></i> Versi: <?php echo $version; ?></div>
-    <?php foreach ($y as $y1) { ?>
-        <?php if( trim($y1->kodemenu)!=trim($kodemenu)) { ?>
-            <li><a href="<?php echo site_url( trim($y1->linkmenu)) ; ?>"><i class="fa <?php echo trim($y1->iconmenu); ?>"></i> <?php echo  trim($y1->namamenu); ?></a></li>
-        <?php } else { ?>
-            <li class="active"><i class="fa <?php echo trim($y1->iconmenu); ?>"></i> <?php echo trim($y1->namamenu); ?></li>
-        <?php } ?>
-    <?php } ?>
+    <div class="pull-right"><i style="color:transparent;"><?= $t ?></i> Versi: <?= $version ?></div>
+    <?php foreach($y as $y1): ?>
+        <?php if(trim($y1->kodemenu) != trim($kodemenu)): ?>
+            <li><a href="<?= site_url(trim($y1->linkmenu)) ?>"><i class="fa <?= trim($y1->iconmenu) ?>"></i> <?= trim($y1->namamenu) ?></a></li>
+        <?php else: ?>
+            <li class="active"><i class="fa <?= trim($y1->iconmenu) ?>"></i> <?= trim($y1->namamenu) ?></li>
+        <?php endif; ?>
+    <?php endforeach; ?>
 </ol>
-<?php echo $message;?>
+<?= $message ?>
 </br>
+
 <div class="row">
-	<div class="col-sm-12">
-	<form action="<?php echo site_url('trans/karyawan/ajax_update'); ?>" method='post'>
-		<div class="form-horizontal">
-		<div class="nav-tabs-custom">
-			<ul class="nav nav-tabs">
-				<li class="active"><a href="#tab_1" data-toggle="tab">Profile Karyawan</a></li>
-				<li><a href="#tab_2" data-toggle="tab">Fisik</a></li>
-				<li><a href="#tab_3" data-toggle="tab">Data ID</a></li>
-				<li><a href="#tab_4" data-toggle="tab">Alamat</a></li>
-				<li><a href="#tab_5" data-toggle="tab">Kontak</a></li>
-				<li><a href="#tab_6" data-toggle="tab">Jabatan Pekerjaan</a></li>
-				<li><a href="#tab_7" data-toggle="tab">Salary</a></li>
-				<li><a href="#tab_8" data-toggle="tab">Absensi</a></li>
-			</ul>
-		</div>
-        <div class="tab-content">
-			<div class="tab-pane active" id="tab_1">
-			  <div class="col-sm-12 ">
-				<div class="col-sm-12">
-				  <h3> Step 1</h3>
-					<div class="form-group">
-					  <label class="control-label col-sm-3">NIK Karyawan</label>
-					  <div class="col-sm-6">
-						<input name="nik" id="nik" style="text-transform:uppercase;" value="<?php echo $dtl['nik'];?>" placeholder="Nomor Induk Karyawan" class="form-control" type="text" readonly >
-					  </div>
-					</div>
-					<div class="form-group">
-					  <label class="control-label col-sm-3">Nama Lengkap Karyawan</label>
-					  <div class="col-sm-6">
-						<input name="nmlengkap" style="text-transform:uppercase;" value="<?php echo $dtl['nmlengkap'];?>" placeholder="Nama Lengkap" class="form-control" type="text" >
-					  </div>
-					</div>
-					<div class="form-group">
-					  <label class="control-label col-sm-3">Nama Panggilan</label>
-					  <div class="col-sm-6">
-						<input name="callname" style="text-transform:uppercase;" placeholder="Nama Panggilan" value="<?php echo $dtl['callname'];?>" class="form-control" type="text" >
-					  </div>
-					</div>
-					<div class="form-group">
-					  <label class="control-label col-sm-3">Jenis Kelamin</label>
-					  <div class="col-sm-6">
-						<select  name="jk" style="text-transform:uppercase;"  class="form-control" type="text" >
-							<option value="L" <?php if (trim($dtl['jk'])=='L') { echo 'selected';}?>>LAKI-LAKI</option>
-							<option value="P" <?php if (trim($dtl['jk'])=='P') { echo 'selected';}?>>PEREMPUAN</option>
-						</select>
-					  </div>
-					</div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3">Tanggal Lahir</label>
-                        <div class="col-sm-6">
-                            <input name="tgllahir" value="<?php echo date("d-m-Y",strtotime(trim($dtl['tgllahir'])));?>" style="text-transform:uppercase;" placeholder="Tanggal Lahir" id="tglahir" data-date-format="dd-mm-yyyy"  class="form-control tgl" type="text" >
-                        </div>
-                    </div>
-					<div class="form-group">
-						<label class="control-label col-sm-3">Tempat Lahir (Negara)</label>
-						<div class="col-sm-6">
-                            <select name="neglahir" class="form-control input-sm " placeholder="---KETIK NEGARA---" id="neglahir">
-                                <option value="<?php echo trim($dtl['neglahir']);?>" class=""><?php echo trim($dtl['namanegara']);?></option>
-                            </select>
-						</div>
-					</div>
-<script type="text/javascript">
-    $(function() {
-        var totalCount,
-            page,
-            perPage = 7;
-        $('#neglahir').selectize({
-            plugins: ['hide-arrow', 'selectable-placeholder', 'infinite-scroll'],
-            valueField: 'kodenegara',
-            labelField: 'namanegara',
-            searchField: ['namanegara'],
-            options: [],
-            create: false,
-            render: {
-                option: function(item, escape) {
-                    return '' +
-                        '<div class=\'row\'>' +
-                        '<div class=\'col-xs-5 col-md-5 text-nowrap\'>' + escape(item.namanegara) + '</div>' +
-                        '</div>' +
-                        '';
-                }
-            },
-            load: function(query, callback) {
-                query = JSON.parse(query);
-                page = query.page || 1;
-
-                if( ! totalCount || totalCount > ( (page - 1) * perPage) ){
-                    $.post(base('master/wilayah/add_negara'), {
-                        _search_: query.search,
-                        _perpage_: perPage,
-                        _page_: page,
-                        _paramxnegara_: "  "
-                    })
-                        .done(function(json) {
-                            console.log('JSON Data: ' + JSON.stringify(json, null, '\t'));
-                            totalCount = json.totalcount;
-                            callback(json.group);
-                        })
-                        .fail(function( jqxhr, textStatus, error ) {
-                            callback();
-                        });
-                } else {
-                    callback();
-                }
-            }
-        }).on('change click', function() {
-            //console.log('provlahir >> on.change');
-            //console.log('provlahir >> clear');
-            $('#provlahir')[0].selectize.clearOptions();
-        });
-    });
-</script>
-					<div class="form-group">
-						<label class="control-label col-sm-3">Tempat Lahir (Provinsi)</label>
-						<div class="col-sm-6">
-                            <select name="provlahir" class="form-control input-sm " placeholder="---KETIK PROVINSI---" id="provlahir">
-                                <option value="<?php echo trim($dtl['provlahir']);?>" class=""><?php echo trim($dtl['nmprovlahir']);?></option>
-                            </select>
-						</div>
-					</div>
-<script type="text/javascript">
-    $(function() {
-        var totalCount,
-            page,
-            perPage = 7;
-        $('#provlahir').selectize({
-            plugins: ['hide-arrow', 'selectable-placeholder', 'infinite-scroll'],
-            valueField: 'kodeprov',
-            labelField: 'namaprov',
-            searchField: ['namaprov'],
-            options: [],
-            create: false,
-            render: {
-                option: function(item, escape) {
-                    return '' +
-                        '<div class=\'row\'>' +
-                        '<div class=\'col-xs-5 col-md-5 text-nowrap\'>' + escape(item.namaprov) + '</div>' +
-                        '</div>' +
-                        '';
-                }
-            },
-            load: function(query, callback) {
-                query = JSON.parse(query);
-                page = query.page || 1;
-
-                if( ! totalCount || totalCount > ( (page - 1) * perPage) ){
-                    $.post(base('master/wilayah/add_prov'), {
-                        _search_: query.search,
-                        _perpage_: perPage,
-                        _page_: page,
-                        _kodenegara_: $('#neglahir').val()
-                    })
-                        .done(function(json) {
-                            console.log('JSON Data: ' + JSON.stringify(json, null, '\t'));
-                            totalCount = json.totalcount;
-                            callback(json.group);
-                        })
-                        .fail(function( jqxhr, textStatus, error ) {
-                            callback();
-                        });
-                } else {
-                    callback();
-                }
-            }
-        }).on('change click', function() {
-            //console.log('provlahir >> on.change');
-            //console.log('kotalahir >> clear');
-            $('#kotalahir')[0].selectize.clearOptions();
-        });
-
-
-    });
-</script>
-					<div class="form-group">
-						<label class="control-label col-sm-3">Tempat Lahir (Kota/Kabupaten)</label>
-						<div class="col-sm-6">
-                            <select name="kotalahir" class="form-control input-sm " placeholder="---KETIK KOTA---" id="kotalahir">
-                                <option value="<?php echo trim($dtl['kotalahir']);?>" class=""><?php echo trim($dtl['nmkotalahir']);?></option>
-                            </select>
-						</div>
-					</div>
-<script type="text/javascript">
-    $(function() {
-        var totalCount,
-            page,
-            perPage = 7;
-        $('#kotalahir').selectize({
-            plugins: ['hide-arrow', 'selectable-placeholder', 'infinite-scroll'],
-            valueField: 'kodekotakab',
-            labelField: 'namakotakab',
-            searchField: ['namakotakab'],
-            options: [],
-            create: false,
-            render: {
-                option: function(item, escape) {
-                    return '' +
-                        '<div class=\'row\'>' +
-                        /*  '<div class=\'col-xs-2 col-md-2 text-nowrap\'>' + escape(item.nodok) + '</div>' +*/
-                        '<div class=\'col-xs-5 col-md-5 text-nowrap\'>' + escape(item.namakotakab) + '</div>' +
-                        '</div>' +
-                        '';
-                }
-            },
-            load: function(query, callback) {
-                query = JSON.parse(query);
-                page = query.page || 1;
-
-                if( ! totalCount || totalCount > ( (page - 1) * perPage) ){
-                    $.post(base('master/wilayah/add_kota'), {
-                        _search_: query.search,
-                        _perpage_: perPage,
-                        _page_: page,
-                        _kodenegara_: $('#neglahir').val(),
-                        _kodeprov_: $('#provlahir').val()
-                    })
-                        .done(function(json) {
-                            console.log('JSON Data: ' + JSON.stringify(json, null, '\t'));
-                            totalCount = json.totalcount;
-                            callback(json.group);
-                        })
-                        .fail(function( jqxhr, textStatus, error ) {
-                            callback();
-                        });
-                } else {
-                    callback();
-                }
-            }
-        });
-    });
-</script>
-					<div class="form-group">
-						<label class="control-label col-sm-3">Agama</label>
-						<div class="col-sm-6">
-							<select name="kd_agama" class="form-control col-sm-12" >
-								<?php foreach ($list_opt_agama as $loa){ ?>
-								<option value="<?php echo trim($loa->kdagama);?>" <?php if (trim($dtl['kd_agama'])==trim($loa->kdagama)) { echo 'selected';}?> ><?php echo trim($loa->nmagama);?></option>
-								<?php };?>
-							</select>
-						</div>
-					</div>
-				</div>
-			  </div>
-			</div>
-			<div class="tab-pane" id="tab_2">
-			  <div class="col-sm-12 ">
-				<div class="col-sm-12">
-				  <h3> Step 2</h3>
-					<div class="form-group">
-					  <label class="control-label col-sm-3">Keadaan Fisik</label>
-					  <div class="col-sm-6">
-						<select id="fisikselector" name="stsfisik" style="text-transform:uppercase;" placeholder="Nama Panggilan" class="form-control" type="text" >
-							<option value="t" <?php if (trim($dtl['stsfisik'])=='T') { echo 'selected';}?>>BAIK & SEHAT</option>
-							<option value="f" <?php if (trim($dtl['stsfisik'])=='F') { echo 'selected';}?>>CACAT FISIK</option>
-						</select>
-					  </div>
-					</div>
-					<div  class="form-group"  >
-					  	  <label class="control-label col-sm-3">Keterangan Jika Cacat</label>
-						  <div class="col-sm-6">
-							<textarea name="ketfisik" style="text-transform:uppercase;" value="<?php echo $dtl['ketfisik'];?>" placeholder="Deskripsikan Cacat fisik" class="form-control" ></textarea>
-						  </div>
-						</div>
-
-				</div>
-			  </div>
-			</div>
-			<div class="tab-pane" id="tab_3">
-			  <div class="col-sm-12 ">
-				<div class="col-sm-12">
-				  <h3> Step 3</h3>
-					<div class="form-group">
-					  <label class="control-label col-sm-3">No KTP</label>
-					  <div class="col-sm-9">
-						<input name="noktp" style="text-transform:uppercase;" placeholder="No Ktp" value="<?php echo $dtl['noktp'];?>" class="form-control" type="text" >
-					  </div>
-					</div>
-					<div class="form-group">
-					  <label class="control-label col-sm-3">KTP Dikeluaran di</label>
-					  <div class="col-sm-9">
-						<input name="ktpdikeluarkan" style="text-transform:uppercase;" value="<?php echo $dtl['ktpdikeluarkan'];?>" placeholder="Kota KTP di keluarkan" class="form-control" type="text" >
-					  </div>
-					</div>
-					<div class="form-group">
-					  <label class="control-label col-sm-3">Tanggal KTP Dikeluaran</label>
-					  <div class="col-sm-9">
-						<input name="tgldikeluarkan" style="text-transform:uppercase;" value="<?php echo date("d-m-Y",strtotime(trim($dtl['tgldikeluarkan'])));?>" placeholder="Tanggal KTP Di keluarkan" data-date-format="dd-mm-yyyy" class="form-control" id="tgl2" type="text" >
-					  </div>
-					</div>
-					<div class="form-group">
-					  <label class="control-label col-sm-3">KTP seumur hidup</label>
-					  <div class="col-sm-9">
-						<select id="ktpseumurhidup" name="ktp_seumurhdp" style="text-transform:uppercase;" placeholder="Nama Panggilan" class="form-control" type="text" >
-							<option value="f" <?php if (trim($dtl['ktp_seumurhdp'])=='F') { echo 'selected';}?>>TIDAK</option>
-							<option value="t" <?php if (trim($dtl['ktp_seumurhdp'])=='T') { echo 'selected';}?>>IYA</option>
-						</select>
-					  </div>
-					</div>
-					<div class="form-group">
-					  <label class="control-label col-sm-3">No Kartu Keluarga (KK)</label>
-					  <div class="col-sm-9">
-						<input name="nokk" style="text-transform:uppercase;" placeholder="NO KK" value="<?php echo $dtl['nokk'];?>" class="form-control" type="text">
-					  </div>
-					</div>
-					<div class="form-group">
-						<div id="f" class="ktpseumurhidupku" style="display:none">
-						  <label class="control-label col-sm-3">Tanggal Berlaku</label>
-						  <div class="col-sm-9">
-							<textarea name="tglberlaku" id="tglktp"  style="text-transform:uppercase;" value="<?php echo $dtl['tglberlaku'];?>" data-date-format="dd-mm-yyyy" class="form-control" ></textarea>
-						  </div>
-						</div>
-					</div>
-					<div class="form-group">
-					  <label class="control-label col-sm-3">Kewarganegaraan</label>
-					  <div class="col-sm-9">
-						<select  name="stswn" style="text-transform:uppercase;" placeholder="Nama Panggilan" class="form-control" type="text" >
-							<option value="t" <?php if (trim($dtl['stswn'])=='T') { echo 'selected';}?>>Warga Negara Indonesia</option>
-							<option value="f" <?php if (trim($dtl['stswn'])=='F') { echo 'selected';}?>>Warga Negara Asing</option>
-						</select>
-					  </div>
-					</div>
-					<div class="form-group">
-					  <label class="control-label col-sm-3">Status Pernikahan</label>
-					  <div class="col-sm-9">
-						<select name="status_pernikahan" style="text-transform:uppercase;" placeholder="Nama Panggilan" class="form-control" type="text" >
-							<?php foreach ($list_opt_nikah as $lonikah){ ?>
-							<option value="<?php echo trim($lonikah->kdnikah);?>" <?php if (trim($dtl['status_pernikahan'])==trim($lonikah->kdnikah)) { echo 'selected';}?> ><?php echo trim($lonikah->nmnikah);?></option>
-							<?php };?>
-						</select>
-					  </div>
-					</div>
-					<div class="form-group">
-					  <label class="control-label col-sm-3">Golongan Darah</label>
-					  <div class="col-sm-9">
-						<select name="gol_darah" style="text-transform:uppercase;"  class="form-control" type="text" >
-							<option value="A" <?php if (trim($dtl['gol_darah'])=='A') { echo 'selected';}?>>A</option>
-							<option value="B" <?php if (trim($dtl['gol_darah'])=='B') { echo 'selected';}?>>B</option>
-							<option value="AB" <?php if (trim($dtl['gol_darah'])=='AB') { echo 'selected';}?>>AB</option>
-							<option value="O" <?php if (trim($dtl['gol_darah'])=='O') { echo 'selected';}?>>O</option>
-						</select>
-					  </div>
-					</div>
-				</div>
-			  </div>
-			</div>
-			<div class="tab-pane" id="tab_4">
-			  <div class="col-sm-12 ">
-				<div class="col-sm-12">
-				  <h3> Step 4</h3>
-				  <div class="form-group">
-								<label class="control-label col-sm-3">NEGARA (sesuai KTP)</label>
-								<div class="col-sm-8">
-                                    <select name="negktp" class="form-control input-sm " placeholder="---KETIK NEGARA---" id="almnegara">
-                                        <option value="<?php echo trim($dtl['negktp']);?>" class=""><?php echo trim($dtl['namanegara']);?></option>
-									</select>
-								</div>
-							</div>
-<script type="text/javascript">
-    $(function() {
-        var totalCount,
-            page,
-            perPage = 7;
-        $('#almnegara').selectize({
-            plugins: ['hide-arrow', 'selectable-placeholder', 'infinite-scroll'],
-            valueField: 'kodenegara',
-            labelField: 'namanegara',
-            searchField: ['namanegara'],
-            options: [],
-            create: false,
-            render: {
-                option: function(item, escape) {
-                    return '' +
-                        '<div class=\'row\'>' +
-                        '<div class=\'col-xs-5 col-md-5 text-nowrap\'>' + escape(item.namanegara) + '</div>' +
-                        '</div>' +
-                        '';
-                }
-            },
-            load: function(query, callback) {
-                query = JSON.parse(query);
-                page = query.page || 1;
-
-                if( ! totalCount || totalCount > ( (page - 1) * perPage) ){
-                    $.post(base('master/wilayah/add_negara'), {
-                        _search_: query.search,
-                        _perpage_: perPage,
-                        _page_: page,
-                        _paramxnegara_: "  "
-                    })
-                        .done(function(json) {
-                            console.log('JSON Data: ' + JSON.stringify(json, null, '\t'));
-                            totalCount = json.totalcount;
-                            callback(json.group);
-                        })
-                        .fail(function( jqxhr, textStatus, error ) {
-                            callback();
-                        });
-                } else {
-                    callback();
-                }
-            }
-        }).on('change click', function() {
-            //console.log('provlahir >> on.change');
-            //console.log('provlahir >> clear');
-            $('#almprovinsi')[0].selectize.clearOptions();
-        });
-
-
-    });
-</script>
-							<div class="form-group">
-								<label class="control-label col-sm-3">Provinsi (sesuai KTP)</label>
-								<div class="col-sm-8">
-									<select name="provktp" id='almprovinsi' class="form-control col-sm-12" >
-                                        <option value="<?php echo trim($dtl['provktp']);?>" class=""><?php echo trim($dtl['nmprovktp']);?></option>
-									</select>
-								</div>
-							</div>
-<script type="text/javascript">
-        $(function() {
-            var totalCount,
-                page,
-                perPage = 7;
-            $('#almprovinsi').selectize({
-                plugins: ['hide-arrow', 'selectable-placeholder', 'infinite-scroll'],
-                valueField: 'kodeprov',
-                labelField: 'namaprov',
-                searchField: ['namaprov'],
-                options: [],
-                create: false,
-                render: {
-                    option: function(item, escape) {
-                        return '' +
-                            '<div class=\'row\'>' +
-                            '<div class=\'col-xs-5 col-md-5 text-nowrap\'>' + escape(item.namaprov) + '</div>' +
-                            '</div>' +
-                            '';
-                    }
-                },
-                load: function(query, callback) {
-                    query = JSON.parse(query);
-                    page = query.page || 1;
-
-                    if( ! totalCount || totalCount > ( (page - 1) * perPage) ){
-                        $.post(base('master/wilayah/add_prov'), {
-                            _search_: query.search,
-                            _perpage_: perPage,
-                            _page_: page,
-                            _kodenegara_: $('#almnegara').val(),
-                        })
-                            .done(function(json) {
-                                console.log('JSON Data: ' + JSON.stringify(json, null, '\t'));
-                                totalCount = json.totalcount;
-                                callback(json.group);
-                            })
-                            .fail(function( jqxhr, textStatus, error ) {
-                                callback();
-                            });
-                    } else {
-                        callback();
-                    }
-                }
-            }).on('change click', function() {
-                //console.log('provlahir >> on.change');
-                //console.log('kotalahir >> clear');
-                $('#almkotakab')[0].selectize.clearOptions();
-            });
-
-
-        });
-    </script>
-							<div class="form-group">
-								<label class="control-label col-sm-3">Kota/Kabupaten (sesuai KTP)</label>
-								<div class="col-sm-8">
-									<select name="kotaktp" id='almkotakab' class="form-control col-sm-12"  >
-                                        <option value="<?php echo trim($dtl['kotaktp']);?>" class=""><?php echo trim($dtl['nmkotaktp']);?></option>
-									</select>
-								</div>
-							</div>
-<script type="text/javascript">
-    $(function() {
-        var totalCount,
-            page,
-            perPage = 7;
-        $('#almkotakab').selectize({
-            plugins: ['hide-arrow', 'selectable-placeholder', 'infinite-scroll'],
-            valueField: 'kodekotakab',
-            labelField: 'namakotakab',
-            searchField: ['namakotakab'],
-            options: [],
-            create: false,
-            render: {
-                option: function(item, escape) {
-                    return '' +
-                        '<div class=\'row\'>' +
-                        /*  '<div class=\'col-xs-2 col-md-2 text-nowrap\'>' + escape(item.nodok) + '</div>' +*/
-                        '<div class=\'col-xs-5 col-md-5 text-nowrap\'>' + escape(item.namakotakab) + '</div>' +
-                        '</div>' +
-                        '';
-                }
-            },
-            load: function(query, callback) {
-                query = JSON.parse(query);
-                page = query.page || 1;
-
-                if( ! totalCount || totalCount > ( (page - 1) * perPage) ){
-                    $.post(base('master/wilayah/add_kota'), {
-                        _search_: query.search,
-                        _perpage_: perPage,
-                        _page_: page,
-                        _kodenegara_: $('#almnegara').val(),
-                        _kodeprov_: $('#almprovinsi').val()
-                    })
-                        .done(function(json) {
-                            console.log('JSON Data: ' + JSON.stringify(json, null, '\t'));
-                            totalCount = json.totalcount;
-                            callback(json.group);
-                        })
-                        .fail(function( jqxhr, textStatus, error ) {
-                            callback();
-                        });
-                } else {
-                    callback();
-                }
-            }
-        }).on('change click', function() {
-            console.log('#almkec >> on.change');
-            console.log('#almkec >> clear');
-            $('#almkec')[0].selectize.clearOptions();
-        });
-    });
-</script>
-                        <div class="form-group">
-                            <label class="control-label col-sm-3">Kecamatan (sesuai KTP)</label>
-                            <div class="col-sm-8">
-                                    <select name="kecktp" id='almkec' class="form-control col-sm-12"  >
-                                    <option value="<?php echo trim($dtl['kecktp']);?>" class=""><?php echo trim($dtl['nmkecktp']);?></option>
-									</select>
-								</div>
-							</div>
-<script type="text/javascript">
-    $(function() {
-        var totalCount,
-            page,
-            perPage = 7;
-        $('#almkec').selectize({
-            plugins: ['hide-arrow', 'selectable-placeholder', 'infinite-scroll'],
-            valueField: 'kodekec',
-            labelField: 'namakec',
-            searchField: ['namakec'],
-            options: [],
-            create: false,
-            render: {
-                option: function(item, escape) {
-                    return '' +
-                        '<div class=\'row\'>' +
-                        /*  '<div class=\'col-xs-2 col-md-2 text-nowrap\'>' + escape(item.nodok) + '</div>' +*/
-                        '<div class=\'col-xs-5 col-md-5 text-nowrap\'>' + escape(item.namakec) + '</div>' +
-                        '</div>' +
-                        '';
-                }
-            },
-            load: function(query, callback) {
-                query = JSON.parse(query);
-                page = query.page || 1;
-
-                if( ! totalCount || totalCount > ( (page - 1) * perPage) ){
-                    $.post(base('master/wilayah/add_kec'), {
-                        _search_: query.search,
-                        _perpage_: perPage,
-                        _page_: page,
-                        _kodenegara_: $('#almnegara').val(),
-                        _kodekotakab_: $('#almkotakab').val(),
-                        _kodeprov_: $('#almprovinsi').val(),
-                    })
-                        .done(function(json) {
-                            console.log('JSON Data: ' + JSON.stringify(json, null, '\t'));
-                            totalCount = json.totalcount;
-                            callback(json.group);
-                        })
-                        .fail(function( jqxhr, textStatus, error ) {
-                            callback();
-                        });
-                } else {
-                    callback();
-                }
-            }
-        }).on('change click', function() {
-                console.log('#almkeldesa >> on.change');
-                console.log('#almkeldesa >> clear');
-            $('#almkeldesa')[0].selectize.clearOptions();
-        });
-    });
-</script>
-							<div class="form-group">
-								<label class="control-label col-sm-3">Kelurahan/Desa (sesuai KTP)</label>
-								<div class="col-sm-8">
-									<select name="kelktp" id='almkeldesa' class="form-control col-sm-12" >
-                                        <option value="<?php echo trim($dtl['kelktp']);?>" class=""><?php echo trim($dtl['nmdesaktp']);?></option>
-									</select>
-								</div>
-							</div>
-<script type="text/javascript">
-    $(function() {
-        var totalCount,
-            page,
-            perPage = 7;
-        $('#almkeldesa').selectize({
-            plugins: ['hide-arrow', 'selectable-placeholder', 'infinite-scroll'],
-            valueField: 'kodekeldesa',
-            labelField: 'namakeldesa',
-            searchField: ['namakeldesa'],
-            options: [],
-            create: false,
-            render: {
-                option: function(item, escape) {
-                    return '' +
-                        '<div class=\'row\'>' +
-                        /*  '<div class=\'col-xs-2 col-md-2 text-nowrap\'>' + escape(item.nodok) + '</div>' +*/
-                        '<div class=\'col-xs-5 col-md-5 text-nowrap\'>' + escape(item.namakeldesa) + '</div>' +
-                        '</div>' +
-                        '';
-                }
-            },
-            load: function(query, callback) {
-                query = JSON.parse(query);
-                page = query.page || 1;
-
-                if( ! totalCount || totalCount > ( (page - 1) * perPage) ){
-                    $.post(base('master/wilayah/add_desa'), {
-                        _search_: query.search,
-                        _perpage_: perPage,
-                        _page_: page,
-                        _kodenegara_: $('#almnegara').val(),
-                        _kodeprov_: $('#almprovinsi').val(),
-                        _kodekotakab_: $('#almkotakab').val(),
-                        _kodekec_: $('#almkec').val(),
-                    })
-                        .done(function(json) {
-                            console.log('JSON Data: ' + JSON.stringify(json, null, '\t'));
-                            totalCount = json.totalcount;
-                            callback(json.group);
-                        })
-                        .fail(function( jqxhr, textStatus, error ) {
-                            callback();
-                        });
-                } else {
-                    callback();
-                }
-            }
-        });
-    });
-</script>
-
-							<div  class="form-group"  >
-							  <label class="control-label col-sm-3">Alamat (sesuai KTP)</label>
-							  <div class="col-sm-9">
-								<textarea name="alamatktp" style="text-transform:uppercase;" placeholder="Alamat sesuai dengan KTP" class="form-control" ><?php echo $dtl['alamatktp'];?></textarea>
-							  </div>
-							</div>
-							<div class="form-group">
-								<label class="control-label col-sm-3">NEGARA (Sesuai Tempat Tinggal)</label>
-								<div class="col-sm-8">
-									<select name="negtinggal" id='negtinggal' class="form-control col-sm-12" >
-                                        <option value="<?php echo trim($dtl['negtinggal']);?>" class=""><?php echo trim($dtl['namanegara']);?></option>
-									</select>
-								</div>
-							</div>
-<script type="text/javascript">
-                        $(function() {
-                            var totalCount,
-                                page,
-                                perPage = 7;
-                            $('#negtinggal').selectize({
-                                plugins: ['hide-arrow', 'selectable-placeholder', 'infinite-scroll'],
-                                valueField: 'kodenegara',
-                                labelField: 'namanegara',
-                                searchField: ['namanegara'],
-                                options: [],
-                                create: false,
-                                render: {
-                                    option: function(item, escape) {
-                                        return '' +
-                                            '<div class=\'row\'>' +
-                                            '<div class=\'col-xs-5 col-md-5 text-nowrap\'>' + escape(item.namanegara) + '</div>' +
-                                            '</div>' +
-                                            '';
-                                    }
-                                },
-                                load: function(query, callback) {
-                                    query = JSON.parse(query);
-                                    page = query.page || 1;
-
-                                    if( ! totalCount || totalCount > ( (page - 1) * perPage) ){
-                                        $.post(base('master/wilayah/add_negara'), {
-                                            _search_: query.search,
-                                            _perpage_: perPage,
-                                            _page_: page,
-                                            _paramxnegara_: "  "
-                                        })
-                                            .done(function(json) {
-                                                console.log('JSON Data: ' + JSON.stringify(json, null, '\t'));
-                                                totalCount = json.totalcount;
-                                                callback(json.group);
-                                            })
-                                            .fail(function( jqxhr, textStatus, error ) {
-                                                callback();
+    <form action="<?= site_url('trans/karyawan/ajax_update') ?>" method='post'>
+        <div class="col-sm-12">
+            <div class="form-horizontal">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#tab_1" data-toggle="tab">Profile Karyawan</a></li>
+                        <li><a href="#tab_2" data-toggle="tab">Fisik</a></li>
+                        <li><a href="#tab_3" data-toggle="tab">Data ID</a></li>
+                        <li><a href="#tab_4" data-toggle="tab">Alamat</a></li>
+                        <li><a href="#tab_5" data-toggle="tab">Kontak</a></li>
+                        <li><a href="#tab_6" data-toggle="tab">Jabatan Pekerjaan</a></li>
+                        <li><a href="#tab_7" data-toggle="tab">Salary</a></li>
+                        <li><a href="#tab_8" data-toggle="tab">Absensi</a></li>
+                    </ul>
+                </div>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab_1">
+                        <div class="col-sm-12 ">
+                            <div class="col-sm-12">
+                                <h3> Step 1</h3>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">NIK Karyawan</label>
+                                    <div class="col-sm-6">
+                                        <input name="nik" id="nik" style="text-transform: uppercase;" value="<?= trim($dtl['nik']) ?>" placeholder="Nomor Induk Karyawan" class="form-control" type="text" readonly>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Nama Lengkap Karyawan</label>
+                                    <div class="col-sm-6">
+                                        <input name="nmlengkap" style="text-transform: uppercase;" value="<?= trim($dtl['nmlengkap']) ?>" placeholder="Nama Lengkap" class="form-control" type="text" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Nama Panggilan</label>
+                                    <div class="col-sm-6">
+                                        <input name="callname" style="text-transform: uppercase;" placeholder="Nama Panggilan" value="<?= trim($dtl['callname']) ?>" class="form-control" type="text" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Jenis Kelamin</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control input-sm" id="jk" name="jk" placeholder="--- JENIS KELAMIN ---" required>
+                                            <option value="" class=""></option>
+                                            <option value="L">LAKI-LAKI</option>
+                                            <option value="P">PEREMPUAN</option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#jk').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                });
+                                                $("#jk").addClass("selectize-hidden-accessible");
+                                                $('#jk')[0].selectize.setValue("<?= trim($dtl['jk']) ?>");
                                             });
-                                    } else {
-                                        callback();
-                                    }
-                                }
-                            }).on('change click', function() {
-                                //console.log('provlahir >> on.change');
-                                //console.log('provlahir >> clear');
-                                $('#provtinggal')[0].selectize.clearOptions();
-                            });
-
-
-                        });
-        </script>
-							<div class="form-group">
-								<label class="control-label col-sm-3">Provinsi (Sesuai Tempat Tinggal)</label>
-								<div class="col-sm-8">
-									<select name="provtinggal" id='provtinggal' class="form-control col-sm-12" >
-                                        <option value="<?php echo trim($dtl['provtinggal']);?>" class=""><?php echo trim($dtl['nmprovtinggal']);?></option>
-									</select>
-								</div>
-							</div>
-<script type="text/javascript">
-                        $(function() {
-                            var totalCount,
-                                page,
-                                perPage = 7;
-                            $('#provtinggal').selectize({
-                                plugins: ['hide-arrow', 'selectable-placeholder', 'infinite-scroll'],
-                                valueField: 'kodeprov',
-                                labelField: 'namaprov',
-                                searchField: ['namaprov'],
-                                options: [],
-                                create: false,
-                                render: {
-                                    option: function(item, escape) {
-                                        return '' +
-                                            '<div class=\'row\'>' +
-                                            '<div class=\'col-xs-5 col-md-5 text-nowrap\'>' + escape(item.namaprov) + '</div>' +
-                                            '</div>' +
-                                            '';
-                                    }
-                                },
-                                load: function(query, callback) {
-                                    query = JSON.parse(query);
-                                    page = query.page || 1;
-
-                                    if( ! totalCount || totalCount > ( (page - 1) * perPage) ){
-                                        $.post(base('master/wilayah/add_prov'), {
-                                            _search_: query.search,
-                                            _perpage_: perPage,
-                                            _page_: page,
-                                            _kodenegara_: $('#almnegara').val(),
-                                        })
-                                            .done(function(json) {
-                                                console.log('JSON Data: ' + JSON.stringify(json, null, '\t'));
-                                                totalCount = json.totalcount;
-                                                callback(json.group);
-                                            })
-                                            .fail(function( jqxhr, textStatus, error ) {
-                                                callback();
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Tanggal Lahir</label>
+                                    <div class="col-sm-6">
+                                        <input id="tglahir"  name="tgllahir" value="<?= date("d-m-Y", strtotime(trim($dtl['tgllahir']))) ?>" style="text-transform: uppercase;" placeholder="Tanggal Lahir" data-date-format="dd-mm-yyyy" class="form-control tgl" type="text" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Tempat Lahir (Negara)</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control input-sm" id="neglahir" name="neglahir" placeholder="--- NEGARA ---" required>
+                                            <option value="" class=""></option>
+                                            <?php foreach($list_opt_neg as $v): ?>
+                                                <?php $row = array_map('trim', (array)$v); ?>
+                                                <option value="<?= $row['kodenegara'] ?>" data-data='<?= json_encode($row, JSON_HEX_APOS) ?>'></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#neglahir').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kodenegara',
+                                                    labelField: 'namanegara',
+                                                    searchField: ['namanegara'],
+                                                    sortField: 'namanegara',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                }).on('change', function () {
+                                                    if (!firstLoad) {
+                                                        $('#provlahir')[0].selectize.clearOptions();
+                                                    }
+                                                    $.ajax({
+                                                        url: HOST_URL + "trans/karyawan/get_provinsi",
+                                                        type: "post",
+                                                        data: {
+                                                            kodenegara: $('#neglahir').val()
+                                                        },
+                                                        dataType: 'json',
+                                                        success: function (data) {
+                                                            for (var i = 0; i < data.length; i++) {
+                                                                $('#provlahir')[0].selectize.addOption({
+                                                                    kodeprov: data[i].kodeprov.trim(),
+                                                                    namaprov: data[i].namaprov.trim()
+                                                                });
+                                                            }
+                                                            if (firstLoad) {
+                                                                $('#provlahir')[0].selectize.setValue("<?= trim($dtl['provlahir']) ?>");
+                                                            }
+                                                        }
+                                                    });
+                                                });
+                                                $("#neglahir").addClass("selectize-hidden-accessible");
+                                                $('#neglahir')[0].selectize.setValue("<?= trim($dtl['neglahir']) ?>");
                                             });
-                                    } else {
-                                        callback();
-                                    }
-                                }
-                            }).on('change click', function() {
-                                //console.log('provlahir >> on.change');
-                                //console.log('kotalahir >> clear');
-                                $('#kotatinggal')[0].selectize.clearOptions();
-                            });
-
-
-                        });
-</script>
-							<div class="form-group">
-								<label class="control-label col-sm-3">Kota/Kabupaten (Sesuai Tempat Tinggal)</label>
-								<div class="col-sm-8">
-									<select name="kotatinggal" id='kotatinggal' class="form-control col-sm-12" >
-                                        <option value="<?php echo trim($dtl['kotatinggal']);?>" class=""><?php echo trim($dtl['nmkotatinggal']);?></option>
-									</select>
-								</div>
-							</div>
-<script type="text/javascript">
-            $(function() {
-                var totalCount,
-                    page,
-                    perPage = 7;
-                $('#kotatinggal').selectize({
-                    plugins: ['hide-arrow', 'selectable-placeholder', 'infinite-scroll'],
-                    valueField: 'kodekotakab',
-                    labelField: 'namakotakab',
-                    searchField: ['namakotakab'],
-                    options: [],
-                    create: false,
-                    render: {
-                        option: function(item, escape) {
-                            return '' +
-                                '<div class=\'row\'>' +
-                                /*  '<div class=\'col-xs-2 col-md-2 text-nowrap\'>' + escape(item.nodok) + '</div>' +*/
-                                '<div class=\'col-xs-5 col-md-5 text-nowrap\'>' + escape(item.namakotakab) + '</div>' +
-                                '</div>' +
-                                '';
-                        }
-                    },
-                    load: function(query, callback) {
-                        query = JSON.parse(query);
-                        page = query.page || 1;
-
-                        if( ! totalCount || totalCount > ( (page - 1) * perPage) ){
-                            $.post(base('master/wilayah/add_kota'), {
-                                _search_: query.search,
-                                _perpage_: perPage,
-                                _page_: page,
-                                _kodenegara_: $('#almnegara').val(),
-                                _kodeprov_: $('#almprovinsi').val()
-                            })
-                                .done(function(json) {
-                                    console.log('JSON Data: ' + JSON.stringify(json, null, '\t'));
-                                    totalCount = json.totalcount;
-                                    callback(json.group);
-                                })
-                                .fail(function( jqxhr, textStatus, error ) {
-                                    callback();
-                                });
-                        } else {
-                            callback();
-                        }
-                    }
-                }).on('change click', function() {
-                    console.log('#kectinggal >> on.change');
-                    console.log('#kectinggal >> clear');
-                    $('#kectinggal')[0].selectize.clearOptions();
-                });
-            });
-</script>
-							<div class="form-group">
-								<label class="control-label col-sm-3">Kecamatan (Sesuai Tempat Tinggal)</label>
-								<div class="col-sm-8">
-									<select name="kectinggal" id='kectinggal' class="form-control col-sm-12" >
-                                        <option value="<?php echo trim($dtl['kectinggal']);?>" class=""><?php echo trim($dtl['nmkectinggal']);?></option>
-									</select>
-								</div>
-							</div>
-<script type="text/javascript">
-                        $(function() {
-                            var totalCount,
-                                page,
-                                perPage = 7;
-                            $('#kectinggal').selectize({
-                                plugins: ['hide-arrow', 'selectable-placeholder', 'infinite-scroll'],
-                                valueField: 'kodekec',
-                                labelField: 'namakec',
-                                searchField: ['namakec'],
-                                options: [],
-                                create: false,
-                                render: {
-                                    option: function(item, escape) {
-                                        return '' +
-                                            '<div class=\'row\'>' +
-                                            /*  '<div class=\'col-xs-2 col-md-2 text-nowrap\'>' + escape(item.nodok) + '</div>' +*/
-                                            '<div class=\'col-xs-5 col-md-5 text-nowrap\'>' + escape(item.namakec) + '</div>' +
-                                            '</div>' +
-                                            '';
-                                    }
-                                },
-                                load: function(query, callback) {
-                                    query = JSON.parse(query);
-                                    page = query.page || 1;
-
-                                    if( ! totalCount || totalCount > ( (page - 1) * perPage) ){
-                                        $.post(base('master/wilayah/add_kec'), {
-                                            _search_: query.search,
-                                            _perpage_: perPage,
-                                            _page_: page,
-                                            _kodenegara_: $('#almnegara').val(),
-                                            _kodekotakab_: $('#almkotakab').val(),
-                                            _kodeprov_: $('#almprovinsi').val(),
-                                        })
-                                            .done(function(json) {
-                                                console.log('JSON Data: ' + JSON.stringify(json, null, '\t'));
-                                                totalCount = json.totalcount;
-                                                callback(json.group);
-                                            })
-                                            .fail(function( jqxhr, textStatus, error ) {
-                                                callback();
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Tempat Lahir (Provinsi)</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control" id="provlahir" name="provlahir" placeholder="--- PROVINSI ---" required>
+                                            <option value="" class=""></option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#provlahir').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kodeprov',
+                                                    labelField: 'namaprov',
+                                                    searchField: ['namaprov'],
+                                                    sortField: 'namaprov',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                }).on('change', function () {
+                                                    if (!firstLoad) {
+                                                        $('#kotalahir')[0].selectize.clearOptions();
+                                                    }
+                                                    $.ajax({
+                                                        url: HOST_URL + "trans/karyawan/get_kotakab",
+                                                        type: "post",
+                                                        data: {
+                                                            kodeprov: $('#provlahir').val()
+                                                        },
+                                                        dataType: 'json',
+                                                        success: function (data) {
+                                                            for (var i = 0; i < data.length; i++) {
+                                                                $('#kotalahir')[0].selectize.addOption({
+                                                                    kodekotakab: data[i].kodekotakab.trim(),
+                                                                    namakotakab: data[i].namakotakab.trim()
+                                                                });
+                                                            }
+                                                            if (firstLoad) {
+                                                                $('#kotalahir')[0].selectize.setValue("<?= trim($dtl['kotalahir']) ?>");
+                                                            }
+                                                        }
+                                                    });
+                                                });
+                                                $("#provlahir").addClass("selectize-hidden-accessible");
                                             });
-                                    } else {
-                                        callback();
-                                    }
-                                }
-                            }).on('change click', function() {
-                                console.log('#keltinggal >> on.change');
-                                console.log('#keltinggal >> clear');
-                                $('#keltinggal')[0].selectize.clearOptions();
-                            });
-                        });
-                    </script>
-							<div class="form-group">
-								<label class="control-label col-sm-3">Kelurahan/Desa (Sesuai Tempat Tinggal)</label>
-								<div class="col-sm-8">
-									<select name="keltinggal" id='keltinggal' class="form-control col-sm-12" >
-                                        <option value="<?php echo trim($dtl['keltinggal']);?>" class=""><?php echo trim($dtl['nmdesatinggal']);?></option>
-									</select>
-								</div>
-							</div>
-<script type="text/javascript">
-    $(function() {
-        var totalCount,
-            page,
-            perPage = 7;
-        $('#keltinggal').selectize({
-            plugins: ['hide-arrow', 'selectable-placeholder', 'infinite-scroll'],
-            valueField: 'kodekeldesa',
-            labelField: 'namakeldesa',
-            searchField: ['namakeldesa'],
-            options: [],
-            create: false,
-            render: {
-                option: function(item, escape) {
-                    return '' +
-                        '<div class=\'row\'>' +
-                        /*  '<div class=\'col-xs-2 col-md-2 text-nowrap\'>' + escape(item.nodok) + '</div>' +*/
-                        '<div class=\'col-xs-5 col-md-5 text-nowrap\'>' + escape(item.namakeldesa) + '</div>' +
-                        '</div>' +
-                        '';
-                }
-            },
-            load: function(query, callback) {
-                query = JSON.parse(query);
-                page = query.page || 1;
-
-                if( ! totalCount || totalCount > ( (page - 1) * perPage) ){
-                    $.post(base('master/wilayah/add_desa'), {
-                        _search_: query.search,
-                        _perpage_: perPage,
-                        _page_: page,
-                        _kodenegara_: $('#almnegara').val(),
-                        _kodeprov_: $('#almprovinsi').val(),
-                        _kodekotakab_: $('#almkotakab').val(),
-                        _kodekec_: $('#almkec').val(),
-                    })
-                        .done(function(json) {
-                            console.log('JSON Data: ' + JSON.stringify(json, null, '\t'));
-                            totalCount = json.totalcount;
-                            callback(json.group);
-                        })
-                        .fail(function( jqxhr, textStatus, error ) {
-                            callback();
-                        });
-                } else {
-                    callback();
-                }
-            }
-        });
-    });
-</script>
-							<div  class="form-group"  >
-							  <label class="control-label col-sm-3">Alamat (Sesuai Tempat Tinggal)</label>
-							  <div class="col-sm-9">
-								<textarea name="alamattinggal" style="text-transform:uppercase;" placeholder="Alamat sesuai dengan KTP" class="form-control" ><?php echo $dtl['alamattinggal'];?></textarea>
-							  </div>
-							</div>
-				</div>
-			  </div>
-			</div>
-			<div class="tab-pane" id="tab_5">
-			  <div class="col-sm-12 ">
-				<div class="col-sm-12">
-				  <h3> Step 5</h3>
-					<div class="form-group">
-					  <label class="control-label col-sm-3">NO HP UTAMA</label>
-					  <div class="col-sm-9">
-						<input name="nohp1" value="<?php echo $dtl['nohp1'];?>" style="text-transform:uppercase;" placeholder="Nomor Handphone Utama" class="form-control" type="input">
-					  </div>
-					</div>
-					<div class="form-group">
-					  <label class="control-label col-sm-3">NO HP kedua</label>
-					  <div class="col-sm-9">
-						<input name="nohp2" value="<?php echo $dtl['nohp2'];?>" style="text-transform:uppercase;" placeholder="Nomor Handphone Lainnya" class="form-control" type="input" >
-					  </div>
-					</div>
-					<div class="form-group">
-					  <label class="control-label col-sm-3">Email</label>
-					  <div class="col-sm-9">
-						<input name="email" value="<?php echo $dtl['email'];?>" style="text-transform:uppercase;" placeholder="Alamat email" class="form-control" type="email" >
-					  </div>
-					</div>
-					<div class="form-group">
-					  <label class="control-label col-sm-3">NPWP</label>
-					  <div class="col-sm-9">
-						<input name="npwp" value="<?php echo $dtl['npwp'];?>" style="text-transform:uppercase;" placeholder="Nomor NPWP" class="form-control" type="input" >
-					  </div>
-					</div>
-					<div class="form-group">
-					  <label class="control-label col-sm-3">Tanggal NPWP</label>
-					  <div class="col-sm-9">
-
-						<input name="tglnpwp" style="text-transform:uppercase;" value="<?php echo $dtl['tglnpwp'];?>" data-date-format="dd-mm-yyyy" placeholder="Tanggal NPWP" class="form-control" id="tglnpwp2" type="text" >
-					  </div>
-					</div>
-				</div>
-			  </div>
-			</div>
-			<div class="tab-pane" id="tab_6">
-			  <div class="col-sm-12 ">
-				<div class="col-sm-12">
-				  <h3> Step 6</h3>
-					<div class="form-group">
-						<label class="control-label col-sm-3">Departemen</label>
-						<div class="col-sm-8">
-							<select name="dept" id='dept' class="form-control col-sm-12">
-								<?php foreach ($list_opt_dept as $lodept){ ?>
-								<option value="<?php echo trim($lodept->kddept);?>" <?php if (trim($dtl['bag_dept'])==trim($lodept->kddept)) { echo 'selected';}?> ><?php echo trim($lodept->nmdept);?></option>
-								<?php };?>
-							</select>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3">Sub Departemen</label>
-						<div class="col-sm-8" >
-							<select name="subbag_dept" id='subdept' class="form-control col-sm-12" >
-								<option value="">-KOSONG-</option>
-								<?php foreach ($list_opt_subdept as $losdept){ ?>
-								<option value="<?php echo trim($losdept->kdsubdept);?>" <?php if (trim($dtl['subbag_dept'])==trim($losdept->kdsubdept)) { echo 'selected';}?> class="<?php echo trim($losdept->kddept);?>"><?php echo trim($losdept->nmsubdept);?></option>
-								<?php };?>
-							</select>
-						</div>
-					</div>
-					<script type="text/javascript" charset="utf-8">
-					  $(function() {
-						$("#subdept").chained("#dept");
-						$("#jabatan").chained("#subdept");
-                        $("#grade_golongan").chained("#lvl_jabatan");
-                        $("#kdlvlgp").chained("#grade_golongan");
-					  });
-					</script>
-					<div class="form-group">
-						<label class="control-label col-sm-3">Jabatan</label>
-						<div class="col-sm-8">
-							<select name="jabatan" id='jabatan' class="form-control col-sm-12" >
-								<option value="">-KOSONG-</option>
-								<?php foreach ($list_opt_jabt as $lojab){ ?>
-								<option value="<?php echo trim($lojab->kdjabatan);?>" <?php if (trim($dtl['jabatan'])==trim($lojab->kdjabatan)) { echo 'selected';}?> class="<?php echo trim($lojab->kdsubdept);?>"><?php echo trim($lojab->nmjabatan);?></option>
-								<?php };?>
-							</select>
-						</div>
-					</div>
-<!--                    <div class="form-group">-->
-<!--                        <label class="control-label col-sm-3">Grading Level Jabatan</label>-->
-<!--                        <div class="col-sm-8">-->
-<!--                            <select name="kdgradejabatan" id='kdgradejabatan' class="form-control col-sm-12" >-->
-<!--                                <option value="">-KOSONG-</option>-->
-<!--                                --><?php //foreach ($list_opt_m_grade_jabatan as $xjab){ ?>
-<!--                                    <option value="--><?php //echo trim($xjab->kdgradejabatan);?><!--"--><?php //if (trim($dtl['kdgradejabatan'])===trim($xjab->kdgradejabatan)) { echo 'selected';}?><!-- >--><?php //echo trim($xjab->nmgradejabatan);?><!--</option>-->
-<!--                                --><?php //};?>
-<!--                            </select>-->
-<!--                        </div>-->
-<!--                    </div>-->
-                    <div class="form-group">
-                        <label class="control-label col-sm-3">Job Grade</label>
-                        <div class="col-sm-8">
-                            <select name="lvl_jabatan" id='lvl_jabatan' class="form-control col-sm-12" >
-                                <option value="">-KOSONG-</option>
-                                <?php foreach ($list_opt_lvljabt as $lo_ljabt){ ?>
-                                    <option value="<?php echo trim($lo_ljabt->kdlvl);?>" <?php if (trim($dtl['lvl_jabatan'])==trim($lo_ljabt->kdlvl)) { echo 'selected';}?>><?php echo trim($lo_ljabt->nmlvljabatan);?></option>
-                                <?php };?>
-                            </select>
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Tempat Lahir (Kota/Kabupaten)</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control" id="kotalahir" name="kotalahir" placeholder="--- KOTA ---" required>
+                                            <option value="" class=""></option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#kotalahir').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kodekotakab',
+                                                    labelField: 'namakotakab',
+                                                    searchField: ['namakotakab'],
+                                                    sortField: 'namakotakab',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                });
+                                                $("#kotalahir").addClass("selectize-hidden-accessible");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Agama</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control input-sm" id="kd_agama" name="kd_agama" placeholder="--- AGAMA ---" required>
+                                            <option value="" class=""></option>
+                                            <?php foreach($list_opt_agama as $v): ?>
+                                                <?php $row = array_map('trim', (array)$v); ?>
+                                                <option value="<?= $row['kdagama'] ?>" data-data='<?= json_encode($row, JSON_HEX_APOS) ?>'></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#kd_agama').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kdagama',
+                                                    labelField: 'nmagama',
+                                                    searchField: ['nmagama'],
+                                                    sortField: 'nmagama',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                });
+                                                $("#kd_agama").addClass("selectize-hidden-accessible");
+                                                $('#kd_agama')[0].selectize.setValue("<?= trim($dtl['kd_agama']) ?>");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3">Level Grade</label>
-                        <div class="col-sm-8">
-                            <select name="grade_golongan" id='grade_golongan' class="form-control col-sm-12" >
-                                <option value="">-KOSONG-</option>
-                                <?php foreach ($list_opt_goljabt as $lo_gjabt){ ?>
-                                    <option value="<?php echo trim($lo_gjabt->kdgrade);?>" <?php if (trim($dtl['grade_golongan'])==trim($lo_gjabt->kdgrade)) { echo 'selected';}?> class="<?php echo trim($lo_gjabt->kdlvl);?>"><?php echo trim($lo_gjabt->nmgrade);?></option>
-                                <?php };?>
-                            </select>
+                    <div class="tab-pane" id="tab_2">
+                        <div class="col-sm-12 ">
+                            <div class="col-sm-12">
+                                <h3> Step 2</h3>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Keadaan Fisik</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control input-sm" id="stsfisik" name="stsfisik" placeholder="--- KEADAAN FISIK ---" required>
+                                            <option value="" class=""></option>
+                                            <option value="t">BAIK & SEHAT</option>
+                                            <option value="f">CACAT FISIK</option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#stsfisik').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                }).on('change', function () {
+                                                    var stsfisik = $('#stsfisik').val();
+                                                    $('.ketfisik-label').hide();
+                                                    $("#ketfisik").prop('required', false);
+                                                    if (stsfisik == "f") {
+                                                        $('.ketfisik-label').show();
+                                                        $("#ketfisik").prop('required', true);
+                                                    }
+                                                });
+                                                $("#stsfisik").addClass("selectize-hidden-accessible");
+                                                $('#stsfisik')[0].selectize.setValue("<?= trim($dtl['stsfisik']) ?>");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group ketfisik-label">
+                                    <label class="control-label col-sm-3">Keterangan Jika Cacat</label>
+                                    <div class="col-sm-6">
+                                        <textarea id="ketfisik" name="ketfisik" style="text-transform: uppercase;" placeholder="Deskripsikan Cacat fisik" class="form-control"><?= trim($dtl['ketfisik']) ?></textarea>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3">Golongan</label>
-                        <div class="col-sm-8">
-                            <select name="kdlvlgp" id='kdlvlgp' class="form-control col-sm-12" >
-                                <option value="">-KOSONG-</option>
-                                <?php foreach ($list_opt_lvlgp as $lo_lvlgp){ ?>
-                                    <option value="<?php echo trim($lo_lvlgp->kdlvlgp);?>" <?php if (trim($dtl['kdlvlgp'])==trim($lo_lvlgp->kdlvlgp)) { echo 'selected';}?> class="<?php echo trim($lo_lvlgp->kdgrade);?>"><?php echo trim($lo_lvlgp->kdlvlgp);?></option>
-                                <?php };?>
-                            </select>
+                    <div class="tab-pane" id="tab_3">
+                        <div class="col-sm-12 ">
+                            <div class="col-sm-12">
+                                <h3> Step 3</h3>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">No KTP</label>
+                                    <div class="col-sm-6">
+                                        <input name="noktp" style="text-transform: uppercase;" placeholder="No Ktp" value="<?= trim($dtl['noktp']) ?>" class="form-control" type="text" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">KTP Dikeluaran Di</label>
+                                    <div class="col-sm-6">
+                                        <input name="ktpdikeluarkan" style="text-transform: uppercase;" value="<?= trim($dtl['ktpdikeluarkan']) ?>" placeholder="Kota KTP di keluarkan" class="form-control" type="text" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Tanggal KTP Dikeluaran</label>
+                                    <div class="col-sm-6">
+                                        <input id="tgldikeluarkan" name="tgldikeluarkan" style="text-transform: uppercase;" value="<?= date("d-m-Y", strtotime(trim($dtl['tgldikeluarkan'])))?>" placeholder="Tanggal KTP Di keluarkan" data-date-format="dd-mm-yyyy" class="form-control" type="text" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">KTP Seumur Hidup</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control input-sm" id="ktp_seumurhdp" name="ktp_seumurhdp" placeholder="--- KTP SEUMUR HIDUP ---" required>
+                                            <option value="" class=""></option>
+                                            <option value="t">YA</option>
+                                            <option value="f">TIDAK</option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#ktp_seumurhdp').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                }).on('change', function () {
+                                                    var ktp_seumurhdp = $('#ktp_seumurhdp').val();
+                                                    $('.tglberlaku-label').hide();
+                                                    $("#tglberlaku").prop('required', false);
+                                                    if (ktp_seumurhdp == "f") {
+                                                        $('.tglberlaku-label').show();
+                                                        $("#tglberlaku").prop('required', true);
+                                                    }
+                                                });
+                                                $("#ktp_seumurhdp").addClass("selectize-hidden-accessible");
+                                                $('#ktp_seumurhdp')[0].selectize.setValue("<?= trim($dtl['ktp_seumurhdp']) ?>");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group tglberlaku-label">
+                                    <label class="control-label col-sm-3">Tanggal Berlaku</label>
+                                    <div class="col-sm-6">
+                                        <input id="tglberlaku" name="tglberlaku" style="text-transform: uppercase;" value="<?= trim($dtl['tglktp1']) == "" ? null : date("d-m-Y", strtotime(trim($dtl['tglktp1'])))?>" placeholder="Tanggal Berlaku" data-date-format="dd-mm-yyyy" class="form-control" type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">No Kartu Keluarga (KK)</label>
+                                    <div class="col-sm-6">
+                                        <input name="nokk" style="text-transform: uppercase;" placeholder="NO KK" value="<?= trim($dtl['nokk']) ?>" class="form-control" type="text" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Kewarganegaraan</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control input-sm" id="stswn" name="stswn" placeholder="--- KEWARGANEGARAAN ---" required>
+                                            <option value="" class=""></option>
+                                            <option value="T">WARGA NEGARA INDONESIA</option>
+                                            <option value="F">WARGA NEGARA ASING</option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#stswn').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                });
+                                                $("#stswn").addClass("selectize-hidden-accessible");
+                                                $('#stswn')[0].selectize.setValue("<?= trim($dtl['stswn']) ?>");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Status Pernikahan</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control input-sm" id="status_pernikahan" name="status_pernikahan" placeholder="--- STATUS PERNIKAHAN ---" required>
+                                            <option value="" class=""></option>
+                                            <?php foreach($list_opt_nikah as $v): ?>
+                                                <?php $row = array_map('trim', (array)$v); ?>
+                                                <option value="<?= $row['kdnikah'] ?>" data-data='<?= json_encode($row, JSON_HEX_APOS) ?>'></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#status_pernikahan').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kdnikah',
+                                                    labelField: 'nmnikah',
+                                                    searchField: ['nmnikah'],
+                                                    sortField: 'nmnikah',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                });
+                                                $("#status_pernikahan").addClass("selectize-hidden-accessible");
+                                                $('#status_pernikahan')[0].selectize.setValue("<?= trim($dtl['status_pernikahan']) ?>");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Golongan Darah</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control input-sm" id="gol_darah" name="gol_darah" placeholder="--- GOLONGAN DARAH ---" required>
+                                            <option value="" class=""></option>
+                                            <option value="A">A</option>
+                                            <option value="B">B</option>
+                                            <option value="AB">AB</option>
+                                            <option value="O">O</option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#gol_darah').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                });
+                                                $("#gol_darah").addClass("selectize-hidden-accessible");
+                                                $('#gol_darah')[0].selectize.setValue("<?= trim($dtl['gol_darah']) ?>");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-					<div class="form-group">
-						<label class="control-label col-sm-3">Atasan</label>
-						<div class="col-sm-8">
-							<select name="nik_atasan" id="nikatasan1" class="form-control col-sm-12" >
-								<option value="-">---------------PILIH KARYAWAN ATASAN -------------</option>
-								<?php foreach ($list_opt_atasan as $loan){ ?>
-								<option value="<?php echo trim($loan->nik);?>" <?php if (trim($dtl['nik_atasan'])==trim($loan->nik)) { echo 'selected';}?> ><?php echo trim($loan->nik).'|'.trim($loan->nmlengkap);?></option>
-								<?php };?>
-							</select>
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3">Atasan ke-2</label>
-						<div class="col-sm-8">
-							<select name="nik_atasan2" id="nikatasan2" class="form-control col-sm-12" >
-							<option value="-">---------------PILIH KARYAWAN ATASAN -------------</option>
-								<?php foreach ($list_opt_atasan as $loan){ ?>
-								<option value="<?php echo trim($loan->nik);?>" <?php if (trim($dtl['nik_atasan2'])==trim($loan->nik)) { echo 'selected';}?> ><?php echo trim($loan->nik).'|'.trim($loan->nmlengkap);?></option>
-								<?php };?>
-							</select>
-						</div>
-					</div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3">Kantor Wilayah</label>
-                        <div class="col-sm-6">
-                            <select name="kdcabang" id='kanwil' class="form-control col-sm-12" required>
-                                <?php foreach ($list_kanwil as $lf){ ?>
-                                    <!--option value="<?php echo trim($lf->kdcabang);?>" ><?php echo trim($lf->desc_cabang);?></option-->
-                                    <option value="<?php echo trim($lf->kdcabang);?>" <?php if (trim($dtl['kdcabang'])==trim($lf->kdcabang)) { echo 'selected';}?> ><?php echo trim($lf->desc_cabang);?></option>
-                                <?php };?>
-                            </select>
+                    <div class="tab-pane" id="tab_4">
+                        <div class="col-sm-12 ">
+                            <div class="col-sm-12">
+                                <h3> Step 4</h3>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Negara (Sesuai KTP)</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control input-sm" id="negktp" name="negktp" placeholder="--- NEGARA ---" required>
+                                            <option value="" class=""></option>
+                                            <?php foreach($list_opt_neg as $v): ?>
+                                                <?php $row = array_map('trim', (array)$v); ?>
+                                                <option value="<?= $row['kodenegara'] ?>" data-data='<?= json_encode($row, JSON_HEX_APOS) ?>'></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#negktp').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kodenegara',
+                                                    labelField: 'namanegara',
+                                                    searchField: ['namanegara'],
+                                                    sortField: 'namanegara',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                }).on('change', function () {
+                                                    if (!firstLoad) {
+                                                        $('#provktp')[0].selectize.clearOptions();
+                                                    }
+                                                    $.ajax({
+                                                        url: HOST_URL + "trans/karyawan/get_provinsi",
+                                                        type: "post",
+                                                        data: {
+                                                            kodenegara: $('#negktp').val()
+                                                        },
+                                                        dataType: 'json',
+                                                        success: function (data) {
+                                                            for (var i = 0; i < data.length; i++) {
+                                                                $('#provktp')[0].selectize.addOption({
+                                                                    kodeprov: data[i].kodeprov.trim(),
+                                                                    namaprov: data[i].namaprov.trim()
+                                                                });
+                                                            }
+                                                            if (firstLoad) {
+                                                                $('#provktp')[0].selectize.setValue("<?= trim($dtl['provktp']) ?>");
+                                                            }
+                                                        }
+                                                    });
+                                                });
+                                                $("#negktp").addClass("selectize-hidden-accessible");
+                                                $('#negktp')[0].selectize.setValue("<?= trim($dtl['negktp']) ?>");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Provinsi (Sesuai KTP)</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control" id="provktp" name="provktp" placeholder="--- PROVINSI ---" required>
+                                            <option value="" class=""></option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#provktp').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kodeprov',
+                                                    labelField: 'namaprov',
+                                                    searchField: ['namaprov'],
+                                                    sortField: 'namaprov',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                }).on('change', function () {
+                                                    if (!firstLoad) {
+                                                        $('#kotaktp')[0].selectize.clearOptions();
+                                                    }
+                                                    $.ajax({
+                                                        url: HOST_URL + "trans/karyawan/get_kotakab",
+                                                        type: "post",
+                                                        data: {
+                                                            kodeprov: $('#provktp').val()
+                                                        },
+                                                        dataType: 'json',
+                                                        success: function (data) {
+                                                            for (var i = 0; i < data.length; i++) {
+                                                                $('#kotaktp')[0].selectize.addOption({
+                                                                    kodekotakab: data[i].kodekotakab.trim(),
+                                                                    namakotakab: data[i].namakotakab.trim()
+                                                                });
+                                                            }
+                                                            if (firstLoad) {
+                                                                $('#kotaktp')[0].selectize.setValue("<?= trim($dtl['kotaktp']) ?>");
+                                                            }
+                                                        }
+                                                    });
+                                                });
+                                                $("#provktp").addClass("selectize-hidden-accessible");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Kota/Kabupaten (Sesuai KTP)</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control" id="kotaktp" name="kotaktp" placeholder="--- KOTA ---" required>
+                                            <option value="" class=""></option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#kotaktp').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kodekotakab',
+                                                    labelField: 'namakotakab',
+                                                    searchField: ['namakotakab'],
+                                                    sortField: 'namakotakab',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                }).on('change', function () {
+                                                    if (!firstLoad) {
+                                                        $('#kecktp')[0].selectize.clearOptions();
+                                                    }
+                                                    $.ajax({
+                                                        url: HOST_URL + "trans/karyawan/get_kec",
+                                                        type: "post",
+                                                        data: {
+                                                            kodekotakab: $('#kotaktp').val()
+                                                        },
+                                                        dataType: 'json',
+                                                        success: function (data) {
+                                                            for (var i = 0; i < data.length; i++) {
+                                                                $('#kecktp')[0].selectize.addOption({
+                                                                    kodekec: data[i].kodekec.trim(),
+                                                                    namakec: data[i].namakec.trim()
+                                                                });
+                                                            }
+                                                            if (firstLoad) {
+                                                                $('#kecktp')[0].selectize.setValue("<?= trim($dtl['kecktp']) ?>");
+                                                            }
+                                                        }
+                                                    });
+                                                });
+                                                $("#kotaktp").addClass("selectize-hidden-accessible");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Kecamatan (Sesuai KTP)</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control" id="kecktp" name="kecktp" placeholder="--- KECAMATAN ---" required>
+                                            <option value="" class=""></option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#kecktp').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kodekec',
+                                                    labelField: 'namakec',
+                                                    searchField: ['namakec'],
+                                                    sortField: 'namakec',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                }).on('change', function () {
+                                                    if (!firstLoad) {
+                                                        $('#kelktp')[0].selectize.clearOptions();
+                                                    }
+                                                    $.ajax({
+                                                        url: HOST_URL + "trans/karyawan/get_keldesa",
+                                                        type: "post",
+                                                        data: {
+                                                            kodekec: $('#kecktp').val()
+                                                        },
+                                                        dataType: 'json',
+                                                        success: function (data) {
+                                                            for (var i = 0; i < data.length; i++) {
+                                                                $('#kelktp')[0].selectize.addOption({
+                                                                    kodekeldesa: data[i].kodekeldesa.trim(),
+                                                                    namakeldesa: data[i].namakeldesa.trim()
+                                                                });
+                                                            }
+                                                            if (firstLoad) {
+                                                                $('#kelktp')[0].selectize.setValue("<?= trim($dtl['kelktp']) ?>");
+                                                            }
+                                                        }
+                                                    });
+                                                });
+                                                $("#kecktp").addClass("selectize-hidden-accessible");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Kelurahan/Desa (Sesuai KTP)</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control" id="kelktp" name="kelktp" placeholder="--- KELURAHAN/DESA ---" required>
+                                            <option value="" class=""></option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#kelktp').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kodekeldesa',
+                                                    labelField: 'namakeldesa',
+                                                    searchField: ['namakeldesa'],
+                                                    sortField: 'namakeldesa',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                });
+                                                $("#kelktp").addClass("selectize-hidden-accessible");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div  class="form-group"  >
+                                    <label class="control-label col-sm-3">Alamat (Sesuai KTP)</label>
+                                    <div class="col-sm-6">
+                                        <textarea name="alamatktp" style="text-transform: uppercase;" placeholder="Alamat Sesuai Dengan KTP" class="form-control" required><?= trim($dtl['alamatktp']) ?></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Negara (Sesuai Tempat Tinggal)</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control input-sm" id="negtinggal" name="negtinggal" placeholder="--- NEGARA ---" required>
+                                            <option value="" class=""></option>
+                                            <?php foreach($list_opt_neg as $v): ?>
+                                                <?php $row = array_map('trim', (array)$v); ?>
+                                                <option value="<?= $row['kodenegara'] ?>" data-data='<?= json_encode($row, JSON_HEX_APOS) ?>'></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#negtinggal').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kodenegara',
+                                                    labelField: 'namanegara',
+                                                    searchField: ['namanegara'],
+                                                    sortField: 'namanegara',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                }).on('change', function () {
+                                                    if (!firstLoad) {
+                                                        $('#provtinggal')[0].selectize.clearOptions();
+                                                    }
+                                                    $.ajax({
+                                                        url: HOST_URL + "trans/karyawan/get_provinsi",
+                                                        type: "post",
+                                                        data: {
+                                                            kodenegara: $('#negtinggal').val()
+                                                        },
+                                                        dataType: 'json',
+                                                        success: function (data) {
+                                                            for (var i = 0; i < data.length; i++) {
+                                                                $('#provtinggal')[0].selectize.addOption({
+                                                                    kodeprov: data[i].kodeprov.trim(),
+                                                                    namaprov: data[i].namaprov.trim()
+                                                                });
+                                                            }
+                                                            if (firstLoad) {
+                                                                $('#provtinggal')[0].selectize.setValue("<?= trim($dtl['provtinggal']) ?>");
+                                                            }
+                                                        }
+                                                    });
+                                                });
+                                                $("#negtinggal").addClass("selectize-hidden-accessible");
+                                                $('#negtinggal')[0].selectize.setValue("<?= trim($dtl['negtinggal']) ?>");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Provinsi (Sesuai Tempat Tinggal)</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control" id="provtinggal" name="provtinggal" placeholder="--- PROVINSI ---" required>
+                                            <option value="" class=""></option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#provtinggal').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kodeprov',
+                                                    labelField: 'namaprov',
+                                                    searchField: ['namaprov'],
+                                                    sortField: 'namaprov',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                }).on('change', function () {
+                                                    if (!firstLoad) {
+                                                        $('#kotatinggal')[0].selectize.clearOptions();
+                                                    }
+                                                    $.ajax({
+                                                        url: HOST_URL + "trans/karyawan/get_kotakab",
+                                                        type: "post",
+                                                        data: {
+                                                            kodeprov: $('#provtinggal').val()
+                                                        },
+                                                        dataType: 'json',
+                                                        success: function (data) {
+                                                            for (var i = 0; i < data.length; i++) {
+                                                                $('#kotatinggal')[0].selectize.addOption({
+                                                                    kodekotakab: data[i].kodekotakab.trim(),
+                                                                    namakotakab: data[i].namakotakab.trim()
+                                                                });
+                                                            }
+                                                            if (firstLoad) {
+                                                                $('#kotatinggal')[0].selectize.setValue("<?= trim($dtl['kotatinggal']) ?>");
+                                                            }
+                                                        }
+                                                    });
+                                                });
+                                                $("#provtinggal").addClass("selectize-hidden-accessible");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Kota/Kabupaten (Sesuai Tempat Tinggal)</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control" id="kotatinggal" name="kotatinggal" placeholder="--- KOTA ---" required>
+                                            <option value="" class=""></option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#kotatinggal').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kodekotakab',
+                                                    labelField: 'namakotakab',
+                                                    searchField: ['namakotakab'],
+                                                    sortField: 'namakotakab',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                }).on('change', function () {
+                                                    if (!firstLoad) {
+                                                        $('#kectinggal')[0].selectize.clearOptions();
+                                                    }
+                                                    $.ajax({
+                                                        url: HOST_URL + "trans/karyawan/get_kec",
+                                                        type: "post",
+                                                        data: {
+                                                            kodekotakab: $('#kotatinggal').val()
+                                                        },
+                                                        dataType: 'json',
+                                                        success: function (data) {
+                                                            for (var i = 0; i < data.length; i++) {
+                                                                $('#kectinggal')[0].selectize.addOption({
+                                                                    kodekec: data[i].kodekec.trim(),
+                                                                    namakec: data[i].namakec.trim()
+                                                                });
+                                                            }
+                                                            if (firstLoad) {
+                                                                $('#kectinggal')[0].selectize.setValue("<?= trim($dtl['kectinggal']) ?>");
+                                                            }
+                                                        }
+                                                    });
+                                                });
+                                                $("#kotatinggal").addClass("selectize-hidden-accessible");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Kecamatan (Sesuai Tempat Tinggal)</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control" id="kectinggal" name="kectinggal" placeholder="--- KECAMATAN ---" required>
+                                            <option value="" class=""></option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#kectinggal').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kodekec',
+                                                    labelField: 'namakec',
+                                                    searchField: ['namakec'],
+                                                    sortField: 'namakec',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                }).on('change', function () {
+                                                    if (!firstLoad) {
+                                                        $('#keltinggal')[0].selectize.clearOptions();
+                                                    }
+                                                    $.ajax({
+                                                        url: HOST_URL + "trans/karyawan/get_keldesa",
+                                                        type: "post",
+                                                        data: {
+                                                            kodekec: $('#kectinggal').val()
+                                                        },
+                                                        dataType: 'json',
+                                                        success: function (data) {
+                                                            for (var i = 0; i < data.length; i++) {
+                                                                $('#keltinggal')[0].selectize.addOption({
+                                                                    kodekeldesa: data[i].kodekeldesa.trim(),
+                                                                    namakeldesa: data[i].namakeldesa.trim()
+                                                                });
+                                                            }
+                                                            if (firstLoad) {
+                                                                $('#keltinggal')[0].selectize.setValue("<?= trim($dtl['keltinggal']) ?>");
+                                                            }
+                                                        }
+                                                    });
+                                                });
+                                                $("#kectinggal").addClass("selectize-hidden-accessible");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Kelurahan/Desa (Sesuai Tempat Tinggal)</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control" id="keltinggal" name="keltinggal" placeholder="--- KELURAHAN/DESA ---" required>
+                                            <option value="" class=""></option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#keltinggal').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kodekeldesa',
+                                                    labelField: 'namakeldesa',
+                                                    searchField: ['namakeldesa'],
+                                                    sortField: 'namakeldesa',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                });
+                                                $("#keltinggal").addClass("selectize-hidden-accessible");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div  class="form-group"  >
+                                    <label class="control-label col-sm-3">Alamat (Sesuai Tempat Tinggal)</label>
+                                    <div class="col-sm-6">
+                                        <textarea name="alamattinggal" style="text-transform: uppercase;" placeholder="Alamat Sesuai Dengan KTP" class="form-control" required><?= trim($dtl['alamattinggal']) ?></textarea>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3">Tanggal Masuk</label>
-                        <div class="col-sm-6">
-                            <input name="tglmasukkerja" value="<?php echo date("d-m-Y",strtotime(trim($dtl['tglmasukkerja'])));?>" style="text-transform:uppercase;" placeholder="Tanggal Masuk Karyawan" id="tglmasuk2" data-date-format="dd-mm-yyyy"  class="form-control tgl" type="text" >
+                    <div class="tab-pane" id="tab_5">
+                        <div class="col-sm-12 ">
+                            <div class="col-sm-12">
+                                <h3> Step 5</h3>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Nomor HP Utama</label>
+                                    <div class="col-sm-6">
+                                        <input name="nohp1" value="<?= trim($dtl['nohp1']) ?>" style="text-transform: uppercase;" placeholder="Nomor HP Utama" class="form-control" type="input" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Nomor HP Lainnya</label>
+                                    <div class="col-sm-6">
+                                        <input name="nohp2" value="<?= trim($dtl['nohp2']) ?>" style="text-transform: uppercase;" placeholder="Nomor HP Lainnya" class="form-control" type="input">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Email</label>
+                                    <div class="col-sm-6">
+                                        <input name="email" value="<?= trim($dtl['email']) ?>" style="text-transform: uppercase;" placeholder="Alamat email" class="form-control" type="email">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">NPWP</label>
+                                    <div class="col-sm-6">
+                                        <input name="npwp" value="<?= trim($dtl['npwp']) ?>" style="text-transform: uppercase;" placeholder="Nomor NPWP" class="form-control" type="input">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Tanggal NPWP</label>
+                                    <div class="col-sm-6">
+                                        <input id="tglnpwp" name="tglnpwp" style="text-transform: uppercase;" value="<?= trim($dtl['tglnpwp']) == "" ? null : date("d-m-Y", strtotime(trim($dtl['tglnpwp']))) ?>" data-date-format="dd-mm-yyyy" placeholder="Tanggal NPWP" class="form-control" type="text">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3">Branch ID</label>
-                        <div class="col-sm-6">
-                            <input name="branch" value="<?php echo $dtl['branch'];?>" class="form-control" type="input" readonly>
+                    <div class="tab-pane" id="tab_6">
+                        <div class="col-sm-12 ">
+                            <div class="col-sm-12">
+                                <h3> Step 6</h3>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Departemen</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control input-sm" id="dept" name="dept" placeholder="--- DEPARTEMEN ---" required>
+                                            <option value="" class=""></option>
+                                            <?php foreach($list_opt_dept as $v): ?>
+                                                <?php $row = array_map('trim', (array)$v); ?>
+                                                <option value="<?= $row['kddept'] ?>" data-data='<?= json_encode($row, JSON_HEX_APOS) ?>'></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#dept').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kddept',
+                                                    labelField: 'nmdept',
+                                                    searchField: ['nmdept'],
+                                                    sortField: 'nmdept',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                }).on('change', function () {
+                                                    if (!firstLoad) {
+                                                        $('#subbag_dept')[0].selectize.clearOptions();
+                                                    }
+                                                    $.ajax({
+                                                        url: HOST_URL + "trans/karyawan/get_subdept",
+                                                        type: "post",
+                                                        data: {
+                                                            kddept: $('#dept').val()
+                                                        },
+                                                        dataType: 'json',
+                                                        success: function (data) {
+                                                            for (var i = 0; i < data.length; i++) {
+                                                                $('#subbag_dept')[0].selectize.addOption({
+                                                                    kdsubdept: data[i].kdsubdept.trim(),
+                                                                    nmsubdept: data[i].nmsubdept.trim()
+                                                                });
+                                                            }
+                                                            if (firstLoad) {
+                                                                $('#subbag_dept')[0].selectize.setValue("<?= trim($dtl['subbag_dept']) ?>");
+                                                            }
+                                                        }
+                                                    });
+                                                });
+                                                $("#dept").addClass("selectize-hidden-accessible");
+                                                $('#dept')[0].selectize.setValue("<?= trim($dtl['bag_dept']) ?>");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Sub Departemen</label>
+                                    <div class="col-sm-6" >
+                                        <select class="form-control" id="subbag_dept" name="subbag_dept" placeholder="--- SUB DEPARTEMEN ---" required>
+                                            <option value="" class=""></option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#subbag_dept').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kdsubdept',
+                                                    labelField: 'nmsubdept',
+                                                    searchField: ['nmsubdept'],
+                                                    sortField: 'nmsubdept',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                }).on('change', function () {
+                                                    if (!firstLoad) {
+                                                        $('#jabatan')[0].selectize.clearOptions();
+                                                    }
+                                                    $.ajax({
+                                                        url: HOST_URL + "trans/karyawan/get_jabatan",
+                                                        type: "post",
+                                                        data: {
+                                                            kddept: $('#dept').val(),
+                                                            kdsubdept: $('#subbag_dept').val()
+                                                        },
+                                                        dataType: 'json',
+                                                        success: function (data) {
+                                                            for (var i = 0; i < data.length; i++) {
+                                                                $('#jabatan')[0].selectize.addOption({
+                                                                    kdjabatan: data[i].kdjabatan.trim(),
+                                                                    nmjabatan: data[i].nmjabatan.trim()
+                                                                });
+                                                            }
+                                                            if (firstLoad) {
+                                                                $('#jabatan')[0].selectize.setValue("<?= trim($dtl['jabatan']) ?>");
+                                                            }
+                                                        }
+                                                    });
+                                                });
+                                                $("#subbag_dept").addClass("selectize-hidden-accessible");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Jabatan</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control" id="jabatan" name="jabatan" placeholder="--- JABATAN ---" required>
+                                            <option value="" class=""></option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#jabatan').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kdjabatan',
+                                                    labelField: 'nmjabatan',
+                                                    searchField: ['nmjabatan'],
+                                                    sortField: 'nmjabatan',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                });
+                                                $("#jabatan").addClass("selectize-hidden-accessible");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Job Grade</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control input-sm" id="lvl_jabatan" name="lvl_jabatan" placeholder="--- JOB GRADE ---" required>
+                                            <option value="" class=""></option>
+                                            <?php foreach($list_opt_lvljabt as $v): ?>
+                                                <?php $row = array_map('trim', (array)$v); ?>
+                                                <option value="<?= $row['kdlvl'] ?>" data-data='<?= json_encode($row, JSON_HEX_APOS) ?>'></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#lvl_jabatan').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kdlvl',
+                                                    labelField: 'nmlvljabatan',
+                                                    searchField: ['nmlvljabatan'],
+                                                    sortField: 'nmlvljabatan',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                }).on('change', function () {
+                                                    if (!firstLoad) {
+                                                        $('#grade_golongan')[0].selectize.clearOptions();
+                                                    }
+                                                    $.ajax({
+                                                        url: HOST_URL + "trans/karyawan/get_grade_golongan",
+                                                        type: "post",
+                                                        data: {
+                                                            kdlvl: $('#lvl_jabatan').val()
+                                                        },
+                                                        dataType: 'json',
+                                                        success: function (data) {
+                                                            for (var i = 0; i < data.length; i++) {
+                                                                $('#grade_golongan')[0].selectize.addOption({
+                                                                    kdgrade: data[i].kdgrade.trim(),
+                                                                    nmgrade: data[i].nmgrade.trim()
+                                                                });
+                                                            }
+                                                            if (firstLoad) {
+                                                                $('#grade_golongan')[0].selectize.setValue("<?= trim($dtl['grade_golongan']) ?>");
+                                                            }
+                                                        }
+                                                    });
+                                                });
+                                                $("#lvl_jabatan").addClass("selectize-hidden-accessible");
+                                                $('#lvl_jabatan')[0].selectize.setValue("<?= trim($dtl['lvl_jabatan']) ?>");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Level Grade</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control" id="grade_golongan" name="grade_golongan" placeholder="--- LEVEL GRADE ---" required>
+                                            <option value="" class=""></option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#grade_golongan').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kdgrade',
+                                                    labelField: 'nmgrade',
+                                                    searchField: ['nmgrade'],
+                                                    sortField: 'nmgrade',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                }).on('change', function () {
+                                                    if (!firstLoad) {
+                                                        $('#kdlvlgp')[0].selectize.clearOptions();
+                                                    }
+                                                    $.ajax({
+                                                        url: HOST_URL + "trans/karyawan/get_kdlvlgp",
+                                                        type: "post",
+                                                        data: {
+                                                            kdgrade: $('#grade_golongan').val()
+                                                        },
+                                                        dataType: 'json',
+                                                        success: function (data) {
+                                                            for (var i = 0; i < data.length; i++) {
+                                                                $('#kdlvlgp')[0].selectize.addOption({
+                                                                    kdlvlgp: data[i].kdlvlgp.trim()
+                                                                });
+                                                            }
+                                                            $("#kdlvlgp").prop('required', false);
+                                                            if(data.length > 0) {
+                                                                $("#kdlvlgp").prop('required', true);
+                                                            }
+                                                            if (firstLoad) {
+                                                                $('#kdlvlgp')[0].selectize.setValue("<?= trim($dtl['kdlvlgp']) ?>");
+                                                            }
+                                                        }
+                                                    });
+                                                });
+                                                $("#grade_golongan").addClass("selectize-hidden-accessible");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Golongan</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control" id="kdlvlgp" name="kdlvlgp" placeholder="--- GOLONGAN ---">
+                                            <option value="" class=""></option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#kdlvlgp').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kdlvlgp',
+                                                    labelField: 'kdlvlgp',
+                                                    searchField: ['kdlvlgp'],
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                });
+                                                $("#kdlvlgp").addClass("selectize-hidden-accessible");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Atasan</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control input-sm" id="nik_atasan" name="nik_atasan" placeholder="--- ATASAN ---">
+                                            <option value="" class=""></option>
+                                            <?php foreach($list_opt_atasan as $v): ?>
+                                                <?php $row = array_map('trim', (array)$v); ?>
+                                                <option value="<?= $row['nik'] ?>" data-data='<?= json_encode($row, JSON_HEX_APOS) ?>'></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#nik_atasan').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'nik',
+                                                    searchField: ['nik', 'nmlengkap'],
+                                                    sortField: 'nmlengkap',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true,
+                                                    render: {
+                                                        option: function(item, escape) {
+                                                            return '' +
+                                                                '<div class=\'row\'>' +
+                                                                    '<div class=\'col-md-2 text-nowrap\'>' + escape(item.nik) + '</div>' +
+                                                                    '<div class=\'col-md-10 text-nowrap\'>' + escape(item.nmlengkap) + '</div>' +
+                                                                '</div>' +
+                                                            '';
+                                                        },
+                                                        item: function(item, escape) {
+                                                            return '' +
+                                                                '<div>' +
+                                                                    escape(item.nik) + ' - ' +
+                                                                    escape(item.nmlengkap) +
+                                                                '</div>'
+                                                            ;
+                                                        }
+                                                    }
+                                                });
+                                                $("#nik_atasan").addClass("selectize-hidden-accessible");
+                                                $('#nik_atasan')[0].selectize.setValue("<?= trim($dtl['nik_atasan']) ?>");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Atasan Ke-2</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control input-sm" id="nik_atasan2" name="nik_atasan2" placeholder="--- ATASAN KE-2 ---">
+                                            <option value="" class=""></option>
+                                            <?php foreach($list_opt_atasan as $v): ?>
+                                                <?php $row = array_map('trim', (array)$v); ?>
+                                                <option value="<?= $row['nik'] ?>" data-data='<?= json_encode($row, JSON_HEX_APOS) ?>'></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#nik_atasan2').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'nik',
+                                                    searchField: ['nik', 'nmlengkap'],
+                                                    sortField: 'nmlengkap',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true,
+                                                    render: {
+                                                        option: function(item, escape) {
+                                                            return '' +
+                                                                '<div class=\'row\'>' +
+                                                                    '<div class=\'col-md-2 text-nowrap\'>' + escape(item.nik) + '</div>' +
+                                                                    '<div class=\'col-md-10 text-nowrap\'>' + escape(item.nmlengkap) + '</div>' +
+                                                                '</div>' +
+                                                            '';
+                                                        },
+                                                        item: function(item, escape) {
+                                                            return '' +
+                                                                '<div>' +
+                                                                    escape(item.nik) + ' - ' +
+                                                                    escape(item.nmlengkap) +
+                                                                '</div>'
+                                                            ;
+                                                        }
+                                                    }
+                                                });
+                                                $("#nik_atasan2").addClass("selectize-hidden-accessible");
+                                                $('#nik_atasan2')[0].selectize.setValue("<?= trim($dtl['nik_atasan2']) ?>");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Kantor Wilayah</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control input-sm" id="kdcabang" name="kdcabang" placeholder="--- KANTOR WILAYAH ---" required>
+                                            <option value="" class=""></option>
+                                            <?php foreach($list_kanwil as $v): ?>
+                                                <?php $row = array_map('trim', (array)$v); ?>
+                                                <option value="<?= $row['kdcabang'] ?>" data-data='<?= json_encode($row, JSON_HEX_APOS) ?>'></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#kdcabang').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kdcabang',
+                                                    searchField: ['kdcabang', 'desc_cabang'],
+                                                    sortField: 'desc_cabang',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true,
+                                                    render: {
+                                                        option: function(item, escape) {
+                                                            return '' +
+                                                                '<div class=\'row\'>' +
+                                                                    '<div class=\'col-md-2 text-nowrap\'>' + escape(item.kdcabang) + '</div>' +
+                                                                    '<div class=\'col-md-10 text-nowrap\'>' + escape(item.desc_cabang) + '</div>' +
+                                                                '</div>' +
+                                                            '';
+                                                        },
+                                                        item: function(item, escape) {
+                                                            return '' +
+                                                                '<div>' +
+                                                                    escape(item.kdcabang) + ' - ' +
+                                                                    escape(item.desc_cabang) +
+                                                                '</div>'
+                                                            ;
+                                                        }
+                                                    }
+                                                });
+                                                $("#kdcabang").addClass("selectize-hidden-accessible");
+                                                $('#kdcabang')[0].selectize.setValue("<?= trim($dtl['kdcabang']) ?>");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Tanggal Masuk</label>
+                                    <div class="col-sm-6">
+                                        <input id="tglmasukkerja" name="tglmasukkerja" value="<?= date("d-m-Y", strtotime(trim($dtl['tglmasukkerja']))) ?>" style="text-transform: uppercase;" placeholder="Tanggal Masuk Karyawan" data-date-format="dd-mm-yyyy" class="form-control tgl" type="text" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Branch ID</label>
+                                    <div class="col-sm-6">
+                                        <input name="branch" value="<?= trim($dtl['branch']) ?>" class="form-control" type="input" readonly>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-				</div>
-			  </div>
-			</div>
-			<div class="tab-pane" id="tab_7">
-			  <div class="col-sm-12 ">
-				<div class="col-sm-12">
-				  <h3> Step 7</h3>
-					<div class="form-group">
-						<label class="control-label col-sm-3">Group Penggajian</label>
-						<div class="col-sm-8">
-							<select name="grouppenggajian" class="form-control col-sm-12" >
-								<?php foreach ($list_opt_grp_gaji as $lgaji){ ?>
-								<option value="<?php echo trim($lgaji->kdgroup_pg);?>" <?php if (trim($dtl['grouppenggajian'])==trim($lgaji->kdgroup_pg)) { echo 'selected';}?>><?php echo trim($lgaji->kdgroup_pg).' | '.trim($lgaji->nmgroup_pg);?></option>
-								<?php };?>
-							</select>
-						</div>
-					</div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3">PTKP</label>
-                        <div class="col-sm-8">
-                            <select name="status_ptkp" class="form-control col-sm-12" >
-                                <?php foreach ($list_opt_ptkp as $lptkp){ ?>
-                                    <option value="<?php echo trim($lptkp->kodeptkp);?>" <?php if (trim($dtl['status_ptkp'])==trim($lptkp->kodeptkp)) { echo 'selected';}?> ><?php echo trim($lptkp->kodeptkp).' | '.trim($lptkp->besaranpertahun);?></option>
-                                <?php };?>
-                            </select>
+                    <div class="tab-pane" id="tab_7">
+                        <div class="col-sm-12 ">
+                            <div class="col-sm-12">
+                                <h3> Step 7</h3>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Group Penggajian</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control input-sm" id="grouppenggajian" name="grouppenggajian" placeholder="--- GROUP PENGGAJIAN ---" required>
+                                            <option value="" class=""></option>
+                                            <?php foreach($list_opt_grp_gaji as $v): ?>
+                                                <?php $row = array_map('trim', (array)$v); ?>
+                                                <option value="<?= $row['kdgroup_pg'] ?>" data-data='<?= json_encode($row, JSON_HEX_APOS) ?>'></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#grouppenggajian').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kdgroup_pg',
+                                                    searchField: ['kdgroup_pg', 'nmgroup_pg'],
+                                                    sortField: 'nmgroup_pg',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true,
+                                                    render: {
+                                                        option: function(item, escape) {
+                                                            return '' +
+                                                                '<div class=\'row\'>' +
+                                                                    '<div class=\'col-md-2 text-nowrap\'>' + escape(item.kdgroup_pg) + '</div>' +
+                                                                    '<div class=\'col-md-10 text-nowrap\'>' + escape(item.nmgroup_pg) + '</div>' +
+                                                                '</div>' +
+                                                            '';
+                                                        },
+                                                        item: function(item, escape) {
+                                                            return '' +
+                                                                '<div>' +
+                                                                    escape(item.kdgroup_pg) + ' - ' +
+                                                                    escape(item.nmgroup_pg) +
+                                                                '</div>'
+                                                            ;
+                                                        }
+                                                    }
+                                                });
+                                                $("#grouppenggajian").addClass("selectize-hidden-accessible");
+                                                $('#grouppenggajian')[0].selectize.setValue("<?= trim($dtl['grouppenggajian']) ?>");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">PTKP</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control input-sm" id="status_ptkp" name="status_ptkp" placeholder="--- PTKP ---" required>
+                                            <option value="" class=""></option>
+                                            <?php foreach($list_opt_ptkp as $v): ?>
+                                                <?php $row = array_map('trim', (array)$v); ?>
+                                                <?php $row['besaranpertahunrp'] = "Rp " . number_format($row['besaranpertahun'], 2, ',', '.'); ?>
+                                                <option value="<?= $row['kodeptkp'] ?>" data-data='<?= json_encode($row, JSON_HEX_APOS) ?>'></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#status_ptkp').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kodeptkp',
+                                                    searchField: ['kodeptkp', 'besaranpertahun'],
+                                                    sortField: 'kodeptkp',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true,
+                                                    render: {
+                                                        option: function(item, escape) {
+                                                            return '' +
+                                                                '<div class=\'row\'>' +
+                                                                    '<div class=\'col-md-2 text-nowrap\'>' + escape(item.kodeptkp) + '</div>' +
+                                                                    '<div class=\'col-md-10 text-nowrap\'>' + escape(item.besaranpertahunrp) + '</div>' +
+                                                                '</div>' +
+                                                            '';
+                                                        },
+                                                        item: function(item, escape) {
+                                                            return '' +
+                                                                '<div>' +
+                                                                    escape(item.kodeptkp) + ' - ' +
+                                                                    escape(item.besaranpertahunrp) +
+                                                                '</div>'
+                                                            ;
+                                                        }
+                                                    }
+                                                });
+                                                $("#status_ptkp").addClass("selectize-hidden-accessible");
+                                                $('#status_ptkp')[0].selectize.setValue("<?= trim($dtl['status_ptkp']) ?>");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Nama Bank</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control input-sm" id="namabank" name="namabank" placeholder="--- NAMA BANK ---" required>
+                                            <option value="" class=""></option>
+                                            <?php foreach($list_opt_bank as $v): ?>
+                                                <?php $row = array_map('trim', (array)$v); ?>
+                                                <option value="<?= $row['kdbank'] ?>" data-data='<?= json_encode($row, JSON_HEX_APOS) ?>'></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#namabank').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kdbank',
+                                                    labelField: 'nmbank',
+                                                    searchField: ['nmbank'],
+                                                    sortField: 'nmbank',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                });
+                                                $("#namabank").addClass("selectize-hidden-accessible");
+                                                $('#namabank')[0].selectize.setValue("<?= trim($dtl['namabank']) ?>");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Basis Gaji Wilayah</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control input-sm" id="kdwilayahnominal" name="kdwilayahnominal" placeholder="--- BASIS GAJI WILAYAH ---" required>
+                                            <option value="" class=""></option>
+                                            <?php foreach($list_wilnom as $v): ?>
+                                                <?php $row = array_map('trim', (array)$v); ?>
+                                                <option value="<?= $row['kdwilayahnominal'] ?>" data-data='<?= json_encode($row, JSON_HEX_APOS) ?>'></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#kdwilayahnominal').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'kdwilayahnominal',
+                                                    labelField: 'nmwilayahnominal',
+                                                    searchField: ['nmwilayahnominal'],
+                                                    sortField: 'nmwilayahnominal',
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                });
+                                                $("#kdwilayahnominal").addClass("selectize-hidden-accessible");
+                                                $('#kdwilayahnominal')[0].selectize.setValue("<?= trim($dtl['kdwilayahnominal']) ?>");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Nama Pemilik Rekening</label>
+                                    <div class="col-sm-6">
+                                        <input name="namapemilikrekening" value="<?= trim($dtl['namapemilikrekening']) ?>" style="text-transform: uppercase;" placeholder="Nama Pemilik Rekening" class="form-control" type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Nomor Rekening</label>
+                                    <div class="col-sm-6">
+                                        <input name="norek" value="<?= trim($dtl['norek']) ?>" style="text-transform: uppercase;" placeholder="Nomor Rekening" class="form-control" type="text">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-					<?php /*<!--
-					<div class="form-group">
-					  <label class="control-label col-sm-3">Gaji Pokok</label>
-					  <div class="col-sm-9">
-						<input name="gajipokok" value="<?php echo $dtl['gajipokok'];?>" style="text-transform:uppercase;" placeholder="Gaji Pokok" class="form-control" type="text" readonly>
-					  </div>
-					</div>
-					<div class="form-group">
-					  <label class="control-label col-sm-3">Gaji BPJS KES</label>
-					  <div class="col-sm-9">
-						<input name="gajibpjs" value="<?php echo $dtl['gajibpjs'];?>" style="text-transform:uppercase;" placeholder="Gaji BPJS KES" class="form-control" type="text" readonly>
-					  </div>
-					</div>
-
-					<div class="form-group">
-					  <label class="control-label col-sm-3">Gaji BPJS NAKER</label>
-					  <div class="col-sm-9">
-						<input name="gajinaker" value="<?php echo $dtl['gajinaker'];?>" style="text-transform:uppercase;" placeholder="Gaji BPJS NAKER" class="form-control" type="text" readonly>
-					  </div>
-					</div>
-					-->*/ ?>
-					<div class="form-group">
-					  <label class="control-label col-sm-3">Nama BANK</label>
-					  <div class="col-sm-9">
-						<select name="namabank" id='dept' class="form-control col-sm-12" >
-							<?php foreach ($list_opt_bank as $lbank){ ?>
-							<option value="<?php echo trim($lbank->kdbank);?>" <?php if (trim($dtl['namabank'])==trim($lbank->kdbank)) { echo 'selected';}?> ><?php echo trim($lbank->nmbank);?></option>
-							<?php };?>
-						</select>
-					  </div>
-					</div>
-                    <div class="form-group">
-                        <label class="control-label col-sm-3">Basis Gaji Wilayah</label>
-                        <div class="col-sm-9">
-                            <select name="kdwilayahnominal" id='kdwilayahnominal' class="form-control col-sm-12" >
-                                <option value="" <?php if (trim($dtl['kdwilayahnominal'])=='') { echo 'selected';}?> >-- PILIH WILAYAH BASIS --</option>
-                                <?php foreach ($list_wilnom as $lw){ ?>
-                                    <option value="<?php echo trim($lw->kdwilayahnominal);?>" <?php if (trim($dtl['kdwilayahnominal'])==trim($lw->kdwilayahnominal)) { echo 'selected';}?> ><?php echo trim($lw->nmwilayahnominal);?></option>
-                                <?php };?>
-                            </select>
+                    <div class="tab-pane" id="tab_8">
+                        <div class="col-sm-12 ">
+                            <div class="col-sm-12">
+                                <h3> Step 8</h3>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">ID Absensi</label>
+                                    <div class="col-sm-6">
+                                        <input name="idabsen" style="text-transform: uppercase;" value="<?= trim($dtl['idabsen']) ?>" placeholder="ID Absensi" class="form-control" type="text">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">ID Mesin</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control input-sm" id="idmesin" name="idmesin" placeholder="--- ID MESIN ---" required>
+                                            <option value="" class=""></option>
+                                            <?php foreach($list_finger as $v): ?>
+                                                <?php $row = array_map('trim', (array)$v); ?>
+                                                <option value="<?= $row['fingerid'] ?>" data-data='<?= json_encode($row, JSON_HEX_APOS) ?>'></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#idmesin').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    valueField: 'fingerid',
+                                                    searchField: ['wilayah', 'ipaddress'],
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true,
+                                                    render: {
+                                                        option: function(item, escape) {
+                                                            return '' +
+                                                                '<div class=\'row\'>' +
+                                                                    '<div class=\'col-md-2 text-nowrap\'>' + escape(item.wilayah) + '</div>' +
+                                                                    '<div class=\'col-md-10 text-nowrap\'>' + escape(item.ipaddress) + '</div>' +
+                                                                '</div>' +
+                                                            '';
+                                                        },
+                                                        item: function(item, escape) {
+                                                            return '' +
+                                                                '<div>' +
+                                                                    escape(item.wilayah) + ' - ' +
+                                                                    escape(item.ipaddress) +
+                                                                '</div>'
+                                                            ;
+                                                        }
+                                                    }
+                                                });
+                                                $("#idmesin").addClass("selectize-hidden-accessible");
+                                                $('#idmesin')[0].selectize.setValue("<?= trim($dtl['idmesin']) ?>");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Borong</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control input-sm" id="borong" name="borong" placeholder="--- BORONG ---" required>
+                                            <option value="" class=""></option>
+                                            <option value="t">YA</option>
+                                            <option value="f">TIDAK</option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#borong').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                });
+                                                $("#borong").addClass("selectize-hidden-accessible");
+                                                $('#borong')[0].selectize.setValue("<?= trim($dtl['tjborong']) ?>");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Shift</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control input-sm" id="shift" name="shift" placeholder="--- SHIFT ---" required>
+                                            <option value="" class=""></option>
+                                            <option value="t">YA</option>
+                                            <option value="f">TIDAK</option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#shift').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                });
+                                                $("#shift").addClass("selectize-hidden-accessible");
+                                                $('#shift')[0].selectize.setValue("<?= trim($dtl['tjshift']) ?>");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Lembur</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control input-sm" id="lembur" name="lembur" placeholder="--- LEMBUR ---" required>
+                                            <option value="" class=""></option>
+                                            <option value="t">YA</option>
+                                            <option value="f">TIDAK</option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#lembur').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                });
+                                                $("#lembur").addClass("selectize-hidden-accessible");
+                                                $('#lembur')[0].selectize.setValue("<?= trim($dtl['tjlembur']) ?>");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Callplan</label>
+                                    <div class="col-sm-6">
+                                        <select class="form-control input-sm" id="callplan" name="callplan" placeholder="--- CALLPLAN ---" required>
+                                            <option value="" class=""></option>
+                                            <option value="t">YA</option>
+                                            <option value="f">TIDAK</option>
+                                        </select>
+                                        <script type="text/javascript">
+                                            $(document).ready(function() {
+                                                $('#callplan').selectize({
+                                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                                    options: [],
+                                                    create: false,
+                                                    initData: true
+                                                });
+                                                $("#callplan").addClass("selectize-hidden-accessible");
+                                                $('#callplan')[0].selectize.setValue("<?= trim($dtl['callplan']) ?>");
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-3">Mobile Device ID</label>
+                                    <div class="col-sm-6">
+                                        <input name="deviceid" style="text-transform: uppercase;" value="<?= trim($dtl['deviceid']) ?>" placeholder="Mobile Device ID" class="form-control" type="text">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-					<div class="form-group">
-					  <label class="control-label col-sm-3">Nama Pemilik Rekening</label>
-					  <div class="col-sm-9">
-						<input name="namapemilikrekening" value="<?php echo $dtl['namapemilikrekening'];?>" style="text-transform:uppercase;" placeholder="Nama Pemilik Rekening" class="form-control" type="text" >
-					  </div>
-					</div>
-					<div class="form-group">
-					  <label class="control-label col-sm-3">Nomor Rekening</label>
-					  <div class="col-sm-9">
-						<input name="norek" value="<?php echo trim($dtl['norek']);?>" style="text-transform:uppercase;" placeholder="Nomor Rekening" class="form-control" type="text" >
-					  </div>
-					</div>
-					<!--<div class="form-group">
-					  <label class="control-label col-sm-3">ID Absensi</label>
-					  <div class="col-sm-9">
-						<input name="idabsen" value="<?php echo $dtl['idabsen'];?>" style="text-transform:uppercase;" placeholder="Nomor Induk Karyawan" class="form-control" type="text" >
-					  </div>
-					</div>-->
-				</div>
-			  </div>
-			</div>
-			<div class="tab-pane" id="tab_8">
-			  <div class="col-sm-12 ">
-				<div class="col-sm-12">
-				  <h3> Step 8</h3>
-					<div class="form-group">
-					  <label class="control-label col-sm-3">ID Absensi</label>
-					  <div class="col-sm-9">
-						<input name="idabsen" style="text-transform:uppercase;" value="<?php echo trim($dtl['idabsen']);?>" placeholder="Nomor ID Absensi" class="form-control" type="text" >
-					  </div>
-					</div>
-					<div class="form-group">
-						<label class="control-label col-sm-3">ID Mesin</label>
-						<div class="col-sm-9">
-							<select name="idmesin" id='idmesin' class="form-control col-sm-12" disabled>
-								<?php foreach ($list_finger as $lf){ ?>
-									<option <?php if(trim($dtl['idmesin'])==trim($lf->fingerid))?> value="<?php echo trim($lf->fingerid);?>" ><?php echo trim($lf->wilayah).' || '.trim($lf->ipaddress);?></option>
-								<?php };?>
-							</select>
-						</div>
-					</div>
-					<div class="form-group">
-						 <label class="control-label col-sm-3">Borong</label>
-						<div class="col-sm-9">
-								 <select type="text" class="form-control" name="borong" id="borong">
-								 <option  <?php if(trim($dtl['tjborong'])=='') { echo 'selected';} ?> value="f">--PILIH BORONG--</option>
-								 <option  <?php if(trim($dtl['tjborong'])=='t') { echo 'selected';} ?> value="t"> YA</option>
-								 <option  <?php if(trim($dtl['tjborong'])=='f') { echo 'selected';} ?> value="f"> TIDAK</option>
-
-								</select>
-						</div>
-					</div>
-
-					<div class="form-group">
-						 <label class="control-label col-sm-3">Shift</label>
-						<div class="col-sm-9">
-								 <select type="text" class="form-control" name="shift" id="shift">
-								 <option  <?php if(trim($dtl['tjshift'])=='') { echo 'selected';} ?> value="f">--PILIH SHIFT--</option>
-								 <option  <?php if(trim($dtl['tjshift'])=='t') { echo 'selected';} ?> value="t"> YA</option>
-								 <option  <?php if(trim($dtl['tjshift'])=='f') { echo 'selected';} ?> value="f"> TIDAK</option>
-
-								</select>
-						</div>
-					</div>
-
-					<div class="form-group">
-						 <label class="control-label col-sm-3">Lembur</label>
-						<div class="col-sm-9">
-								 <select type="text" class="form-control" name="lembur" id="lembur">
-								 <option  <?php if(trim($dtl['tjlembur'])=='') { echo 'selected';} ?> value="f">--PILIH LEMBUR--</option>
-								 <option  <?php if(trim($dtl['tjlembur'])=='t') { echo 'selected';} ?> value="t"> YA</option>
-								 <option  <?php if(trim($dtl['tjlembur'])=='f') { echo 'selected';} ?> value="f"> TIDAK</option>
-
-								</select>
-						</div>
-					</div>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-3">Callplan</label>
-                        <div class="col-sm-9">
-                            <select type="text" class="form-control" name="callplan" id="callplan">
-                                <option  <?php if(trim($dtl['callplan'])=='') { echo 'selected';} ?> value="f">--PILIH CALLPLAN--</option>
-                                <option  <?php if(trim($dtl['callplan'])=='t') { echo 'selected';} ?> value="t"> YA</option>
-                                <option  <?php if(trim($dtl['callplan'])=='f') { echo 'selected';} ?> value="f"> TIDAK</option>
-
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-sm-3">Mobile Device ID</label>
-                        <div class="col-sm-9">
-                            <input name="deviceid" value="<?php echo trim($dtl['deviceid']);?>" placeholder="Mobile Device ID" class="form-control" type="text" >
-                        </div>
-                    </div>
-					<!--<button class="btn btn-primary prevBtn btn-sm pull-left" type="button">Back</button>-->
-					<!--<button class="btn btn-success btn-sm pull-right" id="btnSave" onclick="save()" type="submit">Submit</button>-->
-					<!--<button class="btn btn-success btn-sm pull-right" type="submit">Submit</button>-->
-				</div>
-			  </div>
-			</div>
+                </div>
+            </div>
         </div>
+        <div class="col-sm-12">
+            <button type="submit" class="btn btn-success pull-right" onclick="return confirm('Anda Yakin Ubah Data ini?')" style="margin: 5px;">Simpan Data</button>
+            <a href="<?= site_url('trans/karyawan') ?>" class="btn btn-default pull-right" style="margin: 5px;">Kembali</a>
         </div>
-	</div>
-<div class="col-sm-12">
-	<a href="<?php echo site_url('trans/karyawan');?>" class="btn btn-primary" style="margin:10px">Kembali</a>
-	<button type="submit" class="btn btn-primary" onclick="return confirm('Anda Yakin Ubah Data ini?')" style="margin:10px">Simpan Data</button>
+    </form>
 </div>
-</form>
-</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        setTimeout(function() {
+            firstLoad = !firstLoad;
+        }, 2000);
+    });
+</script>

@@ -4,11 +4,14 @@ class M_department extends CI_Model{
 		return $this->db->query("select * from sc_mst.departmen order by kddept asc");
 	}
 	
-	function q_subdepartment(){
-		return $this->db->query("select a.*,b.nmdept from sc_mst.subdepartmen a 
-								left outer join sc_mst.departmen b 
-								on a.kddept=b.kddept
-								order by kdsubdept asc");
+	function q_subdepartment($params = "") {
+		return $this->db->query("
+            SELECT a.*, b.nmdept 
+            FROM sc_mst.subdepartmen a 
+            LEFT OUTER JOIN sc_mst.departmen b ON a.kddept = b.kddept
+            $params
+            ORDER BY kdsubdept
+        ");
 	}
 	
 	function q_cekdepartment($kddept){
@@ -22,4 +25,3 @@ class M_department extends CI_Model{
 
 
 
-	

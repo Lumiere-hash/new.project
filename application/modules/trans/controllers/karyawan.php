@@ -312,41 +312,39 @@ class Karyawan extends MX_Controller {
         $this->template->display('trans/karyawan/v_detailhrdkary_resign',$data);
     }
 
-    public function edit($id){
-        $data['message']='';
-        $data['list_opt_neg']=$this->m_geo->list_opt_negara()->result();
-        $data['list_opt_prov']=$this->m_geo->list_opt_prov()->result();
-        $data['list_opt_kotakab']=$this->m_geo->list_opt_kotakab()->result();
-        $data['list_opt_kec']=$this->m_geo->list_opt_kec()->result();
-        //$data['list_opt_keldesa']=$this->m_geo->list_opt_keldesa()->result();
-        $data['list_opt_agama']=$this->m_agama->q_agama()->result();
-        $data['list_opt_nikah']=$this->m_nikah->q_nikah()->result();
-        $data['list_opt_dept']=$this->m_department->q_department()->result();
-        $data['list_opt_subdept']=$this->m_department->q_subdepartment()->result();
-        $data['list_opt_jabt']=$this->m_jabatan->q_jabatan()->result();
-        $data['list_opt_m_grade_jabatan']=$this->m_jabatan->q_m_grade_jabatan()->result();
-        $data['list_opt_lvljabt']=$this->m_jabatan->q_lvljabatan()->result();
-        $data['list_opt_goljabt']=$this->m_jabatan->q_jobgrade()->result();
-        $data['list_opt_lvlgp']=$this->m_jabatan->q_lvlgp()->result();
-        $data['list_opt_atasan']=$this->m_karyawan->list_karyawan()->result();
+    public function edit($id) {
+        $data["message"] = "";
+        $data["list_opt_neg"] = $this->m_geo->list_opt_negara()->result();
+        $data["list_opt_agama"] = $this->m_agama->q_agama()->result();
+        $data["list_opt_nikah"] = $this->m_nikah->q_nikah()->result();
+        $data["list_opt_dept"] = $this->m_department->q_department()->result();
+        $data["list_opt_lvljabt"] = $this->m_jabatan->q_lvljabatan()->result();
+        $data["list_opt_atasan"] = $this->m_karyawan->list_karyawan()->result();
 
-        $data['list_opt_ptkp']=$this->m_bpjs->list_ptkp()->result();
-        $data['list_opt_grp_gaji']=$this->m_group_penggajian->q_group_penggajian()->result();
-        $data['list_opt_bank']=$this->m_bank->q_bank()->result();
-        $data['list_finger']=$this->m_karyawan->q_finger()->result();//
-        $data['list_kanwil']=$this->m_karyawan->q_kanwil()->result();//
-        $data['list_wilnom']=$this->m_karyawan->q_wilayah_nominal($p=null)->result();// wilayah nominal
-        $data['title'] = "Edit Karyawan";
+        $data["list_opt_ptkp"] = $this->m_bpjs->list_ptkp()->result();
+        $data["list_opt_grp_gaji"] = $this->m_group_penggajian->q_group_penggajian()->result();
+        $data["list_opt_bank"] = $this->m_bank->q_bank()->result();
+        $data["list_finger"] = $this->m_karyawan->q_finger()->result();
+        $data["list_kanwil"] = $this->m_karyawan->q_kanwil()->result();
+        $data["list_wilnom"] = $this->m_karyawan->q_wilayah_nominal($p = null)->result();
+        $data["title"] = "Edit Karyawan";
+        
         /* CODE UNTUK VERSI*/
-        $nama=trim($this->session->userdata('nik'));
-        $kodemenu='I.T.A.1'; $versirelease='I.T.A.1/ALPHA.001'; $releasedate=date('2019-04-12 00:00:00');
-        $versidb=$this->fiky_version->version($kodemenu,$versirelease,$releasedate,$nama);
-        $x=$this->fiky_menu->menus($kodemenu,$versirelease,$releasedate);
-        $data['x'] = $x['rows']; $data['y'] = $x['res']; $data['t'] = $x['xn'];
-        $data['kodemenu']=$kodemenu; $data['version']=$versidb;
+        $nama = trim($this->session->userdata("nik"));
+        $kodemenu = "I.T.A.1";
+        $versirelease = "I.T.A.1/ALPHA.001";
+        $releasedate = date("2019-04-12 00:00:00");
+        $versidb = $this->fiky_version->version($kodemenu, $versirelease, $releasedate, $nama);
+        $x = $this->fiky_menu->menus($kodemenu, $versirelease, $releasedate);
+        $data["x"] = $x["rows"];
+        $data["y"] = $x["res"];
+        $data["t"] = $x["xn"];
+        $data["kodemenu"] = $kodemenu;
+        $data["version"] = $versidb;
         /* END CODE UNTUK VERSI */
-        $data['dtl'] = $this->m_karyawan->get_by_id($id)->row_array();
-        $this->template->display('trans/karyawan/v_editkary',$data);
+
+        $data["dtl"] = $this->m_karyawan->get_by_id($id)->row_array();
+        $this->template->display("trans/karyawan/v_editkary", $data);
     }
 
     public function ajax_add()
@@ -599,7 +597,7 @@ class Karyawan extends MX_Controller {
             'stsfisik' => strtoupper($this->input->post('stsfisik')),
             'ketfisik' => strtoupper($this->input->post('ketfisik')),
             'noktp' => strtoupper($this->input->post('noktp')),
-            //'tgl_ktp' => $tgl_ktp,
+            'tgl_ktp' => $tgl_ktp,
             'ktp_seumurhdp' => strtoupper($this->input->post('ktp_seumurhdp')),
             'ktpdikeluarkan' => $ktpdikeluarkan,
             'tgldikeluarkan' => $tgldikeluarkan,
@@ -644,6 +642,7 @@ class Karyawan extends MX_Controller {
             'norek' => strtoupper($this->input->post('norek')),
             //'shift' => strtoupper($this->input->post('shift')),
             'idabsen' => strtoupper($this->input->post('idabsen')),
+            'idmesin' => strtoupper($this->input->post('idmesin')),
             'email' => strtoupper($this->input->post('email')),
             //'bolehcuti' => strtoupper($this->input->post('bolehcuti')),
             //'sisacuti' => strtoupper($this->input->post('sisacuti')),
@@ -1593,5 +1592,46 @@ class Karyawan extends MX_Controller {
         $this->db->where('no_urut',$no_urut);
         $this->db->delete('sc_trx.riwayat_pendidikan');
         redirect("trans/karyawan/detail/$nik/del_succes");
+    }
+
+    function get_provinsi() {
+        $kodenegara = $this->input->post("kodenegara");
+        echo json_encode($this->m_geo->list_opt_prov("WHERE kodenegara = '$kodenegara'")->result());
+    }
+
+    function get_kotakab() {
+        $kodeprov = $this->input->post("kodeprov");
+        echo json_encode($this->m_geo->list_opt_kotakab("WHERE kodeprov = '$kodeprov'")->result());
+    }
+
+    function get_kec() {
+        $kodekotakab = $this->input->post("kodekotakab");
+        echo json_encode($this->m_geo->list_opt_kec("WHERE kodekotakab = '$kodekotakab'")->result());
+    }
+
+    function get_keldesa() {
+        $kodekec = $this->input->post("kodekec");
+        echo json_encode($this->m_geo->list_opt_keldesa("WHERE kodekec = '$kodekec'")->result());
+    }
+
+    function get_subdept() {
+        $kddept = $this->input->post("kddept");
+        echo json_encode($this->m_department->q_subdepartment("WHERE a.kddept = '$kddept'")->result());
+    }
+
+    function get_jabatan() {
+        $kddept = $this->input->post("kddept");
+        $kdsubdept = $this->input->post("kdsubdept");
+        echo json_encode($this->m_jabatan->q_jabatan("WHERE a.kddept = '$kddept' AND a.kdsubdept = '$kdsubdept'")->result());
+    }
+
+    function get_grade_golongan() {
+        $kdlvl = $this->input->post("kdlvl");
+        echo json_encode($this->m_jabatan->q_jobgrade("WHERE a.kdlvl = '$kdlvl'")->result());
+    }
+
+    function get_kdlvlgp() {
+        $kdgrade = $this->input->post("kdgrade");
+        echo json_encode($this->m_jabatan->q_lvlgp(" AND b.kdgrade = '$kdgrade'")->result());
     }
 }

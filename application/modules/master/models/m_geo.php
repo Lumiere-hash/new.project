@@ -4,61 +4,80 @@ class M_geo extends CI_Model{
 	var $column = array('kodekec','namanegara','namaprov','namakotakab','namakec');	
 	var $order = array('namakec' => 'asc');
 
-	function list_negara(){
-		return $this->db->query("select * from sc_mst.negara");
-	}
-	
-	function list_prov(){
-		return $this->db->query("select * from sc_mst.provinsi a
-								 left outer join sc_mst.negara b on a.kodenegara=b.kodenegara
-								 order by b.namanegara,namaprov");
-	}	
-	
-	function list_kotakab(){
-		return $this->db->query("select * from sc_mst.kotakab a
-								 left outer join sc_mst.negara b on a.kodenegara=b.kodenegara
-								 left outer join sc_mst.provinsi c on a.kodeprov=c.kodeprov
-								 order by b.namanegara,c.namaprov,a.namakotakab");
-	}
-	
-	function list_kec(){
-		return $this->db->query("select * from sc_mst.kec a
-								left outer join sc_mst.kotakab d on a.kodekotakab=d.kodekotakab
-								left outer join sc_mst.negara b on a.kodenegara=b.kodenegara
-								left outer join sc_mst.provinsi c on a.kodeprov=c.kodeprov
-								order by namanegara,namaprov,namakotakab,namakec");
-	}
-	
-	function list_keldesa(){
-		return $this->db->query("select * from sc_mst.keldesa a
-								left outer join sc_mst.kec e on e.kodekec=a.kodekec
-								left outer join sc_mst.kotakab d on a.kodekotakab=d.kodekotakab
-								left outer join sc_mst.negara b on a.kodenegara=b.kodenegara
-								left outer join sc_mst.provinsi c on a.kodeprov=c.kodeprov
-								order by namanegara,namaprov,namakotakab,namakec,namakec limit 5");
-	}
+    function list_negara($params = "") {
+        return $this->db->query("
+            SELECT * 
+            FROM sc_mst.negara
+            $params
+        ");
+    }
+
+    function list_prov($params = "") {
+        return $this->db->query("
+            SELECT * 
+            FROM sc_mst.provinsi a
+            LEFT OUTER JOIN sc_mst.negara b ON a.kodenegara = b.kodenegara
+            $params
+            ORDER BY b.namanegara, namaprov
+        ");
+    }
+
+    function list_kotakab($params = "") {
+        return $this->db->query("
+            SELECT * 
+            FROM sc_mst.kotakab a
+            LEFT OUTER JOIN sc_mst.negara b ON a.kodenegara = b.kodenegara
+            LEFT OUTER JOIN sc_mst.provinsi c ON a.kodeprov = c.kodeprov
+            $params
+            ORDER BY b.namanegara, c.namaprov, a.namakotakab
+        ");
+    }
+
+    function list_kec($params = "") {
+        return $this->db->query("
+            SELECT * 
+            FROM sc_mst.kec a
+            LEFT OUTER JOIN sc_mst.kotakab d ON a.kodekotakab = d.kodekotakab
+            LEFT OUTER JOIN sc_mst.negara b ON a.kodenegara = b.kodenegara
+            LEFT OUTER JOIN sc_mst.provinsi c ON a.kodeprov = c.kodeprov
+            $params
+            ORDER BY namanegara, namaprov, namakotakab, namakec
+        ");
+    }
+
+    function list_keldesa($params = "") {
+        return $this->db->query("
+            SELECT * 
+            FROM sc_mst.keldesa a
+            LEFT OUTER JOIN sc_mst.kec e ON e.kodekec = a.kodekec
+            LEFT OUTER JOIN sc_mst.kotakab d ON a.kodekotakab = d.kodekotakab
+            LEFT OUTER JOIN sc_mst.negara b ON a.kodenegara = b.kodenegara
+            LEFT OUTER JOIN sc_mst.provinsi c ON a.kodeprov = c.kodeprov
+            $params
+            ORDER BY namanegara, namaprov, namakotakab, namakec, namakec
+        ");
+    }
 	//list option
-	function list_opt_negara(){
-		return $this->db->query("select * from sc_mst.negara");
+	function list_opt_negara($params = "") {
+        return $this->db->query("SELECT * FROM sc_mst.negara $params");
 	}
 	
-	function list_opt_prov(){
-		return $this->db->query("select * from sc_mst.provinsi order by namaprov,kodeprov asc");
+	function list_opt_prov($params = "") {
+		return $this->db->query("SELECT * FROM sc_mst.provinsi $params ORDER BY namaprov, kodeprov");
 	}
 	
-	function list_opt_kotakab(){
-		return $this->db->query("select * from sc_mst.kotakab order by namakotakab,kodekotakab asc");
+	function list_opt_kotakab($params = "") {
+		return $this->db->query("SELECT * FROM sc_mst.kotakab $params ORDER BY namakotakab, kodekotakab");
 	}
 	
-	function list_opt_kec(){
-		return $this->db->query("select * from sc_mst.kec order by namakec,kodekec asc");
+	function list_opt_kec($params = "") {
+		return $this->db->query("SELECT * FROM sc_mst.kec $params ORDER BY namakec, kodekec");
 	}
 	
-	function list_opt_keldesa(){
-		return $this->db->query("select * from sc_mst.keldesa order by namakeldesa,kodekeldesa asc");
+	function list_opt_keldesa($params = "") {
+		return $this->db->query("SELECT * FROM sc_mst.keldesa $params ORDER BY namakeldesa, kodekeldesa");
 	}
-	
-	
+
 	function user_online(){
 		return $this->db->query("select * from sc_mst.user");
 	}
