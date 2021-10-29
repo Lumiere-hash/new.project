@@ -65,26 +65,21 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-lg-3">Regu</label>
+                            <label class="col-lg-3">Callplan</label>
                             <div class="col-lg-9">
-                                <select class="form-control input-sm" id="regu" name="regu" placeholder="--- REGU ---" required>
+                                <select class="form-control input-sm" id="callplan" name="callplan" placeholder="--- CALLPLAN ---" required>
                                     <option value="" class=""></option>
-                                    <?php foreach($regu as $v): ?>
-                                        <?php $row = array_map('trim', (array)$v); ?>
-                                        <option value="<?= $row['kdregu'] ?>" data-data='<?= json_encode($row, JSON_HEX_APOS) ?>'></option>
-                                    <?php endforeach; ?>
+                                    <option value="t">YA</option>
+                                    <option value="f">TIDAK</option>
                                 </select>
                                 <script type="text/javascript">
-                                    $('#regu').selectize({
+                                    $('#callplan').selectize({
                                         plugins: ['hide-arrow', 'selectable-placeholder'],
-                                        valueField: 'kdregu',
-                                        labelField: 'nmregu',
-                                        searchField: ['nmregu'],
                                         options: [],
                                         create: false,
                                         initData: true
                                     });
-                                    $("#regu").addClass("selectize-hidden-accessible");
+                                    $("#callplan").addClass("selectize-hidden-accessible");
                                 </script>
                             </div>
                         </div>

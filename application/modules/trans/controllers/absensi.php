@@ -935,8 +935,8 @@ class Absensi extends MX_Controller {
           );
 
           $this->db->cache_delete('trans', 'absensi');
-          $people = array('FIKY', 'RANDY');
-          if ( in_array(trim($this->session->userdata('nama')),$people)) {
+          $people = array('ARBI', 'RANDY', 'BAGOS');
+          if(in_array(trim($this->session->userdata('nama')), $people)) {
               $this->db->where('branch','SBYNSA');
               $this->db->where('dblink_id','CRMDEV');
               $this->db->update("sc_mst.option_dblink",$info);

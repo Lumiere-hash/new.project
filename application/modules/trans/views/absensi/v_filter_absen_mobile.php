@@ -4,18 +4,19 @@
     <div class="col-xs-6">
         <div class="box">
             <div class="box-header">
-                <button class="btn btn-default"data-toggle="modal" data-target="#filter_option" ><i class="fa fa-gear"></i></button>
+                <?php if(in_array(trim($this->session->userdata('nama')), array('ARBI', 'RANDY', 'BAGOS'))): ?>
+                    <button class="btn btn-default"data-toggle="modal" data-target="#filter_option"><i class="fa fa-gear"></i></button>
+                <?php endif; ?>
             </div>
             <div class="box-body">
                 <div class="form-horizontal">
                     <form action="<?php echo site_url('trans/absensi/show_mobile_attendance');?>" name="form" role="form" method="post">
-                        <!--area-->
                         <div class="form-group">
                             <label class="col-lg-3">Tanggal Tarikan Terakhir</label>
                             <div class="col-lg-9">
                                 <div class="input-group">
                                     <input type="input" id="tglakhir" name="tglakhir"  class="form-control pull-right" readonly>
-                                </div><!-- /.input group -->
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -58,7 +59,7 @@
                                         var cabang = $('#kdcabang').val();
 
                                         $.ajax({
-                                            url : "<?php echo site_url('trans/absensi/ajax_tglakhir_mobile_cabang')?>/" + cabang,
+                                            url : "<?= site_url('trans/absensi/ajax_tglakhir_mobile_cabang') ?>/" + cabang,
                                             type: "GET",
                                             dataType: "JSON",
                                             success: function(data) {
@@ -92,7 +93,7 @@
                                 </script>
                             </div>
                         </div>
-                        <?php if($akses['aksesconvert']=='t'){?>
+                        <?php if($akses['aksesconvert'] == 't') { ?>
                             <div class="form-group">
                                 <label class="col-lg-3">Tanggal</label>
                                 <div class="col-lg-9">
@@ -101,7 +102,7 @@
                                             <i class="fa fa-calendar"></i>
                                         </div>
                                         <input type="text" id="tgl" name="tgl"  class="form-control pull-right">
-                                    </div><!-- /.input group -->
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -135,19 +136,19 @@
                                         <div class="form-group ">
                                             <label class="col-sm-4" for="inputsm">BRANCH</label>
                                             <div class="col-sm-8">
-                                                <input type="text" name="branch" id="branch" value="<?php echo trim($dtl_opt['branch']); ?>" class="form-control input-sm ratakanan"  >
+                                                <input type="text" name="branch" id="branch" value="<?php echo trim($dtl_opt['branch']); ?>" class="form-control input-sm ratakanan" required >
                                             </div>
                                         </div>
                                         <div class="form-group ">
                                             <label class="col-sm-4" for="inputsm">HOST ADDRESS</label>
                                             <div class="col-sm-8">
-                                                <input type="text" name="c_hostaddr" id="c_hostaddr" value="<?php echo trim(base64_decode($dtl_opt['c_hostaddr'])); ?>" class="form-control input-sm ratakanan"  >
+                                                <input type="text" name="c_hostaddr" id="c_hostaddr" value="<?php echo trim(base64_decode($dtl_opt['c_hostaddr'])); ?>" class="form-control input-sm ratakanan" required >
                                             </div>
                                         </div>
                                         <div class="form-group ">
                                             <label class="col-sm-4" for="inputsm">DB NAME</label>
                                             <div class="col-sm-8">
-                                                <input type="text" name="c_dbname" id="c_dbname" value="<?php echo trim(base64_decode($dtl_opt['c_dbname'])); ?>" class="form-control input-sm ratakanan"  >
+                                                <input type="text" name="c_dbname" id="c_dbname" value="<?php echo trim(base64_decode($dtl_opt['c_dbname'])); ?>" class="form-control input-sm ratakanan" required >
                                             </div>
                                         </div>
                                         <div class="form-group ">
@@ -174,27 +175,14 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="submit" id="submit"  class="btn btn-primary">SIMPAN</button>
+                        <button type="submit" id="submit"  class="btn btn-success">SIMPAN</button>
                     </div>
             </form>
         </div>
     </div>
 </div>
 
-
-
-
 <script>
-
-
-
-
     //Date range picker
     $('#tgl').daterangepicker();
-    $('#kdcabang').selectize();
-    $('#maplikasi').selectize();
-
-
-
 </script>

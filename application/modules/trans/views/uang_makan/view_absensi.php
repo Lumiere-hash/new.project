@@ -121,9 +121,12 @@
                     <a href="<?= site_url("trans/uang_makan") ?>" class="btn btn-default" style="margin: 5px;"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
                     <input type="hidden" name='kdcabang' value="<?= $kdcabang ?>">
                     <input type="hidden" name='tgl' value="<?= $tgl ?>">
-                    <input type="hidden" name='kdregu' value="<?= $regu ?>">
+                    <input type="hidden" name='callplan' value="<?= $callplan ?>">
                     <button type="submit" class="btn btn-primary" style="margin: 5px"><i class="fa fa-file-pdf-o"></i>&nbsp; PDF</button>
-                    <a href="<?= site_url("trans/uang_makan/excel_absensi/$kdcabang/$tgl1/$tgl2/$regu") ?>" class="btn btn-primary" style="margin: 5px;"><i class="fa fa-file-excel-o"></i>&nbsp; XLS</a>
+                    <a href="<?= site_url("trans/uang_makan/excel_absensi/$kdcabang/$tgl1/$tgl2/$callplan") ?>" class="btn btn-primary" style="margin: 5px;"><i class="fa fa-file-excel-o"></i>&nbsp; XLS</a>
+                    <?php if($callplan == "t"): ?>
+                        <a href="<?= site_url("trans/uang_makan/excel_realisasi/$kdcabang/$tgl1/$tgl2") ?>" class="btn btn-warning" style="margin: 5px;"><i class="fa fa-file-excel-o"></i>&nbsp; REALISASI XLS</a>
+                    <?php endif; ?>
                     <a href="#" data-toggle="modal" data-target="#filter" class="btn btn-success" style="margin: 5px;"><i class="fa fa-search"></i>&nbsp; FILTER</a>
                 </form>
             </div>
@@ -139,7 +142,7 @@
                             <th>Jabatan</th>
                             <th>Tanggal</th>
                             <th>Checktime</th>
-                            <?php if($regu == "SL"): ?>
+                            <?php if($callplan == "t"): ?>
                                 <th>Callplan</th>
                                 <th>Realisasi</th>
                             <?php endif; ?>
@@ -165,16 +168,16 @@
                                         <span style="width: 45px;"><?= $v->checkout ?></span>
                                     <?php endif; ?>
                                 </td>
-                                <?php if($regu == "SL"): ?>
+                                <?php if($callplan == "t"): ?>
                                     <td class="text-nowrap text-right">
                                         <?php if($v->rencanacallplan > 0): ?> <a href="#" data-toggle="modal" data-target="#rencana" onclick='addRencana(<?= json_encode($result, JSON_HEX_APOS) ?>)'> <?php endif; ?>
                                                 <?= number_format(($v->group_nmlengkap == 0 && $v->group_keterangan == 0 && trim($v->callplan) == "t" ? $v->rencanacallplan : ""), '0', ',', '.') ?>
                                         <?php if($v->rencanacallplan > 0): ?> </a> <?php endif; ?>
                                     </td>
                                     <td class="text-nowrap text-right">
-                                        <?php if($v->realisasicallplan > 0): ?> <a href="#" data-toggle="modal" data-target="#realisasi" onclick='addRealisasi(<?= json_encode($result, JSON_HEX_APOS) ?>)'> <?php endif; ?>
+                                        <a href="#" data-toggle="modal" data-target="#realisasi" onclick='addRealisasi(<?= json_encode($result, JSON_HEX_APOS) ?>)'>
                                             <?= number_format(($v->group_nmlengkap == 0 && $v->group_keterangan == 0 && trim($v->callplan) == "t" ? $v->realisasicallplan : ""), '0', ',', '.') ?>
-                                        <?php if($v->realisasicallplan > 0): ?> </a> <?php endif; ?>
+                                        </a>
                                     </td>
                                 <?php endif; ?>
                                 <td><?= $v->keterangan ?></td>
@@ -252,26 +255,21 @@
                         </div>
                     </div>
                     <div class="form-group input-sm">
-                        <label class="col-lg-3">Regu</label>
+                        <label class="col-lg-3">Callplan</label>
                         <div class="col-lg-9">
-                            <select class="form-control input-sm" id="regu" name="regu" placeholder="--- REGU ---" required>
+                            <select class="form-control input-sm" id="callplan" name="callplan" placeholder="--- CALLPLAN ---" required>
                                 <option value="" class=""></option>
-                                <?php foreach($list_regu as $v): ?>
-                                    <?php $row = array_map('trim', (array)$v); ?>
-                                    <option value="<?= $row['kdregu'] ?>" data-data='<?= json_encode($row, JSON_HEX_APOS) ?>'></option>
-                                <?php endforeach; ?>
+                                <option value="t">YA</option>
+                                <option value="f">TIDAK</option>
                             </select>
                             <script type="text/javascript">
-                                $('#regu').selectize({
+                                $('#callplan').selectize({
                                     plugins: ['hide-arrow', 'selectable-placeholder'],
-                                    valueField: 'kdregu',
-                                    labelField: 'nmregu',
-                                    searchField: ['nmregu'],
                                     options: [],
                                     create: false,
                                     initData: true
                                 });
-                                $("#regu").addClass("selectize-hidden-accessible");
+                                $("#callplan").addClass("selectize-hidden-accessible");
                             </script>
                         </div>
                     </div>
@@ -378,7 +376,7 @@
     //Date range picker
     $('#tgl').daterangepicker();
     $('#kanwil')[0].selectize.setValue("<?= $kdcabang ?>");
-    $('#regu')[0].selectize.setValue("<?= $regu ?>");
+    $('#callplan')[0].selectize.setValue("<?= $callplan ?>");
 
     function addRencana(data) {
         $("#rencana_nik").val(data.nik);

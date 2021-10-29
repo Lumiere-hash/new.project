@@ -155,7 +155,7 @@ class M_uang_makan extends CI_Model{
 														group by nik,nmlengkap,nmdept,nmjabatan,tglhari,checktime,keterangan ) as x2) as a");
     }
 
-    function q_uangmakan_regu($kdcabang, $awal, $akhir, $regu) {
+    function q_uangmakan_regu($kdcabang, $awal, $akhir, $callplan) {
         return $this->db->query("
             SELECT ROW_NUMBER() OVER () AS no, a.nik, a.tgl, CASE WHEN GROUPING(b.nmlengkap) = 0 THEN b.nmlengkap ELSE 'GRAND TOTAL UANG MAKAN' END AS nmlengkap, 
             b.callplan, c.nmdept, e.nmjabatan, TO_CHAR(a.tgl, 'TMDAY, DD-MM-YYYY') AS tglhari, a.checkin, a.checkout, 
@@ -172,8 +172,7 @@ class M_uang_makan extends CI_Model{
             LEFT JOIN sc_mst.departmen c ON b.bag_dept = c.kddept 
             LEFT JOIN sc_mst.subdepartmen d ON b.bag_dept = d.kddept AND b.subbag_dept = d.kdsubdept 
             LEFT JOIN sc_mst.jabatan e ON b.bag_dept = e.kddept AND b.jabatan = e.kdjabatan AND b.subbag_dept = e.kdsubdept 
-            LEFT JOIN sc_mst.regu_opr f ON b.nik = f.nik
-            WHERE kdcabang = '$kdcabang' AND tgl::DATE BETWEEN '$awal' AND '$akhir' AND kdregu = '$regu'
+            WHERE kdcabang = '$kdcabang' AND tgl::DATE BETWEEN '$awal' AND '$akhir' AND b.callplan = '$callplan'
             GROUP BY GROUPING SETS (
                 (a.nik, a.tgl, b.nmlengkap, b.callplan, c.nmdept, e.nmjabatan, a.checkin, a.checkout, a.rencanacallplan, a.realisasicallplan, a.keterangan), 
                 (a.nik, b.nmlengkap), 
@@ -839,7 +838,7 @@ class M_uang_makan extends CI_Model{
 
         return $this->db->query("
             SELECT a.customeroutletcode, a.customercodelocal, a.custname, a.customertype,
-           CASE
+            CASE
                 WHEN customertype = 'A' THEN 'KANTOR'
                 WHEN customertype = 'B' THEN 'BANK'
                 WHEN customertype = 'C' THEN 'CUSTOMER/TOKO'
@@ -850,6 +849,31 @@ class M_uang_makan extends CI_Model{
             WHERE a.checktime::DATE = '$tgl'
             GROUP BY 1, 2, 3, 4
             ORDER BY 6, 7
+        ");
+    }
+
+    function list_realisasi_kunjungan_all($kdcabang, $awal, $akhir) {
+        return $this->db->query("
+            SELECT ROW_NUMBER() OVER (ORDER BY c.nmlengkap, a.checktime::DATE, MIN(checktime::TIME), MAX(checktime::TIME)) AS no, 
+            c.nik, c.nmlengkap, d.nmdept, f.nmjabatan, TO_CHAR(MAX(a.checktime), 'DD-MM-YYYY') AS tgl, a.customeroutletcode, a.customercodelocal, a.custname, a.customertype,
+            CASE
+                WHEN customertype = 'A' THEN 'KANTOR'
+                WHEN customertype = 'B' THEN 'BANK'
+                WHEN customertype = 'C' THEN 'CUSTOMER/TOKO'
+                ELSE 'BELUM TERDEFINISI'
+            END AS nmcustomertype, CASE 
+                WHEN customertype = 'C' THEN 'V'
+                ELSE 'X'
+            END AS terhitung, MIN(checktime::TIME) AS checkin, MAX(checktime::TIME) AS checkout, CONCAT(MIN(checktime::TIME), ' | ', MAX(checktime::TIME)) AS checktime
+            FROM sc_tmp.checkinout a
+            INNER JOIN sc_mst.user b ON b.username = a.userid
+            INNER JOIN sc_mst.karyawan c ON c.nik = b.nik AND c.callplan = 't'
+            LEFT JOIN sc_mst.departmen d ON d.kddept = c.bag_dept
+            LEFT JOIN sc_mst.subdepartmen e ON e.kddept = c.bag_dept AND e.kdsubdept = c.subbag_dept
+            LEFT JOIN sc_mst.jabatan f ON f.kddept = c.bag_dept AND f.kdjabatan = c.jabatan AND f.kdsubdept = c.subbag_dept
+            WHERE c.kdcabang = '$kdcabang' AND a.checktime::DATE BETWEEN '$awal' AND '$akhir'
+            GROUP BY c.nik, d.nmdept, f.nmjabatan, a.checktime::DATE, a.customeroutletcode, a.customercodelocal, a.custname, a.customertype
+            ORDER BY c.nmlengkap, a.checktime::DATE, checkin, checkout
         ");
     }
 }

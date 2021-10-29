@@ -67,7 +67,7 @@
             <th bgcolor="#CCCCCC"><div align="center">Departement</div></th>
             <th bgcolor="#CCCCCC"><div align="center">Tanggal</div></th>
             <th bgcolor="#CCCCCC"><div align="center">Checktime</div></th>
-            <?php if($kdregu == "SL"): ?>
+            <?php if($callplan == "t"): ?>
                 <th bgcolor="#CCCCCC"><div align="center">Callplan</div></th>
                 <th bgcolor="#CCCCCC"><div align="center">Realisasi</div></th>
             <?php endif; ?>
@@ -83,13 +83,13 @@
                     <td colspan='3'></td>
                     <td>TOTAL UANG MAKAN <?php echo $ph->nmlengkap;?>: <?php echo $ph->nominalrp;?></td>
                     <td>Tanda Tangan</td>
-                    <td colspan="<?= $kdregu == "SL" ? 5 : 3 ?>"></td>
+                    <td colspan="<?= $callplan == "t" ? 5 : 3 ?>"></td>
                 </tr>
             <?php } else if ($ph->nmlengkap=='GRAND TOTAL UANG MAKAN'){?>
                 <tr bgcolor="#CCCCCC">
                     <td colspan='3'></td>
                     <td><b>GRAND TOTAL UANG MAKAN:</b></td>
-                    <td colspan="   <?= $kdregu == "SL" ? 6 : 4 ?>"><b><?php echo $ph->nominalrp;?></b></td>
+                    <td colspan="   <?= $callplan == "t" ? 6 : 4 ?>"><b><?php echo $ph->nominalrp;?></b></td>
                 </tr>
             <?php } else {?>
                 <tr >
@@ -98,7 +98,7 @@
                     <td><?php echo $ph->nmdept;?></td>
                     <td><?php echo $ph->tglhari;?></td>
                     <td><?php echo $ph->checktime;?></td>
-                    <?php if($kdregu == "SL"): ?>
+                    <?php if($callplan == "t"): ?>
                         <td><?php echo $ph->rencanacallplan;?></td>
                         <td><?php echo $ph->realisasicallplan;?></td>
                     <?php endif; ?>
