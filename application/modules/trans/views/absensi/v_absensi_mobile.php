@@ -164,6 +164,7 @@
                         <th>No</th>
                         <th>User ID</th>
                         <th>Badgenumber</th>
+                        <th>NIK</th>
                         <th>Nama</th>
                         <th>Checktime</th>
                         <?php if($maplikasi == "MCRM"): ?>
@@ -180,6 +181,7 @@
                             <td class="text-nowrap text-center"></td>
                             <td class="text-nowrap"><?= $v->userid ?></td>
                             <td class="text-nowrap"><?= $v->idabsen ?></td>
+                            <td class="text-nowrap"><?= $v->nik ?></td>
                             <td><?= $v->usersname ?></td>
                             <td class="text-nowrap"><?= $v->checktime ?></td>
                             <?php if($maplikasi == "MCRM"): ?>

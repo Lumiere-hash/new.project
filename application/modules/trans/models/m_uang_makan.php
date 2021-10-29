@@ -845,8 +845,7 @@ class M_uang_makan extends CI_Model{
                 ELSE 'BELUM TERDEFINISI'
             END AS nmcustomertype, MIN(checktime::TIME) AS checkin, MAX(checktime::TIME) AS checkout
             FROM sc_tmp.checkinout a
-            INNER JOIN sc_mst.user b ON b.username = a.userid AND b.nik = '$nik'
-            WHERE a.checktime::DATE = '$tgl'
+            WHERE a.checktime::DATE = '$tgl' AND a.nik = '$nik'
             GROUP BY 1, 2, 3, 4
             ORDER BY 6, 7
         ");
@@ -866,8 +865,7 @@ class M_uang_makan extends CI_Model{
                 ELSE 'X'
             END AS terhitung, MIN(checktime::TIME) AS checkin, MAX(checktime::TIME) AS checkout, CONCAT(MIN(checktime::TIME), ' | ', MAX(checktime::TIME)) AS checktime
             FROM sc_tmp.checkinout a
-            INNER JOIN sc_mst.user b ON b.username = a.userid
-            INNER JOIN sc_mst.karyawan c ON c.nik = b.nik AND c.callplan = 't'
+            INNER JOIN sc_mst.karyawan c ON c.nik = a.nik AND c.callplan = 't'
             LEFT JOIN sc_mst.departmen d ON d.kddept = c.bag_dept
             LEFT JOIN sc_mst.subdepartmen e ON e.kddept = c.bag_dept AND e.kdsubdept = c.subbag_dept
             LEFT JOIN sc_mst.jabatan f ON f.kddept = c.bag_dept AND f.kdjabatan = c.jabatan AND f.kdsubdept = c.subbag_dept

@@ -1035,7 +1035,8 @@ class Absensi extends MX_Controller {
                     'custname'=>$custname,
                     'customertype'=>$customertype,
                     'inputan'=>'S',
-                    'inputby'=>$this->session->userdata('nik')
+                    'inputby'=>$this->session->userdata('nik'),
+                    'nik'=>$dta->nik
                 );
                 $this->db->insert('sc_tmp.checkinout',$info);
             }
