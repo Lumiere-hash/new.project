@@ -924,19 +924,21 @@ class M_absensi extends CI_Model {
                             FROM ( 
                                 SELECT b.userid, b.usersname, b.nip AS nik,
                                     ((a.checkindate::TEXT || '' ''::TEXT) || a.checkintime::TEXT)::TIMESTAMP WITHOUT TIME ZONE AS checktime,
-                                    COALESCE(a.customeroutletcode, '''') AS customeroutletcode, COALESCE(a.customercodelocal, '''') AS customercodelocal,
+                                    COALESCE(NULLIF(a.customeroutletcode, ''''), c.custcode) AS customeroutletcode, 
+						            COALESCE(NULLIF(a.customercodelocal, ''''), c.customercodelocal) AS customercodelocal,
                                     c.custname, c.grdpaymt AS customertype
                                 FROM sc_trx.checkin a
                                 LEFT JOIN sc_mst.\"user\" b ON BTRIM(a.userid::TEXT) = BTRIM(b.userid::TEXT)
-                                LEFT JOIN sc_mst.customer c ON a.customeroutletcode = c.custcode AND a.customercodelocal = c.customercodelocal
+                                LEFT JOIN sc_mst.customer c ON COALESCE(NULLIF(c.customercodelocal, ''''), c.custcode) = COALESCE(NULLIF(a.customercodelocal, ''''), a.customeroutletcode)
                                 UNION ALL
                                 SELECT b.userid, b.usersname, b.nip AS nik,
                                     ((a.checkindate::TEXT || '' ''::TEXT) || a.checkouttime::TEXT)::TIMESTAMP WITHOUT TIME ZONE AS checktime,
-                                    COALESCE(a.customeroutletcode, '''') AS customeroutletcode, COALESCE(a.customercodelocal, '''') AS customercodelocal,
+                                    COALESCE(NULLIF(a.customeroutletcode, ''''), c.custcode) AS customeroutletcode, 
+						            COALESCE(NULLIF(a.customercodelocal, ''''), c.customercodelocal) AS customercodelocal,
                                     c.custname, c.grdpaymt AS customertype
                                 FROM sc_trx.checkin a
                                 LEFT JOIN sc_mst.\"user\" b ON BTRIM(a.userid::TEXT) = BTRIM(b.userid::TEXT)
-                                LEFT JOIN sc_mst.customer c ON a.customeroutletcode = c.custcode AND a.customercodelocal = c.customercodelocal
+                                LEFT JOIN sc_mst.customer c ON COALESCE(NULLIF(c.customercodelocal, ''''), c.custcode) = COALESCE(NULLIF(a.customercodelocal, ''''), a.customeroutletcode)
                             ) x
                             WHERE COALESCE(x.userid, ''''::BPCHAR) <> ''''::BPCHAR
                             GROUP BY x.userid, x.usersname, x.nik, x.checktime, x.customeroutletcode, x.customercodelocal, x.custname, x.customertype

@@ -799,13 +799,15 @@ class M_uang_makan extends CI_Model{
             SELECT *
             FROM dblink (
                 'hostaddr=$host dbname=$dbname user=$dbuser password=$dbpass',
-                'SELECT s.branch, s.userid, u.nip AS nik, s.scheduleid, s.scheduledate, sl.locationid, sl.locationidlocal,
+                'SELECT s.branch, s.userid, u.nip AS nik, s.scheduleid, s.scheduledate, 
+                COALESCE(NULLIF(sl.locationid, ''''), c.custcode) AS locationid, 
+                COALESCE(NULLIF(sl.locationidlocal, ''''), c.customercodelocal) AS locationidlocal,
                 c.custname, c.grdpaymt AS customertype, ''$nik''::TEXT AS createby, NOW() AS createdate
                 FROM sc_trx.schedule s
                 INNER JOIN sc_trx.scheduletolocation sl ON sl.scheduleid = s.scheduleid
                 LEFT JOIN sc_mst.\"user\" u ON REGEXP_REPLACE(u.userid::TEXT, ''\s'', '''', ''g'') = REGEXP_REPLACE(s.userid::TEXT, ''\s'', '''', ''g'')
-                LEFT JOIN sc_mst.customer c ON COALESCE(NULLIF(c.custcode, ''''), c.customercodelocal) = COALESCE(NULLIF(sl.locationid, ''''), sl.locationidlocal)
-                WHERE COALESCE(NULLIF(sl.locationid, ''''), sl.locationidlocal) != '''' AND scheduledate BETWEEN ''$awal'' AND ''$akhir''
+                LEFT JOIN sc_mst.customer c ON COALESCE(NULLIF(c.customercodelocal, ''''), c.custcode) = COALESCE(NULLIF(sl.locationidlocal, ''''), sl.locationid)
+                WHERE COALESCE(NULLIF(sl.locationidlocal, ''''), sl.locationid) != '''' AND scheduledate BETWEEN ''$awal'' AND ''$akhir''
                 ORDER BY scheduledate DESC, userid'
             ) AS t1 (
                 branch CHARACTER VARYING, userid CHARACTER VARYING, nik CHARACTER(12), scheduleid CHARACTER VARYING, 
