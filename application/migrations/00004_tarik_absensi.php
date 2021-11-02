@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Migration_Tarik_absensi extends CI_Migration {
-    protected $_version =  "00007.20211029.17.Tarik-Absensi";
+    protected $_version =  "00004.20211021.10.Tarik-Absensi";
 
     ################################################## DO NOT CHANGE THIS LINE !!! ##################################################
     public function up() {

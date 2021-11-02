@@ -16,12 +16,12 @@ class M_ijin_karyawan extends CI_Model{
 								order by nmijin_absensi asc");
 
 	}
-	function list_ijin_khusus(){
-		return $this->db->query("select * from sc_mst.ijin_absensi 
-								WHERE kdijin_absensi not in ('KD','IM','AL','AB')
-								order by nmijin_absensi asc");
 
-	}
+    function list_ijin_khusus() {
+        return $this->db->query("select * from sc_mst.ijin_absensi 
+								WHERE kdijin_absensi in ('IK','PA','DT')
+								order by nmijin_absensi asc");
+    }
 
 
 
