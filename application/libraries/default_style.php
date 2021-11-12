@@ -53,7 +53,8 @@ class Default_style
         <!-- jvectormap -->
         <link rel="stylesheet" href="'.base_url('assets/plugins/jvectormap/jquery-jvectormap-1.2.2.css'). '">
         <!-- Date Picker -->
-        <link rel="stylesheet" href="'.base_url('assets/plugins/datepicker/datepicker3.css'). '">
+        <!-- <link rel="stylesheet" href="'.base_url('assets/plugins/datepicker/datepicker3.css'). '"> -->
+        <link rel="stylesheet" href="'.base_url('assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.css'). '">
         <!-- Daterange picker -->
         <link rel="stylesheet" href="'.base_url('assets/plugins/daterangepicker/daterangepicker.css'). '">
         <!-- bootstrap wysihtml5 - text editor -->
@@ -117,7 +118,9 @@ class Default_style
         <script src="'.base_url('assets/js/moment-with-locales.js'). '" type="text/javascript"></script>
         <script src="'.base_url('assets/plugins/daterangepicker/daterangepicker.js'). '"></script>
         <!-- datepicker -->
-        <script src="'.base_url('assets/plugins/datepicker/bootstrap-datepicker.js'). '"></script>
+        <!-- <script src="'.base_url('assets/plugins/datepicker/bootstrap-datepicker.js'). '"></script> -->
+        <script src="'.base_url('assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js'). '"></script>
+        <script src="'.base_url('assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.id.min.js'). '"></script>
         <!-- Bootstrap WYSIHTML5 -->
         <script src="'.base_url('assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js'). '"></script>
         <!-- Slimscroll -->
@@ -176,6 +179,8 @@ class Default_style
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
           <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
+        <script src="'. base_url('assets/js/autoNumeric/autoNumeric.min.js') .'" type="text/javascript"></script>
+        <script src="'. base_url('assets/js/autoNumeric/autonumeric@4.5.4') .'"></script>
         ';
 
         return $str;
@@ -204,6 +209,27 @@ class Default_style
                 });
                 
                  $("input:text").focus(function() { $(this).select(); } );
+                 
+                 new AutoNumeric.multiple(".autonum", {
+                    decimalCharacter: ",",
+                    digitGroupSeparator: ".",
+                    unformatOnSubmit: true
+                });
+                
+                new AutoNumeric.multiple(".autonum-pos", {
+                    decimalCharacter: ",",
+                    digitGroupSeparator: ".",
+                    minimumValue: "0",
+                    unformatOnSubmit: true
+                });
+                
+                new AutoNumeric.multiple(".autonum-posint", {
+                    decimalCharacter: ",",
+                    decimalPlaces: 0,
+                    digitGroupSeparator: ".",
+                    minimumValue: "0",
+                    unformatOnSubmit: true
+                });
              });
              
              $(function() {
@@ -293,6 +319,10 @@ class Default_style
 	width: 100%;
    max-width:1800px;
   }
+}
+.datepicker table tr td.disabled, .datepicker table tr td.disabled:hover,
+.datepicker table tr td span.disabled, .datepicker table tr td span.disabled:hover {
+    cursor: not-allowed;
 }
 </style>';
         $str .= '

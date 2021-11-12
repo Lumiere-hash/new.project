@@ -45,10 +45,12 @@ class Uang_makan extends MX_Controller {
         $data['tgl2']=$akhir;
         $this->db->trans_start();
 
-        if($regu == "SL") {
+        if($callplan == "t") {
             $dtl_opt=$this->m_absensi->q_dblink_option()->row_array();
-            $host = base64_decode($dtl_opt['c_hostaddr']); $dbname = base64_decode($dtl_opt['c_dbname']);
-            $userpg = base64_decode($dtl_opt['c_userpg']); $passpg = base64_decode($dtl_opt['c_passpg']);
+            $host = base64_decode($dtl_opt['c_hostaddr']);
+            $dbname = base64_decode($dtl_opt['c_dbname']);
+            $userpg = base64_decode($dtl_opt['c_userpg']);
+            $passpg = base64_decode($dtl_opt['c_passpg']);
             $this->m_uang_makan->insert_rencana_kunjungan($host,$dbname,$userpg,$passpg,$awal,$akhir);
         }
         $this->db->query("select sc_tmp.pr_hitung_rekap_um('$kdcabang','$awal', '$akhir')");

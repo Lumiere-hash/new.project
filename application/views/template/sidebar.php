@@ -26,7 +26,7 @@
         <ul class="sidebar-menu">
             <?php foreach ($list_menu_main as $lm) { ?>
                 <li class="treeview sidebar-link">
-                    <a href="<?php if (!empty($lm->linkmenu)) {echo site_url(trim($lm->linkmenu));} else { echo '#';}?>">
+                    <a href="<?php if (!empty($lm->linkmenu)) {echo site_url(trim($lm->linkmenu));} else { echo '#';}?>" id="<?= trim($lm->kodemenu) ?>">
                         <i class="fa <?php echo trim($lm->iconmenu);?>"></i> <span><?php echo trim($lm->namamenu);?></span>
                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                     </a>
@@ -35,7 +35,7 @@
                             if (trim($lms->parentmenu)==trim($lm->kodemenu)){
                                 ?>
                                 <li class="sidebar-link">
-                                    <a href="<?php if (!empty($lms->linkmenu)) {echo site_url(trim($lms->linkmenu));} else { echo '#';}?>">
+                                    <a href="<?php if (!empty($lms->linkmenu)) {echo site_url(trim($lms->linkmenu));} else { echo '#';}?>" id="<?= trim($lms->kodemenu) ?>">
                                         <i class="fa <?php if (!empty($lms->iconmenu)) { echo trim($lms->iconmenu);} else { echo 'fa-angle-double-right';}?>"></i> <?php echo trim($lms->namamenu);?>
                                         <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
                                     </a>
@@ -43,7 +43,7 @@
                                         <?php foreach ($list_menu_submenu as $lmp){
                                             if (trim($lmp->parentmenu)==trim($lm->kodemenu) and trim($lmp->parentsub)==trim($lms->kodemenu)){?>
                                                 <!--<li><a href='<?php /*if (!empty($lmp->linkmenu)) {echo site_url(trim($lmp->linkmenu));} else { echo '#';}*/?>'><i class="fa <?php /*if (!empty($lmp->iconmenu)) { echo trim($lmp->iconmenu);} else { echo 'fa-angle-double-right';}*/?>"></i><strong><font face="arial" size="1%"  color="green"><?php /*echo trim($lmp->namamenu);*/?></font></strong></p></a>-->
-                                                <li class="sidebar-link"><a onclick="crutz('<?php echo trim($lmp->kodemenu);?>')" href="<?php if (!empty($lmp->linkmenu)) {echo site_url(trim($lmp->linkmenu));} else { echo '#';}?>"><i class="fa  <?php if (!empty($lmp->iconmenu)) { echo trim($lmp->iconmenu);} else { echo 'fa-angle-double-right';}?>"></i> <?php echo trim($lmp->namamenu);?></a></li>
+                                                <li class="sidebar-link"><a onclick="crutz('<?php echo trim($lmp->kodemenu);?>')" href="<?php if (!empty($lmp->linkmenu)) {echo site_url(trim($lmp->linkmenu));} else { echo '#';}?>" id="<?= trim($lmp->kodemenu) ?>"><i class="fa  <?php if (!empty($lmp->iconmenu)) { echo trim($lmp->iconmenu);} else { echo 'fa-angle-double-right';}?>"></i> <?php echo trim($lmp->namamenu);?></a></li>
                                             <?php }}?>
                                     </ul>
                                 </li>

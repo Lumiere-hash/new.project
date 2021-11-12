@@ -14,11 +14,15 @@
     <html>
     <head>
         <meta charset="UTF-8">
-        <title>OSIN| <?php echo $title;?></title>
+        <title>OSIN | <?php echo $title;?></title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <?php echo $_ini_stylenya;?>
         <!-- CUSTOM CSS TARUH DI BAWAH SINI -->
-        <style> .ratakanan { text-align : right; } </style>
+        <style>
+            .ratakanan {
+                text-align : right;
+            }
+        </style>
         <!-- END CUSTOM CSS  -->
         <?php echo $_ini_jsnya;?>
         <?php echo $_ini_keyaccess;?>
@@ -49,18 +53,33 @@
 
                 //window.onload = disableBack();
                 //window.onpageshow = function(evt) { if (evt.persisted) disableBack() }
-                var href = window.location.href,
-                    idle = false,
-                    timer = null;
-                /*ACTIVE SIDEBAR OPEN*/
-                $('.treeview').find('a[href=\'' + href + '\']')
-                    .addClass('bg-info')
-                    .parents('li')
-                    .addClass('active')
-                    .parents('ul.treeview-menu')
-                    .addClass('active')
-                    .addClass('open')
-                    .css({ 'display': 'block' });
+                var kodemenu = '<?= $kodemenu ?>';
+                if(kodemenu != '') {
+                    $('.treeview').find('a[id=\'' + kodemenu + '\']')
+                        .addClass('bg-info')
+                        .parents('li')
+                        .addClass('active')
+                        .parents('ul.treeview-menu')
+                        .addClass('active')
+                        .addClass('open')
+                        .css({ 'display': 'block' });
+                } else {
+                    var href = window.location.href,
+                        idle = false,
+                        timer = null;
+                    var pathArray = href.split('/'),
+                        newHref = pathArray[0] + '//' + pathArray[2] + '/' + pathArray[3] + '/' + pathArray[4] + '/' + pathArray[5];
+
+                    /*ACTIVE SIDEBAR OPEN*/
+                    $('.treeview').find('a[href*=\'' + newHref + '\']')
+                        .addClass('bg-info')
+                        .parents('li')
+                        .addClass('active')
+                        .parents('ul.treeview-menu')
+                        .addClass('active')
+                        .addClass('open')
+                        .css({'display': 'block'});
+                }
 
                 var timeout;
                 clearTimeout(timeout); // Remove any timers from previous clicks
@@ -128,6 +147,15 @@
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <section class="content">
+                    <?php if($this->session->flashdata('message')): ?>
+                        <?php $message = $this->session->flashdata('message'); ?>
+                        <div class="d-inline h5 alert alert-<?= $message[1] ?: "success" ?>">
+                            <?= $message[0] ?>
+                            <a onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close" data-dismiss="alert" style="font-size: unset;">
+                                <span aria-hidden="true"><i class="fa fa-times"></i></span>
+                            </a>
+                        </div>
+                    <?php endif; ?>
                 <?php echo $_content;?>
                 </section><!-- /.content -->
             </div>

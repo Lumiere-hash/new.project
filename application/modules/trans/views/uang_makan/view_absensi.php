@@ -21,7 +21,7 @@
             columns: [
                 {
                     data: "no",
-                    class: "text-nowrap text-center"
+                    class: "text-nowrap text-center autonum-posint"
                 },
                 {
                     data: "locationid",
@@ -62,7 +62,7 @@
             columns: [
                 {
                     data: "no",
-                    class: "text-nowrap text-center"
+                    class: "text-nowrap text-center autonum-posint"
                 },
                 {
                     data: "locationid",

@@ -800,8 +800,8 @@ class M_uang_makan extends CI_Model{
             FROM dblink (
                 'hostaddr=$host dbname=$dbname user=$dbuser password=$dbpass',
                 'SELECT s.branch, s.userid, u.nip AS nik, s.scheduleid, s.scheduledate, 
-                COALESCE(NULLIF(sl.locationid, ''''), c.custcode) AS locationid, 
-                COALESCE(NULLIF(sl.locationidlocal, ''''), c.customercodelocal) AS locationidlocal,
+                COALESCE(NULLIF(sl.locationid, ''''), c.custcode, '''') AS locationid, 
+                COALESCE(NULLIF(sl.locationidlocal, ''''), c.customercodelocal, '''') AS locationidlocal,
                 c.custname, c.grdpaymt AS customertype, ''$nik''::TEXT AS createby, NOW() AS createdate
                 FROM sc_trx.schedule s
                 INNER JOIN sc_trx.scheduletolocation sl ON sl.scheduleid = s.scheduleid
