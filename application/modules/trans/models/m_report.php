@@ -780,7 +780,7 @@ function q_remind_cuti(){
 									from sc_trx.cuti_karyawan a
 									left outer join sc_mst.karyawan b on a.nik=b.nik
 									left outer join sc_mst.departmen c on b.bag_dept=c.kddept
-									where a.status<>'C' 
+									where a.status='P' 
 									and to_char(now(),'YYYYMMDD') >= to_char(tgl_mulai,'YYYYMMDD')  
 									and to_char(now(),'YYYYMMDD')<= to_char(tgl_selesai,'YYYYMMDD')
 									");
@@ -791,7 +791,7 @@ function q_remind_cuti(){
 								from sc_trx.dinas a
 								left outer join sc_mst.karyawan b on a.nik=b.nik
 								left outer join sc_mst.departmen c on b.bag_dept=c.kddept
-								where a.status<>'C' 
+								where a.status='P' 
 								and to_char(now(),'YYYYMMDD') >= to_char(tgl_mulai,'YYYYMMDD')  
 								and to_char(now(),'YYYYMMDD')<= to_char(tgl_selesai,'YYYYMMDD')
 
@@ -807,7 +807,7 @@ function q_remind_cuti(){
 								left outer join sc_mst.departmen c on b.bag_dept=c.kddept
 								left outer join (select * from sc_mst.trxtype where jenistrx='IJIN INPUT') as d on a.type_ijin=d.kdtrx
 								left outer join sc_mst.ijin_absensi e on a.kdijin_absensi=e.kdijin_absensi
-								where a.status<>'C' 
+								where a.status='P' 
 								and to_char(now(),'YYYYMMDD') >= to_char(tgl_kerja,'YYYYMMDD')  
 								and to_char(now(),'YYYYMMDD')<= to_char(tgl_kerja,'YYYYMMDD')
 		");
@@ -838,7 +838,7 @@ function q_remind_cuti(){
                                         left outer join sc_mst.jabatan f on b.bag_dept=f.kddept and b.subbag_dept=f.kdsubdept and b.jabatan=f.kdjabatan
                                         left outer join sc_mst.trxtype h on a.kdtrx=h.kdtrx and trim(h.jenistrx)='ALASAN LEMBUR'
                                         left outer join sc_mst.karyawan i on a.nmatasan=i.nik
-                                        where a.status<>'C' 
+                                        where a.status='P'
                                             and to_char(now(),'YYYYMMDD') >= to_char(tgl_kerja,'YYYYMMDD')  
                                             and to_char(now(),'YYYYMMDD')<= to_char(tgl_kerja,'YYYYMMDD')
                                         order by a.nodok desc
