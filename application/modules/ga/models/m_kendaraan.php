@@ -17,10 +17,15 @@ class M_kendaraan extends CI_Model{
         return $this->db->query("select * from sc_mst.msubgroup where left(kdgroup,3)='KDN' order by nmsubgroup");
     }
 
-    function q_mstkendaraan(){
-        return $this->db->query("select a.*,b.locaname from sc_mst.mbarang a
-                                    left outer join sc_mst.mgudang b on a.kdgudang=b.loccode
-                                    where left(a.kdgroup,3)='KDN'  order by nmbarang");
+    function q_mstkendaraan($params = "") {
+        return $this->db->query("
+            SELECT a.*, b.locaname
+            FROM sc_mst.mbarang a
+            LEFT OUTER JOIN sc_mst.mgudang b ON a.kdgudang = b.loccode
+            WHERE LEFT(a.kdgroup, 3) = 'KDN' 
+            $params
+            ORDER BY nmbarang
+        ");
     }
     function q_cekkendaraan($kdrangka){
         return $this->db->query("select * from sc_mst.mbarang where left(kdgroup,3)='KDN' and nodok='$kdrangka' order by nmbarang");

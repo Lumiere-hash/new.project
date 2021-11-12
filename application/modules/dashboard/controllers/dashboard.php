@@ -7,7 +7,7 @@
 class Dashboard extends MX_Controller{
     function __construct(){
         parent::__construct();
-        $this->load->model(array('m_modular','m_geografis','web/m_user', "master/m_akses", "trans/m_stspeg", "trans/m_report"));
+        $this->load->model(array('m_modular','m_geografis','web/m_user', "master/m_akses", "trans/m_stspeg", "trans/m_report", "ga/m_kendaraan"));
         $this->load->library(array('form_validation','template','Excel_Generator'));
         if(!$this->session->userdata('nik')){
             redirect('web');
@@ -32,6 +32,9 @@ class Dashboard extends MX_Controller{
 
             $data["list_magang"] = $this->m_stspeg->q_list_magang()->result();
             $data["title_magang"] = "Karyawan Magang";
+
+            $data["list_kendaraan"] = $this->m_kendaraan->q_mstkendaraan("AND (a.expstnkb - INTERVAL '1 MONTH' <= NOW() OR a.exppkbstnkb - INTERVAL '1 MONTH' <= NOW()) AND a.hold_item = 'NO'")->result();;
+            $data["title_kendaraan"] = "Kendaraan";
         }
 
         $data["list_cuti"] = $this->m_report->q_remind_cuti()->result();

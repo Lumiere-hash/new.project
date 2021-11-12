@@ -2,6 +2,8 @@
     thead tr th {
         text-align: center;
         text-transform: uppercase;
+        vertical-align: middle !important;
+        white-space: nowrap;
     }
 
     thead tr th:first-child {
@@ -70,11 +72,6 @@
                     <!-- /.table-responsive -->
                 </div>
                 <!-- /.box-body -->
-                <div class="box-footer clearfix">
-                    <a href="#" onclick="window.open('<?php echo site_url('trans/stspeg/excel_ojt'); ?>','_blank')" class="btn btn-sm btn-success btn-flat pull-left"><i class="fa fa-download"></i>&nbsp; Download Xls </a>
-                    <a href="#" onclick="window.open('<?php echo site_url('trans/stspeg/list_ojt'); ?>', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=0,left=200,width=1200,height=700')" class="btn btn-sm btn-info btn-flat pull-right"><i class="fa fa-eye"></i>&nbsp; View All</a>
-                </div>
-                <!-- /.box-footer -->
             </div>
         </div>
         <!-- END OF OJT -->
@@ -118,11 +115,6 @@
                     <!-- /.table-responsive -->
                 </div>
                 <!-- /.box-body -->
-                <div class="box-footer clearfix">
-                    <a href="#" onclick="window.open('<?php echo site_url('trans/stspeg/excel_kontrak'); ?>','_blank')" class="btn btn-sm btn-success btn-flat pull-left"><i class="fa fa-download"></i>&nbsp; Download Xls </a>
-                    <a href="#" onclick="window.open('<?php echo site_url('trans/stspeg/list_karkon'); ?>', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=0,left=200,width=1200,height=700')" class="btn btn-sm btn-info btn-flat pull-right"><i class="fa fa-eye"></i>&nbsp; View All</a>
-                </div>
-                <!-- /.box-footer -->
             </div>
         </div>
         <!--END OF KONTRAK-->
@@ -170,11 +162,6 @@
                     <!-- /.table-responsive -->
                 </div>
                 <!-- /.box-body -->
-                <div class="box-footer clearfix">
-                    <a href="#" onclick="window.open('<?php echo site_url('trans/stspeg/excel_pensiun'); ?>','_blank')" class="btn btn-sm btn-success btn-flat pull-left"><i class="fa fa-download"></i>&nbsp; Download Xls </a>
-                    <a href="#" onclick="window.open('<?php echo site_url('trans/stspeg/list_karpen'); ?>', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=0,left=200,width=1200,height=700')" class="btn btn-sm btn-info btn-flat pull-right"><i class="fa fa-eye"></i>&nbsp; View All</a>
-                </div>
-                <!-- /.box-footer -->
             </div>
         </div>
         <!--END OF PENSIUN-->
@@ -222,6 +209,56 @@
             </div>
         </div>
         <!--END OF MAGANG-->
+    </div>
+
+    <div class="row">
+        <!--START OF KENDARAAN-->
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><?php echo $title_kendaraan; ?></h3>
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table id="t_kendaraan" class="display nowrap table table-striped no-margin" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th width="1%">No</th>
+                                    <th width="10%">Kode Kendaraan</th>
+                                    <th>Nama Kendaraan</th>
+                                    <th width="10%">Nopol</th>
+                                    <th>Base</th>
+                                    <th width="10%">Berlaku STNKB</th>
+                                    <th width="10%">Berlaku PKB STNKB</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($list_kendaraan as $k => $v): ?>
+                                    <tr>
+                                        <td class="text-nowrap text-center"><?php echo ($k + 1);?></td>
+                                        <td class="text-nowrap"><?php echo trim($v->nodok);?></td>
+                                        <td><?php echo trim($v->nmbarang);?></td>
+                                        <td class="text-nowrap"><?php echo trim($v->nopol);?></td>
+                                        <td><?php echo trim($v->locaname);?></td>
+                                        <td class="text-nowrap text-center"><?php echo date("d-m-Y", strtotime($v->expstnkb));?></td>
+                                        <td class="text-nowrap text-center"><?php echo date("d-m-Y", strtotime($v->exppkbstnkb));?></td>
+                                    </tr>
+                                <?php endforeach;?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>
+        <!--END OF KENDARAAN-->
     </div>
 <?php } ?>
 
@@ -307,8 +344,8 @@
                                     <td><?php echo trim($v->bagian);?></td>
                                     <td class="text-nowrap"><?php echo trim($v->nodok);?></td>
                                     <td class="text-nowrap text-center"><?php echo trim($v->tipe_ijin);?></td>
-                                    <td class="text-nowrap text-center"><?php echo empty($v->jam_awal) ? '' : date('d-m-Y',strtotime($v->jam_awal));?></td>
-                                    <td class="text-nowrap text-center"><?php echo empty($v->jam_akhir) ? '' : date('d-m-Y',strtotime($v->jam_akhir));?></td>
+                                    <td class="text-nowrap text-center"><?php echo empty($v->jam_awal) ? '' : date('H:i:s',strtotime($v->jam_awal));?></td>
+                                    <td class="text-nowrap text-center"><?php echo empty($v->jam_akhir) ? '' : date('H:i:s',strtotime($v->jam_akhir));?></td>
                                     <td class="text-nowrap text-center"><?php echo trim($v->kategori);?></td>
                                 </tr>
                             <?php endforeach;?>
@@ -453,6 +490,16 @@
             }]
         });
         $("#t_magang").dataTable({
+            scrollX: true,
+            pageLength: 5,
+            lengthMenu: [[5, 25, 50, -1], [5, 25, 50, "All"]],
+            order: [],
+            columnDefs: [{
+                orderable: false,
+                targets: 0
+            }]
+        });
+        $("#t_kendaraan").dataTable({
             scrollX: true,
             pageLength: 5,
             lengthMenu: [[5, 25, 50, -1], [5, 25, 50, "All"]],
