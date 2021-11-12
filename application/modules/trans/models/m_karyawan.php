@@ -55,6 +55,14 @@ class M_karyawan extends CI_Model {
 
 	}
 
+    function list_lvkaryawan($params = "") {
+        return $this->db->query("
+            SELECT * 
+            FROM sc_mst.lv_m_karyawan
+            $params
+        ");
+    }
+
     function list_karyawan(){
         return $this->db->query("select a.*,a.nik,a.nmlengkap,b.nmjabatan,c.nmdept,d.nmsubdept,e.nmlvljabatan,f.nmgrade,g1.nmagama,g2.namanegara,g3.namaprov as nmprovlahir,g4.namakotakab as nmkotalahir,
                                         h1.namaprov as nmprovktp,

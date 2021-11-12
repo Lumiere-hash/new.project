@@ -1,7 +1,11 @@
 <?php
 class M_department extends CI_Model{
-	function q_department(){
-		return $this->db->query("select * from sc_mst.departmen order by kddept asc");
+	function q_department() {
+		return $this->db->query("
+            SELECT * 
+            FROM sc_mst.departmen 
+            ORDER BY kddept
+        ");
 	}
 	
 	function q_subdepartment($params = "") {
