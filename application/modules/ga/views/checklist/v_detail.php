@@ -23,7 +23,7 @@
                 },
                 {
                     class: "text-nowrap",
-                    targets: [3, 4]
+                    targets: 4
                 }
             ]
         });
@@ -236,8 +236,9 @@
                                 <th style="width: 1%;">No</th>
                                 <th>Parameter</th>
                                 <th>Departemen</th>
-                                <th>Hasil</th>
                                 <th>Target</th>
+                                <th>Hasil</th>
+                                <th>Realisasi</th>
                                 <th>Keterangan</th>
                             </tr>
                         </thead>
@@ -348,7 +349,7 @@
                 }
                 t_parameter.ajax.reload();
                 setTimeout(function() {
-                    $('#parameter-label').html(t_parameter.data()[0][6])
+                    $('#parameter-label').html(t_parameter.data()[0][7])
                 }, 500);
                 $tdClick = $(this);
             }

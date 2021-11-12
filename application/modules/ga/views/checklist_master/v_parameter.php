@@ -179,7 +179,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Urutan</label>
-                                <input type="text" id="urutan" name="urutan" placeholder="Urutan" maxlength="100" style="text-transform: uppercase;" class="form-control autonum-posint" required>
+                                <input type="text" id="urutan" name="urutan" placeholder="Urutan" style="text-transform: uppercase;" class="form-control autonum-posint" required>
                             </div>
                             <div class="form-group">
                                 <label>Nama Parameter</label>
@@ -187,7 +187,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Target Parameter</label>
-                                <input type="text" id="target_parameter" name="target_parameter" placeholder="Target Parameter" style="text-transform: uppercase;" class="form-control">
+                                <input type="text" id="target_parameter" name="target_parameter" maxlength="30" placeholder="Target Parameter" style="text-transform: uppercase;" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>HOLD</label>
@@ -309,7 +309,7 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label>Urutan</label>
-                                <input type="text" id="ed_urutan" name="urutan" placeholder="Urutan" maxlength="100" style="text-transform: uppercase;" class="form-control autonum-posint" required>
+                                <input type="text" id="ed_urutan" name="urutan" placeholder="Urutan" style="text-transform: uppercase;" class="form-control autonum-posint" required>
                             </div>
                             <div class="form-group">
                                 <label>Nama Parameter</label>
@@ -317,7 +317,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Target Parameter</label>
-                                <input type="text" id="ed_target_parameter" name="target_parameter" placeholder="Target Parameter" style="text-transform: uppercase;" class="form-control">
+                                <input type="text" id="ed_target_parameter" name="target_parameter" maxlength="30" placeholder="Target Parameter" style="text-transform: uppercase;" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>HOLD</label>

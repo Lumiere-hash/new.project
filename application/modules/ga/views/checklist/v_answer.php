@@ -36,6 +36,7 @@
                                 <th>Parameter</th>
                                 <th>Target</th>
                                 <th style="width: 1%;">Ya / Tidak</th>
+                                <th style="width: 15%;">Realisasi</th>
                                 <th style="width: 20%;">Keterangan</th>
                             </tr>
                         </thead>
@@ -48,6 +49,9 @@
                                     <td class="text-nowrap text-left" style="vertical-align: middle"><?= $v->target_parameter ?></td>
                                     <td class="text-nowrap text-center" style="vertical-align: middle">
                                         <input type="checkbox" name="hasil[]" value="<?= $v->kode_parameter ?>">
+                                    </td>
+                                    <td class="text-nowrap text-center" style="vertical-align: middle">
+                                        <input type="text" class="form-control input-sm" maxlength="30" style="width: 100%; text-transform: uppercase;" name="realisasi[]">
                                     </td>
                                     <td class="text-nowrap text-center" style="vertical-align: middle">
                                         <input type="text" class="form-control input-sm" style="width: 100%; text-transform: uppercase;" name="keterangan[]">

@@ -64,7 +64,7 @@ class M_checklist extends CI_Model {
 
     function list_checklist_parameter($params = "", $nik = "", $tanggal = "") {
         return $this->db->query("
-            SELECT a.*, b.hasil, b.keterangan, b.tanggal_hasil
+            SELECT a.*, b.hasil, b.realisasi, b.keterangan, b.tanggal_hasil
             FROM sc_trx.checklist_parameter a
             LEFT JOIN sc_trx.checklist_realisasi b ON b.id_checklist = a.id_checklist AND b.kode_parameter = a.kode_parameter AND b.nik = '$nik' AND b.tanggal_mulai::TEXT = '$tanggal'
             WHERE CASE 

@@ -284,13 +284,15 @@ class Checklist extends MX_Controller {
         $nik = $this->session->userdata("nik");
         $id_checklist = $this->input->post("id_checklist");
         $hasil = $this->input->post("hasil");
+        $realisasi = $this->input->post("realisasi");
         $keterangan = $this->input->post("keterangan");
         $this->db->trans_start();
 
-        $realisasi = $this->m_checklist->list_realisasi_hasil("AND a.id_checklist = '$id_checklist' AND c.nik = '$nik'")->result();
-        foreach($realisasi as $k => $v) {
+        $list_realisasi = $this->m_checklist->list_realisasi_hasil("AND a.id_checklist = '$id_checklist' AND c.nik = '$nik'")->result();
+        foreach($list_realisasi as $k => $v) {
             $dataHasil = [
                 "hasil" => in_array($v->kode_parameter, $hasil) ? "T" : "F",
+                "realisasi" => strtoupper(trim($realisasi[$k])),
                 "keterangan" => strtoupper(trim($keterangan[$k])),
                 "tanggal_hasil" => date("Y-m-d H:i:s")
             ];
@@ -331,8 +333,9 @@ class Checklist extends MX_Controller {
                 $k + 1,
                 $v->nama_parameter,
                 $v->nmdept,
-                $v->hasil == "T" ? "YA" : ($v->hasil == "F" ? "TIDAK" : "-"),
                 $v->target_parameter,
+                $v->hasil == "T" ? "YA" : ($v->hasil == "F" ? "TIDAK" : "-"),
+                $v->realisasi ?: "-",
                 $v->keterangan ?: "-",
                 $v->tanggal_hasil ? " (" . date("d-m-Y H:i:s", strtotime($v->tanggal_hasil)) . ")" : ""
             ];
