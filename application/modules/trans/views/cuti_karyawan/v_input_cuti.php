@@ -177,12 +177,13 @@
                                 <div class="form-group">
                                     <label class="col-sm-4">Tipe Cuti</label>
                                     <div class="col-sm-8">
-                                        <select class="form-control input-sm" name="tpcuti" id="tpecuti">
+                                        <select class="form-control input-sm" id="tpecuti" name="tpcuti" required>
+                                            <option value="">--TIPE CUTI--</option>
                                             <option value="A">CUTI</option>
-                                            <?php if ($userhr>0) { ?>
+                                            <?php if($userhr > 0): ?>
                                                 <option value="B">IJIN KHUSUS</option>
                                                 <option value="C">DINAS</option>
-                                            <?php } ?>
+                                            <?php endif; ?>
                                         </select>
                                     </div>
                                 </div>
@@ -213,31 +214,27 @@
                                         });
                                     });
                                 </script>
-                                <div class="form-group">
-                                    <div id="subcuti" class="subcutiB subcutiC" >
-                                        <label class="col-sm-4">Subtitusi Cuti</label>
-                                        <div class="col-sm-8">
-                                            <select class="form-control input-sm" name="statptg" id="statptg1" required="required">
-                                                <!--option value="">--Pilih Potong Cuti/Gaji--</option-->
-                                                <option value="A1">POTONG CUTI</option>
-                                                <?php if ($userhr>0) { ?>
-                                                    <option value="A2">POTONG GAJI</option>
-                                                <?php } ?>
-                                            </select>
-                                        </div>
+                                <div id="subcuti" class="form-group subcutiB subcutiC">
+                                    <label class="col-sm-4">Subtitusi Cuti</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control input-sm" name="statptg" id="statptg1" required="required">
+                                            <option value="">--SUBTITUSI CUTI--</option>
+                                            <option value="A1">POTONG CUTI</option>
+                                            <?php if($userhr > 0): ?>
+                                                <option value="A2">POTONG GAJI</option>
+                                            <?php endif; ?>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <div id="ijinB" class="ijinA ijinC" style="display:none;">
-                                        <label class="col-sm-4">Tipe Ijin Khusus</label>
-                                        <div class="col-sm-8">
-                                            <select class="form-control input-sm" name="kdijin_khusus" id="kdijin_absensi" >
-                                                <option value="">Input Type Ijin Khusus</option>
-                                                <?php foreach($list_ijin_khusus as $listkan){?>
-                                                    <option value="<?php echo trim($listkan->kdijin_khusus);?>" ><?php echo $listkan->nmijin_khusus;?></option>
-                                                <?php }?>
-                                            </select>
-                                        </div>
+                                <div id="ijinB" class="form-group ijinA ijinC" style="display: none;">
+                                    <label class="col-sm-4">Tipe Ijin Khusus</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-control input-sm" name="kdijin_khusus" id="kdijin_absensi" >
+                                            <option value="">--TIPE IJIN KHUSUS--</option>
+                                            <?php foreach($list_ijin_khusus as $listkan): ?>
+                                                <option value="<?= trim($listkan->kdijin_khusus) ?>" ><?= $listkan->nmijin_khusus ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -308,7 +305,6 @@
                                         </select>
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     <label class="col-sm-4">Keterangan</label>
                                     <div class="col-sm-8">
@@ -316,10 +312,8 @@
                                         <input type="hidden" id="tgl1" name="tgl"  value="<?php echo date('d-m-Y H:i:s');?>"class="form-control" readonly>
                                         <input type="hidden" id="tgl1" name="tgl_dok"  value="<?php echo date('d-m-Y H:i:s');?>"class="form-control" readonly>
                                         <input type="hidden" id="inputby" name="inputby"  value="<?php echo $this->session->userdata('nik');?>" class="form-control" readonly>
-
                                     </div>
                                 </div>
-
                             </div>
                         </div><!-- /.box-body -->
                     </div><!-- /.box -->

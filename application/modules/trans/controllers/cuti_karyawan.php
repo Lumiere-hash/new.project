@@ -336,7 +336,7 @@ if ($durasi1==''){
         $data['dtl']=$this->m_cuti_karyawan->q_cuti_karyawan_dtl($nodok)->row_array();
         $data['cekclosing']=$this->m_cuti_karyawan->cek_closing()->row_array();
         $data['list_cutidtl']=$this->m_cuti_karyawan->q_cuti_karyawan_dtl($nodok)->row_array();
-        $data['list_karyawan']=$this->m_cuti_karyawan->list_karyawan()->result();
+        $data['list_karyawan']=$this->m_cuti_karyawan->list_pelimpahan($nama)->result();
         $data['opsi_cuti'] = null;
         if($data['userhr'] == 0) {
             $data_cuti = $this->m_option->q_cekoption('BLKCT')->row();

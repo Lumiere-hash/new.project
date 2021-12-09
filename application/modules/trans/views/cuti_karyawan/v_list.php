@@ -168,7 +168,7 @@
 							<td><?php echo $lu->tgl_selesai1;?></td>
 							<td align="right"><?php echo $lu->sisacuti;?></td>
 							<td><?php echo $lu->status1;?></td>
-							<td width="8%">
+							<td width="8%" class="text-nowrap">
 								<!--a data-toggle="modal" data-target="#dtl<!?php echo trim($lu->nodok);?>" href='#' class="btn btn-success  btn-sm">
 									<i class="fa fa-edit"></i> Detail
 								</a-->

@@ -322,7 +322,7 @@
     var $tdClick;
     $(document).ready(function() {
         setTimeout(function() {
-            $("tr td.jadwal").each(function(i){
+            $("tr td.jadwal").each(function(i) {
                 var off = $(this)[0].children[3].value;
                 if(off == "T") {
                     $(this).css("cursor", "not-allowed");

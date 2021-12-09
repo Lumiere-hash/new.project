@@ -18,7 +18,7 @@
                 type: "POST",
                 data: function(d) {
                     d.kode_periode = $("#kode_periode").val(),
-                    d.kode_lokasi = $("#kode_lokasi").val();
+                    d.kode_lokasi = $("#kode_lokasi").val()
                 }
             },
             columns: [
