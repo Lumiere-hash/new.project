@@ -504,11 +504,11 @@ a { color: inherit; }
               <tbody><tr>
                 <td style="padding-bottom:16px;" valign="top" align="center"><table cellspacing="0" cellpadding="0" border="0" align="center">
                     <tbody><tr>
-                      <td valign="top" align="center"><a href="http://nusaboard.co.id:6060/nusaboard/" target="_blank" style="text-decoration:none;"><img src="http://hrd.nusaboard.co.id:7070/hrdnew/assets/img/mail_template/icon/browser.png" alt="yt" style="display:block; font-family:Arial, sans-serif; font-size:12px; line-height:14px; color:#ffffff; max-width:26px;" width="26" border="0" height="26">nusaboard.co.id</a></td>
+                      <td valign="top" align="center"><a href="#" target="_blank" style="text-decoration:none;"><img src="http://hrd.nusaboard.co.id:7070/hrdnew/assets/img/mail_template/icon/browser.png" alt="yt" style="display:block; font-family:Arial, sans-serif; font-size:12px; line-height:14px; color:#ffffff; max-width:26px;" width="26" border="0" height="26">nusaboard.co.id</a></td>
 					  <td style="width:6px;" width="6">&nbsp;</td>
-                      <td valign="top" align="center"><a href="https://www.facebook.com/nusaboard/" target="_blank" style="text-decoration:none;"><img src="http://hrd.nusaboard.co.id:7070/hrdnew/assets/img/mail_template/icon/fb.png" alt="fb" style="display:block; font-family:Arial, sans-serif; font-size:12px; line-height:14px; color:#ffffff; max-width:26px;" width="26" border="0" height="26"> Nusaboard </a></td>
+                      <td valign="top" align="center"><a href="#" target="_blank" style="text-decoration:none;"><img src="http://hrd.nusaboard.co.id:7070/hrdnew/assets/img/mail_template/icon/fb.png" alt="fb" style="display:block; font-family:Arial, sans-serif; font-size:12px; line-height:14px; color:#ffffff; max-width:26px;" width="26" border="0" height="26"> Nusaboard </a></td>
                       <td style="width:6px;" width="6">&nbsp;</td>
-                      <td valign="top" align="center"><a href="https://www.instagram.com/nusaboard.co.id/" target="_blank" style="text-decoration:none;"><img src="http://hrd.nusaboard.co.id:7070/hrdnew/assets/img/mail_template/icon/ig.png" alt="tw" style="display:block; font-family:Arial, sans-serif; font-size:12px; line-height:14px; color:#ffffff; max-width:27px;" width="27" border="0" height="26"> @nusaboard.co.id </a></td>
+                      <td valign="top" align="center"><a href="#" target="_blank" style="text-decoration:none;"><img src="http://hrd.nusaboard.co.id:7070/hrdnew/assets/img/mail_template/icon/ig.png" alt="tw" style="display:block; font-family:Arial, sans-serif; font-size:12px; line-height:14px; color:#ffffff; max-width:27px;" width="27" border="0" height="26"> @nusaboard.co.id </a></td>
                       <td style="width:6px;" width="6">&nbsp;</td>
                     </tr>
                   </tbody></table></td>
