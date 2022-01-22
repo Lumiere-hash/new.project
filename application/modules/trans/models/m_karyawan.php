@@ -150,7 +150,7 @@ class M_karyawan extends CI_Model {
 	function list_karyborong(){
 		return $this->db->query("select a.*,a.nik,a.nmlengkap,b.nmjabatan,c.nmdept from sc_mst.karyawan a
 		left outer join sc_mst.jabatan b on a.jabatan=b.kdjabatan
-		left outer join sc_mst.departmen c on a.bag_dept=c.kddept where a.tjborong='t' and a.statuskepegawaian<>'KO'");
+		left outer join sc_mst.departmen c on a.bag_dept=c.kddept where a.tjborong='t' and coalesce(a.statuskepegawaian,'')<>'KO'");
 	}
 
 

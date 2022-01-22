@@ -46,9 +46,9 @@
     <!-- Custom Tabs (Pulled to the right) -->
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs pull-right">
+            <li><a href="#tab_3-2"  data-toggle="tab"><i class="fa fa-users"></i>     Karyawan Borong</a></li>
             <li><a href="#tab_2-2"  data-toggle="tab"><i class="fa fa-user-times"></i>     Karyawan Resign</a></li>
             <li class="active"><a href="#tab_1-1" data-toggle="tab"><i class="fa fa-user"></i>    Karyawan Aktif</a></li>
-
             <li class="pull-left header"><i class="fa fa-th"></i> Data Karyawan HR</li>
         </ul>
         <div class="tab-content">
