@@ -9,3 +9,4 @@ ON CONFLICT (kode_periode)
 DO UPDATE SET
     (nama_periode, hold, urutan, update_date, update_by) =
     (EXCLUDED.nama_periode, EXCLUDED.hold, EXCLUDED.urutan, NOW(), 'SYSTEM')
+;

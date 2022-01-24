@@ -244,8 +244,8 @@ class Fiky_grade
 
 
         $dtlgrade= $this->list_grade(" and kdgrade='$grade_golongan'")->row_array();
-        $kdlvlgpmin = trim($dtlgrade['kdlvlgpmin']);
-        $kdlvlgpmax = trim($dtlgrade['kdlvlgpmax']);
+        $kdlvlgpmin = trim($dtlgrade['kdlvlgpmin']) ?: 0;
+        $kdlvlgpmax = trim($dtlgrade['kdlvlgpmax']) ?: 0;
 
         $param_c="";
         $count = $this->list_lvlgaji($param_c)->num_rows();
