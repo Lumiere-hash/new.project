@@ -1611,7 +1611,6 @@ class Jadwal_new extends MX_Controller {
 		$tgl30=$this->input->post('tgl30');
 		$tgl31=$this->input->post('tgl31');
 		
-		
 		if ($tgl1<>'OFF') { /* tgl1 */
 			$tgl=trim("$thn-$bln-01");
 			$kdjamkerja=$tgl1;
@@ -2450,7 +2449,7 @@ class Jadwal_new extends MX_Controller {
 				$this->db->delete('sc_trx.jadwalkerja');	
 				
 			}
-		if ($tgl28<>'OFF') { /* tgl28 */
+		if ($tgl28<>'OFF' && checkdate($bln, '28', $thn)) { /* tgl28 */
 			$tgl=trim("$thn-$bln-28");
 			$kdjamkerja=$tgl28;
 			$cek_j=$this->m_jadwalnew->q_offjk_row($tgl,$kdregu)->num_rows();
@@ -2473,7 +2472,7 @@ class Jadwal_new extends MX_Controller {
 						);
 						$this->db->insert('sc_trx.jadwalkerja',$info);	
 					}
-			} else if($tgl28=='OFF'){ 
+			} else if($tgl28=='OFF' && checkdate($bln, '28', $thn)){
 				
 				$tgl=trim("$thn-$bln-28");
 				$this->db->where('tgl',$tgl);
@@ -2481,7 +2480,7 @@ class Jadwal_new extends MX_Controller {
 				$this->db->delete('sc_trx.jadwalkerja');	
 				
 			}
-		if ($tgl29<>'OFF') { /* tgl29 */
+		if ($tgl29<>'OFF' && checkdate($bln, '29', $thn)) { /* tgl29 */
 			$tgl=trim("$thn-$bln-29");
 			$kdjamkerja=$tgl29;
 			$cek_j=$this->m_jadwalnew->q_offjk_row($tgl,$kdregu)->num_rows();
@@ -2504,15 +2503,15 @@ class Jadwal_new extends MX_Controller {
 						);
 						$this->db->insert('sc_trx.jadwalkerja',$info);	
 					}
-			} else if($tgl29=='OFF'){ 
-				
-				$tgl=trim("$thn-$bln-29");
-				$this->db->where('tgl',$tgl);
-				$this->db->where('kdregu',$kdregu);
-				$this->db->delete('sc_trx.jadwalkerja');	
-				
+			} else if($tgl29=='OFF' && checkdate($bln, '29', $thn)){
+
+                $tgl = trim("$thn-$bln-29");
+                $this->db->where('tgl', $tgl);
+                $this->db->where('kdregu', $kdregu);
+                $this->db->delete('sc_trx.jadwalkerja');
+
 			}
-		if ($tgl30<>'OFF') { /* tgl30 */
+		if ($tgl30<>'OFF' && checkdate($bln, '30', $thn)) { /* tgl30 */
 			$tgl=trim("$thn-$bln-30");
 			$kdjamkerja=$tgl30;
 			$cek_j=$this->m_jadwalnew->q_offjk_row($tgl,$kdregu)->num_rows();
@@ -2535,15 +2534,15 @@ class Jadwal_new extends MX_Controller {
 						);
 						$this->db->insert('sc_trx.jadwalkerja',$info);	
 					}
-			} else if($tgl30=='OFF'){ 
-				
-				$tgl=trim("$thn-$bln-30");
-				$this->db->where('tgl',$tgl);
-				$this->db->where('kdregu',$kdregu);
-				$this->db->delete('sc_trx.jadwalkerja');	
-				
+			} else if($tgl30=='OFF' && checkdate($bln, '30', $thn)){
+
+                $tgl = trim("$thn-$bln-30");
+                $this->db->where('tgl', $tgl);
+                $this->db->where('kdregu', $kdregu);
+                $this->db->delete('sc_trx.jadwalkerja');
+
 			}
-		if ($tgl31<>'OFF') { /* tgl31 */
+		if ($tgl31<>'OFF' && checkdate($bln, '31', $thn)) { /* tgl31 */
 			$tgl=trim("$thn-$bln-31");
 			$kdjamkerja=$tgl31;
 			$cek_j=$this->m_jadwalnew->q_offjk_row($tgl,$kdregu)->num_rows();
@@ -2570,8 +2569,8 @@ class Jadwal_new extends MX_Controller {
 								$this->db->insert('sc_trx.jadwalkerja',$info);	
 							}
 				}
-			} else if($tgl31=='OFF'){ 
-				
+			} else if($tgl31=='OFF' && checkdate($bln, '31', $thn)){
+
 				$tgl=trim("$thn-$bln-31");
 				$endday=date("Y-m-t", strtotime($tgl));
 				if($endday<=$tgl){

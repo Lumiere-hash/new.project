@@ -50,15 +50,15 @@
                 console.log($('#tgl7_2').val()+'TGL7');
                 console.log((tgl7)>=(tglm));
 
-                if((tgl7)>=(tglm) && userhr==0){
-                    $('#postmessages').empty().append("<div class='alert alert-danger'>PERINGATAN MAKSIMAL TANGGAL CUTI H-7</div>");
-                    $('#submit').prop('disabled', true);
-                }else{
-                    $('#postmessages').empty();
-                    $('#submit').prop('disabled', false);
-
-
-                }
+                // if((tgl7)>=(tglm) && userhr==0){
+                //     $('#postmessages').empty().append("<div class='alert alert-danger'>PERINGATAN MAKSIMAL TANGGAL CUTI H-7</div>");
+                //     $('#submit').prop('disabled', true);
+                // }else{
+                //     $('#postmessages').empty();
+                //     $('#submit').prop('disabled', false);
+                //
+                //
+                // }
 
                 ///$('#postmessages').empty();
                 ///$('#submit').prop('disabled', false);
