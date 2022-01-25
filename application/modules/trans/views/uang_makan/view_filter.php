@@ -65,6 +65,27 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-lg-3">Borong</label>
+                            <div class="col-lg-9">
+                                <select class="form-control input-sm" id="borong" name="borong" placeholder="--- BORONG ---" required>
+                                    <option value="" class=""></option>
+                                    <option value="t">YA</option>
+                                    <option value="f">TIDAK</option>
+                                </select>
+                                <script type="text/javascript">
+                                    $('#borong').selectize({
+                                        plugins: ['hide-arrow', 'selectable-placeholder'],
+                                        options: [],
+                                        create: false,
+                                        initData: true
+                                    }).on('change', function() {
+                                        changeCallplan();
+                                    });
+                                    $("#borong").addClass("selectize-hidden-accessible");
+                                </script>
+                            </div>
+                        </div>
+                        <div class="form-group callplan-form">
                             <label class="col-lg-3">Callplan</label>
                             <div class="col-lg-9">
                                 <select class="form-control input-sm" id="callplan" name="callplan" placeholder="--- CALLPLAN ---" required>
@@ -96,6 +117,17 @@
 </div>
 
 <script>
-    //Date range picker
     $('#tgl').daterangepicker();
+
+    function changeCallplan() {
+        if($('#borong').val() == "f") {
+            $('.callplan-form').show();
+            $('#callplan').prop('required', true);
+        } else {
+            $('.callplan-form').hide();
+            $('#callplan')[0].selectize.setValue("f");
+            $('#callplan').prop('required', false);
+        }
+    }
+    changeCallplan();
 </script>

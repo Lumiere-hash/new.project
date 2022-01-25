@@ -1633,6 +1633,6 @@
     $(document).ready(function() {
         setTimeout(function() {
             firstLoad = !firstLoad;
-        }, 2000);
+        }, 5000);
     });
 </script>

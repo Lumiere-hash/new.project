@@ -33,11 +33,13 @@ class Uang_makan extends MX_Controller {
         $data['title']="Laporan Absensi Uang Makan";
         $tgl=explode(' - ',$this->input->post('tgl'));
         $kdcabang=strtoupper(trim($this->input->post('kanwil')));
+        $borong=trim($this->input->post('borong'));
         $callplan=trim($this->input->post('callplan'));
         if (empty($tgl) or empty($kdcabang)) { redirect('trans/uang_makan'); }
         $awal=date( "Y-m-d", strtotime($tgl[0]) );
         $akhir=date( "Y-m-d", strtotime($tgl[1]) );
         $data['kdcabang']=$kdcabang;
+        $data['borong']=$borong;
         $data['callplan']=$callplan;
         $data['kanwil']=$this->m_uang_makan->q_kanwil()->result();
         $data['tgl']=$this->input->post('tgl');
@@ -54,7 +56,7 @@ class Uang_makan extends MX_Controller {
             $this->m_uang_makan->insert_rencana_kunjungan($host,$dbname,$userpg,$passpg,$awal,$akhir);
         }
         $this->db->query("select sc_tmp.pr_hitung_rekap_um('$kdcabang','$awal', '$akhir')");
-        $data['list_um'] = $this->m_uang_makan->q_uangmakan_regu($kdcabang, $awal, $akhir, $callplan)->result();
+        $data['list_um'] = $this->m_uang_makan->q_uangmakan_regu($kdcabang, $awal, $akhir, $callplan, $borong)->result();
         $this->db->trans_commit();
 
         $this->template->display('trans/uang_makan/view_absensi',$data);
@@ -63,6 +65,7 @@ class Uang_makan extends MX_Controller {
     function pdf(){
         $kdcabang=$this->input->post('kdcabang');
         $tgl=explode(' - ',$this->input->post('tgl'));
+        $borong=$this->input->post('borong');
         $callplan=$this->input->post('callplan');
         if (empty($tgl) or empty($kdcabang)) { redirect('trans/uang_makan'); }
         $tglawal = $tgl[0];
@@ -74,10 +77,10 @@ class Uang_makan extends MX_Controller {
         $data['kdcabang']=$kdcabang;
 
         $judul = $this->m_uang_makan->q_kanwil_dtl($kdcabang)->row_array();
-        $jdl = trim($judul['desc_cabang']) . ($callplan == "t" ? " (Callplan)" : "");
-        $data['cabang'] = trim($judul['desc_cabang']) . ($callplan == "t" ? " (Callplan)" : "");
+        $jdl = trim($judul['desc_cabang']) . ($borong == "t" ? " (Borong)" : ($callplan == "t" ? " (Callplan)" : ""));
+        $data['cabang'] = trim($judul['desc_cabang']) . ($borong == "t" ? " (Borong)" : ($callplan == "t" ? " (Callplan)" : ""));
         $data['callplan'] = $callplan;
-        $data['list_um']=$this->m_uang_makan->q_uangmakan_regu($kdcabang, $awal, $akhir, $callplan)->result();
+        $data['list_um']=$this->m_uang_makan->q_uangmakan_regu($kdcabang, $awal, $akhir, $callplan, $borong)->result();
 
         $this->pdf->load_view('trans/uang_makan/view_pdf', $data);
         $this->pdf->set_paper('A4','potrait');
@@ -103,13 +106,13 @@ class Uang_makan extends MX_Controller {
         $this->load->view("trans/uang_makan/sti_uangmakan",$data);
     }
 
-    public function excel_absensi($kdcabang, $awal, $akhir, $callplan) {
+    public function excel_absensi($kdcabang, $awal, $akhir, $borong, $callplan) {
         $judul = $this->m_uang_makan->q_kanwil_dtl($kdcabang)->row_array();
 
-        $jdl = trim($judul['desc_cabang']) . ($callplan == "t" ? " (Callplan)" : "");
+        $jdl = trim($judul['desc_cabang']) . ($borong == "t" ? " (Borong)" : ($callplan == "t" ? " (Callplan)" : ""));
         $tglawal = date("d-m-Y", strtotime($awal));
         $tglakhir = date("d-m-Y", strtotime($akhir));
-        $datane = $this->m_uang_makan->q_uangmakan_regu($kdcabang, $awal, $akhir, $callplan);
+        $datane = $this->m_uang_makan->q_uangmakan_regu($kdcabang, $awal, $akhir, $callplan, $borong);
         $this->excel_generator->set_query($datane);
         if($callplan == "t") {
             $this->excel_generator->set_header(array('NO', 'NIK', 'NAMA', 'DEPARTEMEN', 'JABATAN', 'TANGGAL', 'CHECKTIME', 'CALLPLAN', 'REALISASI','KETERANGAN', 'UANG MAKAN'));

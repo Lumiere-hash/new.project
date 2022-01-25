@@ -155,7 +155,7 @@ class M_uang_makan extends CI_Model{
 														group by nik,nmlengkap,nmdept,nmjabatan,tglhari,checktime,keterangan ) as x2) as a");
     }
 
-    function q_uangmakan_regu($kdcabang, $awal, $akhir, $callplan) {
+    function q_uangmakan_regu($kdcabang, $awal, $akhir, $callplan, $borong) {
         return $this->db->query("
             SELECT ROW_NUMBER() OVER () AS no, a.nik, a.tgl, CASE WHEN GROUPING(b.nmlengkap) = 0 THEN b.nmlengkap ELSE 'GRAND TOTAL UANG MAKAN' END AS nmlengkap, 
             b.callplan, c.nmdept, e.nmjabatan, TO_CHAR(a.tgl, 'TMDAY, DD-MM-YYYY') AS tglhari, a.checkin, a.checkout, 
@@ -166,13 +166,13 @@ class M_uang_makan extends CI_Model{
             CASE 
                 WHEN GROUPING(b.nmlengkap) = 0 AND GROUPING(keterangan) = 0 THEN keterangan 
                 WHEN GROUPING(b.nmlengkap) = 0 AND GROUPING(keterangan) = 1 THEN 'TOTAL' 
-            END AS keterangan, SUM(a.nominal) AS nominalrp, GROUPING(b.nmlengkap) AS group_nmlengkap, GROUPING(keterangan) AS group_keterangan
+            END AS keterangan, COALESCE(SUM(a.nominal), 0) AS nominalrp, GROUPING(b.nmlengkap) AS group_nmlengkap, GROUPING(keterangan) AS group_keterangan
             FROM sc_trx.uangmakan a 
             LEFT JOIN sc_mst.karyawan b ON a.nik = b.nik
             LEFT JOIN sc_mst.departmen c ON b.bag_dept = c.kddept 
             LEFT JOIN sc_mst.subdepartmen d ON b.bag_dept = d.kddept AND b.subbag_dept = d.kdsubdept 
             LEFT JOIN sc_mst.jabatan e ON b.bag_dept = e.kddept AND b.jabatan = e.kdjabatan AND b.subbag_dept = e.kdsubdept 
-            WHERE kdcabang = '$kdcabang' AND tgl::DATE BETWEEN '$awal' AND '$akhir' AND b.callplan = '$callplan'
+            WHERE kdcabang = '$kdcabang' AND tgl::DATE BETWEEN '$awal' AND '$akhir' AND b.callplan = '$callplan' AND b.tjborong = '$borong'
             GROUP BY GROUPING SETS (
                 (a.nik, a.tgl, b.nmlengkap, b.callplan, c.nmdept, e.nmjabatan, a.checkin, a.checkout, a.rencanacallplan, a.realisasicallplan, a.keterangan), 
                 (a.nik, b.nmlengkap), 

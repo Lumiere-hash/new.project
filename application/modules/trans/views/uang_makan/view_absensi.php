@@ -121,9 +121,10 @@
                     <a href="<?= site_url("trans/uang_makan") ?>" class="btn btn-default" style="margin: 5px;"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
                     <input type="hidden" name='kdcabang' value="<?= $kdcabang ?>">
                     <input type="hidden" name='tgl' value="<?= $tgl ?>">
+                    <input type="hidden" name='borong' value="<?= $borong ?>">
                     <input type="hidden" name='callplan' value="<?= $callplan ?>">
                     <button type="submit" class="btn btn-primary" style="margin: 5px"><i class="fa fa-file-pdf-o"></i>&nbsp; PDF</button>
-                    <a href="<?= site_url("trans/uang_makan/excel_absensi/$kdcabang/$tgl1/$tgl2/$callplan") ?>" class="btn btn-primary" style="margin: 5px;"><i class="fa fa-file-excel-o"></i>&nbsp; XLS</a>
+                    <a href="<?= site_url("trans/uang_makan/excel_absensi/$kdcabang/$tgl1/$tgl2/$borong/$callplan") ?>" class="btn btn-primary" style="margin: 5px;"><i class="fa fa-file-excel-o"></i>&nbsp; XLS</a>
                     <?php if($callplan == "t"): ?>
                         <a href="<?= site_url("trans/uang_makan/excel_realisasi/$kdcabang/$tgl1/$tgl2") ?>" class="btn btn-warning" style="margin: 5px;"><i class="fa fa-file-excel-o"></i>&nbsp; REALISASI XLS</a>
                     <?php endif; ?>
@@ -181,7 +182,7 @@
                                     </td>
                                 <?php endif; ?>
                                 <td><?= $v->keterangan ?></td>
-                                <td class="text-nowrap text-right"><?= $v->nominalrp ? number_format($v->nominalrp, '2', ',', '.') : null ?></td>
+                                <td class="text-nowrap text-right"><?= $v->nominalrp >= 0 ? number_format($v->nominalrp, '2', ',', '.') : null ?></td>
                             </tr>
                             <?php $i = $i + ($v->group_nmlengkap == 0 && $v->group_keterangan == 0 ? 1 : 0); ?>
                         <?php endforeach; ?>
@@ -255,6 +256,27 @@
                         </div>
                     </div>
                     <div class="form-group input-sm">
+                        <label class="col-lg-3">Borong</label>
+                        <div class="col-lg-9">
+                            <select class="form-control input-sm" id="borong" name="borong" placeholder="--- BORONG ---" required>
+                                <option value="" class=""></option>
+                                <option value="t">YA</option>
+                                <option value="f">TIDAK</option>
+                            </select>
+                            <script type="text/javascript">
+                                $('#borong').selectize({
+                                    plugins: ['hide-arrow', 'selectable-placeholder'],
+                                    options: [],
+                                    create: false,
+                                    initData: true
+                                }).on('change', function() {
+                                    changeCallplan();
+                                });
+                                $("#borong").addClass("selectize-hidden-accessible");
+                            </script>
+                        </div>
+                    </div>
+                    <div class="form-group input-sm callplan-form">
                         <label class="col-lg-3">Callplan</label>
                         <div class="col-lg-9">
                             <select class="form-control input-sm" id="callplan" name="callplan" placeholder="--- CALLPLAN ---" required>
@@ -376,6 +398,7 @@
     //Date range picker
     $('#tgl').daterangepicker();
     $('#kanwil')[0].selectize.setValue("<?= $kdcabang ?>");
+    $('#borong')[0].selectize.setValue("<?= $borong ?>");
     $('#callplan')[0].selectize.setValue("<?= $callplan ?>");
 
     function addRencana(data) {
@@ -395,4 +418,16 @@
 
         t_realisasi.ajax.reload();
     }
+
+    function changeCallplan() {
+        if($('#borong').val() == "f") {
+            $('.callplan-form').show();
+            $('#callplan').prop('required', true);
+        } else {
+            $('.callplan-form').hide();
+            $('#callplan')[0].selectize.setValue("f");
+            $('#callplan').prop('required', false);
+        }
+    }
+    changeCallplan();
 </script>
