@@ -793,7 +793,7 @@ class Import extends CI_Controller {
 	function e_csv_mstkaryawan(){
         /* CODE UNTUK VERSI*/
         $nama=trim($this->session->userdata('nik'));
-        $kodemenu='I.P.J.1'; $versirelease='I.P.J.1/ALPHA.001'; $releasedate=date('2019-04-12 00:00:00');
+        $kodemenu='I.P.G.4'; $versirelease='I.P.G.4/ALPHA.001'; $releasedate=date('2019-04-12 00:00:00');
         $versidb=$this->fiky_version->version($kodemenu,$versirelease,$releasedate,$nama);
         $x=$this->fiky_menu->menus($kodemenu,$versirelease,$releasedate);
         $data['x'] = $x['rows']; $data['y'] = $x['res']; $data['t'] = $x['xn'];
@@ -1018,14 +1018,6 @@ class Import extends CI_Controller {
                 $this->m_import->i_jobgrade($patch);
             } else if ($nodokdir=='PY0006'){
                 $this->m_import->i_m_grade_jabatan($patch);
-            } else if ($nodokdir=='PY0007'){
-                $this->m_import->i_m_wilayah($patch);
-            } else if ($nodokdir=='PY0008'){
-                $this->m_import->i_m_wilayah_nominal($patch);
-            } else if ($nodokdir=='PY0009'){
-                $this->m_import->i_jobgrade($patch);
-            } else if ($nodokdir=='PY0010'){
-                $this->m_import->i_m_grade_jabatan($patch);
             }
 		}
         $nama = trim($this->session->userdata('nik'));
@@ -1037,7 +1029,7 @@ class Import extends CI_Controller {
     function load_import_data(){
         /* CODE UNTUK VERSI*/
         $nama=trim($this->session->userdata('nik'));
-        $kodemenu='I.P.B.1'; $versirelease='I.P.B.1/ALPHA.001'; $releasedate=date('2019-04-12 00:00:00');
+        $kodemenu='I.P.G.3'; $versirelease='I.P.G.3/ALPHA.001'; $releasedate=date('2019-04-12 00:00:00');
         $versidb=$this->fiky_version->version($kodemenu,$versirelease,$releasedate,$nama);
         $x=$this->fiky_menu->menus($kodemenu,$versirelease,$releasedate);
         $data['x'] = $x['rows']; $data['y'] = $x['res']; $data['t'] = $x['xn'];

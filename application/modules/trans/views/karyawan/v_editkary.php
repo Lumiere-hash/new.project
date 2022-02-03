@@ -1069,6 +1069,10 @@
                                                                     nmgrade: data[i].nmgrade.trim()
                                                                 });
                                                             }
+                                                            $("#grade_golongan").prop('required', false);
+                                                            if(data.length > 0) {
+                                                                $("#grade_golongan").prop('required', true);
+                                                            }
                                                             if (firstLoad) {
                                                                 $('#grade_golongan')[0].selectize.setValue("<?= trim($dtl['grade_golongan']) ?>");
                                                             }
@@ -1084,7 +1088,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-3">Level Grade</label>
                                     <div class="col-sm-6">
-                                        <select class="form-control" id="grade_golongan" name="grade_golongan" placeholder="--- LEVEL GRADE ---" required>
+                                        <select class="form-control" id="grade_golongan" name="grade_golongan" placeholder="--- LEVEL GRADE ---">
                                             <option value="" class=""></option>
                                         </select>
                                         <script type="text/javascript">
