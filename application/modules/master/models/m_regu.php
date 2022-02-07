@@ -78,11 +78,31 @@ class M_regu extends CI_Model{
 			
 	}
 	
-	function q_cekdtlregu(){
-		return $this->db->query("select a.*,b.nmlengkap from sc_mst.regu_opr a
-								left outer join sc_mst.karyawan b on a.nik=b.nik
-								where (a.nik not in (select nik from sc_trx.dtljadwalkerja))");
+	function q_cekdtlregu() {
+		return $this->db->query("
+            SELECT a.*, b.nmlengkap
+            FROM sc_mst.regu_opr a
+            INNER JOIN sc_mst.karyawan b ON a.nik = b.nik
+            WHERE a.nik NOT IN (
+                SELECT DISTINCT nik 
+                FROM sc_trx.dtljadwalkerja
+            )
+        ");
 	}
+
+    function q_cekdtlregu_periode($periode) {
+        return $this->db->query("
+            SELECT a.*, b.nmlengkap
+            FROM sc_mst.regu_opr a
+            INNER JOIN sc_mst.karyawan b ON a.nik = b.nik
+            WHERE a.nik NOT IN (
+                SELECT DISTINCT nik 
+                FROM sc_trx.dtljadwalkerja
+                WHERE TO_CHAR(tgl, 'MM-YYYY') = '$periode'
+            ) AND COALESCE(b.statuskepegawaian, '') != 'KO' AND b.tglmasukkerja <= (DATE_TRUNC('MONTH', '01-$periode'::DATE) + INTERVAL '1 MONTH - 1 DAY')::DATE
+        ");
+    }
+
 	function q_cektmpregu($nama){
 		return $this->db->query("select a.*,b.nmlengkap from sc_tmp.regu_opr a
 								left outer join sc_mst.karyawan b on a.nik=b.nik
