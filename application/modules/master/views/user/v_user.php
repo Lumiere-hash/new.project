@@ -103,7 +103,7 @@
 							<div class="form-group">
 								<label class="col-sm-4">NIK | NAMA PEGAWAI</label>	
 								<div class="col-sm-8">
-									<input type="hidden" class="form-control input-sm-4" value="input" id="tipe" name="tipe" required>
+									<input type="hidden" class="form-control input-sm-4" value="input" id="tipe" name="tNipe" required>
 									<select class="form-control input-sm-4" id="nik" name="nik" class="col-sm-12">
 									<option value=""><?php echo '--PILIH KARYAWAN--';?></option>	
 										<?php

@@ -12,15 +12,13 @@ class Mailserver extends MX_Controller{
 
 
 		$this->load->model(array('m_mailserver'));
-        $this->load->library(array('form_validation','template','upload','encrypt','fiky_mailer'));
+        $this->load->library(array('form_validation','template','upload','encrypt','jagoan_mail'));
 
 		 if(!$this->session->userdata('nik')){
             redirect('dashboard');
         }
     }
 	function index(){
-
-
 		$nama=$this->session->userdata('nik');
 		$data['title']="Email Karyawan";
 
@@ -149,7 +147,7 @@ class Mailserver extends MX_Controller{
 		if($this->uri->segment(4)=="exist")
             $data['message']="<div class='alert alert-warning'>Kode Sudah Ada</div>";
         else if($this->uri->segment(4)=="rep_succes")
-            $data['message']="<div class='alert alert-success'>Kode Sukses Disimpan </div>";
+            $data['message']="<div class='alert alert-success'>Email terkirim </div>";
 		else if($this->uri->segment(4)=="del_succes")
             $data['message']="<div class='alert alert-success'>Delete Succes</div>";
 		else if($this->uri->segment(4)=="wrong_format")
@@ -189,29 +187,35 @@ class Mailserver extends MX_Controller{
 
 
 	function send_mail(){
-		$dari=$this->input->post('sender');
-		$penerima=$this->input->post('recipients');
-		$cc=$this->input->post('cc');
-		$bcc=$this->input->post('bcc');
-		$subject=$this->input->post('subject');
-		$textmail=$this->input->post('textmail');
-		$data='';
-			$this->email->from($dari, 'PT NUSANTARA BUILDING INDUSTRIES');
-			$this->email->to($penerima);
-			$this->email->cc($cc);
-			$this->email->bcc($bcc);
-			$this->email->subject($subject);
-            $this->email->set_mailtype("html");
+		$to             = $this->input->post('recipients');
+        $subject        = $this->input->post('subject');
+        $message        = $this->input->post('textmail');
+        $from_name      = 'PT NUSANTARA BUILDING INDUSTRIES';
+        $from           = $this->input->post('sender');
+		$cc             = $this->input->post('cc');
+		$bcc            = $this->input->post('bcc');
+        $this->jagoan_mail->send($to, $subject, $message, $from_name, $from, $cc, $bcc, 0);
+        redirect("mail/mailserver/index/rep_succes");
+		//$data='';
+
+        //$to, $subject, $message, $from_name, $from, $cc, $bcc, $debug = 0
+
+//        $this->email->from($dari, 'PT NUSANTARA BUILDING INDUSTRIES');
+//        $this->email->to($penerima);
+//        $this->email->cc($cc);
+//        $this->email->bcc($bcc);
+//        $this->email->subject($subject);
+            //$this->email->set_mailtype("html");
             //$this->email->message($this->load->view("leavesession/v_validator_mailer",$data, true));
             ///$this->email->message(file_get_contents(base_url('/gridview/grid_karkon')));
-            $this->email->message(file_get_contents(base_url('/validatorMailer/validate_links')));
+            //$this->email->message(file_get_contents(base_url('/validatorMailer/validate_links')));
 			//$this->email->message($textmail);
-		if ($this->email->send()) {
-            echo 'Email sent.';
-        } else {
-            show_error($this->email->print_debugger());
-        }
-		redirect("mail/mailserver/index/rep_succes");
+//		if ($this->email->send()) {
+//            echo 'Email sent.';
+//        } else {
+//            show_error($this->email->print_debugger());
+//        }
+
 
 
 	}
@@ -227,20 +231,26 @@ class Mailserver extends MX_Controller{
 				$penerima.=trim($lr->mail_sender).',';
 				}
 				$sender=$this->m_mailserver->q_smtp($no_dok)->row_array();
-				$dari=$sender['primarymail'];
-				$subject='TEST MAIL SENDER';
-
-					$this->email->from($dari, 'PT NUSANTARA BUILDING INDUSTRIES');
-					$this->email->to($penerima);
+				//$dari=$sender['primarymail'];
+				//$subject='TEST MAIL SENDER';
+                    $to             = $penerima;
+                    $from_name      = 'PT NUSANTARA BUILDING INDUSTRIES';
+                    $from           = $sender['primarymail'];
+                    $subject        = 'TEST MAIL SENDER';
+                    $message        = file_get_contents(base_url('/gridview/grid_karkon'));
+                    $this->jagoan_mail->send($to, $subject, $message, $from_name, $from, 0, 0, 0);
+					//$this->email->from($dari, 'PT NUSANTARA BUILDING INDUSTRIES');
+					//$this->email->to($penerima);
 					//$this->email->cc($cc);
 					//$this->email->bcc($bcc);
-					$this->email->subject($subject);
-					$this->email->message(file_get_contents(base_url('/gridview/grid_karkon')));
+					//$this->email->subject($subject);
+					//$this->email->message(file_get_contents(base_url('/gridview/grid_karkon')));
 
-				if ($this->email->send()) {
+				if ($this->jagoan_mail->send()) {
 						echo 'Email sent.';
 					} else {
-						show_error($this->email->print_debugger());
+                        echo 'Email not send';
+						//show_error($this->email->print_debugger());
 				}
 			redirect("mail/mailserver/index/send_success");
 
@@ -250,20 +260,26 @@ class Mailserver extends MX_Controller{
 				$penerima.=trim($lr->mail_sender).',';
 				}
 				$sender=$this->m_mailserver->q_smtp($no_dok)->row_array();
-				$dari=$sender['primarymail'];
-				$subject='TEST MAIL SENDER';
 
-					$this->email->from($dari, 'PT NUSANTARA BUILDING INDUSTRIES');
-					$this->email->to($penerima);
+                    $to             = $penerima;
+                    $from_name      = 'PT NUSANTARA BUILDING INDUSTRIES';
+                    $from           = $sender['primarymail'];
+                    $subject        = 'TEST MAIL SENDER';
+                    $message        = file_get_contents(base_url('/gridview/grid_karpen'));
+                    $this->jagoan_mail->send($to, $subject, $message, $from_name, $from, 0, 0, 0);
+
+					//$this->email->from($dari, 'PT NUSANTARA BUILDING INDUSTRIES');
+					//$this->email->to($penerima);
 					//$this->email->cc($cc);
 					//$this->email->bcc($bcc);
-					$this->email->subject($subject);
-					$this->email->message(file_get_contents(base_url('/gridview/grid_karpen')));
+					//$this->email->subject($subject);
+					//$this->email->message(file_get_contents(base_url('/gridview/grid_karpen')));
 
-				if ($this->email->send()) {
+				if ($this->jagoan_mail->send()) {
 						echo 'Email sent.';
 					} else {
-						show_error($this->email->print_debugger());
+                        echo 'Email not send';
+						//show_error($this->email->print_debugger());
 				}
 			redirect("mail/mailserver/index/send_success");
 		}
@@ -303,22 +319,30 @@ class Mailserver extends MX_Controller{
 
     function send_mail_x(){
         $dari='noreply_nusa@nusaboard.co.id';
-        $penerima='ikangurame3@gmail.com';
+        $penerima='itsbombking@gmail.com';
         //$penerima='ikangurame3@gmail.com,gilrandyseptiansyah@gmail.com,jerryhadityawan@gmail.com';
         //$cc=$this->input->post('');
         //$bcc=$this->input->post('');
-        $subject='TEST SLIP GAJI';
+        //$subject='TEST SLIP GAJI';
 
-        $this->email->from($dari, 'PT NUSA UNGGUL SARANA ADICIPTA');
-        $this->email->to($penerima);
-        $this->email->cc();
-        $this->email->bcc();
-        $this->email->subject($subject);
-        $this->email->message(file_get_contents(base_url('/validatorMailer/validate_links')));
-        if ($this->email->send()) {
+        $to             = $penerima;
+        $from_name      = 'PT NUSANTARA BUILDING INDUSTRIES';
+        $from           = $dari;
+        $subject        = 'TEST SLIP GAJI';
+        $message        = file_get_contents(base_url('/validatorMailer/validate_links'));
+        $this->jagoan_mail->send($to, $subject, $message, $from_name, $from, 0, 0, 0);
+
+//        $this->email->from($dari, 'PT NUSA UNGGUL SARANA ADICIPTA');
+//        $this->email->to($penerima);
+//        $this->email->cc();
+//        $this->email->bcc();
+//        $this->email->subject($subject);
+//        $this->email->message(file_get_contents(base_url('/validatorMailer/validate_links')));
+        if ($this->jagoan_mail->send()) {
             echo 'Email sent.';
         } else {
-            show_error($this->email->print_debugger());
+            echo 'Email not sent.';
+            //show_error($this->email->print_debugger());
         }
 
 

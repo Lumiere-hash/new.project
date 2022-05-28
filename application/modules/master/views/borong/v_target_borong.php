@@ -24,7 +24,7 @@
                     <div class="col-xs-12">
 						<div class="box">
 							<div class="box-header">
-					   <button class="btn btn-primary" data-toggle="modal" data-target="#myModal1" style="margin:10px"><i class="glyphicon glyphicon-plus"></i> INPUT</a>
+					   <a class="btn btn-primary" data-toggle="modal" data-target="#myModal1" style="margin:10px"><i class="glyphicon glyphicon-plus"></i> INPUT</a>
 					</div><!-- /.box-header -->	
                             <div class="box-body">
 								<div class="box-body table-responsive" style='overflow-x:scroll;'>
@@ -123,7 +123,7 @@
 				<div class="col-sm-12">
 						<select class="form-control input-sm" name="kdsub_borong" id="kdsub_borong">
 						  <?php foreach($list_sub_borong as $listkan){?>
-						  <option value="<?php echo trim($listkan->kdsub_borong);?>" class="<?php echo trim($listkan->kdborong);?>" ><?php echo $listkan->nmsub_borong;?></option>						  
+						  <option value="<?php echo trim($listkan->kdsub_borong);?>" class="<?php echo trim($listkan->kdborong);?>" ><?php echo $listkan->nmsub_borong;?></option>
 						  <?php }?>
 					</select>
 				</div>
@@ -132,7 +132,7 @@
 				 <label class="col-sm-12">Periode Tahun</label>
 				<div class="col-sm-12">
 					<select class="form-control input-sm" name="periode" id="kotakab">
-										<option value="2014" >2014</option>	
+										<option value="2014" >2014</option>
 										<option value="2015" >2015</option>
 										<option value="2016" >2016</option>
 										<option value="2017" >2017</option>

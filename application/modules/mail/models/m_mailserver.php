@@ -31,5 +31,9 @@ class M_mailserver extends CI_Model{
 	function q_smtp($no_dok){
 		return $this->db->query("select * from sc_mst.setup_mail_smtp where no_dok='$no_dok'");
 	}
+
+    function q_base_url_email(){
+        return $this->db->query("select value1 from sc_mst.option where kdoption='BUE'");
+    }
 	
 }	

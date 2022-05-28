@@ -153,7 +153,8 @@ class ValidatorMailer extends CI_Controller{
             $mailbcc = '';
             $mailsubject ='Notifikasi Persetujuan: '.trim($lr->doctypename);
             $mailtype = 'html';
-
+            $q_bue = $this->m_mailserver->q_base_url_email()->row_array();
+            $data_bue=strtolower($q_bue['value1']);
             $mailmessage ='';
             $mailmessage.= '
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -283,7 +284,7 @@ a { color: inherit; }
         <tr>
           <td valign="top" align="center"><table width="100%" cellspacing="0" cellpadding="0" border="0" align="center">
               <tbody><tr>
-                   <td valign="top" align="center"><img class="em_img" style="display:block; font-family:Arial, sans-serif; font-size:30px; line-height:34px; color:#000000; max-width:700px;" src="http://hrd.nusaboard.co.id:7070/hrdnew/assets/img/mail_template/image/approval_mgmt/header3.png" width="700" border="0" height="180"></td>
+                   <td valign="top" align="center"><img class="em_img" style="display:block; font-family:Arial, sans-serif; font-size:30px; line-height:34px; color:#000000; max-width:700px;" src="'.$data_bue.'assets/img/mail_template/image/approval_mgmt/header3.png'.'" width="700" border="0" height="180"></td>
               </tr>
             </tbody></table></td>
         </tr>
@@ -458,10 +459,10 @@ a { color: inherit; }
                 ';
                 if (trim($lr->status)=='U') {
                     //$mailmessage.= '<td style="font-family:Times; font-size:25px; line-height:30px; color:#09d92e;" valign="top" align="left"><strong><b>Telah Disetujui </b></strong></td>';
-                    $mailmessage.= '<td align="center"><img class="em_img" style="display:block; font-family:Arial, sans-serif; font-size:30px; line-height:34px; color:#000000; max-width:300px;" src="http://hrd.nusaboard.co.id:7070/hrdnew/assets/img/mail_template/image/approval_mgmt/disetujui.png" width="300" border="0" height="50"></td>';
+                    $mailmessage.= '<td align="center"><img class="em_img" style="display:block; font-family:Arial, sans-serif; font-size:30px; line-height:34px; color:#000000; max-width:300px;" src="'.$data_bue.'assets/img/mail_template/image/approval_mgmt/disetujui.png" width="300" border="0" height="50"></td>';
 				} else {
                     //$mailmessage .= '<td style="font-family:Times; font-size:25px; line-height:30px; color:#ff0000;" valign="top" align="left"><strong><b>Telah Ditolak </b></strong></td>';
-                    $mailmessage .= '<td align="center"><img class="em_img" style="display:block; font-family:Arial, sans-serif; font-size:30px; line-height:34px; color:#000000; max-width:300px;" src="http://hrd.nusaboard.co.id:7070/hrdnew/assets/img/mail_template/image/approval_mgmt/ditolak.png" width="300" border="0" height="50"></td>';
+                    $mailmessage .= '<td align="center"><img class="em_img" style="display:block; font-family:Arial, sans-serif; font-size:30px; line-height:34px; color:#000000; max-width:300px;" src="'.$data_bue.'assets/img/mail_template/image/approval_mgmt/ditolak.png" width="300" border="0" height="50"></td>';
                 }
 
                 $mailmessage.= '
@@ -504,11 +505,11 @@ a { color: inherit; }
               <tbody><tr>
                 <td style="padding-bottom:16px;" valign="top" align="center"><table cellspacing="0" cellpadding="0" border="0" align="center">
                     <tbody><tr>
-                      <td valign="top" align="center"><a href="#" target="_blank" style="text-decoration:none;"><img src="http://hrd.nusaboard.co.id:7070/hrdnew/assets/img/mail_template/icon/browser.png" alt="yt" style="display:block; font-family:Arial, sans-serif; font-size:12px; line-height:14px; color:#ffffff; max-width:26px;" width="26" border="0" height="26">nusaboard.co.id</a></td>
+                      <td valign="top" align="center"><a href="#" target="_blank" style="text-decoration:none;"><img src="'.$data_bue.'assets/img/mail_template/icon/browser.png" alt="yt" style="display:block; font-family:Arial, sans-serif; font-size:12px; line-height:14px; color:#ffffff; max-width:26px;" width="26" border="0" height="26">nusaboard.co.id</a></td>
 					  <td style="width:6px;" width="6">&nbsp;</td>
-                      <td valign="top" align="center"><a href="#" target="_blank" style="text-decoration:none;"><img src="http://hrd.nusaboard.co.id:7070/hrdnew/assets/img/mail_template/icon/fb.png" alt="fb" style="display:block; font-family:Arial, sans-serif; font-size:12px; line-height:14px; color:#ffffff; max-width:26px;" width="26" border="0" height="26"> Nusaboard </a></td>
+                      <td valign="top" align="center"><a href="#" target="_blank" style="text-decoration:none;"><img src="'.$data_bue.'assets/img/mail_template/icon/fb.png" alt="fb" style="display:block; font-family:Arial, sans-serif; font-size:12px; line-height:14px; color:#ffffff; max-width:26px;" width="26" border="0" height="26"> Nusaboard </a></td>
                       <td style="width:6px;" width="6">&nbsp;</td>
-                      <td valign="top" align="center"><a href="#" target="_blank" style="text-decoration:none;"><img src="http://hrd.nusaboard.co.id:7070/hrdnew/assets/img/mail_template/icon/ig.png" alt="tw" style="display:block; font-family:Arial, sans-serif; font-size:12px; line-height:14px; color:#ffffff; max-width:27px;" width="27" border="0" height="26"> @nusaboard.co.id </a></td>
+                      <td valign="top" align="center"><a href="#" target="_blank" style="text-decoration:none;"><img src="'.$data_bue.'assets/img/mail_template/icon/ig.png" alt="tw" style="display:block; font-family:Arial, sans-serif; font-size:12px; line-height:14px; color:#ffffff; max-width:27px;" width="27" border="0" height="26"> @nusaboard.co.id </a></td>
                       <td style="width:6px;" width="6">&nbsp;</td>
                     </tr>
                   </tbody></table></td>

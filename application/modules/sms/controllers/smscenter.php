@@ -19,7 +19,6 @@ class Smscenter extends MX_Controller{
         }
     }
  function index(){
-
 		$data['title']="SMS HRD";		
 		$data['title1']="List Inbox SMS HRD";
 		$data['title2']="List Sent Item SMS HRD";		

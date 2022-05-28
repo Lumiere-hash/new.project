@@ -3,7 +3,7 @@
 	@author : Fiky Ashariza
 	01-01-2017
 */
-error_reporting(0);
+//error_reporting(0);
 
 class Finger extends MX_Controller{
     
@@ -34,7 +34,7 @@ class Finger extends MX_Controller{
 		$data['list_finger']=$this->m_finger->q_finger()->result();
 		$data['list_wil']=$this->m_finger->q_listwilayah()->result();
 		$data['list_editwil']=$this->m_finger->q_listwilayahdtl($kdcabang)->row_array();
-		$data['list_userfinger']=$this->m_finger->q_userfinger()->result();
+		$data['list_userfinger']=$this->m_finger->list_userfinger()->result();
         $this->template->display('master/finger/view_finger',$data);
     }
 	

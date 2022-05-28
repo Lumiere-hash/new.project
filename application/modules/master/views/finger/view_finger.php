@@ -24,7 +24,7 @@
 <div class="nav-tabs-custom">
 	<ul class="nav nav-tabs">					
 		<li class="active"><a href="#tab_1" data-toggle="tab">Master Finger Print</a></li>
-		<li><a href="#tab_2" data-toggle="tab">User Finger Karyawan</a></li>		
+<!--		<li><a href="#tab_2" data-toggle="tab">User Finger Karyawan</a></li>		-->
 	</ul>
 </div>	
 <div class="tab-content">

@@ -71,6 +71,8 @@ class M_smscenter extends CI_Model{
 		
 	}
 
+
+
 	function q_list_trash_inbox($tgl){
 		$q='select * from
 			(select id,no_pengirim,

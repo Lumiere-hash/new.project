@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/payroll/controllers/ceklembur.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/payroll/controllers/ceklembur.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/payroll/views/import/v_load_import_data.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/payroll/views/import/v_load_import_data.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1628482594.9185.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1628482603.3766.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/migration/20210809.Export-Import-Rev/20210809.00.Jadwal-Kerja.sql" beforeDir="false" afterPath="$PROJECT_DIR$/migration/20210809.Export-Import-Rev/20210809.00.Import.sql" afterDir="false" />
-    </list>
+    <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -77,9 +69,6 @@
       </path>
     </expand>
     <select />
-  </component>
-  <component name="FavoritesManager">
-    <favorites_list name="hrdnew" />
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -230,6 +219,9 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths>
       <path value="$PROJECT_DIR$/assets/css/bootstrap-datetimepicker-master/bootstrap-datetimepicker-master/package.json" />
@@ -326,26 +318,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="DatabaseDriversLRU" value="postgresql&#10;sqlite" />
-    <property name="SearchEverywhereHistoryKey" value="adminlte.c&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/assets/dist/css/AdminLTE.css&#10;.userpanel&#9;null&#9;null&#10;templ&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/views/template.php&#10;m_imp&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/models/m_import.php&#10;impor&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/controllers/import.php&#10;defau&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/libraries/default_style.php&#10;fiky_&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/libraries/fiky_encryption.php&#10;m_master&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/models/m_master.php&#10;web/&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/web/views/web&#10;v_detaip&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/views/detail/v_detail.php&#10;inputpdc&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/pdca/views/pdca/v_input_pdca_tmp.php&#10;pdca&#9;null&#9;null&#10;v_master_wilayah_salary&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/views/master/v_master_wilayah_salary.php&#10;payroll/master&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/controllers/master.php&#10;defa&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/libraries/default_style.php&#10;tetap/v&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/views/tetap/v_input.php&#10;tetap&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/controllers/tetap.php&#10;detai_pa&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/controllers/detail_payroll.php&#10;v_im&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/views/import/v_importcsv.php&#10;templat&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/views/template.php&#10;instoc&#9;null&#9;null&#10;payroll/imp&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/controllers/import.php&#10;lockin&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/controllers/lockingmode.php&#10;index&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/web/views/web/index.php&#10;web&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/web/controllers/web.php&#10;fiky_encryption&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/libraries/fiky_encryption.php&#10;payroll/ce&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/controllers/ceklembur.php&#10;template&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/views/template.php&#10;fiky_wil&#9;null&#9;null&#10;wilayah&#9;null&#9;null&#10;v_editka&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/trans/views/karyawan/v_editkary.php&#10;m_karyaw&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/trans/models/m_karyawan.php&#10;trans/karyawan/v_detailhrdkary&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/trans/views/karyawan/v_detailhrdkary.php&#10;M_KARYAW&#9;null&#9;null&#10;karya&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/trans/controllers/karyawan.php&#10;v&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/views/master/v_master_wilayah_salary.php&#10;v_kar&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/trans/views/karyawan/v_karyawan.php&#10;config/database&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/config/database.php&#10;bantuan&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/bantuan&#10;master&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/controllers/master.php&#10;config/config&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/config/config.php&#10;fiky&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/libraries/fiky_encryption.php&#10;m_menu&#9;null&#9;null&#10;m_me&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/models/m_menu.php&#10;m_akses&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/master/models/m_akses.php&#10;views/temp&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/views/template.php&#10;/web/index.php&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/web/views/web/index.php&#10;m_user&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/web/models/m_user.php&#10;v_harap&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/views/detail/v_harap_tunggu.php&#10;gene&#9;FILE&#9;file://D:/WAPP/apache2/htdocs/hrdnew/application/modules/payroll/controllers/generate.php" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="com.intellij.database.dataSource.DataSourceTemplate" value="PostgreSQL" />
-    <property name="database.console.LAST_STATE" value="true" />
-    <property name="database.data.extractors.current.id" value="SQL-Insert-Statements.sql.groovy" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/migration/20210809.Export-Import-Rev" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
-    <property name="ts.external.directory.path" value="D:\JetBrains\apps\PhpStorm\ch-0\203.7148.74\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
-    <property name="vue.rearranger.settings.migration" value="true" />
-  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/PROJECT/hrms.nusa/application/libraries&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
+    ]
+  }
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\PROJECT\hrms.nusa\application\libraries" />
+      <recent name="D:\PROJECT\hrms.nusa" />
       <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\migration\20210809.Export-Import-Rev" />
       <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\migration" />
       <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\migration\20210728.User" />
-      <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\migration\20210723.Karyawan" />
-      <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\assets" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\migration\20210610.Job-Grade" />
@@ -636,6 +630,24 @@
       <workItem from="1628039689044" duration="381000" />
       <workItem from="1628482542083" duration="2890000" />
       <workItem from="1628562223414" duration="7375000" />
+      <workItem from="1652071609947" duration="2292000" />
+      <workItem from="1652077307490" duration="158000" />
+      <workItem from="1652077629615" duration="8035000" />
+      <workItem from="1652145510872" duration="1248000" />
+      <workItem from="1652146792916" duration="253000" />
+      <workItem from="1652147065145" duration="15460000" />
+      <workItem from="1652750039103" duration="22469000" />
+      <workItem from="1652837020531" duration="23966000" />
+      <workItem from="1652922834944" duration="7344000" />
+      <workItem from="1652930833982" duration="17416000" />
+      <workItem from="1653009612712" duration="16623000" />
+      <workItem from="1653095592350" duration="89000" />
+      <workItem from="1653095745985" duration="13874000" />
+      <workItem from="1653267959791" duration="22348000" />
+      <workItem from="1653354700407" duration="20909000" />
+      <workItem from="1653441703900" duration="19133000" />
+      <workItem from="1653613599993" duration="19079000" />
+      <workItem from="1653700061999" duration="2346000" />
     </task>
     <servers />
   </component>
@@ -700,6 +712,10 @@
     <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
       <collection />
     </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/application/libraries/ecopos_php/src/Mike42/Escpos/Printer.php">

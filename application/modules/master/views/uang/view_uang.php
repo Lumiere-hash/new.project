@@ -24,7 +24,7 @@
 <div class="nav-tabs-custom">
 	<ul class="nav nav-tabs">					
 		<li class="active"><a href="#tab_1" data-toggle="tab">Uang Makan</a></li>
-		<li><a href="#tab_2" data-toggle="tab">Uang Makan Kantin</a></li>		
+		<li><a href="#tab_2" data-toggle="tab">Uang Makan Kantin</a></li>
 	</ul>
 </div>	
 <div class="tab-content">

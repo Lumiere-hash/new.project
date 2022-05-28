@@ -89,7 +89,6 @@ class Formula extends MX_Controller{
 			//$this->db->insert('sc_mst.detail_formula',$detail);
 		
 		} else {
-		
 			$this->db->insert('sc_mst.detail_formula',$detail);
 		}
 		

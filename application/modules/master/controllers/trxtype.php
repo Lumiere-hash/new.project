@@ -6,7 +6,7 @@ class Trxtype extends MX_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('m_trxtype','person');
+		$this->load->model(array('m_trxtype'));
 		$this->load->library(array('form_validation','template','upload','pdf'));   
 		
 		if(!$this->session->userdata('nik')){
@@ -23,7 +23,7 @@ class Trxtype extends MX_Controller {
 
 	public function ajax_list()
 	{
-		$list = $this->person->get_datatables();
+		$list = $this->m_trxtype->get_datatables();
 		$data = array();
 		$no = $_POST['start'];
 		foreach ($list as $person) {
@@ -43,17 +43,18 @@ class Trxtype extends MX_Controller {
 
 		$output = array(
 						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->person->count_all(),
-						"recordsFiltered" => $this->person->count_filtered(),
+						"recordsTotal" => $this->m_trxtype->count_all(),
+						"recordsFiltered" => $this->m_trxtype->count_filtered(),
 						"data" => $data,
 				);
 		//output to json format
+        header('Content-Type: application/json; charset=utf-8');//view serializing json in browser
 		echo json_encode($output);
 	}
 
 	public function ajax_edit($id)
 	{
-		$data = $this->person->get_by_id($id);
+		$data = $this->m_trxtype->get_by_id($id);
 		echo json_encode($data);
 	}
 
@@ -64,7 +65,7 @@ class Trxtype extends MX_Controller {
 				'jenistrx' => strtoupper($this->input->post('jenistrx')),
 				'uraian' => strtoupper($this->input->post('uraian')),
 			);
-		$insert = $this->person->save($data);
+		$insert = $this->m_trxtype->save($data);
 		echo json_encode(array("status" => TRUE));
 	}
 
@@ -75,13 +76,13 @@ class Trxtype extends MX_Controller {
 				'jenistrx' => $this->input->post('jenistrx'),
 				'uraian' => $this->input->post('uraian'),
 			);
-		$this->person->update(array('kdtrx' => $this->input->post('kdtrx')), $data);
+		$this->m_trxtype->update(array('kdtrx' => $this->input->post('kdtrx')), $data);
 		echo json_encode(array("status" => TRUE));
 	}
 
 	public function ajax_delete($id)
 	{
-		$this->person->delete_by_id($id);
+		$this->m_trxtype->delete_by_id($id);
 		echo json_encode(array("status" => TRUE));
 	}
 

@@ -222,6 +222,7 @@ class Borong extends MX_Controller{
 		
 		$data['list_borong']=$this->m_borong->q_borong()->result();
 		$data['list_sub_borong']=$this->m_borong->q_sub_borong()->result();
+        //var_dump($data['list_sub_borong']);die();
 		$data['list_target_borong']=$this->m_borong->q_target_borong()->result();
         $this->template->display('master/borong/v_target_borong',$data);
 	
