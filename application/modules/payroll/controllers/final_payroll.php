@@ -11,7 +11,7 @@ class Final_payroll extends MX_Controller{
 
 		$this->load->model(array('m_final','m_generate'));
 //        $this->load->library(array('form_validation','template','upload','pdf','Excel_generator','Fiky_version','Fiky_string','Fiky_menu','Fiky_encryption','Fiky_mailer','fiky_pdf','fiky_pdf_mpdf_extension'));
-        $this->load->library(array('form_validation','template','upload','pdf','Excel_generator','Fiky_version','Fiky_string','Fiky_menu','Fiky_encryption','Fiky_mailer','fiky_pdf'));
+        $this->load->library(array('form_validation','template','upload','pdf','Excel_generator','Fiky_version','Fiky_string','Fiky_menu','Fiky_encryption','Fiky_mailer','fiky_pdf','jagoan_mail'));
 		 if(!$this->session->userdata('nik')){
             redirect('dashboard');
         }
@@ -36,13 +36,6 @@ class Final_payroll extends MX_Controller{
         else
             $data['message']='';
 
-		//$thn=$this->input->post('tahun');
-		//$bln=$this->input->post('bulan');
-		//$nik=$this->input->post('nik');
-
-		//$data['list_gp']=$this->m_detail->q_gaji_pokok($nik)->result();
-
-		//$data['list_karyawan']=$this->m_detail->list_karyawan()->result();
 
 		$data['list_rekap']=$this->m_final->list_rekap($nodok)->result();
         $this->template->display('payroll/final/v_utama',$data);
@@ -68,13 +61,6 @@ class Final_payroll extends MX_Controller{
         else
             $data['message']='';
 
-		//$thn=$this->input->post('tahun');
-		//$bln=$this->input->post('bulan');
-		//$nik=$this->input->post('nik');
-
-		//$data['list_gp']=$this->m_detail->q_gaji_pokok($nik)->result();
-
-		//$data['list_karyawan']=$this->m_detail->list_karyawan()->result();
 
 		$data['list_rekap']=$this->m_final->list_rekap_pph($nodok)->result();
         $this->template->display('payroll/final/v_utama_pph',$data);
@@ -100,8 +86,6 @@ class Final_payroll extends MX_Controller{
         else
             $data['message']='';
 		$data['title']="Halaman Master PPH (Setahun)";
-		//$data['list_group']=$this->m_generate->q_group_penggajian()->result();
-		//$data['list_dept']=$this->m_generate->q_departmen()->result();
 		$data['list_karyawan']=$this->m_final->list_karyawan()->result();
 		$this->template->display('payroll/final/v_utama_setahun',$data);
 	}
@@ -128,10 +112,6 @@ class Final_payroll extends MX_Controller{
 		$data['list_master']=$this->m_final->list_master($nodok)->result();
 		$data['list_rekap']=$this->m_final->list_rekap($nodok)->result();
 		$data['nodok']=$nodok;
-		//$karyawan=$this->m_detail->list_karyawan_detail($nik)->row_array();
-		//$nama=$karyawan['nmlengkap'];
-		//$data['nama']=$nama;
-		//$data['nik']=$nik;
 
 		$this->template->display('payroll/final/v_list',$data);
 
@@ -159,10 +139,6 @@ class Final_payroll extends MX_Controller{
 		$data['list_master']=$this->m_final->list_master_pph($nodok)->result();
 		$data['list_rekap']=$this->m_final->list_rekap_pph($nodok)->result();
 		$data['nodok']=$nodok;
-		//$karyawan=$this->m_detail->list_karyawan_detail($nik)->row_array();
-		//$nama=$karyawan['nmlengkap'];
-		//$data['nama']=$nama;
-		//$data['nik']=$nik;
 
 		$this->template->display('payroll/final/v_list_pph',$data);
 
@@ -542,25 +518,6 @@ class Final_payroll extends MX_Controller{
 		$this->db->where('nodok',$nodok);
 		$this->db->update('sc_trx.payroll_rekap',$info);
 
-/*		$this->db->query("insert into sc_tmp.payroll_rekap
-						  select * from sc_trx.payroll_rekap where nodok='$nodok'");
-		$this->db->query("insert into sc_tmp.payroll_master
-						select * from sc_trx.payroll_master where nodok='$nodok'
-						");
-		$this->db->query("insert into sc_tmp.payroll_detail
-						select * from sc_trx.payroll_detail where nodok='$nodok'
-						");
-
-		$this->db->query("update sc_tmp.payroll_rekap set nodok='$user',status='I' where nodok='$nodok'");
-		$this->db->query("update sc_tmp.payroll_master set nodok='$user' where nodok='$nodok'");
-		$this->db->query("update sc_tmp.payroll_detail set nodok='$user' where nodok='$nodok'");
-		$this->db->query("delete from sc_trx.payroll_rekap where nodok='$nodok'");
-		$this->db->query("delete from sc_trx.payroll_master where nodok='$nodok'");
-		$this->db->query("delete from sc_trx.payroll_detail where nodok='$nodok'");
-		$this->db->query("delete from sc_trx.p21_rekap where nodok='$nodokpph'");
-		$this->db->query("delete from sc_trx.p21_master where nodok='$nodokpph'");
-		$this->db->query("delete from sc_trx.p21_detail where nodok='$nodokpph'");	 */
-
         $enc_kdgroup_pg = $this->fiky_encryption->enkript($kdgroup_pg);
         $enc_kddept = $this->fiky_encryption->enkript($kddept);
         $enc_periode = $this->fiky_encryption->enkript($periode);
@@ -624,30 +581,6 @@ class Final_payroll extends MX_Controller{
 		$data['list_trxrekap1721']=$this->m_final->q_1721rekaptrx($tahun,$kdgroup_pg)->result();
 		$this->template->display("payroll/final/v_lihattrx1721",$data);
 	}
-/*
-	function lihattmp_p1721($tahun,$kddept1,$nodoktemp,$kdgroup_pg){
-		$data['title']="REKAP PER DIVISI REPORT P1721 TAHUN $tahun";
-		if($this->uri->segment(4)=="kode_failed")
-            $message="<div class='alert alert-danger'>Anda Tidak Berhak Approval Dokumen Ini</div>";
-        else if($this->uri->segment(9)=="rep_succes")
-			$message="<div class='alert alert-success'>Dokumen Sukses Disimpan </div>";
-		else if($this->uri->segment(4)=="del_succes")
-            $message="<div class='alert alert-success'>Delete Succes</div>";
-		else if($this->uri->segment(4)=="app_succes")
-            $message="<div onload='app_succes'></div>";
-		else if($this->uri->segment(5)=="cancel_succes")
-            $message="<div class='alert alert-danger'>Dokumen Tidak Berhasil Diubah</div>";
-		else if($this->uri->segment(9)=="edit_succes")
-            $message="<div class='alert alert-danger'>Data Berhasil Diubah</div>";
-        else
-            $message='';
-		$data['tahun']=$tahun;$data['kddept']=$kddept1;$data['kdgroup_pg']=$kdgroup_pg;
-		$kddept="and kddept='$kddept1'";
-		$data['list_tmprekap1721']=$this->m_final->q_1721rekaptmp($nodoktemp,$kddept,$tahun,$kdgroup_pg)->result();
-		$this->template->display("payroll/generate/v_lihattmp1721",$data);
-	}
-
-*/
 
 	function detail_1721($tahun,$kddept,$kdgroup_pg){
 		$data['title']="DETAIL REKAP TAHUNAN REPORT P1721 TAHUN $tahun";
@@ -683,76 +616,13 @@ class Final_payroll extends MX_Controller{
 
 
 	}
-/*
-	function simpan_edit1721(){
-		$nik=$this->input->post('nik');
-		$kddept=$this->input->post('kddept');
-		$kdgroup_pg=$this->input->post('kdgroup_pg');
-		$no_urut=$this->input->post('no_urut');
-		$tahun=$this->input->post('tahun');
-		$nominal=str_replace("_","",$this->input->post('nominal'));
-		$info=array( 'nominal' => $nominal
-		);
-		$this->db->where('nik',$nik);
-		$this->db->where('no_urut',$no_urut);
-		$this->db->update('sc_tmp.p1721_detail',$info);
-
-		$this->edit_nik1721($tahun,$nik,$kddept,$kdgroup_pg);
-	}
-
-	function final_1721($tahun,$kddept1,$kdgroup_pg){
-		$nik=$this->session->userdata('nik');
-		$nodoktemp=$nik;
-		$kddept="and kddept='$kddept1'";
-		$cek_nodok=$this->m_final->q_1721rekaptmp($nodoktemp,$kddept,$tahun,$kdgroup_pg)->num_rows();
-	if($cek_nodok=1){
-				$this->db->where('kddept',$kddept1);
-				$this->db->where('grouppenggajian',$kdgroup_pg);
-				$this->db->where('nodok',$nodoktemp);
-				$this->db->set('status','P');
-				$this->db->update('sc_tmp.p1721_rekap');
-		$this->lihattmp_p1721($tahun,$kddept1,$nodoktemp,$kdgroup_pg);
-		}else{
-			redirect("payroll/generate/lihattmp_p1721/$tahun/$kddept1/$nodoktemp/$kdgroup_pg/kode_failed");
-		}
-
-
-
-
-
-	}
-
-*/
 
 
 	function template_form1721($nik,$kddept,$kdgroup_pg){
 
 		$data['dtl_pph']=$this->m_final->q_1721nik($nik,$kddept,$kdgroup_pg)->row_array();
 		$data['dtl_kar']=$this->m_final->q_dtl_kary($nik,$kddept,$kdgroup_pg)->row_array();
-
-
-	//$json_data1=$this->m_final->q_1721nik($nik,$kddept,$kdgroup_pg)->result();
-	//$json_data2=$this->m_final->q_dtl_kary($nik,$kddept,$kdgroup_pg)->result();
-	//header('Content-Type: application/json');
-
-
-	//echo json_encode(array('master'=>$json_data1,'detail'=>$json_data2),JSON_PRETTY_PRINT);
-
-	//$get_kontent=file_get_contents("http://php.net/manual/en/function.file-get-contents.php");
-
-	//$get_kontent=file_get_contents(base_url("/gridview/view_1721pdf/$nik/$kddept/$kdgroup_pg"));
-	//$this->load->view($get_kontent);
-//	$this->pdf->load_view($get_kontent);
-	////	$this->pdf->load_view("payroll/generate/v_form_1721_pdf",$data);
-	//$this->pdf->load_view("payroll/final/testpdf",$data);
-	//$this->pdf->set_paper('A4','potrait');
-	//$this->pdf->render();
-	//$this->pdf->stream(" $nik $kddept hingga $kdgroup_pg.pdf");
-
-
-	//$this->fiky_string->coba();
-	//$this->load->view("payroll/final/testpdf",$data);
-	$this->load->view("payroll/final/v_form_1721_pdf",$data);
+        $this->load->view("payroll/final/v_form_1721_pdf",$data);
 	}
 
 
@@ -778,7 +648,7 @@ class Final_payroll extends MX_Controller{
         $nodok = $this->input->post('nodok');
         $nik = $this->input->post('nik');
         $email = $this->input->post('email');
-	    $param = " and nik in ('$nik')";
+        $param = " and nik in ('$nik')";
         $capture_on_loop = $this->m_final->q_capture_employees_for_mail($param)->result();
         $branch = $this->m_final->q_mstbranch($param_branch = null)->row_array();
         $path = "./assets/attachment/pdf_payroll/";
@@ -786,65 +656,41 @@ class Final_payroll extends MX_Controller{
             mkdir($path, 0777, TRUE);
         }
 
-         foreach($capture_on_loop as $lb) {
+        foreach($capture_on_loop as $lb) {
             $nikx = trim($lb->nik);
-            $emailx = strtoupper(trim($lb->email));
+            //$emailx = strtoupper(trim($lb->email));
             $passwordpdf = base64_decode($lb->passwordpdf);
             $capture_data = $this->m_final->q_json_slipgaji($nodok,$nikx)->row_array();
             $capture_data['nik'];
             $data['dtl']= $capture_data;
             $data['dtl_branch']= $branch;
 
-/*          $this->fiky_pdf->set_option('enable_html5_parser', TRUE);
-            $this->fiky_pdf->set_option('isRemoteEnabled', TRUE);
-            $this->fiky_pdf->what_u_can_see('leavesession/v_template_slip_sisip',$data);
-            $this->fiky_pdf->set_what_u_have_paper('A4','potrait');
-            $this->fiky_pdf->set_what_u_will_generate();
-            $this->fiky_pdf->get_canvas()->get_cpdf()->setEncryption($passwordpdf, $passwordpdf);
-            $output = $this->fiky_pdf->output();
-            file_put_contents('assets/attachment/pdf_payroll/'.$nikx.'_Slip Gaji.pdf', $output);*/
+            new mPDF(['mode' => 'utf-8', 'format' => 'A4-P','debug' => true]);
+            $this->fiky_pdf_mpdf_extension->AddPage('P'); //landscape L/P portrait
+            $this->fiky_pdf_mpdf_extension->showImageErrors = true; //Show Image Error
+            $this->fiky_pdf_mpdf_extension->SetProtection(array(), $passwordpdf);
+            $this->fiky_pdf_mpdf_extension->what_u_can_see('leavesession/v_template_slip_sisip',$data);
+            $this->fiky_pdf_mpdf_extension->Output('assets/attachment/pdf_payroll/'.$nikx.'_Slip Gaji.pdf','F');
 
-             new mPDF(['mode' => 'utf-8', 'format' => 'A4-P','debug' => true]);
-             $this->fiky_pdf_mpdf_extension->AddPage('P'); //landscape L/P portrait
-             $this->fiky_pdf_mpdf_extension->showImageErrors = true; //Show Image Error
-             $this->fiky_pdf_mpdf_extension->SetProtection(array(), $passwordpdf);
-             $this->fiky_pdf_mpdf_extension->what_u_can_see('leavesession/v_template_slip_sisip',$data);
-             $this->fiky_pdf_mpdf_extension->Output('assets/attachment/pdf_payroll/'.$nikx.'_Slip Gaji.pdf','F');
+            $this->jagoan_mail->clear()
+                ->setFrom('noreply@nusantarajaya.co.id')
+                ->setFromName('PT NUSA UNGGUL SARANA ADICIPTA')
+                ->setTo(trim(strtolower($lb->email)))
+//                ->setCc()
+//                ->setBcc()
+                ->setSubject('SLIP GAJI KARYAWAN')
+                ->setMessage(file_get_contents(base_url('/validatorMailer/validate_links')))
+                ->addAttachment('assets/attachment/pdf_payroll/'.$nikx.'_Slip Gaji.pdf','Slip Gaji '.$nikx,'base64','application/pdf');
 
-
-
-             $this->email->from('noreply_nusa@nusaboard.co.id', 'PT NUSA UNGGUL SARANA ADICIPTA');
-             //$this->email->to(trim(strtolower($lb->email)));
-             $this->email->to($emailx);
-             $this->email->cc();
-             $this->email->bcc();
-             $this->email->subject('SLIP GAJI KARYAWAN');
-             $this->email->set_mailtype("html");
-             //$this->email->message($this->load->view("leavesession/v_validator_mailer",$data, true));
-             $this->email->message(file_get_contents(base_url('/validatorMailer/validate_links')));
-             $this->email->attach('assets/attachment/pdf_payroll/'.$nikx.'_Slip Gaji.pdf');
-             if ($this->email->send()) {
-                 header('Content-Type: application/json');
-                 echo json_encode(array(
-                     'status' => TRUE,
-                 ),  JSON_PRETTY_PRINT );
-             } else {
-                 show_error($this->email->print_debugger());
-             }
+            if ($this->jagoan_mail->buildAndSend()) {
+                header('Content-Type: application/json');
+                echo json_encode(array(
+                    'status' => TRUE,
+                ),  JSON_PRETTY_PRINT );
+            } else {
+                //show_error($this->email->print_debugger());
+            }
         }
-        /* FOR TRIALIZE
-         * $nik = '1115.184';
-        $passwordpdf = '1';
-        $capture_data = $this->m_final->q_json_slipgaji($nodok,$nik)->row_array();
-        $data['title']= 'Hallo';
-        $data['dtl']= $capture_data;
-        $data['dtl_branch']= $branch;
-        $this->load->view('leavesession/v_template_slip_sisip',$data);*/
-
-       /* header('Content-Type: application/json');
-        echo json_encode(array(
-            'status' => TRUE,
-        ),  JSON_PRETTY_PRINT );*/
     }
 
     function gxpfxoek_xall_roll(){
@@ -858,14 +704,15 @@ class Final_payroll extends MX_Controller{
             sleep(1);
         }
     }
+
     function v_pdf_html(){
-$nik = '1115.184';
-$passwordpdf = '1';
-$capture_data = $this->m_final->q_json_slipgaji($nodok,$nik)->row_array();
-$data['title']= 'Hallo';
-$data['dtl']= $capture_data;
-$data['dtl_branch']= $branch;
-$this->load->view('leavesession/v_template_slip_sisip',$data);
+        $nik = '1115.184';
+        $passwordpdf = '1';
+        $capture_data = $this->m_final->q_json_slipgaji($nodok,$nik)->row_array();
+        $data['title']= 'Hallo';
+        $data['dtl']= $capture_data;
+        $data['dtl_branch']= $branch;
+        $this->load->view('leavesession/v_template_slip_sisip',$data);
     }
 
 }
