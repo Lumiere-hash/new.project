@@ -6,24 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/libraries/jagoan_mail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/jagoan_mail.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/modules/mail/controllers/mailserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/mail/controllers/mailserver.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/payroll/controllers/final_payroll.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/payroll/controllers/final_payroll.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1653700023.606.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1653700033.8427.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1653700137.7571.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1653700159.5442.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1653700995.634.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1653702906.9372.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1653702915.2143.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1653702996.8645.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1653703126.5688.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1653703163.2039.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1653703218.0535.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1653703304.6066.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1653703315.9394.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1653704280.4139.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -344,6 +328,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "last_opened_file_path": "D:/PROJECT/hrms.nbi",
+    "nodejs_package_manager_path": "yarn",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   },
@@ -671,7 +656,7 @@
       <workItem from="1653877876971" duration="595000" />
       <workItem from="1653882633168" duration="10113000" />
       <workItem from="1653958952176" duration="18193000" />
-      <workItem from="1653980914584" duration="5143000" />
+      <workItem from="1653980914584" duration="6653000" />
     </task>
     <servers />
   </component>

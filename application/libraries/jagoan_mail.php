@@ -191,7 +191,6 @@ class Jagoan_mail
         //echo $is_send;
 
         if (!$is_send) {
-
             return 1;
         } else
             return 0;

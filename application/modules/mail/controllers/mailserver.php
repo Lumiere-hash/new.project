@@ -203,8 +203,8 @@ class Mailserver extends MX_Controller
         $from = $this->input->post('sender');
         $cc = $this->input->post('cc');
         $bcc = $this->input->post('bcc');
-        if ($this->jagoan_mail->send($to, $subject, $message, $from_name, $from, $cc, $bcc, 0)) {
-            redirect("mail/mailserver/index/rep_succes");
+        if (!$this->jagoan_mail->send($to, $subject, $message, $from_name, $from, $cc, $bcc, 0)) {
+            redirect("mail/mailserver/index/send_success");
         } else {
             redirect("mail/mailserver/index/send_failed");
         }
@@ -228,7 +228,7 @@ class Mailserver extends MX_Controller
             $subject = 'TEST MAIL SENDER';
             $message = file_get_contents(base_url('/gridview/grid_karkon'));
 
-            if ($this->jagoan_mail->send($to, $subject, $message, $from_name, $from, 0, 0, 0)) {
+            if (!$this->jagoan_mail->send($to, $subject, $message, $from_name, $from, 0, 0, 0)) {
                 redirect("mail/mailserver/index/send_success");
             } else {
                 redirect("mail/mailserver/index/send_failed");
@@ -249,7 +249,7 @@ class Mailserver extends MX_Controller
             $subject = 'TEST MAIL SENDER';
             $message = file_get_contents(base_url('/gridview/grid_karpen'));
 
-            if ($this->jagoan_mail->send($to, $subject, $message, $from_name, $from, 0, 0, 0)) {
+            if (!$this->jagoan_mail->send($to, $subject, $message, $from_name, $from, 0, 0, 0)) {
                 redirect("mail/mailserver/index/send_success");
             } else {
                 redirect("mail/mailserver/index/send_failed");
