@@ -1,13 +1,6 @@
 <?php
 
-/**
- * Excel Generator for CodeIgniter
- *
- * @author Dida Nurwanda <didanurwanda@gmail.com>
- * @link http://didanurwanda.blogspot.com
- *
- */
-require_once dirname(__FILE__) . '/PHPExcel/PHPExcel.php';
+require_once dirname(__FILE__) . '/Excel.php';
 
 class Excel_generator extends PHPExcel {
 
@@ -27,7 +20,7 @@ class Excel_generator extends PHPExcel {
      * $query = $this->db->get('users');
      * $this->excel_generator->set_query($query);
      * </pre>
-     *
+     * 
      * @access public
      * @param CI_DB_result $query
      * @return Excel_generator
@@ -42,7 +35,7 @@ class Excel_generator extends PHPExcel {
      * <pre>
      * $this->excel_generator->set_column(array('name', 'address', 'email'));
      * </pre>
-     *
+     * 
      * @access public
      * @param array $column
      * @return Excel_generator
@@ -61,7 +54,7 @@ class Excel_generator extends PHPExcel {
      * <pre>
      * $this->excel_generator->set_header(array('...'), FALSE);
      * </pre>
-     *
+     * 
      * @access public
      * @param array $header
      * @param bool $set_bold
@@ -77,8 +70,8 @@ class Excel_generator extends PHPExcel {
      * Mengubah lebar kolom
      * <pre>
      * $this->excel_generator->set_width(array(25, 30, 15));
-     * </pre>     *
-     *
+     * </pre>     * 
+     * 
      * @access public
      * @param array $width
      * @return Excel_generator
@@ -93,7 +86,7 @@ class Excel_generator extends PHPExcel {
      * <pre>
      * $this->excel_generator->start_at(5);
      * </pre>
-     *
+     * 
      * @access public
      * @param int $start
      * @return Excel_generator
@@ -105,7 +98,7 @@ class Excel_generator extends PHPExcel {
 
     /**
      * Untuk menghasilkan data excel
-     *
+     * 
      * @access public
      * @return Excel_generator
      */
@@ -150,7 +143,7 @@ class Excel_generator extends PHPExcel {
 
     /**
      * Untuk membuat file excel
-     *
+     * 
      * @param string $filename
      * @param string $writerType
      * @param string $mimes

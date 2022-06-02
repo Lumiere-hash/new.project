@@ -6,8 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/libraries/jagoan_mail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/jagoan_mail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/validatorMailer.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/validatorMailer.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/libraries/excel_generator.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/excel_generator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/modules/mail/controllers/mailserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/mail/controllers/mailserver.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/uang_makan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/uang_makan.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1653986062.9608.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -327,7 +331,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/PROJECT/hrms.nbi",
+    "last_opened_file_path": "D:/PROJECT/hrms.nusa/application/third_party",
     "nodejs_package_manager_path": "yarn",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
@@ -340,11 +344,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\PROJECT\hrms.nusa\application\third_party" />
       <recent name="D:\PROJECT\hrms.nusa\application\libraries" />
       <recent name="D:\PROJECT\hrms.nusa" />
       <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\migration\20210809.Export-Import-Rev" />
       <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\migration" />
-      <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\migration\20210728.User" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\migration\20210610.Job-Grade" />
@@ -656,7 +660,8 @@
       <workItem from="1653877876971" duration="595000" />
       <workItem from="1653882633168" duration="10113000" />
       <workItem from="1653958952176" duration="18193000" />
-      <workItem from="1653980914584" duration="6653000" />
+      <workItem from="1653980914584" duration="7076000" />
+      <workItem from="1654133199380" duration="20085000" />
     </task>
     <servers />
   </component>

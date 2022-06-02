@@ -9,68 +9,79 @@
  *
  */
 
-class ValidatorMailer extends CI_Controller{
+class ValidatorMailer extends CI_Controller
+{
 
-    function __construct(){
+    function __construct()
+    {
         parent::__construct();
         header('Access-Control-Allow-Origin: *');
-		$this->load->model(array('payroll/m_final','intern/m_mobileApprovals','mail/m_mailserver'));
-		//$this->load->library(array('Fiky_encryption','Fiky_mailer','fiky_pdf','fiky_pdf_mpdf_extension'));
-		$this->load->library(array('Fiky_encryption','Fiky_mailer'));
+        $this->load->model(array('payroll/m_final', 'intern/m_mobileApprovals', 'mail/m_mailserver'));
+        //$this->load->library(array('Fiky_encryption','Fiky_mailer','fiky_pdf','fiky_pdf_mpdf_extension'));
+        $this->load->library(array('Fiky_encryption', 'Fiky_mailer', 'jagoan_mail'));
     }
-	function index(){
+
+    function index()
+    {
         header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
     }
 
-	function validate_links(){
+    function validate_links()
+    {
         //$data['title'] =  "Isi Title";
-		//$this->load->view("leavesession/v_validator_mailer",$data);
-		$this->load->view("leavesession/v_validator_mailer");
-	}
+        //$this->load->view("leavesession/v_validator_mailer",$data);
+        $this->load->view("leavesession/v_validator_mailer");
+    }
 
-    function send_mail(){
-        $dari='noreply_nusa@nusaboard.co.id';
+    function send_mail()
+    {
+        $no_dok='NSANBI';
+        $sender=$this->m_mailserver->q_smtp($no_dok)->row_array();
         //$penerima='ikangurame3@gmail.com';
-        $penerima='ikangurame3@gmail.com,gilrandyseptiansyah@gmail.com,jerryhadityawan@gmail.com,si_cempe@yahoo.com,si.cempe@gmail.com ';
-        $cc=$this->input->post('cc');
-        $bcc=$this->input->post('bcc');
-        $subject='TEST SLIP GAJI';
-        $data = '';
+        //$penerima = 'ikangurame3@gmail.com,gilrandyseptiansyah@gmail.com,jerryhadityawan@gmail.com,si_cempe@yahoo.com,si.cempe@gmail.com ';
+        $penerima = 'itsbombking@gmail.com,4mailbot@gmail.com';
 
-        $this->email->from($dari, 'PT NUSA UNGGUL SARANA ADICIPTA');
-        $this->email->to($penerima);
-        $this->email->cc();
-        $this->email->bcc();
-        $this->email->subject($subject);
-        $this->email->set_mailtype("html");
-        //$this->email->message($this->load->view("leavesession/v_validator_mailer",$data, true));
-        $this->email->message(file_get_contents(base_url('/validatorMailer/validate_links')));
-        $this->email->attach('assets/attachment/pdf_payroll/Slip Gaji.pdf');
-        if ($this->email->send()) {
+        $data = '';
+        $this->jagoan_mail->clear(false)
+            ->setTo(explode(",",$penerima))
+            ->setCc($this->input->post('cc'))
+            ->setBcc($this->input->post('bcc'))
+            ->setFrom($sender['primarymail'])
+            ->setFromName('PT NUSA UNGGUL SARANA ADICIPTA')
+            ->setSubject('TEST SLIP GAJI')
+            ->setMessage('test')
+            //->setMessage(file_get_contents(base_url('/validatorMailer/validate_links')))
+            ->addAttachment('assets/attachment/pdf_payroll/Slip Gaji.pdf');
+        var_dump($this->jagoan_mail->getJagoan());die();
+        if ($this->jagoan_mail->buildAndSend()) {
             echo 'Email sent.';
         } else {
-            show_error($this->email->print_debugger());
+            echo 'Mailer Error: ' . $this->jagoan_mail->ErrorInfo;
         }
 
 
     }
 
-    function get_cont(){
+    function get_cont()
+    {
 
         file_get_contents(base_url('/gridview/grid_karkon'));
     }
-    function validate_pdf(){
-        $data['title']="TEST";
+
+    function validate_pdf()
+    {
+        $data['title'] = "TEST";
         $this->load->view("leavesession/v_template_slip");
     }
 
-    function download_pdf(){
+    function download_pdf()
+    {
         //new Fiky_pdf();
         //$html = $this->load->view('leavesession/v_template_slip');
-        $data['title']= 'Hallo';
-        $this->fiky_pdf->what_u_can_see('leavesession/v_template_slip',$data);
+        $data['title'] = 'Hallo';
+        $this->fiky_pdf->what_u_can_see('leavesession/v_template_slip', $data);
         //$this->fiky_pdf->load_html('<strong> Jancok G iso Iso </strong>');
-        $this->fiky_pdf->set_what_u_have_paper('f4','potrait');
+        $this->fiky_pdf->set_what_u_have_paper('f4', 'potrait');
         $this->fiky_pdf->set_what_u_will_generate();
         $this->fiky_pdf->get_canvas()->get_cpdf()->setEncryption("pass", "pass");
         $output = $this->fiky_pdf->output();
@@ -80,27 +91,30 @@ class ValidatorMailer extends CI_Controller{
         echo 'succes';
     }
 
-    function download_pdf_mpdf(){
-        $data['title']= 'Hallo';
+    function download_pdf_mpdf()
+    {
+        $data['title'] = 'Hallo';
         //$patch = "D:/WAPP/apache2/htdocs/hrdnew/assets/attachment/pdf_payroll/";
         $patch = "assets/attachment/pdf_payroll/";
         $namefile = "slip_mpdf.pdf";
         new mPDF(['mode' => 'utf-8', 'format' => 'A4-P']);
         $this->fiky_pdf_mpdf_extension->AddPage('P'); //landscape L/P portrait
         $this->fiky_pdf_mpdf_extension->SetProtection(array(), '111111');
-        $this->fiky_pdf_mpdf_extension->what_u_can_see('leavesession/v_template_slip',$data);
-        $this->fiky_pdf_mpdf_extension->Output($patch.$namefile,'F');
+        $this->fiky_pdf_mpdf_extension->what_u_can_see('leavesession/v_template_slip', $data);
+        $this->fiky_pdf_mpdf_extension->Output($patch . $namefile, 'F');
 
     }
 
 
-    function broadcasting_email_notification_approvals(){
+    function broadcasting_email_notification_approvals()
+    {
         $ss = $this->db->query("select * from sc_trx.approvals");
     }
 
 
-    function cli_mail_notification_broadcast(){
-        $this->db->cache_delete('validatorMailer','cli_mail_notification_broadcast');
+    function cli_mail_notification_broadcast()
+    {
+        $this->db->cache_delete('validatorMailer', 'cli_mail_notification_broadcast');
 
         $loop_app = $this->db->query("
         select a.*,b.nmlengkap,to_char(a.docdate,'dd-mm-yyyy') as docdate1 from sc_trx.approvals_system a 
@@ -109,7 +123,7 @@ class ValidatorMailer extends CI_Controller{
         $loop_appx = $loop_app->result();
 
 
-        foreach($loop_appx as $lr){
+        foreach ($loop_appx as $lr) {
             /* BROADCAST STANDART APPROVAL */
             $docno = trim($lr->docno);
             $doctype = trim($lr->doctype);
@@ -118,45 +132,44 @@ class ValidatorMailer extends CI_Controller{
             $doctypename = trim($lr->doctypename);
 
 
-            if (trim($doctype)==='MCTI'){
-                $dtlx = $this->m_mobileApprovals->list_dtl_cuti_approvals(" and docno='".$docno."'")->row_array();
-                $loopreceiver=$this->m_mobileApprovals->q_who_receive_email(trim($lr->docref),$docno)->result();
-            } else if (trim($doctype)==='MIJN') {
-                $dtlx = $this->m_mobileApprovals->list_dtl_ijin_approvals(" and docno='".$docno."'")->row_array();
-                $loopreceiver=$this->m_mobileApprovals->q_who_receive_email_ijin(trim($lr->docref),$docno)->result();
-            } else if (trim($doctype)==='MDNS') {
-                $dtlx = $this->m_mobileApprovals->list_dtl_dinas_approvals(" and docno='".$docno."'")->row_array();
-                $loopreceiver=$this->m_mobileApprovals->q_who_receive_email_dinas(trim($lr->docref),$docno)->result();
-            } else if (trim($doctype)==='MLBR') {
-                $dtlx = $this->m_mobileApprovals->list_dtl_lembur_approvals(" and docno='".$docno."'")->row_array();
-                $loopreceiver=$this->m_mobileApprovals->q_who_receive_email_lembur(trim($lr->docref),$docno)->result();
-            } else if (trim($doctype)==='PSPB') {
-                $dtlx = $this->m_mobileApprovals->list_dtl_ga_sppb_approvals(" and docno='".$docno."'")->row_array();
-                $loopreceiver=$this->m_mobileApprovals->q_who_receive_email_ga_sppb(trim($lr->docref),$docno)->result();
+            if (trim($doctype) === 'MCTI') {
+                $dtlx = $this->m_mobileApprovals->list_dtl_cuti_approvals(" and docno='" . $docno . "'")->row_array();
+                $loopreceiver = $this->m_mobileApprovals->q_who_receive_email(trim($lr->docref), $docno)->result();
+            } else if (trim($doctype) === 'MIJN') {
+                $dtlx = $this->m_mobileApprovals->list_dtl_ijin_approvals(" and docno='" . $docno . "'")->row_array();
+                $loopreceiver = $this->m_mobileApprovals->q_who_receive_email_ijin(trim($lr->docref), $docno)->result();
+            } else if (trim($doctype) === 'MDNS') {
+                $dtlx = $this->m_mobileApprovals->list_dtl_dinas_approvals(" and docno='" . $docno . "'")->row_array();
+                $loopreceiver = $this->m_mobileApprovals->q_who_receive_email_dinas(trim($lr->docref), $docno)->result();
+            } else if (trim($doctype) === 'MLBR') {
+                $dtlx = $this->m_mobileApprovals->list_dtl_lembur_approvals(" and docno='" . $docno . "'")->row_array();
+                $loopreceiver = $this->m_mobileApprovals->q_who_receive_email_lembur(trim($lr->docref), $docno)->result();
+            } else if (trim($doctype) === 'PSPB') {
+                $dtlx = $this->m_mobileApprovals->list_dtl_ga_sppb_approvals(" and docno='" . $docno . "'")->row_array();
+                $loopreceiver = $this->m_mobileApprovals->q_who_receive_email_ga_sppb(trim($lr->docref), $docno)->result();
             }
-
 
 
             $penerima_mail = null;
             $nmlengkap = null;
 
-            foreach($loopreceiver as $lx){
-                    $penerima_mail.=trim($lx->email).',';
-                    $nmlengkap.=trim($lx->nmlengkap).'';
+            foreach ($loopreceiver as $lx) {
+                $penerima_mail .= trim($lx->email) . ',';
+                $nmlengkap .= trim($lx->nmlengkap) . '';
             }
             $mailto = $penerima_mail;
 
-            $sender=$this->m_mailserver->q_smtp("NSANBI")->row_array();
-            $dari=trim($sender['primarymail']);
-            $mailsender = $dari.", 'PT NUSA UNGGUL SARANA ADICIPTA'";
+            $sender = $this->m_mailserver->q_smtp("NSANBI")->row_array();
+            $dari = trim($sender['primarymail']);
+            $mailsender = $dari . ", 'PT NUSA UNGGUL SARANA ADICIPTA'";
             $mailcc = '';
             $mailbcc = '';
-            $mailsubject ='Notifikasi Persetujuan: '.trim($lr->doctypename);
+            $mailsubject = 'Notifikasi Persetujuan: ' . trim($lr->doctypename);
             $mailtype = 'html';
             $q_bue = $this->m_mailserver->q_base_url_email()->row_array();
-            $data_bue=strtolower($q_bue['value1']);
-            $mailmessage ='';
-            $mailmessage.= '
+            $data_bue = strtolower($q_bue['value1']);
+            $mailmessage = '';
+            $mailmessage .= '
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="https://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office"><head>
 <!--[if gte mso 9]><xml>
@@ -284,7 +297,7 @@ a { color: inherit; }
         <tr>
           <td valign="top" align="center"><table width="100%" cellspacing="0" cellpadding="0" border="0" align="center">
               <tbody><tr>
-                   <td valign="top" align="center"><img class="em_img" style="display:block; font-family:Arial, sans-serif; font-size:30px; line-height:34px; color:#000000; max-width:700px;" src="'.$data_bue.'assets/img/mail_template/image/approval_mgmt/header3.png'.'" width="700" border="0" height="180"></td>
+                   <td valign="top" align="center"><img class="em_img" style="display:block; font-family:Arial, sans-serif; font-size:30px; line-height:34px; color:#000000; max-width:700px;" src="' . $data_bue . 'assets/img/mail_template/image/approval_mgmt/header3.png' . '" width="700" border="0" height="180"></td>
               </tr>
             </tbody></table></td>
         </tr>
@@ -312,141 +325,141 @@ a { color: inherit; }
 			   <tr>
 				<td style="width: 40%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">Nomor Dokumen</td>
 				<td style="width: 2%; height: 19.4px;font-family:\'Times\'; font-size:12px;"  valign="top">:</td>
-				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">'.trim($lr->docno).'</td>
+				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">' . trim($lr->docno) . '</td>
               </tr>
               <tr>
 				<td style="width: 40%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">Tanggal Dokumen</td>
 				<td style="width: 2%; height: 19.4px;font-family:\'Times\'; font-size:12px;"  valign="top">:</td>
-				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">'.trim($lr->docdate1).'</td>
+				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">' . trim($lr->docdate1) . '</td>
               </tr>
 			   <tr>
 				<td style="width: 40%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">Aplikasi</td>
 				<td style="width: 2%; height: 19.4px;font-family:\'Times\'; font-size:12px;"  valign="top">:</td>
-				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">'.trim($lr->erptype).'</td>
+				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">' . trim($lr->erptype) . '</td>
               </tr>
 			   <tr>
 				<td style="width: 40%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">Jenis Dokumen</td>
 				<td style="width: 2%; height: 19.4px;font-family:\'Times\'; font-size:12px;"  valign="top">:</td>
-				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">'.trim($lr->doctypename).'</td>
+				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">' . trim($lr->doctypename) . '</td>
               </tr>
 			  <tr>
 				<td style="width: 40%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">Pemohon</td>
 				<td style="width: 2%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">:</td>
-				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">'.trim($lr->nmlengkap).'</td>
+				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">' . trim($lr->nmlengkap) . '</td>
               </tr>';
 
 
-            if (trim($doctype)==='MCTI') {
-              $mailmessage.='<tr>
+            if (trim($doctype) === 'MCTI') {
+                $mailmessage .= '<tr>
 				<td style="width: 40%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">Tanggal Cuti</td>
 				<td style="width: 2%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">:</td>
-				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">'.$dtlx['tgl_awal'].' s/d '.$dtlx['tgl_akhir'].'</td>
+				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">' . $dtlx['tgl_awal'] . ' s/d ' . $dtlx['tgl_akhir'] . '</td>
               </tr>
 			  <tr>
 				<td style="width: 40%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">Jumlah Cuti</td>
 				<td style="width: 2%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">:</td>
-				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">'.$dtlx['jumlah_cuti'].' Hari</td>
+				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">' . $dtlx['jumlah_cuti'] . ' Hari</td>
               </tr>
                <tr>
 				<td style="width: 20%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">Pelimpahan Ke Sdr/i</td>
 				<td style="width: 2%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">:</td>
-				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;">'.$dtlx['nmpelimpahan'].'</td>
+				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;">' . $dtlx['nmpelimpahan'] . '</td>
               </tr>
               <tr>
 				<td style="width: 20%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">Keterangan</td>
 				<td style="width: 2%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">:</td>
-				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">'.$dtlx['keterangan'].'</td>
+				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">' . $dtlx['keterangan'] . '</td>
               </tr>
               ';
-            } else if (trim($doctype)==='MIJN') {
-                $mailmessage.='<tr>
+            } else if (trim($doctype) === 'MIJN') {
+                $mailmessage .= '<tr>
 				<td style="width: 40%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">Tanggal Ijin</td>
 				<td style="width: 2%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">:</td>
-				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">'.$dtlx['tgl_kerja'].'</td>
+				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">' . $dtlx['tgl_kerja'] . '</td>
               </tr>
 			  <tr>
 				<td style="width: 40%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">Kategori</td>
 				<td style="width: 2%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">:</td>
-				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">'.$dtlx['kategori'].'</td>
+				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">' . $dtlx['kategori'] . '</td>
               </tr>
                <tr>
 				<td style="width: 20%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">Type Ijin</td>
 				<td style="width: 2%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">:</td>
-				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">'.$dtlx['type_ijin'].'</td>
+				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">' . $dtlx['type_ijin'] . '</td>
               </tr>
               <tr>
 				<td style="width: 20%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">Keterangan</td>
 				<td style="width: 2%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">:</td>
-				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">'.$dtlx['keterangan'].'</td>
+				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">' . $dtlx['keterangan'] . '</td>
               </tr>';
-            } else if (trim($doctype)==='MDNS') {
-                $mailmessage.='<tr>
+            } else if (trim($doctype) === 'MDNS') {
+                $mailmessage .= '<tr>
 				<td style="width: 40%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">Tanggal Dinas</td>
 				<td style="width: 2%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">:</td>
-				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">'.$dtlx['tgl_mulai'].' s/d '.$dtlx['tgl_selesai'].'</td>
+				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">' . $dtlx['tgl_mulai'] . ' s/d ' . $dtlx['tgl_selesai'] . '</td>
               </tr>
 			  <tr>
 				<td style="width: 40%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">Kategori</td>
 				<td style="width: 2%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">:</td>
-				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">'.$dtlx['nmkategori'].'</td>
+				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">' . $dtlx['nmkategori'] . '</td>
               </tr>
                <tr>
 				<td style="width: 20%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">Tujuan</td>
 				<td style="width: 2%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">:</td>
-				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">'.$dtlx['tujuan'].'</td>
+				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">' . $dtlx['tujuan'] . '</td>
               </tr>
               <tr>
 				<td style="width: 20%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">Keperluan</td>
 				<td style="width: 2%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">:</td>
-				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">'.$dtlx['keperluan'].'</td>
+				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">' . $dtlx['keperluan'] . '</td>
               </tr>';
-            } else if (trim($doctype)==='MLBR') {
-                $mailmessage.='<tr>
+            } else if (trim($doctype) === 'MLBR') {
+                $mailmessage .= '<tr>
 				<td style="width: 40%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">Tanggal Lembur</td>
 				<td style="width: 2%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">:</td>
-				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">'.$dtlx['tgl_jam_mulai_1'].'<strong> s/d </strong>'.$dtlx['tgl_jam_selesai_1'].'</td>
+				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">' . $dtlx['tgl_jam_mulai_1'] . '<strong> s/d </strong>' . $dtlx['tgl_jam_selesai_1'] . '</td>
               </tr>
               <tr>
 				<td style="width: 40%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">Jenis Lembur</td>
 				<td style="width: 2%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">:</td>
-				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">'.$dtlx['nmjenis_lembur'].'</td>
+				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">' . $dtlx['nmjenis_lembur'] . '</td>
               </tr>
 			  <tr>
 				<td style="width: 40%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">Kategori</td>
 				<td style="width: 2%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">:</td>
-				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">'.$dtlx['kategori_lembur'].'</td>
+				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">' . $dtlx['kategori_lembur'] . '</td>
               </tr>
               <tr>
 				<td style="width: 20%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">Keterangan</td>
 				<td style="width: 2%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">:</td>
-				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">'.$dtlx['keterangan'].'</td>
+				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">' . $dtlx['keterangan'] . '</td>
               </tr>';
-            }  else if (trim($doctype)==='PSPB') {
-                $mailmessage.='
+            } else if (trim($doctype) === 'PSPB') {
+                $mailmessage .= '
               <tr>
 				<td style="width: 40%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">Nama Barang/Jasa</td>
 				<td style="width: 2%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">:</td>
-				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">'.$dtlx['nmbarang'].'</td>
+				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">' . $dtlx['nmbarang'] . '</td>
               </tr>
 			  <tr>
 				<td style="width: 40%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">Qty</td>
 				<td style="width: 2%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">:</td>
-				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">'.$dtlx['qty'].'</td>
+				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">' . $dtlx['qty'] . '</td>
               </tr>
               <tr>
 				<td style="width: 40%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">Satuan</td>
 				<td style="width: 2%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">:</td>
-				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">'.$dtlx['satuan'].'</td>
+				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">' . $dtlx['satuan'] . '</td>
               </tr>
               <tr>
 				<td style="width: 20%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">Keterangan</td>
 				<td style="width: 2%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="top">:</td>
-				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">'.$dtlx['keterangan'].'</td>
+				<td style="width: 58%; height: 19.4px;font-family:\'Times\'; font-size:12px;" valign="bottom" align="left">' . $dtlx['keterangan'] . '</td>
               </tr>';
             }
 
 
-			   $mailmessage.='<tr>
+            $mailmessage .= '<tr>
                 <td style="font-size:0px; line-height:0px; height:15px;" height="15">&nbsp;</td>
 <!--—this is space of 15px to separate two paragraphs ---->
               </tr>
@@ -457,15 +470,15 @@ a { color: inherit; }
 			   <tr>
 
                 ';
-                if (trim($lr->status)=='U') {
-                    //$mailmessage.= '<td style="font-family:Times; font-size:25px; line-height:30px; color:#09d92e;" valign="top" align="left"><strong><b>Telah Disetujui </b></strong></td>';
-                    $mailmessage.= '<td align="center"><img class="em_img" style="display:block; font-family:Arial, sans-serif; font-size:30px; line-height:34px; color:#000000; max-width:300px;" src="'.$data_bue.'assets/img/mail_template/image/approval_mgmt/disetujui.png" width="300" border="0" height="50"></td>';
-				} else {
-                    //$mailmessage .= '<td style="font-family:Times; font-size:25px; line-height:30px; color:#ff0000;" valign="top" align="left"><strong><b>Telah Ditolak </b></strong></td>';
-                    $mailmessage .= '<td align="center"><img class="em_img" style="display:block; font-family:Arial, sans-serif; font-size:30px; line-height:34px; color:#000000; max-width:300px;" src="'.$data_bue.'assets/img/mail_template/image/approval_mgmt/ditolak.png" width="300" border="0" height="50"></td>';
-                }
+            if (trim($lr->status) == 'U') {
+                //$mailmessage.= '<td style="font-family:Times; font-size:25px; line-height:30px; color:#09d92e;" valign="top" align="left"><strong><b>Telah Disetujui </b></strong></td>';
+                $mailmessage .= '<td align="center"><img class="em_img" style="display:block; font-family:Arial, sans-serif; font-size:30px; line-height:34px; color:#000000; max-width:300px;" src="' . $data_bue . 'assets/img/mail_template/image/approval_mgmt/disetujui.png" width="300" border="0" height="50"></td>';
+            } else {
+                //$mailmessage .= '<td style="font-family:Times; font-size:25px; line-height:30px; color:#ff0000;" valign="top" align="left"><strong><b>Telah Ditolak </b></strong></td>';
+                $mailmessage .= '<td align="center"><img class="em_img" style="display:block; font-family:Arial, sans-serif; font-size:30px; line-height:34px; color:#000000; max-width:300px;" src="' . $data_bue . 'assets/img/mail_template/image/approval_mgmt/ditolak.png" width="300" border="0" height="50"></td>';
+            }
 
-                $mailmessage.= '
+            $mailmessage .= '
               </tr>
 			  <tr>
                 <td style="font-size:0px; line-height:0px; height:15px;" height="15">&nbsp;</td>
@@ -473,16 +486,16 @@ a { color: inherit; }
               </tr>
 			  <tr>
                 <td style="font-family:Times; font-size:18px; line-height:30px; color:#000000;" valign="top" align="left">';
-                if (trim($lr->status)=='U') {
-                    $mailmessage.= '<strong>Catatan tambahan:</strong>';
-                } else {
-                    $mailmessage .= '<strong>Alasan:</strong>';
-                }
-                $mailmessage.= '</td>
+            if (trim($lr->status) == 'U') {
+                $mailmessage .= '<strong>Catatan tambahan:</strong>';
+            } else {
+                $mailmessage .= '<strong>Alasan:</strong>';
+            }
+            $mailmessage .= '</td>
               </tr>
               <tr>
                 <td style="font-family:Times; font-size:12px; line-height:30px; color:#000000;" valign="top" align="left">
-				'. ucfirst($lr->reason).'</td>
+				' . ucfirst($lr->reason) . '</td>
               </tr>
 
               <!-- <tr> -->
@@ -505,11 +518,11 @@ a { color: inherit; }
               <tbody><tr>
                 <td style="padding-bottom:16px;" valign="top" align="center"><table cellspacing="0" cellpadding="0" border="0" align="center">
                     <tbody><tr>
-                      <td valign="top" align="center"><a href="#" target="_blank" style="text-decoration:none;"><img src="'.$data_bue.'assets/img/mail_template/icon/browser.png" alt="yt" style="display:block; font-family:Arial, sans-serif; font-size:12px; line-height:14px; color:#ffffff; max-width:26px;" width="26" border="0" height="26">nusaboard.co.id</a></td>
+                      <td valign="top" align="center"><a href="#" target="_blank" style="text-decoration:none;"><img src="' . $data_bue . 'assets/img/mail_template/icon/browser.png" alt="yt" style="display:block; font-family:Arial, sans-serif; font-size:12px; line-height:14px; color:#ffffff; max-width:26px;" width="26" border="0" height="26">nusaboard.co.id</a></td>
 					  <td style="width:6px;" width="6">&nbsp;</td>
-                      <td valign="top" align="center"><a href="#" target="_blank" style="text-decoration:none;"><img src="'.$data_bue.'assets/img/mail_template/icon/fb.png" alt="fb" style="display:block; font-family:Arial, sans-serif; font-size:12px; line-height:14px; color:#ffffff; max-width:26px;" width="26" border="0" height="26"> Nusaboard </a></td>
+                      <td valign="top" align="center"><a href="#" target="_blank" style="text-decoration:none;"><img src="' . $data_bue . 'assets/img/mail_template/icon/fb.png" alt="fb" style="display:block; font-family:Arial, sans-serif; font-size:12px; line-height:14px; color:#ffffff; max-width:26px;" width="26" border="0" height="26"> Nusaboard </a></td>
                       <td style="width:6px;" width="6">&nbsp;</td>
-                      <td valign="top" align="center"><a href="#" target="_blank" style="text-decoration:none;"><img src="'.$data_bue.'assets/img/mail_template/icon/ig.png" alt="tw" style="display:block; font-family:Arial, sans-serif; font-size:12px; line-height:14px; color:#ffffff; max-width:27px;" width="27" border="0" height="26"> @nusaboard.co.id </a></td>
+                      <td valign="top" align="center"><a href="#" target="_blank" style="text-decoration:none;"><img src="' . $data_bue . 'assets/img/mail_template/icon/ig.png" alt="tw" style="display:block; font-family:Arial, sans-serif; font-size:12px; line-height:14px; color:#ffffff; max-width:27px;" width="27" border="0" height="26"> @nusaboard.co.id </a></td>
                       <td style="width:6px;" width="6">&nbsp;</td>
                     </tr>
                   </tbody></table></td>
@@ -558,8 +571,8 @@ a { color: inherit; }
             }
             /* BROADCAST STANDART APPROVAL */
 
-            $this->db->query("update sc_trx.approvals_system set sendmail='YES' where docno='".$lr->docno."'");
-            echo  "docno='".$lr->docno."'".'</br>';
+            $this->db->query("update sc_trx.approvals_system set sendmail='YES' where docno='" . $lr->docno . "'");
+            echo "docno='" . $lr->docno . "'" . '</br>';
         }
         //echo 'Coba Test';
 
@@ -567,8 +580,9 @@ a { color: inherit; }
 
     function cli_sent_mail_notification__broadcast()
     {
-        $this->db->cache_delete('validatorMailer','cli_sent_mail_notification__broadcast');
-
+        $this->db->cache_delete('validatorMailer', 'cli_sent_mail_notification__broadcast');
+        $no_dok='NSANBI';
+        $sender=$this->m_mailserver->q_smtp($no_dok)->row_array();
         $loop_app = $this->db->query("
             select *,case 
 when right(trim(mailto),1)=',' then left(trim(mailto),-1)
@@ -578,47 +592,44 @@ else trim(mailto) end as mailto2 from public.mail_outbox where coalesce(mailstat
 
         foreach ($loop_appx as $lr) {
             /* TAMBAHAN UNTUK PELIMPAHAN UNTUK CUTI SAJA */
-                                $sender=$this->m_mailserver->q_smtp("NSANBI")->row_array();
-                                $dari=$sender['primarymail'];
-                                $subject='PERSETUJUAN UNTUK DOKUMEN : '.trim($lr->doctypename);
-                                $this->email->from('noreply_nusa@nusaboard.co.id', 'PT NUSA UNGGUL SARANA ADICIPTA');
-                                $this->email->to($lr->mailto2);
-                                //$this->email->cc($cc);
-                                //$this->email->bcc($bcc);
-                                $this->email->subject($lr->mailsubject);
-                                $this->email->set_mailtype("html");
-                                $this->email->message($lr->mailmessage);
-
-            if ($this->email->send()) {
+            $sender = $this->m_mailserver->q_smtp("NSANBI")->row_array();
+            $dari = $sender['primarymail'];
+            $subject = 'PERSETUJUAN UNTUK DOKUMEN : ' . trim($lr->doctypename);
+            $this->jagoan_mail->clear(false)
+                ->setTo(explode(",", $lr->mailto))
+                ->setFrom($sender['primarymail'])
+                ->setFromName('PT NUSA UNGGUL SARANA ADICIPTA')
+                ->setSubject($lr->mailsubject)
+                ->setMessage($lr->mailmessage)
+                ->addAttachment('assets/attachment/pdf_payroll/Slip Gaji.pdf');
+            if ($this->jagoan_mail->buildAndSend()) {
                 $this->db->query("update mail_outbox set mailstatus='SENT' where
-                                    docno='".$lr->docno."' and
-                                    doctype='".$lr->doctype."' and
-                                    erptype='".$lr->erptype."' and
-                                    send_date='".$lr->send_date."' and
-                                    mailto='".$lr->mailto."'
+                                    docno='" . $lr->docno . "' and
+                                    doctype='" . $lr->doctype . "' and
+                                    erptype='" . $lr->erptype . "' and
+                                    send_date='" . $lr->send_date . "' and
+                                    mailto='" . $lr->mailto . "'
 
                                     ");
-                echo "docno='".$lr->docno."' and
-                    doctype='".$lr->doctype."' and
-                    erptype='".$lr->erptype."' and
-                    send_date='".$lr->send_date."' and
-                    mailto='".$lr->mailto."'";
+                echo "docno='" . $lr->docno . "' and
+                    doctype='" . $lr->doctype . "' and
+                    erptype='" . $lr->erptype . "' and
+                    send_date='" . $lr->send_date . "' and
+                    mailto='" . $lr->mailto . "'";
                 break;
             } else {
-                show_error($this->email->print_debugger());
+                echo 'Mailer Error: ' . $this->jagoan_mail->ErrorInfo;
             }
-            /* SENT EMAIL */
-            //
-            //echo  "docno='".$lr->docno."'".'</br>';
         }
     }
 
-    function test_del_cache(){
+    function test_del_cache()
+    {
         //$this->db->cache_delete_all();
         $uri = "application/cache2/master+menu";
         //$this->db->clear_path_cache($uri);
-        $this->db->cache_delete('validatorMailer','test_del_cache');
-        $this->db->cache_delete('master','menu');
+        $this->db->cache_delete('validatorMailer', 'test_del_cache');
+        $this->db->cache_delete('master', 'menu');
         echo 'delete';
     }
 }

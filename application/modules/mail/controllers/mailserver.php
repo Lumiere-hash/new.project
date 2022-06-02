@@ -267,7 +267,8 @@ class Mailserver extends MX_Controller
 
     function send_mail_x()
     {
-        $dari = 'noreply_nusa@nusaboard.co.id';
+
+        $dari = 'noreply@nusantarajaya.co.id';
         $penerima = 'itsbombking@gmail.com';
 
         $to = $penerima;
