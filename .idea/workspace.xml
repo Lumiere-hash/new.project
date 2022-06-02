@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/controllers/validatorMailer.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/validatorMailer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/libraries/excel_generator.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/excel_generator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/mail/controllers/mailserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/mail/controllers/mailserver.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/uang_makan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/uang_makan.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1653986062.9608.jpg" beforeDir="false" />
-    </list>
+    <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -661,7 +653,7 @@
       <workItem from="1653882633168" duration="10113000" />
       <workItem from="1653958952176" duration="18193000" />
       <workItem from="1653980914584" duration="7076000" />
-      <workItem from="1654133199380" duration="20085000" />
+      <workItem from="1654133199380" duration="20442000" />
     </task>
     <servers />
   </component>

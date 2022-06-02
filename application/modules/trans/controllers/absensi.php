@@ -134,6 +134,12 @@ class Absensi extends MX_Controller {
 		} else if($kdcabang=='SKHRJ'){
 				$data['ttldata']=$this->m_absensi->ttldata_skhrj($tgl1,$tgl2);
 				$data['list_absen']=$this->m_absensi->show_user_skhrj($tgl1,$tgl2);
+		} else if($kdcabang=='JOG'){
+				$data['ttldata']=$this->m_absensi->ttldata_jog($tgl1,$tgl2);
+				$data['list_absen']=$this->m_absensi->show_user_jog($tgl1,$tgl2);	
+		} else if($kdcabang=='RMBG'){
+				$data['ttldata']=$this->m_absensi->ttldata_rmbg($tgl1,$tgl2);
+				$data['list_absen']=$this->m_absensi->show_user_rmbg($tgl1,$tgl2);				
 		}else { redirect('trans/absensi/filter'); }
 
 		$this->template->display('trans/absensi/v_absensi',$data);
@@ -202,6 +208,11 @@ class Absensi extends MX_Controller {
 				$datane=$this->m_absensi->show_user_jkt($tgl1,$tgl2);
 		} else if($kdcabang=='SKHRJ'){
 				$datane=$this->m_absensi->show_user_skhrj($tgl1,$tgl2);
+		} else if($kdcabang=='JOG'){
+				$datane=$this->m_absensi->show_user_jog($tgl1,$tgl2);
+				
+		} else if($kdcabang=='RMBG'){
+				$datane=$this->m_absensi->show_user_rmbg($tgl1,$tgl2);		
 		} else { redirect('trans/absensi/filter'); }
 
 

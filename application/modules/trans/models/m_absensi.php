@@ -81,6 +81,28 @@ class M_absensi extends CI_Model {
         $this->dbskhrj->close();
         return $result;
 	}
+	
+	function show_user_jog($tgl1,$tgl2){
+        $this->dbjog = $this->load->database('JOG', TRUE);
+        $result = $this->dbjog->query("select top 10000 * from CHECKINOUT
+								LEFT JOIN USERINFO on USERINFO.USERID=CHECKINOUT.USERID
+								where CHECKTIME between #$tgl1# and #$tgl2#
+								order by CHECKTIME ,Name asc
+								")->result();
+        $this->dbjog->close();
+        return $result;
+	}
+	
+	function show_user_rmbg($tgl1,$tgl2){
+        $this->dbrmbg = $this->load->database('JOG', TRUE);
+        $result = $this->dbrmbg->query("select top 10000 * from CHECKINOUT
+								LEFT JOIN USERINFO on USERINFO.USERID=CHECKINOUT.USERID
+								where CHECKTIME between #$tgl1# and #$tgl2#
+								order by CHECKTIME ,Name asc
+								")->result();
+        $this->dbrmbg->close();
+        return $result;
+	}
 
 	function ttldata_sby($tgl1,$tgl2){
         $this->dbsby = $this->load->database('SBYMRG', TRUE);
@@ -129,6 +151,26 @@ class M_absensi extends CI_Model {
 								where CHECKTIME between #$tgl1# and #$tgl2#								
 								")->row_array();
         $this->dbskhrj->close();
+        return $result;
+	}
+	
+	function ttldata_jog($tgl1,$tgl2){
+        $this->dbjog = $this->load->database('JOG', TRUE);
+        $result = $this->dbjog->query("select count(*) as jumlah from CHECKINOUT
+								LEFT JOIN USERINFO on USERINFO.USERID=CHECKINOUT.USERID
+								where CHECKTIME between #$tgl1# and #$tgl2#								
+								")->row_array();
+        $this->dbjog->close();
+        return $result;
+	}
+	
+	function ttldata_rmbg($tgl1,$tgl2){
+        $this->dbrmbg = $this->load->database('JOG', TRUE);
+        $result = $this->dbrmbg->query("select count(*) as jumlah from CHECKINOUT
+								LEFT JOIN USERINFO on USERINFO.USERID=CHECKINOUT.USERID
+								where CHECKTIME between #$tgl1# and #$tgl2#								
+								")->row_array();
+        $this->dbrmbg->close();
         return $result;
 	}
 
