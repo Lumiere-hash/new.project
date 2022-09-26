@@ -94,7 +94,7 @@ class M_absensi extends CI_Model {
 	}
 	
 	function show_user_rmbg($tgl1,$tgl2){
-        $this->dbrmbg = $this->load->database('JOG', TRUE);
+        $this->dbrmbg = $this->load->database('RMBG', TRUE);
         $result = $this->dbrmbg->query("select top 10000 * from CHECKINOUT
 								LEFT JOIN USERINFO on USERINFO.USERID=CHECKINOUT.USERID
 								where CHECKTIME between #$tgl1# and #$tgl2#
@@ -165,7 +165,7 @@ class M_absensi extends CI_Model {
 	}
 	
 	function ttldata_rmbg($tgl1,$tgl2){
-        $this->dbrmbg = $this->load->database('JOG', TRUE);
+        $this->dbrmbg = $this->load->database('RMBG', TRUE);
         $result = $this->dbrmbg->query("select count(*) as jumlah from CHECKINOUT
 								LEFT JOIN USERINFO on USERINFO.USERID=CHECKINOUT.USERID
 								where CHECKTIME between #$tgl1# and #$tgl2#								
@@ -942,7 +942,7 @@ class M_absensi extends CI_Model {
 	    return $this->db->query("
             SELECT * 
             FROM dblink (
-                'hostaddr=$host dbname=$dbname user=$dbuser password=$dbpass',
+                'hostaddr=$host dbname=$dbname user=$dbuser password=$dbpass port=39170',
                 'SELECT userid, usersname, nik, checktime 
                 FROM sc_trx.v_checkin_mobile'
             ) AS t1 (
@@ -953,13 +953,13 @@ class M_absensi extends CI_Model {
 
     function read_dblink_join_karyawan($host, $dbname, $dbuser, $dbpass, $tgl1, $tgl2, $kdcabang) {
         return $this->db->query("
-            SELECT * 
+           SELECT * 
             FROM (
                 SELECT a.*, b.idabsen, b.kdcabang, b.nmlengkap 
                 FROM (
                     SELECT * 
                     FROM dblink (
-                        'hostaddr=$host dbname=$dbname user=$dbuser password=$dbpass',
+                        'hostaddr=$host dbname=$dbname user=$dbuser password=$dbpass port=39170',
                         'SELECT userid, usersname, nik, checktime, customeroutletcode, customercodelocal, custname, customertype
                         FROM (
                             SELECT x.userid, x.usersname, x.nik, x.checktime, x.customeroutletcode, x.customercodelocal, x.custname, x.customertype
@@ -968,7 +968,7 @@ class M_absensi extends CI_Model {
                                     ((a.checkindate::TEXT || '' ''::TEXT) || a.checkintime::TEXT)::TIMESTAMP WITHOUT TIME ZONE AS checktime,
                                     COALESCE(NULLIF(a.customeroutletcode, ''''), c.custcode) AS customeroutletcode, 
 						            COALESCE(NULLIF(a.customercodelocal, ''''), c.customercodelocal) AS customercodelocal,
-                                    c.custname, c.grdpaymt AS customertype
+                                    c.custname, c.type AS customertype
                                 FROM sc_trx.checkin a
                                 LEFT JOIN sc_mst.\"user\" b ON BTRIM(a.userid::TEXT) = BTRIM(b.userid::TEXT)
                                 LEFT JOIN sc_mst.customer c ON COALESCE(NULLIF(c.customercodelocal, ''''), c.custcode) = COALESCE(NULLIF(a.customercodelocal, ''''), a.customeroutletcode)
@@ -977,7 +977,7 @@ class M_absensi extends CI_Model {
                                     ((a.checkindate::TEXT || '' ''::TEXT) || a.checkouttime::TEXT)::TIMESTAMP WITHOUT TIME ZONE AS checktime,
                                     COALESCE(NULLIF(a.customeroutletcode, ''''), c.custcode) AS customeroutletcode, 
 						            COALESCE(NULLIF(a.customercodelocal, ''''), c.customercodelocal) AS customercodelocal,
-                                    c.custname, c.grdpaymt AS customertype
+                                    c.custname, c.type AS customertype
                                 FROM sc_trx.checkin a
                                 LEFT JOIN sc_mst.\"user\" b ON BTRIM(a.userid::TEXT) = BTRIM(b.userid::TEXT)
                                 LEFT JOIN sc_mst.customer c ON COALESCE(NULLIF(c.customercodelocal, ''''), c.custcode) = COALESCE(NULLIF(a.customercodelocal, ''''), a.customeroutletcode)
@@ -1006,7 +1006,7 @@ class M_absensi extends CI_Model {
                 FROM (
                     SELECT * 
                     FROM dblink (
-                        'hostaddr=$host dbname=$dbname user=$dbuser password=$dbpass',
+                        'hostaddr=$host dbname=$dbname user=$dbuser password=$dbpass port=39170',
                         'SELECT userid, usersname, nik, checktime, customeroutletcode, customercodelocal, custname, customertype
                         FROM (
                             SELECT x.userid, x.usersname, x.nik, x.checktime, x.customeroutletcode, x.customercodelocal, x.custname, x.customertype

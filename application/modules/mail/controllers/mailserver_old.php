@@ -206,7 +206,6 @@ class Mailserver extends MX_Controller
         if (!$this->jagoan_mail->send($to, $subject, $message, $from_name, $from, $cc, $bcc, 0)) {
             redirect("mail/mailserver/index/send_success");
         } else {
-            //var_dump($this->jagoan_mail->getJagoan);die();
             redirect("mail/mailserver/index/send_failed");
         }
     }
@@ -314,8 +313,8 @@ class Mailserver extends MX_Controller
         XX::xxz
          * */
     }
-
-    function send_mail_test()
+	//test kirim
+	function send_mail_test()
     {
         $this->jagoan_mail->clear(false)
             ->setTo('itsbombking@gmail.com')
@@ -324,17 +323,18 @@ class Mailserver extends MX_Controller
             ->setFromName('PT NUSANTARA BUILDING INDUSTRIES')
             ->setCc()
             ->setBcc()
-            ->setMessage('test kirim email offline');
+            ->setMessage('test kirim email');
 //            ->addAttachment('D:\PROJECT\library-email\pdf-test.pdf', 'Slip Gaji', 'base64', 'application/pdf');
-        //var_dump($this->jagoan_mail->getJagoan()->ErrorInfo);die();
+        
         if ($this->jagoan_mail->buildAndSend()) {
-            var_dump($this->jagoan_mail->getJagoan()->ErrorInfo);die();
             //echo 'success';
             redirect("mail/mailserver/index/send_success");
         } else {
-            echo 'Mailer Error: ' . $this->jagoan_mail->ErrorInfo;
+			var_dump($this->jagoan_mail->getJagoan()->ErrorInfo);die();
+            //echo 'Mailer Error: ' . $this->jagoan_mail->ErrorInfo;
         }
 
     }
+	
 
 }

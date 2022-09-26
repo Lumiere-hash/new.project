@@ -210,7 +210,6 @@ class Absensi extends MX_Controller {
 				$datane=$this->m_absensi->show_user_skhrj($tgl1,$tgl2);
 		} else if($kdcabang=='JOG'){
 				$datane=$this->m_absensi->show_user_jog($tgl1,$tgl2);
-				
 		} else if($kdcabang=='RMBG'){
 				$datane=$this->m_absensi->show_user_rmbg($tgl1,$tgl2);		
 		} else { redirect('trans/absensi/filter'); }
