@@ -1551,7 +1551,7 @@ error_reporting(0);
 							<div class="form-group">
 								<label class="col-sm-4">No. SK</label>
 								<div class="col-sm-8">
-									<input type="text" id="noskstspeg" name="noskstspeg" class="form-control" style="text-transform:uppercase" maxlength="15">
+									<input type="text" id="noskstspeg" name="noskstspeg" class="form-control" style="text-transform:uppercase" maxlength="50">
 								</div>
 							</div>
 							<div class="form-group">

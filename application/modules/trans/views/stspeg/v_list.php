@@ -221,7 +221,7 @@
 							<div class="form-group">
 								<label class="col-sm-4">No. SK</label>	
 								<div class="col-sm-8">    
-									<input type="text" id="nosk" name="nosk" class="form-control" style="text-transform:uppercase" maxlength="25">
+									<input type="text" id="nosk" name="nosk" class="form-control" style="text-transform:uppercase" maxlength="50">
 								</div>
 							</div>	
 							<div class="form-group">
