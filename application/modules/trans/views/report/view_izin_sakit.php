@@ -34,7 +34,7 @@
 						<p align='right' style='margin-right:10px'>Download Laporan Cuti :
 						<!--<a href="<?php echo site_url('hrd/report/pdf');?>"><i class='fa fa-file-text-o'></i> <label>PDF</label></a>
 						<a href="<?php echo site_url('hrd/report/excel03');?>"><i class='fa fa-file-text-o'></i> <label>Excel 2003</label></a>-->
-						<a href="<?php echo site_url("trans/report/excel_cuti/$periode");?>"><i class='fa fa-file-text-o'></i> <label>Excel 2007</label></a></p>
+						<a href="<?php echo site_url("trans/report/excel_izin_sakit/$periode");?>"><i class='fa fa-file-text-o'></i> <label>Excel 2007</label></a></p>
 						<div class="box">
                                 <div class="box-header">
                                     
@@ -53,14 +53,9 @@
 												<th align="justify">Group Penggajian</th>
 												<th align="justify">Tgl. Masuk Kerja</th>
 												<th align="justify">No. Dokumen</th>
-												<th align="justify">Tipe Cuti</th>
-												<th align="justify">Nama Ijin Khusus</th>
-												<th align="justify">Tanggal Mulai</th>
-												<th align="justify">Tanggal Selesai</th>
+												<th align="justify">Nama Ijin Absensi</th>
+												<th align="justify">Tanggal Kerja</th>
 												<th align="justify">Keterangan</th>
-												<th align="justify">Jumlah Cuti</th>
-												<th align="justify">Sisa Cuti</th>
-											</tr>
 										</thead>
                                         <tbody>
                                             <?php
@@ -85,16 +80,10 @@
 												<td><?php echo $column->grouppenggajian;?></td>
 												<td><?php echo $column->tglmasukkerja;?></td>
 												<td><?php echo $column->nodok;?></td>
-												<td><?php echo $column->tpcuti;?></td>
-												<td><?php echo $column->nmijin_khusus;?></td>
-												<td><?php echo $column->tgl_mulai;?></td>
-												<td><?php echo $column->tgl_selesai;?></td>
-												<td><?php echo $column->keterangan;?></td>
-												<td><?php echo $column->jumlah_cuti;  ?></td>
-												<td><?php echo $column->sisacuti;  ?></td>
-												
-												
-												
+												<td><?php echo $column->nmijin_absensi;?></td>
+												<td><?php echo $column->tgl_kerja;?></td>
+												<td><?php echo $column->keterangan;?></td>									
+																								
 											  </tr>	
 											<?php $no++;}} ?>
                                         </tbody>                                        

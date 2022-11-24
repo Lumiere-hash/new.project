@@ -34,7 +34,7 @@
 						<p align='right' style='margin-right:10px'>Download Laporan Cuti :
 						<!--<a href="<?php echo site_url('hrd/report/pdf');?>"><i class='fa fa-file-text-o'></i> <label>PDF</label></a>
 						<a href="<?php echo site_url('hrd/report/excel03');?>"><i class='fa fa-file-text-o'></i> <label>Excel 2003</label></a>-->
-						<a href="<?php echo site_url("trans/report/excel_cuti/$periode");?>"><i class='fa fa-file-text-o'></i> <label>Excel 2007</label></a></p>
+						<a href="<?php echo base_url("trans/report/excel_attendence/$periode");?>"><i class='fa fa-file-text-o'></i> <label>Excel 2007</label></a></p>
 						<div class="box">
                                 <div class="box-header">
                                     
@@ -52,12 +52,20 @@
 												<th align="justify">Jabatan</th>
 												<th align="justify">Group Penggajian</th>
 												<th align="justify">Tgl. Masuk Kerja</th>
-												<th align="justify">No. Dokumen</th>
-												<th align="justify">Tipe Cuti</th>
-												<th align="justify">Nama Ijin Khusus</th>
-												<th align="justify">Tanggal Mulai</th>
-												<th align="justify">Tanggal Selesai</th>
-												<th align="justify">Keterangan</th>
+												<th align="justify">Jumlah Jadwal</th>
+												<th align="justify">Cuti</th>
+												<th align="justify">Cuti Potong Gaji</th>
+												<th align="justify">Cuti Khusus</th>
+												<th align="justify">Izin Datang Terlambat</th>
+												<th align="justify">Izin Pulang Awal</th>
+												<th align="justify">Izin Keluar</th>
+												<th align="justify">Izin Sakit</th>
+												<th align="justify">Izin Sakit P0</th>
+												<th align="justify">Alpha</th>
+												<th align="justify">Datang Terlambat</th>
+												<th align="justify">Pulang Awal</th>
+												<th align="justify">Dinas</th>
+												<th align="justify">Cuti Bersama</th>
 												<th align="justify">Jumlah Cuti</th>
 												<th align="justify">Sisa Cuti</th>
 											</tr>
@@ -65,13 +73,13 @@
                                         <tbody>
                                             <?php
 												 //Menampilkan data turn over yang ada
-												 if(empty($list_cuti))
+												 if(empty($list_att))
 												 {
 												 echo "<tr><td colspan=\"8\">Data tidak tersedia</td></tr>";
 												 }else
 													$no=1;
 												 {
-												 foreach($list_cuti as $column)
+												 foreach($list_att as $column)
 												 {
 												?>
 											  <tr>
@@ -84,16 +92,22 @@
 												<td><?php echo $column->nmjabatan;?></td>
 												<td><?php echo $column->grouppenggajian;?></td>
 												<td><?php echo $column->tglmasukkerja;?></td>
-												<td><?php echo $column->nodok;?></td>
-												<td><?php echo $column->tpcuti;?></td>
-												<td><?php echo $column->nmijin_khusus;?></td>
-												<td><?php echo $column->tgl_mulai;?></td>
-												<td><?php echo $column->tgl_selesai;?></td>
-												<td><?php echo $column->keterangan;?></td>
-												<td><?php echo $column->jumlah_cuti;  ?></td>
-												<td><?php echo $column->sisacuti;  ?></td>
-												
-												
+												<td><?php echo $column->jumlah_jadwal;?></td>
+												<td><?php echo $column->cuti;?></td>
+												<td><?php echo $column->cuti_ptggaji;?></td>
+												<td><?php echo $column->cuti_khusus;?></td>
+												<td><?php echo $column->izin_dt;?></td>
+												<td><?php echo $column->izin_pa;?></td>
+												<td><?php echo $column->izin_keluar;?></td>
+												<td><?php echo $column->cuti_khusus_izin_sakit;?></td>
+												<td><?php echo $column->izin_sakit;?></td>
+												<td><?php echo $column->alpha;?></td>
+												<td><?php echo $column->dt;?></td>
+												<td><?php echo $column->pa;?></td>
+												<td><?php echo $column->dinas;?></td>
+												<td><?php echo $column->cuti_bersama;?></td>
+												<td><?php echo $column->cuti_terpakai;?></td>
+												<td><?php echo $column->sisa_cuti;?></td>
 												
 											  </tr>	
 											<?php $no++;}} ?>
