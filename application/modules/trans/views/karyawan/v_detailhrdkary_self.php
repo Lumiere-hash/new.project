@@ -77,7 +77,7 @@ error_reporting(0);
 							<div class="form-group">
 								<label for="inputjk" class="col-sm-4 control-label">Jenis Kelamin</label>
 								<div class="col-sm-8">
-								  <input type="text" class="form-control input-sm" id="jk" name="jk" value="<?php if ($lp['kdkelamin']=='B') { echo 'Pria';} else {echo 'Wanita';}?>" readonly>						  
+								  <input type="text" class="form-control input-sm" id="jk" name="jk" value="<?php if ($lp['jk']=='L') { echo 'Pria';} else {echo 'Wanita';}?>" readonly>						  
 								</div>						
 							</div>
 							<div class="form-group">
