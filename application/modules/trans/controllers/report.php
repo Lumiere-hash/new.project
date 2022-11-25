@@ -71,7 +71,7 @@ class Report extends MX_Controller{
 				$data['list_turnover']=$this->m_reporthrd->q_turn_over($periode,$kantor)->result();
 				$this->template->display('trans/report/view_turn_over',$data);
 				break;
-			case 'AR':redirect("trans/report/attendance_report/$periode/$kantor"); break;
+			case 'AR':redirect("trans/report/attendance_report/$periode"); break;
 			case 'DA':redirect('trans/report/detail_attendance'); break;
 			case 'KS':
 				$data['title']="Filter Karyawan Selesai Kontrak $bln $tahun";
@@ -84,6 +84,7 @@ class Report extends MX_Controller{
 			case 'LR':redirect("trans/report/late_report/$periode/$kantor"); break;
 			case 'LI':redirect("trans/report/ijin_report/$periode"); break;
 			case 'LC':redirect("trans/report/cuti_report/$periode"); break;
+			case 'IS':redirect("trans/report/izin_sakit/$periode"); break;
 			case 'LL':redirect("trans/report/lembur_report/$periode"); break;
 			
 			
@@ -94,9 +95,10 @@ class Report extends MX_Controller{
 		}		
 	}
 	
-	function attendance_report($periode,$kantor){ 
-		$bulan=substr(trim($periode),4);
+	function attendance_report($periode){
 		
+		$bulan=substr(trim($periode),4);
+        //$nama = trim($this->session->userdata('nik'));
 		$tahun=substr($periode,0,4);
 		switch (trim($bulan)){
 			case '01':$bln='Januari'; break;
@@ -112,14 +114,15 @@ class Report extends MX_Controller{
 			case '11':$bln='November'; break;
 			case '12':$bln='Desember'; break;
 		}
-		//echo $bulan.$bln;
+		//echo $periode;die();
+
+		$data['title']="Laporan Presensi Periode Bulan $bln Tahun $tahun ";
+		//$this->db->query("select sc_trx.pr_reportabsen_user('$bulan','$tahun','$nama')");
+		$data['list_att']=$this->m_report->q_att_new($periode)->result();
 		
-		
-		$data['title']="Attendance Report Periode Bulan $bln Tahun $tahun ";
-		$this->db->query("select sc_trx.pr_reportabsen('$bulan','$thn')");
-		$data['list_att']=$this->m_report->q_att_new($periode,$kantor)->result();
 		$data['periode']=$periode;
-		$this->template->display('trans/report/view_attendancereport',$data);
+		//$data['kantor']=$kantor;
+		$this->template->display('trans/report/view_attandance',$data);
 	}
 	
 	function detail_attendance(){
@@ -233,9 +236,9 @@ class Report extends MX_Controller{
 	
 	
 	function cuti_report($periode){
-		
+
 		$bulan=substr(trim($periode),4);
-		
+
 		$tahun=substr($periode,0,4);
 		switch (trim($bulan)){
 			case '01':$bln='Januari'; break;
@@ -251,12 +254,39 @@ class Report extends MX_Controller{
 			case '11':$bln='November'; break;
 			case '12':$bln='Desember'; break;
 		}
-		
+
 		$data['title']="Laporan Cuti Karyawan Periode Bulan $bln Tahun $tahun";
 		$data['periode']=$periode;
-		$data['list_cuti']=$this->m_reporthrd->q_cuti_report($periode)->result();
-		$this->template->display('hrd/report/view_cutireport',$data);
+		$data['list_cuti']=$this->m_report->q_cuti_report($periode)->result();
+		$this->template->display('trans/report/view_cutireport',$data);
+
+	}
 	
+	function izin_sakit($periode){
+
+		$bulan=substr(trim($periode),4);
+
+		$tahun=substr($periode,0,4);
+		switch (trim($bulan)){
+			case '01':$bln='Januari'; break;
+			case '02':$bln='Februari'; break;
+			case '03':$bln='Maret'; break;
+			case '04':$bln='April'; break;
+			case '05':$bln='Mei'; break;
+			case '06':$bln='Juni'; break;
+			case '07':$bln='Juli'; break;
+			case '08':$bln='Agustus'; break;
+			case '09':$bln='September'; break;
+			case '10':$bln='Oktober'; break;
+			case '11':$bln='November'; break;
+			case '12':$bln='Desember'; break;
+		}
+
+		$data['title']="Laporan Cuti Khusus Keterangan Dokter Periode Bulan $bln Tahun $tahun";
+		$data['periode']=$periode;
+		$data['list_cuti']=$this->m_report->izin_sakit($periode)->result();
+		$this->template->display('trans/report/view_izin_sakit',$data);
+		
 	}
 	
 	function excel_late($periode,$kantor){
@@ -329,7 +359,7 @@ class Report extends MX_Controller{
 	function excel_cuti($periode){
 		
 		$bulan=substr(trim($periode),4);
-		
+
 		$tahun=substr($periode,0,4);
 		switch (trim($bulan)){
 			case '01':$bln='Januari'; break;
@@ -345,13 +375,15 @@ class Report extends MX_Controller{
 			case '11':$bln='November'; break;
 			case '12':$bln='Desember'; break;
 		}
-		
-		$datane=$this->m_reporthrd->q_cuti_report_excel($periode);
+
+		///$datane=$this->m_report->q_cuti_report_excel($periode);
+		$datane=$this->m_report->q_cuti_report($periode);
         $this->excel_generator->set_query($datane);
-        $this->excel_generator->set_header(array('Nama Karyawan', 'No. Dokumen',
-		'Tanggal Mulai','Tanggal Selesai','Keterangan','Jumlah Cuti'));
-        $this->excel_generator->set_column(array('nmlengkap', 'nodokumen', 'tglmulai','tglahir','keterangan','jmlcuti_new'));
-        $this->excel_generator->set_width(array(40,30,30,30,40,30));
+        $this->excel_generator->set_header(array('No','Nik','Nama Karyawan','Department','Sub Department','Regu','jabatan','Group Penggajian','Tanggal Masuk Kerja',
+		'No. Dokumen','Tipe Cuti','Nama Ijin Khusus','Tanggal Mulai','Tanggal Selesai','Keterangan','Jumlah Cuti','Sisa Cuti'));
+        $this->excel_generator->set_column(array('no','nik','nmlengkap','nmdept','nmsubdept','nmregu','nmjabatan','grouppenggajian','tglmasukkerja','nodok','tpcuti',
+		'nmijin_khusus','tgl_mulai','tgl_selesai','keterangan','jumlah_cuti','sisacuti'));
+        $this->excel_generator->set_width(array(10,10,40,40,40,30,30,10,30,30,20,20,60,10,10));
         $this->excel_generator->exportTo2007("Laporan Cuti Periode Bulan $bln Tahun $tahun");
 	}
 	
@@ -385,9 +417,10 @@ class Report extends MX_Controller{
         $this->excel_generator->exportTo2007("Laporan Lembur Periode Bulan $bln Tahun $tahun");
 	}
 	
-	function excel_attendence($periode){
-		$bulan=substr(trim($periode),4);
+	function excel_izin_sakit($periode){
 		
+		$bulan=substr(trim($periode),4);
+
 		$tahun=substr($periode,0,4);
 		switch (trim($bulan)){
 			case '01':$bln='Januari'; break;
@@ -403,17 +436,48 @@ class Report extends MX_Controller{
 			case '11':$bln='November'; break;
 			case '12':$bln='Desember'; break;
 		}
-		
-		
-		$datane=$this->m_reporthrd->q_att_new($periode);
+
+		///$datane=$this->m_report->q_cuti_report_excel($periode);
+		$datane=$this->m_report->izin_sakit($periode);
         $this->excel_generator->set_query($datane);
-        $this->excel_generator->set_header(array('Nama Karyawan', 'Department',
-		'Alpha','Ijin Keluar','Ijin Pulang','Ijin Sakit','Ijin Terlambat','Ijin Menikah','Terlambat','Cuti'));
-        $this->excel_generator->set_column(array('nmlengkap','departement', 'alpha', 'ijinkeluar','ijinpulang','skd','ijinterlambat','ijinmenikah','terlambat','cuti'));
-        $this->excel_generator->set_width(array(40,40,20,20,20,20,20,20,20,20));
-        $this->excel_generator->exportTo2007("Laporan Absensi Periode Bulan $bln Tahun $tahun");
-	
+        $this->excel_generator->set_header(array('No','Nik','Nama Karyawan','Department','Sub Department','Regu','jabatan','Group Penggajian','Tanggal Masuk Kerja',
+		'No. Dokumen','Nama Ijin Absensi','Tanggal Kerja','Keterangan'));
+        $this->excel_generator->set_column(array('no','nik','nmlengkap','nmdept','nmsubdept','nmregu','nmjabatan','grouppenggajian','tglmasukkerja','nodok',
+		'nmijin_absensi','tgl_kerja','keterangan'));
+        $this->excel_generator->set_width(array(10,10,40,40,40,30,30,10,30,30,20,20,60,10,10));
+        $this->excel_generator->exportTo2007("Laporan Izin Surat Keterangan Dokter Periode Bulan $bln Tahun $tahun");
 	}
+	
+	function excel_attendence($periode){
+        $bulan=substr(trim($periode),4);
+
+        $tahun=substr($periode,0,4);
+        switch (trim($bulan)){
+            case '01':$bln='Januari'; break;
+            case '02':$bln='Februari'; break;
+            case '03':$bln='Maret'; break;
+            case '04':$bln='April'; break;
+            case '05':$bln='Mei'; break;
+            case '06':$bln='Juni'; break;
+            case '07':$bln='Juli'; break;
+            case '08':$bln='Agustus'; break;
+            case '09':$bln='September'; break;
+            case '10':$bln='Oktober'; break;
+            case '11':$bln='November'; break;
+            case '12':$bln='Desember'; break;
+        }
+
+        $datane=$this->m_report->q_att_new($periode);
+        $this->excel_generator->set_query($datane);
+        $this->excel_generator->set_header(array('No','NIK','Nama Lengkap','Departemen','Sub Department','Regu','Jabatan','Group Penggajian','Tgl Masuk Kerja','Jumlah Jadwal','Cuti',
+            'Cuti Potong Gaji','Cuti Khusus','Izin Datang Terlambat','Izin Pulang Awal','Izin Keluar','Izin Sakit','Izin Sakit P0','Alpha','Datang Terlambat','Pulang Awal','Dinas',
+			'Cuti Bersama','Jumlah Cuti Terpakai','Sisa Cuti'));
+        $this->excel_generator->set_column(array('no','nik','nmlengkap','nmdept','nmsubdept','nmregu','nmjabatan','grouppenggajian','tglmasukkerja','jumlah_jadwal','cuti','cuti_ptggaji',
+			'cuti_khusus','izin_dt','izin_pa','izin_keluar','cuti_khusus_izin_sakit','izin_sakit','alpha','dt','pa','dinas','cuti_bersama','cuti_terpakai','sisa_cuti'));
+        $this->excel_generator->set_width(array(10,10,40,40,40,40,40,10,20,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10));
+        $this->excel_generator->exportTo2007("Laporan Absensi Periode Bulan $bln Tahun $tahun");
+
+    }
 	
 	function download_pdf_to($tahun,$bulan){
 		
