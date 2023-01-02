@@ -139,7 +139,7 @@ error_reporting(0);
                                 <div class="form-group">
                                     <label for="inputatasan" class="col-sm-4 control-label">Atasan Ke-2</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control input-sm" id="nama" name="nama" value="<?php echo $lp['nmatasan1'];?>" readonly>
+                                        <input type="text" class="form-control input-sm" id="nama" name="nama" value="<?php echo $lp['nmatasan2'];?>" readonly>
                                     </div>
                                     <div class="col-sm-10"></div>
                                 </div>

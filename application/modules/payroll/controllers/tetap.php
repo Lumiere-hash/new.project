@@ -271,7 +271,7 @@ class Tetap extends MX_Controller{
         $this->db->where('nik',$nik);
         $this->db->update('sc_mst.karyawan',$detail);
 
-        $this->db->query("select sc_tmp.pr_capture_gaji_pokok_nik('$nik');");
+        $this->db->query("select sc_tmp.pr_capture_gaji_pokok();");
         echo json_encode(array("status" => TRUE));
 
     }

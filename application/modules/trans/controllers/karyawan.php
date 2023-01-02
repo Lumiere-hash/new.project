@@ -41,7 +41,7 @@ class Karyawan extends MX_Controller {
         $data['list_chainjobgrade']=$this->m_jabatan->chain_jobgrade()->result();//
         $data['list_opt_atasan']=$this->m_karyawan->list_karyawan()->result();
         $data['list_opt_ptkp']=$this->m_bpjs->list_ptkp()->result();
-        $data['list_opt_ptkp']=$this->m_karyawan->list_ptkp()->result();
+        //$data['list_opt_ptkp']=$this->m_karyawan->list_ptkp()->result();
         $data['list_opt_grp_gaji']=$this->m_group_penggajian->q_group_penggajian()->result();
         $data['list_opt_bank']=$this->m_bank->q_bank()->result();
         $data['list_resignkary']=$this->m_karyawan->list_karyresgn()->result();//

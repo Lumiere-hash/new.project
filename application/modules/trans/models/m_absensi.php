@@ -942,7 +942,7 @@ class M_absensi extends CI_Model {
 	    return $this->db->query("
             SELECT * 
             FROM dblink (
-                'hostaddr=$host dbname=$dbname user=$dbuser password=$dbpass port=39170',
+                'hostaddr=$host dbname=$dbname user=$dbuser password=$dbpass ',
                 'SELECT userid, usersname, nik, checktime 
                 FROM sc_trx.v_checkin_mobile'
             ) AS t1 (
@@ -1017,6 +1017,7 @@ class M_absensi extends CI_Model {
                                 FROM sc_tmp.absent a
                                 LEFT JOIN sc_mst.\"user\" b ON BTRIM(a.userid::TEXT) = BTRIM(b.userid::TEXT)
                             ) x
+							order by checktime desc
                             LIMIT 10000
                         ) z'
                     ) AS t1 (

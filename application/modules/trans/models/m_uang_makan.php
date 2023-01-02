@@ -799,7 +799,8 @@ class M_uang_makan extends CI_Model{
             SELECT *
             FROM dblink (
                 'hostaddr=$host dbname=$dbname user=$dbuser password=$dbpass port=39170',
-                'SELECT s.branch, s.userid, u.nip AS nik, s.scheduleid, s.scheduledate, 
+                'SELECT DISTINCT ON (branch, scheduleid, locationid, locationidlocal)
+				s.branch, s.userid, u.nip AS nik, s.scheduleid, s.scheduledate, 
                 COALESCE(NULLIF(sl.locationid, ''''), c.custcode, '''') AS locationid, 
                 COALESCE(NULLIF(sl.locationidlocal, ''''), c.customercodelocal, '''') AS locationidlocal,
                 c.custname, c.grdpaymt AS customertype, ''$nik''::TEXT AS createby, NOW() AS createdate
@@ -808,7 +809,7 @@ class M_uang_makan extends CI_Model{
                 LEFT JOIN sc_mst.\"user\" u ON REGEXP_REPLACE(u.userid::TEXT, ''\s'', '''', ''g'') = REGEXP_REPLACE(s.userid::TEXT, ''\s'', '''', ''g'')
                 LEFT JOIN sc_mst.customer c ON COALESCE(NULLIF(c.customercodelocal, ''''), c.custcode) = COALESCE(NULLIF(sl.locationidlocal, ''''), sl.locationid)
                 WHERE COALESCE(NULLIF(sl.locationidlocal, ''''), sl.locationid) != '''' AND scheduledate BETWEEN ''$awal'' AND ''$akhir''
-                ORDER BY scheduledate DESC, userid'
+                ORDER BY branch, scheduleid, locationid, locationidlocal DESC, userid'
             ) AS t1 (
                 branch CHARACTER VARYING, userid CHARACTER VARYING, nik CHARACTER(12), scheduleid CHARACTER VARYING, 
                 scheduledate DATE, locationid CHARACTER VARYING, locationidlocal CHARACTER VARYING,
