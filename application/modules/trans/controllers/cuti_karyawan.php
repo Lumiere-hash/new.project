@@ -208,13 +208,13 @@ class Cuti_karyawan extends MX_Controller{
         if ($tgl_awal1==''){
             $tgl_awal=NULL;
         } else {
-            $tgl_awal=$tgl_awal1;
+            $tgl_awal=date('Y-m-d', strtotime($tgl_awal1));
         }
         $tgl_selesai1=$this->input->post('tgl_selesai');
         if ($tgl_selesai1==''){
             $tgl_selesai=NULL;
         } else {
-            $tgl_selesai=$tgl_selesai1;
+            $tgl_selesai=date('Y-m-d', strtotime($tgl_selesai1));
         }
         /*$durasi1=$this->input->post('durasi');
 if ($durasi1==''){
@@ -237,8 +237,8 @@ if ($durasi1==''){
         //$cekdouble=$this->m_cuti_karyawan->cek_cuti_karyawan($nik)->row_array();
         $cekdb2=$this->m_cuti_karyawan->cek_cuti_karyawan2($nik,$tgl_awal,$tgl_selesai)->num_rows();
 
-        if($cekdb2>0 OR $tgl_selesai1<$tgl_awal){
-            $this->db->where('userid',$nama);
+        if($cekdb2>0 OR $tgl_selesai<$tgl_awal){
+			$this->db->where('userid',$nama);
             $this->db->where('modul','CUTI');
             $this->db->delete('sc_mst.trxerror');
             /* error handling */
@@ -251,7 +251,7 @@ if ($durasi1==''){
             );
             $this->db->insert('sc_mst.trxerror',$infotrxerror);
             redirect("trans/cuti_karyawan/index");
-        } else if ($tgl_selesai1<$tgl_awal){
+        } else if ($tgl_selesai<$tgl_awal){
             $this->db->where('userid',$nama);
             $this->db->where('modul','CUTI');
             $this->db->delete('sc_mst.trxerror');
