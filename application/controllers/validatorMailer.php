@@ -587,7 +587,8 @@ a { color: inherit; }
             select *,case 
 when right(trim(mailto),1)=',' then left(trim(mailto),-1)
 else trim(mailto) end as mailto2 from public.mail_outbox where coalesce(mailstatus,'NO_SENT')='NO_SENT' ORDER BY send_date ASC 
-        ");
+--LIMIT 5        
+		");
         $loop_appx = $loop_app->result();
 
         foreach ($loop_appx as $lr) {

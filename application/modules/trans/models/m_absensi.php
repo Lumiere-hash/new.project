@@ -561,6 +561,8 @@ class M_absensi extends CI_Model {
 									when kdpokok='CK' then 'CK'
 									when kdpokok='DN' then 'DN'
 									when kdpokok='AL' then 'AL'
+									when kdpokok='SKD' then 'SKD'
+									when kdpokok='IK' then 'IK'
 									when a.masuk<c.jam_masuk and a.keluar>=c.jam_pulang then 'TE'
 									when a.masuk>c.jam_masuk and a.keluar>=c.jam_pulang then 'TA'
 									when a.masuk<c.jam_masuk and a.keluar<=c.jam_pulang then 'TD'

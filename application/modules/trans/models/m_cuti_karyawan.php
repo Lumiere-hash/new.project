@@ -96,7 +96,7 @@ class M_cuti_karyawan extends CI_Model{
 									left outer join sc_mst.lvljabatan e 
 									 on a.kdlvljabatan=e.kdlvl
 									left outer join sc_mst.jabatan f 
-									 on a.kdjabatan=f.kdjabatan  and f.kdsubdept=b.subbag_dept and f.kddept=b.bag_dept
+									 on a.kdjabatan=f.kdjabatan and f.kdsubdept=b.subbag_dept and f.kddept=b.bag_dept
 									left outer join sc_mst.ijin_khusus g 
 									 on a.kdijin_khusus=g.kdijin_khusus
 									left outer join sc_mst.karyawan h 

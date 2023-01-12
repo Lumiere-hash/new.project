@@ -1052,6 +1052,6 @@ class Absensi extends MX_Controller {
             }
 
         }
-        echo json_encode(array("status" => TRUE));
+        //echo json_encode(array("status" => TRUE));
     }
 }
