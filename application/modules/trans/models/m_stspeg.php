@@ -57,9 +57,10 @@ class M_stspeg extends CI_Model{
                                 from sc_mst.karyawan a
                                 left outer join sc_mst.departmen a1 on a.bag_dept=a1.kddept
                                 left outer join sc_trx.status_kepegawaian b on a.nik=b.nik and a.statuskepegawaian=b.kdkepegawaian
-                                left outer join sc_mst.status_kepegawaian c on b.kdkepegawaian=c.kdkepegawaian
-                                where a.statuskepegawaian<>'KO' and coalesce(a.statuskepegawaian,'')='KK'  
-                                and to_char(tgl_selesai,'YYYYMM') between to_char(now() - interval '2 Months','YYYYMM') and  to_char(now() + interval '2 Months','YYYYMM')) as t1
+                                left outer join sc_mst.status_kepegawaian c on trim(b.kdkepegawaian)=trim(c.kdkepegawaian)
+                                where a.statuskepegawaian<>'KO' and coalesce(a.statuskepegawaian,'') in ('PK','P1','P2','P3','P4','P5')
+                                and to_char(tgl_selesai,'YYYYMM') between to_char(now() - interval '2 Months','YYYYMM') and  to_char(now() + interval '2 Months','YYYYMM')
+                                ) as t1
                                 order by kuranghari asc
 								");
 	}
