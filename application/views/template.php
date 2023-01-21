@@ -147,17 +147,17 @@
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
                 <section class="content">
-                    <?php if($this->session->flashdata('message')): ?>
-                        <?php $message = $this->session->flashdata('message'); ?>
-                        <div class="d-inline h5 alert alert-<?= $message[1] ?: "success" ?>">
-                            <?= $message[0] ?>
-                            <a onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close" data-dismiss="alert" style="font-size: unset;">
-                                <span aria-hidden="true"><i class="fa fa-times"></i></span>
-                            </a>
-                        </div>
-                    <?php endif; ?>
-                <?php echo $_content;?>
-                </section><!-- /.content -->
+					<?php $messages = $this->session->flashdata('message') ? array($this->session->flashdata('message')) : $this->flashmessage->get(); ?>
+						<?php foreach($messages as $message) { ?>
+							<div class="d-inline h5 alert alert-<?= $message[1] ?: "success" ?>">
+						<?= $message[0] ?>
+                    <a onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close" data-dismiss="alert" style="font-size: unset;">
+                        <span aria-hidden="true"><i class="fa fa-times"></i></span>
+                    </a>
+                </div>
+					<?php } ?>
+					<?php echo $_content;?>
+				</section><!-- /.content -->
             </div>
             <footer class="main-footer">
                 <div class="pull-right hidden-xs">

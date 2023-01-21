@@ -503,7 +503,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="form-group">
+					<!--<div class="form-group">
 						<label class="control-label col-sm-3">Golongan</label>	
 						<div class="col-sm-8">    
 							<select name="lvl_jabatan_" id='lvljabatan' class="form-control col-sm-12" disabled>										
@@ -512,7 +512,7 @@
 								<?php };?>
 							</select>
 						</div>
-					</div>
+					</div>-->
 					<div class="form-group">
 						<label class="control-label col-sm-3">Atasan</label>	
 						<div class="col-sm-8">    

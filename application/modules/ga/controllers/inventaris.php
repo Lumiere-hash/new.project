@@ -324,7 +324,7 @@ class Inventaris extends MX_Controller{
 		//echo $tgl;
 		$data['list_msubgroup']=$this->m_inventaris->q_scsubgroup()->result();
 		$data['list_mgroup']=$this->m_inventaris->q_scgroup()->result();
-        $this->template->display('ga/inventaris/v_scsubbarang',$data);
+        // $this->template->display('ga/inventaris/v_scsubbarang',$data);
 	}
 
 

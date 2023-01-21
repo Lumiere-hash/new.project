@@ -13,7 +13,7 @@ class Cuti_karyawan extends MX_Controller{
         //$enc_nodok=bin2hex($this->encrypt->encode(trim($dtledit['nodoktmp'])));
         //$nodok=$this->encrypt->decode(hex2bin(trim($this->uri->segment(4))));
         $this->load->model(array('m_cuti_karyawan','master/m_akses','master/m_option'));
-        $this->load->library(array('form_validation','template','upload','pdf','Excel_generator','fiky_encryption','Fiky_notification_push'));
+        $this->load->library(array('form_validation','template','upload','pdf','Excel_generator','fiky_encryption','Fiky_notification_push','flashmessage'));
         if(!$this->session->userdata('nik')){
             redirect('dashboard');
         }
@@ -216,13 +216,23 @@ class Cuti_karyawan extends MX_Controller{
         } else {
             $tgl_selesai=date('Y-m-d', strtotime($tgl_selesai1));
         }
+		$statusptg=$this->input->post('statptg');
+		$jumlah_cuti1=$this->m_cuti_karyawan->q_jumlah_cuti($nik,$tgl_awal,$tgl_selesai)->row_array();
+        $jumlah_cuti=$jumlah_cuti1['jumlah'];
+		$sisa_cuti=$this->m_cuti_karyawan->list_karyawan_index($nik)->row()->sisacuti;
+		//print_r($jumlah_cuti);print_r($sisa_cuti);print_r($tpcuti);print_r($statusptg);die();
+		if ( $jumlah_cuti > $sisa_cuti and $tpcuti=='A' and $statusptg=='A1') {
+			$this->flashmessage
+                ->set(array('Jumlah cuti <b>'.$jumlah_cuti.'</b> lebih besar dari sisa cuti  <b>'.$sisa_cuti.'</b>', 'warning'))
+                ->redirect('trans/cuti_karyawan/input/'.$nik);
+		}
         /*$durasi1=$this->input->post('durasi');
 if ($durasi1==''){
     $durasi=NULL;
 } else {
     $durasi=$durasi1;
 }*/
-        $jumlah_cuti=$this->input->post('jumlah_cuti');
+  //$jumlah_cuti=$this->input->post('jumlah_cuti');
         //$jumlah_cuti=$tgl_selesai-$tgl_awal;
         $tgl_dok=$this->input->post('tgl_dok');
         //$kdtrx=$this->input->post('kdtrx');
@@ -232,12 +242,12 @@ if ($durasi1==''){
         $status=$this->input->post('status');
         $tgl_input=$this->input->post('tgl');
         $inputby=$this->input->post('inputby');
-        $statusptg=$this->input->post('statptg');
 
         //$cekdouble=$this->m_cuti_karyawan->cek_cuti_karyawan($nik)->row_array();
         $cekdb2=$this->m_cuti_karyawan->cek_cuti_karyawan2($nik,$tgl_awal,$tgl_selesai)->num_rows();
-
-        if($cekdb2>0 OR $tgl_selesai<$tgl_awal){
+		
+        if($cekdb2>0 OR date('Y-m-d', strtotime($tgl_selesai1))<date('Y-m-d', strtotime($tgl_awal))){
+			
 			$this->db->where('userid',$nama);
             $this->db->where('modul','CUTI');
             $this->db->delete('sc_mst.trxerror');
@@ -251,7 +261,7 @@ if ($durasi1==''){
             );
             $this->db->insert('sc_mst.trxerror',$infotrxerror);
             redirect("trans/cuti_karyawan/index");
-        } else if ($tgl_selesai<$tgl_awal){
+        } else if (date('Y-m-d', strtotime($tgl_selesai1))<date('Y-m-d', strtotime($tgl_awal))){
             $this->db->where('userid',$nama);
             $this->db->where('modul','CUTI');
             $this->db->delete('sc_mst.trxerror');
@@ -293,7 +303,7 @@ if ($durasi1==''){
             );
 
             $nama = $this->session->userdata('nik');
-            $this->db->insert('sc_tmp.cuti_karyawan',$info);
+			$this->db->insert('sc_tmp.cuti_karyawan',$info);
             $dtl_push = $this->m_akses->q_lv_mkaryawan(" and nik='$nik'")->row_array();
             $paramerror=" and userid='$nama' and modul='CUTI'";
             $dtlerror=$this->m_cuti_karyawan->q_trxerror($paramerror)->row_array();
@@ -336,7 +346,7 @@ if ($durasi1==''){
         $data['dtl']=$this->m_cuti_karyawan->q_cuti_karyawan_dtl($nodok)->row_array();
         $data['cekclosing']=$this->m_cuti_karyawan->cek_closing()->row_array();
         $data['list_cutidtl']=$this->m_cuti_karyawan->q_cuti_karyawan_dtl($nodok)->row_array();
-        $data['list_karyawan']=$this->m_cuti_karyawan->list_pelimpahan($nama)->result();
+        $data['list_karyawan']=$this->m_cuti_karyawan->list_karyawan()->result();
         $data['opsi_cuti'] = null;
         if($data['userhr'] == 0) {
             $data_cuti = $this->m_option->q_cekoption('BLKCT')->row();
@@ -403,7 +413,8 @@ if ($durasi1==''){
         } else {
             $durasi=$durasi1;
         }*/
-        $jumlah_cuti=$this->input->post('jumlah_cuti');
+		$jumlah_cuti=$this->m_cuti_karyawan->q_jumlah_cuti($nik,$tgl_awal,$tgl_selesai)->row_array()['jumlah'];
+        //$jumlah_cuti=$this->input->post('jumlah_cuti');
         //$jumlah_cuti=$tgl_selesai-$tgl_awal;
         $tgl_dok=$this->input->post('tgl_dok');
         //$kdtrx=$this->input->post('kdtrx');
@@ -911,6 +922,14 @@ if ($durasi1==''){
     function test_cuti(){
         $this->fiky_notification_push->onePushVapeApprovalHrms('1115.184','0512.070','CT190010');
     }
+	
+	function check_tanggal() {
+        $nodok = $this->input->post("nodok");
+        $nik = $this->input->post("nik");
+        $tgl_awal = $this->input->post("tgl_awal");
+        $tgl_selesai = $this->input->post("tgl_selesai");
 
+        echo json_encode($this->m_cuti_karyawan->check_tanggal($nodok, $nik, $tgl_awal, $tgl_selesai)->result());
+    }
 
 }

@@ -536,7 +536,7 @@ class Karyawan extends MX_Controller {
         $kdcabang=$this->input->post('kdcabang');
         $nokk=trim($this->input->post('nokk'));
         $kdwilayahnominal=trim($this->input->post('kdwilayahnominal'));
-        $kdlvlgp=trim($this->input->post('kdlvlgp'));
+        //$kdlvlgp=trim($this->input->post('kdlvlgp'));
         $deviceid=trim($this->input->post('deviceid'));
         if (empty($tgllahir)){
             $tgllahir1=null;
@@ -623,7 +623,7 @@ class Karyawan extends MX_Controller {
             'subbag_dept' => strtoupper($this->input->post('subbag_dept')),
             'jabatan' => strtoupper($this->input->post('jabatan')),
             'lvl_jabatan' => strtoupper($this->input->post('lvl_jabatan')),
-            'kdgradejabatan' => strtoupper($this->input->post('kdgradejabatan')),
+            //'kdgradejabatan' => strtoupper($this->input->post('kdgradejabatan')),
             'grade_golongan' => strtoupper($this->input->post('grade_golongan')),
             'nik_atasan' => strtoupper($this->input->post('nik_atasan')),
             'nik_atasan2' => strtoupper($this->input->post('nik_atasan2')),
@@ -654,13 +654,14 @@ class Karyawan extends MX_Controller {
             'kdcabang'=>$kdcabang,
             'nokk'=>$nokk,
             'kdwilayahnominal'=>$kdwilayahnominal,
-            'kdlvlgp'=>$kdlvlgp,
+            //'kdlvlgp'=>$kdlvlgp,
             'deviceid'=>$deviceid,
             'updateby' => $username,
             'updatedate' => $inputdate,
             'callplan' => $this->input->post('callplan')
         );
-
+		
+		//print_r($data);die();
 
         $this->m_karyawan->update(array('nik' => $this->input->post('nik')), $data);
         echo json_encode(array("status" => TRUE));

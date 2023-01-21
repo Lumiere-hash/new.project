@@ -5,7 +5,7 @@ class Template{
 	function __construct(){
         $this->_CI=&get_instance();
 		$this->_CI->load->model(array('master/m_user','master/m_menu'));
-		$this->_CI->load->libraries(array('default_style'));
+		$this->_CI->load->libraries(array('default_style','flashmessage'));
 
     }
 	

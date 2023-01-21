@@ -193,4 +193,9 @@ class M_ijin_karyawan extends CI_Model{
     function q_deltrxerror($paramtrxerror){
         return $this->db->query("delete from sc_mst.trxerror where userid is not null $paramtrxerror");
     }
+	
+	function q_cek_ijinkaryawan($nik,$tgl_kerja){
+		return $this->db->query("select * from sc_trx.ijin_karyawan where nik='$nik' and tgl_kerja='$tgl_kerja' and (status='P' or status='A')");
+	}
+	
 }

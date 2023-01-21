@@ -1102,7 +1102,7 @@
                                                     options: [],
                                                     create: false,
                                                     initData: true
-                                                }).on('change', function () {
+                                                })/*.on('change', function () {
                                                     if (!firstLoad) {
                                                         $('#kdlvlgp')[0].selectize.clearOptions();
                                                     }
@@ -1128,13 +1128,13 @@
                                                             }
                                                         }
                                                     });
-                                                });
+                                                });*/
                                                 $("#grade_golongan").addClass("selectize-hidden-accessible");
                                             });
                                         </script>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                            <!--   <div class="form-group">
                                     <label class="control-label col-sm-3">Golongan</label>
                                     <div class="col-sm-6">
                                         <select class="form-control" id="kdlvlgp" name="kdlvlgp" placeholder="--- GOLONGAN ---">
@@ -1155,7 +1155,7 @@
                                             });
                                         </script>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="form-group">
                                     <label class="control-label col-sm-3">Atasan</label>
                                     <div class="col-sm-6">

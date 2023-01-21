@@ -17,16 +17,27 @@ class M_kendaraan extends CI_Model{
         return $this->db->query("select * from sc_mst.msubgroup where left(kdgroup,3)='KDN' order by nmsubgroup");
     }
 
-    function q_mstkendaraan($params = "") {
+    function q_mstkendaraan() {
         return $this->db->query("
             SELECT a.*, b.locaname
             FROM sc_mst.mbarang a
             LEFT OUTER JOIN sc_mst.mgudang b ON a.kdgudang = b.loccode
             WHERE LEFT(a.kdgroup, 3) = 'KDN' 
-            $params
+            AND (a.expstnkb - INTERVAL '1 MONTH' <= NOW() OR a.exppkbstnkb - INTERVAL '1 MONTH' <= NOW()) AND a.hold_item = 'NO'
             ORDER BY nmbarang
         ");
     }
+	
+	function q_kirkendaraan() {
+        return $this->db->query("
+            select a.*,b.nmbarang,b.nopol,b.jenisid,b.modelid,b.tahunpembuatan,b.nodok,b.hold_item,c.locaname from sc_his.kir_mst a
+			left outer join sc_mst.mbarang b on b.nodok=a.stockcode
+			LEFT OUTER JOIN sc_mst.mgudang c ON b.kdgudang = c.loccode
+            where to_char(a.expkir,'YYYYMM') between to_char(now() - interval '2 Months','YYYYMM') and  to_char(now() + interval '2 Months','YYYYMM') AND b.hold_item = 'NO'
+            ORDER BY nmbarang
+        ");
+    }
+	
     function q_cekkendaraan($kdrangka){
         return $this->db->query("select * from sc_mst.mbarang where left(kdgroup,3)='KDN' and nodok='$kdrangka' order by nmbarang");
     }

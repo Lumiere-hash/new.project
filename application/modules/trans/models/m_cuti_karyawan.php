@@ -61,11 +61,11 @@ class M_cuti_karyawan extends CI_Model{
 	}
 
 	function cek_cuti_karyawan2($nik,$tgl_awal,$tgl_selesai){
-		return $this->db->query("select nik, to_char(tgl_mulai,'dd-mm-yyyy')as tgl_mulai,tgl_selesai from sc_trx.cuti_karyawan
+        return $this->db->query("select nik, to_char(tgl_mulai,'dd-mm-yyyy')as tgl_mulai,tgl_selesai from sc_trx.cuti_karyawan
 								where nik='$nik' 
 								and (tgl_mulai>='$tgl_selesai' or tgl_selesai>='$tgl_awal')
-								and (tgl_mulai<='$tgl_selesai' or tgl_selesai<='$tgl_awal') and status='P'");
-	}
+								and (tgl_mulai<='$tgl_selesai' or tgl_selesai<='$tgl_awal') and status in ('P','I','A')");
+    }
 
 	function q_cuti_karyawan($tgl,$nikatasan,$status){
 		return $this->db->query(" select * from (
@@ -137,7 +137,7 @@ class M_cuti_karyawan extends CI_Model{
 										when a.status_ptg='A1' then 'POTONG CUTI'
 										when a.status_ptg='A2' then 'POTONG GAJI'
 										end as status_ptg1,	
-										a.*,b.nmlengkap,c.nmdept,d.nmsubdept,e.nmlvljabatan,f.nmjabatan,g.nmijin_khusus,h.nmlengkap as nmpelimpahan,i.nmlengkap as nmatasan1,j.nmlengkap as nmatasan2
+										a.*,b.nmlengkap,b.sisacuti,c.nmdept,d.nmsubdept,e.nmlvljabatan,f.nmjabatan,g.nmijin_khusus,h.nmlengkap as nmpelimpahan,i.nmlengkap as nmatasan1,j.nmlengkap as nmatasan2
 										from sc_trx.cuti_karyawan a 
 										left outer join sc_mst.karyawan b on a.nik=b.nik
 										left outer join sc_mst.departmen c on a.kddept=c.kddept
@@ -425,6 +425,24 @@ class M_cuti_karyawan extends CI_Model{
     function q_deltrxerror($paramtrxerror){
         return $this->db->query("delete from sc_mst.trxerror where userid is not null $paramtrxerror");
     }
+	
+	function q_jumlah_cuti($nik,$tgl_awal,$tgl_selesai){
 
+        return $this->db->query("SELECT count(*) as jumlah from sc_trx.dtljadwalkerja 
+								where nik='$nik' and kdjamkerja<>'OFF' and cast(to_char(tgl,'DD-MM-YYYY') as date)>='$tgl_awal' 
+								and cast(to_char(tgl,'DD-MM-YYYY') as date)<='$tgl_selesai' 
+								");
+    }
+	
+	function check_tanggal($nodok, $nik, $tgl_awal, $tgl_selesai) {
+        return $this->db->query("
+            SELECT TRIM(nodok) AS nodok, CASE TRIM(status) WHEN 'A' THEN 'PERLU PERSETUJUAN' ELSE 'DISETUJUI' END AS status, 
+                TO_CHAR(tgl_mulai, 'DD-MM-YYYY') AS tgl_mulai, TO_CHAR(tgl_selesai, 'DD-MM-YYYY') AS tgl_selesai
+            FROM sc_trx.cuti_karyawan
+            WHERE status IN ('A', 'P') AND nodok != '$nodok' AND nik = '$nik' 
+            AND tgl_mulai <= '$tgl_selesai'::DATE AND tgl_selesai >= '$tgl_awal'::DATE
+            ORDER BY tgl_mulai, tgl_selesai
+        ");
+    }
 
 }

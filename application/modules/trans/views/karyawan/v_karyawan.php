@@ -1162,7 +1162,7 @@
 
                                                     });
                                                 </script>
-                                                <div class="form-group">
+                                                <!--<div class="form-group">
                                                     <label class="control-label col-sm-3">Golongan</label>
                                                     <div class="col-sm-8">
                                                         <select name="kdlvlgp" class="form-control input-sm " placeholder="---KETIK GOLONGAN---" id="kdlvlgp">
@@ -1215,7 +1215,7 @@
 
 
                                                     });
-                                                </script>
+                                                </script>-->
                                             </div>
                                         </div>
                                     </div>

@@ -288,12 +288,12 @@
                                         });
                                     });
                                 </script>
-                                <div class="form-group">
+                                <!--<div class="form-group">
                                     <label class="col-sm-4">Jumlah Cuti (Hari)</label>
                                     <div class="col-sm-8">
                                         <input type="number" id="jumlah_cuti1" name="jumlah_cuti" placeholder="0"   class="form-control" required >
                                     </div>
-                                </div>
+                                </div>-->
                                 <div class="form-group">
                                     <label class="col-sm-4">Pelimpahan Pekerjaan</label>
                                     <div class="col-sm-8">

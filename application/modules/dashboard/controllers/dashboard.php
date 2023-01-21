@@ -33,8 +33,11 @@ class Dashboard extends MX_Controller{
             $data["list_magang"] = $this->m_stspeg->q_list_magang()->result();
             $data["title_magang"] = "Karyawan Magang";
 
-            $data["list_kendaraan"] = $this->m_kendaraan->q_mstkendaraan("AND (a.expstnkb - INTERVAL '1 MONTH' <= NOW() OR a.exppkbstnkb - INTERVAL '1 MONTH' <= NOW()) AND a.hold_item = 'NO'")->result();;
+            $data["list_kendaraan"] = $this->m_kendaraan->q_mstkendaraan()->result();;
             $data["title_kendaraan"] = "Kendaraan";
+			
+			$data["list_kir_kendaraan"] = $this->m_kendaraan->q_kirkendaraan()->result();;
+            $data["title_kir_kendaraan"] = "KIR Kendaraan";
         }
 
         $data["list_cuti"] = $this->m_report->q_remind_cuti()->result();

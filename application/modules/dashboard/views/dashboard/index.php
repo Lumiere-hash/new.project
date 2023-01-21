@@ -259,6 +259,53 @@
             </div>
         </div>
         <!--END OF KENDARAAN-->
+		
+		<!--START OF KIR KENDARAAN-->
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><?php echo $title_kir_kendaraan; ?></h3>
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table id="t_kir_kendaraan" class="display nowrap table table-striped no-margin" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th width="1%">No</th>
+                                    <th width="10%">Kode Kendaraan</th>
+                                    <th>Nama Kendaraan</th>
+                                    <th width="10%">Nopol</th>
+                                    <th>Base</th>
+                                    <th width="10%">Berlaku KIR</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($list_kir_kendaraan as $k => $v): ?>
+                                    <tr>
+                                        <td class="text-nowrap text-center"><?php echo ($k + 1);?></td>
+                                        <td class="text-nowrap"><?php echo trim($v->stockcode);?></td>
+                                        <td><?php echo trim($v->nmbarang);?></td>
+                                        <td class="text-nowrap"><?php echo trim($v->nopol);?></td>
+                                        <td><?php echo trim($v->locaname);?></td>
+                                        <td class="text-nowrap text-center"><?php echo date("d-m-Y", strtotime($v->expkir));?></td>
+                                    </tr>
+                                <?php endforeach;?>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>
+        <!--END OF KIR KENDARAAN-->
+		
     </div>
 <?php } ?>
 
@@ -500,6 +547,16 @@
             }]
         });
         $("#t_kendaraan").dataTable({
+            scrollX: true,
+            pageLength: 5,
+            lengthMenu: [[5, 25, 50, -1], [5, 25, 50, "All"]],
+            order: [],
+            columnDefs: [{
+                orderable: false,
+                targets: 0
+            }]
+        });
+		$("#t_kir_kendaraan").dataTable({
             scrollX: true,
             pageLength: 5,
             lengthMenu: [[5, 25, 50, -1], [5, 25, 50, "All"]],

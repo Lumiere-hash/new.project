@@ -178,89 +178,106 @@ class Ijin_karyawan extends MX_Controller{
 	}
 
 	function add_ijin_karyawan(){
-		//$nik1=explode('|',);
+		        //$nik1=explode('|',);
         $nama = $this->session->userdata('nik');
-		$nik=$this->input->post('nik');
-		//$nodok=$this->input->post('nodok');
-		$kddept=$this->input->post('department');
-		$kdsubdept=$this->input->post('subdepartment');
-		$kdjabatan=$this->input->post('jabatan');
-		$kdlvljabatan=$this->input->post('kdlvl');
-		$atasan=$this->input->post('atasan');
-		$kdijin_absensi=$this->input->post('kdijin_absensi');
-		$tgl_kerja1=$this->input->post('tgl_kerja');
+        $nik=$this->input->post('nik');
+        //$nodok=$this->input->post('nodok');
+        $kddept=$this->input->post('department');
+        $kdsubdept=$this->input->post('subdepartment');
+        $kdjabatan=$this->input->post('jabatan');
+        $kdlvljabatan=$this->input->post('kdlvl');
+        $atasan=$this->input->post('atasan');
+        $kdijin_absensi=$this->input->post('kdijin_absensi');
+        $tgl_kerja1=$this->input->post('tgl_kerja');
 
-		if ($tgl_kerja1==''){
-			$tgl_kerja=NULL;
-		} else {
-			$tgl_kerja=$tgl_kerja1;
-		}
-		/*$durasi1=$this->input->post('durasi');
-		if ($durasi1==''){
-			$durasi=NULL;
-		} else {
-			$durasi=$durasi1;
-		}*/
+        if ($tgl_kerja1==''){
+            $tgl_kerja=NULL;
+        } else {
+            $tgl_kerja=$tgl_kerja1;
+        }
+        /*$durasi1=$this->input->post('durasi');
+        if ($durasi1==''){
+            $durasi=NULL;
+        } else {
+            $durasi=$durasi1;
+        }*/
 
-		$jam_awal1=$this->input->post('jam_awal');
-		if ($jam_awal1==''){
-			$jam_awal=NULL;
-		} else {
-			$jam_awal=$jam_awal1;
-		}
-		$jam_selesai1=$this->input->post('jam_selesai');
-		if ($jam_selesai1==''){
-			$jam_selesai=NULL;
-		} else {
-			$jam_selesai=$jam_selesai1;
-		}
-		$durasi=$jam_selesai-$jam_awal;
-		$tgl_dok=$this->input->post('tgl_dok');
-		$keterangan=$this->input->post('keterangan');
-		$status=$this->input->post('status');
-		$tgl_input=$this->input->post('tgl');
-		$inputby=$this->input->post('inputby');
-		$ktgijin=$this->input->post('ktgijin');
-		$kendaraan=$this->input->post('kendaraan');
-		$nopol=$this->input->post('nopol');
+        $tgl_jam_awal1=$this->input->post('tgl_jam_awal');
+        if ($tgl_jam_awal1==''){
+            $tgl_jam_awal=NULL;
+        } else {
+            $tgl_jam_awal=$tgl_jam_awal1;
+        }
+        $jam_awal1=$this->input->post('jam_awal');
+        if ($jam_awal1==''){
+            $jam_awal=NULL;
+        } else {
+            $jam_awal=$jam_awal1;
+        }
 
-		//echo $gaji_bpjs;
-		$info=array(
-			'nik'=>$nik,
-			'nodok'=>$this->session->userdata('nik'),
-			'kddept'=>strtoupper($kddept),
-			'kdsubdept'=>strtoupper($kdsubdept),
-			'durasi'=>$durasi,
-			'kdjabatan'=>$kdjabatan,
-			'kdlvljabatan'=>strtoupper($kdlvljabatan),
-			'kdjabatan'=>strtoupper($kdjabatan),
-			'nmatasan'=>$atasan,
-			'tgl_dok'=>$tgl_dok,
-			'kdijin_absensi'=>strtoupper($kdijin_absensi),
-			'tgl_kerja'=>$tgl_kerja,
-			'tgl_jam_mulai'=>$jam_awal,
-			'tgl_jam_selesai'=>$jam_selesai,
-			'keterangan'=>strtoupper($keterangan),
-			'status'=>'I',
-			'input_date'=>$tgl_input,
-			'input_by'=>strtoupper($inputby),
-			'type_ijin'=>strtoupper($ktgijin),
-			'kendaraan'=>strtoupper($kendaraan),
-			'nopol'=>strtoupper($nopol),
-		);
+        $tgl_jam_selesai1=$this->input->post('tgl_jam_selesai');
+        if ($tgl_jam_selesai1==''){
+            $tgl_jam_selesai=NULL;
+        } else {
+            $tgl_jam_selesai=$tgl_jam_selesai1;
+        }
+        $jam_selesai1=$this->input->post('jam_selesai');
+        if ($jam_selesai1==''){
+            $jam_selesai=NULL;
+        } else {
+            $jam_selesai=$jam_selesai1;
+        }
+        $durasi=abs(strtotime($jam_selesai)-strtotime($jam_awal)) / 60;
+        $tgl_dok=$this->input->post('tgl_dok');
+        $keterangan=$this->input->post('keterangan');
+        $status=$this->input->post('status');
+        $tgl_input=$this->input->post('tgl');
+        $inputby=$this->input->post('inputby');
+        $ktgijin=$this->input->post('ktgijin');
+        $kendaraan=$this->input->post('kendaraan');
+        $nopol=$this->input->post('nopol');
 
-		$cek=$this->m_ijin_karyawan->cek_double($nik,$tgl_kerja)->num_rows();
-		if ($cek>0){
-			redirect("trans/ijin_karyawan/proses_input/$nik/input_failed");
-		} else {
-			$this->db->insert('sc_tmp.ijin_karyawan',$info);
+        //echo $gaji_bpjs;
+        $info=array(
+            'nik'=>$nik,
+            'nodok'=>$this->session->userdata('nik'),
+            'kddept'=>strtoupper($kddept),
+            'kdsubdept'=>strtoupper($kdsubdept),
+            'durasi'=>$durasi,
+            //'kdjabatan'=>$kdjabatan,
+            'kdlvljabatan'=>strtoupper($kdlvljabatan),
+            'kdjabatan'=>strtoupper($kdjabatan),
+            'nmatasan'=>$atasan,
+            'tgl_dok'=>$tgl_dok,
+            'kdijin_absensi'=>strtoupper($kdijin_absensi),
+            'tgl_kerja'=>$tgl_kerja,
+            'tgl_jam_mulai'=>$kdijin_absensi != 'PA' ? $jam_awal : null,
+            'tgl_jam_selesai'=>$kdijin_absensi != 'DT' ? $jam_selesai : null,
+            'keterangan'=>strtoupper($keterangan),
+            'status'=>'I',
+            'input_date'=>$tgl_input,
+            'input_by'=>strtoupper($inputby),
+            'type_ijin'=>strtoupper($ktgijin),
+            'kendaraan'=>strtoupper($kendaraan),
+            'nopol'=>strtoupper($nopol),
+            'tgl_mulai'=>$tgl_jam_awal,
+            'tgl_selesai'=>$tgl_jam_selesai,
+        );
+
+        $cek=$this->m_ijin_karyawan->cek_double($nik,$tgl_kerja)->num_rows();
+        if ($cek>0 && in_array(strtoupper($ktgijin), array('IK'))){
+            redirect("trans/ijin_karyawan/proses_input/$nik/input_failed");
+        } else {
+            $this->db->insert('sc_tmp.ijin_karyawan',$info);
             $dtl_push = $this->m_akses->q_lv_mkaryawan(" and nik='$nik'")->row_array();
             $paramerror=" and userid='$nama' and modul='IJIN'";
             $dtlerror=$this->m_ijin_karyawan->q_trxerror($paramerror)->row_array();
             if ($this->fiky_notification_push->onePushVapeApprovalHrms($nik,trim($dtl_push['nik_atasan']),trim($dtlerror['nomorakhir1']))){
                 redirect("trans/ijin_karyawan/index/rep_succes");
+            }else{
+                redirect("trans/ijin_karyawan/index/rep_succes");
             }
-		}
+        }
 
 
 	}
@@ -304,6 +321,7 @@ class Ijin_karyawan extends MX_Controller{
 
 	}
 	function edit_ijin_karyawan(){
+		//$nik1=explode('|',);
 		$nik=$this->input->post('nik');
 		$nodok=$this->input->post('nodok');
 		$kddept=$this->input->post('department');
@@ -313,7 +331,6 @@ class Ijin_karyawan extends MX_Controller{
 		$atasan=$this->input->post('atasan');
 		$kdijin_absensi=$this->input->post('kdijin_absensi');
 		$tgl_kerja1=$this->input->post('tgl_kerja');
-
 		if ($tgl_kerja1==''){
 			$tgl_kerja=NULL;
 		} else {
@@ -325,46 +342,64 @@ class Ijin_karyawan extends MX_Controller{
 		} else {
 			$durasi=$durasi1;
 		}*/
-
-		$jam_awal1=$this->input->post('jam_awal');
-		if ($jam_awal1==''){
-			$jam_awal=NULL;
-		} else {
-			$jam_awal=$jam_awal1;
-		}
-		$jam_selesai1=$this->input->post('jam_selesai');
-		if ($jam_selesai1==''){
-			$jam_selesai=NULL;
-		} else {
-			$jam_selesai=$jam_selesai1;
-		}
-		$durasi=$jam_selesai-$jam_awal;
+//        $tgl_jam_awal=$this->input->post('tgl_jam_awal');
+//		$jam_awal=$this->input->post('jam_awal');
+//		$tgl_jam_selesai=$this->input->post('tgl_jam_selesai');
+//        $jam_selesai=$this->input->post('jam_selesai');
+//		$durasi=$jam_selesai-$jam_awal;
 		$tgl_dok=$this->input->post('tgl_dok');
 		$keterangan=$this->input->post('keterangan');
 		$status=$this->input->post('status');
 		$tgl_input=$this->input->post('tgl');
 		$inputby=$this->input->post('inputby');
-		$ktgijin=$this->input->post('ktgijin');
 		$kendaraan=$this->input->post('kendaraan');
 		$nopol=$this->input->post('nopol');
+		//$no_urut=$this->input->post('no_urut');
 
+        $tgl_jam_awal1=$this->input->post('tgl_jam_awal');
+        if ($tgl_jam_awal1==''){
+            $tgl_jam_awal=NULL;
+        } else {
+            $tgl_jam_awal=$tgl_jam_awal1;
+        }
+        $jam_awal1=$this->input->post('jam_awal');
+        if ($jam_awal1==''){
+            $jam_awal=NULL;
+        } else {
+            $jam_awal=$jam_awal1;
+        }
+
+        $tgl_jam_selesai1=$this->input->post('tgl_jam_selesai');
+        if ($tgl_jam_selesai1==''){
+            $tgl_jam_selesai=NULL;
+        } else {
+            $tgl_jam_selesai=$tgl_jam_selesai1;
+        }
+        $jam_selesai1=$this->input->post('jam_selesai');
+        if ($jam_selesai1==''){
+            $jam_selesai=NULL;
+        } else {
+            $jam_selesai=$jam_selesai1;
+        }
+        $durasi=abs(strtotime($jam_selesai)-strtotime($jam_awal)) / 60;
 		$info=array(
 			//'nodok'=>strtoupper($nodok),
-
+			
 			'durasi'=>$durasi,
 			'kdijin_absensi'=>strtoupper($kdijin_absensi),
 			'tgl_kerja'=>$tgl_kerja,
-			'tgl_jam_mulai'=>$jam_awal,
-			'tgl_jam_selesai'=>$jam_selesai,
+			'tgl_jam_mulai'=>$kdijin_absensi != 'PA' ? $jam_awal : null,
+			'tgl_jam_selesai'=>$kdijin_absensi != 'DT' ? $jam_selesai : null,
 			'keterangan'=>strtoupper($keterangan),
 			'update_date'=>$tgl_input,
 			'update_by'=>strtoupper($inputby),
-			'type_ijin'=>strtoupper($ktgijin),
+            'tgl_mulai'=>$tgl_jam_awal,
+            'tgl_selesai'=>$tgl_jam_selesai,
 			'kendaraan'=>strtoupper($kendaraan),
 			'nopol'=>strtoupper($nopol),
 		);
 		//$this->db->where('custcode',$kode);
-
+		
 		$cek=$this->m_ijin_karyawan->cek_dokumen($nodok)->num_rows();
 		$cek2=$this->m_ijin_karyawan->cek_dokumen2($nodok)->num_rows();
 			//if ($cek>0 or $cek2>0) {
@@ -375,11 +410,8 @@ class Ijin_karyawan extends MX_Controller{
 			//$this->db->where('nik',$nik);
 			//$this->db->where('kdpengalaman',$kdpengalaman);
 			$this->db->update('sc_trx.ijin_karyawan',$info);
-			redirect("trans/ijin_karyawan/ijin_karyawan/upsuccess");
+			redirect("trans/ijin_karyawan/index/upsuccess");
 			}
-
-
-		//echo $inputby;
 	}
 
 	function hps_ijin_karyawan(){
@@ -464,5 +496,50 @@ class Ijin_karyawan extends MX_Controller{
         ),  JSON_PRETTY_PRINT );
 
 	}
+	
+	function getJadwal(){
+        $request_body = file_get_contents('php://input');
+        $data = json_decode($request_body);
+        if ($data->key=='1203jD0j120dkjjKODNOoimdi)D(J)Jmjid0sjd0ijme09wjei0kjisdjfDSojiodksOjO'){
+            $dataprocess = $data->body;
+            $tanggal = trim($dataprocess->tanggal);
+            $nik = trim($dataprocess->nik);
+
+            if (!empty($nik) && !empty($tanggal)) {
+                $split = explode("-", $tanggal);
+                $tgl = (int)$split[0];
+                $bln = $split[1];
+                $thn = $split[2];
+
+                $this->db->select('trim(tgl' . $tgl . ") as jadwal");
+                $this->db->where('nik', $nik);
+                $this->db->where('bulan', $bln);
+                $this->db->where('tahun', $thn);
+                $query = $this->db->get('sc_trx.listjadwalkerja');
+                $result = $query->row_array();
+
+                if ($result) {
+                    $this->db->where('trim(kdjam_kerja)', $result["jadwal"]);
+                    $query = $this->db->get('sc_mst.jam_kerja');
+                    $result2 = $query->row_array();
+                    $tomorrow = date('d-m-Y', strtotime($tanggal . ' +1 day'));
+
+                    $result = array('status' => true, 'messages' => 'Sukses', 'tomorrow' => $tomorrow, 'kode' => $result["jadwal"], 'jadwal' => $result2);
+                    echo json_encode($result);
+                } else {
+                    $result = array('status' => false, 'messages' => 'Data Gagal Di Proses Ada Kesalahan Data 2');
+                    echo json_encode($result);
+                }
+            } else {
+                $result = array('status' => false, 'messages' => 'Data Gagal Di Proses Ada Kesalahan Data 2');
+                echo json_encode($result);
+            }
+
+
+        } else {
+            $result = array('status' => false, 'messages' => 'Data Gagal Di Proses Ada Kesalahan Data');
+            echo json_encode($result);
+        }
+    }
 
 }
