@@ -67,8 +67,14 @@
                     var href = window.location.href,
                         idle = false,
                         timer = null;
-                    var pathArray = href.split('/'),
-                        newHref = pathArray[0] + '//' + pathArray[2] + '/' + pathArray[3] + '/' + pathArray[4] + '/' + pathArray[5];
+                    var pathArray = href.split('/');
+                    var lHref = "";
+                    for (var i = 2; i < pathArray.length; i++) {
+                        lHref +=  '/' + pathArray[i];
+                    }
+
+                    var newHref = pathArray[0] + '/' + lHref;                    
+                    var newHref = path[0] + '/' + lHref;
 
                     /*ACTIVE SIDEBAR OPEN*/
                     $('.treeview').find('a[href*=\'' + newHref + '\']')

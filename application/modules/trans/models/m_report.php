@@ -507,14 +507,14 @@ class M_report extends CI_Model{
 	
 	function q_att_new($periode){
 		return $this->db->query("SELECT x.nik AS nik,x.nmlengkap,x.nmdept,x.nmsubdept,x.nmregu,x.nmjabatan,x.grouppenggajian,x.tglmasukkerja, sum(x.jumlah_jadwal) AS jumlah_jadwal , 
-sum(x.jumlah_cuti) AS cuti , sum(x.izin_sakit) AS cuti_khusus_izin_sakit, sum(x.izin_dt) AS izin_dt , sum(x.Cuti_ptggaji) AS cuti_ptggaji, sum(x.cuti_khusus) AS cuti_khusus, sum(x.izin_pa) AS izin_pa,
-sum(x.dinas) as dinas, sum(x.izin_keluar ) as izin_keluar , sum(x.dt) as dt, sum(x.pa) as pa, sum(x.padt) as padt, sum(x.alpha) as Alpha,sum(x.izin_sakit_po) as izin_sakit_po,
+sum(x.jumlah_cuti) AS cuti ,  sum(x.izin_dt) AS izin_dt , sum(x.Cuti_ptggaji) AS cuti_ptggaji, sum(x.cuti_khusus) AS cuti_khusus, sum(x.izin_pa) AS izin_pa,
+sum(x.dinas) as dinas, sum(x.izin_keluar ) as izin_keluar , sum(x.dt) as dt, sum(x.pa) as pa, sum(x.padt) as padt, sum(x.alpha) as Alpha,sum(x.izin_sakit) as izin_sakit,
 sum(x.cuti_bersama) as cuti_bersama, sum(x.jumlah_cuti) AS cuti_terpakai, sum (x.sisa_cuti) AS sisa_cuti
 FROM (
 	/*JADWAL KERJA*/
 	SELECT a.nik AS nik,a.nmlengkap,b.nmdept,c.nmsubdept,e.nmregu,f.nmjabatan,a.grouppenggajian,a.tglmasukkerja, count(d.id) AS jumlah_jadwal , 
-	0 AS jumlah_cuti , 0 AS izin_sakit, 0 AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus, 0 AS izin_pa, 0 as dinas, 0 as izin_keluar , 0 as dt,
-	0 as pa, 0 as padt,0 as sisa_cuti,0 as alpha,0 AS izin_sakit_po, 0 as cuti_bersama
+	0 AS jumlah_cuti ,  0 AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus, 0 AS izin_pa, 0 as dinas, 0 as izin_keluar , 0 as dt,
+	0 as pa, 0 as padt,0 as sisa_cuti,0 as alpha,0 AS izin_sakit, 0 as cuti_bersama
 	FROM sc_mst.karyawan a
 	left outer join sc_trx.dtljadwalkerja d on a.nik=d.nik
 	left outer join sc_mst.departmen b on a.bag_dept=b.kddept
@@ -530,8 +530,8 @@ FROM (
 
 	/*CUTI POTONG CUTI*/
 	SELECT k.nik,k.nmlengkap,b.nmdept,c.nmsubdept,e.nmregu,f.nmjabatan,k.grouppenggajian,k.tglmasukkerja, 0 AS jumlah_jadwal , 
-	sum(ck.jumlah) AS jumlah_cuti, 0 AS izin_sakit, 0 AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus, 0 AS izin_pa, 0 as dinas, 0 as izin_keluar , 0 as dt,
-	0 as pa, 0 as padt,0 as sisa_cuti,0 as alpha,0 AS izin_sakit_po, 0 as cuti_bersama
+	sum(ck.jumlah) AS jumlah_cuti,  0 AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus, 0 AS izin_pa, 0 as dinas, 0 as izin_keluar , 0 as dt,
+	0 as pa, 0 as padt,0 as sisa_cuti,0 as alpha,0 AS izin_sakit, 0 as cuti_bersama
 	FROM sc_mst.karyawan k
 	left outer join 
 		(select a.nik,a.tgl_mulai,a.tgl_selesai,a.status,a.status_ptg,a.tpcuti,count(*) as jumlah from sc_trx.cuti_karyawan a
@@ -547,35 +547,13 @@ FROM (
 	WHERE k.statuskepegawaian not in ('KO') and to_char(ck.tgl_mulai,'YYYYMM')='$periode' and k.grouppenggajian not in ('P0')
 	AND ck.status = 'P' and ck.status_ptg='A1' and ck.tpcuti='A' 
 	GROUP BY k.nik,b.nmdept,c.nmsubdept,e.nmregu,f.nmjabatan,k.tglmasukkerja
-
-	UNION ALL
-
-	/*CUTI KHUSUS KETERANGAN DOKTER*/
-	SELECT k.nik AS nik,k.nmlengkap,b.nmdept,c.nmsubdept,e.nmregu,f.nmjabatan,k.grouppenggajian,k.tglmasukkerja, 0 AS jumlah_jadwal , 
-	0 AS jumlah_cuti, sum(ck.jumlah) AS izin_sakit, 0 AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus, 0 AS izin_pa, 0 as dinas, 0 as izin_keluar , 0 as dt,
-	0 as pa, 0 as padt,0 as sisa_cuti,0 as alpha,0 AS izin_sakit_po, 0 as cuti_bersama
-	FROM sc_mst.karyawan k
-	left outer join
-		(select a.nik,a.tgl_mulai,a.tgl_selesai,a.status,a.status_ptg,a.kdijin_khusus,a.tpcuti,count(*) as jumlah from sc_trx.cuti_karyawan a
-		left outer join sc_trx.dtljadwalkerja b on a.nik=b.nik and kdjamkerja<>'OFF' and b.tgl>=a.tgl_mulai and b.tgl<=a.tgl_selesai 
-		where to_char(b.tgl,'YYYYMM')='$periode'
-		group by a.nik,a.nodok) ck ON k.nik = ck.nik
-	left outer join sc_mst.departmen b on k.bag_dept=b.kddept
-	left outer join
-		(select a.nik,b.nmregu from sc_mst.regu_opr a
-		left outer join sc_mst.regu b on a.kdregu=b.kdregu) e on k.nik=e.nik
-	left outer join sc_mst.subdepartmen c on k.bag_dept=c.kddept and k.subbag_dept=c.kdsubdept
-	left outer join sc_mst.jabatan f on k.bag_dept=f.kddept and k.subbag_dept=f.kdsubdept and k.jabatan=f.kdjabatan
-	WHERE ck.tpcuti = 'B' and ck.kdijin_khusus = 'AG' and k.statuskepegawaian not in ('KO') and k.grouppenggajian not in ('P0')
-	AND ck.status = 'P' and to_char(ck.tgl_mulai,'YYYYMM')='$periode'
-	GROUP BY k.nik,b.nmdept,c.nmsubdept,e.nmregu,f.nmjabatan,k.grouppenggajian,k.tglmasukkerja
 	
 	UNION ALL
 
 	/*IZIN DATANG TERLAMBAT PRIBADI DENGAN DOKUMEN IZIN*/
 	SELECT k.nik AS nik,k.nmlengkap,b.nmdept,c.nmsubdept,e.nmregu,f.nmjabatan,k.grouppenggajian,k.tglmasukkerja, 0 AS jumlah_jadwal , 
-	0 AS jumlah_cuti, 0 AS izin_sakit, count(ck.nodok) AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus, 0 AS izin_pa, 0 as dinas, 0 as izin_keluar , 0 as dt,
-	0 as pa, 0 as padt,0 as sisa_cuti,0 as alpha,0 AS izin_sakit_po, 0 as cuti_bersama
+	0 AS jumlah_cuti,  count(ck.nodok) AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus, 0 AS izin_pa, 0 as dinas, 0 as izin_keluar , 0 as dt,
+	0 as pa, 0 as padt,0 as sisa_cuti,0 as alpha,0 AS izin_sakit, 0 as cuti_bersama
 	FROM sc_mst.karyawan k
 	left outer join sc_trx.ijin_karyawan ck  ON k.nik = ck.nik
 	left outer join sc_mst.departmen b on k.bag_dept=b.kddept
@@ -592,8 +570,8 @@ FROM (
 
 	/*CUTI POTONG GAJI*/
 	SELECT k.nik AS nik,k.nmlengkap,b.nmdept,c.nmsubdept,e.nmregu,f.nmjabatan,k.grouppenggajian,k.tglmasukkerja, 0 AS jumlah_jadwal , 
-	0 AS jumlah_cuti, 0 AS izin_sakit, 0 AS izin_dt, sum(ck.jumlah_cuti) as Cuti_ptggaji,0 as cuti_khusus, 0 AS izin_pa, 0 as dinas, 0 as izin_keluar , 0 as dt,
-	0 as pa, 0 as padt,0 as sisa_cuti,0 as alpha,0 AS izin_sakit_po, 0 as cuti_bersama
+	0 AS jumlah_cuti,  0 AS izin_dt, sum(ck.jumlah_cuti) as Cuti_ptggaji,0 as cuti_khusus, 0 AS izin_pa, 0 as dinas, 0 as izin_keluar , 0 as dt,
+	0 as pa, 0 as padt,0 as sisa_cuti,0 as alpha,0 AS izin_sakit, 0 as cuti_bersama
 	FROM sc_mst.karyawan k
 	left outer join sc_trx.cuti_karyawan ck  ON k.nik = ck.nik
 	left outer join sc_mst.departmen b on k.bag_dept=b.kddept
@@ -610,8 +588,8 @@ FROM (
 
 	/*CUTI KHUSUS*/
 	SELECT k.nik AS nik,k.nmlengkap,b.nmdept,c.nmsubdept,e.nmregu,f.nmjabatan,k.grouppenggajian,k.tglmasukkerja, 0 AS jumlah_jadwal , 
-	0 AS jumlah_cuti, 0 AS izin_sakit, 0 AS izin_dt, 0 as Cuti_ptggaji,sum(ck.jumlah_cuti) as cuti_khusus, 0 AS izin_pa, 0 as dinas, 0 as izin_keluar , 0 as dt,
-	0 as pa, 0 as padt,0 as sisa_cuti,0 as alpha,0 AS izin_sakit_po, 0 as cuti_bersama
+	0 AS jumlah_cuti,  0 AS izin_dt, 0 as Cuti_ptggaji,sum(ck.jumlah_cuti) as cuti_khusus, 0 AS izin_pa, 0 as dinas, 0 as izin_keluar , 0 as dt,
+	0 as pa, 0 as padt,0 as sisa_cuti,0 as alpha,0 AS izin_sakit, 0 as cuti_bersama
 	FROM sc_mst.karyawan k
 	left outer join sc_trx.cuti_karyawan ck  ON k.nik = ck.nik
 	left outer join sc_mst.departmen b on k.bag_dept=b.kddept
@@ -628,8 +606,8 @@ FROM (
 	
 	/*IZIN PULANG AWAL PRIBADI DENGAN DOKUMEN*/
 	SELECT k.nik AS nik,k.nmlengkap,b.nmdept,c.nmsubdept,e.nmregu,f.nmjabatan,k.grouppenggajian,k.tglmasukkerja, 0 AS jumlah_jadwal , 
-	0 AS jumlah_cuti, 0 AS izin_sakit, 0 AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus, count(ck.nodok) AS izin_pa, 0 as dinas, 0 as izin_keluar , 0 as dt,
-	0 as pa, 0 as padt,0 as sisa_cuti,0 as alpha,0 AS izin_sakit_po, 0 as cuti_bersama
+	0 AS jumlah_cuti,  0 AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus, count(ck.nodok) AS izin_pa, 0 as dinas, 0 as izin_keluar , 0 as dt,
+	0 as pa, 0 as padt,0 as sisa_cuti,0 as alpha,0 AS izin_sakit, 0 as cuti_bersama
 	FROM sc_mst.karyawan k
 	left outer join sc_trx.ijin_karyawan ck  ON k.nik = ck.nik
 	left outer join sc_mst.departmen b on k.bag_dept=b.kddept
@@ -646,8 +624,8 @@ FROM (
 	
 	/*DINAS*/
 	SELECT k.nik AS nik,k.nmlengkap,b.nmdept,c.nmsubdept,e.nmregu,f.nmjabatan,k.grouppenggajian,k.tglmasukkerja, 0 AS jumlah_jadwal , 
-	0 AS jumlah_cuti, 0 AS izin_sakit, 0 AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus, 0 AS izin_pa,sum(ck.jumlah) as dinas, 0 as izin_keluar , 0 as dt,
-	0 as pa, 0 as padt,0 as sisa_cuti,0 as alpha,0 AS izin_sakit_po, 0 as cuti_bersama
+	0 AS jumlah_cuti,  0 AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus, 0 AS izin_pa,sum(ck.jumlah) as dinas, 0 as izin_keluar , 0 as dt,
+	0 as pa, 0 as padt,0 as sisa_cuti,0 as alpha,0 AS izin_sakit, 0 as cuti_bersama
 	FROM sc_mst.karyawan k
 	left outer join
 	(select a.nik,a.tgl_mulai,a.tgl_selesai,a.status,count(*) as jumlah from sc_trx.dinas a
@@ -667,8 +645,8 @@ FROM (
 	UNION ALL
 	/*IZIN KELUAR PRIBADI DENGAN DOKUMEN*/
 	SELECT k.nik AS nik,k.nmlengkap,b.nmdept,c.nmsubdept,e.nmregu,f.nmjabatan,k.grouppenggajian,k.tglmasukkerja, 0 AS jumlah_jadwal , 
-	0 AS jumlah_cuti, 0 AS izin_sakit, 0 AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus, 0 AS izin_pa,0 as dinas, count(ck.nodok) as izin_keluar, 0 as dt,
-	0 as pa, 0 as padt,0 as sisa_cuti,0 as alpha,0 AS izin_sakit_po, 0 as cuti_bersama
+	0 AS jumlah_cuti,  0 AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus, 0 AS izin_pa,0 as dinas, count(ck.nodok) as izin_keluar, 0 as dt,
+	0 as pa, 0 as padt,0 as sisa_cuti,0 as alpha,0 AS izin_sakit, 0 as cuti_bersama
 	FROM sc_mst.karyawan k
 	left outer join sc_trx.ijin_karyawan ck  ON k.nik = ck.nik
 	left outer join sc_mst.departmen b on k.bag_dept=b.kddept
@@ -685,15 +663,14 @@ FROM (
 
 	/*DATANG TERLAMBAT TANPA DOKUMEN IZIN*/
 	SELECT j.nik AS nik,j.nmlengkap,j.nmdept,j.nmsubdept,j.nmregu,j.nmjabatan,j.grouppenggajian,j.tglmasukkerja, 0 AS jumlah_jadwal , 
-	0 AS jumlah_cuti, 0 AS izin_sakit, 0 AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus, 0 AS izin_pa,0 as dinas,0 as izin_keluar, sum(j.hasil) as dt,
-	0 as pa, 0 as padt,0 as sisa_cuti,0 as alpha,0 AS izin_sakit_po, 0 as cuti_bersama
+	0 AS jumlah_cuti,  0 AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus, 0 AS izin_pa,0 as dinas,0 as izin_keluar, sum(j.hasil) as dt,
+	0 as pa, 0 as padt,0 as sisa_cuti,0 as alpha,0 AS izin_sakit, 0 as cuti_bersama
 	from
-		(select a.nik,a.tgl,a.nmlengkap,a.nmdept,a.nmsubdept,a.nmregu,a.nmjabatan,a.grouppenggajian,a.tglmasukkerja,d.kdijin_absensi,d.nodok,e.nodok,a.docref,
-		case when d.kdijin_absensi is null and d.nodok is null and e.nodok is null and a.docref='DT' then 1
-		when d.kdijin_absensi <> 'DT' and d.nodok is not null and e.nodok is null and a.docref='DT' then 1
-		when d.kdijin_absensi <> 'DT' and d.nodok is not null and e.nodok is not null and a.docref='DT' then 1
+		(select a.nik,a.tgl,a.nmlengkap,a.nmdept,a.nmsubdept,a.nmregu,a.nmjabatan,a.grouppenggajian,a.tglmasukkerja,d.kdijin_absensi,d.nodok,e.nodok,f.nodok as ikd,a.docref,
+		case when d.kdijin_absensi is null and d.nodok is null and e.nodok is null and f.nodok is null and a.docref='DT' then 1
+		when d.kdijin_absensi not in ('DT') and d.nodok is not null and e.nodok is null and f.nodok is null and a.docref='DT' then 1
 		else 0 end as hasil
-			from 
+		from 
 		(select b.nik,a.tgl,b.nmlengkap,b.nmdept,b.nmsubdept,b.nmregu,b.nmjabatan,b.grouppenggajian,b.tglmasukkerja,
 	case when a.jam_masuk_absen > c.jam_masuk and a.jam_pulang_absen >=c.jam_pulang then 'DT'
 	when a.jam_masuk_absen <= c.jam_masuk and a.jam_pulang_absen < c.jam_pulang then 'PA'
@@ -718,7 +695,28 @@ FROM (
 	order by nik,tgl) as a
 	left outer join sc_trx.ijin_karyawan d on d.nik=a.nik and a.tgl=d.tgl_kerja and d.status='P'
 	left outer join sc_trx.dinas e on e.nik=a.nik and a.tgl>=e.tgl_mulai and a.tgl<=e.tgl_selesai and d.status='P'
-	group by a.nik,a.tgl,a.nmlengkap,a.nmdept,a.nmsubdept,a.nmregu,a.nmjabatan,a.grouppenggajian,a.tglmasukkerja,a.docref,d.kdijin_absensi,d.nodok,e.nodok
+	left outer join (SELECT a_2.nik,
+                            a_2.nodok,
+                            a_2.tgl_kerja,
+                            a_2.tgl_jam_mulai,
+                            a_2.tgl_jam_selesai,
+                            a_2.durasi,
+                            a_2.keterangan,
+                            a_2.type_ijin,
+                            a_2.status,
+                            a_2.input_by,
+                            a_2.input_date,
+                            a_2.approval_by,
+                            a_2.approval_date,
+                                CASE
+                                    WHEN a_2.tgl_jam_mulai <= c_1.jam_masuk AND a_2.tgl_jam_selesai >= c_1.jam_pulang THEN 'IKD'::text
+                                    ELSE NULL::text
+                                END AS kdpokok
+                           FROM sc_trx.ijin_karyawan a_2
+                             LEFT JOIN sc_trx.dtljadwalkerja b_1_1 ON a_2.nik = b_1_1.nik AND a_2.tgl_kerja = b_1_1.tgl
+                             LEFT JOIN sc_mst.jam_kerja c_1 ON b_1_1.kdjamkerja = c_1.kdjam_kerja
+                          WHERE a_2.type_ijin = 'DN'::bpchar AND a_2.status = 'P'::bpchar) f ON a.nik = f.nik AND a.tgl = f.tgl_kerja AND f.kdpokok IS NOT NULL
+	group by a.nik,a.tgl,a.nmlengkap,a.nmdept,a.nmsubdept,a.nmregu,a.nmjabatan,a.grouppenggajian,a.tglmasukkerja,a.docref,d.kdijin_absensi,d.nodok,e.nodok,f.nodok
 	) as j
 	group by j.nik,j.nmlengkap,j.nmdept,j.nmsubdept,j.nmregu,j.nmjabatan,j.grouppenggajian,j.tglmasukkerja
 	
@@ -727,13 +725,12 @@ FROM (
 
 	/*PULANG AWAL TANPA DOKUMEN IZIN*/
 	SELECT j.nik AS nik,j.nmlengkap,j.nmdept,j.nmsubdept,j.nmregu,j.nmjabatan,j.grouppenggajian,j.tglmasukkerja, 0 AS jumlah_jadwal , 
-	0 AS jumlah_cuti, 0 AS izin_sakit, 0 AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus, 0 AS izin_pa,0 as dinas,0 as izin_keluar,0 as dt,
-	 sum(j.hasil) as pa, 0 as padt,0 as sisa_cuti,0 as alpha,0 AS izin_sakit_po, 0 as cuti_bersama
+	0 AS jumlah_cuti,  0 AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus, 0 AS izin_pa,0 as dinas,0 as izin_keluar,0 as dt,
+	 sum(j.hasil) as pa, 0 as padt,0 as sisa_cuti,0 as alpha,0 AS izin_sakit, 0 as cuti_bersama
 	from
-		(select a.nik,a.tgl,a.nmlengkap,a.nmdept,a.nmsubdept,a.nmregu,a.nmjabatan,a.grouppenggajian,a.tglmasukkerja,d.kdijin_absensi,d.nodok,e.nodok,a.docref,
-		case when d.kdijin_absensi is null and d.nodok is null and e.nodok is null and a.docref='PA' then 1
-		when d.kdijin_absensi <> 'PA' and d.nodok is not null and e.nodok is null and a.docref='PA' then 1
-		when d.kdijin_absensi <> 'PA' and d.nodok is not null and e.nodok is not null and a.docref='PA' then 1
+		(select a.nik,a.tgl,a.nmlengkap,a.nmdept,a.nmsubdept,a.nmregu,a.nmjabatan,a.grouppenggajian,a.tglmasukkerja,d.kdijin_absensi,d.nodok,e.nodok,f.nodok as ikd,a.docref,
+		case when d.kdijin_absensi is null and d.nodok is null and e.nodok is null and f.nodok is null and a.docref='PA' then 1
+		when d.kdijin_absensi not in ('PA') and d.nodok is not null and e.nodok is null and f.nodok is null and a.docref='PA' then 1
 		else 0 end as hasil
 		from 
 		(select b.nik,a.tgl,b.nmlengkap,b.nmdept,b.nmsubdept,b.nmregu,b.nmjabatan,b.grouppenggajian,b.tglmasukkerja,
@@ -760,7 +757,28 @@ FROM (
 	order by nik,tgl) as a
 	left outer join sc_trx.ijin_karyawan d on d.nik=a.nik and a.tgl=d.tgl_kerja and d.status='P'
 	left outer join sc_trx.dinas e on e.nik=a.nik and a.tgl>=e.tgl_mulai and a.tgl<=e.tgl_selesai and d.status='P'
-	group by a.nik,a.tgl,a.nmlengkap,a.nmdept,a.nmsubdept,a.nmregu,a.nmjabatan,a.grouppenggajian,a.tglmasukkerja,a.docref,d.kdijin_absensi,d.nodok,e.nodok
+	left outer join (SELECT a_2.nik,
+                            a_2.nodok,
+                            a_2.tgl_kerja,
+                            a_2.tgl_jam_mulai,
+                            a_2.tgl_jam_selesai,
+                            a_2.durasi,
+                            a_2.keterangan,
+                            a_2.type_ijin,
+                            a_2.status,
+                            a_2.input_by,
+                            a_2.input_date,
+                            a_2.approval_by,
+                            a_2.approval_date,
+                                CASE
+                                    WHEN a_2.tgl_jam_mulai <= c_1.jam_masuk AND a_2.tgl_jam_selesai >= c_1.jam_pulang THEN 'IKD'::text
+                                    ELSE NULL::text
+                                END AS kdpokok
+                           FROM sc_trx.ijin_karyawan a_2
+                             LEFT JOIN sc_trx.dtljadwalkerja b_1_1 ON a_2.nik = b_1_1.nik AND a_2.tgl_kerja = b_1_1.tgl
+                             LEFT JOIN sc_mst.jam_kerja c_1 ON b_1_1.kdjamkerja = c_1.kdjam_kerja
+                          WHERE a_2.type_ijin = 'DN'::bpchar AND a_2.status = 'P'::bpchar) f ON a.nik = f.nik AND a.tgl = f.tgl_kerja AND f.kdpokok IS NOT NULL
+	group by a.nik,a.tgl,a.nmlengkap,a.nmdept,a.nmsubdept,a.nmregu,a.nmjabatan,a.grouppenggajian,a.tglmasukkerja,a.docref,d.kdijin_absensi,d.nodok,e.nodok,f.nodok
 	) as j
 	group by j.nik,j.nmlengkap,j.nmdept,j.nmsubdept,j.nmregu,j.nmjabatan,j.grouppenggajian,j.tglmasukkerja
 	
@@ -769,13 +787,12 @@ FROM (
 
 	/*PULANG AWAL DAN DATANG TERLAMBAT TANPA DOKUMEN IZIN*/
 	SELECT j.nik AS nik,j.nmlengkap,j.nmdept,j.nmsubdept,j.nmregu,j.nmjabatan,j.grouppenggajian,j.tglmasukkerja, 0 AS jumlah_jadwal , 
-	0 AS jumlah_cuti, 0 AS izin_sakit, 0 AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus, 0 AS izin_pa,0 as dinas,0 as izin_keluar,0 as dt,
-	 0 as pa, sum(j.hasil) as padt,0 as sisa_cuti,0 as alpha,0 AS izin_sakit_po, 0 as cuti_bersama
+	0 AS jumlah_cuti,  0 AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus, 0 AS izin_pa,0 as dinas,0 as izin_keluar,0 as dt,
+	 0 as pa, sum(j.hasil) as padt,0 as sisa_cuti,0 as alpha,0 AS izin_sakit, 0 as cuti_bersama
 	from
-		(select a.nik,a.tgl,a.nmlengkap,a.nmdept,a.nmsubdept,a.nmregu,a.nmjabatan,a.grouppenggajian,a.tglmasukkerja,d.kdijin_absensi,d.nodok,e.nodok,a.docref,
-		case when d.kdijin_absensi is null and d.nodok is null and e.nodok is null and a.docref='PADT' then 1
-		when d.kdijin_absensi not in ('PA','DT') and d.nodok is not null and e.nodok is null and a.docref='PADT' then 1
-		when d.kdijin_absensi not in ('PA','DT') and d.nodok is not null and e.nodok is not null and a.docref='PADT' then 1
+		(select a.nik,a.tgl,a.nmlengkap,a.nmdept,a.nmsubdept,a.nmregu,a.nmjabatan,a.grouppenggajian,a.tglmasukkerja,d.kdijin_absensi,d.nodok,e.nodok,f.nodok as ikd,a.docref,
+		case when d.kdijin_absensi is null and d.nodok is null and e.nodok is null and f.nodok is null and a.docref='PADT' then 1
+		when d.kdijin_absensi not in ('PA','DT') and d.nodok is not null and e.nodok is null and f.nodok is null and a.docref='PADT' then 1
 		else 0 end as hasil
 		from 
 		(select b.nik,a.tgl,b.nmlengkap,b.nmdept,b.nmsubdept,b.nmregu,b.nmjabatan,b.grouppenggajian,b.tglmasukkerja,
@@ -802,7 +819,28 @@ FROM (
 	order by nik,tgl) as a
 	left outer join sc_trx.ijin_karyawan d on d.nik=a.nik and a.tgl=d.tgl_kerja and d.status='P'
 	left outer join sc_trx.dinas e on e.nik=a.nik and a.tgl>=e.tgl_mulai and a.tgl<=e.tgl_selesai and d.status='P'
-	group by a.nik,a.tgl,a.nmlengkap,a.nmdept,a.nmsubdept,a.nmregu,a.nmjabatan,a.grouppenggajian,a.tglmasukkerja,a.docref,d.kdijin_absensi,d.nodok,e.nodok
+	left outer join (SELECT a_2.nik,
+                            a_2.nodok,
+                            a_2.tgl_kerja,
+                            a_2.tgl_jam_mulai,
+                            a_2.tgl_jam_selesai,
+                            a_2.durasi,
+                            a_2.keterangan,
+                            a_2.type_ijin,
+                            a_2.status,
+                            a_2.input_by,
+                            a_2.input_date,
+                            a_2.approval_by,
+                            a_2.approval_date,
+                                CASE
+                                    WHEN a_2.tgl_jam_mulai <= c_1.jam_masuk AND a_2.tgl_jam_selesai >= c_1.jam_pulang THEN 'IKD'::text
+                                    ELSE NULL::text
+                                END AS kdpokok
+                           FROM sc_trx.ijin_karyawan a_2
+                             LEFT JOIN sc_trx.dtljadwalkerja b_1_1 ON a_2.nik = b_1_1.nik AND a_2.tgl_kerja = b_1_1.tgl
+                             LEFT JOIN sc_mst.jam_kerja c_1 ON b_1_1.kdjamkerja = c_1.kdjam_kerja
+                          WHERE a_2.type_ijin = 'DN'::bpchar AND a_2.status = 'P'::bpchar) f ON a.nik = f.nik AND a.tgl = f.tgl_kerja AND f.kdpokok IS NOT NULL
+	group by a.nik,a.tgl,a.nmlengkap,a.nmdept,a.nmsubdept,a.nmregu,a.nmjabatan,a.grouppenggajian,a.tglmasukkerja,a.docref,d.kdijin_absensi,d.nodok,e.nodok,f.nodok
 	) as j
 	group by j.nik,j.nmlengkap,j.nmdept,j.nmsubdept,j.nmregu,j.nmjabatan,j.grouppenggajian,j.tglmasukkerja
 	
@@ -811,8 +849,8 @@ FROM (
 
 	/*Sisa Cuti*/
 	SELECT j.nik AS nik,j.nmlengkap,j.nmdept,j.nmsubdept,j.nmregu,j.nmjabatan,j.grouppenggajian,j.tglmasukkerja, 0 AS jumlah_jadwal , 
-	0 AS jumlah_cuti, 0 AS izin_sakit, 0 AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus,0 AS izin_pa, 0 as dinas, 0 as izin_keluar , 0 as dt,
-	0 as pa, 0 as padt,sum(j.sisacuti) as sisa_cuti, 0 as alpha,0 AS izin_sakit_po, 0 as cuti_bersama
+	0 AS jumlah_cuti,  0 AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus,0 AS izin_pa, 0 as dinas, 0 as izin_keluar , 0 as dt,
+	0 as pa, 0 as padt,sum(j.sisacuti) as sisa_cuti, 0 as alpha,0 AS izin_sakit, 0 as cuti_bersama
 	FROM 
 	(select k.nik,k.nmlengkap,b.nmdept,c.nmsubdept,e.nmregu,f.nmjabatan,k.grouppenggajian,k.tglmasukkerja,(select sisacuti from sc_trx.cuti_blc b where b.nik=k.nik and to_char(b.tanggal,'YYYYMM')<='$periode' order by b.tanggal desc limit 1) as sisacuti,
 	(select tanggal from sc_trx.cuti_blc b where b.nik=k.nik and to_char(b.tanggal,'YYYYMM')<='$periode' order by b.tanggal desc limit 1) as tanggal
@@ -831,8 +869,8 @@ FROM (
 	
 	/*ALPHA*/
 		SELECT j.nik AS nik,j.nmlengkap,j.nmdept,j.nmsubdept,j.nmregu,j.nmjabatan,j.grouppenggajian,j.tglmasukkerja, 0 AS jumlah_jadwal , 
-	0 AS jumlah_cuti, 0 AS izin_sakit, 0 AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus, 0 AS izin_pa,0 as dinas,0 as izin_keluar, 0 as dt,
-	0 as pa, 0 as padt,0 as sisa_cuti, sum(j.docref) as alpha,0 AS izin_sakit_po, 0 as cuti_bersama
+	0 AS jumlah_cuti,  0 AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus, 0 AS izin_pa,0 as dinas,0 as izin_keluar, 0 as dt,
+	0 as pa, 0 as padt,0 as sisa_cuti, sum(j.docref) as alpha,0 AS izin_sakit, 0 as cuti_bersama
 	FROM
 	(select trim(e.nik) as nik,e.nmlengkap,e.nmdept,e.nmsubdept,e.nmregu,e.nmjabatan,e.grouppenggajian,e.tglmasukkerja,a.kdjamkerja,a.jam_masuk_absen,a.jam_pulang_absen,a.tgl,
 	b.nodok as cuti,c.nodok as dinas, d.nodok as sakit_p0,
@@ -865,8 +903,8 @@ FROM (
 	
 	/*IZIN SAKIT KARYAWAN*/
 	SELECT k.nik AS nik,k.nmlengkap,b.nmdept,c.nmsubdept,e.nmregu,f.nmjabatan,k.grouppenggajian,k.tglmasukkerja, 0 AS jumlah_jadwal , 
-	0 AS jumlah_cuti, 0 AS izin_sakit, 0 AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus, 0 AS izin_pa, 0 as dinas, 0 as izin_keluar , 0 as dt,
-	0 as pa, 0 as padt,0 as sisa_cuti,0 as alpha,count(ck.nodok) AS izin_sakit_po, 0 as cuti_bersama
+	0 AS jumlah_cuti,  0 AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus, 0 AS izin_pa, 0 as dinas, 0 as izin_keluar , 0 as dt,
+	0 as pa, 0 as padt,0 as sisa_cuti,0 as alpha,count(ck.nodok) AS izin_sakit, 0 as cuti_bersama
 	FROM sc_mst.karyawan k
 	left outer join sc_trx.ijin_karyawan ck  ON k.nik = ck.nik
 	left outer join sc_mst.departmen b on k.bag_dept=b.kddept
@@ -883,8 +921,8 @@ FROM (
 	
 	/*CUTI BERSAMA*/
 	select a.nik,g.nmlengkap,c.nmdept,d.nmsubdept,e.nmregu,f.nmjabatan,g.grouppenggajian,g.tglmasukkerja, 0 AS jumlah_jadwal , 
-	0 AS jumlah_cuti, 0 AS izin_sakit, 0 AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus, 0 AS izin_pa, 0 as dinas, 0 as izin_keluar , 0 as dt,
-	0 as pa, 0 as padt,0 as sisa_cuti,0 as alpha,0 AS izin_sakit_po, sum(a.out_cuti) as cuti_bersama
+	0 AS jumlah_cuti,  0 AS izin_dt, 0 as Cuti_ptggaji,0 as cuti_khusus, 0 AS izin_pa, 0 as dinas, 0 as izin_keluar , 0 as dt,
+	0 as pa, 0 as padt,0 as sisa_cuti,0 as alpha,0 AS izin_sakit, sum(a.out_cuti) as cuti_bersama
 		from sc_trx.cuti_blc a
 		left outer join sc_trx.cutibersama b on a.no_dokumen=b.nodok
 		left outer join sc_mst.karyawan g on a.nik=g.nik

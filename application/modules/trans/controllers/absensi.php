@@ -14,7 +14,7 @@ class Absensi extends MX_Controller {
         }
 	}
 
-	function filter(){
+	function filter_absensi(){
 		$data['title']='Tarikan Data Mesin Absensi'; //aksesconvert absensi
 		$kmenu='I.T.B.6';
 		if($this->uri->segment(4)=="success"){
@@ -1052,6 +1052,6 @@ class Absensi extends MX_Controller {
             }
 
         }
-        //echo json_encode(array("status" => TRUE));
+        echo json_encode(array("status" => TRUE));
     }
 }
