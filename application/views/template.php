@@ -74,7 +74,7 @@
                     }
 
                     var newHref = pathArray[0] + '/' + lHref;                    
-                    var newHref = path[0] + '/' + lHref;
+                    //var newHref = path[0] + '/' + lHref;
 
                     /*ACTIVE SIDEBAR OPEN*/
                     $('.treeview').find('a[href*=\'' + newHref + '\']')
