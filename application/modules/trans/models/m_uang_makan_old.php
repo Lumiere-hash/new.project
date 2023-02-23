@@ -798,12 +798,12 @@ class M_uang_makan extends CI_Model{
             INSERT INTO sc_tmp.scheduletolocation
             SELECT *
             FROM dblink (
-                'hostaddr=$host dbname=$dbname user=$dbuser password=$dbpass port=5432',
+                'hostaddr=$host dbname=$dbname user=$dbuser password=$dbpass port=39170',
                 'SELECT DISTINCT ON (branch, scheduleid, locationid, locationidlocal)
 				s.branch, s.userid, u.nip AS nik, s.scheduleid, s.scheduledate, 
                 COALESCE(NULLIF(sl.locationid, ''''), c.custcode, '''') AS locationid, 
                 COALESCE(NULLIF(sl.locationidlocal, ''''), c.customercodelocal, '''') AS locationidlocal,
-                c.custname, c.type AS customertype, ''$nik''::TEXT AS createby, NOW() AS createdate
+                c.custname, c.grdpaymt AS customertype, ''$nik''::TEXT AS createby, NOW() AS createdate
                 FROM sc_trx.schedule s
                 INNER JOIN sc_trx.scheduletolocation sl ON sl.scheduleid = s.scheduleid
                 LEFT JOIN sc_mst.\"user\" u ON REGEXP_REPLACE(u.userid::TEXT, ''\s'', '''', ''g'') = REGEXP_REPLACE(s.userid::TEXT, ''\s'', '''', ''g'')
@@ -826,10 +826,8 @@ class M_uang_makan extends CI_Model{
             SELECT NULL AS no, locationid, locationidlocal, custname, customertype,
             CASE
                 WHEN customertype = 'A' THEN 'KANTOR'
-                WHEN customertype = 'U' THEN 'TEMPAT UMUM'
+                WHEN customertype = 'B' THEN 'BANK'
                 WHEN customertype = 'C' THEN 'CUSTOMER/TOKO'
-				WHEN customertype = 'P' THEN 'PROYEK'
-				WHEN customertype = 'G' THEN 'GUDANG'
                 ELSE 'BELUM TERDEFINISI'
             END AS nmcustomertype
             FROM sc_tmp.scheduletolocation
@@ -845,10 +843,8 @@ class M_uang_makan extends CI_Model{
             SELECT a.customeroutletcode, a.customercodelocal, a.custname, a.customertype,
             CASE
                 WHEN customertype = 'A' THEN 'KANTOR'
-                WHEN customertype = 'U' THEN 'TEMPAT UMUM'
+                WHEN customertype = 'B' THEN 'BANK'
                 WHEN customertype = 'C' THEN 'CUSTOMER/TOKO'
-				WHEN customertype = 'P' THEN 'PROYEK'
-				WHEN customertype = 'G' THEN 'GUDANG'
                 ELSE 'BELUM TERDEFINISI'
             END AS nmcustomertype, MIN(checktime::TIME) AS checkin, MAX(checktime::TIME) AS checkout
             FROM sc_tmp.checkinout a
@@ -858,56 +854,17 @@ class M_uang_makan extends CI_Model{
         ");
     }
 
-	function cek_realisasi_kunjungan($nik, $tgl) {
-        $tgl = $tgl ?: date("Y-m-d");
-
-        return $this->db->query("
-		SELECT x.*,
-		CASE
-			WHEN COALESCE(NULLIF(x.locationid, ''), NULLIF(x.locationidlocal, '')) is null THEN 'X'
-			ELSE 'Y'
-		END as keterangan
-		FROM (
-		SELECT a.customeroutletcode, a.customercodelocal, a.custname, a.customertype,
-					CASE
-						WHEN a.customertype = 'A' THEN 'KANTOR'
-						WHEN a.customertype = 'U' THEN 'TEMPAT UMUM'
-						WHEN a.customertype = 'C' THEN 'CUSTOMER/TOKO'
-						WHEN a.customertype = 'P' THEN 'PROYEK'
-						WHEN a.customertype = 'G' THEN 'GUDANG'
-						ELSE 'BELUM TERDEFINISI'
-					END AS nmcustomertype, MIN(checktime::TIME) AS checkin, MAX(checktime::TIME) AS checkout,
-					b.locationid , b.locationidlocal, b.custname
-					FROM sc_tmp.checkinout a
-					FULL OUTER JOIN (
-					SELECT * FROM sc_tmp.scheduletolocation
-						where scheduledate = '$tgl' and nik = '$nik'
-					) b
-					ON COALESCE(NULLIF(b.locationid, ''), NULLIF(b.locationidlocal, '')) = COALESCE(NULLIF(a.customeroutletcode, ''), NULLIF(a.customercodelocal, ''))
-					WHERE a.checktime::DATE = '$tgl' AND a.nik = '$nik'
-					GROUP BY 1, 2, 3, 4, 8, 9, 10
-					ORDER BY 6
-		) x
-        ");
-    }
-
     function list_realisasi_kunjungan_all($kdcabang, $awal, $akhir) {
         return $this->db->query("
             SELECT ROW_NUMBER() OVER (ORDER BY c.nmlengkap, a.checktime::DATE, MIN(checktime::TIME), MAX(checktime::TIME)) AS no, 
             c.nik, c.nmlengkap, d.nmdept, f.nmjabatan, TO_CHAR(MAX(a.checktime), 'DD-MM-YYYY') AS tgl, a.customeroutletcode, a.customercodelocal, a.custname, a.customertype,
             CASE
                 WHEN customertype = 'A' THEN 'KANTOR'
-                WHEN customertype = 'U' THEN 'TEMPAT UMUM'
+                WHEN customertype = 'B' THEN 'BANK'
                 WHEN customertype = 'C' THEN 'CUSTOMER/TOKO'
-				WHEN customertype = 'P' THEN 'PROYEK'
-				WHEN customertype = 'G' THEN 'GUDANG'
                 ELSE 'BELUM TERDEFINISI'
             END AS nmcustomertype, CASE 
                 WHEN customertype = 'C' THEN 'V'
-				WHEN customertype = 'A' THEN 'V'
-				WHEN customertype = 'U' THEN 'V'
-				WHEN customertype = 'P' THEN 'V'
-				WHEN customertype = 'G' THEN 'V'
                 ELSE 'X'
             END AS terhitung, MIN(checktime::TIME) AS checkin, MAX(checktime::TIME) AS checkout, CONCAT(MIN(checktime::TIME), ' | ', MAX(checktime::TIME)) AS checktime
             FROM sc_tmp.checkinout a
