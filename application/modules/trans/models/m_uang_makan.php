@@ -798,7 +798,7 @@ class M_uang_makan extends CI_Model{
             INSERT INTO sc_tmp.scheduletolocation
             SELECT *
             FROM dblink (
-                'hostaddr=$host dbname=$dbname user=$dbuser password=$dbpass port=5432',
+                'hostaddr=$host dbname=$dbname user=$dbuser password=$dbpass',
                 'SELECT DISTINCT ON (branch, scheduleid, locationid, locationidlocal)
 				s.branch, s.userid, u.nip AS nik, s.scheduleid, s.scheduledate, 
                 COALESCE(NULLIF(sl.locationid, ''''), c.custcode, '''') AS locationid, 
