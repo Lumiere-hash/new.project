@@ -873,9 +873,9 @@ FROM (
 	0 as pa, 0 as padt,0 as sisa_cuti, sum(j.docref) as alpha,0 AS izin_sakit, 0 as cuti_bersama
 	FROM
 	(select trim(e.nik) as nik,e.nmlengkap,e.nmdept,e.nmsubdept,e.nmregu,e.nmjabatan,e.grouppenggajian,e.tglmasukkerja,a.kdjamkerja,a.jam_masuk_absen,a.jam_pulang_absen,a.tgl,
-	b.nodok as cuti,c.nodok as dinas, d.nodok as sakit_p0,
+	b.nodok as cuti,c.nodok as dinas, d.nodok as izin_sakit,
 	case when a.kdjamkerja<>'' and to_char(a.jam_masuk_absen,'HH24:MI:SS') is null and to_char(a.jam_pulang_absen,'HH24:MI:SS') is null
-	and b.nodok is null and c.nodok is null then 1
+	and b.nodok is null and c.nodok is null and d.nodok is null then 1
 	else 0 end as docref
 	from sc_trx.transready a
 	left outer join sc_trx.cuti_karyawan b on a.nik=b.nik and b.status='P' and a.tgl::DATE >= b.tgl_mulai::DATE and a.tgl::DATE<=b.tgl_selesai::DATE
@@ -892,7 +892,7 @@ FROM (
 		left outer join sc_mst.jabatan f on k.bag_dept=f.kddept and k.subbag_dept=f.kdsubdept and k.jabatan=f.kdjabatan
 		)
 	e on a.nik=e.nik
-	where to_char(a.tgl,'YYYYMM')='$periode' and a.kdjamkerja<>'' and e.statuskepegawaian<>'KO' and e.grouppenggajian<>'P0'
+	where to_char(a.tgl,'YYYYMM')='202302' and a.kdjamkerja<>'' and e.statuskepegawaian<>'KO' and e.grouppenggajian<>'P0' and a.nik='0522.504'
 	group by e.nik,e.nmlengkap,e.nmdept,e.nmsubdept,e.nmregu,e.nmjabatan,e.grouppenggajian,e.tglmasukkerja,a.kdjamkerja,a.jam_masuk_absen,a.jam_pulang_absen,a.tgl,b.nodok,c.nodok,a.tgl,d.nodok
 	order by nik) as j where j.nik is not null and docref=1
 	group by j.nik,j.nmlengkap,j.nmdept,j.nmsubdept,j.nmregu,j.nmjabatan,j.grouppenggajian,j.tglmasukkerja

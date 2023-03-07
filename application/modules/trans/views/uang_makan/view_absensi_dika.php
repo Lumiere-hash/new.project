@@ -81,11 +81,14 @@
                 },
                 {
                     data: "checktime",
-                    class: "text-nowrap"
                 },
                 {
                     data: "terhitung",
                     class: "text-nowrap text-center"
+                }
+                ,
+                {
+                    data: "keterangan",
                 }
             ]
         });
@@ -162,7 +165,7 @@
                                 <td><?= $v->nmdept ?></td>
                                 <td><?= $v->nmjabatan ?></td>
                                 <td class="text-nowrap"><?= $v->tglhari ?></td>
-                                <td class="text-nowrap">
+                                <td class="">
                                     <?php if(!is_null($v->checkin) || !is_null($v->checkout)): ?>
                                         <span style="width: 45px; float: left;"><?= $v->checkin ?: "&nbsp;" ?></span>
                                         <span> | </span>
@@ -385,6 +388,7 @@
                             <th>Tipe Customer</th>
                             <th>Checktime</th>
                             <th>Terhitung</th>
+                            <th>Keterangan</th>    
                         </tr>
                         </thead>
                     </table>

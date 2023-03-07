@@ -60,7 +60,7 @@ class Uang_makan extends MX_Controller
             $passpg = base64_decode($dtl_opt['c_passpg']);
             $this->m_uang_makan->insert_rencana_kunjungan($host, $dbname, $userpg, $passpg, $awal, $akhir);
         }
-        $this->db->query("select sc_tmp.pr_hitung_rekap_um('$kdcabang','$awal', '$akhir')");
+        $this->db->query("_select sc_tmp.pr_hitung_rekap_um('$kdcabang','$awal', '$akhir')");
         $data['list_um'] = $this->m_uang_makan->q_uangmakan_regu($kdcabang, $awal, $akhir, $callplan, $borong)->result();
         $this->db->trans_commit();
 
@@ -299,18 +299,34 @@ class Uang_makan extends MX_Controller
         $tgl = $this->input->post('tgl');
 
         $data = [];
-        foreach ($this->m_uang_makan->list_realisasi_kunjungan($nik, $tgl)->result() as $v) {
-            $data[] = [
-                "no" => null,
-                "locationid" => $v->customeroutletcode,
-                "locationidlocal" => $v->customercodelocal,
-                "custname" => $v->custname,
-                "customertype" => $v->customertype,
-                "nmcustomertype" => $v->nmcustomertype,
-                "checktime" => "<span style=\"width: 45px; float: left;\">" . ($v->checkin ?: "&nbsp;") . "</span>" . " | <span style=\"width: 45px;\">" . ($v->checkout != $v->checkin ? $v->checkout : "&nbsp;") . "</span>",
-                "terhitung" => $v->customertype == "C" ? "<i class=\"fa fa-check text-success\"></i>" : "<i class=\"fa fa-times text-danger\"></i>"
-            ];
-        }
+        
+            // foreach ($this->m_uang_makan->list_realisasi_kunjungan($nik, $tgl)->result() as $v) {
+            //     $data[] = [
+            //         "no" => null,
+            //         "locationid" => $v->customeroutletcode,
+            //         "locationidlocal" => $v->customercodelocal,
+            //         "custname" => $v->custname,
+            //         "customertype" => $v->customertype,
+            //         "nmcustomertype" => $v->nmcustomertype,
+            //         "checktime" => "<span style=\"width: 45px; float: left;\">" . ($v->checkin ?: "&nbsp;") . "</span>" . " | <span style=\"width: 45px;\">" . ($v->checkout != $v->checkin ? $v->checkout : "&nbsp;") . "</span>",
+            //         "terhitung" => $v->customertype == 'C' ? "<i class=\"fa fa-check text-success\"></i>" : "<i class=\"fa fa-times text-danger\"></i>",
+            //         "keterangan" => $v->customertype == 'C' ? "Callplan terpenuhi" : "Callplan tidak terpenuhi"
+            //     ];
+            // } 
+            
+        foreach ($this->m_uang_makan->cek_realisasi_kunjungan($nik, $tgl)->result() as $v) {
+                $data[] = [
+                    "no" => null,
+                    "locationid" => $v->customeroutletcode,
+                    "locationidlocal" => $v->customercodelocal,
+                    "custname" => $v->custname,
+                    "customertype" => $v->customertype,
+                    "nmcustomertype" => $v->nmcustomertype,
+                    "checktime" => "<span style=\"width: 45px; float: left;\">" . ($v->checkin ?: "&nbsp;") . "</span>" . " | <span style=\"width: 45px;\">" . ($v->checkout != $v->checkin ? $v->checkout : "&nbsp;") . "</span>",
+                    "terhitung" => $v->keterangan == 'Y' ? "<i class=\"fa fa-check text-success\"></i>" : "<i class=\"fa fa-times text-danger\"></i>",
+                    "keterangan" => $v->keterangan == 'Y' ? "Sesuai Callplan" : "Diluar Callplan"
+                ];
+            } 
 
         $output = array(
             "data" => $data

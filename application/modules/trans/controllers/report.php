@@ -470,11 +470,11 @@ class Report extends MX_Controller{
         $datane=$this->m_report->q_att_new($periode);
         $this->excel_generator->set_query($datane);
         $this->excel_generator->set_header(array('No','NIK','Nama Lengkap','Departemen','Sub Department','Regu','Jabatan','Group Penggajian','Tgl Masuk Kerja','Jumlah Jadwal','Cuti',
-            'Cuti Potong Gaji','Cuti Khusus','Izin Datang Terlambat','Izin Pulang Awal','Izin Keluar','Izin Sakit','Izin Sakit P0','Alpha','Datang Terlambat','Pulang Awal','Dinas',
+            'Cuti Potong Gaji','Cuti Khusus','Izin Datang Terlambat','Izin Pulang Awal','Izin Keluar','Izin Sakit','Alpha','Datang Terlambat','Pulang Awal','Dinas',
 			'Cuti Bersama','Jumlah Cuti Terpakai','Sisa Cuti'));
         $this->excel_generator->set_column(array('no','nik','nmlengkap','nmdept','nmsubdept','nmregu','nmjabatan','grouppenggajian','tglmasukkerja','jumlah_jadwal','cuti','cuti_ptggaji',
-			'cuti_khusus','izin_dt','izin_pa','izin_keluar','cuti_khusus_izin_sakit','izin_sakit','alpha','dt','pa','dinas','cuti_bersama','cuti_terpakai','sisa_cuti'));
-        $this->excel_generator->set_width(array(10,10,40,40,40,40,40,10,20,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10));
+			'cuti_khusus','izin_dt','izin_pa','izin_keluar','izin_sakit','alpha','dt','pa','dinas','cuti_bersama','cuti_terpakai','sisa_cuti'));
+        $this->excel_generator->set_width(array(10,10,40,40,40,40,40,10,20,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10));
         $this->excel_generator->exportTo2007("Laporan Absensi Periode Bulan $bln Tahun $tahun");
 
     }

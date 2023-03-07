@@ -299,34 +299,18 @@ class Uang_makan extends MX_Controller
         $tgl = $this->input->post('tgl');
 
         $data = [];
-        
-            // foreach ($this->m_uang_makan->list_realisasi_kunjungan($nik, $tgl)->result() as $v) {
-            //     $data[] = [
-            //         "no" => null,
-            //         "locationid" => $v->customeroutletcode,
-            //         "locationidlocal" => $v->customercodelocal,
-            //         "custname" => $v->custname,
-            //         "customertype" => $v->customertype,
-            //         "nmcustomertype" => $v->nmcustomertype,
-            //         "checktime" => "<span style=\"width: 45px; float: left;\">" . ($v->checkin ?: "&nbsp;") . "</span>" . " | <span style=\"width: 45px;\">" . ($v->checkout != $v->checkin ? $v->checkout : "&nbsp;") . "</span>",
-            //         "terhitung" => $v->customertype == 'C' ? "<i class=\"fa fa-check text-success\"></i>" : "<i class=\"fa fa-times text-danger\"></i>",
-            //         "keterangan" => $v->customertype == 'C' ? "Callplan terpenuhi" : "Callplan tidak terpenuhi"
-            //     ];
-            // } 
-            
-        foreach ($this->m_uang_makan->cek_realisasi_kunjungan($nik, $tgl)->result() as $v) {
-                $data[] = [
-                    "no" => null,
-                    "locationid" => $v->customeroutletcode,
-                    "locationidlocal" => $v->customercodelocal,
-                    "custname" => $v->custname,
-                    "customertype" => $v->customertype,
-                    "nmcustomertype" => $v->nmcustomertype,
-                    "checktime" => "<span style=\"width: 45px; float: left;\">" . ($v->checkin ?: "&nbsp;") . "</span>" . " | <span style=\"width: 45px;\">" . ($v->checkout != $v->checkin ? $v->checkout : "&nbsp;") . "</span>",
-                    "terhitung" => $v->keterangan == 'Y' ? "<i class=\"fa fa-check text-success\"></i>" : "<i class=\"fa fa-times text-danger\"></i>",
-                    "keterangan" => $v->keterangan == 'Y' ? "Sesuai Callplan" : "Diluar Callplan"
-                ];
-            } 
+        foreach ($this->m_uang_makan->list_realisasi_kunjungan($nik, $tgl)->result() as $v) {
+            $data[] = [
+                "no" => null,
+                "locationid" => $v->customeroutletcode,
+                "locationidlocal" => $v->customercodelocal,
+                "custname" => $v->custname,
+                "customertype" => $v->customertype,
+                "nmcustomertype" => $v->nmcustomertype,
+                "checktime" => "<span style=\"width: 45px; float: left;\">" . ($v->checkin ?: "&nbsp;") . "</span>" . " | <span style=\"width: 45px;\">" . ($v->checkout != $v->checkin ? $v->checkout : "&nbsp;") . "</span>",
+                "terhitung" => $v->customertype == "C" ? "<i class=\"fa fa-check text-success\"></i>" : "<i class=\"fa fa-times text-danger\"></i>"
+            ];
+        }
 
         $output = array(
             "data" => $data

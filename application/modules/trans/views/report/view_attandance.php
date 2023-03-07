@@ -60,7 +60,6 @@
 												<th align="justify">Izin Pulang Awal</th>
 												<th align="justify">Izin Keluar</th>
 												<th align="justify">Izin Sakit</th>
-												<th align="justify">Izin Sakit P0</th>
 												<th align="justify">Alpha</th>
 												<th align="justify">Datang Terlambat</th>
 												<th align="justify">Pulang Awal</th>
@@ -99,7 +98,6 @@
 												<td><?php echo $column->izin_dt;?></td>
 												<td><?php echo $column->izin_pa;?></td>
 												<td><?php echo $column->izin_keluar;?></td>
-												<td><?php echo $column->cuti_khusus_izin_sakit;?></td>
 												<td><?php echo $column->izin_sakit;?></td>
 												<td><?php echo $column->alpha;?></td>
 												<td><?php echo $column->dt;?></td>
