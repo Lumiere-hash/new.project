@@ -913,7 +913,7 @@ FROM (
 		left outer join sc_mst.regu b on a.kdregu=b.kdregu) e on k.nik=e.nik
 	left outer join sc_mst.subdepartmen c on k.bag_dept=c.kddept and k.subbag_dept=c.kdsubdept
 	left outer join sc_mst.jabatan f on k.bag_dept=f.kddept and k.subbag_dept=f.kdsubdept and k.jabatan=f.kdjabatan
-	WHERE to_char(ck.tgl_kerja, 'YYYYMM') = '$periode' and k.statuskepegawaian not in ('KO') 
+	WHERE to_char(ck.tgl_kerja, 'YYYYMM') = '$periode' and k.statuskepegawaian not in ('KO') and ck.kdijin_absensi='KD'
 	AND ck.status = 'P'
 	GROUP BY k.nik,b.nmdept,c.nmsubdept,e.nmregu,f.nmjabatan,k.grouppenggajian,k.tglmasukkerja
 	
