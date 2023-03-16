@@ -78,7 +78,7 @@ class Kendaraan extends MX_Controller{
         $versidb=$vdb['vrelease'];
         $data['version']=$versidb;
         /* END CODE UNTUK VERSI */
-        $data['list_mstkendaraan']=$this->m_kendaraan->q_mstkendaraan()->result();
+        $data['list_mstkendaraan']=$this->m_kendaraan->q_masterkendaraan()->result();
         $data['list_sckendaraan']=$this->m_kendaraan->q_sckendaraan()->result();
         $data['list_scsubkendaraan']=$this->m_kendaraan->q_scsubkendaraan()->result();
         $data['list_kanwil']=$this->m_kendaraan->q_gudangwilayah()->result();

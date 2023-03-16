@@ -28,6 +28,17 @@ class M_kendaraan extends CI_Model{
         ");
     }
 	
+	function q_masterkendaraan() {
+        return $this->db->query("
+            SELECT a.*, b.locaname
+            FROM sc_mst.mbarang a
+            LEFT OUTER JOIN sc_mst.mgudang b ON a.kdgudang = b.loccode
+            WHERE LEFT(a.kdgroup, 3) = 'KDN' 
+            AND a.hold_item = 'NO'
+            ORDER BY nmbarang
+        ");
+    }
+	
 	function q_kirkendaraan() {
         return $this->db->query("
             select a.*,b.nmbarang,b.nopol,b.jenisid,b.modelid,b.tahunpembuatan,b.nodok,b.hold_item,c.locaname from sc_his.kir_mst a
