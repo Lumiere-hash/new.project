@@ -318,7 +318,7 @@ class Absensi extends MX_Controller {
 
 
 		}*/
-		$this->db->query("delete from sc_trx.transready where tgl between '$tglawal' and '$tglakhir' and nik in (select nik from sc_mst.karyawan where tglkeluarkerja is null and kdcabang='$kdcabang')");
+		$this->db->query("delete from sc_trx.transready where tgl between '$tglawal' and '$tglakhir' and nik in (select nik from sc_mst.karyawan where tglkeluarkerja is null and kdcabang='$kdcabang') and editan <> 't' ");
 		$txt='select sc_tmp.pr_generate_transready('.chr(39).$tglawal.chr(39).','.chr(39).$tglakhir.chr(39).','.chr(39).$kdcabang.chr(39).')';
 		$this->db->query($txt);
 		redirect('trans/absensi/filter_input/rep_succes');

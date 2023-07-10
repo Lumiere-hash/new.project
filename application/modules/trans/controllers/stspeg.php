@@ -45,6 +45,7 @@ class Stspeg extends MX_Controller{
     }
 	function karyawan(){
 		//$data['title']="List Master Riwayat Keluarga";
+		$this->check_status();
 		$data['title']="List Karyawan";
 		$data['list_karyawan']=$this->m_stspeg->list_karyawan()->result();
 		$this->template->display('trans/stspeg/v_list_karyawan',$data);
@@ -224,5 +225,64 @@ class Stspeg extends MX_Controller{
 		$data['nik']=$nik;
 		$this->template->display('trans/stspeg/v_edit_karkon',$data);
 	}
+	
+	function check_status()
+    {
+        $this->load->model(array('trans/M_Employee'));
+        $allemployee = $this->M_Employee->q_mst_read_where()->result();
+        foreach ($allemployee as $row) {
+            foreach ($this->m_stspeg->q_transaction_read(' TRUE AND TRIM(nik) = \'' . trim($row->nik) . '\' AND status is null  ')->result() as $doc) {
+                $max = $this->m_stspeg->q_transaction_read_where(' AND nik = \''.trim($row->nik).'\' ORDER BY tgl_selesai DESC LIMIT 1 ')->row();
+                        if ($max->tgl_selesai == $doc->tgl_selesai){
+						$this->m_stspeg->q_transaction_update(array(
+                                    'status' => 'B'
+                                ), array(
+                                    'nik' => trim($row->nik),
+                                    'nodok' => trim($doc->nodok),
+                                    'tgl_selesai' => $max->tgl_selesai
+                                ));	
+						}else{
+							$this->m_stspeg->q_transaction_update(array(
+                                    'status' => 'C'
+                                ), array(
+                                    'nik' => trim($row->nik),
+                                    'nodok' => trim($doc->nodok),
+                                ));	
+						}
+                }
+            }
+    }
+	
+	public function printout($param){
+        $json = json_decode(
+            hex2bin($param)
+        );
+        $transaction = $this->m_stspeg->q_transaction_read_where(' AND nodok = \''.$json->nodok.'\' ')->row();
+        var_dump($transaction);
+    }
+	
+	function activated()
+    {
+        $nik = $this->encrypt->decode(hex2bin(trim($this->uri->segment(4))));
+        $nodok = $this->encrypt->decode(hex2bin(trim($this->uri->segment(5))));
+        $nama = trim($this->session->userdata('nik'));
+        $this->db->where('nik', $nik);
+        $this->db->where('nodok', $nodok);
+        $info = array(
+            'status' => 'B',
+            'update_date' => date('Y-m-d H:m:s'),
+            'update_by' => $nama,
+        );
+        $this->db->update("sc_trx.status_kepegawaian", $info);
+
+        /* BERAKHIR YG TIDAK AKTIF */
+        $this->db->where('nik', $nik);
+        $this->db->where('nodok !=', $nodok);
+        $info = array(
+            'status' => 'C',
+        );
+        $this->db->update("sc_trx.status_kepegawaian", $info);
+        redirect("trans/stspeg/karyawan/rep_succes/$nik");
+    }
 	
 }	
