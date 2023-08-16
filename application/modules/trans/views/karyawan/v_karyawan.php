@@ -91,6 +91,9 @@
                 <div class="box box-primary">
                     <div class="box-header">
                         <!--<h3 class="box-title">DATA KARYAWAN RESIGN</h3>-->
+                        <?php if($akses['aksesdownload']=='t') { ?>
+                            <a href="<?php echo site_url("trans/karyawan/excel_listkaryawan_resign")?>"  class="btn btn-default" style="margin:10px;" title="Download Excel"><i class="glyphicon glyphicon-download"></i></a>
+                        <?php } ?>
                     </div><!-- /.box-header -->
                     <!-- form start -->
                     <div class="box-body table-responsive" style='overflow-x:scroll;'>

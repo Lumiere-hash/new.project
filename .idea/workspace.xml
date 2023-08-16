@@ -4,7 +4,55 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="" />
+    <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/information_schema.FNRwLQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/information_schema.FNRwLQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/public.abK9xQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_crm.bxfdyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_crm.bxfdyQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_his.IyndyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_his.IyndyQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_im.cwGDBg.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_im.cwGDBg.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_log.1TjdyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_log.1TjdyQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_mst.Hz3dyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_mst.Hz3dyQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_mst.Hz3dyQ.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_mst.Hz3dyQ.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_rec.IU7dyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_rec.IU7dyQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_rep.Lk7dyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_rep.Lk7dyQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_retable.jHp04Q.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_retable.jHp04Q.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.zip" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/hrms.nusa.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/hrms.nusa.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/libraries/default_style.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/default_style.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations/sql/00012.20230619.15.Status kepegawaian/+up/001.alter.add.sc_tmp.status_kepegawaian.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/sql/00012.20230619.15.Status-Kepegawaian/+up/001.alter.add.sc_tmp.status_kepegawaian.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations/sql/00012.20230619.15.Status kepegawaian/+up/002.alter.add.sc_trx.status_kepegawaian.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/sql/00012.20230619.15.Status-Kepegawaian/+up/002.alter.add.sc_trx.status_kepegawaian.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations/sql/00012.20230619.15.Status kepegawaian/+up/003.trigger.sc_tmp.pr_stspeg_after.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/sql/00012.20230619.15.Status-Kepegawaian/+up/003.trigger.sc_tmp.pr_stspeg_after.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations/sql/00012.20230619.15.Status kepegawaian/+up/004.trigger.sc_trx.pr_stspeg_after.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/sql/00012.20230619.15.Status-Kepegawaian/+up/004.trigger.sc_trx.pr_stspeg_after.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations/sql/00012.20230619.15.Status kepegawaian/-down/001.replace.sc_mst.v_dtlgaji_karyawan.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/sql/00012.20230619.15.Status-Kepegawaian/-down/001.replace.sc_mst.v_dtlgaji_karyawan.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/master/views/jobgrade/v_jobgrade.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/master/views/jobgrade/v_jobgrade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/absensi.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/absensi.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/dinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/dinas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/ijin_karyawan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/ijin_karyawan.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/karyawan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/karyawan.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/models/m_dinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/m_dinas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/models/m_ijin_karyawan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/m_ijin_karyawan.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/ijin_karyawan/v_detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/ijin_karyawan_old/v_detail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/ijin_karyawan/v_edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/ijin_karyawan_old/v_edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/ijin_karyawan/v_input.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/ijin_karyawan_old/v_input.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/ijin_karyawan/v_list.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/ijin_karyawan_old/v_list.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/ijin_karyawan/v_list_karyawan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/ijin_karyawan_old/v_list_karyawan.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan/v_karyawan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/karyawan/v_karyawan.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1688786326.9965.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1688786335.2799.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/img/mail_template/email.html" beforeDir="false" afterPath="$PROJECT_DIR$/assets/img/mail_template/email.html" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -229,9 +277,11 @@
     </packageJsonPaths>
   </component>
   <component name="PhpDebugGeneral" listening_started="true" />
-  <component name="PhpServers">
-    <servers />
-  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="D:\APPLICATION\php82\php.exe" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 6
+}]]></component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-7" />
     <option name="y" value="2" />
@@ -255,7 +305,9 @@
       </profile-state>
     </entry>
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -323,7 +375,14 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/PROJECT/hrms.nusa/application/third_party",
+    "database.data.extractors.current.export.id": "SQL Inserts",
+    "database.data.extractors.current.id": "SQL Inserts",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/PROJECT/hrms.nusa/application/migrations/sql/00013.20230815.25.Ijin-Karyawan",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "yarn",
     "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
@@ -336,11 +395,11 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\PROJECT\hrms.nusa\application\third_party" />
-      <recent name="D:\PROJECT\hrms.nusa\application\libraries" />
-      <recent name="D:\PROJECT\hrms.nusa" />
-      <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\migration\20210809.Export-Import-Rev" />
-      <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\migration" />
+      <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00013.20230815.25.Ijin-Karyawan" />
+      <recent name="D:\PROJECT\hrms.nusa\application\migrations" />
+      <recent name="D:\PROJECT\hrms.nusa\application\modules\trans\views\ijin_karyawan" />
+      <recent name="D:\PROJECT\hrms.nusa\assets\plugins" />
+      <recent name="D:\PROJECT\hrms.nusa\application\modules\trans\views" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\migration\20210610.Job-Grade" />
@@ -654,6 +713,11 @@
       <workItem from="1653958952176" duration="18193000" />
       <workItem from="1653980914584" duration="7076000" />
       <workItem from="1654133199380" duration="20442000" />
+      <workItem from="1685584346011" duration="5464000" />
+      <workItem from="1686375849816" duration="33258000" />
+      <workItem from="1690257403094" duration="18136000" />
+      <workItem from="1690965239608" duration="21376000" />
+      <workItem from="1692070806280" duration="50836000" />
     </task>
     <servers />
   </component>
@@ -710,6 +774,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">

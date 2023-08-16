@@ -197,5 +197,95 @@ class M_ijin_karyawan extends CI_Model{
 	function q_cek_ijinkaryawan($nik,$tgl_kerja){
 		return $this->db->query("select * from sc_trx.ijin_karyawan where nik='$nik' and tgl_kerja='$tgl_kerja' and (status='P' or status='A')");
 	}
+
+    function q_transaction_read_where($clause = null)
+    {
+        return $this->db->query($this->q_transaction_txt_where($clause));
+    }
+
+    function q_transaction_txt_where($clause = null)
+    {
+        return sprintf(<<<'SQL'
+SELECT 
+    *
+FROM(
+    SELECT
+    COALESCE(TRIM(a.nik, '')) AS nik,
+    COALESCE(TRIM(a.nodok, '')) AS nodok,
+    COALESCE(TRIM(a.status, '')) AS status,
+    COALESCE(TRIM(a.type_ijin, '')) AS tipe_ijin,
+    COALESCE(TRIM(a.kdijin_absensi, '')) AS kdijin_absensi,
+    to_char(a.tgl_dok,'dd-mm-yyyy')as tgl_dok1,
+    to_char(a.tgl_kerja,'dd-mm-yyyy')as permissiondate,
+    to_char(a.tgl_kerja,'dd-mm-yyyy')as tgl_kerja1,
+    case
+        when a.status='A' then 'PERLU PERSETUJUAN'
+        when a.status='C' then 'DIBATALKAN'
+        when a.status='I' then 'INPUT'
+        when a.status='D' then 'DIHAPUS'
+        when a.status='P' then 'DISETUJUI/PRINT'
+    end as status1,
+    COALESCE(TRIM(b.nmlengkap, '')) AS nmlengkap,
+    COALESCE(TRIM(c.nmdept, '')) AS nmdept,
+    COALESCE(TRIM(d.nmsubdept, '')) AS nmsubdept,
+    COALESCE(TRIM(e.nmlvljabatan, '')) AS nmlvljabatan,
+    COALESCE(TRIM(f.nmjabatan, '')) AS nmjabatan,
+    COALESCE(TRIM(g.nmijin_absensi, '')) AS nmijin_absensi,
+    a.tgl_jam_mulai AS tgl_jam_mulai,
+    a.tgl_jam_selesai AS tgl_jam_selesai,
+    COALESCE(TRIM(i.nmlengkap, '')) AS nmatasan1,
+    COALESCE(TRIM(j.nmlengkap, '')) AS nmatasan2,
+    COALESCE(TRIM(b.nik_atasan, '')) AS nik_atasan,
+    COALESCE(TRIM(b.nik_atasan2, '')) AS nik_atasan2,
+    COALESCE(b.sisacuti ,0) AS sisacuti,
+    COALESCE(TRIM(c.nmdept, '')) AS bagian,
+    COALESCE(TRIM(a.keterangan, '')) AS keterangan,
+    CONCAT(COALESCE(TRIM(b.nik_atasan), ''), '.', COALESCE(TRIM(b.nik_atasan2), '')) AS superiors,
+    CASE
+        WHEN a.status='P' THEN 'DISETUJUI/PRINT'
+        WHEN a.status='C' THEN 'DIBATALKAN'
+        WHEN a.status='I' THEN 'INPUT'
+        WHEN a.status='A' THEN 'PERLU PERSETUJUAN'
+        WHEN a.status='D' THEN 'DIHAPUS'
+        END AS formatstatus,
+    case
+        when type_ijin='PB' then 'PRIBADI'
+        when type_ijin='DN' then 'DINAS'
+    end as kategori,
+    CASE
+        WHEN a.kdijin_absensi = 'IK' THEN CONCAT(a.tgl_jam_mulai,' s/d ',a.tgl_jam_selesai)::text
+        WHEN a.kdijin_absensi = 'DT' THEN a.tgl_jam_mulai::text
+        WHEN a.kdijin_absensi = 'PA' THEN a.tgl_jam_selesai::text
+        ELSE 'dd'
+        END AS permissiontime,
+    TO_CHAR(a.input_date,'DD-MM-YYYY') AS input_date,
+    CASE
+        WHEN a.tgl_jam_mulai is null then concat(to_char(a.tgl_kerja,'dd-mm-yyyy '),a.tgl_jam_selesai)
+        WHEN a.tgl_jam_selesai is null then concat(to_char(a.tgl_kerja,'dd-mm-yyyy '),a.tgl_jam_mulai)
+        WHEN a.tgl_jam_mulai is not null then concat(to_char(a.tgl_kerja,'dd-mm-yyyy '),a.tgl_jam_mulai)
+        ELSE '00:00:00'
+        END AS begintime,
+    CASE
+        WHEN a.tgl_jam_mulai is null then concat(to_char(a.tgl_kerja,'dd-mm-yyyy '),a.tgl_jam_selesai)
+        WHEN a.tgl_jam_selesai is null then concat(to_char(a.tgl_kerja,'dd-mm-yyyy '),a.tgl_jam_mulai)
+        WHEN a.tgl_jam_selesai is not null then concat(to_char(a.tgl_kerja,'dd-mm-yyyy '),a.tgl_jam_selesai)
+        ELSE '00:00:00'
+        END AS endtime,
+    to_char(a.tgl_kerja,'mmYYYY') AS filterdate
+FROM sc_trx.ijin_karyawan a
+         LEFT OUTER JOIN sc_mst.karyawan b ON a.nik=b.nik
+         LEFT OUTER JOIN sc_mst.departmen c ON b.bag_dept=c.kddept
+         left outer join sc_mst.subdepartmen d on a.kdsubdept=d.kdsubdept and d.kddept=b.bag_dept
+         left outer join sc_mst.lvljabatan e on a.kdlvljabatan=e.kdlvl
+         left outer join sc_mst.jabatan f on a.kdjabatan=f.kdjabatan and f.kdsubdept=b.subbag_dept and f.kddept=b.bag_dept
+         left outer join sc_mst.ijin_absensi g on a.kdijin_absensi=g.kdijin_absensi
+         left outer join sc_mst.karyawan i on b.nik_atasan=i.nik
+         left outer join sc_mst.karyawan j on b.nik_atasan2=j.nik
+WHERE TRUE
+  AND coalesce(upper(b.statuskepegawaian),'')!='KO'
+ ) AS aa WHERE TRUE 
+SQL
+            ) . $clause;
+    }
 	
 }

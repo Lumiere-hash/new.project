@@ -25,20 +25,31 @@ class M_dinas extends CI_Model{
 	}
 
 
-	function q_dinas_karyawan($tgl,$status,$nikatasan){
-		return $this->db->query(" select * from 
-		(select a.*,b.nmlengkap,c.nmdept,
-								case
-								when a.status='A' then 'PERLU PERSETUJUAN'
-								when a.status='C' then 'DIBATALKAN'
-								when a.status='I' then 'INPUT'
-								when a.status='D' then 'DIHAPUS/EXPIRED'
-								when a.status='P' then 'DISETUJUI/PRINT'
-								end as status1 from sc_trx.dinas a
-								left outer join sc_mst.karyawan b on a.nik=b.nik								
-								left outer join sc_mst.departmen c on b.bag_dept=c.kddept where to_char(a.tgl_mulai,'mmYYYY')='$tgl' and a.status $status)
-								as x1 $nikatasan
-								order by nodok desc");
+	function q_dinas_karyawan($tgl,$status,$nikatasan,$department=null){
+		return $this->db->query("
+		    SELECT * FROM(
+		        select * from(
+                    select 
+                         a.*,
+                         b.nmlengkap,
+                         b.bag_dept,
+                         c.nmdept,
+                    case
+                    when a.status='A' then 'PERLU PERSETUJUAN'
+                    when a.status='C' then 'DIBATALKAN'
+                    when a.status='I' then 'INPUT'
+                    when a.status='D' then 'DIHAPUS/EXPIRED'
+                    when a.status='P' then 'DISETUJUI/PRINT'
+                    end as status1 from sc_trx.dinas a
+                    left outer join sc_mst.karyawan b on a.nik=b.nik								
+                    left outer join sc_mst.departmen c on b.bag_dept=c.kddept where to_char(a.tgl_mulai,'mmYYYY')='$tgl' and a.status $status
+                )
+                as x1 $nikatasan
+                order by nodok desc
+		    ) as x2
+		    WHERE TRUE
+		    $department
+		");
 	}
 
 

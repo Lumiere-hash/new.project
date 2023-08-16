@@ -83,6 +83,8 @@ class Default_style
         <!-- iCheck -->
         <!--link rel="stylesheet" href="'.base_url('assets/plugins/iCheck/flat/blue.css'). '"-->
         <link rel="stylesheet" href="'.base_url('assets/plugins/iCheck/minimal/_all.css'). '">
+        <!-- SweetAlert -->
+        <link rel="stylesheet" href="'.base_url('assets/plugins/sweetalert/sweetalert2.css'). '" rel="stylesheet" type="text/css"/>
         ';
         return $str;
     }
@@ -135,6 +137,8 @@ class Default_style
         <!--<script src="'. base_url('assets/dist/js/demo.js'). '"></script>-->
 
         <!-- TAMBAHAN  JS-->
+        <!-- SweetAlert -->
+        <script type="text/javascript" src="'.base_url('assets/plugins/sweetalert/sweetalert2.min.js'). '"></script>
         <!-- DataTables -->
         <script src="'.base_url('assets/plugins/datatables/jquery.dataTables.min.js'). '"></script>
         <script src="'.base_url('assets/plugins/datatables/dataTables.bootstrap.min.js'). '"></script>
@@ -181,6 +185,7 @@ class Default_style
         <![endif]-->
         <script src="'. base_url('assets/js/autoNumeric/autoNumeric.min.js') .'" type="text/javascript"></script>
         <script src="'. base_url('assets/js/autoNumeric/autonumeric@4.5.4') .'"></script>
+        
         ';
 
         return $str;

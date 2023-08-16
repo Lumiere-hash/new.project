@@ -18,6 +18,7 @@ class Dinas extends MX_Controller{
     }
 	function index(){
         /* CODE UNTUK VERSI*/
+
         $nama=trim($this->session->userdata('nik'));
         $kodemenu='I.T.B.16'; $versirelease='I.T.B.16/ALPHA.002'; $releasedate=date('2019-04-12 00:00:00');
         $versidb=$this->fiky_version->version($kodemenu,$versirelease,$releasedate,$nama);
@@ -103,6 +104,16 @@ class Dinas extends MX_Controller{
 		else {
 			$nikatasan="where x1.nik='$nama'";
 		}
+        $auditOnly = true;
+        if ($auditOnly){
+            $this->load->model(array('trans/M_Employee'));
+            $employee = $this->M_Employee->q_mst_read_where(' AND nik = \''.trim($this->session->userdata('nik')).'\' ')->row();
+            $department = ($employee->bag_dept != 'IA' ? ' AND bag_dept NOT IN (\'IA\') ' : '');
+        }else{
+            $department = '';
+        }
+
+
 		$data['nama']=$nama;
 		$data['userhr']=$userhr;
 		$data['level_akses']=$level_akses;
@@ -124,7 +135,7 @@ class Dinas extends MX_Controller{
         }
 
 		$data['akses']=$this->m_akses->list_aksespermenu($nama,$kodemenu)->row_array();
-		$data['list_dinas']=$this->m_dinas->q_dinas_karyawan($tgl,$status,$nikatasan)->result();
+		$data['list_dinas']=$this->m_dinas->q_dinas_karyawan($tgl,$status,$nikatasan,$department)->result();
         $this->template->display('trans/dinas/v_list',$data);
 
         $paramerror=" and userid='$nama'";

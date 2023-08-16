@@ -705,6 +705,35 @@ class Karyawan extends MX_Controller {
         $this->excel_generator->exportTo2007('Master Karyawan');
     }
 
+    public function excel_listkaryawan_resign(){
+
+        $datane=$this->m_karyawan->list_karyawan_resign();
+        $this->excel_generator->set_query($datane);
+        $this->excel_generator->set_header(array('Nik','Nama lengkap','Panggilan','kelamin','Negara lahir','Prov lahir','Kota lahir','Tgllahir','Kode Agama','No ktp',
+            'Status Pernikahan','Golongan Darah','Negara','Provinsi','Kota',
+            'Kecamatan','Kelurahan','Alamat','No HP1','No HP2','NPWP','TGL NPWP','Bagian','Sub Bagian','Jabatan','Lvl Jabatan','Grade golongan','Atasan1','Atasan2','Status PTKP',
+            'Besaran PTKP','Tgl masuk kerja','Tgl keluar kerja','Masakerja','Status kepegawaian','Group penggajian','Bank','Nama pemilik rekening','no rekening','ID absen','Email',
+            'Sisa Cuti','id mesin','Card number','Status','Mobile Deviceid'
+        ));
+
+
+
+        $this->excel_generator->set_column(array('nik','nmlengkap','callname','jk','namanegara','nmprovlahir','nmkotalahir','tgllahir','nmagama','noktp',
+            'status_pernikahan','gol_darah','namanegara','nmprovtinggal','nmkotatinggal',
+            'nmkectinggal','nmdesatinggal','alamattinggal','nohp1','nohp2','npwp','tglnpwp','nmdept','nmsubdept','nmjabatan','nmlvljabatan','nmgrade','nik_atasan','nik_atasan2','status_ptkp',
+            'besaranptkp','tglmasukkerja','tglkeluarkerja','masakerja','statuskepegawaian','grouppenggajian','namabank','namapemilikrekening','norek','idabsen','email',
+            'sisacuti','idmesin','cardnumber','status','deviceid'
+        ));
+
+        $this->excel_generator->set_width(array(10,20,20,20,20,20,20,20,20,20,
+            20,20,20,20,20,
+            10,20,20,20,20,20,20,20,20,20,20,20,20,20,20,
+            10,20,20,20,20,20,20,20,20,20,20,
+            20,20,20,20,20
+        ));
+        $this->excel_generator->exportTo2007('Daftar Karyawan Resign');
+    }
+
 
     function up_foto(){
         $data['title']="Profile User";

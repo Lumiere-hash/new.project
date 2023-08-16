@@ -112,7 +112,7 @@ class Absensi extends MX_Controller {
 		$tgl1=date('m-d-Y H:i:s',strtotime($tgla));
 		$tgl2=date('m-d-Y H:i:s',strtotime($tglb));
 		if (empty($tanggal)){
-			redirect('trans/absensi/filter');
+			redirect('trans/absensi/filter_absensi');
 		}
 		$data['title']="DATA MESIN ABSEN $tgla hingga $tglb Untuk Wilayah $kdcabang";
 		$data['tgl1']=$tgla;
