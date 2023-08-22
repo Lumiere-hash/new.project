@@ -29,7 +29,9 @@
       <user-name>postgres</user-name>
       <schema-mapping>
         <introspection-scope>
-          <node kind="database" qname="HRMS.NUSA">
+          <node kind="database">
+            <name qname="HRMS.NUSA" />
+            <name qname="HRMS.NUSA.TRIAL" />
             <node kind="schema" negative="1" />
           </node>
         </introspection-scope>

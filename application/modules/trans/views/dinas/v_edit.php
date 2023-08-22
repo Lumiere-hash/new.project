@@ -55,7 +55,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-4">Tujuan Dinas</label>
                                     <div class="col-sm-8">
-                                        <input value="<?php echo trim($lb->tujuan); ?>" type="text" id="tujdinas" name="tujdinas"   style="text-transform:uppercase" class="form-control"  >
+                                        <input value="<?php echo trim($lb->tujuan_kota); ?>" type="text" id="tujdinas" name="tujdinas"   style="text-transform:uppercase" class="form-control"  >
                                     </div>
                                 </div>
                                 <!--div class="form-group">

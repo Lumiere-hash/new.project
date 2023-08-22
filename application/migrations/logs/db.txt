@@ -1,20 +1,104 @@
-2021-10-16 08:23:29
+2023-08-22 11:14:01
 
-BEGIN EXECUTING "application/migrations/00001_dashboard.php"...
+BEGIN EXECUTING "application/migrations/00015_kasbon_umum.php"...
 
-	BEGIN EXECUTING "application/migrations/sql/00001.20211016.08.Dashboard/+up/001.alter.sc_mst.option.sql"...
-
-		[SUCCESS]
-
-	FINISH
-
-	BEGIN EXECUTING "application/migrations/sql/00001.20211016.08.Dashboard/+up/002.insert.sc_mst.option.sql"...
+	BEGIN EXECUTING "application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/001.table.cashbon_blc.sql"...
 
 		[SUCCESS]
 
 	FINISH
 
-FINISH EXECUTE "application/migrations/00001_dashboard.php"...
+	BEGIN EXECUTING "application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/002.table.sc_rep.pomst.sql"...
+
+		[SUCCESS]
+
+	FINISH
+
+	BEGIN EXECUTING "application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/003.table.sc_rep.podtl.sql"...
+
+		[SUCCESS]
+
+	FINISH
+
+	BEGIN EXECUTING "application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/004.table.sc_trx.pomst.sql"...
+
+		[SUCCESS]
+
+	FINISH
+
+	BEGIN EXECUTING "application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/005.table.sc_trx.podtl.sql"...
+
+		[SUCCESS]
+
+	FINISH
+
+	BEGIN EXECUTING "application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/006.data.trxtype.sql"...
+
+		[SUCCESS]
+
+	FINISH
+
+	BEGIN EXECUTING "application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/007.table.sc_tmp.cashbon.sql"...
+
+		[SUCCESS]
+
+	FINISH
+
+	BEGIN EXECUTING "application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/008.trigger.cashbon.sql"...
+
+		[SUCCESS]
+
+	FINISH
+
+	BEGIN EXECUTING "application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/009.data.menu.sql"...
+
+		[SUCCESS]
+
+	FINISH
+
+	BEGIN EXECUTING "application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/010.table.component_cashbon.sql"...
+
+		[SUCCESS]
+
+	FINISH
+
+	BEGIN EXECUTING "application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/011.table.cashbon_component_po.sql"...
+
+		[SUCCESS]
+
+	FINISH
+
+	BEGIN EXECUTING "application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/012.trigger.declaration_cashbon.sql"...
+
+		[SUCCESS]
+
+	FINISH
+
+	BEGIN EXECUTING "application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/013.table.cashbon.sql"...
+
+		[SUCCESS]
+
+	FINISH
+
+	BEGIN EXECUTING "application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/014.table.declaration_cashbon.sql"...
+
+		[SUCCESS]
+
+	FINISH
+
+	BEGIN EXECUTING "application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/015.table.sc_rep.cashbon.sql"...
+
+		[SUCCESS]
+
+	FINISH
+
+	BEGIN EXECUTING "application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/016.table.sc_rep.declaration_cashbon.sql"...
+
+		[SUCCESS]
+
+	FINISH
+
+FINISH EXECUTE "application/migrations/00015_kasbon_umum.php"...
 
 -----------------------------------------------------------------------------------------------------------------------------
 

@@ -24,32 +24,22 @@ class M_dinas extends CI_Model{
 								");
 	}
 
-
-	function q_dinas_karyawan($tgl,$status,$nikatasan,$department=null){
-		return $this->db->query("
-		    SELECT * FROM(
-		        select * from(
-                    select 
-                         a.*,
-                         b.nmlengkap,
-                         b.bag_dept,
-                         c.nmdept,
-                    case
-                    when a.status='A' then 'PERLU PERSETUJUAN'
-                    when a.status='C' then 'DIBATALKAN'
-                    when a.status='I' then 'INPUT'
-                    when a.status='D' then 'DIHAPUS/EXPIRED'
-                    when a.status='P' then 'DISETUJUI/PRINT'
-                    end as status1 from sc_trx.dinas a
-                    left outer join sc_mst.karyawan b on a.nik=b.nik								
-                    left outer join sc_mst.departmen c on b.bag_dept=c.kddept where to_char(a.tgl_mulai,'mmYYYY')='$tgl' and a.status $status
-                )
-                as x1 $nikatasan
-                order by nodok desc
-		    ) as x2
-		    WHERE TRUE
-		    $department
-		");
+	function q_dinas_karyawan($tgl,$status,$nikatasan){
+		return $this->db->query(" select *,( select true from sc_trx.cashbon where dutieid = x1.nodok ) as casboned, (select true from sc_trx.declaration_cashbon where dutieid = x1.nodok ) as declared from 
+		(select a.*,b.nmlengkap,c.nmdept,d.namakotakab,
+								case
+								when a.status='A' then 'PERLU PERSETUJUAN'
+								when a.status='C' then 'DIBATALKAN'
+								when a.status='I' then 'INPUT'
+								when a.status='D' then 'DIHAPUS'
+								when a.status='P' then 'DISETUJUI/PRINT'
+								end as status1 from sc_trx.dinas a
+								left outer join sc_mst.karyawan b on a.nik=b.nik								
+								left outer join sc_mst.departmen c on b.bag_dept=c.kddept
+								left outer join sc_mst.kotakab d on a.tujuan_kota = d.kodekotakab
+								where to_char(a.tgl_mulai, 'mmYYYY')='$tgl' and a.status $status)
+								as x1 $nikatasan
+								order by tgl_dok desc");
 	}
 
 
@@ -140,77 +130,78 @@ class M_dinas extends CI_Model{
 
 	function q_sti_dinas_dtl($nodok){
 		return $this->db->query("select	trim(coalesce(nik::text,'')) as nik,               
-				trim(coalesce(nodok::text,'')) as nodok,             
-				trim(coalesce(tgl_dok::text,'')) as tgl_dok,           
-				trim(coalesce(nmatasan::text,'')) as nmatasan,          
-				trim(coalesce(to_char(tgl_mulai,'dd-mm-yyyy')::text,'')) as tgl_mulai,         
-				trim(coalesce(to_char(tgl_selesai,'dd-mm-yyyy')::text,'')) as tgl_selesai,       
-				trim(coalesce(status::text,'')) as status,            
-				trim(coalesce(keperluan::text,'')) as keperluan,         
-				trim(coalesce(tujuan::text,'')) as tujuan,            
-				trim(coalesce(input_date::text,'')) as input_date,        
-				trim(coalesce(input_by::text,'')) as input_by,          
-				trim(coalesce(approval_date::text,'')) as approval_date,     
-				trim(coalesce(approval_by::text,'')) as approval_by,       
-				trim(coalesce(delete_date::text,'')) as delete_date,       
-				trim(coalesce(delete_by::text,'')) as delete_by,         
-				trim(coalesce(update_by::text,'')) as update_by,         
-				trim(coalesce(update_date::text,'')) as update_date,       
-				trim(coalesce(cancel_by::text,'')) as cancel_by,         
-				trim(coalesce(cancel_date::text,'')) as cancel_date,       
-				trim(coalesce(nmlengkap::text,'')) as nmlengkap,         
-				trim(coalesce(nmdept::text,'')) as nmdept,            
-				trim(coalesce(nmsubdept::text,'')) as nmsubdept,         
-				trim(coalesce(nmjabatan::text,'')) as nmjabatan,         
-				trim(coalesce(nmatasan1::text,'')) as nmatasan1,         
-				trim(coalesce(nmatasan2::text,'')) as nmatasan2,         
-				trim(coalesce(daterange1::text,'')) as daterange1,        
-				trim(coalesce(status1::text,''))  as status1, 
-				trim(coalesce(kdkategori::text,''))  as kdkategori, 
-				trim(coalesce(nmkategori::text,''))  as nmkategori, 
-				trim(coalesce(da::text,'')) as da, 
-				trim(coalesce(db::text,'')) as db, 
-				trim(coalesce(dc::text,'')) as dc, 
-				trim(coalesce(dd::text,'')) as dd, 
-				trim(coalesce(de::text,'')) as de, 
-				trim(coalesce(df::text,'')) as df, 
-				trim(coalesce(da_k::text,'')) as da_k, 
-				trim(coalesce(db_k::text,'')) as db_k, 
-				trim(coalesce(dc_k::text,'')) as dc_k, 
-				trim(coalesce(dd_k::text,'')) as dd_k, 
-				trim(coalesce(de_k::text,'')) as de_k, 
-				trim(coalesce(df_k::text,'')) as df_k,
-				trim(coalesce(to_char(tgl_dok,'dd-mm-yyyy')::text,'')) as tgldok_p
-				from 
-				(select a.*,b.nmlengkap,c.nmdept,d.nmsubdept,e.nmjabatan,f.nmlengkap as nmatasan1,g.nmlengkap as nmatasan2,to_char(tgl_mulai,'dd-mm-yyyy')||' - '||to_char(tgl_selesai,'dd-mm-yyyy') as daterange1,
-												case
-												when a.status='A' then 'PERLU PERSETUJUAN'
-												when a.status='C' then 'DIBATALKAN'
-												when a.status='I' then 'INPUT'
-												when a.status='D' then 'DIHAPUS'
-												when a.status='P' then 'DISETUJUI/PRINT'
-												end as status1,h.nmkategori,
-												case when a.kdkategori='DA' then 'X' end as da,
-												case when a.kdkategori='DB' then 'X' end as db,
-												case when a.kdkategori='DC' then 'X' end as dc,
-												case when a.kdkategori='DD' then 'X' end as dd,
-												case when a.kdkategori='DE' then 'X' end as de,
-												case when a.kdkategori='DF' then 'X' end as df,
-												case when a.kdkategori='DA' then a.keperluan end as da_k,
-												case when a.kdkategori='DB' then a.keperluan end as db_k,
-												case when a.kdkategori='DC' then a.keperluan end as dc_k,
-												case when a.kdkategori='DD' then a.keperluan end as dd_k,
-												case when a.kdkategori='DE' then a.keperluan end as de_k,
-												case when a.kdkategori='DF' then a.keperluan end as df_k
-												from sc_trx.dinas a
-						left outer join sc_mst.karyawan b on a.nik=b.nik								
-						left outer join sc_mst.departmen c on b.bag_dept=c.kddept 
-						left outer join sc_mst.subdepartmen d on b.bag_dept=d.kddept and b.subbag_dept=d.kdsubdept 
-						left outer join sc_mst.jabatan e on b.bag_dept=e.kddept and b.subbag_dept=e.kdsubdept and b.jabatan=e.kdjabatan 
-						left outer join sc_mst.karyawan f on b.nik_atasan=f.nik
-						left outer join sc_mst.karyawan g on b.nik_atasan2=g.nik
-						left outer join sc_mst.kategori h on h.kdkategori=a.kdkategori and h.typekategori='DINAS'
-						) as t1  
+		trim(coalesce(nodok::text,'')) as nodok,             
+		trim(coalesce(to_char(tgl_dok,'dd-mm-yyyy')::text,'')) as tgl_dok,           
+		trim(coalesce(nmatasan::text,'')) as nmatasan,          
+		trim(coalesce(to_char(tgl_mulai,'dd-mm-yyyy')::text,'')) as tgl_mulai,         
+		trim(coalesce(to_char(tgl_selesai,'dd-mm-yyyy')::text,'')) as tgl_selesai,       
+		trim(coalesce(status::text,'')) as status,            
+		trim(coalesce(keperluan::text,'')) as keperluan,         
+		trim(coalesce(namakotakab::text,'')) as tujuan,            
+		trim(coalesce(input_date::text,'')) as input_date,        
+		trim(coalesce(input_by::text,'')) as input_by,          
+		trim(coalesce(to_char(approval_date,'dd-mm-yyyy HH:mm')::text,'')) as approval_date,     
+		trim(coalesce(approval_by::text,'')) as approval_by,       
+		trim(coalesce(delete_date::text,'')) as delete_date,       
+		trim(coalesce(delete_by::text,'')) as delete_by,         
+		trim(coalesce(update_by::text,'')) as update_by,         
+		trim(coalesce(update_date::text,'')) as update_date,       
+		trim(coalesce(cancel_by::text,'')) as cancel_by,         
+		trim(coalesce(cancel_date::text,'')) as cancel_date,       
+		trim(coalesce(nmlengkap::text,'')) as nmlengkap,         
+		trim(coalesce(nmdept::text,'')) as nmdept,            
+		trim(coalesce(nmsubdept::text,'')) as nmsubdept,         
+		trim(coalesce(nmjabatan::text,'')) as nmjabatan,         
+		trim(coalesce(nmatasan1::text,'')) as nmatasan1,         
+		trim(coalesce(nmatasan2::text,'')) as nmatasan2,         
+		trim(coalesce(daterange1::text,'')) as daterange1,        
+		trim(coalesce(status1::text,''))  as status1, 
+		trim(coalesce(kdkategori::text,''))  as kdkategori, 
+		trim(coalesce(nmkategori::text,''))  as nmkategori, 
+		trim(coalesce(da::text,'')) as da, 
+		trim(coalesce(db::text,'')) as db, 
+		trim(coalesce(dc::text,'')) as dc, 
+		trim(coalesce(dd::text,'')) as dd, 
+		trim(coalesce(de::text,'')) as de, 
+		trim(coalesce(df::text,'')) as df, 
+		trim(coalesce(da_k::text,'')) as da_k, 
+		trim(coalesce(db_k::text,'')) as db_k, 
+		trim(coalesce(dc_k::text,'')) as dc_k, 
+		trim(coalesce(dd_k::text,'')) as dd_k, 
+		trim(coalesce(de_k::text,'')) as de_k, 
+		trim(coalesce(df_k::text,'')) as df_k,
+		trim(coalesce(to_char(tgl_dok,'dd-mm-yyyy')::text,'')) as tgldok_p
+		from 
+		(select a.*,b.nmlengkap,c.nmdept,d.nmsubdept,e.nmjabatan,f.nmlengkap as nmatasan1,g.nmlengkap as nmatasan2,to_char(tgl_mulai,'dd-mm-yyyy')||' - '||to_char(tgl_selesai,'dd-mm-yyyy') as daterange1, i.namakotakab,
+										case
+										when a.status='A' then 'PERLU PERSETUJUAN'
+										when a.status='C' then 'DIBATALKAN'
+										when a.status='I' then 'INPUT'
+										when a.status='D' then 'DIHAPUS'
+										when a.status='P' then 'DISETUJUI/PRINT'
+										end as status1,h.nmkategori,
+										case when a.kdkategori='DA' then 'X' end as da,
+										case when a.kdkategori='DB' then 'X' end as db,
+										case when a.kdkategori='DC' then 'X' end as dc,
+										case when a.kdkategori='DD' then 'X' end as dd,
+										case when a.kdkategori='DE' then 'X' end as de,
+										case when a.kdkategori='DF' then 'X' end as df,
+										case when a.kdkategori='DA' then a.keperluan end as da_k,
+										case when a.kdkategori='DB' then a.keperluan end as db_k,
+										case when a.kdkategori='DC' then a.keperluan end as dc_k,
+										case when a.kdkategori='DD' then a.keperluan end as dd_k,
+										case when a.kdkategori='DE' then a.keperluan end as de_k,
+										case when a.kdkategori='DF' then a.keperluan end as df_k
+										from sc_trx.dinas a
+				left outer join sc_mst.karyawan b on a.nik=b.nik								
+				left outer join sc_mst.departmen c on b.bag_dept=c.kddept 
+				left outer join sc_mst.subdepartmen d on b.bag_dept=d.kddept and b.subbag_dept=d.kdsubdept 
+				left outer join sc_mst.jabatan e on b.bag_dept=e.kddept and b.subbag_dept=e.kdsubdept and b.jabatan=e.kdjabatan 
+				left outer join sc_mst.karyawan f on b.nik_atasan=f.nik
+				left outer join sc_mst.karyawan g on b.nik_atasan2=g.nik
+				left outer join sc_mst.kategori h on h.kdkategori=a.kdkategori and h.typekategori='DINAS'
+				 left outer join sc_mst.kotakab i on i.kodekotakab=a.tujuan_kota
+				) as t1  
 				where nodok <> '' 
 		".$nodok);
 	}
@@ -296,5 +287,104 @@ class M_dinas extends CI_Model{
 
     function q_deltrxerror($paramtrxerror){
         return $this->db->query("delete from sc_mst.trxerror where userid is not null $paramtrxerror");
+    }
+
+	function q_temporary_create($value){
+        return $this->db
+            ->insert('sc_tmp.dinas', $value);
+    }
+    function q_temporary_update($value, $where){
+        return $this->db
+            ->where($where)
+            ->update('sc_tmp.dinas', $value);
+    }
+    function q_transaction_update($value, $where){
+        return $this->db
+            ->where($where)
+            ->update('sc_trx.dinas', $value);
+    }
+    function q_temporary_delete($where){
+        return $this->db
+            ->where($where)
+            ->delete('sc_tmp.dinas');
+    }
+    function q_transaction_delete($where){
+        return $this->db
+            ->where($where)
+            ->delete('sc_trx.dinas');
+    }
+    function q_transaction_read_where($clause=null) {
+        return $this->db->query($this->q_transaction_txt_where($clause));
+    }
+    function q_transaction_txt_where($clause=null){
+        return sprintf(<<<'SQL'
+			SELECT * FROM (
+				SELECT
+                    COALESCE(TRIM(a.nik), '') AS nik,
+                    COALESCE(TRIM(a.nodok), '') AS nodok,
+                    a.tgl_dok AS tgl_dok,
+                    COALESCE(TRIM(a.nmatasan), '') AS nmatasan,
+                    a.tgl_mulai AS tgl_mulai,
+                    a.jam_mulai AS jam_mulai,
+                    a.tgl_selesai AS tgl_selesai,
+                    a.jam_selesai AS jam_selesai,
+                    COALESCE(TRIM(a.status), '') AS status,
+                    a.keperluan AS keperluan,
+                    COALESCE(TRIM(a.tujuan_kota), '') AS tujuan_kota,
+                    a.input_date AS input_date,
+                    COALESCE(TRIM(a.input_by), '') AS input_by,
+                    a.approval_date AS approval_date,
+                    COALESCE(TRIM(a.approval_by), '') AS approval_by,
+                    a.delete_date AS delete_date,
+                    COALESCE(TRIM(a.delete_by), '') AS delete_by,
+                    COALESCE(TRIM(a.update_by), '') AS update_by,
+                    a.update_date AS update_date,
+                    COALESCE(TRIM(a.cancel_by), '') AS cancel_by,
+                    a.cancel_date AS cancel_date,
+                    COALESCE(TRIM(a.kdkategori), '') AS kdkategori,
+                    COALESCE(TRIM(a.transportasi), '') AS transportasi,
+                    COALESCE(TRIM(a.jenis_tujuan), '') AS jenis_tujuan,
+                    COALESCE(TRIM(a.no_telp), '') AS no_telp
+				FROM sc_trx.dinas a WHERE TRUE
+			) AS aa WHERE TRUE
+SQL
+            ).$clause;
+    }
+    function q_temporary_read_where($clause=null) {
+        return $this->db->query($this->q_temporary_txt_where($clause));
+    }
+    function q_temporary_txt_where($clause=null){
+        return sprintf(<<<'SQL'
+			SELECT * FROM (
+				SELECT
+                    COALESCE(TRIM(a.nik), '') AS nik,
+                    COALESCE(TRIM(a.nodok), '') AS nodok,
+                    a.tgl_dok AS tgl_dok,
+                    COALESCE(TRIM(a.nmatasan), '') AS nmatasan,
+                    a.tgl_mulai AS tgl_mulai,
+                    a.jam_mulai AS jam_mulai,
+                    a.tgl_selesai AS tgl_selesai,
+                    a.jam_selesai AS jam_selesai,
+                    COALESCE(TRIM(a.status), '') AS status,
+                    a.keperluan AS keperluan,
+                    COALESCE(TRIM(a.tujuan_kota), '') AS tujuan_kota,
+                    a.input_date AS input_date,
+                    COALESCE(TRIM(a.input_by), '') AS input_by,
+                    a.approval_date AS approval_date,
+                    COALESCE(TRIM(a.approval_by), '') AS approval_by,
+                    a.delete_date AS delete_date,
+                    COALESCE(TRIM(a.delete_by), '') AS delete_by,
+                    COALESCE(TRIM(a.update_by), '') AS update_by,
+                    a.update_date AS update_date,
+                    COALESCE(TRIM(a.cancel_by), '') AS cancel_by,
+                    a.cancel_date AS cancel_date,
+                    COALESCE(TRIM(a.kdkategori), '') AS kdkategori,
+                    COALESCE(TRIM(a.transportasi), '') AS transportasi,
+                    COALESCE(TRIM(a.jenis_tujuan), '') AS jenis_tujuan,
+                    COALESCE(TRIM(a.no_telp), '') AS no_telp
+				FROM sc_tmp.dinas a WHERE TRUE
+			) AS aa WHERE TRUE
+SQL
+            ).$clause;
     }
 }

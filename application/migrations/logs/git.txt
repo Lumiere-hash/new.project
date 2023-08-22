@@ -1,44 +1,56 @@
-2022-05-08 22:09:26
+2023-08-22 11:14:16
 
 BEGIN EXECUTING "git remote set-url origin https://nusantaragroup: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@github.com/itcenternusantaragroup/hrms.nusa 2>&1"...
 
 [
-    "'git' is not recognized as an internal or external command,",
-    "operable program or batch file."
+    "fatal: unsafe repository ('D:\/PROJECT\/hrms.nusa' is owned by someone else)",
+    "To add an exception for this directory, call:",
+    "",
+    "\tgit config --global --add safe.directory D:\/PROJECT\/hrms.nusa"
 ]
 
 BEGIN EXECUTING "git rev-parse HEAD 2>&1"...
 
 [
-    "'git' is not recognized as an internal or external command,",
-    "operable program or batch file."
+    "fatal: unsafe repository ('D:\/PROJECT\/hrms.nusa' is owned by someone else)",
+    "To add an exception for this directory, call:",
+    "",
+    "\tgit config --global --add safe.directory D:\/PROJECT\/hrms.nusa"
 ]
 
 BEGIN EXECUTING "git fetch 2>&1"...
 
 [
-    "'git' is not recognized as an internal or external command,",
-    "operable program or batch file."
+    "fatal: unsafe repository ('D:\/PROJECT\/hrms.nusa' is owned by someone else)",
+    "To add an exception for this directory, call:",
+    "",
+    "\tgit config --global --add safe.directory D:\/PROJECT\/hrms.nusa"
 ]
 
 BEGIN EXECUTING "git status -uno 2>&1"...
 
 [
-    "'git' is not recognized as an internal or external command,",
-    "operable program or batch file."
+    "fatal: unsafe repository ('D:\/PROJECT\/hrms.nusa' is owned by someone else)",
+    "To add an exception for this directory, call:",
+    "",
+    "\tgit config --global --add safe.directory D:\/PROJECT\/hrms.nusa"
 ]
 
 BEGIN EXECUTING "git reset --hard origin/main 2>&1"...
 
 [
-    "'git' is not recognized as an internal or external command,",
-    "operable program or batch file."
+    "fatal: unsafe repository ('D:\/PROJECT\/hrms.nusa' is owned by someone else)",
+    "To add an exception for this directory, call:",
+    "",
+    "\tgit config --global --add safe.directory D:\/PROJECT\/hrms.nusa"
 ]
 
-BEGIN EXECUTING "git log --pretty=format:%C(auto)%H%n%an%n%ai%n%s%n%b### 'git' is not recognized as an internal or external command,^..HEAD 2>&1"...
+BEGIN EXECUTING "git log --pretty=format:%C(auto)%H%n%an%n%ai%n%s%n%b### fatal: unsafe repository ('D:/PROJECT/hrms.nusa' is owned by someone else)^..HEAD 2>&1"...
 
 [
-    "'git' is not recognized as an internal or external command,",
-    "operable program or batch file."
+    "fatal: unsafe repository ('D:\/PROJECT\/hrms.nusa' is owned by someone else)",
+    "To add an exception for this directory, call:",
+    "",
+    "\tgit config --global --add safe.directory D:\/PROJECT\/hrms.nusa"
 ]
 

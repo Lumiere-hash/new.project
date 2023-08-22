@@ -11,3 +11,5 @@ assets/files/
 assets/img/profile/
 assets/import_directory/
 database/*.backup
+**/backup/
+/.idea
