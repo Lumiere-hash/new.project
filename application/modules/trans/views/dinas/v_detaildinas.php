@@ -102,6 +102,12 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-sm-4">Tipe Transportasi</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="" class="form-control" value="<?php echo $default->tipe_transportasi->text ?>" readonly/>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-4">Transportasi</label>
                                 <div class="col-sm-8">
                                     <input type="text" name="" class="form-control" value="<?php echo $default->transportasi->text ?>" readonly/>

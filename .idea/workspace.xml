@@ -5,87 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.TRIAL.mxavtA.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.TRIAL.mxavtA/schema/information_schema.FNRwLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.TRIAL.mxavtA/schema/information_schema.FNRwLQ.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.TRIAL.mxavtA/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.TRIAL.mxavtA/schema/pg_catalog.0S1ZNQ.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.TRIAL.mxavtA/schema/public.abK9xQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.TRIAL.mxavtA/schema/public.abK9xQ.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.TRIAL.mxavtA/schema/sc_his.IyndyQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.TRIAL.mxavtA/schema/sc_his.IyndyQ.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.TRIAL.mxavtA/schema/sc_im.cwGDBg.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.TRIAL.mxavtA/schema/sc_im.cwGDBg.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.TRIAL.mxavtA/schema/sc_log.1TjdyQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.TRIAL.mxavtA/schema/sc_mst.Hz3dyQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.TRIAL.mxavtA/schema/sc_mst.Hz3dyQ.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.TRIAL.mxavtA/schema/sc_rec.IU7dyQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.TRIAL.mxavtA/schema/sc_retable.jHp04Q.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.TRIAL.mxavtA/schema/sc_tmp.qFbdyQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.TRIAL.mxavtA/schema/sc_tmp.qFbdyQ.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.TRIAL.mxavtA/schema/sc_trx.S1fdyQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.TRIAL.mxavtA/schema/sc_trx.S1fdyQ.zip" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/00014_biaya_dinas.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/00015_kasbon_umum.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00013.20230815.25.Ijin-Karyawan/-down/002.alter.function.sc_trx.tr_transready_uangmkn.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00014.20221127.11.Biaya-Dinas/+up/001.view.listlinkjadwalcuti.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00014.20221127.11.Biaya-Dinas/+up/002.table.dinas.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00014.20221127.11.Biaya-Dinas/+up/003.view.listlinkjadwalcuti.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00014.20221127.11.Biaya-Dinas/+up/004.trigger.dinas.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00014.20221127.11.Biaya-Dinas/+up/005.table.component_cashbon.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00014.20221127.11.Biaya-Dinas/+up/006.table.destination_type.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00014.20221127.11.Biaya-Dinas/+up/007.table.jobposition_cashbon.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00014.20221127.11.Biaya-Dinas/+up/008.table.city_cashbon.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00014.20221127.11.Biaya-Dinas/+up/009.table.cashbon.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00014.20221127.11.Biaya-Dinas/+up/010.table.cashbon_component.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00014.20221127.11.Biaya-Dinas/+up/011.trigger.cashbon.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00014.20221127.11.Biaya-Dinas/+up/012.trigger.cashbon_component.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00014.20221127.11.Biaya-Dinas/+up/013.table.declaration_cashbon.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00014.20221127.11.Biaya-Dinas/+up/014.table.declaration_cashbon_component.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00014.20221127.11.Biaya-Dinas/+up/015.trigger.declaration_cashbon.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00014.20221127.11.Biaya-Dinas/+up/016.trigger.declaration_cashbon_component.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00014.20221127.11.Biaya-Dinas/+up/017.data.trxtype.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00014.20221127.11.Biaya-Dinas/+up/018.data.menu.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/001.table.cashbon_blc.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/002.table.sc_rep.pomst.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/003.table.sc_rep.podtl.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/004.table.sc_trx.pomst.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/005.table.sc_trx.podtl.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/006.data.trxtype.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/007.table.sc_tmp.cashbon.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/008.trigger.cashbon.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/009.data.menu.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/010.table.component_cashbon.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/011.table.cashbon_component_po.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/012.trigger.declaration_cashbon.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/013.table.cashbon.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/014.table.declaration_cashbon.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/015.table.sc_rep.cashbon.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/016.table.sc_rep.declaration_cashbon.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/sqlserver/001.table.d_transaksi..t_replication_cashbon.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/sqlserver/002.table.d_transaksi..t_replication_cashbon_notin.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/sqlserver/003.table.d_transaksi..t_replication_declaration_cashbon.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/sqlserver/004.table.d_transaksi..t_replication_declaration_cashbon_notin.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/sqlserver/005.table.d_transaksi..t_replication_cashbon_component.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/sqlserver/006.table.d_transaksi..t_replication_cashbon_component_notin.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/sqlserver/007.table.d_transaksi..t_replication_cashbon_component_po.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/sqlserver/008.table.d_transaksi..t_replication_cashbon_component_po_notin.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/sqlserver/009.table.d_transaksi..t_replication_declaration_cashbon_component.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/sqlserver/009.table.d_transaksi..t_replication_declaration_cashbon_component_notin.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00016.20230822.24.BBM-Sewa-Kendaraan/+up/001.data.sc_mst.menuprg.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00016.20230822.24.BBM-Sewa-Kendaraan/+up/002.create.table.sc_trx.bbmtrx.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00016.20230822.24.BBM-Sewa-Kendaraan/+up/003.create.table.sc_trx.sewakendaraaan.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00016.20230822.24.BBM-Sewa-Kendaraan/+up/004.alter.sc_tmp.pr_hitung_rekap_bbm.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00016.20230822.24.BBM-Sewa-Kendaraan/+up/005.alter.sc_tmp.pr_hitung_rekap_sewakendaraan.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/modules/trans/controllers/Backup/bbm.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/captcha/1692669958.669.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/captcha/1692676803.6973.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/captcha/1692676814.8825.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/captcha/1692676880.3873.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/captcha/1692676894.1868.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/information_schema.FNRwLQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/information_schema.FNRwLQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
@@ -99,20 +19,29 @@
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_rep.Lk7dyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_rep.Lk7dyQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_retable.jHp04Q.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_retable.jHp04Q.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.zip" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.zip" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/config/migration.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/config/migration.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/libraries/default_style.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/default_style.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/migrations/logs/db.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/logs/db.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/migrations/logs/git.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/logs/git.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/002.table.sc_rep.pomst.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/002.table.sc_rep.pomst.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/master/models/m_option.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/master/models/m_option.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/dinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/dinas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/uang_makan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/uang_makan.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/modules/trans/models/m_dinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/m_dinas.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/modules/trans/models/m_report.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/m_report.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_edit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/models/m_uang_makan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/m_uang_makan.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_createdinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_createdinas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_detaildinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_detaildinas.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_list.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_list.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1692120524.38.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_updatedinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_updatedinas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/uang_makan/view_absensi.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/uang_makan/view_absensi.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1692669958.669.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1692676803.6973.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1692676814.8825.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1692676880.3873.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1692676894.1868.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -439,7 +368,7 @@
     "database.data.extractors.current.export.id": "SQL Inserts",
     "database.data.extractors.current.id": "SQL Inserts",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/PROJECT/hrms.nusa/application/migrations",
+    "last_opened_file_path": "D:/PROJECT/web.recruitment.cni",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -456,18 +385,18 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00017.20230822.55.Tunjangan-Tidak-Tetap\-down" />
+      <recent name="D:\PROJECT\hrms.nusa\application\modules\trans\views\dinas" />
+      <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00017.20230822.55.Tunjangan-Tidak-Tetap\+up" />
+      <recent name="D:\PROJECT\hrms.nusa\assets\plugins" />
       <recent name="D:\PROJECT\hrms.nusa\application\migrations" />
-      <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql" />
-      <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00013.20230815.25.Ijin-Karyawan\-down" />
-      <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00013.20230815.25.Ijin-Karyawan" />
-      <recent name="D:\PROJECT\hrms.nusa\application\modules\trans\views\ijin_karyawan" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql" />
       <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00016.20230822.24.BBM-Sewa-Kendaraan\+up" />
       <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\migration\20210610.Job-Grade" />
       <recent name="D:\NusaApp\apache2\htdocs\hrms.nusa\application\libraries" />
       <recent name="D:\WAPP\apache2\htdocs\hrdnew\assets" />
-      <recent name="D:\WAPP\apache2\htdocs\hrdnew\assets\less" />
     </key>
   </component>
   <component name="RunManager">
@@ -779,7 +708,7 @@
       <workItem from="1690257403094" duration="18136000" />
       <workItem from="1690965239608" duration="21376000" />
       <workItem from="1692070806280" duration="53083000" />
-      <workItem from="1692668770391" duration="10200000" />
+      <workItem from="1692668770391" duration="80585000" />
     </task>
     <servers />
   </component>
@@ -855,6 +784,17 @@
     <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
       <collection />
     </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="OracleBreakpointType">
+          <url>file://$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/008.trigger.cashbon.sql</url>
+          <line>16</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -165,6 +165,8 @@ class Default_style
         <script src="'.base_url('assets/js/plugins/wizard/wizard.js'). '" type="text/javascript"></script>
         <!--Validator -->
         <script type="text/javascript" src="'.base_url('assets/plugins/fiky-validator/js/bootstrapValidator.js'). '"></script>
+        <script type="text/javascript" src="'.base_url('assets/plugins/validator/js/jquery.validate.js'). '"></script>
+        <script type="text/javascript" src="'.base_url('assets/plugins/validator/js/additional-methods.js'). '"></script>
         <!-- iCheck 1.0.1 -->
         <script src="'.base_url('assets/js/plugins/iCheck/icheck.min.js'). '"></script>
         <!-- ChartJS 1.0.1 -->

@@ -88,8 +88,16 @@ $(document).ready(function() {
                                 <i class="fa fa-edit"></i> Detail
                             </a>
                             <?php } ?>
+                            <?php if ((trim($lu->status)=='P' AND date('Y-m-d') >= $lu->tgl_mulai ) AND ($userhr>0 OR trim($this->session->userdata('nik')) == trim($lu->nik) OR $level_akses == 'A' )) { ?>
+                                <a <?php $nodok=trim($lu->nodok);?>
+                                        href="<?php echo site_url("trans/dinas/updatedinas/".bin2hex(json_encode(array('nik' => trim($lu->nik), 'nodok' => trim($nodok), 'config'=>'extend' ))));?>"
+                                        onclick="return confirm('Anda Yakin Edit Data ini?')"
+                                        class="btn btn-danger  btn-sm m-1 space">
+                                    <i class="fa fa-edit"></i> Edit
+                                </a>
+                            <?php } ?>
                             <?php if (trim($lu->status)=='P') { ?>
-                            <button class="button btn btn-warning  btn-sm" onClick="window.open('<?php
+                            <button class="button btn btn-warning  btn-sm space" onClick="window.open('<?php
                                     $enc_nodok=bin2hex($this->encrypt->encode(trim($lu->nodok)));
                                     echo site_url("trans/dinas/cetak_tok".'/'.$enc_nodok);?>');" title="Cetak Dinas"><i
                                     class="fa fa-print"></i></button>
@@ -102,7 +110,7 @@ $(document).ready(function() {
                                 class="btn btn-default  btn-sm m-1 space">
                                 <i class="fa fa-edit"></i> Edit
                             </a>
-                            <?php }else if ($akses['aksesupdate']=='t' and trim($lu->status)<>'P' ) { ?>
+                            <?php }else if ($akses['aksesupdate']=='t' and trim($lu->status)<>'P' AND ($lu->history_approve < 1) )  { ?>
                             <a <?php $nodok=trim($lu->nodok);?>
                                 href="<?php echo site_url("trans/dinas/updatedinas/".bin2hex(json_encode(array('nik' => trim($lu->nik), 'nodok' => trim($nodok), ))));?>"
                                 onclick="return confirm('Anda Yakin Edit Data ini?')"
@@ -110,7 +118,7 @@ $(document).ready(function() {
                                 <i class="fa fa-edit"></i> Edit
                             </a>
                             <?php } ?>
-                            <?php if($akses['aksesdelete']=='t' and trim($lu->status)<>'P' ) { ?>
+                            <?php if($akses['aksesdelete']=='t' and trim($lu->status)<>'P' AND $lu->history_approve < 1 )  { ?>
                             <a href="<?php $nodok=trim($lu->nodok); echo site_url("trans/dinas/hapus/$nodok")?>"
                                 onclick="return confirm('Anda Yakin Batalkan Data ini?')"
                                 class="btn btn-danger  btn-sm m-1 space">

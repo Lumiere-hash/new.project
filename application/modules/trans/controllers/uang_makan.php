@@ -52,15 +52,57 @@ class Uang_makan extends MX_Controller
         $data['tgl2'] = $akhir;
         $this->db->trans_start();
 
-        if ($callplan == "t") {
+        /*if ($callplan == "t") {
             $dtl_opt = $this->m_absensi->q_dblink_option()->row_array();
             $host = base64_decode($dtl_opt['c_hostaddr']);
             $dbname = base64_decode($dtl_opt['c_dbname']);
             $userpg = base64_decode($dtl_opt['c_userpg']);
             $passpg = base64_decode($dtl_opt['c_passpg']);
             $this->m_uang_makan->insert_rencana_kunjungan($host, $dbname, $userpg, $passpg, $awal, $akhir);
+        }*/
+//        $this->db->query("select sc_tmp.pr_hitung_rekap_um('$kdcabang','$awal', '$akhir')");
+//        $this->db->query("select sc_tmp.pr_hitung_rekap_bbm('$kdcabang','$awal', '$akhir')");
+//        $this->db->query("select sc_tmp.pr_hitung_rekap_sewakendaraan('$kdcabang','$awal', '$akhir')");
+        $data['list_um'] = $this->m_uang_makan->q_uangmakan_regu($kdcabang, $awal, $akhir, $callplan, $borong)->result();
+        $this->db->trans_commit();
+
+        $this->template->display('trans/uang_makan/view_absensi', $data);
+    }
+    function list_um_regenerate($param)
+    {
+        $json = json_decode(hex2bin($param));
+        $kdcabang = $json->kdcabang;
+        $tgl1 = $json->tgl1;
+        $tgl2 = $json->tgl2;
+        $borong = $json->borong;
+        $callplan = $json->callplan;
+        $tgl = $json->tgl;
+        $data['title'] = "Laporan Absensi Uang Makan";
+        if (empty($tgl) or empty($kdcabang)) {
+            redirect('trans/uang_makan');
         }
+        $awal = date("Y-m-d", strtotime($tgl1));
+        $akhir = date("Y-m-d", strtotime($tgl2));
+        $data['kdcabang'] = $kdcabang;
+        $data['borong'] = $borong;
+        $data['callplan'] = $callplan;
+        $data['kanwil'] = $this->m_uang_makan->q_kanwil()->result();
+        $data['tgl'] = $json->tgl;
+        $data['tgl1'] = $awal;
+        $data['tgl2'] = $akhir;
+        $this->db->trans_start();
+
+        /*if ($callplan == "t") {
+            $dtl_opt = $this->m_absensi->q_dblink_option()->row_array();
+            $host = base64_decode($dtl_opt['c_hostaddr']);
+            $dbname = base64_decode($dtl_opt['c_dbname']);
+            $userpg = base64_decode($dtl_opt['c_userpg']);
+            $passpg = base64_decode($dtl_opt['c_passpg']);
+            $this->m_uang_makan->insert_rencana_kunjungan($host, $dbname, $userpg, $passpg, $awal, $akhir);
+        }*/
         $this->db->query("select sc_tmp.pr_hitung_rekap_um('$kdcabang','$awal', '$akhir')");
+        $this->db->query("select sc_tmp.pr_hitung_rekap_bbm('$kdcabang','$awal', '$akhir')");
+        $this->db->query("select sc_tmp.pr_hitung_rekap_sewakendaraan('$kdcabang','$awal', '$akhir')");
         $data['list_um'] = $this->m_uang_makan->q_uangmakan_regu($kdcabang, $awal, $akhir, $callplan, $borong)->result();
         $this->db->trans_commit();
 
@@ -308,7 +350,7 @@ class Uang_makan extends MX_Controller
                 "customertype" => $v->customertype,
                 "nmcustomertype" => $v->nmcustomertype,
                 "checktime" => "<span style=\"width: 45px; float: left;\">" . ($v->checkin ?: "&nbsp;") . "</span>" . " | <span style=\"width: 45px;\">" . ($v->checkout != $v->checkin ? $v->checkout : "&nbsp;") . "</span>",
-                "terhitung" => $v->customertype == "C" ? "<i class=\"fa fa-check text-success\"></i>" : "<i class=\"fa fa-times text-danger\"></i>"
+                "terhitung" => ($v->customertype == "C" AND !is_null($v->schedule_location)) ? "<i class=\"fa fa-check text-success\"></i>" : "<i class=\"fa fa-times text-danger\"></i>"
             ];
         }
 

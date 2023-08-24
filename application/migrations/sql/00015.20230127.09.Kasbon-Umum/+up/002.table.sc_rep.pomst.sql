@@ -1,6 +1,7 @@
 DO
 $$
 BEGIN
+    CREATE SCHEMA IF NOT EXISTS sc_rep;
     IF NOT EXISTS (SELECT column_name FROM information_schema.columns WHERE table_schema = 'sc_rep' AND table_name = 'pomst' ) THEN
         create table sc_rep.pomst (
           fc_branch char (6)  not null ,

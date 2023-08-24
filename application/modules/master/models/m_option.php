@@ -14,9 +14,9 @@ class M_option extends CI_Model{
 									 ");
 	}
 
-	function q_cekoption($kdoption){
-		return $this->db->query("select * from sc_mst.option where trim(kdoption)='$kdoption'");
-	}
+    function q_cekoption($kdoption){
+        return $this->db->query("select * from sc_mst.option where trim(kdoption)='$kdoption'");
+    }
 
 	function q_pj_hrd(){
 		return $this->db->query("select a.*,b.nmlengkap,b.nohp1 from sc_mst.notif_sms a

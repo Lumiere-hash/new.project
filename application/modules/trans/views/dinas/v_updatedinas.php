@@ -5,7 +5,7 @@
 		margin: 2px;
 	}
 </style>
-<form role="form" class="formupdatedinas" action="<?php echo site_url('trans/dinas/doupdate/'.bin2hex(json_encode(array('branch' => $employee->branch, 'nik' => $default->temporary->nik, 'nodok' => $default->temporary->nodok, ))))?>" method="post">
+<form role="form" class="formupdatedinas" action="<?php echo site_url('trans/dinas/doupdate/'.bin2hex(json_encode(array('branch' => $employee->branch, 'nik' => $default->temporary->nik, 'nodok' => $default->temporary->nodok,'config'=>'update' ))))?>" method="post">
     <div class="box">
         <div class="box-header">
             <div class="col-sm-12">
@@ -120,6 +120,20 @@
                                     <label class="col-sm-4">Tanggal Pulang</label>
                                     <div class="col-sm-8">
                                         <input type="text" name="tgl_selesai" class="form-control" id="tgl_selesai" value="<?php echo date('d-m-Y H:i', strtotime($default->temporary->tgl_selesai.' '.$default->temporary->jam_selesai)) ?>"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4">Tipe Transportasi</label>
+                                    <div class="col-sm-8">
+                                        <select name="tipe_transportasi" class="select2 form-control " id="tipe_transportasi">
+                                            <?php if (isset($default->tipe_transportasi) && count($default->tipe_transportasi) > 0) {
+                                                foreach ($default->tipe_transportasi as $index => $row) { ?>
+                                                    <option value="<?php echo $row->id ?>" selected ><?php echo $row->text ?></option>
+                                                <?php }
+                                            } else { ?>
+                                                <option></option>
+                                            <?php } ?>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -343,6 +357,51 @@
                 return repo.text || repo.text;
             },
         }).on('change', function(e) {});
+        $('select[name=\'tipe_transportasi\']').select2({
+            ajax: {
+                url: '<?php echo site_url('trans/transactiontype/search'); ?>',
+                dataType: 'json',
+                delay: 250,
+                multiple: false,
+                closeOnSelect: false,
+                data: function (params) {
+                    return {
+                        group: 'TRANSPTYPE',
+                        search: params.term,
+                        page: params.page,
+                        perpage: 7
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: data.location,
+                        pagination: {
+                            more: (params.page * 7) < data.totalcount
+                        }
+                    };
+                },
+                cache: true
+            },
+            placeholder: 'Pilih tipe transportasi...',
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 0,
+            templateResult: function (repo) {
+                if (repo.loading) {
+                    return repo.text;
+                }
+                return `
+<div class='row' style='width: 400px'>
+    <div class='col-sm-2'>${repo.id}</div>
+    <div class='col-sm-4'>${repo.text}</div>
+</div>`;
+            },
+            templateSelection: function (repo) {
+                return repo.text || repo.text;
+            },
+        }).on('change', function(e) {});
         $.extend($.validator.messages, {
             required: 'Bagian ini diperlukan...',
             remote: 'Harap perbaiki bidang ini...',
@@ -451,6 +510,9 @@
                 tgl_selesai: {
                     required: true,
                     greaterThan: ['input[name=\'tgl_mulai\']', 'Tanggal Berangkat'],
+                },
+                tipe_transportasi: {
+                    required: true,
                 },
                 transportasi: {
                     required: true,

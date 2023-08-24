@@ -116,6 +116,14 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-sm-4">Tipe Transportasi</label>
+                                    <div class="col-sm-8">
+                                        <select name="tipe_transportasi" class="select2 form-control " id="tipe_transportasi">
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-sm-4">Transportasi</label>
                                     <div class="col-sm-8">
                                         <select name="transportasi" class="select2 form-control " id="transportasi">
@@ -283,6 +291,51 @@ $(document).ready(function() {
         format: 'DD-MM-YYYY HH:mm',
         locale: 'id',
     }).on('dp.change', function(e) {});
+    $('select[name=\'tipe_transportasi\']').select2({
+        ajax: {
+            url: '<?php echo site_url('trans/transactiontype/search'); ?>',
+            dataType: 'json',
+            delay: 250,
+            multiple: false,
+            closeOnSelect: false,
+            data: function(params) {
+                return {
+                    group: 'TRANSPTYPE',
+                    search: params.term,
+                    page: params.page,
+                    perpage: 7
+                };
+            },
+            processResults: function(data, params) {
+                params.page = params.page || 1;
+                return {
+                    results: data.location,
+                    pagination: {
+                        more: (params.page * 7) < data.totalcount
+                    }
+                };
+            },
+            cache: true
+        },
+        placeholder: 'Pilih tipe transportasi...',
+        escapeMarkup: function(markup) {
+            return markup;
+        },
+        minimumInputLength: 0,
+        templateResult: function(repo) {
+            if (repo.loading) {
+                return repo.text;
+            }
+            return `
+<div class='row' style='width: 400px'>
+    <div class='col-sm-2'>${repo.id}</div>
+    <div class='col-sm-4'>${repo.text}</div>
+</div>`;
+        },
+        templateSelection: function(repo) {
+            return repo.text || repo.text;
+        },
+    }).on('change', function(e) {});
     $('select[name=\'transportasi\']').select2({
         ajax: {
             url: '<?php echo site_url('trans/transactiontype/search'); ?>',
@@ -442,6 +495,9 @@ $(document).ready(function() {
                 greaterThan: ['input[name=\'tgl_mulai\']', 'Tanggal Berangkat'],
             },
             transportasi: {
+                required: true,
+            },
+            type_transportasi: {
                 required: true,
             },
         },

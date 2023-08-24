@@ -33,7 +33,9 @@ class M_dinas extends CI_Model{
 								when a.status='I' then 'INPUT'
 								when a.status='D' then 'DIHAPUS'
 								when a.status='P' then 'DISETUJUI/PRINT'
-								end as status1 from sc_trx.dinas a
+								end as status1,
+		                        (SELECT count(*) FROM sc_his.dinas WHERE nodok = a.nodok AND nik = a.nik AND status = 'P') AS history_approve
+		                        from sc_trx.dinas a
 								left outer join sc_mst.karyawan b on a.nik=b.nik								
 								left outer join sc_mst.departmen c on b.bag_dept=c.kddept
 								left outer join sc_mst.kotakab d on a.tujuan_kota = d.kodekotakab
@@ -343,6 +345,7 @@ class M_dinas extends CI_Model{
                     a.cancel_date AS cancel_date,
                     COALESCE(TRIM(a.kdkategori), '') AS kdkategori,
                     COALESCE(TRIM(a.transportasi), '') AS transportasi,
+                    COALESCE(TRIM(a.tipe_transportasi), '') AS tipe_transportasi,
                     COALESCE(TRIM(a.jenis_tujuan), '') AS jenis_tujuan,
                     COALESCE(TRIM(a.no_telp), '') AS no_telp
 				FROM sc_trx.dinas a WHERE TRUE
@@ -380,11 +383,20 @@ SQL
                     a.cancel_date AS cancel_date,
                     COALESCE(TRIM(a.kdkategori), '') AS kdkategori,
                     COALESCE(TRIM(a.transportasi), '') AS transportasi,
+                    COALESCE(TRIM(a.tipe_transportasi), '') AS tipe_transportasi,
                     COALESCE(TRIM(a.jenis_tujuan), '') AS jenis_tujuan,
                     COALESCE(TRIM(a.no_telp), '') AS no_telp
 				FROM sc_tmp.dinas a WHERE TRUE
 			) AS aa WHERE TRUE
 SQL
             ).$clause;
+    }
+
+    function history_exists($where){
+        return $this->db
+                ->select('*')
+                ->where($where)
+                ->get('sc_his.dinas')
+                ->num_rows() > 0;
     }
 }

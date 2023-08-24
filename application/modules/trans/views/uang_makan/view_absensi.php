@@ -129,6 +129,7 @@
                         <a href="<?= site_url("trans/uang_makan/excel_realisasi/$kdcabang/$tgl1/$tgl2") ?>" class="btn btn-warning" style="margin: 5px;"><i class="fa fa-file-excel-o"></i>&nbsp; REALISASI XLS</a>
                     <?php endif; ?>
                     <a href="#" data-toggle="modal" data-target="#filter" class="btn btn-success" style="margin: 5px;"><i class="fa fa-search"></i>&nbsp; FILTER</a>
+                    <a href="<?= site_url("trans/uang_makan/list_um_regenerate/".bin2hex(json_encode(array('kdcabang'=>$kdcabang,'tgl'=>$tgl,'tgl1'=>$tgl1,'tgl2'=>$tgl2,'borong'=>$borong,'callplan'=>$callplan)))) ?>" class="btn btn-instagram" style="margin: 5px;"><i class="fa fa-refresh"></i>&nbsp; Generate ulang</a>
                 </form>
             </div>
 
@@ -149,6 +150,9 @@
                             <?php endif; ?>
                             <th>Keterangan</th>
                             <th>Uang Makan</th>
+                            <th>BBM</th>
+                            <th>Sewa Kendaraan</th>
+                            <th>Sub Total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -183,6 +187,9 @@
                                 <?php endif; ?>
                                 <td><?= $v->keterangan ?></td>
                                 <td class="text-nowrap text-right"><?= $v->nominalrp >= 0 ? number_format($v->nominalrp, '2', ',', '.') : null ?></td>
+                                <td class="text-nowrap text-right"><?= $v->bbm >= 0 ? number_format($v->bbm, '2', ',', '.') : null ?></td>
+                                <td class="text-nowrap text-right"><?= $v->sewa_kendaraan >= 0 ? number_format($v->sewa_kendaraan, '2', ',', '.') : null ?></td>
+                                <td class="text-nowrap text-right"><?= $v->subtotal >= 0 ? number_format($v->subtotal, '2', ',', '.') : null ?></td>
                             </tr>
                             <?php $i = $i + ($v->group_nmlengkap == 0 && $v->group_keterangan == 0 ? 1 : 0); ?>
                         <?php endforeach; ?>

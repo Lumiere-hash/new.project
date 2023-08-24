@@ -168,7 +168,6 @@ class Dinas extends MX_Controller
 			$enc_tglkembali = bin2hex($this->encrypt->encode(trim($dtledit['tgl_selesai'])));
 			redirect("trans/dinas/input_dinas_dtl/$enc_tglberangkat/$enc_tglkembali");
 		}
-
 		$data['akses'] = $this->m_akses->list_aksespermenu($nama, $kodemenu)->row_array();
 		$data['list_dinas'] = $this->m_dinas->q_dinas_karyawan($tgl, $status, $nikatasan)->result();
 
@@ -1159,7 +1158,7 @@ class Dinas extends MX_Controller
 		$tgl_selesai = date('Y-m-d', strtotime($this->input->post('tgl_selesai')));
 		$jam_selesai = date('H:i:s', strtotime($this->input->post('tgl_selesai')));
 		$transportasi = $this->input->post('transportasi');
-
+		$tipe_transportasi = $this->input->post('tipe_transportasi');
 		$userhr = $this->m_akses->list_aksesperdep()->num_rows();
 		if ($userhr == 0) {
 			$opsi_dinas = $this->m_option->q_cekoption('BLKDN')->row();
@@ -1212,6 +1211,7 @@ class Dinas extends MX_Controller
 									'input_by' => trim($this->session->userdata('nik')),
 									'kdkategori' => $kdkategori,
 									'transportasi' => $transportasi,
+									'tipe_transportasi' => $tipe_transportasi,
 									'jenis_tujuan' => $jenis_tujuan,
 									'no_telp' => $no_telp,
 									'status' => 'I',
@@ -1386,11 +1386,19 @@ class Dinas extends MX_Controller
             ')->row();
 		if (!is_null($temporary) && !is_nan($temporary)) {
 			$this->db->trans_complete();
+            if ($temporary->status == 'P' AND date('Y-m-d') >= $temporary->tgl_mulai AND $json->config == 'extend'){
+                $canextend = TRUE;
+                $content = 'trans/dinas/v_updatedinas_hasapproved';
+            }else{
+                $canextend = FALSE;
+                $content = 'trans/dinas/v_updatedinas';
+            }
 			$this->template->display(
-				'trans/dinas/v_updatedinas',
+				$content,
 				array(
 					'title' => 'Update Dinas Karyawan : <b>' . $temporary->nodok . '</b>',
 					'employee' => $this->m_employee->q_mst_read_where(' AND nik = \'' . $json->nik . '\' ')->row(),
+                    'canextend' => $canextend,
 					'default' => json_decode(
 						json_encode(
 							array(
@@ -1399,6 +1407,7 @@ class Dinas extends MX_Controller
 								'citycashbon' => $this->M_CityCashbon->q_master_search_where(' AND id = \'' . $temporary->tujuan_kota . '\' ')->result(),
 								'kategori' => $this->M_Kategori->q_master_search_where(' AND id = \'' . $temporary->kdkategori . '\' ')->result(),
 								'transportasi' => $this->M_TrxType->q_master_search_where(' AND a.group = \'TRANSP\' AND id = \'' . $temporary->transportasi . '\' ')->result(),
+								'tipe_transportasi' => $this->M_TrxType->q_master_search_where(' AND a.group = \'TRANSPTYPE\' AND id = \'' . $temporary->tipe_transportasi . '\' ')->result(),
 							)
 						)
 					),
@@ -1425,6 +1434,7 @@ class Dinas extends MX_Controller
 		$tgl_selesai = date('Y-m-d', strtotime($this->input->post('tgl_selesai')));
 		$jam_selesai = date('H:i:s', strtotime($this->input->post('tgl_selesai')));
 		$transportasi = $this->input->post('transportasi');
+		$tipe_transportasi = $this->input->post('tipe_transportasi');
 
 		$userhr = $this->m_akses->list_aksesperdep()->num_rows();
 		if ($userhr == 0) {
@@ -1432,7 +1442,7 @@ class Dinas extends MX_Controller
 			if ($opsi_dinas->status == "T") {
 				$value = strtolower($opsi_dinas->value1);
 				$value = str_replace("d", " day", $value);
-				if ($this->input->post('tgl_mulai') < date('d-m-Y 08:00', strtotime($value))) {
+				if ($this->input->post('tgl_mulai') < date('d-m-Y 08:00', strtotime($value)) AND $json->config == 'update') {
 					header('Content-Type: application/json');
 					http_response_code(404);
 					echo json_encode(
@@ -1477,9 +1487,10 @@ class Dinas extends MX_Controller
 									'update_by' => trim($this->session->userdata('nik')),
 									'kdkategori' => $kdkategori,
 									'transportasi' => $transportasi,
+									'tipe_transportasi' => $tipe_transportasi,
 									'jenis_tujuan' => $jenis_tujuan,
 									'no_telp' => $no_telp,
-									'status' => 'U',
+									'status' => ($json->config == 'update' ? 'U' : 'EX'),
 								),
 								array(
 									'nik' => $temporary->nik,
@@ -1549,6 +1560,7 @@ class Dinas extends MX_Controller
 							'update_by' => trim($this->session->userdata('nik')),
 							'kdkategori' => $kdkategori,
 							'transportasi' => $transportasi,
+							'tipe_transportasi' => $tipe_transportasi,
 							'jenis_tujuan' => $jenis_tujuan,
 							'no_telp' => $no_telp,
 							'status' => 'U',
@@ -1609,6 +1621,7 @@ class Dinas extends MX_Controller
 								'citycashbon' => $this->M_CityCashbon->q_master_search_where(' AND id = \'' . $transaction->tujuan_kota . '\' ')->row(),
 								'kategori' => $this->M_Kategori->q_master_search_where(' AND id = \'' . $transaction->kdkategori . '\' ')->row(),
 								'transportasi' => $this->M_TrxType->q_master_search_where(' AND a.group = \'TRANSP\' AND id = \'' . $transaction->transportasi . '\' ')->row(),
+								'tipe_transportasi' => $this->M_TrxType->q_master_search_where(' AND a.group = \'TRANSPTYPE\' AND id = \'' . $transaction->tipe_transportasi . '\' ')->row(),
 							)
 						)
 					),
