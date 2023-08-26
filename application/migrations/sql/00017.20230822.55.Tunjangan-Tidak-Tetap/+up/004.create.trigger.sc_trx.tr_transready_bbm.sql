@@ -33,7 +33,7 @@ BEGIN
     INSERT INTO sc_trx.bbmtrx (
         SELECT 'SBYNSA', ta.nik, ta.tgl, ta.checkin, ta.checkout,
                CASE
-                   WHEN checkin IS NOT NULL AND checkout IS NOT NULL AND (td.nodok IS NULL OR (td.nodok IS NOT NULL AND td.jenis_tujuan in ('DK'))) AND tf.tgl_libur IS NULL AND th.nodok IS NULL THEN vr_besaran
+                   WHEN (CASE WHEN checkin < ta.jam_masuk THEN (SELECT abs(extract(epoch from ta.jam_masuk::timestamp - checkout::timestamp)/3600) > 4) ELSE (SELECT abs(extract(epoch from checkin::timestamp - checkout::timestamp)/3600) > 4) END) THEN vr_besaran
                    ELSE NULL
                    END AS nominal,
                CASE
@@ -77,7 +77,14 @@ BEGIN
                             ELSE a.jam_masuk_absen END AS checkin,
                         CASE
                             WHEN a.jam_masuk_absen = a.jam_pulang_absen AND a.jam_pulang_absen <= vr_um_max01 THEN NULL
-                            ELSE a.jam_pulang_absen END AS checkout, NULL AS nominal, '' AS keterangan, b.kdcabang, b.lvl_jabatan, a.jam_masuk, a.jam_pulang, f.besaran AS kantin
+                            ELSE a.jam_pulang_absen END AS checkout,
+                     NULL AS nominal,
+                     '' AS keterangan,
+                     b.kdcabang,
+                     b.lvl_jabatan,
+                     a.jam_masuk,
+                     a.jam_pulang,
+                     f.besaran AS kantin
                  FROM sc_trx.transready a
                           LEFT OUTER JOIN sc_mst.karyawan b ON a.nik = b.nik
                           LEFT OUTER JOIN sc_mst.departmen c ON b.bag_dept = c.kddept

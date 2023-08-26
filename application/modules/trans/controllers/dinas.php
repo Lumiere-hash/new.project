@@ -636,7 +636,7 @@ class Dinas extends MX_Controller
 		$nodok = $this->encrypt->decode(hex2bin(trim($this->uri->segment(4))));
 		// $nodok = 'a';
 		$data['jsonfile'] = "trans/dinas/sti_dinas_ajax/$nodok";
-		$data['report_file'] = 'assets/mrt/sp_dinas_1.mrt';
+		$data['report_file'] = 'assets/mrt/sp_dinas.mrt';
 		$this->load->view("trans/dinas/sti_form_dinas", $data);
 	}
 	function sti_dinas_ajax($nodok)
@@ -1354,6 +1354,9 @@ class Dinas extends MX_Controller
 		);
 		$this->load->library(array('datatablessp'));
 		$this->load->model(array('M_TrxType', 'm_employee', 'M_DestinationType', 'M_Kategori', 'M_CityCashbon', ));
+        $userhr = $this->m_akses->list_aksesperdep()->num_rows();
+        $userinfo = $this->m_akses->q_user_check()->row_array();
+        $level_akses = strtoupper(trim($userinfo['level_akses']));
 		$this->db->trans_start();
 		$this->m_dinas->q_temporary_delete(array('update_by' => trim($this->session->userdata('nik'))));
 		$edited = $this->m_dinas->q_temporary_read_where(' 
@@ -1399,6 +1402,8 @@ class Dinas extends MX_Controller
 					'title' => 'Update Dinas Karyawan : <b>' . $temporary->nodok . '</b>',
 					'employee' => $this->m_employee->q_mst_read_where(' AND nik = \'' . $json->nik . '\' ')->row(),
                     'canextend' => $canextend,
+                    'userhr' => $userhr,
+                    'level_akses' => $level_akses,
 					'default' => json_decode(
 						json_encode(
 							array(

@@ -62,6 +62,7 @@ SELECT
     COALESCE(TRIM(a.grouppenggajian), '') AS grouppenggajian,
     a.gajipokok,
     a.gajibpjs,
+    COALESCE(TRIM(a.callplan),'') AS callplan,
     COALESCE(TRIM(a.namabank), '') AS namabank,
     COALESCE(TRIM(a.namapemilikrekening), '') AS namapemilikrekening,
     COALESCE(TRIM(a.norek), '') AS norek,

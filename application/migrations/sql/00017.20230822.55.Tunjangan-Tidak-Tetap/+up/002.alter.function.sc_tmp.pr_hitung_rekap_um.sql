@@ -49,23 +49,22 @@ BEGIN
              SELECT a.nik, a.tgl, d.jumlah AS rencanacallplan, e.jumlah AS realisasicallplan,
                     CASE
                         WHEN (
-                            (a.dok_ref IS NOT NULL AND h.kdijin_absensi = 'IK' AND h.type_ijin = 'DN' AND h.tgl_jam_mulai <= f.jam_masuk AND h.tgl_jam_selesai >= jam_pulang)
+                            (a.dok_ref IS NOT NULL AND h.kdijin_absensi = 'IK' AND h.type_ijin = 'DN' AND h.status = 'P')
                             OR (d.jumlah > 0 AND e.jumlah >= d.jumlah) AND ( checkout >= jam_pulang AND checkin < jam_masuk)
                             ) AND a.keterangan NOT SIMILAR TO '(DINAS|CUTI)%' THEN g.nominal
                         ELSE NULL
                         END AS nominal,
                     CASE
-                        WHEN
+                        /*WHEN d.jumlah = 0 THEN SPLIT_PART(a.keterangan, ' + ', 1) || ' + TIDAK ADA RENCANA CALLPLAN'
+                        WHEN e.jumlah >= d.jumlah THEN SPLIT_PART(a.keterangan, ' + ', 1) || ' + CALLPLAN TERPENUHI'
+                        ELSE SPLIT_PART(a.keterangan, ' + ', 1) || ' + CALLPLAN TIDAK TERPENUHI'*/
+                        --WHEN a.dok_ref IS NOT NULL AND h.kdijin_absensi = 'IK' AND h.type_ijin = 'DN' AND  h.status = 'P' AND ((h.tgl_jam_mulai <= f.jam_masuk AND h.tgl_jam_selesai <= jam_pulang) OR (h.tgl_jam_mulai >= f.jam_masuk AND h.tgl_jam_selesai <= jam_pulang)) THEN 'PULANG AWAL TOK'
+                        WHEN (a.dok_ref IS NOT NULL AND h.kdijin_absensi = 'IK' AND h.type_ijin = 'DN' AND h.status = 'P' AND h.tgl_jam_mulai <= f.jam_masuk AND h.tgl_jam_selesai >= jam_pulang)
+                            OR (a.dok_ref IS NOT NULL AND h.kdijin_absensi NOT IN ('IK', 'DT', 'PA'))
+                            OR (a.checkin IS NULL AND a.checkout IS NULL) OR a.keterangan SIMILAR TO '(DINAS|CUTI)%' THEN SPLIT_PART(a.keterangan, ' + ', 1)
                         WHEN d.jumlah = 0 THEN SPLIT_PART(a.keterangan, ' + ', 1) || ' + TIDAK ADA RENCANA CALLPLAN'
                         WHEN e.jumlah >= d.jumlah THEN SPLIT_PART(a.keterangan, ' + ', 1) || ' + CALLPLAN TERPENUHI'
                         ELSE SPLIT_PART(a.keterangan, ' + ', 1) || ' + CALLPLAN TIDAK TERPENUHI'
-                        /*WHEN a.dok_ref IS NOT NULL AND h.kdijin_absensi = 'IK' AND h.type_ijin = 'DN' AND  h.status = 'P' AND ((h.tgl_jam_mulai <= f.jam_masuk AND h.tgl_jam_selesai <= jam_pulang) OR (h.tgl_jam_mulai >= f.jam_masuk AND h.tgl_jam_selesai <= jam_pulang)) THEN 'PULANG AWAL TOK'
-                        WHEN (a.dok_ref IS NOT NULL AND h.kdijin_absensi = 'IK' AND h.type_ijin = 'DN' AND h.status = 'P' AND h.tgl_jam_mulai <= f.jam_masuk AND h.tgl_jam_selesai >= jam_pulang)
-                            OR (a.dok_ref IS NOT NULL AND h.kdijin_absensi NOT IN ('IK', 'DT', 'PA'))
-                            OR (a.checkin IS NULL AND a.checkout IS NULL) OR a.keterangan SIMILAR TO '(DINAS|CUTI)%' THEN SPLIT_PART(a.keterangan, ' +ss ', 1)
-                        WHEN d.jumlah = 0 THEN SPLIT_PART(a.keterangan, ' + ', 1) || ' + TIDAK ADA RENCANA CALLPLAN'
-                        WHEN e.jumlah >= d.jumlah THEN SPLIT_PART(a.keterangan, ' + ', 1) || ' + CALLPLAN TERPENUHI'
-                        ELSE SPLIT_PART(a.keterangan, ' + ', 1) || ' + CALLPLAN TIDAK TERPENUHI'*/
                     END AS keterangan
              FROM sc_trx.uangmakan a
                       INNER JOIN sc_mst.karyawan b ON b.nik = a.nik AND b.tglkeluarkerja IS NULL AND b.callplan = 't' AND b.kdcabang = vr_kdcabang

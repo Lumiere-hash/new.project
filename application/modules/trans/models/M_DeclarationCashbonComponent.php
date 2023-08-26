@@ -60,6 +60,7 @@ FROM (
         COALESCE(TRIM(b.cashbonid), '') AS cashbonid,
         COALESCE(TRIM(c.nodok), '') AS dutieid,
         d.day::DATE AS perday,
+        COALESCE(TRIM(e.callplan),'') AS is_callplan,
         --COALESCE(g.nominal, 0) AS defaultnominal,
         CASE
            WHEN c.tgl_mulai::DATE = d.day::DATE AND COALESCE(TRIM(a.componentid), '') = 'UD' THEN 0
@@ -119,6 +120,7 @@ FROM (
            ELSE COALESCE(g.nominal, 0)
         END AS defaultnominal,
         h.nominal AS nominal,
+        e.callplan AS iscallplan,
         COALESCE(TRIM(h.description), '') AS description
     FROM sc_mst.component_cashbon a
     LEFT OUTER JOIN sc_tmp.declaration_cashbon b ON TRUE
@@ -139,7 +141,7 @@ FROM (
     AND TRIM(h.declarationid) = TRIM(b.declarationid)
     AND TRIM(h.componentid) = TRIM(a.componentid)
     AND h.perday = d.day
-    ORDER BY d.day, sort
+    ORDER BY d.day,readonly DESC , sort
 ) AS a WHERE TRUE
 SQL
             ).$clause;

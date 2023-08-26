@@ -88,7 +88,7 @@ $(document).ready(function() {
                                 <i class="fa fa-edit"></i> Detail
                             </a>
                             <?php } ?>
-                            <?php if ((trim($lu->status)=='P' AND date('Y-m-d') >= $lu->tgl_mulai ) AND ($userhr>0 OR trim($this->session->userdata('nik')) == trim($lu->nik) OR $level_akses == 'A' )) { ?>
+                            <?php if ((trim($lu->status)=='P' AND (date('Y-m-d') >= $lu->tgl_mulai AND date('Y-m-d') <= $lu->tgl_selesai) ) AND ($userhr>0 OR trim($this->session->userdata('nik')) == trim($lu->nik) OR $level_akses == 'A' )) { ?>
                                 <a <?php $nodok=trim($lu->nodok);?>
                                         href="<?php echo site_url("trans/dinas/updatedinas/".bin2hex(json_encode(array('nik' => trim($lu->nik), 'nodok' => trim($nodok), 'config'=>'extend' ))));?>"
                                         onclick="return confirm('Anda Yakin Edit Data ini?')"

@@ -153,7 +153,9 @@
         }).on('dp.change', function(e) {
         });
         $('input[name=\'tgl_selesai\']').datetimepicker({
+            <?php if ($userhr<0 OR $level_akses <> 'A'){ ?>
             minDate: new Date('<?php echo $default->temporary->tgl_selesai.' '.$default->temporary->jam_selesai ?>'),
+            <?php } ?>
             format: 'DD-MM-YYYY HH:mm',
             locale: 'id',
         }).on('dp.change', function(e) {

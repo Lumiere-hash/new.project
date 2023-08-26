@@ -18,10 +18,20 @@ COMMENT ON COLUMN sc_mst.jobposition_cashbon.destinationid IS 'from : sc_mst.des
 INSERT INTO sc_mst.jobposition_cashbon
 (branch, jobposition, componentid, destinationid, nominal, inputby, inputdate)
 VALUES
-    ('MJKCNI', '03', 'UM', 'LK',90000, 'postgres', NOW()),
-    ('MJKCNI', '03', 'UD', 'LK', 40000, 'postgres', NOW()),
-    ('MJKCNI', '02-5', 'UM', 'LP', 80000, 'postgres', NOW()),
-    ('MJKCNI', '02-5', 'UD', 'DK', 30000, 'postgres', NOW())
+    ('SBYNSA', 'A', 'UM', 'LK',90000, 'postgres', NOW()),
+    ('SBYNSA', 'A', 'UD', 'LK',50000, 'postgres', NOW()),
+    ('SBYNSA', 'B', 'UM', 'LK',90000, 'postgres', NOW()),
+    ('SBYNSA', 'B', 'UD', 'LK',50000, 'postgres', NOW()),
+    ('SBYNSA', 'C', 'UM', 'LK',90000, 'postgres', NOW()),
+    ('SBYNSA', 'C', 'UD', 'LK',50000, 'postgres', NOW()),
+    ('SBYNSA', 'D', 'UM', 'LK',90000, 'postgres', NOW()),
+    ('SBYNSA', 'D', 'UD', 'LK',50000, 'postgres', NOW()),
+    ('SBYNSA', 'E', 'UM', 'LK',90000, 'postgres', NOW()),
+    ('SBYNSA', 'E', 'UD', 'LK',50000, 'postgres', NOW()),
+    ('SBYNSA', 'F', 'UM', 'LK',90000, 'postgres', NOW()),
+    ('SBYNSA', 'F', 'UD', 'LK',50000, 'postgres', NOW()),
+    ('SBYNSA', 'G', 'UM', 'LK',90000, 'postgres', NOW()),
+    ('SBYNSA', 'G', 'UD', 'LK',50000, 'postgres', NOW())
 ON CONFLICT ( branch, jobposition, componentid, destinationid )
     DO NOTHING;
 

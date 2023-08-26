@@ -111,6 +111,7 @@ class Cashbon extends CI_Controller {
                 ->redirect('trans/cashbon/');
         }
         $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$json->dutieid.'\' ')->row();
+        $filter = ($dinas->tipe_transportasi == 'TDN' ? " AND componentid <> 'SWK' "  : "");
         $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$dinas->nik.'\' ')->row();
         $this->template->display('trans/cashbon/v_create', array(
             'title' => 'Input Kasbon Dinas Karyawan',
@@ -119,8 +120,8 @@ class Cashbon extends CI_Controller {
             'destinationtype' => $this->M_DestinationType->q_master_search_where(' AND id = \''.$dinas->jenis_tujuan.'\' ')->row(),
             'citycashbon' => $this->M_CityCashbon->q_master_search_where(' AND id = \''.$dinas->tujuan_kota.'\' ')->row(),
             'transportasi' => $this->M_TrxType->q_master_search_where(' AND a.group = \'TRANSP\' AND id = \''.$dinas->transportasi.'\' ')->row(),
-            'cashboncomponents' => $this->M_CashbonComponent->q_temporary_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND cashbonid = \''.$this->session->userdata('nik').'\' AND active AND calculated ')->result(),
-            'cashboncomponentsempty' => $this->M_CashbonComponent->q_empty_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND active AND calculated')->result(),
+            'cashboncomponents' => $this->M_CashbonComponent->q_temporary_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND cashbonid = \''.$this->session->userdata('nik').'\' AND active AND calculated '.$filter)->result(),
+            'cashboncomponentsempty' => $this->M_CashbonComponent->q_empty_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND active AND calculated'.$filter)->result(),
         ));
     }
     function createcomponentpopup($param=null) {
@@ -152,6 +153,7 @@ class Cashbon extends CI_Controller {
             'inputdate' => date('Y-m-d H:i:s'),
         ));
         $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$json->dutieid.'\' ')->row();
+        $filter = ($dinas->tipe_transportasi == 'TDN' ? " AND componentid <> 'SWK' "  : "");
         $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$dinas->nik.'\' ')->row();
         $this->load->view('trans/cashbon/v_create_component_modal', array(
             'title' => 'Detail Biaya Kasbon',
@@ -159,15 +161,15 @@ class Cashbon extends CI_Controller {
             'dinas' => $dinas,
             'destinationtype' => $this->M_DestinationType->q_master_search_where(' AND id = \''.$dinas->jenis_tujuan.'\' ')->row(),
             'citycashbon' => $this->M_CityCashbon->q_master_search_where(' AND id = \''.$dinas->tujuan_kota.'\' ')->row(),
-            'cashboncomponents' => $this->M_CashbonComponent->q_temporary_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND cashbonid = \''.$this->session->userdata('nik').'\' AND active AND calculated ')->result(),
-            'cashboncomponentsempty' => $this->M_CashbonComponent->q_empty_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND active AND calculated ')->result(),
+            'cashboncomponents' => $this->M_CashbonComponent->q_temporary_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND cashbonid = \''.$this->session->userdata('nik').'\' AND active AND calculated '.$filter)->result(),
+            'cashboncomponentsempty' => $this->M_CashbonComponent->q_empty_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND active AND calculated '.$filter)->result(),
         ));
     }
 	public function docreatecomponentpopup($param=null) {
         $json = json_decode(
             hex2bin($param)
         );
-        $this->load->model(array('M_Cashbon', 'M_CashbonComponent', ));
+        $this->load->model(array('M_Cashbon', 'M_CashbonComponent','trans/m_dinas' ));
         $this->M_CashbonComponent->q_temporary_delete(' TRUE AND cashbonid = \''.$this->session->userdata('nik').'\' ');
         $id = $this->input->post('id');
         $nominal = $this->input->post('nominal');
@@ -179,9 +181,10 @@ class Cashbon extends CI_Controller {
                 'description' => $description[$index],
             )));
         }
-
+        $dutie = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$json->dutieid.'\' ')->row();
+        $filter = ($dutie->tipe_transportasi == 'TDN' ? " AND componentid <> 'SWK' "  : "");
         $this->db->trans_start();
-        foreach ($this->M_CashbonComponent->q_empty_read_where(' AND dutieid = \''.$json->dutieid.'\' AND active ')->result() as $index => $row) {
+        foreach ($this->M_CashbonComponent->q_empty_read_where(' AND dutieid = \''.$json->dutieid.'\' AND active '.$filter)->result() as $index => $row) {
             $this->M_CashbonComponent->q_temporary_create(array(
                 'branch' => $this->session->userdata('branch'),
                 'cashbonid' => $this->session->userdata('nik'),
@@ -206,10 +209,11 @@ class Cashbon extends CI_Controller {
         );
         $this->load->model(array('m_dinas', 'M_Cashbon', 'M_CashbonComponent', ));
         $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$json->dutieid.'\' ')->row();
+        $filter = ($dinas->tipe_transportasi == 'TDN' ? " AND componentid <> 'SWK' "  : "");
         $this->load->view('trans/cashbon/v_component_read', array(
             'cashbon' => $this->M_Cashbon->q_temporary_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND cashbonid = \''.$this->session->userdata('nik').'\' ')->row(),
-            'cashboncomponents' => $this->M_CashbonComponent->q_temporary_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND cashbonid = \''.$this->session->userdata('nik').'\' AND active AND calculated ')->result(),
-            'cashboncomponentsempty' => $this->M_CashbonComponent->q_empty_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND active AND calculated ')->result(),
+            'cashboncomponents' => $this->M_CashbonComponent->q_temporary_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND cashbonid = \''.$this->session->userdata('nik').'\' AND active AND calculated '.$filter)->result(),
+            'cashboncomponentsempty' => $this->M_CashbonComponent->q_empty_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND active AND calculated '.$filter)->result(),
         ));
     }
 	public function docreate($param=null) {
@@ -328,7 +332,7 @@ class Cashbon extends CI_Controller {
         $json = json_decode(
             hex2bin($param)
         );
-        $this->load->model(array('M_Cashbon', 'M_CashbonComponent', ));
+        $this->load->model(array('M_Cashbon', 'M_CashbonComponent','trans/m_dinas' ));
         $id = $this->input->post('id');
         $nominal = $this->input->post('nominal');
         $description = $this->input->post('description');
@@ -339,8 +343,10 @@ class Cashbon extends CI_Controller {
                 'description' => $description[$index],
             )));
         }
+        $dutie = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$json->nodok.'\' ')->row();
+        $filter = ($dutie->tipe_transportasi == 'TDN' ? " AND componentid <> 'SWK' "  : "");
         $this->db->trans_start();
-        foreach ($this->M_CashbonComponent->q_empty_read_where(' AND dutieid = \''.$json->dutieid.'\' AND active ')->result() as $index => $row) {
+        foreach ($this->M_CashbonComponent->q_empty_read_where(' AND dutieid = \''.$json->dutieid.'\' AND active '.$filter)->result() as $index => $row) {
             $totalcashbon = $data[$row->componentid]->nominal;
             if ($row->multiplication == 't') {
                 $totalcashbon = $data[$row->componentid]->nominal * $row->quantityday;

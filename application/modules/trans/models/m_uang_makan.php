@@ -930,4 +930,6 @@ class M_uang_makan extends CI_Model{
             ORDER BY c.nmlengkap, a.checktime::DATE, checkin, checkout
         ");
     }
+
+
 }

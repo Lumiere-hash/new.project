@@ -46,6 +46,7 @@ FROM (
 SELECT
     COALESCE(TRIM(b.branch), '') AS branch,
     COALESCE(TRIM(a.nodok), '') AS dutieid,
+    COALESCE(TRIM(a.tipe_transportasi), '') AS transtype,
     COALESCE(TRIM(b.componentid), '') AS componentid,
     COALESCE(TRIM(b.description), '') AS componentname,
     '' AS description,
