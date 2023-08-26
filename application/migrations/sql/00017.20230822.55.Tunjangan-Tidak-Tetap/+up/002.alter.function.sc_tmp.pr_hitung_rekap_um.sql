@@ -1,3 +1,14 @@
+DO
+$$
+    BEGIN
+        IF NOT EXISTS (SELECT column_name FROM information_schema.columns WHERE table_schema = 'sc_trx' AND table_name = 'uangmakan' AND column_name = 'bbm' ) THEN
+            ALTER TABLE sc_trx.uangmakan ADD bbm numeric ;
+        END IF;
+        IF NOT EXISTS (SELECT column_name FROM information_schema.columns WHERE table_schema = 'sc_trx' AND table_name = 'uangmakan' AND column_name = 'sewa_kendaraan' ) THEN
+            ALTER TABLE sc_trx.uangmakan ADD sewa_kendaraan numeric ;
+        END IF;
+    END
+$$;
 create OR REPLACE function sc_tmp.pr_hitung_rekap_um(vr_kdcabang character, vr_tglawal date, vr_tglakhir date) returns SETOF void
     language plpgsql
 as
@@ -6,6 +17,8 @@ DECLARE
     -- Author By FIKY : 02/02/2017
     -- Update By ARBI : 29/10/2021
     -- Penyesuaian Realisasi Callplan Dengan Kolom NIK
+    -- UPDATE By RKM : 26/08/2023
+    -- Penambahan bbm dan sewa kendaraan
     vr_tglapproval DATE;
     vr_tgl_act DATE;
     vr_tgl_dok DATE;
@@ -44,16 +57,18 @@ BEGIN
         END LOOP;
 
     UPDATE sc_trx.uangmakan AS a
-    SET rencanacallplan = x.rencanacallplan, realisasicallplan = x.realisasicallplan, nominal = x.nominal, keterangan = x.keterangan
+    SET rencanacallplan = x.rencanacallplan, realisasicallplan = x.realisasicallplan, nominal = x.nominal, keterangan = x.keterangan, bbm = CASE WHEN x.realisasicallplan > 1 THEN y.nominal ELSE 0 END, sewa_kendaraan = CASE WHEN x.realisasicallplan > 1 THEN z.nominal ELSE 0 END
     FROM (
              SELECT a.nik, a.tgl, d.jumlah AS rencanacallplan, e.jumlah AS realisasicallplan,
                     CASE
+                        WHEN extract(day from now()::timestamp - b.tglmasukkerja::timestamp) <= 30 AND (a.dok_ref IS NOT NULL AND h.kdijin_absensi = 'IK' AND h.type_ijin = 'DN' AND h.status = 'P' AND (h.tgl_jam_mulai <= checkin AND h.tgl_jam_selesai >= checkout ))
+                         AND (d.jumlah > 1) AND ( checkout >= jam_pulang AND checkin < jam_masuk) AND a.keterangan NOT SIMILAR TO '(DINAS|CUTI)%' THEN g.nominal
                         WHEN (
-                            (a.dok_ref IS NOT NULL AND h.kdijin_absensi = 'IK' AND h.type_ijin = 'DN' AND h.status = 'P')
-                            OR (d.jumlah > 0 AND e.jumlah >= d.jumlah) AND ( checkout >= jam_pulang AND checkin < jam_masuk)
+                            (a.dok_ref IS NOT NULL AND h.kdijin_absensi = 'IK' AND h.type_ijin = 'DN' AND h.status = 'P' AND (h.tgl_jam_mulai <= checkin AND h.tgl_jam_selesai >= checkout ))
+                            OR (d.jumlah > 0 AND e.jumlah >= d.jumlah) AND (d.jumlah > 1) AND ( checkout >= jam_pulang AND checkin < jam_masuk)
                             ) AND a.keterangan NOT SIMILAR TO '(DINAS|CUTI)%' THEN g.nominal
                         ELSE NULL
-                        END AS nominal,
+                    END AS nominal,
                     CASE
                         /*WHEN d.jumlah = 0 THEN SPLIT_PART(a.keterangan, ' + ', 1) || ' + TIDAK ADA RENCANA CALLPLAN'
                         WHEN e.jumlah >= d.jumlah THEN SPLIT_PART(a.keterangan, ' + ', 1) || ' + CALLPLAN TERPENUHI'
@@ -123,6 +138,12 @@ BEGIN
              WHERE a.tgl::DATE BETWEEN vr_tglawal AND vr_tglakhir
              ORDER BY b.kdcabang, b.nmlengkap, a.tgl
          ) AS x
+    LEFT JOIN LATERAL (
+        SELECT value3 as nominal from sc_mst.option where kdoption = 'UB'
+        ) y ON TRUE
+    LEFT JOIN LATERAL (
+        SELECT value3 as nominal from sc_mst.option where kdoption = 'USK'
+        ) z ON TRUE
     WHERE a.nik = x.nik AND a.tgl = x.tgl;
 END;
 $$;

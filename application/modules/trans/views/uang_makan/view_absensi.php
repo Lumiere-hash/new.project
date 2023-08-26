@@ -129,7 +129,7 @@
                         <a href="<?= site_url("trans/uang_makan/excel_realisasi/$kdcabang/$tgl1/$tgl2") ?>" class="btn btn-warning" style="margin: 5px;"><i class="fa fa-file-excel-o"></i>&nbsp; REALISASI XLS</a>
                     <?php endif; ?>
                     <a href="#" data-toggle="modal" data-target="#filter" class="btn btn-success" style="margin: 5px;"><i class="fa fa-search"></i>&nbsp; FILTER</a>
-                    <a href="<?= site_url("trans/uang_makan/list_um_regenerate/".bin2hex(json_encode(array('kdcabang'=>$kdcabang,'tgl'=>$tgl,'tgl1'=>$tgl1,'tgl2'=>$tgl2,'borong'=>$borong,'callplan'=>$callplan)))) ?>" class="btn btn-instagram" style="margin: 5px;"><i class="fa fa-refresh"></i>&nbsp; Generate ulang</a>
+                    <a href="javascript:void(0)" data-href="<?= site_url("trans/uang_makan/list_um_regenerate/".bin2hex(json_encode(array('kdcabang'=>$kdcabang,'tgl'=>$tgl,'tgl1'=>$tgl1,'tgl2'=>$tgl2,'borong'=>$borong,'callplan'=>$callplan)))) ?>" class="btn btn-instagram regenerate" style="margin: 5px;"><i class="fa fa-refresh"></i>&nbsp; Generate ulang</a>
                 </form>
             </div>
 
@@ -402,6 +402,31 @@
 </div>
 
 <script>
+
+    function win_onkeydown_handler() {
+        switch (event.keyCode) {
+
+            case 116 : // 'F5'
+                event.returnValue = false;
+                event.keyCode = 0;
+                break;
+
+            case 27: // 'Esc'
+                event.returnValue = false;
+                event.keyCode = 0;
+                break;
+
+            case 08: // 'BackSpace'
+                if (event.srcElement.tagName == "INPUT"
+                    || event.srcElement.tagName == "TEXTAREA") {
+                } else {
+                    event.returnValue = false;
+                    event.keyCode = 0;
+                }
+                break;
+
+        }
+    }
     //Date range picker
     $('#tgl').daterangepicker();
     $('#kanwil')[0].selectize.setValue("<?= $kdcabang ?>");
@@ -437,4 +462,39 @@
         }
     }
     changeCallplan();
+
+    $( document ).ready(function() {
+        $('a.regenerate').on('click', function (){
+            var row = $(this)
+            Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-sm btn-success ml-3',
+                    cancelButton: 'btn btn-sm btn-warning ml-3',
+                    denyButton: 'btn btn-sm btn-danger ml-3',
+                },
+                buttonsStyling: false,
+            }).fire({
+                title: 'Konfirmasi',
+                html: 'Konfirmasi regenerate uang makan</b> ?',
+                icon: 'question',
+                showCloseButton: true,
+                confirmButtonText: 'Konfirmasi',
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    win_onkeydown_handler();
+                    window.location.replace(row.data('href'))
+                    swal.fire({
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        html: '<h3>Sedang proses...</h3>',
+                        showConfirmButton: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        },
+                    });
+
+                }
+            })
+        })
+    });
 </script>

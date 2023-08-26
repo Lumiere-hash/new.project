@@ -101,8 +101,8 @@ class Uang_makan extends MX_Controller
             $this->m_uang_makan->insert_rencana_kunjungan($host, $dbname, $userpg, $passpg, $awal, $akhir);
         }*/
         $this->db->query("select sc_tmp.pr_hitung_rekap_um('$kdcabang','$awal', '$akhir')");
-        $this->db->query("select sc_tmp.pr_hitung_rekap_bbm('$kdcabang','$awal', '$akhir')");
-        $this->db->query("select sc_tmp.pr_hitung_rekap_sewakendaraan('$kdcabang','$awal', '$akhir')");
+//        $this->db->query("select sc_tmp.pr_hitung_rekap_bbm('$kdcabang','$awal', '$akhir')");
+//        $this->db->query("select sc_tmp.pr_hitung_rekap_sewakendaraan('$kdcabang','$awal', '$akhir')");
         $data['list_um'] = $this->m_uang_makan->q_uangmakan_regu($kdcabang, $awal, $akhir, $callplan, $borong)->result();
         $this->db->trans_commit();
 

@@ -32,10 +32,11 @@ BEGIN
 
     INSERT INTO sc_trx.bbmtrx (
         SELECT 'SBYNSA', ta.nik, ta.tgl, ta.checkin, ta.checkout,
-               CASE
-                   WHEN (CASE WHEN checkin < ta.jam_masuk THEN (SELECT abs(extract(epoch from ta.jam_masuk::timestamp - checkout::timestamp)/3600) > 4) ELSE (SELECT abs(extract(epoch from checkin::timestamp - checkout::timestamp)/3600) > 4) END) THEN vr_besaran
+               /*CASE
+                   WHEN (select 1 from sc_trx.uangmakan sss WHERE sss.nik = ta.nik AND sss.tgl = ta.tgl AND (sss.rencanacallplan > 1 OR sss.realisasicallplan > 1)) = 1  THEN vr_besaran
                    ELSE NULL
-                   END AS nominal,
+                   END AS nominal,*/
+               12000 AS nominal,
                CASE
                    WHEN checkin IS NULL AND checkout IS NULL AND td.nodok IS NULL AND tc.nodok IS NULL AND tf.tgl_libur IS NULL AND th.nodok IS NULL THEN 'TIDAK MASUK KANTOR'
                    WHEN checkin IS NULL AND checkout IS NULL AND td.nodok IS NULL  AND tf.tgl_libur IS NOT NULL AND th.nodok IS NULL THEN tf.ket_libur

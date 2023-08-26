@@ -181,9 +181,9 @@ class M_uang_makan extends CI_Model{
                     WHEN GROUPING(b.nmlengkap) = 0 AND GROUPING(a.keterangan) = 0 THEN a.keterangan 
                     WHEN GROUPING(b.nmlengkap) = 0 AND GROUPING(a.keterangan) = 1 THEN 'TOTAL' 
                 END AS keterangan, COALESCE(SUM(a.nominal), 0) AS nominalrp,
-                COALESCE(SUM(f.nominal),0) AS bbm,
-                COALESCE(SUM(g.nominal),0) AS sewa_kendaraan,
-                COALESCE( SUM(f.nominal), 0) + COALESCE( SUM(g.nominal), 0) + COALESCE( SUM(a.nominal), 0) AS subtotal,
+                COALESCE(SUM(a.bbm),0) AS bbm,
+                COALESCE(SUM(a.sewa_kendaraan),0) AS sewa_kendaraan,
+                COALESCE( SUM(a.bbm), 0) + COALESCE( SUM(a.sewa_kendaraan), 0) + COALESCE( SUM(a.nominal), 0) AS subtotal,
                 GROUPING(b.nmlengkap) AS group_nmlengkap, 
                 GROUPING(a.keterangan) AS group_keterangan
                 FROM sc_trx.uangmakan a 
@@ -191,11 +191,9 @@ class M_uang_makan extends CI_Model{
                 LEFT JOIN sc_mst.departmen c ON b.bag_dept = c.kddept 
                 LEFT JOIN sc_mst.subdepartmen d ON b.bag_dept = d.kddept AND b.subbag_dept = d.kdsubdept 
                 LEFT JOIN sc_mst.jabatan e ON b.bag_dept = e.kddept AND b.jabatan = e.kdjabatan AND b.subbag_dept = e.kdsubdept
-                LEFT JOIN sc_trx.bbmtrx f ON a.nik = f.nik AND a.tgl = f.tgl
-                LEFT JOIN sc_trx.sewakendaraan g ON a.nik = g.nik AND a.tgl = g.tgl
                 WHERE kdcabang = '$kdcabang' AND a.tgl::DATE BETWEEN '$awal' AND '$akhir' AND b.callplan = '$callplan' AND b.tjborong = '$borong'
                 GROUP BY GROUPING SETS (
-                    (a.nik, a.tgl, b.nmlengkap, b.callplan, c.nmdept, e.nmjabatan, a.checkin, a.checkout, a.rencanacallplan, a.realisasicallplan, a.keterangan,a.nominal, f.nominal, g.nominal), 
+                    (a.nik, a.tgl, b.nmlengkap, b.callplan, c.nmdept, e.nmjabatan, a.checkin, a.checkout, a.rencanacallplan, a.realisasicallplan, a.keterangan,a.nominal, a.bbm, a.sewa_kendaraan), 
                     (a.nik, b.nmlengkap), 
                     ()
                 )
