@@ -335,7 +335,8 @@ $(document).ready(function() {
         templateSelection: function(repo) {
             return repo.text || repo.text;
         },
-    }).on('change', function(e) {});
+    }).on('change', function(e) {
+    });
     $('select[name=\'transportasi\']').select2({
         ajax: {
             url: '<?php echo site_url('trans/transactiontype/search'); ?>',
@@ -345,6 +346,7 @@ $(document).ready(function() {
             closeOnSelect: false,
             data: function(params) {
                 return {
+                    transtype: $('select[name=\'tipe_transportasi\']').val(),
                     group: 'TRANSP',
                     search: params.term,
                     page: params.page,

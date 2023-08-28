@@ -17,7 +17,14 @@ class TransactionType extends CI_Controller {
     public function search() {
         header('Content-Type: application/json');
         $group = $this->input->get_post('group');
-        $count = $this->M_TrxType->q_master_search_where('
+        $transtype = $this->input->get_post('transtype');
+        $filter = '';
+        if ($transtype == 'TPB'){
+            $filter = ' AND id IN(\'SM\',\'M\') ';
+        }else{
+            $filter = ' AND id NOT IN(\'SM\',\'M\') ';
+        }
+        $count = $this->M_TrxType->q_master_search_where((isset($filter) ? $filter:'' ).'
 			AND a.group IN (\''.$group.'\')
 			')->num_rows();
         $search = $this->input->get_post('search');
@@ -28,7 +35,7 @@ class TransactionType extends CI_Controller {
         $page = $this->input->get_post('page');
         $page = intval($page > 0 ? $page : 1);
         $limit = $perpage * ($page -1);
-        $result = $this->M_TrxType->q_master_search_where('
+        $result = $this->M_TrxType->q_master_search_where((isset($filter) ? $filter:'' ).'
             AND a.group IN (\''.$group.'\')
             AND ( LOWER(id) LIKE \'%'.$search.'%\'
             OR LOWER(text) LIKE \'%'.$search.'%\'

@@ -61,11 +61,11 @@ FROM (
         COALESCE(TRIM(c.nodok), '') AS dutieid,
         d.day::DATE AS perday,
         COALESCE(TRIM(e.callplan),'') AS is_callplan,
-        --COALESCE(g.nominal, 0) AS defaultnominal,
-        CASE
+        COALESCE(g.nominal, 0) AS defaultnominal,
+        /*CASE
            WHEN c.tgl_mulai::DATE = d.day::DATE AND COALESCE(TRIM(a.componentid), '') = 'UD' THEN 0
            ELSE COALESCE(g.nominal, 0)
-       END AS defaultnominal,
+       END AS defaultnominal,*/
         NULL::NUMERIC AS nominal,
         NULL::VARCHAR AS description
     FROM sc_mst.component_cashbon a
@@ -115,10 +115,11 @@ FROM (
         COALESCE(TRIM(c.nodok), '') AS dutieid,
         COALESCE(TRIM(b.declarationid), '') AS declarationid,
         d.day::DATE AS perday,
-        CASE
+        COALESCE(g.nominal, 0) AS defaultnominal,
+        /*CASE
            WHEN c.tgl_mulai::DATE = d.day::DATE AND COALESCE(TRIM(a.componentid), '') = 'UD' THEN 0
            ELSE COALESCE(g.nominal, 0)
-        END AS defaultnominal,
+        END AS defaultnominal,*/
         h.nominal AS nominal,
         e.callplan AS iscallplan,
         COALESCE(TRIM(h.description), '') AS description
