@@ -74,6 +74,10 @@
             <th bgcolor="#CCCCCC"><div align="center">Status</div></th>
             <th bgcolor="#CCCCCC"><div align="center">Keterangan</div></th>
             <th bgcolor="#CCCCCC"><div align="center">Uang Makan</div></th>
+            <?php if($callplan == "t"): ?>
+            <th bgcolor="#CCCCCC"><div align="center">BBM</div></th>
+            <th bgcolor="#CCCCCC"><div align="center">Sewa Kendaraan</div></th>
+            <?php endif; ?>
         </tr>
         </thead>
         <tbody>
@@ -83,7 +87,7 @@
                     <td colspan='3'></td>
                     <td>TOTAL UANG MAKAN <?php echo $ph->nmlengkap;?>: <?php echo $ph->nominalrp;?></td>
                     <td>Tanda Tangan</td>
-                    <td colspan="<?= $callplan == "t" ? 5 : 3 ?>"></td>
+                    <td colspan="<?= $callplan == "t" ? 7 : 3 ?>"></td>
                 </tr>
             <?php } else if ($ph->nmlengkap=='GRAND TOTAL UANG MAKAN'){?>
                 <tr bgcolor="#CCCCCC">
@@ -105,6 +109,10 @@
                     <td></td>
                     <td><?php echo $ph->keterangan;?></td>
                     <td><?php echo $ph->nominalrp;?></td>
+                    <?php if($callplan == "t"): ?>
+                    <td><?php echo $ph->bbm;?></td>
+                    <td><?php echo $ph->sewa_kendaraan;?></td>
+                    <?php endif; ?>
                 </tr>
             <?php }$no++; }?>
         </tbody>

@@ -57,10 +57,13 @@ BEGIN
         END LOOP;
 
     UPDATE sc_trx.uangmakan AS a
-    SET rencanacallplan = x.rencanacallplan, realisasicallplan = x.realisasicallplan, nominal = x.nominal, keterangan = x.keterangan, bbm = CASE WHEN x.realisasicallplan > 1 THEN y.nominal ELSE 0 END, sewa_kendaraan = CASE WHEN x.realisasicallplan > 1 THEN z.nominal ELSE 0 END
+    SET rencanacallplan = x.rencanacallplan, realisasicallplan = x.realisasicallplan, nominal = x.nominal, keterangan = x.keterangan, bbm = CASE WHEN x.checkin is not null THEN y.nominal ELSE 0 END, sewa_kendaraan = CASE WHEN x.checkin is not null THEN z.nominal ELSE 0 END
     FROM (
-             SELECT a.nik, a.tgl, d.jumlah AS rencanacallplan, e.jumlah AS realisasicallplan,
+             SELECT a.nik, a.tgl, d.jumlah AS rencanacallplan, e.jumlah AS realisasicallplan, a.checkin,
                     CASE
+                        WHEN ((a.dok_ref IS NOT NULL AND h.kdijin_absensi = 'IK' AND h.type_ijin = 'DN' AND h.status = 'P' AND h.tgl_jam_selesai >= checkout )
+                                     OR (d.jumlah > 0 AND e.jumlah >= d.jumlah) AND (d.jumlah > 1) AND ( checkout >= jam_pulang AND checkin < jam_masuk)
+                                 ) AND a.keterangan NOT SIMILAR TO '(DINAS|CUTI)%' THEN g.nominal
                         WHEN extract(day from now()::timestamp - b.tglmasukkerja::timestamp) <= 30 AND (a.dok_ref IS NOT NULL AND h.kdijin_absensi = 'IK' AND h.type_ijin = 'DN' AND h.status = 'P' AND (h.tgl_jam_mulai <= checkin AND h.tgl_jam_selesai >= checkout ))
                          AND (d.jumlah > 1) AND ( checkout >= jam_pulang AND checkin < jam_masuk) AND a.keterangan NOT SIMILAR TO '(DINAS|CUTI)%' THEN g.nominal
                         WHEN (
@@ -74,6 +77,7 @@ BEGIN
                         WHEN e.jumlah >= d.jumlah THEN SPLIT_PART(a.keterangan, ' + ', 1) || ' + CALLPLAN TERPENUHI'
                         ELSE SPLIT_PART(a.keterangan, ' + ', 1) || ' + CALLPLAN TIDAK TERPENUHI'*/
                         --WHEN a.dok_ref IS NOT NULL AND h.kdijin_absensi = 'IK' AND h.type_ijin = 'DN' AND  h.status = 'P' AND ((h.tgl_jam_mulai <= f.jam_masuk AND h.tgl_jam_selesai <= jam_pulang) OR (h.tgl_jam_mulai >= f.jam_masuk AND h.tgl_jam_selesai <= jam_pulang)) THEN 'PULANG AWAL TOK'
+                        WHEN (a.dok_ref IS NOT NULL AND h.kdijin_absensi = 'IK' AND h.type_ijin = 'DN' AND h.status = 'P' AND a.keterangan SIMILAR TO 'TEPAT WAKTU' AND e.jumlah < d.jumlah AND d.jumlah > 0 ) THEN a.keterangan || ' + IJIN DENGAN NO. '||a.dok_ref || ' + CALLPLAN TIDAK TERPENUHI'
                         WHEN (a.dok_ref IS NOT NULL AND h.kdijin_absensi = 'IK' AND h.type_ijin = 'DN' AND h.status = 'P' AND h.tgl_jam_mulai <= f.jam_masuk AND h.tgl_jam_selesai >= jam_pulang)
                             OR (a.dok_ref IS NOT NULL AND h.kdijin_absensi NOT IN ('IK', 'DT', 'PA'))
                             OR (a.checkin IS NULL AND a.checkout IS NULL) OR a.keterangan SIMILAR TO '(DINAS|CUTI)%' THEN SPLIT_PART(a.keterangan, ' + ', 1)

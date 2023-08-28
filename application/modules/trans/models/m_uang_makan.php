@@ -907,6 +907,60 @@ class M_uang_makan extends CI_Model{
 
     function list_realisasi_kunjungan_all($kdcabang, $awal, $akhir) {
         return $this->db->query("
+            select
+                *,
+                CASE
+                    WHEN ss.idcust = ss.schedule_location AND ss.customertype = 'C' THEN 'V'
+                    ELSE 'X'
+                END AS terhitung
+            FROM (
+                SELECT *,
+                     (SELECT COALESCE(NULLIF(xa.locationid, ''), NULLIF(xa.locationidlocal, '')) AS custcode_schedule
+                      FROM sc_tmp.scheduletolocation xa
+                      WHERE xa.nik = s.nik AND xa.scheduledate = s.tgl::date AND (xa.locationidlocal = idcust OR xa.locationid = idcust)
+                      GROUP BY 1 LIMIT 1) schedule_location
+                FROM(
+                      SELECT ROW_NUMBER() OVER (ORDER BY c.nmlengkap, a.checktime::DATE, MIN(checktime::TIME),
+                          MAX(checktime::TIME))                                                       AS no,
+                             c.nik,
+                             c.nmlengkap,
+                             d.nmdept,
+                             f.nmjabatan,
+                             TO_CHAR(MAX(a.checktime), 'DD-MM-YYYY')                   AS tgl,
+                             a.customeroutletcode,
+                             a.customercodelocal,
+                             a.custname,
+                             a.customertype,
+                             CASE
+                                 WHEN customertype = 'A' THEN 'KANTOR'
+                                 WHEN customertype = 'B' THEN 'BANK'
+                                 WHEN customertype = 'C' THEN 'CUSTOMER/TOKO'
+                                 ELSE 'BELUM TERDEFINISI'
+                                 END                                                   AS nmcustomertype,
+                             CASE
+                                 WHEN customertype = 'C' THEN 'V'
+                                 ELSE 'X' END                                          AS terhitung,
+                             MIN(checktime::TIME)                                      AS checkin,
+                             MAX(checktime::TIME)                                      AS checkout,
+                             CONCAT(MIN(checktime::TIME), ' | ', MAX(checktime::TIME)) AS checktime,
+                             COALESCE(NULLIF(a.customeroutletcode, ''), NULLIF(a.customercodelocal, '')) AS idcust
+                      FROM sc_tmp.checkinout a
+                               INNER JOIN sc_mst.karyawan c ON c.nik = a.nik AND c.callplan = 't'
+                               LEFT JOIN sc_mst.departmen d ON d.kddept = c.bag_dept
+                               LEFT JOIN sc_mst.subdepartmen e ON e.kddept = c.bag_dept AND e.kdsubdept = c.subbag_dept
+                               LEFT JOIN sc_mst.jabatan f
+                                         ON f.kddept = c.bag_dept AND f.kdjabatan = c.jabatan AND f.kdsubdept = c.subbag_dept
+                      WHERE c.kdcabang = '$kdcabang'
+                        AND a.checktime::DATE BETWEEN '$awal' AND '$akhir'
+                      GROUP BY c.nik, d.nmdept, f.nmjabatan, a.checktime::DATE, a.customeroutletcode, a.customercodelocal,
+                               a.custname, a.customertype
+                      ORDER BY c.nmlengkap, a.checktime::DATE, checkin, checkout
+                  ) s
+            ) ss
+        ");
+    }
+    function list_realisasi_kunjungan_all_old($kdcabang, $awal, $akhir) {
+        return $this->db->query("
             SELECT ROW_NUMBER() OVER (ORDER BY c.nmlengkap, a.checktime::DATE, MIN(checktime::TIME), MAX(checktime::TIME)) AS no, 
             c.nik, c.nmlengkap, d.nmdept, f.nmjabatan, TO_CHAR(MAX(a.checktime), 'DD-MM-YYYY') AS tgl, a.customeroutletcode, a.customercodelocal, a.custname, a.customertype,
             CASE

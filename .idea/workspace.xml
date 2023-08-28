@@ -9,12 +9,15 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/migrations/sql/00017.20230822.55.Tunjangan-Tidak-Tetap/+up/002.alter.function.sc_tmp.pr_hitung_rekap_um.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/sql/00017.20230822.55.Tunjangan-Tidak-Tetap/+up/002.alter.function.sc_tmp.pr_hitung_rekap_um.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/migrations/sql/00017.20230822.55.Tunjangan-Tidak-Tetap/+up/004.create.trigger.sc_trx.tr_transready_bbm.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/sql/00017.20230822.55.Tunjangan-Tidak-Tetap/+up/004.create.trigger.sc_trx.tr_transready_bbm.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations/sql/00017.20230822.55.Tunjangan-Tidak-Tetap/+up/004.create.trigger.sc_trx.tr_transready_bbm.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations/sql/00017.20230822.55.Tunjangan-Tidak-Tetap/+up/005.create.trigger.sc_trx.tr_transready_sewakendaraan.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations/sql/00017.20230822.55.Tunjangan-Tidak-Tetap/+up/011.data.sc_mst.cashbon_component.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/sql/00017.20230822.55.Tunjangan-Tidak-Tetap/+up/011.data.sc_mst.cashbon_component.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/DeclarationCashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/DeclarationCashbon.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/uang_makan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/uang_makan.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/models/M_MealAllowance.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/M_MealAllowance.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/modules/trans/models/m_uang_makan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/m_uang_makan.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/uang_makan/view_absensi.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/uang_makan/view_absensi.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1692999060.9303.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/uang_makan/view_pdf.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/uang_makan/view_pdf.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1693023768.9756.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1693023959.5915.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -682,7 +685,7 @@
       <workItem from="1690965239608" duration="21376000" />
       <workItem from="1692070806280" duration="53083000" />
       <workItem from="1692668770391" duration="101356000" />
-      <workItem from="1692926970391" duration="52741000" />
+      <workItem from="1692926970391" duration="69293000" />
     </task>
     <servers />
   </component>
@@ -766,6 +769,15 @@
           <url>file://$PROJECT_DIR$/application/migrations/sql/00015.20230127.09.Kasbon-Umum/+up/008.trigger.cashbon.sql</url>
           <line>16</line>
           <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php-line-method">
+          <url>file://$PROJECT_DIR$/application/modules/trans/controllers/uang_makan.php</url>
+          <line>337</line>
+          <properties>
+            <option name="className" value="\Uang_makan" />
+            <option name="methodName" value="realisasi_callplan" />
+          </properties>
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
