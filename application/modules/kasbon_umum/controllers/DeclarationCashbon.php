@@ -63,7 +63,6 @@ class DeclarationCashbon extends CI_Controller {
         $json = json_decode(
             hex2bin($param)
         );
-
         $this->load->library(array('datatablessp'));
         $this->load->model(array('M_DeclarationCashbon'));
         $declarationcashbon = $this->M_DeclarationCashbon->q_cashbon_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' ')->row();
@@ -704,6 +703,7 @@ class DeclarationCashbon extends CI_Controller {
         $json = json_decode(
             hex2bin($param)
         );
+        $json->type = (substr($json->dutieid,0,2)=='DL' ? 'DN' : '');
         $this->load->library(array('datatablessp'));
         if ($json->type == 'DN'){
             $this->load->model(array('trans/m_employee', 'trans/m_dinas', 'master/M_ComponentCashbon', 'trans/M_Cashbon', 'trans/M_CashbonComponent', 'trans/M_DeclarationCashbon', 'trans/M_DeclarationCashbonComponent', 'trans/M_TrxType', 'trans/M_DestinationType', 'trans/M_CityCashbon'));

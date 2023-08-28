@@ -5,10 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/TransactionType.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/TransactionType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/models/M_DeclarationCashbonComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/M_DeclarationCashbonComponent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_createdinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_createdinas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/DeclarationCashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/DeclarationCashbon.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/models/M_DeclarationCashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/models/M_DeclarationCashbon.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -676,7 +676,7 @@
       <workItem from="1690965239608" duration="21376000" />
       <workItem from="1692070806280" duration="53083000" />
       <workItem from="1692668770391" duration="101356000" />
-      <workItem from="1692926970391" duration="76183000" />
+      <workItem from="1692926970391" duration="79933000" />
     </task>
     <servers />
   </component>

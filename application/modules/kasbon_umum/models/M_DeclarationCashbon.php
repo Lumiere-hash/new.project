@@ -91,11 +91,15 @@ FROM (
              SELECT
                  COALESCE(TRIM(a.branch), '') AS branch,
                  CASE
+                     WHEN b.nodok is not null THEN COALESCE(TRIM(a.dutieid), '')
                      WHEN COALESCE(TRIM(c.type), '') = 'DN' THEN COALESCE(TRIM(a.dutieid), '')
                      ELSE COALESCE(TRIM(d.nik), '')
                      END AS dutieid,
                  COALESCE(TRIM(a.cashbonid), '') AS cashbonid,
-                 COALESCE(TRIM(c.type), '') AS type,
+                 CASE
+                     WHEN b.nodok is not null THEN 'DN'
+                     ELSE COALESCE(TRIM(c.type), '')
+                 END AS type,
                  COALESCE(TRIM(g.uraian), '') AS typetext,
                  b.tgl_mulai AS departuredate,
                  b.tgl_selesai AS returndate,
@@ -123,6 +127,7 @@ FROM (
                  AND TRIM(c.cashbonid) = TRIM(a.cashbonid)
                       LEFT OUTER JOIN sc_mst.karyawan d ON TRUE
                  AND CASE
+                         WHEN c.cashbonid IS null THEN TRIM(d.nik) = TRIM(b.nik)
                          WHEN TRIM(c.type) in ('DN') THEN TRIM(d.nik) = TRIM(b.nik)
                          ELSE TRIM(d.nik) = TRIM(c.dutieid)
                       END
