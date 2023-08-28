@@ -57,7 +57,7 @@ BEGIN
         END LOOP;
 
     UPDATE sc_trx.uangmakan AS a
-    SET rencanacallplan = x.rencanacallplan, realisasicallplan = x.realisasicallplan, nominal = x.nominal, keterangan = x.keterangan, bbm = CASE WHEN x.checkin is not null THEN y.nominal ELSE 0 END, sewa_kendaraan = CASE WHEN x.checkin is not null THEN z.nominal ELSE 0 END
+    SET rencanacallplan = x.rencanacallplan, realisasicallplan = x.realisasicallplan, nominal = x.nominal, keterangan = x.keterangan, bbm = CASE WHEN x.checkin is not null AND a.keterangan NOT SIMILAR TO '(DINAS|CUTI)%' THEN y.nominal ELSE 0 END, sewa_kendaraan = CASE WHEN x.checkin is not null AND a.keterangan NOT SIMILAR TO '(DINAS|CUTI)%' THEN z.nominal ELSE 0 END
     FROM (
              SELECT a.nik, a.tgl, d.jumlah AS rencanacallplan, e.jumlah AS realisasicallplan, a.checkin,
                     CASE

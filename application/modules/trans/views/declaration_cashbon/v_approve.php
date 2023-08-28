@@ -120,6 +120,7 @@
         </div>
         <div class="box-footer">
             <div class="col-sm-12">
+                <button type="submit" class="btn btn-sm  btn-success ml-3 pull-right">Setujui</button>
                 <a href="<?php echo site_url('kasbon_umum/declarationcashbon') ?>" class="btn btn-sm btn-warning ml-3 pull-right">Kembali</a>
             </div>
         </div>
@@ -255,7 +256,7 @@
                                     showDenyButton: true,
                                     denyButtonText: `Tutup`,
                                 }).then(function(){
-                                    window.location.replace('<?php echo site_url('trans/declarationcashbon/') ?>');
+                                    window.location.replace('<?php echo site_url('kasbon_umum/declarationcashbon/') ?>');
                                 });
                             },
                             error: function (xhr, status, thrown) {
