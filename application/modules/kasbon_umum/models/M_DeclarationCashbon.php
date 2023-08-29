@@ -100,7 +100,7 @@ FROM (
                      WHEN b.nodok is not null THEN 'DN'
                      ELSE COALESCE(TRIM(c.type), '')
                  END AS type,
-                 COALESCE(TRIM(g.uraian), '') AS typetext,
+                 COALESCE(TRIM(g.uraian), 'TANPA KASBON') AS typetext,
                  b.tgl_mulai AS departuredate,
                  b.tgl_selesai AS returndate,
                  CONCAT(TO_CHAR(b.tgl_mulai, 'dd-mm-yyyy'), ', ', TO_CHAR(b.tgl_selesai, 'dd-mm-yyyy')) AS dutieperiod,

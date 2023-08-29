@@ -41,7 +41,7 @@
                             <input type="hidden" name="id[]" class="form-control" value="<?php echo $row->componentid ?>" readonly/>
                             <label class="col-sm-3"><?php echo $row->componentname ?></label>
                             <div class="col-sm-3">
-                                <input type="text" name="nominal[]" class="form-control text-right autonumeric" value="<?php echo (!is_nan($row->nominal) && !is_null($row->nominal)) ? $row->nominal : ( $row->componentid == 'UM' && $achieved == 0  ? 0 :$row->defaultnominal ) ?>" <?php echo ($row->readonly == 't' ? 'readonly' : '') ?> autocomplete="off"/>
+                                <input type="text" name="nominal[]" class="form-control text-right autonumeric" value="<?php echo (!is_nan($row->nominal) && !is_null($row->nominal)) ? $row->nominal : ( $row->componentid == 'UD' && $achieved == 0  ? 0 :$row->defaultnominal ) ?>" <?php echo ($row->readonly == 't' ? 'readonly' : '') ?> autocomplete="off"/>
                             </div>
                             <div class="col-sm-6">
                                 <input type="<?php echo ($row->calculated == 't' ? 'text' : 'hidden') ?>" name="description[]" class="form-control" value="<?php echo $row->description ?>" <?php echo ($row->readonly == 't' ? 'readonly' : '') ?> autocomplete="off"/>

@@ -161,14 +161,15 @@ class DeclarationCashbon extends CI_Controller {
         $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$json->dutieid.'\' ')->row();
 
         $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$dinas->nik.'\' ')->row();
-        $callplan = $this->M_MealAllowance->read(' AND nik = \''.$empleyee->nik.'\' AND workdate = \''.$json->perday.'\' AND dutieid = \''.$json->dutieid.'\' ')->row();
+        $callplan = $this->M_MealAllowance->read(' AND nik = \''.$empleyee->nik.'\' AND workdate = \''.$json->perday.'\' AND dutieid = \''.$json->dutieid.'\' AND achieved = 1 ')->num_rows();
+        $callplan_data = $this->M_MealAllowance->read(' AND nik = \''.$empleyee->nik.'\' AND workdate = \''.$json->perday.'\' AND dutieid = \''.$json->dutieid.'\' ')->row();
         $this->load->view('trans/declaration_cashbon/v_create_component_modal', array(
             'title' => 'Detail Deklarasi Kasbon Tanggal '.date('d-m-Y', strtotime($json->perday)),
             'employee' => $empleyee,
             'cashbon' => (!is_null($cashbon) && !is_nan($cashbon)) ? $cashbon : array(),
             'dinas' => $dinas,
             'callplan' => $callplan,
-            'achieved' => ( $dinas->callplan === 't' ? $callplan->achieved : 1 ),
+            'achieved' => ( $dinas->callplan === 't' ? ($callplan > 0 ? $callplan_data->achieved : 0 ) : 1 ),
             'destinationtype' => $this->M_DestinationType->q_master_search_where(' AND id = \''.$dinas->jenis_tujuan.'\' ')->row(),
             'citycashbon' => $this->M_CityCashbon->q_master_search_where(' AND id = \''.$dinas->tujuan_kota.'\' ')->row(),
             'declarationcomponents' => $this->M_DeclarationCashbonComponent->q_temporary_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND perday = \''.$json->perday.'\' AND declarationid = \''.$this->session->userdata('nik').'\' AND active AND type = \'DN\' ')->result(),
@@ -380,14 +381,15 @@ class DeclarationCashbon extends CI_Controller {
         $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$json->dutieid.'\' ')->row();
         $filter = ($dinas->tipe_transportasi == 'TDN' ? " AND componentid <> 'SWK' "  : "");
         $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$dinas->nik.'\' ')->row();
-        $callplan = $this->M_MealAllowance->read(' AND nik = \''.$empleyee->nik.'\' AND workdate = \''.$json->perday.'\' ')->row();
+        $callplan = $this->M_MealAllowance->read(' AND nik = \''.$empleyee->nik.'\' AND workdate = \''.$json->perday.'\' AND dutieid = \''.$json->dutieid.'\' AND achieved = 1 ')->num_rows();
+        $callplan_data = $this->M_MealAllowance->read(' AND nik = \''.$empleyee->nik.'\' AND workdate = \''.$json->perday.'\' AND dutieid = \''.$json->dutieid.'\' ')->row();
         $this->load->view('trans/declaration_cashbon/v_update_component_modal', array(
             'title' => 'Detail Deklarasi Kasbon Tanggal '.date('d-m-Y', strtotime($json->perday)),
             'employee' => $empleyee,
             'cashbon' => (!is_null($cashbon) && !is_nan($cashbon)) ? $cashbon : array(),
             'dinas' => $dinas,
             'callplan' => $callplan,
-            'achieved' => ( $dinas->callplan === 't' ? $callplan->achieved : 1 ),
+            'achieved' => ( $dinas->callplan === 't' ? ($callplan > 0 ? $callplan_data->achieved : 0 ) : 1 ),
             'destinationtype' => $this->M_DestinationType->q_master_search_where(' AND id = \''.$dinas->jenis_tujuan.'\' ')->row(),
             'citycashbon' => $this->M_CityCashbon->q_master_search_where(' AND id = \''.$dinas->tujuan_kota.'\' ')->row(),
             'declaration' => $this->M_DeclarationCashbon->q_temporary_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' ')->row(),
