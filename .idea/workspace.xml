@@ -7,8 +7,36 @@
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/DeclarationCashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/DeclarationCashbon.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/models/M_DeclarationCashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/models/M_DeclarationCashbon.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations/sql/00017.20230822.55.Tunjangan-Tidak-Tetap/+up/006.alter.table.dinas.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/sql/00017.20230822.55.Tunjangan-Tidak-Tetap/+up/006.alter.table.dinas.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/DeclarationCashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/DeclarationCashbon.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/dinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/dinas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/models/M_DeclarationCashbonComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/M_DeclarationCashbonComponent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/models/M_MealAllowance.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/M_MealAllowance.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/models/m_dinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/m_dinas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_create_component_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_create_component_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_update_component_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_update_component_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_createdinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_createdinas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_detaildinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_detaildinas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_updatedinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_updatedinas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_updatedinas_hasapproved.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_updatedinas_hasapproved.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1693189341.5116.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1693189346.2419.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1693189357.9621.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1693189399.8519.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1693189449.5465.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1693189635.9052.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1693189730.6658.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1693189782.1058.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1693189914.4278.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1693190142.8125.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1693190205.1485.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1693190303.0185.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1693190482.4207.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1693192744.8517.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1693192837.8898.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1693194805.2752.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1693196384.6693.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -335,7 +363,7 @@
     "database.data.extractors.current.export.id": "SQL Inserts",
     "database.data.extractors.current.id": "SQL Inserts",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/PROJECT/hrms.sni",
+    "last_opened_file_path": "D:/PROJECT/hrms.nbim",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -676,7 +704,7 @@
       <workItem from="1690965239608" duration="21376000" />
       <workItem from="1692070806280" duration="53083000" />
       <workItem from="1692668770391" duration="101356000" />
-      <workItem from="1692926970391" duration="79933000" />
+      <workItem from="1692926970391" duration="88577000" />
     </task>
     <servers />
   </component>

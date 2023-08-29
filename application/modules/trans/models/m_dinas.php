@@ -332,6 +332,11 @@ class M_dinas extends CI_Model{
                     a.jam_selesai AS jam_selesai,
                     COALESCE(TRIM(a.status), '') AS status,
                     a.keperluan AS keperluan,
+                    a.callplan AS callplan,
+                    CASE
+                        WHEN a.callplan IS TRUE THEN 'YA'
+                        ELSE 'TIDAK'
+                    END AS callplan_reformat,
                     COALESCE(TRIM(a.tujuan_kota), '') AS tujuan_kota,
                     a.input_date AS input_date,
                     COALESCE(TRIM(a.input_by), '') AS input_by,
@@ -370,6 +375,11 @@ SQL
                     a.jam_selesai AS jam_selesai,
                     COALESCE(TRIM(a.status), '') AS status,
                     a.keperluan AS keperluan,
+                    a.callplan AS callplan,
+                    CASE
+                        WHEN a.callplan IS TRUE THEN 'YA'
+                        ELSE 'TIDAK'
+                    END AS callplan_reformat,
                     COALESCE(TRIM(a.tujuan_kota), '') AS tujuan_kota,
                     a.input_date AS input_date,
                     COALESCE(TRIM(a.input_by), '') AS input_by,

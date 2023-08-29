@@ -21,13 +21,14 @@ SELECT * FROM (
         COALESCE(a.rencanacallplan,0) AS callplan,
         COALESCE(a.realisasicallplan,0) AS realization,
         CASE
-            WHEN extract(day from now()::timestamp - b.tglmasukkerja::timestamp) <= 30 AND a.rencanacallplan > 1 AND b.callplan = 't' THEN 1
+            WHEN extract(day from now()::timestamp - c.tglmasukkerja::timestamp) <= 30 AND a.rencanacallplan > 1 AND b.callplan = 't' THEN 1
             WHEN (a.realisasicallplan >= a.rencanacallplan) AND a.rencanacallplan > 1 AND b.callplan = 't' THEN 1
             WHEN b.callplan = 'f' THEN 1
         ELSE 0
     END AS achieved
     from sc_trx.uangmakan a
-    LEFT OUTER JOIN sc_mst.karyawan b ON a.nik = b.nik
+    LEFT OUTER JOIN sc_trx.dinas b ON a.nik = b.nik
+    LEFT OUTER JOIN sc_mst.karyawan c ON a.nik = c.nik
 ) as aa
 WHERE TRUE
 SQL

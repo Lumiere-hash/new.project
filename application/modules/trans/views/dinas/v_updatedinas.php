@@ -1,4 +1,5 @@
 <?php
+
 ?>
 <style>
 	.space {
@@ -105,6 +106,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-sm-4">Callplan</label>
+                                    <div class="col-sm-8">
+                                        <select name="callplan" class="select2 form-control " id="callplan">
+                                            <option <?php echo ($default->temporary->callplan == 'f' ? 'selected' : '' ) ?> value="false">TIDAK</option>
+                                            <option <?php echo ($default->temporary->callplan == 't' ? 'selected' : '' ) ?> value="true">YA</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-sm-4">Keperluan Dinas</label>
                                     <div class="col-sm-8">
                                         <textarea name="keperluan" rows="10" class="form-control textarea-noresize" id="keperluan" style="text-transform:uppercase"><?php echo $default->temporary->keperluan ?></textarea>
@@ -166,6 +176,10 @@
 </form>
 <script>
     $(document).ready(function() {
+        $('select[name=\'callplan\']').select2({
+            allowClear: true,
+            placeholder: 'Pilih tipe callplan',
+        });
         $('select[name=\'jenis_tujuan\']').select2({
             ajax: {
                 url: '<?php echo site_url('trans/destinationtype/search'); ?>',
@@ -501,6 +515,9 @@
                     required: true,
                 },
                 keperluan: {
+                    required: true,
+                },
+                callplan: {
                     required: true,
                 },
                 tgl_mulai: {

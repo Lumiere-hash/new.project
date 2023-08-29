@@ -18,7 +18,7 @@
                 <h4 class="modal-title"><?php echo $title ?></h4>
             </div>
             <div class="modal-body">
-                <?php if ($employee->callplan == 't'){ ?>
+                <?php if ($dinas->callplan == 't'){ ?>
                 <div class="row">
                     <div class="form-group">
                         <label class="col-md-3" for="">PERSENTASE REALISASI CALLPLLAN</label>

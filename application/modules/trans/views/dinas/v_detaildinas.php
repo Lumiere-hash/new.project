@@ -84,6 +84,12 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="col-sm-4">Callplan</label>
+                                <div class="col-sm-8">
+                                    <input type="text" name="" class="form-control" value="<?php echo $default->transaction->callplan_reformat ?>" readonly/>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="col-sm-4">Keperluan Dinas</label>
                                 <div class="col-sm-8">
                                     <textarea name="" rows="10" class="form-control textarea-noresize" readonly><?php echo $default->transaction->keperluan ?></textarea>

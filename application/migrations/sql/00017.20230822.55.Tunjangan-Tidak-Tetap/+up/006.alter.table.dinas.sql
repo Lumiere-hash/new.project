@@ -1,6 +1,12 @@
 DO
 $$
     BEGIN
+        IF NOT EXISTS (SELECT column_name FROM information_schema.columns WHERE table_schema = 'sc_tmp' AND table_name = 'dinas' AND column_name = 'callplan' ) THEN
+            ALTER TABLE sc_tmp.dinas ADD callplan boolean ;
+        END IF;
+        IF NOT EXISTS (SELECT column_name FROM information_schema.columns WHERE table_schema = 'sc_trx' AND table_name = 'dinas' AND column_name = 'callplan' ) THEN
+            ALTER TABLE sc_trx.dinas ADD callplan boolean ;
+        END IF;
         IF NOT EXISTS (SELECT column_name FROM information_schema.columns WHERE table_schema = 'sc_tmp' AND table_name = 'dinas' AND column_name = 'tipe_transportasi' ) THEN
             ALTER TABLE sc_tmp.dinas ADD tipe_transportasi varchar ;
         END IF;
@@ -37,6 +43,7 @@ begin
                 jam_selesai,
                 status,
                 keperluan,
+                callplan,
                 tujuan_kota,
                 input_date,
                 input_by,
@@ -64,6 +71,7 @@ begin
                   jam_selesai,
                   old.status as status,
                   keperluan,
+                  callplan,
                   tujuan_kota,
                   input_date,
                   input_by,
@@ -109,6 +117,7 @@ begin
             jam_selesai,
             status,
             keperluan,
+            callplan,
             tujuan_kota,
             input_date,
             input_by,
@@ -136,6 +145,7 @@ begin
               jam_selesai,
               OLD.status AS status,
               keperluan,
+              callplan,
               tujuan_kota,
               input_date,
               input_by,
@@ -187,6 +197,7 @@ BEGIN
             jam_selesai,
             status,
             keperluan,
+            callplan,
             tujuan_kota,
             input_date,
             input_by,
@@ -214,6 +225,7 @@ BEGIN
               jam_selesai,
               OLD.status AS status,
               keperluan,
+              callplan,
               tujuan_kota,
               input_date,
               input_by,

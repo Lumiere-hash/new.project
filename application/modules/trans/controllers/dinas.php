@@ -1153,6 +1153,7 @@ class Dinas extends MX_Controller
 		$tujuan_kota = $this->input->post('tujuan_kota');
 		$kdkategori = $this->input->post('kdkategori');
 		$keperluan = $this->input->post('keperluan');
+		$callplan = $this->input->post('callplan');
 		$tgl_mulai = date('Y-m-d', strtotime($this->input->post('tgl_mulai')));
 		$jam_mulai = date('H:i:s', strtotime($this->input->post('tgl_mulai')));
 		$tgl_selesai = date('Y-m-d', strtotime($this->input->post('tgl_selesai')));
@@ -1206,6 +1207,7 @@ class Dinas extends MX_Controller
 									'tgl_selesai' => $tgl_selesai,
 									'jam_selesai' => $jam_selesai,
 									'keperluan' => strtoupper($keperluan),
+									'callplan' => $callplan,
 									'tujuan_kota' => $tujuan_kota,
 									'input_date' => date('Y-m-d H:i:s'),
 									'input_by' => trim($this->session->userdata('nik')),
@@ -1434,6 +1436,7 @@ class Dinas extends MX_Controller
 		$tujuan_kota = $this->input->post('tujuan_kota');
 		$kdkategori = $this->input->post('kdkategori');
 		$keperluan = $this->input->post('keperluan');
+		$callplan = $this->input->post('callplan');
 		$tgl_mulai = date('Y-m-d', strtotime($this->input->post('tgl_mulai')));
 		$jam_mulai = date('H:i:s', strtotime($this->input->post('tgl_mulai')));
 		$tgl_selesai = date('Y-m-d', strtotime($this->input->post('tgl_selesai')));
@@ -1487,6 +1490,7 @@ class Dinas extends MX_Controller
 									'tgl_selesai' => $tgl_selesai,
 									'jam_selesai' => $jam_selesai,
 									'keperluan' => strtoupper($keperluan),
+									'callplan' => $callplan,
 									'tujuan_kota' => $tujuan_kota,
 									'update_date' => date('Y-m-d H:i:s'),
 									'update_by' => trim($this->session->userdata('nik')),
