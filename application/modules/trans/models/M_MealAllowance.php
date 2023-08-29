@@ -25,7 +25,8 @@ SELECT * FROM (
             WHEN (a.realisasicallplan >= a.rencanacallplan) AND a.rencanacallplan > 1 AND b.callplan = 't' THEN 1
             WHEN b.callplan = 'f' THEN 1
         ELSE 0
-    END AS achieved
+    END AS achieved,
+    b.nodok AS dutieid
     from sc_trx.uangmakan a
     LEFT OUTER JOIN sc_trx.dinas b ON a.nik = b.nik
     LEFT OUTER JOIN sc_mst.karyawan c ON a.nik = c.nik

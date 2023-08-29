@@ -161,7 +161,7 @@ class DeclarationCashbon extends CI_Controller {
         $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$json->dutieid.'\' ')->row();
 
         $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$dinas->nik.'\' ')->row();
-        $callplan = $this->M_MealAllowance->read(' AND nik = \''.$empleyee->nik.'\' AND workdate = \''.$json->perday.'\' ')->row();
+        $callplan = $this->M_MealAllowance->read(' AND nik = \''.$empleyee->nik.'\' AND workdate = \''.$json->perday.'\' AND dutieid = \''.$json->dutieid.'\' ')->row();
         $this->load->view('trans/declaration_cashbon/v_create_component_modal', array(
             'title' => 'Detail Deklarasi Kasbon Tanggal '.date('d-m-Y', strtotime($json->perday)),
             'employee' => $empleyee,

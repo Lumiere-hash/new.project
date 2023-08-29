@@ -1155,9 +1155,12 @@ class Dinas extends MX_Controller
 		$keperluan = $this->input->post('keperluan');
 		$callplan = $this->input->post('callplan');
 		$tgl_mulai = date('Y-m-d', strtotime($this->input->post('tgl_mulai')));
-		$jam_mulai = date('H:i:s', strtotime($this->input->post('tgl_mulai')));
+		$jam_mulai = '00:00:00';
+//		$jam_mulai = date('H:i:s', strtotime($this->input->post('tgl_mulai')));
 		$tgl_selesai = date('Y-m-d', strtotime($this->input->post('tgl_selesai')));
-		$jam_selesai = date('H:i:s', strtotime($this->input->post('tgl_selesai')));
+		$jam_selesai = '23:59:59';
+        $format_mulai = date('d-m-Y H:i', strtotime($tgl_mulai.' '.$jam_mulai));
+//		$jam_selesai = date('H:i:s', strtotime($this->input->post('tgl_selesai')));
 		$transportasi = $this->input->post('transportasi');
 		$tipe_transportasi = $this->input->post('tipe_transportasi');
 		$userhr = $this->m_akses->list_aksesperdep()->num_rows();
@@ -1166,7 +1169,8 @@ class Dinas extends MX_Controller
 			if ($opsi_dinas->status == "T") {
 				$value = strtolower($opsi_dinas->value1);
 				$value = str_replace("d", " day", $value);
-				if ($this->input->post('tgl_mulai') < date('d-m-Y 08:00', strtotime($value))) {
+//				if ($this->input->post('tgl_mulai') < date('d-m-Y 08:00', strtotime($value))) {
+				if (date('Y-m-d H:i', strtotime($format_mulai)) < date('Y-m-d 08:00', strtotime($value))) {
 					header('Content-Type: application/json');
 					http_response_code(404);
 					echo json_encode(
@@ -1438,9 +1442,11 @@ class Dinas extends MX_Controller
 		$keperluan = $this->input->post('keperluan');
 		$callplan = $this->input->post('callplan');
 		$tgl_mulai = date('Y-m-d', strtotime($this->input->post('tgl_mulai')));
-		$jam_mulai = date('H:i:s', strtotime($this->input->post('tgl_mulai')));
+		$jam_mulai = '00:00:00';
+//		$jam_mulai = date('H:i:s', strtotime($this->input->post('tgl_mulai')));
 		$tgl_selesai = date('Y-m-d', strtotime($this->input->post('tgl_selesai')));
-		$jam_selesai = date('H:i:s', strtotime($this->input->post('tgl_selesai')));
+		$jam_selesai = '00:00:00';
+//		$jam_selesai = date('H:i:s', strtotime($this->input->post('tgl_selesai')));
 		$transportasi = $this->input->post('transportasi');
 		$tipe_transportasi = $this->input->post('tipe_transportasi');
 

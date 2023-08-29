@@ -61,7 +61,10 @@ FROM (
         COALESCE(TRIM(c.nodok), '') AS dutieid,
         d.day::DATE AS perday,
         c.callplan AS is_callplan,
-        COALESCE(g.nominal, 0) AS defaultnominal,
+        CASE
+            WHEN c.nodok is not null AND c.tipe_transportasi = 'TDN' AND COALESCE(TRIM(a.componentid), '') = 'SWK' THEN 0
+            ELSE COALESCE(g.nominal, 0)
+        END AS defaultnominal,
         /*CASE
            WHEN c.tgl_mulai::DATE = d.day::DATE AND COALESCE(TRIM(a.componentid), '') = 'UD' THEN 0
            ELSE COALESCE(g.nominal, 0)
@@ -115,7 +118,10 @@ FROM (
         COALESCE(TRIM(c.nodok), '') AS dutieid,
         COALESCE(TRIM(b.declarationid), '') AS declarationid,
         d.day::DATE AS perday,
-        COALESCE(g.nominal, 0) AS defaultnominal,
+        CASE
+            WHEN c.nodok is not null AND c.tipe_transportasi = 'TDN' AND COALESCE(TRIM(a.componentid), '') = 'SWK' THEN 0
+            ELSE COALESCE(g.nominal, 0)
+        END AS defaultnominal,
         /*CASE
            WHEN c.tgl_mulai::DATE = d.day::DATE AND COALESCE(TRIM(a.componentid), '') = 'UD' THEN 0
            ELSE COALESCE(g.nominal, 0)

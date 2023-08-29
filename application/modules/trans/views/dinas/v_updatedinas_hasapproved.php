@@ -156,15 +156,17 @@
     $(document).ready(function() {
 
         $('input[name=\'tgl_mulai\']').datetimepicker({
-            format: 'DD-MM-YYYY HH:mm',
+            format: 'DD-MM-YYYY',
             locale: 'id',
         }).on('dp.change', function(e) {
         });
         $('input[name=\'tgl_selesai\']').datetimepicker({
             <?php if ($userhr<0 OR $level_akses <> 'A'){ ?>
-            minDate: new Date('<?php echo $default->temporary->tgl_selesai.' '.$default->temporary->jam_selesai ?>'),
+            minDate: new Date('<?php echo $default->temporary->tgl_selesai?>'),
+            <?php }else{ ?>
+            minDate: new Date('<?php echo $default->temporary->tgl_mulai?>'),
             <?php } ?>
-            format: 'DD-MM-YYYY HH:mm',
+            format: 'DD-MM-YYYY',
             locale: 'id',
         }).on('dp.change', function(e) {
         });
@@ -273,11 +275,9 @@
                 },
                 tgl_mulai: {
                     required: true,
-                    lessThan: ['input[name=\'tgl_selesai\']', 'Tanggal Pulang'],
                 },
                 tgl_selesai: {
                     required: true,
-                    greaterThan: ['input[name=\'tgl_mulai\']', 'Tanggal Berangkat'],
                 },
                 tipe_transportasi: {
                     required: true,

@@ -297,13 +297,17 @@ $(document).ready(function() {
         },
     }).on('change', function(e) {});
     $('input[name=\'tgl_mulai\']').datetimepicker({
-        format: 'DD-MM-YYYY HH:mm',
+        format: 'DD-MM-YYYY',
         locale: 'id',
-    }).on('dp.change', function(e) {});
+    }).on('dp.change', function(e) {
+        $('input[name=\'tgl_selesai\']').data("DateTimePicker").minDate(e.date);
+    });
     $('input[name=\'tgl_selesai\']').datetimepicker({
-        format: 'DD-MM-YYYY HH:mm',
+        format: 'DD-MM-YYYY',
         locale: 'id',
-    }).on('dp.change', function(e) {});
+    }).on('dp.change', function(e) {
+        $('input[name=\'tgl_mulai\']').data("DateTimePicker").maxDate(e.date);
+    });
     $('select[name=\'tipe_transportasi\']').select2({
         ajax: {
             url: '<?php echo site_url('trans/transactiontype/search'); ?>',
@@ -506,11 +510,11 @@ $(document).ready(function() {
             },
             tgl_mulai: {
                 required: true,
-                lessThan: ['input[name=\'tgl_selesai\']', 'Tanggal Pulang'],
+                // lessThan: ['input[name=\'tgl_selesai\']', 'Tanggal Pulang'],
             },
             tgl_selesai: {
                 required: true,
-                greaterThan: ['input[name=\'tgl_mulai\']', 'Tanggal Berangkat'],
+                // greaterThan: ['input[name=\'tgl_mulai\']', 'Tanggal Berangkat'],
             },
             transportasi: {
                 required: true,
