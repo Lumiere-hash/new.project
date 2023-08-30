@@ -299,12 +299,14 @@ $(document).ready(function() {
     $('input[name=\'tgl_mulai\']').datetimepicker({
         format: 'DD-MM-YYYY',
         locale: 'id',
+		useCurrent:false,
     }).on('dp.change', function(e) {
         $('input[name=\'tgl_selesai\']').data("DateTimePicker").minDate(e.date);
     });
     $('input[name=\'tgl_selesai\']').datetimepicker({
         format: 'DD-MM-YYYY',
         locale: 'id',
+		useCurrent:false,
     }).on('dp.change', function(e) {
         $('input[name=\'tgl_mulai\']').data("DateTimePicker").maxDate(e.date);
     });
