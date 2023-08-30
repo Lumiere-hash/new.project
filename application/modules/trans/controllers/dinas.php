@@ -1205,7 +1205,8 @@ class Dinas extends MX_Controller
 									'nik' => $employee->nik,
 									'nodok' => trim($this->session->userdata('nik')),
 									'tgl_dok' => date('Y-m-d'),
-									'nmatasan' => $employee->nmatasan,
+//									'nmatasan' => $employee->nmatasan,
+									'nmatasan' => $employee->nik_atasan,
 									'tgl_mulai' => $tgl_mulai,
 									'jam_mulai' => $jam_mulai,
 									'tgl_selesai' => $tgl_selesai,
@@ -1285,7 +1286,8 @@ class Dinas extends MX_Controller
 							'nik' => $employee->nik,
 							'nodok' => trim($this->session->userdata('nik')),
 							'tgl_dok' => date('Y-m-d'),
-							'nmatasan' => $employee->nmatasan,
+//							'nmatasan' => $employee->nmatasan,
+							'nmatasan' => $employee->nik_atasan,
 							'tgl_mulai' => $tgl_mulai,
 							'jam_mulai' => $jam_mulai,
 							'tgl_selesai' => $tgl_selesai,
@@ -1443,6 +1445,7 @@ class Dinas extends MX_Controller
 		$callplan = $this->input->post('callplan');
 		$tgl_mulai = date('Y-m-d', strtotime($this->input->post('tgl_mulai')));
 		$jam_mulai = '00:00:00';
+        $format_mulai = date('d-m-Y H:i', strtotime($tgl_mulai.' '.$jam_mulai));
 //		$jam_mulai = date('H:i:s', strtotime($this->input->post('tgl_mulai')));
 		$tgl_selesai = date('Y-m-d', strtotime($this->input->post('tgl_selesai')));
 		$jam_selesai = '00:00:00';
@@ -1456,7 +1459,7 @@ class Dinas extends MX_Controller
 			if ($opsi_dinas->status == "T") {
 				$value = strtolower($opsi_dinas->value1);
 				$value = str_replace("d", " day", $value);
-				if ($this->input->post('tgl_mulai') < date('d-m-Y 08:00', strtotime($value)) AND $json->config == 'update') {
+                if (date('Y-m-d H:i', strtotime($format_mulai)) < date('Y-m-d 08:00', strtotime($value)) AND $json->config == 'update' ) {
 					header('Content-Type: application/json');
 					http_response_code(404);
 					echo json_encode(
