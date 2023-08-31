@@ -100,4 +100,30 @@ where coalesce(statuskepegawaian,'')!='KO'");
 	    return $this->db->query("select * from sc_mst.lv_m_karyawan where coalesce(statuskepegawaian,'')!='KO' $param order by nmlengkap asc");
     }
 
+    function read($clause = null){
+        return $this->db->query($this->read_txt($clause));
+    }
+    function read_txt($clause = null){
+        return sprintf(<<<'SQL'
+SELECT * FROM (
+    SELECT
+        COALESCE(TRIM(a.kdoption),'') AS kdoption,
+        COALESCE(TRIM(a.nmoption),'') AS nmoption,
+        COALESCE(TRIM(a.value1),'') AS value1,
+        a.value2,
+        a.value3,
+        COALESCE(TRIM(a.status),'') AS status,
+        COALESCE(TRIM(a.keterangan),'') AS keterangan,
+        COALESCE(TRIM(a.input_by),'') AS input_by,
+        COALESCE(TRIM(a.update_by),'') AS update_by,
+        a.input_date,
+        a.update_date,
+        COALESCE(TRIM(a.group_option),'') AS group_option
+    FROM sc_mst.option a
+) as aa
+WHERE TRUE
+SQL
+            ).$clause;
+    }
+
 }

@@ -512,12 +512,19 @@ class Cashbon extends CI_Controller {
         $json = json_decode(
             hex2bin($param)
         );
-        $this->load->model(array('M_TrxType', 'm_dinas', 'm_employee', 'M_Cashbon', 'M_CashbonComponent', 'M_DestinationType', 'M_CityCashbon', ));
+        $this->load->model(array('M_TrxType', 'm_dinas', 'm_employee', 'M_Cashbon', 'M_CashbonComponent', 'M_DestinationType', 'M_CityCashbon', 'master/m_option', 'master/M_RegionalOffice' ));
+        $setup = $this->m_option->read(' AND kdoption = \'BRANCH:CITY\' ')->row();
         $cashbon = $this->M_Cashbon->q_transaction_read_where(' AND cashbonid = \''.$json->cashbonid.'\' ORDER BY updatedate DESC ')->row();
         $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$cashbon->dutieid.'\' ')->row();
         $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$dinas->nik.'\' ')->row();
+        if($this->m_option->read(' AND kdoption = \'REGIONAL:OFFICE\' AND status = \'T\' ')->num_rows() > 0){
+            $city = $this->m_option->read(' AND kdoption = \'BRANCH:CITY\' ')->row()->value1;
+        }else{
+            $city = $this->M_RegionalOffice->read(' AND kdcabang = \''.$empleyee->kdcabang.'\' ')->row()->regional_name;
+        }
         $this->load->view('trans/cashbon/v_print_option', array(
             'title' => 'Cetak Kasbon Dinas Karyawan '.$cashbon->cashbonid,
+            'city' => ucfirst(strtolower($city)).', ',
             'employee' => $empleyee,
             'dinas' => $dinas,
             'destinationtype' => $this->M_DestinationType->q_master_search_where(' AND id = \''.$dinas->jenis_tujuan.'\' ')->row(),
@@ -532,15 +539,22 @@ class Cashbon extends CI_Controller {
         $json = json_decode(
             hex2bin($param)
         );
-        $this->load->model(array('M_TrxType', 'm_dinas', 'm_employee', 'M_Cashbon', 'M_CashbonComponent', 'M_DestinationType', 'M_CityCashbon', ));
+        $this->load->model(array('M_TrxType', 'm_dinas', 'm_employee', 'M_Cashbon', 'M_CashbonComponent', 'M_DestinationType', 'M_CityCashbon', 'master/m_option', 'master/M_RegionalOffice'));
+        $setup = $this->m_option->read(' AND kdoption = \'BRANCH:CITY\' ')->row();
         $fontsize = (int)($this->input->get_post('fontsize') ?: 0);
         $marginsize = (int)($this->input->get_post('marginsize') ?: 0);
         $paddingsize = (int)($this->input->get_post('paddingsize') ?: 0);
         $cashbon = $this->M_Cashbon->q_transaction_read_where(' AND cashbonid = \''.$json->cashbonid.'\' ORDER BY updatedate DESC ')->row();
         $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$cashbon->dutieid.'\' ')->row();
         $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$dinas->nik.'\' ')->row();
+        if($this->m_option->read(' AND kdoption = \'REGIONAL:OFFICE\' AND status = \'T\' ')->num_rows() > 0){
+            $city = $this->m_option->read(' AND kdoption = \'BRANCH:CITY\' ')->row()->value1;
+        }else{
+            $city = $this->M_RegionalOffice->read(' AND kdcabang = \''.$empleyee->kdcabang.'\' ')->row()->regional_name;
+        }
         $this->load->view('trans/cashbon/v_read_pdf', array(
             'title' => 'Cetak Kasbon Dinas Karyawan '.$cashbon->cashbonid,
+            'city' => ucfirst(strtolower($city)).', ',
             'fontsize' => $fontsize,
             'marginsize' => $marginsize,
             'paddingsize' => $paddingsize,
@@ -559,16 +573,23 @@ class Cashbon extends CI_Controller {
             hex2bin($param)
         );
         $this->load->library('pdfs');
-        $this->load->model(array('M_TrxType', 'm_dinas', 'm_employee', 'M_Cashbon', 'M_CashbonComponent', 'M_DestinationType', 'M_CityCashbon', ));
+        $this->load->model(array('M_TrxType', 'm_dinas', 'm_employee', 'M_Cashbon', 'M_CashbonComponent', 'M_DestinationType', 'M_CityCashbon', 'master/m_option', 'master/M_RegionalOffice'));
+        $setup = $this->m_option->read(' AND kdoption = \'BRANCH:CITY\' ')->row();
         $fontsize = (int)($this->input->get_post('fontsize') ?: 0);
         $marginsize = (int)($this->input->get_post('marginsize') ?: 0);
         $paddingsize = (int)($this->input->get_post('paddingsize') ?: 0);
         $cashbon = $this->M_Cashbon->q_transaction_read_where(' AND cashbonid = \''.$json->cashbonid.'\' ORDER BY updatedate DESC ')->row();
         $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$cashbon->dutieid.'\' ')->row();
         $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$dinas->nik.'\' ')->row();
+        if($this->m_option->read(' AND kdoption = \'REGIONAL:OFFICE\' AND status = \'T\' ')->num_rows() > 0){
+            $city = $this->m_option->read(' AND kdoption = \'BRANCH:CITY\' ')->row()->value1;
+        }else{
+            $city = $this->M_RegionalOffice->read(' AND kdcabang = \''.$empleyee->kdcabang.'\' ')->row()->regional_name;
+        }
         $this->pdfs->loadHtml(
             $this->load->view('trans/cashbon/v_read_pdf', array(
                 'title' => 'Cetak Kasbon Dinas Karyawan '.$cashbon->cashbonid,
+                'city' => ucfirst(strtolower($city)).', ',
                 'fontsize' => $fontsize,
                 'marginsize' => $marginsize,
                 'paddingsize' => $paddingsize,

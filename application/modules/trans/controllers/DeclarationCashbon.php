@@ -661,13 +661,19 @@ class DeclarationCashbon extends CI_Controller {
         $json = json_decode(
             hex2bin($param)
         );
-        $this->load->model(array('M_TrxType', 'm_dinas', 'm_employee', 'master/M_ComponentCashbon', 'M_Cashbon', 'M_CashbonComponent', 'M_DestinationType', 'M_CityCashbon',  'M_DeclarationCashbon', 'M_DeclarationCashbonComponent', ));
+        $this->load->model(array('M_TrxType', 'm_dinas', 'm_employee', 'master/M_ComponentCashbon', 'M_Cashbon', 'M_CashbonComponent', 'M_DestinationType', 'M_CityCashbon',  'M_DeclarationCashbon', 'M_DeclarationCashbonComponent', 'master/m_option', 'master/M_RegionalOffice'));
         $declaration = $this->M_DeclarationCashbon->q_transaction_read_where(' AND declarationid = \''.$json->declarationid.'\' AND approvedate IS NOT NULL ')->row();
         $cashbon = $this->M_Cashbon->q_transaction_read_where(' AND dutieid = \''.$declaration->dutieid.'\' AND cashbonid = \''.$declaration->cashbonid.'\' AND approvedate IS NOT NULL ORDER BY updatedate DESC ')->row();
         $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$declaration->dutieid.'\' ')->row();
         $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$dinas->nik.'\' ')->row();
+        if($this->m_option->read(' AND kdoption = \'REGIONAL:OFFICE\' AND status = \'T\' ')->num_rows() > 0){
+            $city = $this->m_option->read(' AND kdoption = \'BRANCH:CITY\' ')->row()->value1;
+        }else{
+            $city = $this->M_RegionalOffice->read(' AND kdcabang = \''.$empleyee->kdcabang.'\' ')->row()->regional_name;
+        }
         $this->load->view('trans/declaration_cashbon/v_print_option', array(
             'title' => 'Cetak Deklarasi Kasbon Dinas Karyawan '.$declaration->declarationid,
+            'city' => ucfirst(strtolower($city)).', ',
             'employee' => $empleyee,
             'dinas' => $dinas,
             'destinationtype' => $this->M_DestinationType->q_master_search_where(' AND id = \''.$dinas->jenis_tujuan.'\' ')->row(),
@@ -686,7 +692,8 @@ class DeclarationCashbon extends CI_Controller {
         $json = json_decode(
             hex2bin($param)
         );
-        $this->load->model(array('M_TrxType', 'm_dinas', 'm_employee', 'master/M_ComponentCashbon', 'M_Cashbon', 'M_CashbonComponent', 'M_DestinationType', 'M_CityCashbon',  'M_DeclarationCashbon', 'M_DeclarationCashbonComponent', ));
+        $this->load->model(array('M_TrxType', 'm_dinas', 'm_employee', 'master/M_ComponentCashbon', 'M_Cashbon', 'M_CashbonComponent', 'M_DestinationType', 'M_CityCashbon',  'M_DeclarationCashbon', 'M_DeclarationCashbonComponent', 'master/m_option','master/M_RegionalOffice'));
+        $setup = $this->m_option->read(' AND kdoption = \'BRANCH:CITY\' ')->row();
         $fontsize = (int)($this->input->get_post('fontsize') ?: 0);
         $marginsize = (int)($this->input->get_post('marginsize') ?: 0);
         $paddingsize = (int)($this->input->get_post('paddingsize') ?: 0);
@@ -694,8 +701,14 @@ class DeclarationCashbon extends CI_Controller {
         $cashbon = $this->M_Cashbon->q_transaction_read_where(' AND dutieid = \''.$declaration->dutieid.'\' AND cashbonid = \''.$declaration->cashbonid.'\' AND approvedate IS NOT NULL ORDER BY updatedate DESC ')->row();
         $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$declaration->dutieid.'\' ')->row();
         $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$dinas->nik.'\' ')->row();
+        if($this->m_option->read(' AND kdoption = \'REGIONAL:OFFICE\' AND status = \'T\' ')->num_rows() > 0){
+            $city = $this->m_option->read(' AND kdoption = \'BRANCH:CITY\' ')->row()->value1;
+        }else{
+            $city = $this->M_RegionalOffice->read(' AND kdcabang = \''.$empleyee->kdcabang.'\' ')->row()->regional_name;
+        }
         $this->load->view('trans/declaration_cashbon/v_read_pdf', array(
             'title' => 'Cetak Deklarasi Kasbon Dinas Karyawan '.$cashbon->cashbonid,
+            'city' => ucfirst(strtolower($city)).', ',
             'fontsize' => $fontsize,
             'marginsize' => $marginsize,
             'paddingsize' => $paddingsize,
@@ -718,7 +731,7 @@ class DeclarationCashbon extends CI_Controller {
             hex2bin($param)
         );
         $this->load->library('pdfs');
-        $this->load->model(array('M_TrxType', 'm_dinas', 'm_employee', 'master/M_ComponentCashbon', 'M_Cashbon', 'M_CashbonComponent', 'M_DestinationType', 'M_CityCashbon',  'M_DeclarationCashbon', 'M_DeclarationCashbonComponent', ));
+        $this->load->model(array('M_TrxType', 'm_dinas', 'm_employee', 'master/M_ComponentCashbon', 'M_Cashbon', 'M_CashbonComponent', 'M_DestinationType', 'M_CityCashbon',  'M_DeclarationCashbon', 'M_DeclarationCashbonComponent', 'master/m_option','master/M_RegionalOffice'));
         $fontsize = (int)($this->input->get_post('fontsize') ?: 0);
         $marginsize = (int)($this->input->get_post('marginsize') ?: 0);
         $paddingsize = (int)($this->input->get_post('paddingsize') ?: 0);
@@ -726,9 +739,15 @@ class DeclarationCashbon extends CI_Controller {
         $cashbon = $this->M_Cashbon->q_transaction_read_where(' AND dutieid = \''.$declaration->dutieid.'\' AND cashbonid = \''.$declaration->cashbonid.'\' AND approvedate IS NOT NULL ORDER BY updatedate DESC ')->row();
         $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$declaration->dutieid.'\' ')->row();
         $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$dinas->nik.'\' ')->row();
+        if($this->m_option->read(' AND kdoption = \'REGIONAL:OFFICE\' AND status = \'T\' ')->num_rows() > 0){
+            $city = $this->m_option->read(' AND kdoption = \'BRANCH:CITY\' ')->row()->value1;
+        }else{
+            $city = $this->M_RegionalOffice->read(' AND kdcabang = \''.$empleyee->kdcabang.'\' ')->row()->regional_name;
+        }
         $this->pdfs->loadHtml(
             $this->load->view('trans/declaration_cashbon/v_read_pdf', array(
                 'title' => 'Cetak Deklarasi Kasbon Dinas Karyawan '.$cashbon->cashbonid,
+                'city' => ucfirst(strtolower($city)).', ',
                 'fontsize' => $fontsize,
                 'marginsize' => $marginsize,
                 'paddingsize' => $paddingsize,

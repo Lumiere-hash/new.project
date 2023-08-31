@@ -285,7 +285,7 @@
         <td class="borderleft borderright fontsize12 paddingall" colspan="12"></td>
     </tr>
     <tr>
-        <td class="borderleft borderright bordertop fontsize12 paddingall" colspan="12">Mojokerto, <?php echo date('d-m-Y', strtotime($declaration->approvedate)) ?></td>
+        <td class="borderleft borderright bordertop fontsize12 paddingall" colspan="12"><?php echo $city.date('d-m-Y', strtotime($declaration->approvedate)) ?></td>
     </tr>
     <tr>
         <td class="borderleft fontsize12 paddingall" colspan="4">Diajukan Oleh,</td>

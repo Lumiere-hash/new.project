@@ -77,12 +77,25 @@
         $('form.formprintoption').submit(function(e){
             e.preventDefault();
         });
-        $('button.print').on('click', function () {
-            $('div.preview').print({
+        function printData()
+        {
+            var divToPrint=$('div.preview')[0];
+            newWin= window.open("");
+            newWin.document.write(divToPrint.outerHTML);
+            newWin.print({
                 addGlobalStyles : false,
                 rejectWindow : true,
                 iframe : true,
             });
+            newWin.close();
+        }
+        $('button.print').on('click', function () {
+            printData();
+            /*$('div.preview').print({
+                addGlobalStyles : false,
+                rejectWindow : true,
+                iframe : true,
+            });*/
         });
         $('button.download').on('click', function () {
             window.location.replace('<?php echo site_url('kasbon_umum/cashbon/exportpdf/'.bin2hex(json_encode(array('cashbonid' => $cashbon->cashbonid, )))) ?>?' + $('form.formprintoption').serialize())
