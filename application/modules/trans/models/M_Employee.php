@@ -97,6 +97,12 @@ SELECT
     e.nmjabatan, 
     f.nmlengkap AS nmatasan, 
     g.nmlengkap AS nmatasan2,
+    CASE
+        WHEN COALESCE(TRIM(a.nohp1), '') != ''  AND COALESCE(TRIM(a.nohp2), '') != '' THEN CONCAT(COALESCE(TRIM(a.nohp1), ''),', ',COALESCE(TRIM(a.nohp2), ''))
+        WHEN (COALESCE(TRIM(a.nohp1), '') IS NULL OR a.nohp1 = '' ) THEN COALESCE(TRIM(a.nohp2), '')
+        WHEN (COALESCE(TRIM(a.nohp2), '') IS NULL OR a.nohp2 = '' ) THEN COALESCE(TRIM(a.nohp1), '')
+        ELSE 'Belum diatur'
+    END AS mergephone,
     CONCAT(COALESCE(TRIM(a.nik), ''), '.', COALESCE(TRIM(a.nik_atasan), ''), '.', COALESCE(TRIM(a.nik_atasan2), ''), '.') AS search
 FROM sc_mst.karyawan a
 LEFT OUTER JOIN sc_mst.departmen b ON a.bag_dept = b.kddept

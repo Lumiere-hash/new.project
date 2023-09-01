@@ -5,31 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00017.20230822.55.Tunjangan-Tidak-Tetap/+up/017.data.sc_mst.option.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/modules/master/models/M_RegionalOffice.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/captcha/1693444283.1388.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/Cashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/Cashbon.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/DeclarationCashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/DeclarationCashbon.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/views/cashbon/v_print_option.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/views/cashbon/v_print_option.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/views/cashbon/v_read_pdf.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/views/cashbon/v_read_pdf.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/v_print_option.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/v_print_option.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/v_read_pdf.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/v_read_pdf.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/master/models/m_option.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/master/models/m_option.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/Cashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/Cashbon.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/DeclarationCashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/DeclarationCashbon.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cashbon/v_print_option.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/cashbon/v_print_option.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cashbon/v_read_pdf.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/cashbon/v_read_pdf.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_print_option.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_print_option.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_read_pdf.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_read_pdf.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1693366046.2775.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1693367255.0195.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1693369333.0121.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1693369509.2911.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1693369522.8669.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1693371168.9073.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/models/M_Employee.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/M_Employee.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/models/m_dinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/m_dinas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_detaildinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_detaildinas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1693444283.1388.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -348,33 +329,33 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;database.data.extractors.current.export.id&quot;: &quot;SQL Inserts&quot;,
-    &quot;database.data.extractors.current.id&quot;: &quot;SQL Inserts&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/PROJECT/hrms.nbim&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "database.data.extractors.current.export.id": "SQL Inserts",
+    "database.data.extractors.current.id": "SQL Inserts",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/PROJECT/hrms.nusa/application/modules/trans/views",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "yarn",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\PROJECT\hrms.nusa\application\third_party" />
       <recent name="D:\PROJECT\hrms.nusa\application\modules\trans\views" />
+      <recent name="D:\PROJECT\hrms.nusa\application\third_party" />
       <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00017.20230822.55.Tunjangan-Tidak-Tetap\+up" />
       <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00017.20230822.55.Tunjangan-Tidak-Tetap\-down" />
       <recent name="D:\PROJECT\hrms.nusa\application\modules\trans\views\dinas" />
@@ -699,7 +680,8 @@
       <workItem from="1692668770391" duration="101356000" />
       <workItem from="1692926970391" duration="100327000" />
       <workItem from="1693362398325" duration="9244000" />
-      <workItem from="1693444294036" duration="8713000" />
+      <workItem from="1693444294036" duration="9664000" />
+      <workItem from="1693532338230" duration="2869000" />
     </task>
     <servers />
   </component>

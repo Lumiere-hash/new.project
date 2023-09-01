@@ -1,5 +1,4 @@
 <?php
-
 ?>
 <style>
 	.space {
@@ -52,7 +51,7 @@
                             <div class="form-group">
                                 <label class="col-sm-4">No.Telepon</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="" class="form-control" value="<?php echo (!empty($default->transaction->no_telp) ? $default->transaction->no_telp : $employee->nohp1) ?>" readonly/>
+                                    <input type="text" name="" class="form-control" value="<?php echo $default->transaction->no_telp ?>" readonly/>
                                 </div>
                             </div>
                         </div>
@@ -69,13 +68,13 @@
                             <div class="form-group">
                                 <label class="col-sm-4">Jenis Tujuan</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="" class="form-control" value="<?php echo (!empty($default->destinationtype->text) ? $default->destinationtype->text : 'Lainnya' ) ?>" readonly/>
+                                    <input type="text" name="" class="form-control" value="<?php echo $default->destinationtype->text ?>" readonly/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4">Tujuan Kota</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="" class="form-control" value="<?php echo (!empty($default->citycashbon->text) ? $default->citycashbon->text : $default->transaction->tujuan_kota) ?>" readonly/>
+                                    <input type="text" name="" class="form-control" value="<?php echo $default->citycashbon->text ?>" readonly/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -111,13 +110,13 @@
                             <div class="form-group">
                                 <label class="col-sm-4">Tipe Transportasi</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="" class="form-control" value="<?php echo (!empty($default->tipe_transportasi->text) ? $default->tipe_transportasi->text : 'Lainnya') ?>" readonly/>
+                                    <input type="text" name="" class="form-control" value="<?php echo $default->tipe_transportasi->text ?>" readonly/>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4">Transportasi</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="" class="form-control" value="<?php echo (!empty($default->transportasi->text) ? $default->transportasi->text : 'Lainnya') ?>" readonly/>
+                                    <input type="text" name="" class="form-control" value="<?php echo $default->transportasi->text ?>" readonly/>
                                 </div>
                             </div>
                         </div>

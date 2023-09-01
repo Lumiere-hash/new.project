@@ -25,8 +25,18 @@ class M_dinas extends CI_Model{
 	}
 
 	function q_dinas_karyawan($tgl,$status,$nikatasan){
-		return $this->db->query(" select *,( select true from sc_trx.cashbon where dutieid = x1.nodok ) as casboned, (select true from sc_trx.declaration_cashbon where dutieid = x1.nodok ) as declared from 
-		(select a.*,b.nmlengkap,c.nmdept,d.namakotakab,
+		return $this->db->query(" 
+        select *,
+           CASE
+               WHEN namakotakab IS NULL THEN tujuan_kota
+               ELSE namakotakab
+           END AS namakotakab,
+           CASE
+               WHEN jenis_tujuan IS NULL THEN 'LL'
+               ELSE jenis_tujuan
+           END AS jenis_tujuan,
+        ( select true from sc_trx.cashbon where dutieid = x1.nodok ) as casboned, (select true from sc_trx.declaration_cashbon where dutieid = x1.nodok ) as declared from 
+		(select a.*,b.nmlengkap,c.nmdept,d.namakotakab,b.nohp1,
 								case
 								when a.status='A' then 'PERLU PERSETUJUAN'
 								when a.status='C' then 'DIBATALKAN'
@@ -139,7 +149,7 @@ class M_dinas extends CI_Model{
 		trim(coalesce(to_char(tgl_selesai,'dd-mm-yyyy')::text,'')) as tgl_selesai,       
 		trim(coalesce(status::text,'')) as status,            
 		trim(coalesce(keperluan::text,'')) as keperluan,         
-		trim(coalesce(namakotakab::text,'')) as tujuan,            
+		trim(coalesce(namakotakab::text,'Lainnya')) as tujuan,            
 		trim(coalesce(input_date::text,'')) as input_date,        
 		trim(coalesce(input_by::text,'')) as input_by,          
 		trim(coalesce(to_char(approval_date,'dd-mm-yyyy HH:mm')::text,'')) as approval_date,     
