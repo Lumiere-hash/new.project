@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/ijin_karyawan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/ijin_karyawan.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -680,7 +681,7 @@
       <workItem from="1693362398325" duration="9244000" />
       <workItem from="1693444294036" duration="9664000" />
       <workItem from="1693532338230" duration="15346000" />
-      <workItem from="1693791503495" duration="36955000" />
+      <workItem from="1693791503495" duration="39145000" />
     </task>
     <servers />
   </component>
