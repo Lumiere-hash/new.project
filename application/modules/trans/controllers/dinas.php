@@ -141,10 +141,10 @@ class Dinas extends MX_Controller
 
 		if (($userhr > 0 or $level_akses == 'A')) {
 			$nikatasan = '';
-		} else if (($ceknikatasan1) > 0 and $userhr == 0 and ($level_akses == 'B' or $level_akses == '04-1' or $level_akses == '03')) {
+		} else if (($ceknikatasan1) > 0 and $userhr == 0 and ($level_akses == 'B' or $level_akses == 'C' or $level_akses == 'D')) {
 			$nikatasan = "where x1.nik in (select trim(nik) from sc_mst.karyawan where nik_atasan='$nama') or x1.nik='$nama'";
 
-		} else if (($ceknikatasan2) > 0 and $userhr == 0 and ($level_akses == 'B' or $level_akses == '04-1' or $level_akses == '03')) {
+		} else if (($ceknikatasan2) > 0 and $userhr == 0 and ($level_akses == 'B' or $level_akses == 'C' or $level_akses == 'D')) {
 			$nikatasan = "where x1.nik in (select trim(nik) from sc_mst.karyawan where nik_atasan2='$nama') or x1.nik='$nama'";
 		} else {
 			$nikatasan = "where x1.nik='$nama'";

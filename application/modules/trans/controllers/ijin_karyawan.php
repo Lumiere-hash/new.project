@@ -179,8 +179,11 @@ class Ijin_karyawan extends MX_Controller{
 
 	function add_ijin_karyawan(){
 		        //$nik1=explode('|',);
+        $this->load->model('trans/M_WorkSchedule');
         $nama = $this->session->userdata('nik');
         $nik=$this->input->post('nik');
+        $tgl_kerja1=$this->input->post('tgl_kerja');
+        $workSchedule = $this->M_WorkSchedule->read(' AND nik = \''.$nik.'\' AND tgl = \''.date('Y-m-d',strtotime($tgl_kerja1)).'\' ')->row();
         //$nodok=$this->input->post('nodok');
         $kddept=$this->input->post('department');
         $kdsubdept=$this->input->post('subdepartment');
@@ -188,7 +191,6 @@ class Ijin_karyawan extends MX_Controller{
         $kdlvljabatan=$this->input->post('kdlvl');
         $atasan=$this->input->post('atasan');
         $kdijin_absensi=$this->input->post('kdijin_absensi');
-        $tgl_kerja1=$this->input->post('tgl_kerja');
 
         if ($tgl_kerja1==''){
             $tgl_kerja=NULL;
@@ -227,6 +229,21 @@ class Ijin_karyawan extends MX_Controller{
         } else {
             $jam_selesai=$jam_selesai1;
         }
+
+        switch ($kdijin_absensi){
+            case 'DT':
+                $jam_awal = $workSchedule->checkin_schedule;
+                $jam_selesai = $this->input->post('jam_awal');
+                break;
+            case 'PA':
+                $jam_awal = $this->input->post('jam_selesai');
+                $jam_selesai = $workSchedule->checkout_schedule;
+                break;
+            case 'IK':
+                $jam_awal = $this->input->post('jam_awal');
+                $jam_selesai = $this->input->post('jam_selesai');
+                break;
+        }
         $durasi=abs(strtotime($jam_selesai)-strtotime($jam_awal)) / 60;
         $tgl_dok=$this->input->post('tgl_dok');
         $keterangan=$this->input->post('keterangan');
@@ -251,8 +268,8 @@ class Ijin_karyawan extends MX_Controller{
             'tgl_dok'=>$tgl_dok,
             'kdijin_absensi'=>strtoupper($kdijin_absensi),
             'tgl_kerja'=>$tgl_kerja,
-            'tgl_jam_mulai'=>$kdijin_absensi != 'PA' ? $jam_awal : null,
-            'tgl_jam_selesai'=>$kdijin_absensi != 'DT' ? $jam_selesai : null,
+            'tgl_jam_mulai'=>$jam_awal,
+            'tgl_jam_selesai'=>$jam_selesai,
             'keterangan'=>strtoupper($keterangan),
             'status'=>'I',
             'input_date'=>$tgl_input,

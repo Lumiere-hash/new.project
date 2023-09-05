@@ -62,9 +62,10 @@ FROM (
         d.day::DATE AS perday,
         c.callplan AS is_callplan,
         CASE
-            WHEN c.nodok is not null AND c.tipe_transportasi = 'TDN' AND COALESCE(TRIM(a.componentid), '') = 'SWK' THEN 0
+            WHEN c.nodok is not null AND c.tipe_transportasi = 'TDN' AND LEFT(COALESCE(TRIM(a.componentid), ''),3) = 'SWK' THEN 0
             ELSE COALESCE(g.nominal, 0)
         END AS defaultnominal,
+        c.transportasi,
         /*CASE
            WHEN c.tgl_mulai::DATE = d.day::DATE AND COALESCE(TRIM(a.componentid), '') = 'UD' THEN 0
            ELSE COALESCE(g.nominal, 0)
@@ -119,7 +120,7 @@ FROM (
         COALESCE(TRIM(b.declarationid), '') AS declarationid,
         d.day::DATE AS perday,
         CASE
-            WHEN c.nodok is not null AND c.tipe_transportasi = 'TDN' AND COALESCE(TRIM(a.componentid), '') = 'SWK' THEN 0
+            WHEN c.nodok is not null AND c.tipe_transportasi = 'TDN' AND LEFT(COALESCE(TRIM(a.componentid), ''),3) = 'SWK' THEN 0
             ELSE COALESCE(g.nominal, 0)
         END AS defaultnominal,
         /*CASE
@@ -128,6 +129,7 @@ FROM (
         END AS defaultnominal,*/
         h.nominal AS nominal,
         c.callplan AS iscallplan,
+        c.transportasi,
         COALESCE(TRIM(h.description), '') AS description
     FROM sc_mst.component_cashbon a
     LEFT OUTER JOIN sc_tmp.declaration_cashbon b ON TRUE

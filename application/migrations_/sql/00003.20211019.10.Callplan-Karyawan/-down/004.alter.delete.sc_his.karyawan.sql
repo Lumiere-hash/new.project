@@ -1,1 +1,0 @@
-ALTER TABLE IF EXISTS sc_his.karyawan DROP COLUMN IF EXISTS callplan;

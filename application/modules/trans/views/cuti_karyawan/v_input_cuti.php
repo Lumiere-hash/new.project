@@ -75,7 +75,7 @@
 <span id="postmessages"></span>
 
 <?php foreach ($list_lk as $lb) { ?>
-    <form action="<?php echo site_url('trans/cuti_karyawan/add_cuti_karyawan')?>" method="post">
+    <form class="add_cuti" action="<?php echo site_url('trans/cuti_karyawan/add_cuti_karyawan')?>" method="post">
         <div class="modal-body">
             <div class="row">
                 <div class="col-sm-6">
@@ -321,8 +321,17 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a href="<?php echo site_url('trans/cuti_karyawan/karyawan');?>" type="button" class="btn btn-default"/> Kembali</a>
-            <button type="submit" id="submit"  class="btn btn-primary">SIMPAN</button>
+            <a href="<?php echo site_url('trans/cuti_karyawan/karyawan');?>" type="button" class="btn btn-default back"/> Kembali</a>
+            <button type="submit" id="submit"  class="btn btn-primary save">SIMPAN</button>
         </div>
     </form>
 <?php } ?>
+
+<script>
+    $(document).ready(function (){
+        $('form.add_cuti').on('submit', function (){
+            $('button.save').attr("disabled", true)
+            $('a.back').attr("disabled", true)
+        })
+    })
+</script>

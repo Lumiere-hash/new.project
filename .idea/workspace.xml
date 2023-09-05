@@ -5,12 +5,209 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00017.20230822.55.Tunjangan-Tidak-Tetap/+up/018.alter.function.sc_trx.pr_capture_approvals_system.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/models/M_Employee.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/M_Employee.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/models/m_dinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/m_dinas.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_detaildinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_detaildinas.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1693444283.1388.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations/00017_tunjangan_tidak_tetap.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/00017_tunjangan_tidak_tetap.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/00000_example.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/00001_dashboard.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/00002_option_block.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/00003_callplan_karyawan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/00004_tarik_absensi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/00005_karyawan_resign.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/00006_uang_makan_sales.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/00007_tarik_absensi_nik.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/00008_checklist.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/00009_checklist_realisasi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/00010_karyawan_borong.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/00011_master_gaji.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/00012_status_kepegawaian.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/00013_ijin_karyawan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/00014_biaya_dinas.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/00015_kasbon_umum.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/00016_bbm_sewa_kendaraan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/00017_tunjangan_tidak_tetap.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/logs/db.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/logs/git.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00000.yyyymmdd.hh.Example/+up/000.action.schema.table.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00000.yyyymmdd.hh.Example/-down/000.action.schema.table.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00001.20211016.08.Dashboard/+up/001.alter.sc_mst.option.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00001.20211016.08.Dashboard/+up/002.insert.sc_mst.option.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00001.20211016.08.Dashboard/-down/001.alter.sc_mst.option.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00001.20211016.08.Dashboard/-down/002.delete.sc_mst.option.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00002.20211018.09.Option-Block/+up/001.insert.sc_mst.option.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00002.20211018.09.Option-Block/-down/001.delete.sc_mst.option.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00003.20211019.10.Callplan-Karyawan/+up/001.alter.add.sc_mst.karyawan.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00003.20211019.10.Callplan-Karyawan/+up/002.alter.add.sc_tmp.karyawan.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00003.20211019.10.Callplan-Karyawan/+up/003.alter.add.sc_im.karyawan.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00003.20211019.10.Callplan-Karyawan/+up/004.alter.add.sc_his.karyawan.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00003.20211019.10.Callplan-Karyawan/+up/005.alter.add.sc_his.karyawan_del.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00003.20211019.10.Callplan-Karyawan/+up/006.replace.sc_mst.pr_del_karyawan().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00003.20211019.10.Callplan-Karyawan/+up/007.replace.sc_tmp.pr_nipnbi_after().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00003.20211019.10.Callplan-Karyawan/+up/008.replace.sc_im.pr_load_new_data().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00003.20211019.10.Callplan-Karyawan/+up/009.replace.sc_his.karyawan_after().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00003.20211019.10.Callplan-Karyawan/+up/010.replace.sc_mst.lv_m_karyawan.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00003.20211019.10.Callplan-Karyawan/-down/001.alter.delete.sc_mst.karyawan.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00003.20211019.10.Callplan-Karyawan/-down/002.alter.delete.sc_tmp.karyawan.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00003.20211019.10.Callplan-Karyawan/-down/003.alter.delete.sc_im.karyawan.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00003.20211019.10.Callplan-Karyawan/-down/004.alter.delete.sc_his.karyawan.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00003.20211019.10.Callplan-Karyawan/-down/005.alter.delete.sc_his.karyawan_del.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00003.20211019.10.Callplan-Karyawan/-down/006.replace.sc_mst.pr_del_karyawan().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00003.20211019.10.Callplan-Karyawan/-down/007.replace.sc_tmp.pr_nipnbi_after().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00003.20211019.10.Callplan-Karyawan/-down/008.replace.sc_im.pr_load_new_data().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00003.20211019.10.Callplan-Karyawan/-down/009.replace.sc_his.karyawan_after().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00003.20211019.10.Callplan-Karyawan/-down/010.replace.sc_his.lv_history_gaji.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00003.20211019.10.Callplan-Karyawan/-down/011.replace.sc_mst.lv_m_karyawan.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00003.20211019.10.Callplan-Karyawan/-down/012.drop.sc_mst.lv_m_karyawan.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00003.20211019.10.Callplan-Karyawan/-down/013.drop.sc_his.lv_history_gaji.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00004.20211021.10.Tarik-Absensi/+up/001.alter.add.sc_tmp.checkinout.customeroutletcode.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00004.20211021.10.Tarik-Absensi/+up/002.alter.add.sc_tmp.checkinout.customercodelocal.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00004.20211021.10.Tarik-Absensi/+up/003.alter.add.sc_tmp.checkinout.custname.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00004.20211021.10.Tarik-Absensi/+up/004.alter.add.sc_tmp.checkinout.customertype.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00004.20211021.10.Tarik-Absensi/+up/005.create.sc_tmp.scheduletolocation.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00004.20211021.10.Tarik-Absensi/+up/006.alter.add.sc_trx.uangmakan.rencanacallplan.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00004.20211021.10.Tarik-Absensi/+up/007.alter.add.sc_trx.uangmakan.realisasicallplan.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00004.20211021.10.Tarik-Absensi/+up/008.replace.sc_tmp.pr_hitung_rekap_um().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00004.20211021.10.Tarik-Absensi/+up/009.replace.sc_trx.tr_transready_uangmkn().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00004.20211021.10.Tarik-Absensi/-down/001.alter.delete.sc_tmp.checkinout.customeroutletcode.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00004.20211021.10.Tarik-Absensi/-down/002.alter.delete.sc_tmp.checkinout.customercodelocal.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00004.20211021.10.Tarik-Absensi/-down/003.alter.delete.sc_tmp.checkinout.custname.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00004.20211021.10.Tarik-Absensi/-down/004.alter.delete.sc_tmp.checkinout.customertype.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00004.20211021.10.Tarik-Absensi/-down/005.drop.sc_tmp.scheduletolocation.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00004.20211021.10.Tarik-Absensi/-down/006.alter.delete.sc_trx.uangmakan.rencanacallplan.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00004.20211021.10.Tarik-Absensi/-down/007.alter.delete.sc_trx.uangmakan.realisasicallplan.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00004.20211021.10.Tarik-Absensi/-down/008.replace.sc_tmp.pr_hitung_rekap_um().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00004.20211021.10.Tarik-Absensi/-down/009.replace.sc_trx.tr_transready_uangmkn().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00005.20211027.13.Karyawan-Resign/+up/001.replace.sc_mst.pr_del_karyawan().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00005.20211027.13.Karyawan-Resign/+up/002.replace.sc_trx.pr_stspeg_after().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00005.20211027.13.Karyawan-Resign/-down/001.replace.sc_mst.pr_del_karyawan().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00005.20211027.13.Karyawan-Resign/-down/002.replace.sc_trx.pr_stspeg_after().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00006.20211029.13.Uang-Makan-Sales/+up/001.replace.sc_tmp.pr_hitung_rekap_um().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00006.20211029.13.Uang-Makan-Sales/-down/001.replace.sc_tmp.pr_hitung_rekap_um().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00007.20211029.17.Tarik-Absensi-Nik/+up/001.alter.add.sc_tmp.checkinout.nik.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00007.20211029.17.Tarik-Absensi-Nik/+up/002.replace.sc_tmp.pr_hitung_rekap_um().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00007.20211029.17.Tarik-Absensi-Nik/-down/001.alter.delete.sc_tmp.checkinout.nik.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00007.20211029.17.Tarik-Absensi-Nik/-down/002.replace.sc_tmp.pr_hitung_rekap_um().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/+up/001.create.sc_mst.checklist_periode.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/+up/002.insert.sc_mst.checklist_periode.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/+up/003.create.sc_mst.checklist_lokasi.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/+up/004.create.sc_mst.checklist_parameter.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/+up/005.create.sc_mst.checklist_parameter_dept.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/+up/006.insert.sc_mst.menuprg.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/+up/007.create.sc_tmp.checklist.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/+up/008.create.sc_tmp.checklist_user.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/+up/009.create.sc_tmp.checklist_parameter.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/+up/010.create.sc_tmp.checklist_tanggal.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/+up/011.create.sc_tmp.checklist_realisasi.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/+up/012.create.sc_trx.checklist.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/+up/013.create.sc_trx.checklist_user.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/+up/014.create.sc_trx.checklist_parameter.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/+up/015.create.sc_trx.checklist_tanggal.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/+up/016.create.sc_trx.checklist_realisasi.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/+up/017.create.sc_tmp.pr_checklist_au().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/+up/018.create.sc_tmp.tr_checklist_au.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/+up/019.create.sc_trx.pr_checklist_au().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/+up/020.create.sc_trx.tr_checklist_au.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/-down/001.drop.sc_mst.checklist_periode.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/-down/002.delete.sc_mst.checklist_periode.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/-down/003.drop.sc_mst.checklist_lokasi.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/-down/004.drop.sc_mst.checklist_parameter.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/-down/005.drop.sc_mst.checklist_parameter_dept.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/-down/006.delete.sc_mst.menuprg.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/-down/007.drop.sc_tmp.checklist.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/-down/008.drop.sc_tmp.checklist_user.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/-down/009.drop.sc_tmp.checklist_parameter.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/-down/010.drop.sc_tmp.checklist_tanggal.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/-down/011.drop.sc_tmp.checklist_realisasi.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/-down/012.drop.sc_trx.checklist.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/-down/013.drop.sc_trx.checklist_user.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/-down/014.drop.sc_trx.checklist_parameter.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/-down/015.drop.sc_trx.checklist_tanggal.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/-down/016.drop.sc_trx.checklist_realisasi.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/-down/017.drop.sc_tmp.pr_checklist_au().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/-down/018.drop.sc_tmp.tr_checklist_au.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/-down/019.drop.sc_trx.pr_checklist_au().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00008.20211030.09.Checklist/-down/020.drop.sc_trx.tr_checklist_au.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00009.20211112.13.Checklist-Realisasi/+up/001.alter.add.sc_tmp.checklist_realisasi.realisasi.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00009.20211112.13.Checklist-Realisasi/+up/002.alter.add.sc_trx.checklist_realisasi.realisasi.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00009.20211112.13.Checklist-Realisasi/-down/001.alter.delete.sc_tmp.checklist_realisasi.realisasi.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00009.20211112.13.Checklist-Realisasi/-down/002.alter.delete.sc_trx.checklist_realisasi.realisasi.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00010.20220124.10.Karyawan-Borong/+up/001.insert.sc_mst.nomor.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00010.20220124.10.Karyawan-Borong/+up/002.replace.sc_tmp.pr_nipnbi_after().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00010.20220124.10.Karyawan-Borong/-down/001.delete.sc_mst.nomor.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00010.20220124.10.Karyawan-Borong/-down/002.replace.sc_tmp.pr_nipnbi_after().sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00011.20220207.09.Master-Gaji/+up/001.replace.sc_mst.v_dtlgaji_karyawan.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00011.20220207.09.Master-Gaji/-down/001.replace.sc_mst.v_dtlgaji_karyawan.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00012.20230619.15.Status-Kepegawaian/+up/001.alter.add.sc_tmp.status_kepegawaian.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00012.20230619.15.Status-Kepegawaian/+up/002.alter.add.sc_trx.status_kepegawaian.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00012.20230619.15.Status-Kepegawaian/+up/003.trigger.sc_tmp.pr_stspeg_after.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00012.20230619.15.Status-Kepegawaian/+up/004.trigger.sc_trx.pr_stspeg_after.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00012.20230619.15.Status-Kepegawaian/-down/001.replace.sc_mst.v_dtlgaji_karyawan.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00013.20230815.25.Ijin-Karyawan/+up/001.alter.table.ijin_karyawan.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00013.20230815.25.Ijin-Karyawan/+up/002.alter.function.sc_trx.tr_transready_uangmkn.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00013.20230815.25.Ijin-Karyawan/-down/002.alter.function.sc_trx.tr_transready_uangmkn.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00014.20221127.11.Biaya-Dinas/+up/001.view.listlinkjadwalcuti.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00014.20221127.11.Biaya-Dinas/+up/002.table.dinas.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00014.20221127.11.Biaya-Dinas/+up/003.view.listlinkjadwalcuti.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00014.20221127.11.Biaya-Dinas/+up/004.trigger.dinas.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00014.20221127.11.Biaya-Dinas/+up/005.table.component_cashbon.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00014.20221127.11.Biaya-Dinas/+up/006.table.destination_type.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00014.20221127.11.Biaya-Dinas/+up/007.table.jobposition_cashbon.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00014.20221127.11.Biaya-Dinas/+up/008.table.city_cashbon.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00014.20221127.11.Biaya-Dinas/+up/009.table.cashbon.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00014.20221127.11.Biaya-Dinas/+up/010.table.cashbon_component.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00014.20221127.11.Biaya-Dinas/+up/011.trigger.cashbon.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00014.20221127.11.Biaya-Dinas/+up/012.trigger.cashbon_component.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00014.20221127.11.Biaya-Dinas/+up/013.table.declaration_cashbon.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00014.20221127.11.Biaya-Dinas/+up/014.table.declaration_cashbon_component.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00014.20221127.11.Biaya-Dinas/+up/015.trigger.declaration_cashbon.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00014.20221127.11.Biaya-Dinas/+up/016.trigger.declaration_cashbon_component.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00014.20221127.11.Biaya-Dinas/+up/017.data.trxtype.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00014.20221127.11.Biaya-Dinas/+up/018.data.menu.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/+up/001.table.cashbon_blc.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/+up/002.table.sc_rep.pomst.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/+up/003.table.sc_rep.podtl.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/+up/004.table.sc_trx.pomst.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/+up/005.table.sc_trx.podtl.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/+up/006.data.trxtype.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/+up/007.table.sc_tmp.cashbon.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/+up/008.trigger.cashbon.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/+up/009.data.menu.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/+up/010.table.component_cashbon.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/+up/011.table.cashbon_component_po.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/+up/012.trigger.declaration_cashbon.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/+up/013.table.cashbon.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/+up/014.table.declaration_cashbon.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/+up/015.table.sc_rep.cashbon.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/+up/016.table.sc_rep.declaration_cashbon.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/sqlserver/001.table.d_transaksi..t_replication_cashbon.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/sqlserver/002.table.d_transaksi..t_replication_cashbon_notin.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/sqlserver/003.table.d_transaksi..t_replication_declaration_cashbon.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/sqlserver/004.table.d_transaksi..t_replication_declaration_cashbon_notin.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/sqlserver/005.table.d_transaksi..t_replication_cashbon_component.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/sqlserver/006.table.d_transaksi..t_replication_cashbon_component_notin.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/sqlserver/007.table.d_transaksi..t_replication_cashbon_component_po.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/sqlserver/008.table.d_transaksi..t_replication_cashbon_component_po_notin.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/sqlserver/009.table.d_transaksi..t_replication_declaration_cashbon_component.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00015.20230127.09.Kasbon-Umum/sqlserver/009.table.d_transaksi..t_replication_declaration_cashbon_component_notin.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00016.20230822.24.BBM-Sewa-Kendaraan/+up/001.data.sc_mst.menuprg.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00016.20230822.24.BBM-Sewa-Kendaraan/+up/002.create.table.sc_trx.bbmtrx.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00016.20230822.24.BBM-Sewa-Kendaraan/+up/003.create.table.sc_trx.sewakendaraaan.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00016.20230822.24.BBM-Sewa-Kendaraan/+up/004.alter.sc_tmp.pr_hitung_rekap_bbm.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/00016.20230822.24.BBM-Sewa-Kendaraan/+up/005.alter.sc_tmp.pr_hitung_rekap_sewakendaraan.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations_/sql/_cheatsheet.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/DeclarationCashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/DeclarationCashbon.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/dinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/dinas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/ijin_karyawan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/ijin_karyawan.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/models/M_DeclarationCashbonComponent.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/M_DeclarationCashbonComponent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan/v_input_cuti.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan/v_input_cuti.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_component_read.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_component_read.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/ijin_karyawan/v_detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/ijin_karyawan/v_detail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/ijin_karyawan/v_input.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/ijin_karyawan/v_input.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/lembur/v_input.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/lembur/v_input.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1693532624.5557.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1693532632.984.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -337,28 +534,31 @@
     "database.data.extractors.current.export.id": "SQL Inserts",
     "database.data.extractors.current.id": "SQL Inserts",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/PROJECT/hrms.nusa/application/modules/trans/views",
+    "last_opened_file_path": "D:/PROJECT/hrms.nusa/application/migrations/sql/00018.20230904.58.Mapping-Nominal-Komponen-Kasbon/-down",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "yarn",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "editor.preferences.tabs",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
     "DatabaseDriversLRU": [
       "postgresql"
+    ],
+    "com.intellij.ide.scratch.LRUPopupBuilder$1/": [
+      "PostgreSQL"
     ]
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00018.20230904.58.Mapping-Nominal-Komponen-Kasbon\-down" />
+      <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00018.20230904.58.Mapping-Nominal-Komponen-Kasbon\+up" />
+      <recent name="D:\PROJECT\hrms.nusa\application\migrations" />
       <recent name="D:\PROJECT\hrms.nusa\application\modules\trans\views" />
       <recent name="D:\PROJECT\hrms.nusa\application\third_party" />
-      <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00017.20230822.55.Tunjangan-Tidak-Tetap\+up" />
-      <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00017.20230822.55.Tunjangan-Tidak-Tetap\-down" />
-      <recent name="D:\PROJECT\hrms.nusa\application\modules\trans\views\dinas" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql" />
@@ -681,7 +881,8 @@
       <workItem from="1692926970391" duration="100327000" />
       <workItem from="1693362398325" duration="9244000" />
       <workItem from="1693444294036" duration="9664000" />
-      <workItem from="1693532338230" duration="2869000" />
+      <workItem from="1693532338230" duration="15346000" />
+      <workItem from="1693791503495" duration="33144000" />
     </task>
     <servers />
   </component>
@@ -774,6 +975,11 @@
             <option name="methodName" value="realisasi_callplan" />
           </properties>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/application/modules/trans/controllers/DeclarationCashbon.php</url>
+          <line>458</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

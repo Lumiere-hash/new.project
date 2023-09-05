@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_Kasbon_Umum extends CI_Migration {
-    protected $_version =  "00016.20230822.24.BBM-Sewa-Kendaraan";
+class Migration_Tunjangan_Tidak_Tetap extends CI_Migration {
+    protected $_version =  "00017.20230822.55.Tunjangan-Tidak-Tetap";
 
     ################################################## DO NOT CHANGE THIS LINE !!! ##################################################
     public function up() {

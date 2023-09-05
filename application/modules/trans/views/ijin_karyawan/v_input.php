@@ -206,8 +206,8 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a type="button" class="btn btn-default" href="<?php echo site_url("trans/ijin_karyawan/karyawan"); ?>">Close</a>
-            <button type="submit" id="submit" class="btn btn-primary">SIMPAN</button>
+            <a type="button" class="btn btn-default back" href="<?php echo site_url("trans/ijin_karyawan/karyawan"); ?>">Close</a>
+            <button type="submit" id="submit" class="btn btn-primary save">SIMPAN</button>
         </div>
     </form>
 
@@ -528,7 +528,8 @@
         });
 
         $('form.formupdate').on('submit', function (){
-            $('#submit').prop('disabled', true);
+            $('button.save').attr("disabled", true)
+            $('a.back').attr("disabled", true)
         })
     })
 </script>

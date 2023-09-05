@@ -318,8 +318,17 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a type="button" class="btn btn-default" href="<?php echo site_url('trans/lembur/karyawan'); ?>"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
-            <button type="submit" id="submit" class="btn btn-success"><i class="fa fa-save"></i>&nbsp; Simpan</button>
+            <a type="button" class="btn btn-default back" href="<?php echo site_url('trans/lembur/karyawan'); ?>"><i class="fa fa-arrow-left"></i>&nbsp; Kembali</a>
+            <button type="submit" id="submit" class="btn btn-success save"><i class="fa fa-save"></i>&nbsp; Simpan</button>
         </div>
     </form>
 <?php } ?>
+
+<script>
+    $(document).ready(function (){
+        $('form[name=\'autoSumForm\']').on('submit', function (){
+            $('button.save').attr("disabled", true)
+            $('a.back').attr("disabled", true)
+        })
+    })
+</script>

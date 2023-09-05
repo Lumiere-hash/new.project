@@ -112,7 +112,7 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="col-sm-4">Durasi(jam)</label>	
+								<label class="col-sm-4">Durasi(menit)</label>
 								<div class="col-sm-8">    
 									<input type="number" id="gaji" name="durasi" placeholder="0" value="<?php echo trim($lb->durasi); ?>"  class="form-control" readonly >
 								</div>

@@ -120,9 +120,9 @@ class DeclarationCashbon extends CI_Controller {
             'destinationtype' => $this->M_DestinationType->q_master_search_where(' AND id = \''.$dinas->jenis_tujuan.'\' ')->row(),
             'citycashbon' => $this->M_CityCashbon->q_master_search_where(' AND id = \''.$dinas->tujuan_kota.'\' ')->row(),
             'days' => $this->M_DeclarationCashbon->q_days_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' ')->result(),
-            'components' => $this->M_ComponentCashbon->q_master_read_where(' AND active AND type = \'DN\' ')->result(),
-            'declarationcomponents' => $this->M_DeclarationCashbonComponent->q_temporary_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND declarationid = \''.$this->session->userdata('nik').'\' AND active AND type = \'DN\' ')->result(),
-            'declarationcomponentsempty' => $this->M_DeclarationCashbonComponent->q_empty_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND active AND type = \'DN\' ')->result(),
+            'components' => $this->M_ComponentCashbon->q_master_read_where(' AND active AND type IN( \'DN\',\''.$dinas->transportasi.'\') ')->result(),
+            'declarationcomponents' => $this->M_DeclarationCashbonComponent->q_temporary_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND declarationid = \''.$this->session->userdata('nik').'\' AND active AND type IN (\'DN\',transportasi) ')->result(),
+            'declarationcomponentsempty' => $this->M_DeclarationCashbonComponent->q_empty_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND active AND type IN (\'DN\',transportasi) ')->result(),
             'cashboncomponents' => $this->M_CashbonComponent->q_transaction_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND active AND calculated ')->result(),
         ));
     }
@@ -172,8 +172,8 @@ class DeclarationCashbon extends CI_Controller {
             'achieved' => ( $dinas->callplan === 't' ? ($callplan > 0 ? $callplan_data->achieved : 0 ) : 1 ),
             'destinationtype' => $this->M_DestinationType->q_master_search_where(' AND id = \''.$dinas->jenis_tujuan.'\' ')->row(),
             'citycashbon' => $this->M_CityCashbon->q_master_search_where(' AND id = \''.$dinas->tujuan_kota.'\' ')->row(),
-            'declarationcomponents' => $this->M_DeclarationCashbonComponent->q_temporary_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND perday = \''.$json->perday.'\' AND declarationid = \''.$this->session->userdata('nik').'\' AND active AND type = \'DN\' ')->result(),
-            'declarationcomponentsempty' => $this->M_DeclarationCashbonComponent->q_empty_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND perday = \''.$json->perday.'\' AND active AND type = \'DN\' ')->result(),
+            'declarationcomponents' => $this->M_DeclarationCashbonComponent->q_temporary_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND perday = \''.$json->perday.'\' AND declarationid = \''.$this->session->userdata('nik').'\' AND active AND type IN (\'DN\',\''.$dinas->transportasi.'\') ')->result(),
+            'declarationcomponentsempty' => $this->M_DeclarationCashbonComponent->q_empty_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND perday = \''.$json->perday.'\' AND active AND type in (\'DN\',\''.$dinas->transportasi.'\') ')->result(),
             'perday' => $json->perday,
         ));
     }
@@ -181,8 +181,8 @@ class DeclarationCashbon extends CI_Controller {
         $json = json_decode(
             hex2bin($param)
         );
-        $this->load->model(array('M_DeclarationCashbon', 'M_DeclarationCashbonComponent', 'trans/M_MealAllowance' ));
-
+        $this->load->model(array('M_DeclarationCashbon', 'M_DeclarationCashbonComponent', 'trans/M_MealAllowance','trans/m_dinas' ));
+        $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$json->dutieid.'\' ')->row();
         $id = $this->input->post('id');
         $nominal = $this->input->post('nominal');
         $description = $this->input->post('description');
@@ -201,7 +201,7 @@ class DeclarationCashbon extends CI_Controller {
                 'perday' => $row->perday,
             ));
         }
-        foreach ($this->M_DeclarationCashbonComponent->q_empty_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND active AND readonly AND type = \'DN\' ')->result() as $index => $row) {
+        foreach ($this->M_DeclarationCashbonComponent->q_empty_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND active AND readonly AND type IN ( \'DN\',\''.$dinas->transportasi.'\') ')->result() as $index => $row) {
             $callplan = $this->M_MealAllowance->read(' AND nik = \''.$json->employeeid.'\' AND workdate = \''.$row->perday.'\' ')->row();
             if ((int)$row->defaultnominal > 0) {
                 if ($this->M_DeclarationCashbonComponent->q_temporary_exists(' TRUE AND declarationid = \'' . $this->session->userdata('nik') . '\' AND componentid = \'' . $row->componentid . '\' AND perday = \'' . $row->perday . '\' AND nominal IS NOT NULL ')) {
@@ -271,9 +271,9 @@ class DeclarationCashbon extends CI_Controller {
             'dinas' => $dinas,
             'declaration' => $this->M_DeclarationCashbon->q_temporary_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' ')->row(),
             'days' => $this->M_DeclarationCashbon->q_days_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' ')->result(),
-            'components' => $this->M_ComponentCashbon->q_master_read_where(' AND active AND type = \'DN\' ')->result(),
-            'declarationcomponents' => $this->M_DeclarationCashbonComponent->q_temporary_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND declarationid = \''.$this->session->userdata('nik').'\' AND active AND type = \'DN\' ')->result(),
-            'declarationcomponentsempty' => $this->M_DeclarationCashbonComponent->q_empty_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND active AND type = \'DN\' ')->result(),
+            'components' => $this->M_ComponentCashbon->q_master_read_where(' AND active AND type IN ( \'DN\', \''.$dinas->transportasi.'\' ) ')->result(),
+            'declarationcomponents' => $this->M_DeclarationCashbonComponent->q_temporary_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND declarationid = \''.$this->session->userdata('nik').'\' AND active AND type IN ( \'DN\', \''.$dinas->transportasi.'\' ) ')->result(),
+            'declarationcomponentsempty' => $this->M_DeclarationCashbonComponent->q_empty_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND active AND type IN ( \'DN\', \''.$dinas->transportasi.'\' ) ')->result(),
         ));
     }
 	public function docreate($param=null) {
@@ -358,9 +358,9 @@ class DeclarationCashbon extends CI_Controller {
                 'destinationtype' => $this->M_DestinationType->q_master_search_where(' AND id = \''.$dinas->jenis_tujuan.'\' ')->row(),
                 'citycashbon' => $this->M_CityCashbon->q_master_search_where(' AND id = \''.$dinas->tujuan_kota.'\' ')->row(),
                 'days' => $this->M_DeclarationCashbon->q_days_read_where(' AND dutieid = \''.$temporary->dutieid.'\' AND cashbonid = \''.$temporary->cashbonid.'\' ')->result(),
-                'components' => $this->M_ComponentCashbon->q_master_read_where(' AND active AND type = \'DN\' ')->result(),
-                'declarationcomponents' => $this->M_DeclarationCashbonComponent->q_temporary_read_where(' AND dutieid = \''.$temporary->dutieid.'\' AND cashbonid = \''.$temporary->cashbonid.'\' AND declarationid = \''.$json->declarationid.'\' AND active AND type = \'DN\' ')->result(),
-                'declarationcomponentsempty' => $this->M_DeclarationCashbonComponent->q_empty_read_where(' AND dutieid = \''.$temporary->dutieid.'\' AND cashbonid = \''.$temporary->cashbonid.'\' AND type = \'DN\' ')->result(),
+                'components' => $this->M_ComponentCashbon->q_master_read_where(' AND active AND type IN( \'DN\',\''.$dinas->transportasi.'\') ')->result(),
+                'declarationcomponents' => $this->M_DeclarationCashbonComponent->q_temporary_read_where(' AND dutieid = \''.$temporary->dutieid.'\' AND cashbonid = \''.$temporary->cashbonid.'\' AND declarationid = \''.$json->declarationid.'\' AND active AND type IN (\'DN\',transportasi) ')->result(),
+                'declarationcomponentsempty' => $this->M_DeclarationCashbonComponent->q_empty_read_where(' AND dutieid = \''.$temporary->dutieid.'\' AND cashbonid = \''.$temporary->cashbonid.'\' AND type IN (\'DN\',transportasi) ')->result(),
                 'cashboncomponents' => $this->M_CashbonComponent->q_transaction_read_where(' AND dutieid = \''.$temporary->dutieid.'\' AND cashbonid = \''.$temporary->cashbonid.'\' AND active AND calculated ')->result(),
             ));
         }
@@ -393,12 +393,13 @@ class DeclarationCashbon extends CI_Controller {
             'destinationtype' => $this->M_DestinationType->q_master_search_where(' AND id = \''.$dinas->jenis_tujuan.'\' ')->row(),
             'citycashbon' => $this->M_CityCashbon->q_master_search_where(' AND id = \''.$dinas->tujuan_kota.'\' ')->row(),
             'declaration' => $this->M_DeclarationCashbon->q_temporary_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' ')->row(),
-            'declarationcomponents' => $this->M_DeclarationCashbonComponent->q_temporary_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND perday = \''.$json->perday.'\' AND declarationid = \''.$json->declarationid.'\' AND active AND type = \'DN\' ')->result(),
-            'declarationcomponentsempty' => $this->M_DeclarationCashbonComponent->q_empty_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND perday = \''.$json->perday.'\' AND active AND type = \'DN\' ')->result(),
+            'declarationcomponents' => $this->M_DeclarationCashbonComponent->q_temporary_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND perday = \''.$json->perday.'\' AND declarationid = \''.$json->declarationid.'\' AND active AND type IN (\'DN\',transportasi) ')->result(),
+            'declarationcomponentsempty' => $this->M_DeclarationCashbonComponent->q_empty_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND perday = \''.$json->perday.'\' AND active AND type IN (\'DN\',transportasi) ')->result(),
             'perday' => $json->perday,
         ));
     }
     public function doupdatecomponentpopup($param=null) {
+
         $json = json_decode(
             hex2bin($param)
         );
@@ -421,7 +422,8 @@ class DeclarationCashbon extends CI_Controller {
                 'perday' => $row->perday,
             ));
         }
-        foreach ($this->M_DeclarationCashbonComponent->q_empty_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND active AND readonly ')->result() as $index => $row) {
+        $type = (substr(trim($json->dutieid),0,2)== 'DL'? 'DN' : '-' )  ;
+        foreach ($this->M_DeclarationCashbonComponent->q_empty_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND active AND readonly AND type IN (\''.$type.'\',transportasi) ')->result() as $index => $row) {
             $callplan = $this->M_MealAllowance->read(' AND nik = \''.$json->employeeid.'\' AND workdate = \''.$row->perday.'\' ')->row();
             if ((int)$row->defaultnominal > 0) {
                 if ($this->M_DeclarationCashbonComponent->q_temporary_exists(' TRUE AND declarationid = \'' . $json->declarationid . '\' AND componentid = \'' . $row->componentid . '\' AND perday = \'' . $row->perday . '\' AND nominal IS NOT NULL ')) {
@@ -508,7 +510,7 @@ class DeclarationCashbon extends CI_Controller {
             'dinas' => $dinas,
             'declaration' => $declaration,
             'days' => $this->M_DeclarationCashbon->q_days_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' ')->result(),
-            'components' => $this->M_ComponentCashbon->q_master_read_where(' AND active AND type = \'DN\' ')->result(),
+            'components' => $this->M_ComponentCashbon->q_master_read_where(' AND active AND type in( \'DN\', \''.$dinas->transportasi.'\' ) ')->result(),
             'declarationcomponents' => $this->M_DeclarationCashbonComponent->q_temporary_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND declarationid = \''.$declaration->declarationid.'\' AND active ')->result(),
             'declarationcomponentsempty' => $this->M_DeclarationCashbonComponent->q_empty_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND active ')->result(),
         ));
