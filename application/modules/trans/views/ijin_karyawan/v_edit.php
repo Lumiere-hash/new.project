@@ -371,6 +371,18 @@ $(function() {
                 $('#jam_selesai').val('');
 
                 $('#submit').prop('disabled', false);
+            } else {
+                $('.tgl_kerja').show();
+                $('#tgl_jam_awal').val('');
+                $('.jam_awal').hide();
+                $('#jam_awal').removeAttr('required');
+                $('#jam_awal').val('');
+
+                $('.tgl_jam_selesai').hide();
+                $('#tgl_jam_selesai').val($('#tgl_kerja').val());
+                $('.jam_selesai').hide();
+                $('#jam_selesai').removeAttr('required');
+                $('#submit').prop('disabled', false);
             }
 
             $('#kdijin_absensi').change(function() {

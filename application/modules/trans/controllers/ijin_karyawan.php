@@ -302,8 +302,10 @@ class Ijin_karyawan extends MX_Controller
         $ktgijin = $this->input->post('ktgijin');
         $kendaraan = $this->input->post('kendaraan');
         $nopol = $this->input->post('nopol');
-
+//        var_dump($tgl_jam_awal);die();
         //echo $gaji_bpjs;
+        $primaryType = array('IK','DT','PA');
+
         $info = array(
             'nik' => $nik,
             'nodok' => $this->session->userdata('nik'),
@@ -317,8 +319,8 @@ class Ijin_karyawan extends MX_Controller
             'tgl_dok' => $tgl_dok,
             'kdijin_absensi' => strtoupper($kdijin_absensi),
             'tgl_kerja' => $tgl_kerja,
-            'tgl_jam_mulai' => ($kdijin_absensi != 'PA' ? $jam_awal1 : null),
-            'tgl_jam_selesai' => ($kdijin_absensi != 'DT' ? $jam_selesai1 : null),
+            'tgl_jam_mulai' => ( in_array($kdijin_absensi,$primaryType) ? (($kdijin_absensi == 'PA' AND $kdijin_absensi != 'IK') ?  null : $jam_awal1) : null),
+            'tgl_jam_selesai' => ( in_array($kdijin_absensi,$primaryType) ? (($kdijin_absensi == 'DT' AND $kdijin_absensi != 'IK') ?  null : $jam_selesai1) : null),
             'keterangan' => strtoupper($keterangan),
             'status' => 'I',
             'input_date' => $tgl_input,
@@ -329,6 +331,8 @@ class Ijin_karyawan extends MX_Controller
             'tgl_mulai' => $tgl_jam_awal,
             'tgl_selesai' => $tgl_jam_selesai,
         );
+
+//        var_dump($info);die();
 
         $cek = $this->m_ijin_karyawan->cek_double($nik, $tgl_kerja)->num_rows();
         if ($cek > 0 && in_array(strtoupper($ktgijin), array('IK'))) {
@@ -456,12 +460,13 @@ class Ijin_karyawan extends MX_Controller
                 break;
         }
         $durasi = abs(strtotime($jam_selesai) - strtotime($jam_awal)) / 60;
+        $primaryType = array('IK','DT','PA');
         $info = array(
             'durasi' => $durasi,
             'kdijin_absensi' => strtoupper($kdijin_absensi),
             'tgl_kerja' => $tgl_kerja,
-            'tgl_jam_mulai' => $kdijin_absensi != 'PA' ? $jam_awal1 : null,
-            'tgl_jam_selesai' => $kdijin_absensi != 'DT' ? $jam_selesai1 : null,
+            'tgl_jam_mulai' => ( in_array($kdijin_absensi,$primaryType) ? (($kdijin_absensi == 'PA' AND $kdijin_absensi != 'IK') ?  null : $jam_awal1) : null),
+            'tgl_jam_selesai' => ( in_array($kdijin_absensi,$primaryType) ? (($kdijin_absensi == 'DT' AND $kdijin_absensi != 'IK') ?  null : $jam_selesai1) : null),
             'keterangan' => strtoupper($keterangan),
             'update_date' => $tgl_input,
             'update_by' => strtoupper($inputby),

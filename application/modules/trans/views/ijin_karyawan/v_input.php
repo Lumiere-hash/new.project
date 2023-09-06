@@ -110,7 +110,7 @@
                                             <option value=""><?php echo '-- PILIH TYPE IJIN ---'; ?></option>
                                             <?php foreach ($list_ijin as $listkan) { ?>
                                                 <option
-                                                    value="<?php echo trim($listkan->kdijin_absensi); ?>"><?php echo $listkan->nmijin_absensi; ?></option>
+                                                        value="<?php echo trim($listkan->kdijin_absensi); ?>"><?php echo $listkan->nmijin_absensi; ?></option>
                                             <?php } ?>
                                         </select>
                                     </div>
@@ -160,7 +160,7 @@
                                     <div class="col-sm-8">
                                         <select class="form-control input-sm" name="kendaraan" id="kendaraan">
                                             <option
-                                                value=""><?php echo '-- PILIH JENIS KENDARAAN DIPAKAI ---'; ?></option>
+                                                    value=""><?php echo '-- PILIH JENIS KENDARAAN DIPAKAI ---'; ?></option>
                                             <option value="PRIBADI"><?php echo 'PRIBADI'; ?></option>
                                             <option value="DINAS"><?php echo 'DINAS'; ?></option>
                                         </select>
@@ -308,6 +308,7 @@
         }
     }
     function checkDateIsEmpty(){
+        console.log('fff')
         if ($('#tgl_kerja').val().length === 0){
             Swal.mixin({
                 customClass: {
@@ -493,6 +494,18 @@
                         $('#jam_selesai').val('');
 
                         $('#submit').prop('disabled', false);
+                    }else{
+                        $('.tgl_kerja').show();
+                        $('#tgl_jam_awal').val('');
+                        $('.jam_awal').hide();
+                        $('#jam_awal').removeAttr('required');
+                        $('#jam_awal').val('');
+
+                        $('.tgl_jam_selesai').hide();
+                        $('#tgl_jam_selesai').val($('#tgl_kerja').val());
+                        $('.jam_selesai').hide();
+                        $('#jam_selesai').removeAttr('required');
+                        $('#submit').prop('disabled', false);
                     }
                 }else{
                     Swal.mixin({
@@ -533,4 +546,3 @@
         })
     })
 </script>
-
