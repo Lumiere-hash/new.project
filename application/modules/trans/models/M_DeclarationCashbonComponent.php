@@ -184,7 +184,8 @@ FROM (
         d.day::DATE AS perday,
         COALESCE(g.nominal, 0) AS defaultnominal,
         h.nominal AS nominal,
-        COALESCE(TRIM(h.description), '') AS description
+        COALESCE(TRIM(h.description), '') AS description,
+        c.transportasi
     FROM sc_mst.component_cashbon a
     LEFT OUTER JOIN sc_trx.declaration_cashbon b ON TRUE
     LEFT OUTER JOIN sc_trx.dinas c ON TRUE
