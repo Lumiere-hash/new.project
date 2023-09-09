@@ -159,7 +159,7 @@
     <tr>
         <td class="borderall fontsize12 paddingall">4. Sarana Transportasi</td>
         <td class="borderall fontsize12 paddingall"></td>
-        <td class="borderall fontsize12 paddingall" colspan="9"><?php echo $transportasi->text ?></td>
+        <td class="borderall fontsize12 paddingall" colspan="9"><?php echo $transportasi->text.' ('.$transptype->text.')' ?></td>
     </tr>
     <tr>
         <td class="borderall fontsize12 paddingall">5. Berangkat :</td>
