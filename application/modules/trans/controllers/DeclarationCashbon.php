@@ -203,6 +203,7 @@ class DeclarationCashbon extends CI_Controller {
         }
         foreach ($this->M_DeclarationCashbonComponent->q_empty_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND active AND readonly AND type IN ( \'DN\',\''.$dinas->transportasi.'\') ')->result() as $index => $row) {
             $callplan = $this->M_MealAllowance->read(' AND nik = \''.$json->employeeid.'\' AND workdate = \''.$row->perday.'\' ')->row();
+
             if ((int)$row->defaultnominal > 0) {
                 if ($this->M_DeclarationCashbonComponent->q_temporary_exists(' TRUE AND declarationid = \'' . $this->session->userdata('nik') . '\' AND componentid = \'' . $row->componentid . '\' AND perday = \'' . $row->perday . '\' AND nominal IS NOT NULL ')) {
                     $this->M_DeclarationCashbonComponent->q_temporary_update(array(
@@ -236,7 +237,7 @@ class DeclarationCashbon extends CI_Controller {
         }
         $this->M_DeclarationCashbonComponent->q_temporary_delete(' TRUE AND declarationid = \''.$this->session->userdata('nik').'\' AND perday = \''.$json->perday.'\' ');
         foreach ($this->M_DeclarationCashbonComponent->q_empty_read_where(' AND cashbonid = \''.$json->cashbonid.'\' AND perday = \''.$json->perday.'\' ')->result() as $index => $row) {
-            $callplan = $this->M_MealAllowance->read(' AND nik = \''.$json->employeeid.'\' AND workdate = \''.$row->perday.'\' ')->row();
+            $callplan = $this->M_MealAllowance->read(' AND nik = \''.$json->employeeid.'\' AND workdate = \''.$row->perday.'\' AND dutieid = \''.$dinas->nodok.'\'  ')->row();
             if ((int)$data[$row->componentid]->nominal > 0) {
                 $this->M_DeclarationCashbonComponent->q_temporary_create(array(
                     'branch' => $this->session->userdata('branch'),
@@ -244,7 +245,7 @@ class DeclarationCashbon extends CI_Controller {
                     'componentid' => $row->componentid,
                     'perday' => $row->perday,
 //                    'nominal' => $row->readonly == 't' ? $row->defaultnominal : (int)$data[$row->componentid]->nominal,
-                    'nominal' => $row->readonly == 't' ? (($row->componentid == 'UD' AND $row->is_callplan == 't') ? ($callplan->achieved ? $row->defaultnominal : 0 ) : $row->defaultnominal) : (int)$data[$row->componentid]->nominal,
+                    'nominal' => $row->readonly == 't' ? (($row->componentid == 'UD' AND $row->is_callplan === 't') ? ($callplan->achieved ? $row->defaultnominal : 0 ) : $row->defaultnominal) : (int)$data[$row->componentid]->nominal,
                     'description' => $row->readonly == 't' ? $row->description : ($row->calculated == 't' ? $data[$row->componentid]->description : $row->description),
                     'inputby' => $this->session->userdata('nik'),
                     'inputdate' => date('Y-m-d H:i:s'),
