@@ -22,7 +22,7 @@ SELECT * FROM (
         COALESCE(a.realisasicallplan,0) AS realization,
         CASE
             WHEN extract(day from now()::timestamp - c.tglmasukkerja::timestamp) <= 30 AND a.rencanacallplan > 1 AND b.callplan = 't' THEN 1
-            WHEN (a.realisasicallplan >= a.rencanacallplan) AND a.rencanacallplan > 1 AND b.callplan = 't' THEN 1
+            WHEN (a.realisasicallplan >= a.rencanacallplan) AND a.rencanacallplan > 0 AND b.callplan = 't' THEN 1
             WHEN b.callplan = 'f' THEN 1
         ELSE 0
     END AS achieved,

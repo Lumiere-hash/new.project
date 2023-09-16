@@ -332,7 +332,7 @@ class M_mobileApprovals extends CI_Model{
                     coalesce(trim(b.nmsubdept      ::text),'') as nmsubdept,
                     coalesce(trim(b.nmjabatan      ::text),'') as nmjabatan,
                     coalesce(trim(b.nmlvljabatan      ::text),'') as nmlvljabatan,
-                    coalesce(trim(c.tujuan      ::text),'') as tujuan,
+                    coalesce(trim(c.tujuan_kota      ::text),'') as tujuan,
                     coalesce(trim(c.keperluan      ::text),'') as keperluan,
                     coalesce(trim(c1.nmkategori      ::text),'') as nmkategori,
                     coalesce(trim(to_char(c.tgl_mulai,'dd-mm-yyyy'      )::text),'') as tgl_mulai,

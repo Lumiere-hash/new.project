@@ -19,6 +19,7 @@
                         <label class="form-label" for="declarationcashbonstatus">Status</label>
                         <select class="form-control dtsearch select2" name="declarationcashbonstatus" id="declarationcashbonstatus" >
                             <?php
+							echo '<option value="">SEMUA</option>';
                             foreach ($status as $key => $row){
                                 echo '<option value="'.$key.'">'.strtoupper($row).'</option>';
                             }
