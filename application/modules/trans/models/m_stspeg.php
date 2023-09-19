@@ -57,7 +57,7 @@ class M_stspeg extends CI_Model{
                                 to_char(b.tgl_selesai,'DD-MM-YYYY') as tgl_selesai1,a1.nmdept
                                 from sc_mst.karyawan a
                                 left outer join sc_mst.departmen a1 on a.bag_dept=a1.kddept
-                                left outer join sc_trx.status_kepegawaian b on a.nik=b.nik and a.statuskepegawaian=b.kdkepegawaian
+                                left outer join sc_trx.status_kepegawaian b on a.nik=b.nik and a.statuskepegawaian=b.kdkepegawaian and b.status='B'
                                 left outer join sc_mst.status_kepegawaian c on trim(b.kdkepegawaian)=trim(c.kdkepegawaian)
                                 where a.statuskepegawaian<>'KO' and coalesce(a.statuskepegawaian,'') in ('P1','P2','P3','P4','P5')
                                 and to_char(tgl_selesai,'YYYYMM') between to_char(now() - interval '2 Months','YYYYMM') and  to_char(now() + interval '2 Months','YYYYMM')
@@ -103,7 +103,7 @@ class M_stspeg extends CI_Model{
 	    where a.nik=b.nik and a.kdkepegawaian = b.kdkepegawaian and a.nodok=b.nodok) a
 	    left outer join sc_mst.status_kepegawaian b on a.kdkepegawaian=b.kdkepegawaian
 	    ) as y on x.nik=y.nik and x.statuskepegawaian=y.kdkepegawaian
-	    where coalesce(statuskepegawaian,'') != 'KO' and valueday<=60 and coalesce(statuskepegawaian,'') in ('OJ','PK')  $param order by valueday asc");
+	    where coalesce(statuskepegawaian,'') != 'KO' and valueday<=60 and coalesce(statuskepegawaian,'') in ('OJ','PK') and y.status='B' $param order by valueday asc");
     }
 	
 	function q_list_magang($param=null){

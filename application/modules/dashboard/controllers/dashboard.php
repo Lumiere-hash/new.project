@@ -38,19 +38,19 @@ class Dashboard extends MX_Controller{
 			
 			$data["list_kir_kendaraan"] = $this->m_kendaraan->q_kirkendaraan()->result();;
             $data["title_kir_kendaraan"] = "KIR Kendaraan";
-        }
 
-        $data["list_cuti"] = $this->m_report->q_remind_cuti()->result();
-        $data["title_cuti"] = "Karyawan Cuti / Cuti Khusus Harian";
+			$data["list_cuti"] = $this->m_report->q_remind_cuti()->result();
+			$data["title_cuti"] = "Karyawan Cuti / Cuti Khusus Harian";
 
-        $data["list_dinas"] = $this->m_report->q_remind_dinas()->result();
-        $data["title_dinas"] = "Karyawan Dinas";
+			$data["list_dinas"] = $this->m_report->q_remind_dinas()->result();
+			$data["title_dinas"] = "Karyawan Dinas";
 
-        $data["list_ijin"] = $this->m_report->q_remind_ijin()->result();
-        $data["title_ijin"] = "Karyawan Ijin";
+			$data["list_ijin"] = $this->m_report->q_remind_ijin()->result();
+			$data["title_ijin"] = "Karyawan Ijin";
 
-        $data["list_lembur"] = $this->m_report->q_remind_lembur()->result();
-        $data["title_lembur"] = "Karyawan Lembur";
+			$data["list_lembur"] = $this->m_report->q_remind_lembur()->result();
+			$data["title_lembur"] = "Karyawan Lembur";
+		}
 
         $day = 4;
         $data["title_recent"] = "Aktifitas ". $day ." Hari Terakhir (Recent Latest Employee Activity)";

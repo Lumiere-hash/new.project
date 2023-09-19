@@ -307,7 +307,6 @@
         <!--END OF KIR KENDARAAN-->
 		
     </div>
-<?php } ?>
 
 <div class="row" >
     <!-- START OF CUTI -->
@@ -500,6 +499,7 @@
             <!-- /.box-body -->
         </div>
     </div>
+	<?php } ?>
     <!--END OF DINAS-->
 </div>
 <!-- /.box -->
