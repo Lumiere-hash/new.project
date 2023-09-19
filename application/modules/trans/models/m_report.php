@@ -1109,10 +1109,11 @@ function q_remind_cuti(){
     }
 
     function q_remind_dinas() {
-        return $this->db->query("select a.nik,nmlengkap,nmdept as bagian,to_char(now(),'DD-MM-YYYY') as tgl,a.tujuan_kota
+        return $this->db->query("select a.nik,nmlengkap,nmdept as bagian,to_char(now(),'DD-MM-YYYY') as tgl,a.tujuan_kota, k.namakotakab
 								from sc_trx.dinas a
 								left outer join sc_mst.karyawan b on a.nik=b.nik
 								left outer join sc_mst.departmen c on b.bag_dept=c.kddept
+								left outer join sc_mst.kotakab k on a.tujuan_kota = k.kodekotakab 
 								where a.status='P' 
 								and to_char(now(),'YYYYMMDD') >= to_char(tgl_mulai,'YYYYMMDD')  
 								and to_char(now(),'YYYYMMDD')<= to_char(tgl_selesai,'YYYYMMDD')

@@ -378,7 +378,7 @@
                                 <th width="10%">Type</th>
                                 <th width="10%">Awal</th>
                                 <th width="10%">Akhir</th>
-                                <th width="10%">Kategori</th>
+                                <th width="10%">Keterangan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -392,7 +392,7 @@
                                     <td class="text-nowrap text-center"><?php echo trim($v->tipe_ijin);?></td>
                                     <td class="text-nowrap text-center"><?php echo empty($v->jam_awal) ? '' : date('H:i:s',strtotime($v->jam_awal));?></td>
                                     <td class="text-nowrap text-center"><?php echo empty($v->jam_akhir) ? '' : date('H:i:s',strtotime($v->jam_akhir));?></td>
-                                    <td class="text-nowrap text-center"><?php echo trim($v->kategori);?></td>
+                                    <td class="text-nowrap text-center"><?php echo trim($v->keterangan);?></td>
                                 </tr>
                             <?php endforeach;?>
                         </tbody>
@@ -488,7 +488,7 @@
                                     <td><?php echo trim($v->nmlengkap);?></td>
                                     <td><?php echo trim($v->bagian);?></td>
                                     <td class="text-nowrap text-center"><?php echo date('d-m-Y',strtotime($v->tgl));?></td>
-                                    <td><?php echo trim($v->tujuan);?></td>
+                                    <td><?php echo trim($v->namakotakab);?></td>
                                 </tr>
                             <?php endforeach;?>
                         </tbody>
