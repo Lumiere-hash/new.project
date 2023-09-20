@@ -182,7 +182,11 @@ SELECT *
         COALESCE(TRIM(b.nmkepegawaian), '') AS nmkepegawaian,
         COALESCE(TRIM(c.nmlengkap), '') AS nmlengkap,
         to_char(a.tgl_mulai,'dd-mm-YYYY')as tgl_mulai1,
-        to_char(a.tgl_selesai,'dd-mm-YYYY')as tgl_selesai1,
+        case 
+        	when sk.kdkepegawaian is not null then sk.tgl_selesai 
+        else a.tgl_selesai
+        end as tgl_selesai1,
+        --to_char(a.tgl_selesai,'dd-mm-YYYY')as tgl_selesai1,
         to_char(a.tgl_mulai,'yyyymm') AS filterstart,
         to_char(a.tgl_selesai,'yyyymm') AS filterend,
         d.uraian as nmstatus,
@@ -190,14 +194,18 @@ SELECT *
         COALESCE(TRIM(f.nmsubdept), '') AS subdeptname,
         COALESCE(TRIM(g.nmjabatan), '') AS positionname,
         COALESCE(TRIM(c.statuskepegawaian), '') AS statuskepegawaian,
-        c.tglkeluarkerja AS tglkeluarkerja
+        c.tglkeluarkerja AS tglkeluarkerja,
+        sk.kdkepegawaian as KO
     from sc_trx.status_kepegawaian a
         left outer join sc_mst.status_kepegawaian b on a.kdkepegawaian=b.kdkepegawaian
         left outer join sc_mst.karyawan c on a.nik=c.nik
         left outer join sc_mst.trxtype d on a.status=d.kdtrx and d.jenistrx='STSPEG'
         LEFT OUTER JOIN sc_mst.departmen e ON c.bag_dept = e.kddept
-        LEFT OUTER JOIN sc_mst.subdepartmen f ON c.bag_dept = e.kddept AND c.subbag_dept = f.kdsubdept
-        LEFT OUTER JOIN sc_mst.jabatan g ON TRIM(c.bag_dept) = TRIM(e.kddept) AND TRIM(c.subbag_dept) = TRIM(f.kdsubdept) AND TRIM(c.jabatan) = TRIM(g.kdjabatan)
+        LEFT OUTER JOIN sc_mst.subdepartmen f ON c.bag_dept = f.kddept AND c.subbag_dept = f.kdsubdept
+        LEFT OUTER JOIN sc_mst.jabatan g ON TRIM(c.bag_dept) = TRIM(g.kddept) AND TRIM(c.subbag_dept) = TRIM(g.kdsubdept) AND TRIM(c.jabatan) = TRIM(g.kdjabatan)
+        left outer join (
+        select nik,nodok,kdkepegawaian,tgl_selesai from sc_trx.status_kepegawaian sk where kdkepegawaian ='KO'
+        ) sk on a.nik=sk.nik and a.nodok=sk.nodok
     order by b.nmkepegawaian asc
 ) as aa
 WHERE TRUE 
