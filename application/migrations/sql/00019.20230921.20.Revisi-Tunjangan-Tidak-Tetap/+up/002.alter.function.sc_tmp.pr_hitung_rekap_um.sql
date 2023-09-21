@@ -52,25 +52,51 @@ BEGIN
     SET
         rencanacallplan = x.rencanacallplan,
         realisasicallplan = x.realisasicallplan,
-        nominal = x.nominal,
+        nominal = CASE
+            /*callplan terpenuhi*/
+            WHEN x.realisasicallplan >= 1 AND x.realisasicallplan = x.rencanacallplan THEN
+                CASE
+                    /*checkin & checkout sesuai jam kerja*/
+                    WHEN x.checkin <= x.jam_masuk AND x.checkout >= x.jam_pulang THEN x.nominal
+                    ELSE 0
+                END
+            /*callplan tidak terpenuhi*/
+            ELSE 0
+            END,
         keterangan = x.keterangan,
         bbm = CASE
             WHEN x.tbbm = 'T' THEN
-                CASE
-                    WHEN nodok is not null AND type_ijin = 'DN' AND kendaraan = 'PRIBADI' THEN y.nominal
-                    WHEN x.checkin is not null AND a.keterangan NOT SIMILAR TO '(DINAS|CUTI)%' THEN y.nominal
-                    ELSE 0
+                case
+                    when x.checkin <= x.jam_masuk_max AND x.checkout > x.jam_pulang_min THEN
+                        CASE
+                            WHEN x.worktime > 4 THEN
+                                CASE
+                                    WHEN nodok is not null AND type_ijin = 'DN' AND kendaraan = 'PRIBADI' THEN y.nominal
+                                    WHEN x.checkin is not null AND a.keterangan NOT SIMILAR TO '(DINAS|CUTI)%' THEN y.nominal
+                                    ELSE 0
+                                END
+                            ELSE 0
+                        END
+                    else 0
                 END
             ELSE 0
             END,
         sewa_kendaraan = CASE
-            WHEN x.tsewa = 'T' THEN
-                CASE
-                    WHEN nodok is not null AND type_ijin = 'DN' AND kendaraan = 'PRIBADI' THEN z.nominal
-                    WHEN x.checkin is not null AND a.keterangan NOT SIMILAR TO '(DINAS|CUTI)%' THEN z.nominal
-                    ELSE 0
-                END
-            ELSE 0
+             WHEN x.tsewa = 'T' THEN
+                 case
+                     when x.checkin <= x.jam_masuk_max AND x.checkout > x.jam_pulang_min THEN
+                         CASE
+                             WHEN x.worktime > 4 THEN
+                                 CASE
+                                     WHEN nodok is not null AND type_ijin = 'DN' AND kendaraan = 'PRIBADI' THEN z.nominal
+                                     WHEN x.checkin is not null AND a.keterangan NOT SIMILAR TO '(DINAS|CUTI)%' THEN z.nominal
+                                     ELSE 0
+                                 END
+                             ELSE 0
+                             END
+                     else 0
+                     END
+             ELSE 0
             END
     FROM (
              SELECT
@@ -79,6 +105,8 @@ BEGIN
                  d.jumlah AS rencanacallplan,
                  e.jumlah AS realisasicallplan,
                  a.checkin,
+                 a.checkout,
+                 EXTRACT(HOUR FROM (a.checkout - a.checkin)) AS worktime,
                     CASE
                         WHEN ((a.dok_ref IS NOT NULL AND h.kdijin_absensi = 'IK' AND h.type_ijin = 'DN' AND h.status = 'P' AND h.tgl_jam_selesai >= checkout )
                             OR (d.jumlah > 0 AND e.jumlah >= d.jumlah) AND (d.jumlah > 1) AND ( checkout >= jam_pulang AND checkin < jam_masuk)
@@ -108,7 +136,11 @@ BEGIN
                 h.type_ijin,
                 h.kendaraan,
                 COALESCE(TRIM(i.sewakendaraan),'') AS tsewa,
-                COALESCE(TRIM(i.bbm),'') AS tbbm
+                COALESCE(TRIM(i.bbm),'') AS tbbm,
+                jam_masuk,
+                jam_pulang,
+                jam_pulang_min,
+                jam_masuk_max
              FROM sc_trx.uangmakan a
                   INNER JOIN sc_mst.karyawan b ON b.nik = a.nik AND b.tglkeluarkerja IS NULL AND b.kdcabang = vr_kdcabang
                   left OUTER JOIN sc_mst.jabatan i ON b.bag_dept = i.kddept AND b.subbag_dept = i.kdsubdept AND b.jabatan = i.kdjabatan
@@ -140,7 +172,7 @@ BEGIN
                           ) x
                 ) e ON TRUE
                       LEFT JOIN LATERAL (
-                 SELECT jam_masuk, jam_pulang
+                 SELECT jam_masuk, jam_pulang, jam_masuk_max, jam_pulang_min
                  FROM sc_mst.jam_kerja
                  WHERE kdjam_kerja = CASE
                                          WHEN EXTRACT(DOW FROM a.tgl) IN (1, 2, 3, 4) AND c.kdregu = 'SL' THEN 'SL1'

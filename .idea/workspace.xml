@@ -5,18 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/DeclarationCashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/DeclarationCashbon.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_component_read.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_component_read.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_update_component_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_update_component_modal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1694226230.0419.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1694226238.393.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1694226260.6473.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1694232062.5085.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1694232094.5527.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1694232755.1085.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations/sql/00019.20230921.20.Revisi-Tunjangan-Tidak-Tetap/+up/002.alter.function.sc_tmp.pr_hitung_rekap_um.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/sql/00019.20230921.20.Revisi-Tunjangan-Tidak-Tetap/+up/002.alter.function.sc_tmp.pr_hitung_rekap_um.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
