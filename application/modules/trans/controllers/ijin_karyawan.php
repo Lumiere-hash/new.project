@@ -789,6 +789,10 @@ class Ijin_karyawan extends MX_Controller
             $result = array('status' => false, 'messages' => 'Data Gagal Di Proses Ada Kesalahan Data');
             echo json_encode($result);
         }
+
+
     }
+
+
 
 }

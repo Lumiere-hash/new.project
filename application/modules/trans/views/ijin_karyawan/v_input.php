@@ -339,8 +339,75 @@
     }
     $(document).on('ready', function (){
 
-
-
+        $('input[name=\'tgl_kerja\']').on('change',function (){
+            if ($("#tgl_kerja").val().length == 0){
+                Swal.mixin({
+                    customClass: {
+                        confirmButton: 'btn btn-sm btn-success ml-3',
+                        cancelButton: 'btn btn-sm btn-warning ml-3',
+                        denyButton: 'btn btn-sm btn-default ml-3',
+                    },
+                    buttonsStyling: false,
+                }).fire({
+                    position: 'top',
+                    icon: 'error',
+                    title: 'Peringatan',
+                    html: 'Pilih tanggal terlebih dahulu',
+                    allowOutsideClick: false,
+                    allowEscapeKey: false,
+                    showCloseButton: false,
+                    showConfirmButton: false,
+                    showDenyButton: true,
+                    denyButtonText: `Tutup`,
+                }).then(function (result) {
+                    $("#tgl_kerja").val('')
+                })
+            }else{
+                var fillData = {
+                    'key': '1203jD0j120dkjjKODNOoimdi)D(J)Jmjid0sjd0ijme09wjei0kjisdjfDSojiodksOjO',
+                    'body': {
+                        begindate: $('#tgl_kerja').val(),
+                        enddate: $('#tgl_kerja').val(),
+                        nik: $('#nik').val()
+                    },
+                };
+                $.ajax({
+                    url: '<?php echo site_url('trans/dinas/dutiecheck') ?>',
+                    method: 'POST',
+                    dataType: 'json',
+                    contentType: "application/json",
+                    data: JSON.stringify(fillData),
+                    success: function (data) {
+                        console.log(data)
+                    },
+                    error: (function (xhr, status, thrown) {
+                        Swal.mixin({
+                            customClass: {
+                                confirmButton: 'btn btn-sm btn-success ml-3',
+                                cancelButton: 'btn btn-sm btn-warning ml-3',
+                                denyButton: 'btn btn-sm btn-default ml-3',
+                            },
+                            buttonsStyling: false,
+                        }).fire({
+                            position: 'top',
+                            icon: 'error',
+                            title: 'Peringatan',
+                            html: (xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : xhr.statusText),
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            showCloseButton: false,
+                            showConfirmButton: false,
+                            showDenyButton: true,
+                            denyButtonText: `Tutup`,
+                        }).then(function (result) {
+                            if (result.isDenied) {
+                                $('#tgl_kerja').val('');
+                            }
+                        })
+                    })
+                })
+            }
+        });
         var beginsetup = new Date();
         var endsetup = new Date();
         $(function () {

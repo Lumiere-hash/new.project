@@ -932,4 +932,6 @@ if ($durasi1==''){
         echo json_encode($this->m_cuti_karyawan->check_tanggal($nodok, $nik, $tgl_awal, $tgl_selesai)->result());
     }
 
+
+
 }

@@ -256,6 +256,74 @@
                                         });
                                         $("#tglselesai").datepicker({
                                             startDate: '<?= $opsi_cuti ?>'
+                                        }).on('change',function (){
+                                            if ($("#tglmulai").val().length == 0){
+                                                Swal.mixin({
+                                                    customClass: {
+                                                        confirmButton: 'btn btn-sm btn-success ml-3',
+                                                        cancelButton: 'btn btn-sm btn-warning ml-3',
+                                                        denyButton: 'btn btn-sm btn-default ml-3',
+                                                    },
+                                                    buttonsStyling: false,
+                                                }).fire({
+                                                    position: 'top',
+                                                    icon: 'error',
+                                                    title: 'Peringatan',
+                                                    html: 'Pilih tanggal awal terlebih dahulu',
+                                                    allowOutsideClick: false,
+                                                    allowEscapeKey: false,
+                                                    showCloseButton: false,
+                                                    showConfirmButton: false,
+                                                    showDenyButton: true,
+                                                    denyButtonText: `Tutup`,
+                                                }).then(function (result) {
+                                                    $("#tglselesai").val('')
+                                                })
+                                            }else{
+                                                var fillData = {
+                                                    'key': '1203jD0j120dkjjKODNOoimdi)D(J)Jmjid0sjd0ijme09wjei0kjisdjfDSojiodksOjO',
+                                                    'body': {
+                                                        begindate: $('#tglmulai').val(),
+                                                        enddate: $('#tglselesai').val(),
+                                                        nik: $('#nik').val()
+                                                    },
+                                                };
+                                                $.ajax({
+                                                    url: '<?php echo site_url('trans/dinas/dutiecheck') ?>',
+                                                    method: 'POST',
+                                                    dataType: 'json',
+                                                    contentType: "application/json",
+                                                    data: JSON.stringify(fillData),
+                                                    success: function (data) {
+                                                        console.log(data)
+                                                    },
+                                                    error: (function (xhr, status, thrown) {
+                                                        Swal.mixin({
+                                                            customClass: {
+                                                                confirmButton: 'btn btn-sm btn-success ml-3',
+                                                                cancelButton: 'btn btn-sm btn-warning ml-3',
+                                                                denyButton: 'btn btn-sm btn-default ml-3',
+                                                            },
+                                                            buttonsStyling: false,
+                                                        }).fire({
+                                                            position: 'top',
+                                                            icon: 'error',
+                                                            title: 'Peringatan',
+                                                            html: (xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : xhr.statusText),
+                                                            allowOutsideClick: false,
+                                                            allowEscapeKey: false,
+                                                            showCloseButton: false,
+                                                            showConfirmButton: false,
+                                                            showDenyButton: true,
+                                                            denyButtonText: `Tutup`,
+                                                        }).then(function (result) {
+                                                            if (result.isDenied) {
+                                                                $('#jam_selesai').val('');
+                                                            }
+                                                        })
+                                                    })
+                                                })
+                                            }
                                         });
                                         $("#pelimpahan").selectize();
 

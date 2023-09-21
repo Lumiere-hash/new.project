@@ -427,9 +427,13 @@ BEGIN
                      b.lvl_jabatan,
                      a.jam_masuk,
                      a.jam_pulang,
-                     f.besaran                       AS kantin
+                     CASE
+                         WHEN bb.kdregu = 'SL' THEN 0
+                         ELSE f.besaran
+                     END AS kantin
                  FROM sc_trx.transready a
                     LEFT OUTER JOIN sc_mst.karyawan b ON a.nik = b.nik
+                    LEFT OUTER JOIN sc_mst.regu_opr bb ON a.nik = bb.nik
                     LEFT OUTER JOIN sc_mst.departmen c ON b.bag_dept = c.kddept
                     LEFT OUTER JOIN sc_mst.subdepartmen d ON b.subbag_dept = d.kdsubdept AND b.bag_dept = d.kddept
                     LEFT OUTER JOIN sc_mst.jabatan e ON b.jabatan = e.kdjabatan AND b.subbag_dept = e.kdsubdept AND b.bag_dept = e.kddept

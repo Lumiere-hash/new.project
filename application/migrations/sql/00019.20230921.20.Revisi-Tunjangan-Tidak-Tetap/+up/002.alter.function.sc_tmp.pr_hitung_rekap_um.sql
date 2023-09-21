@@ -19,12 +19,17 @@ BEGIN
     FOR vr_nik IN SELECT TRIM(nik) FROM sc_mst.karyawan WHERE tglkeluarkerja IS NULL AND kdcabang = vr_kdcabang
         LOOP
             vr_nominal_um := CASE
-                                 WHEN a.kdcabang = 'SMGDMK' THEN b.besaran - c.besaran
-                                 ELSE b.besaran
+                                 WHEN a.kdcabang = 'SMGDMK' THEN
+                                    CASE
+                                        WHEN TRIM(d.kdregu) = 'SL' THEN b.besaran
+                                        ELSE b.besaran - c.besaran
+                                    END
+                                    ELSE b.besaran
                                  END AS nominal
                              FROM sc_mst.karyawan a
                                       LEFT OUTER JOIN sc_mst.uangmakan b ON a.lvl_jabatan = b.kdlvl
                                       LEFT OUTER JOIN sc_mst.kantin c ON a.kdcabang = c.kdcabang
+                                      LEFT OUTER JOIN sc_mst.regu_opr d ON a.nik = d.nik
                              WHERE a.nik = vr_nik;
 
             FOR vr_nodok_ref IN SELECT TRIM(dok_ref)
@@ -187,10 +192,15 @@ BEGIN
                      END
                  ) f ON TRUE
                       LEFT JOIN LATERAL (
-                 SELECT CASE
-                            WHEN b.kdcabang = 'SMGDMK' THEN xa.besaran - xb.besaran
-                            ELSE xa.besaran
-                            END AS nominal
+                 SELECT
+                     CASE
+                         WHEN b.kdcabang = 'SMGDMK' THEN
+                             CASE
+                                 WHEN TRIM(c.kdregu) = 'SL' THEN xa.besaran
+                                 ELSE xa.besaran - xb.besaran
+                                 END
+                         ELSE xa.besaran
+                         END AS nominal
                  FROM sc_mst.uangmakan xa
                           LEFT JOIN sc_mst.kantin xb ON xb.kdcabang = b.kdcabang
                  WHERE xa.kdlvl = b.lvl_jabatan

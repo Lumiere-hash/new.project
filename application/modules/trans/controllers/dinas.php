@@ -1760,4 +1760,29 @@ class Dinas extends MX_Controller
 		}
 	}
 
+    public function dutiecheck()
+    {
+        $request_body = file_get_contents('php://input');
+        $data = json_decode($request_body);
+        $this->load->model(array('trans/M_Dinas'));
+        $begindate = date('Y-m-d', strtotime($data->body->begindate));
+        $enddate = date('Y-m-d', strtotime($data->body->enddate));
+        $nik = $data->body->nik;
+        if ($this->M_Dinas->q_transaction_read_where(' AND nik = \''.$nik.'\' AND status = \'P\' AND ( tgl_mulai between \''.$begindate.'\' AND \''.$enddate.'\' OR tgl_selesai between \''.$begindate.'\' AND \''.$enddate.'\' ) ')->num_rows() > 0){
+            header('Content-Type: application/json');
+            http_response_code(404);
+            echo json_encode(array(
+                'data' => array(),
+                'message' => 'Ada dokumen dinas di rentang tanggal tersebut',
+            ));
+        }else{
+            header('Content-Type: application/json');
+            http_response_code(200);
+            echo json_encode(array(
+                'data' => array(),
+                'message' => 'OKE',
+            ));
+        }
+    }
+
 }
