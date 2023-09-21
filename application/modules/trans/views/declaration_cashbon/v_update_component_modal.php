@@ -18,7 +18,6 @@
                 <h4 class="modal-title"><?php echo $title ?></h4>
             </div>
             <div class="modal-body">
-                <?php echo json_encode($callplan)?>
                 <?php if ($dinas->callplan == 't'){ ?>
                 <div class="row">
                     <div class="form-group">
