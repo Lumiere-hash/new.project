@@ -936,6 +936,10 @@ class M_absensi extends CI_Model {
 	function q_dblink_option($param){
 	    return $this->db->query("select * from sc_mst.option_dblink where dblink_id='CRMDEV' and branch='SBYNSA' $param");
     }
+	
+	function q_dblink_option_uangmakan(){
+	    return $this->db->query("select * from sc_mst.option_dblink where dblink_id='CRMDEV' and branch='SBYNSA' ");
+    }
 
     function tglakhir_mobile($kdcabang){
         return $this->db->query("select to_char(max(checktime),'DD-MM-YYYY')as lastdate from sc_tmp.checkinout a

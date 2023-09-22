@@ -4,15 +4,16 @@ class Generate extends CI_Controller
 {
     public function uangmakan()
     {
-        $this->load->model(array('master/M_RegionalOffice','trans/m_absensi','master/m_option'));
-        $numDays = (($this->m_option->read()->num_rows() > 0));
-        $end = '2023-08-02';
+        $this->load->model(array('master/M_RegionalOffice','trans/m_absensi','master/m_option','trans/m_uang_makan'));
+        //$numDays = (($this->m_option->read()->num_rows() > 0));
+        $end = '';
         $end = ((is_null($end) OR empty($end)) ? date('Y-m-d') : $end );
-        $start = date('Y-m-d', strtotime($end.'-1 days'));
+        $start = date('Y-m-d', strtotime($end.'-7 days'));
         try {
             $this->db->trans_start();
             $arr = array();
-            $dtl_opt = $this->m_absensi->q_dblink_option()->row_array();
+            $dtl_opt = $this->m_absensi->q_dblink_option_uangmakan()->row_array();
+			//var_dump($dtl_opt);die();
             $host = base64_decode($dtl_opt['c_hostaddr']);
             $dbname = base64_decode($dtl_opt['c_dbname']);
             $userpg = base64_decode($dtl_opt['c_userpg']);
