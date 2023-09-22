@@ -93,7 +93,7 @@ class Uang_makan extends MX_Controller
         $this->db->trans_start();
 
         if ($callplan == "t") {
-            $dtl_opt = $this->m_absensi->q_dblink_option()->row_array();
+        $dtl_opt = $this->m_absensi->q_dblink_option()->row_array();
             $host = base64_decode($dtl_opt['c_hostaddr']);
             $dbname = base64_decode($dtl_opt['c_dbname']);
             $userpg = base64_decode($dtl_opt['c_userpg']);

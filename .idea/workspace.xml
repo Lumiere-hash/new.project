@@ -5,8 +5,55 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations/sql/00019.20230921.20.Revisi-Tunjangan-Tidak-Tetap/+up/002.alter.function.sc_tmp.pr_hitung_rekap_um.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/sql/00019.20230921.20.Revisi-Tunjangan-Tidak-Tetap/+up/002.alter.function.sc_tmp.pr_hitung_rekap_um.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/uang_makan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/uang_makan.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695260116.3566.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695260190.4404.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695260199.0174.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695260243.3144.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695260492.7403.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695260500.9713.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695260600.7683.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695260609.0611.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695260611.7861.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695260620.2347.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695260772.3957.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695260781.7413.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695260851.7951.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695260851.8796.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695262046.9818.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695262063.2571.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695262071.5257.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695262426.6539.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695262427.6462.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695262428.1275.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695262428.6133.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695262448.1377.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695262554.3864.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695262562.4814.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695262613.0681.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695262800.0241.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695262808.2463.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695263332.4381.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695263340.7323.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695263413.6723.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695263459.1817.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695263468.0611.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695263563.7205.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695264222.7285.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695264231.0025.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695264382.0205.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695265700.2892.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695265708.6203.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695266355.278.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695266363.4524.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695266812.6061.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695266834.7552.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695267226.8853.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695267235.1208.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

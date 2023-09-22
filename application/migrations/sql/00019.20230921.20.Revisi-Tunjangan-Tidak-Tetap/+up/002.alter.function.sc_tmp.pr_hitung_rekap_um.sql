@@ -21,7 +21,7 @@ BEGIN
             vr_nominal_um := CASE
                                  WHEN a.kdcabang = 'SMGDMK' THEN
                                     CASE
-                                        WHEN TRIM(d.kdregu) = 'SL' THEN b.besaran
+                                        WHEN callplan = 't' THEN b.besaran
                                         ELSE b.besaran - c.besaran
                                     END
                                     ELSE b.besaran
@@ -58,16 +58,21 @@ BEGIN
         rencanacallplan = x.rencanacallplan,
         realisasicallplan = x.realisasicallplan,
         nominal = CASE
-            /*callplan terpenuhi*/
-            WHEN x.realisasicallplan >= 1 AND x.realisasicallplan = x.rencanacallplan THEN
-                CASE
-                    /*checkin & checkout sesuai jam kerja*/
-                    WHEN x.checkin <= x.jam_masuk AND x.checkout >= x.jam_pulang THEN x.nominal
-                    ELSE 0
-                END
-            /*callplan tidak terpenuhi*/
-            ELSE 0
-            END,
+        WHEN callplan = 't' THEN
+            CASE
+                /*callplan terpenuhi*/
+                WHEN x.realisasicallplan >= 1 AND x.realisasicallplan = x.rencanacallplan THEN
+                    CASE
+                        /*checkin & checkout sesuai jam kerja*/
+                        WHEN x.checkin <= x.jam_masuk AND x.checkout >= x.jam_pulang THEN x.nominal
+                        ELSE 0
+                        END
+                /*callplan tidak terpenuhi*/
+                ELSE 0
+            END
+        ELSE x.nominal
+
+        END,
         keterangan = x.keterangan,
         bbm = CASE
             WHEN x.tbbm = 'T' THEN
@@ -112,18 +117,39 @@ BEGIN
                  a.checkin,
                  a.checkout,
                  EXTRACT(HOUR FROM (a.checkout - a.checkin)) AS worktime,
-                    CASE
-                        WHEN ((a.dok_ref IS NOT NULL AND h.kdijin_absensi = 'IK' AND h.type_ijin = 'DN' AND h.status = 'P' AND h.tgl_jam_selesai >= checkout )
-                            OR (d.jumlah > 0 AND e.jumlah >= d.jumlah) AND (d.jumlah > 1) AND ( checkout >= jam_pulang AND checkin < jam_masuk)
-                                 ) AND a.keterangan NOT SIMILAR TO '(DINAS|CUTI)%' THEN g.nominal
-                        WHEN extract(day from now()::timestamp - b.tglmasukkerja::timestamp) <= 30 AND (a.dok_ref IS NOT NULL AND h.kdijin_absensi = 'IK' AND h.type_ijin = 'DN' AND h.status = 'P' AND (h.tgl_jam_mulai <= checkin AND h.tgl_jam_selesai >= checkout ))
-                            AND (d.jumlah > 1) AND ( checkout >= jam_pulang AND checkin < jam_masuk) AND a.keterangan NOT SIMILAR TO '(DINAS|CUTI)%' THEN g.nominal
-                        WHEN (
-                                     (a.dok_ref IS NOT NULL AND h.kdijin_absensi = 'IK' AND h.type_ijin = 'DN' AND h.status = 'P' AND (h.tgl_jam_mulai <= checkin AND h.tgl_jam_selesai >= checkout ))
-                                     OR (d.jumlah > 0 AND e.jumlah >= d.jumlah) AND (d.jumlah > 1) AND ( checkout >= jam_pulang AND checkin < jam_masuk)
-                                 ) AND a.keterangan NOT SIMILAR TO '(DINAS|CUTI)%' THEN g.nominal
-                        ELSE NULL
-                        END AS nominal,
+                    CASE WHEN b.callplan = 't' THEN
+                         CASE
+                             WHEN ((a.dok_ref IS NOT NULL AND h.kdijin_absensi = 'IK' AND h.type_ijin = 'DN' AND h.status = 'P' AND h.tgl_jam_selesai >= checkout )
+                                 OR (d.jumlah > 0 AND e.jumlah >= d.jumlah) AND (d.jumlah > 1) AND ( checkout >= jam_pulang AND checkin < jam_masuk)
+                                      ) AND a.keterangan NOT SIMILAR TO '(DINAS|CUTI)%' THEN g.nominal
+                             WHEN extract(day from now()::timestamp - b.tglmasukkerja::timestamp) <= 30
+                                 AND (a.dok_ref IS NOT NULL AND h.kdijin_absensi = 'IK' AND h.type_ijin = 'DN' AND h.status = 'P' AND (h.tgl_jam_mulai <= checkin AND h.tgl_jam_selesai >= checkout ))
+                                 AND (d.jumlah > 1)
+                                 AND ( checkout >= jam_pulang AND checkin < jam_masuk)
+                                 AND a.keterangan NOT SIMILAR TO '(DINAS|CUTI)%'
+                                 THEN g.nominal
+                             WHEN (
+                                          (a.dok_ref IS NOT NULL AND h.kdijin_absensi = 'IK' AND h.type_ijin = 'DN' AND h.status = 'P' AND (h.tgl_jam_mulai <= checkin AND h.tgl_jam_selesai >= checkout ))
+                                          OR (d.jumlah > 0 AND e.jumlah >= d.jumlah) AND (d.jumlah > 1) AND ( checkout >= jam_pulang AND checkin < jam_masuk)
+                                      ) AND a.keterangan NOT SIMILAR TO '(DINAS|CUTI)%' THEN g.nominal
+                             ELSE null
+                             END
+                    ELSE
+                        CASE
+                            WHEN ((a.dok_ref IS NOT NULL AND h.kdijin_absensi = 'IK' AND h.type_ijin = 'DN' AND h.status = 'P' AND h.tgl_jam_selesai >= checkout ) AND ( checkout >= jam_pulang AND checkin < jam_masuk)
+                                     ) AND a.keterangan NOT SIMILAR TO '(DINAS|CUTI)%' THEN g.nominal
+                            WHEN extract(day from now()::timestamp - b.tglmasukkerja::timestamp) <= 30
+                                AND (a.dok_ref IS NOT NULL AND h.kdijin_absensi = 'IK' AND h.type_ijin = 'DN' AND h.status = 'P' AND (h.tgl_jam_mulai <= checkin AND h.tgl_jam_selesai >= checkout ))
+                                AND ( checkout >= jam_pulang AND checkin < jam_masuk)
+                                AND a.keterangan NOT SIMILAR TO '(DINAS|CUTI)%'
+                                THEN g.nominal
+                            WHEN ( (a.dok_ref IS NOT NULL AND h.kdijin_absensi = 'IK' AND h.type_ijin = 'DN' AND h.status = 'P' AND (h.tgl_jam_mulai <= checkin AND h.tgl_jam_selesai >= checkout ))
+                                          AND ( checkout >= jam_pulang AND checkin < jam_masuk)
+                                     ) AND a.keterangan NOT SIMILAR TO '(DINAS|CUTI)%' THEN g.nominal
+                            ELSE 0
+                            END
+                    END
+                    AS nominal,
                     CASE
                         /*WHEN d.jumlah = 0 THEN SPLIT_PART(a.keterangan, ' + ', 1) || ' + TIDAK ADA RENCANA CALLPLAN'
                         WHEN e.jumlah >= d.jumlah THEN SPLIT_PART(a.keterangan, ' + ', 1) || ' + CALLPLAN TERPENUHI'
@@ -133,7 +159,8 @@ BEGIN
                         WHEN (a.dok_ref IS NOT NULL AND h.kdijin_absensi = 'IK' AND h.type_ijin = 'DN' AND h.status = 'P' AND h.tgl_jam_mulai <= f.jam_masuk AND h.tgl_jam_selesai >= jam_pulang)
                             OR (a.dok_ref IS NOT NULL AND h.kdijin_absensi NOT IN ('IK', 'DT', 'PA'))
                             OR (a.checkin IS NULL AND a.checkout IS NULL) OR a.keterangan SIMILAR TO '(DINAS|CUTI)%' THEN SPLIT_PART(a.keterangan, ' + ', 1)
-                        WHEN d.jumlah = 0 THEN SPLIT_PART(a.keterangan, ' + ', 1) || ' + TIDAK ADA RENCANA CALLPLAN'
+                        WHEN d.jumlah = 0 AND c.kdregu = 'SL' THEN SPLIT_PART(a.keterangan, ' + ', 1) || ' + TIDAK ADA RENCANA CALLPLAN'
+                        WHEN d.jumlah = 0 THEN SPLIT_PART(a.keterangan, ' + ', 1)
                         WHEN e.jumlah >= d.jumlah THEN SPLIT_PART(a.keterangan, ' + ', 1) || ' + CALLPLAN TERPENUHI'
                         ELSE SPLIT_PART(a.keterangan, ' + ', 1) || ' + CALLPLAN TIDAK TERPENUHI'
                         END AS keterangan,
@@ -145,9 +172,11 @@ BEGIN
                 jam_masuk,
                 jam_pulang,
                 jam_pulang_min,
-                jam_masuk_max
+                jam_masuk_max,
+                c.kdregu,
+                b.callplan
              FROM sc_trx.uangmakan a
-                  INNER JOIN sc_mst.karyawan b ON b.nik = a.nik AND b.tglkeluarkerja IS NULL AND b.kdcabang = vr_kdcabang
+                  INNER JOIN sc_mst.karyawan b ON b.nik = a.nik AND b.tglkeluarkerja IS NULL AND callplan = 't' AND b.kdcabang = vr_kdcabang
                   left OUTER JOIN sc_mst.jabatan i ON b.bag_dept = i.kddept AND b.subbag_dept = i.kdsubdept AND b.jabatan = i.kdjabatan
                   INNER JOIN sc_mst.regu_opr c ON c.nik = b.nik
                   LEFT JOIN LATERAL (
@@ -196,13 +225,13 @@ BEGIN
                      CASE
                          WHEN b.kdcabang = 'SMGDMK' THEN
                              CASE
-                                 WHEN TRIM(c.kdregu) = 'SL' THEN xa.besaran
+                                 WHEN (c.kdregu = 'SL' OR b.callplan = 't') THEN xa.besaran
                                  ELSE xa.besaran - xb.besaran
-                                 END
+                             END
                          ELSE xa.besaran
                          END AS nominal
                  FROM sc_mst.uangmakan xa
-                          LEFT JOIN sc_mst.kantin xb ON xb.kdcabang = b.kdcabang
+                 LEFT JOIN sc_mst.kantin xb ON xb.kdcabang = b.kdcabang
                  WHERE xa.kdlvl = b.lvl_jabatan
                  ) g ON TRUE
                 LEFT JOIN sc_trx.ijin_karyawan h ON h.nodok = a.dok_ref AND h.status = 'P'
