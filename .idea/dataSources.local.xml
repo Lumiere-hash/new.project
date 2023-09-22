@@ -33,7 +33,7 @@
         <introspection-scope>
           <node kind="database">
             <name qname="HRMS.NUSA" />
-            <name qname="HRMS.NUSA.TRIAL" />
+            <name qname="HRMS.NUSA.NEW" />
             <node kind="schema" negative="1" />
           </node>
         </introspection-scope>
