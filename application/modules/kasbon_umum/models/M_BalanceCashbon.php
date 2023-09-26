@@ -48,8 +48,8 @@ select
     SPLIT_PART(REGEXP_REPLACE(cash_out::MONEY::VARCHAR, '[Rp]', '', 'g'), ',', 1) AS cash_outformat
 from(
     select
-        COALESCE(a.nik, '') AS nik,
-        COALESCE(a.nmlengkap, '') AS nmlengkap,
+        COALESCE(TRIM(a.nik), '') AS nik,
+        COALESCE(TRIM(a.nmlengkap), '') AS nmlengkap,
         COALESCE(b.doctype, '') AS doctype,
         COALESCE(b.docno, '') AS docno,
         b.cash_in AS cash_in,
@@ -79,5 +79,29 @@ from(
 ) as aa where true
 SQL
             ).$clause;
+    }
+
+    function delete($where){
+        return $this->db
+            ->where($where)
+            ->delete('sc_trx.cashbon_blc');
+    }
+
+    function update($value, $where){
+        return $this->db
+            ->where($where)
+            ->update('sc_trx.cashbon_blc', $value);
+    }
+    function create($value){
+        return $this->db
+            ->insert('sc_trx.cashbon_blc', $value);
+    }
+
+    function exists($where){
+        return $this->db
+                ->select('*')
+                ->where($where)
+                ->get('sc_trx.cashbon_blc')
+                ->num_rows() > 0;
     }
 }

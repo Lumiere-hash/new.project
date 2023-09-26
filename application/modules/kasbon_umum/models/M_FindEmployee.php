@@ -1,6 +1,6 @@
 <?php
 
-class M_FindEmployee extends CI_Model
+class   M_FindEmployee extends CI_Model
 {
     function q_mst_txt_where_old($clause = null){
         return sprintf(<<<'SQL'

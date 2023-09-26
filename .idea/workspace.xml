@@ -5,10 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/DeclarationCashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/DeclarationCashbon.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/models/M_BalanceCashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/models/M_BalanceCashbon.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/models/M_DeclarationCashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/models/M_DeclarationCashbon.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/models/M_FindEmployee.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/models/M_FindEmployee.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/v_detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/v_detail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/DeclarationCashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/DeclarationCashbon.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/models/M_Callplan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/M_Callplan.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_create_component_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_create_component_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_detail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_update_component_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_update_component_modal.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -327,32 +334,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "database.data.extractors.current.export.id": "SQL Inserts",
-    "database.data.extractors.current.id": "SQL Inserts",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/PROJECT/hrms.nusa/application/migrations/sql/00019.20230921.20.Revisi-Tunjangan-Tidak-Tetap/+up",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "yarn",
-    "settings.editor.selected.configurable": "editor.preferences.tabs",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;database.data.extractors.current.export.id&quot;: &quot;SQL Inserts&quot;,
+    &quot;database.data.extractors.current.id&quot;: &quot;SQL Inserts&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/PROJECT/hrms.nusa/application/migrations/sql/00019.20230921.20.Revisi-Tunjangan-Tidak-Tetap/+up&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.tabs&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ],
-    "com.intellij.ide.scratch.LRUPopupBuilder$1/": [
-      "PostgreSQL"
+    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/&quot;: [
+      &quot;PostgreSQL&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00019.20230921.20.Revisi-Tunjangan-Tidak-Tetap\+up" />
@@ -780,11 +787,6 @@
             <option name="methodName" value="realisasi_callplan" />
           </properties>
           <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/application/modules/trans/controllers/DeclarationCashbon.php</url>
-          <line>459</line>
-          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

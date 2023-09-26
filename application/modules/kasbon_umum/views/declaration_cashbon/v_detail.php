@@ -1,6 +1,9 @@
 <?php
 ?>
 <style>
+    .ml-3{
+        margin-left: 3px;
+    }
 </style>
 <form role="form" class="formapprovedeclarationcashbon" action="<?php echo site_url('kasbon_umum/declarationcashbon/doapprove/'.bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $cashbon->dutieid, 'cashbonid' => isset($cashbon->cashbonid) ? $cashbon->cashbonid : '', 'declarationid' => $declaration->declarationid, ))))?>" method="post">
     <div class="box">
@@ -118,6 +121,9 @@
         <div class="box-footer">
             <div class="col-sm-12">
                 <a href="<?php echo site_url('kasbon_umum/declarationcashbon') ?>" class="btn btn-warning ml-3 pull-right">Kembali</a>
+                <?php if ($cancancel){ ?>
+                    <a href="javascript:void(0)" data-href="<?php echo $cancelUrl ?>" class="btn btn-danger ml-3 pull-right cancel">Batal</a>
+                <?php } ?>
             </div>
         </div>
     </div>
@@ -125,6 +131,73 @@
 <div class="modal fade" id="createdeclarationcomponent" role="dialog" aria-hidden="true"></div>
 <script>
     $(document).ready(function() {
+        $('a.cancel').on('click', function (){
+            var row = $(this)
+            Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-sm btn-success ml-3',
+                    cancelButton: 'btn btn-sm btn-warning ml-3',
+                    denyButton: 'btn btn-sm btn-danger ml-3',
+                },
+                buttonsStyling: false,
+            }).fire({
+                title: 'Konfirmasi Batal',
+                html: 'Konfirmasi batal deklarasi dengan nomor <b><?php echo $declaration->declarationid ?></b> ?',
+                icon: 'question',
+                showCloseButton: true,
+                confirmButtonText: 'Konfirmasi',
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: row.data('href'),
+                        type: 'POST',
+                        success: function (data) {
+                            Swal.mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-sm btn-success ml-3',
+                                    cancelButton: 'btn btn-sm btn-warning ml-3',
+                                    denyButton: 'btn btn-sm btn-danger ml-3',
+                                },
+                                buttonsStyling: false,
+                            }).fire({
+                                position: 'top',
+                                icon: 'success',
+                                title: 'Berhasil Dibatalkan',
+                                html: data.message,
+                                timer: 3000,
+                                timerProgressBar: true,
+                                showCloseButton: true,
+                                showConfirmButton: false,
+                                showDenyButton: true,
+                                denyButtonText: `Tutup`,
+                            }).then(function(){
+                                window.location.replace('<?php echo site_url('kasbon_umum/declarationcashbon/') ?>');
+                            });
+                        },
+                        error: function (xhr, status, thrown) {
+                            console.log(xhr)
+                            Swal.mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-sm btn-success ml-3',
+                                    cancelButton: 'btn btn-sm btn-warning ml-3',
+                                    denyButton: 'btn btn-sm btn-danger ml-3',
+                                },
+                                buttonsStyling: false,
+                            }).fire({
+                                position: 'top',
+                                icon: 'error',
+                                title: 'Gagal Dibatalkan',
+                                html: (xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : xhr.statusText),
+                                showCloseButton: true,
+                                showConfirmButton: false,
+                                showDenyButton: true,
+                                denyButtonText: `Tutup`,
+                            }).then(function(){ });
+                        },
+                    });
+                }
+            });
+        })
         $.extend($.validator.messages, {
             required: 'Bagian ini diperlukan...',
             remote: 'Harap perbaiki bidang ini...',

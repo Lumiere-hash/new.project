@@ -113,6 +113,7 @@ FROM (
                  a.approvedate AS approvedate,
                  CASE
                      WHEN COALESCE(a.status, '') IN ('I') THEN 'Menunggu Persetujuan'
+                     WHEN COALESCE(a.status, '') IN ('C') THEN 'Dibatalkan'
                      WHEN a.approveby IS NOT NULL AND a.approveby IS NOT NULL THEN 'Disetujui'
                      ELSE 'Kondisi Lain'
                      END AS statustext,
@@ -220,8 +221,8 @@ FROM (
                  AND TRIM(f.kddept) = TRIM(d.bag_dept)
              WHERE TRUE
                AND COALESCE(TRIM(b.status), '') IN ('P')
-               AND COALESCE(TRIM(b.nodok), '') NOT IN ( SELECT dutieid FROM sc_trx.cashbon )
-               AND COALESCE(TRIM(b.nodok), '') NOT IN ( SELECT dutieid FROM sc_trx.declaration_cashbon )
+               AND COALESCE(TRIM(b.nodok), '') NOT IN ( SELECT dutieid FROM sc_trx.cashbon WHERE TRUE AND status = 'P' )
+               AND COALESCE(TRIM(b.nodok), '') NOT IN ( SELECT dutieid FROM sc_trx.declaration_cashbon WHERE TRUE AND status = 'P' )
          )
      ) AS aa
 WHERE TRUE

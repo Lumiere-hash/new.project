@@ -140,6 +140,22 @@
                     confirmButtonText: 'Konfirmasi',
                 }).then(function (result) {
                     if (result.isConfirmed) {
+                        Swal.mixin({
+                            customClass: {
+                                confirmButton: 'btn btn-sm btn-success ml-3',
+                                cancelButton: 'btn btn-sm btn-warning ml-3',
+                                denyButton: 'btn btn-sm btn-danger ml-3',
+                            },
+                            buttonsStyling: false,
+                        }).fire({
+                            allowOutsideClick: false,
+                            allowEscapeKey: false,
+                            html: '<h3>Sedang proses...</h3>',
+                            showConfirmButton: false,
+                            didOpen: () => {
+                                Swal.showLoading();
+                            },
+                        })
                         $.ajax({
                             url: $('form.formupdatedeclarationcomponent').attr('action'),
                             data: $('form.formupdatedeclarationcomponent').serialize(),
