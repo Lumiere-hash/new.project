@@ -69,41 +69,45 @@ class DeclarationCashbon extends CI_Controller {
         $declarationcashbon = $this->M_DeclarationCashbon->q_cashbon_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' ')->row();
         $urlpath = ($json->type == 'DN')?'trans/':'kasbon_umum/';
         header('Content-Type: application/json');
-        if (strtoupper($declarationcashbon->statustext) == 'DIBATALKAN') {
-            http_response_code('403');
-            echo json_encode(array(
-                'message' => 'Dokumen sudah dibatalkan',
-            ));
-        } else if (!is_null($declarationcashbon->approveby) && !empty($declarationcashbon->approveby) && !is_null($declarationcashbon->approvedate)) {
-            echo json_encode(array(
-                'data' => $declarationcashbon,
-                'canprint' => true,
-                'next' => site_url($urlpath.'declarationcashbon/printoption/'.bin2hex(json_encode(array('branch' => empty($declarationcashbon->branch) ? $this->session->userdata('branch') : $declarationcashbon->branch, 'dutieid' => $declarationcashbon->dutieid, 'declarationid' => $declarationcashbon->declarationid, 'cashbonid' => $declarationcashbon->cashbonid, )))),
-            ));
-        } else if (!is_null($declarationcashbon->declarationid) && !is_nan($declarationcashbon->declarationid) && !empty($declarationcashbon->declarationid)) {
-            if ($this->m_akses->list_aksesperdep()->num_rows() > 0 or strtoupper(trim($this->m_akses->q_user_check()->row()->level_akses)) === 'A' or $this->M_DeclarationCashbon->q_transaction_read_where(' AND declarationid = \''.$declarationcashbon->declarationid.'\' AND superiors ILIKE \'%'.$this->session->userdata('nik').'%\' ')->num_rows() > 0) {
+        if (empty($declarationcashbon->declarationid) OR strtoupper($declarationcashbon->statustext) <> 'DIBATALKAN'){
+            if (!is_null($declarationcashbon->approveby) && !empty($declarationcashbon->approveby) && !is_null($declarationcashbon->approvedate)) {
                 echo json_encode(array(
                     'data' => $declarationcashbon,
-                    'canapprove' => true,
-                    'next' => array(
-                        'update' => site_url($urlpath.'declarationcashbon/update/'.bin2hex(json_encode(array('branch' => empty($declarationcashbon->branch) ? $this->session->userdata('branch') : $declarationcashbon->branch, 'dutieid' => $declarationcashbon->dutieid, 'declarationid' => $declarationcashbon->declarationid, 'cashbonid' => $declarationcashbon->cashbonid, )))),
-                        'approve' => site_url($urlpath.'declarationcashbon/approve/'.bin2hex(json_encode(array('branch' => empty($declarationcashbon->branch) ? $this->session->userdata('branch') : $declarationcashbon->branch, 'dutieid' => $declarationcashbon->dutieid, 'declarationid' => $declarationcashbon->declarationid, 'cashbonid' => $declarationcashbon->cashbonid, )))),
-                    ),
+                    'canprint' => true,
+                    'next' => site_url($urlpath.'declarationcashbon/printoption/'.bin2hex(json_encode(array('branch' => empty($declarationcashbon->branch) ? $this->session->userdata('branch') : $declarationcashbon->branch, 'dutieid' => $declarationcashbon->dutieid, 'declarationid' => $declarationcashbon->declarationid, 'cashbonid' => $declarationcashbon->cashbonid, )))),
                 ));
+            } else if (!is_null($declarationcashbon->declarationid) && !is_nan($declarationcashbon->declarationid) && !empty($declarationcashbon->declarationid)) {
+                if ($this->m_akses->list_aksesperdep()->num_rows() > 0 or strtoupper(trim($this->m_akses->q_user_check()->row()->level_akses)) === 'A' or $this->M_DeclarationCashbon->q_transaction_read_where(' AND declarationid = \''.$declarationcashbon->declarationid.'\' AND superiors ILIKE \'%'.$this->session->userdata('nik').'%\' ')->num_rows() > 0) {
+                    echo json_encode(array(
+                        'data' => $declarationcashbon,
+                        'canapprove' => true,
+                        'next' => array(
+                            'update' => site_url($urlpath.'declarationcashbon/update/'.bin2hex(json_encode(array('branch' => empty($declarationcashbon->branch) ? $this->session->userdata('branch') : $declarationcashbon->branch, 'dutieid' => $declarationcashbon->dutieid, 'declarationid' => $declarationcashbon->declarationid, 'cashbonid' => $declarationcashbon->cashbonid, )))),
+                            'approve' => site_url($urlpath.'declarationcashbon/approve/'.bin2hex(json_encode(array('branch' => empty($declarationcashbon->branch) ? $this->session->userdata('branch') : $declarationcashbon->branch, 'dutieid' => $declarationcashbon->dutieid, 'declarationid' => $declarationcashbon->declarationid, 'cashbonid' => $declarationcashbon->cashbonid, )))),
+                        ),
+                    ));
+                } else {
+                    echo json_encode(array(
+                        'data' => $declarationcashbon,
+                        'canupdate' => true,
+                        'next' => site_url($urlpath.'declarationcashbon/update/'.bin2hex(json_encode(array('branch' => empty($declarationcashbon->branch) ? $this->session->userdata('branch') : $declarationcashbon->branch, 'dutieid' => $declarationcashbon->dutieid, 'declarationid' => $declarationcashbon->declarationid, 'cashbonid' => $declarationcashbon->cashbonid, )))),
+                    ));
+                }
             } else {
                 echo json_encode(array(
-                    'data' => $declarationcashbon,
-                    'canupdate' => true,
-                    'next' => site_url($urlpath.'declarationcashbon/update/'.bin2hex(json_encode(array('branch' => empty($declarationcashbon->branch) ? $this->session->userdata('branch') : $declarationcashbon->branch, 'dutieid' => $declarationcashbon->dutieid, 'declarationid' => $declarationcashbon->declarationid, 'cashbonid' => $declarationcashbon->cashbonid, )))),
+                    'data' => array('dutieid' => $json->dutieid, 'cashbonid' => $json->cashbonid, ),
+                    'cancreate' => true,
+                    'next' => site_url($urlpath.'declarationcashbon/create/'.bin2hex(json_encode(array('branch' => empty($declarationcashbon->branch) ? $this->session->userdata('branch') : $declarationcashbon->branch, 'dutieid' => $declarationcashbon->dutieid, 'cashbonid' => $declarationcashbon->cashbonid, 'type' => $declarationcashbon->type, )))),
                 ));
             }
-        } else {
+        }else{
+            http_response_code(403);
             echo json_encode(array(
-                'data' => array('dutieid' => $json->dutieid, 'cashbonid' => $json->cashbonid, ),
-                'cancreate' => true,
-                'next' => site_url($urlpath.'declarationcashbon/create/'.bin2hex(json_encode(array('branch' => empty($declarationcashbon->branch) ? $this->session->userdata('branch') : $declarationcashbon->branch, 'dutieid' => $declarationcashbon->dutieid, 'cashbonid' => $declarationcashbon->cashbonid, 'type' => $declarationcashbon->type, )))),
+                'data' => array(),
+                'message' => 'Dokumen sudah pernah dibatalkan'
             ));
         }
+
     }
     function create($param=null) {
         $json = json_decode(
@@ -781,8 +785,8 @@ class DeclarationCashbon extends CI_Controller {
                         ));
                         $this->M_DeclarationCashbon->q_transaction_update(array(
                             'status' => 'C',
-                            'cancel_by' => $this->session->userdata('nik'),
-                            'cancel_date' => date('Y-m-d H:i:s'),
+                            'cancelby' => $this->session->userdata('nik'),
+                            'canceldate' => date('Y-m-d H:i:s'),
                         ),array(
                             'declarationid' => $json->declarationid
                         ));

@@ -5,17 +5,51 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/DeclarationCashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/DeclarationCashbon.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/models/M_BalanceCashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/models/M_BalanceCashbon.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/models/M_DeclarationCashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/models/M_DeclarationCashbon.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/models/M_FindEmployee.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/models/M_FindEmployee.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/v_detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/v_detail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/DeclarationCashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/DeclarationCashbon.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/models/M_Callplan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/M_Callplan.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_create_component_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_create_component_modal.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_detail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_update_component_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/declaration_cashbon/v_update_component_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695362623.5192.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695362987.0881.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695362989.7877.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695362992.5386.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695363034.0293.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695363037.219.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695363273.7479.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695363282.0642.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695363389.2266.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695363389.2457.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695363390.6617.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695363396.0208.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695364018.8062.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695364583.7403.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695364713.491.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695365140.7837.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695365484.8684.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695366170.4661.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695366333.6912.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695366377.5327.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695366752.5113.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695367181.229.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695367190.9401.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695367840.0716.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695367848.4982.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695367955.2529.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695367964.2956.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695367971.536.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695367984.9708.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695368217.4924.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695368225.8682.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695368672.1916.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695368680.4905.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695368728.1849.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695368736.6245.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695368862.7918.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695369256.3718.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695369384.1328.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695369390.6639.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1695369564.9793.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -334,39 +368,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;database.data.extractors.current.export.id&quot;: &quot;SQL Inserts&quot;,
-    &quot;database.data.extractors.current.id&quot;: &quot;SQL Inserts&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/PROJECT/hrms.nusa/application/migrations/sql/00019.20230921.20.Revisi-Tunjangan-Tidak-Tetap/+up&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.tabs&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "database.data.extractors.current.export.id": "SQL Inserts",
+    "database.data.extractors.current.id": "SQL Inserts",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "D:/PROJECT/hrms.nusa",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "yarn",
+    "settings.editor.selected.configurable": "editor.preferences.tabs",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
     ],
-    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/&quot;: [
-      &quot;PostgreSQL&quot;
+    "com.intellij.ide.scratch.LRUPopupBuilder$1/": [
+      "PostgreSQL"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00020.20230926.01.Revisi-Optimalisasi-Hrms\+up" />
+      <recent name="D:\PROJECT\hrms.nusa\application\migrations" />
       <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00019.20230921.20.Revisi-Tunjangan-Tidak-Tetap\+up" />
       <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00018.20230904.58.Mapping-Nominal-Komponen-Kasbon\+up" />
       <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00018.20230904.58.Mapping-Nominal-Komponen-Kasbon\-down" />
-      <recent name="D:\PROJECT\hrms.nusa\application\migrations" />
-      <recent name="D:\PROJECT\hrms.nusa\application\modules\trans\views" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql" />
@@ -695,6 +729,7 @@
       <workItem from="1694146633497" duration="2037000" />
       <workItem from="1694225991513" duration="8453000" />
       <workItem from="1694406783775" duration="5159000" />
+      <workItem from="1695718718017" duration="3729000" />
     </task>
     <servers />
   </component>
