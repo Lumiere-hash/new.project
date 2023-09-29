@@ -46,6 +46,7 @@ FROM (
     SELECT
         COALESCE(TRIM(a.branch), '') AS branch,
         COALESCE(TRIM(a.componentid), '') AS componentid,
+        COALESCE(TRIM(b.declarationid), '') AS declarationid,
         COALESCE(TRIM(a.description), '') AS componentname,
         COALESCE(TRIM(a.unit), '') AS unit,
         COALESCE(TRIM(a.sort), '') AS sort,

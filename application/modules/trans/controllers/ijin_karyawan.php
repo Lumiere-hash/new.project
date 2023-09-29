@@ -619,107 +619,128 @@ class Ijin_karyawan extends MX_Controller
                         $query = $this->db->get('sc_trx.listjadwalkerja');
                         $result = $query->row_array();
                         if ($result) {
-                            $category = $dataprocess->category;
-                            $param = '';
-                            switch ($dataprocess->type) {
-                                case "DT":
-                                    $param .= "AND kdijin_absensi = 'DT' ";
-                                case "PA":
-                                    $param .= "AND kdijin_absensi = 'PA' ";
-                                    break;
-                            }
-                            $isEdit = (strtoupper($dataprocess->config) == 'UPDATE' ? " AND trim(nodok) <> '$dataprocess->docno' " : "");
-                            $find = $this->m_ijin_karyawan->q_transaction_read_where($isEdit . ' AND status NOT IN (\'C\',\'D\') AND  nik = \'' . trim($nik) . '\' AND tgl_kerja1 = \'' . $dataprocess->tanggal . '\' AND (begintime::timestamp between \'' . $begintime . '\' AND \'' . $endtime . '\' OR endtime::timestamp between  \'' . $begintime . '\' AND \'' . $endtime . '\' ) ')->row();
-                            if ($find) {
-                                header('Content-Type: application/json');
-                                http_response_code(404);
-                                echo json_encode(array(
-                                    'data' => array(),
-                                    'message' => 'Sudah ada ijin di rentang waktu tersebut ',//<br> atau ada ijin dengan kategori yang sama<br> dan <b>belum dibatalkan/sudah disetujui</b>',
-                                ));
-                            } else {
-                                $this->db->where('trim(kdjam_kerja)', $result["jadwal"]);
-                                $query = $this->db->get('sc_mst.jam_kerja');
-                                $result2 = $query->row_array();
-                                $tomorrow = date('d-m-Y', strtotime($tanggal . ' +1 day'));
-                                if ($dataprocess->type == 'DT' and $dataprocess->awal != '') {
-                                    $input = (int)str_replace(':', '', $dataprocess->awal);
-                                    $jam_masuk = (int)str_replace(':', '', $result2['jam_masuk']);
-                                    $jam_masuk_max = (int)str_replace(':', '', $result2['jam_masuk_max']);
-                                    $tgl_masuk_max = $dataprocess->tanggal;
-                                    if ($jam_masuk_max < $jam_masuk) {
-                                        $tgl_masuk_max = $tomorrow;
-                                    } else {
-                                        $tgl_masuk_max = $dataprocess->tanggal;
-                                    }
-                                    $dateInput = $begintime;
-                                    $dateCompare = $tgl_masuk_max . ' ' . $result2['jam_masuk_max'];
-                                    $dataNext = $tomorrow . ' ' . $result2['jam_masuk_max'];
-                                    if (trim($result2['kdjam_kerja']) == 'SH3') {
+                            if ($result['jadwal'] <> 'OFF'){
+                                $category = $dataprocess->category;
+                                $param = '';
+                                switch ($dataprocess->type) {
+                                    case "DT":
+                                        $param .= "AND kdijin_absensi = 'DT' ";
+                                    case "PA":
+                                        $param .= "AND kdijin_absensi = 'PA' ";
+                                        break;
+                                }
+                                $isEdit = (strtoupper($dataprocess->config) == 'UPDATE' ? " AND trim(nodok) <> '$dataprocess->docno' " : "");
+                                $find = $this->m_ijin_karyawan->q_transaction_read_where($isEdit . ' AND status NOT IN (\'C\',\'D\') AND  nik = \'' . trim($nik) . '\' AND tgl_kerja1 = \'' . $dataprocess->tanggal . '\' AND (begintime::timestamp between \'' . $begintime . '\' AND \'' . $endtime . '\' OR endtime::timestamp between  \'' . $begintime . '\' AND \'' . $endtime . '\' ) ')->row();
+                                if ($find) {
+                                    header('Content-Type: application/json');
+                                    http_response_code(404);
+                                    echo json_encode(array(
+                                        'data' => array(),
+                                        'message' => 'Sudah ada ijin di rentang waktu tersebut ',//<br> atau ada ijin dengan kategori yang sama<br> dan <b>belum dibatalkan/sudah disetujui</b>',
+                                    ));
+                                } else {
+                                    $transaction = $this->m_ijin_karyawan->q_transaction_read_where($isEdit . ' AND status NOT IN (\'C\',\'D\') AND  nik = \'' . trim($nik) . '\' AND tgl_kerja1 = \'' . $dataprocess->tanggal.'\' AND kdijin_absensi = \''.$dataprocess->type.'\' ')->row();
+//                                    var_dump($transaction);die();
+                                    if ($transaction->kdijin_absensi == $dataprocess->type AND $dataprocess->category == 'PB' AND ($dataprocess->type == 'DT' OR $dataprocess->type == 'PA' )){
+                                        header('Content-Type: application/json');
+                                        http_response_code(404);
+                                        echo json_encode(array(
+                                            'data' => array(),
+                                            'message' => 'SUDAH ADA IJIN PULANG AWAL / DATANG TERLAMBAT PRIBADI DI TANGGAL YANG DIPILIH',//<br> atau ada ijin dengan kategori yang sama<br> dan <b>belum dibatalkan/sudah disetujui</b>',
+                                        ));
+                                    }else{
+                                        $this->db->where('trim(kdjam_kerja)', $result["jadwal"]);
+                                        $query = $this->db->get('sc_mst.jam_kerja');
+                                        $result2 = $query->row_array();
+                                        $tomorrow = date('d-m-Y', strtotime($tanggal . ' +1 day'));
+                                        if ($dataprocess->type == 'DT' and $dataprocess->awal != '') {
+                                            $input = (int)str_replace(':', '', $dataprocess->awal);
+                                            $jam_masuk = (int)str_replace(':', '', $result2['jam_masuk']);
+                                            $jam_masuk_max = (int)str_replace(':', '', $result2['jam_masuk_max']);
+                                            $tgl_masuk_max = $dataprocess->tanggal;
+                                            if ($jam_masuk_max < $jam_masuk) {
+                                                $tgl_masuk_max = $tomorrow;
+                                            } else {
+                                                $tgl_masuk_max = $dataprocess->tanggal;
+                                            }
+                                            $dateInput = $begintime;
+                                            $dateCompare = $tgl_masuk_max . ' ' . $result2['jam_masuk_max'];
+                                            $dataNext = $tomorrow . ' ' . $result2['jam_masuk_max'];
+                                            if (trim($result2['kdjam_kerja']) == 'SH3') {
 
-                                        if ($dataNext > $dateCompare and $category == 'PB') {
-                                            header('Content-Type: application/json');
-                                            http_response_code(404);
-                                            echo json_encode(array(
-                                                'data' => array(),
-                                                'message' => 'JAM MASUK MAKSIMAL ' . $dateCompare,
-                                            ));
-                                        }
-                                    } else {
-                                        if ($dateInput > $dateCompare and $category == 'PB') {
-                                            header('Content-Type: application/json');
-                                            http_response_code(404);
-                                            echo json_encode(array(
-                                                'data' => array('status' => true, 'tomorrow' => $tomorrow, 'kode' => $result["jadwal"], 'jadwal' => $result2),
-                                                'message' => 'JAM MASUK MAKSIMAL ' . $dateCompare,
-                                            ));
+                                                if ($dataNext > $dateCompare and $category == 'PB') {
+                                                    header('Content-Type: application/json');
+                                                    http_response_code(404);
+                                                    echo json_encode(array(
+                                                        'data' => array(),
+                                                        'message' => 'JAM MASUK MAKSIMAL ' . $dateCompare,
+                                                    ));
+                                                }
+                                            } else {
+                                                if ($dateInput > $dateCompare and $category == 'PB') {
+                                                    header('Content-Type: application/json');
+                                                    http_response_code(404);
+                                                    echo json_encode(array(
+                                                        'data' => array('status' => true, 'tomorrow' => $tomorrow, 'kode' => $result["jadwal"], 'jadwal' => $result2),
+                                                        'message' => 'JAM MASUK MAKSIMAL ' . $dateCompare,
+                                                    ));
+                                                } else {
+                                                    header('Content-Type: application/json');
+                                                    http_response_code(200);
+                                                    echo json_encode(array(
+                                                        'data' => array('status' => true, 'tomorrow' => $tomorrow, 'kode' => $result["jadwal"], 'jadwal' => $result2),
+                                                        'message' => 'JAM MASUK MAKSIMAL ',
+                                                    ));
+                                                }
+                                            }
+                                        } else if ($dataprocess->type == 'PA' and $dataprocess->selesai != '') {
+                                            $input = (int)str_replace(':', '', $dataprocess->selesai);
+                                            $jam_masuk = (int)str_replace(':', '', $result2['jam_masuk']);
+                                            $jam_pulang_min = (int)str_replace(':', '', $result2['jam_pulang_min']);
+
+                                            if ($input < $jam_masuk) {
+                                                $tgl_masuk_min = $tomorrow;
+                                            } else {
+                                                $tgl_masuk_min = $dataprocess->tanggal;
+                                            }
+                                            $tgl_pulang_min = $dataprocess->tanggal;
+                                            if ($jam_pulang_min < $jam_masuk) {
+                                                $tgl_pulang_min = $tomorrow;
+                                            }
+                                            $dateInput = $endtime;
+                                            $dateCompare = $tgl_pulang_min . ' ' . $result2['jam_pulang_min'];
+                                            if ((strtotime($dateInput) < strtotime($dateCompare)) and $category == 'PB') {
+                                                header('Content-Type: application/json');
+                                                http_response_code(404);
+                                                echo json_encode(array(
+//                                                    'data' => array('status' => true, 'tomorrow' => $tomorrow, 'kode' => $result["jadwal"], 'jadwal' => $result2),
+                                                    'data' => array(),
+                                                    'message' => 'JAM PULANG MINIMAL ' . $dateCompare,
+                                                ));
+                                            } else {
+                                                header('Content-Type: application/json');
+                                                http_response_code(200);
+                                                echo json_encode(array(
+                                                    'data' => array('status' => true, 'tomorrow' => $tomorrow, 'kode' => $result["jadwal"], 'jadwal' => $result2),
+                                                ));
+                                            }
                                         } else {
                                             header('Content-Type: application/json');
                                             http_response_code(200);
                                             echo json_encode(array(
                                                 'data' => array('status' => true, 'tomorrow' => $tomorrow, 'kode' => $result["jadwal"], 'jadwal' => $result2),
-                                                'message' => 'JAM MASUK MAKSIMAL ',
                                             ));
-                                        }
+                                        };
                                     }
-                                } else if ($dataprocess->type == 'PA' and $dataprocess->selesai != '') {
-                                    $input = (int)str_replace(':', '', $dataprocess->selesai);
-                                    $jam_masuk = (int)str_replace(':', '', $result2['jam_masuk']);
-                                    $jam_pulang_min = (int)str_replace(':', '', $result2['jam_pulang_min']);
 
-                                    if ($input < $jam_masuk) {
-                                        $tgl_masuk_min = $tomorrow;
-                                    } else {
-                                        $tgl_masuk_min = $dataprocess->tanggal;
-                                    }
-                                    $tgl_pulang_min = $dataprocess->tanggal;
-                                    if ($jam_pulang_min < $jam_masuk) {
-                                        $tgl_pulang_min = $tomorrow;
-                                    }
-                                    $dateInput = $endtime;
-                                    $dateCompare = $tgl_pulang_min . ' ' . $result2['jam_pulang_min'];
-                                    if ((strtotime($dateInput) < strtotime($dateCompare)) and $category == 'PB') {
-                                        header('Content-Type: application/json');
-                                        http_response_code(404);
-                                        echo json_encode(array(
-//                                                    'data' => array('status' => true, 'tomorrow' => $tomorrow, 'kode' => $result["jadwal"], 'jadwal' => $result2),
-                                            'data' => array(),
-                                            'message' => 'JAM PULANG MINIMAL ' . $dateCompare,
-                                        ));
-                                    } else {
-                                        header('Content-Type: application/json');
-                                        http_response_code(200);
-                                        echo json_encode(array(
-                                            'data' => array('status' => true, 'tomorrow' => $tomorrow, 'kode' => $result["jadwal"], 'jadwal' => $result2),
-                                        ));
-                                    }
-                                } else {
-                                    header('Content-Type: application/json');
-                                    http_response_code(200);
-                                    echo json_encode(array(
-                                        'data' => array('status' => true, 'tomorrow' => $tomorrow, 'kode' => $result["jadwal"], 'jadwal' => $result2),
-                                    ));
                                 }
+                            }else{
+                                header('Content-Type: application/json');
+                                http_response_code(403);
+                                echo json_encode(array(
+                                    'status' => false,
+                                    'message' => 'Jadwal karyawan libur',
+                                ));
                             }
                         } else {
                             header('Content-Type: application/json');

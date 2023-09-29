@@ -244,6 +244,7 @@ class DeclarationCashbon extends CI_Controller {
                 }
             }
         }
+
         $this->load->model(array('trans/M_Callplan'));
         if ($dinas->callplan == 't'){
             $callplan = $this->M_Callplan->check($dinas->nik,$json->perday)->row();
@@ -252,10 +253,11 @@ class DeclarationCashbon extends CI_Controller {
             $achieved = 1;
         }
         $this->M_DeclarationCashbonComponent->q_temporary_delete(' TRUE AND declarationid = \''.$this->session->userdata('nik').'\' AND perday = \''.$json->perday.'\' ');
-        foreach ($this->M_DeclarationCashbonComponent->q_empty_read_where(' AND cashbonid = \''.$json->cashbonid.'\' AND perday = \''.$json->perday.'\' ')->result() as $index => $row) {
+        foreach ($this->M_DeclarationCashbonComponent->q_empty_read_where(' AND cashbonid = \''.$json->cashbonid.'\' AND perday = \''.$json->perday.'\' AND declarationid = \''.$this->session->userdata('nik').'\' ')->result() as $index => $row) {
 //            $callplan = $this->M_MealAllowance->read(' AND nik = \''.$json->employeeid.'\' AND workdate = \''.$row->perday.'\' AND dutieid = \''.$dinas->nodok.'\'  ')->row();
 
             if ((int)$data[$row->componentid]->nominal > 0) {
+//                var_dump();
                 $this->M_DeclarationCashbonComponent->q_temporary_create(array(
                     'branch' => $this->session->userdata('branch'),
                     'declarationid' => $this->session->userdata('nik'),
@@ -269,6 +271,7 @@ class DeclarationCashbon extends CI_Controller {
                 ));
             }
         }
+//        die();
         $this->db->trans_complete();
         header('Content-Type: application/json');
         echo json_encode(array(
