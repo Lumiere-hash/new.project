@@ -201,8 +201,9 @@ BEGIN
                  LEFT OUTER JOIN (select a.* from sc_trx.ijin_karyawan a
                                                       left outer join sc_trx.dtljadwalkerja b on a.nik=b.nik and a.tgl_kerja=b.tgl
                                                       left outer join sc_mst.jam_kerja c on b.kdjamkerja=c.kdjam_kerja
-                                  where a.kdijin_absensi='IK' and a.type_ijin='DN' and status='P' and (a.tgl_jam_mulai>c.jam_masuk and a.tgl_jam_selesai>=c.jam_pulang)
-                                     OR (a.tgl_jam_mulai<=c.jam_masuk and a.tgl_jam_selesai<c.jam_pulang)) as tx ON tx.nik = ta.nik AND tx.tgl_kerja = ta.tgl
+                                  where a.kdijin_absensi='IK' and a.type_ijin='DN' and status='P' and ( (a.tgl_jam_mulai>c.jam_masuk and a.tgl_jam_selesai>=c.jam_pulang) 
+								  OR (a.tgl_jam_mulai<=c.jam_masuk and a.tgl_jam_selesai<c.jam_pulang) )
+                                     ) as tx ON tx.nik = ta.nik AND tx.tgl_kerja = ta.tgl
                  LEFT OUTER JOIN (select a.* from sc_trx.ijin_karyawan a
                                                       left outer join sc_trx.dtljadwalkerja b on a.nik=b.nik and a.tgl_kerja=b.tgl
                                                       left outer join sc_mst.jam_kerja c on b.kdjamkerja=c.kdjam_kerja
