@@ -318,6 +318,9 @@
         }).on('change', function(e) {});
         $('input[name=\'tgl_mulai\']').datetimepicker({
             format: 'DD-MM-YYYY',
+            <?php if (!$userhr){ ?>
+            minDate: new Date('<?php echo date('Y-m-d', strtotime(' +1 day')) ?>'),
+            <?php } ?>
             locale: 'id',
         }).on('dp.change', function(e) {
             $('input[name=\'tgl_selesai\']').data("DateTimePicker").minDate(e.date);

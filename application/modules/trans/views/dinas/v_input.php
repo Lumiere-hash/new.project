@@ -6,7 +6,7 @@
                 $("#example3").dataTable();                             
 				$("#dateinput").datepicker();                               
 				$("#dateinput1").datepicker(); 
-				$("#tglberangkat").datepicker(); 
+				$("#tglberangkat").datepicker({});
 				$("#tglkembali").datepicker(); 
 				$("#tgl_kerja").datepicker(); 
 				$("#jam_awal").clockpicker(); 

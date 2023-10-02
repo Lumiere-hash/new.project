@@ -1123,16 +1123,17 @@ class Dinas extends MX_Controller
 				$data['default_date'] = json_encode(date('d-m-Y 08:00', strtotime($value)));
 			}
 		}
-
 		$json = json_decode(
 			hex2bin($param)
 		);
+        $level = strtoupper(trim($this->m_akses->q_user_check()->row()->level_akses)) === 'A';
 		$this->load->library(array('datatablessp'));
 		$this->load->model(array('m_employee'));
 		$this->m_dinas->q_temporary_delete(array('nodok' => trim($this->session->userdata('nik'))));
 		$this->template->display(
 			'trans/dinas/v_createdinas',
 			array(
+                'userhr' => ($userhr or $level),
 				'title' => 'Input Dinas Karyawan',
 				'employee' => $this->m_employee->q_mst_read_where(' AND nik = \'' . $json->nik . '\' ')->row(),
 				'date' => $data['default_date'],
@@ -1169,8 +1170,10 @@ class Dinas extends MX_Controller
 			if ($opsi_dinas->status == "T") {
 				$value = strtolower($opsi_dinas->value1);
 				$value = str_replace("d", " day", $value);
+//                var_dump(date('Y-m-d H:i', strtotime($format_mulai)),date('Y-m-d 08:00', strtotime($value)));die();
 //				if ($this->input->post('tgl_mulai') < date('d-m-Y 08:00', strtotime($value))) {
-				if (date('Y-m-d H:i', strtotime($format_mulai)) < date('Y-m-d 08:00', strtotime($value))) {
+//				if (date('Y-m-d H:i', strtotime($format_mulai)) < date('Y-m-d 08:00', strtotime($value))) {
+				if (date('Y-m-d', strtotime($tgl_mulai)) < date('Y-m-d', strtotime($value))) {
 					header('Content-Type: application/json');
 					http_response_code(404);
 					echo json_encode(
@@ -1367,6 +1370,7 @@ class Dinas extends MX_Controller
         $userhr = $this->m_akses->list_aksesperdep()->num_rows();
         $userinfo = $this->m_akses->q_user_check()->row_array();
         $level_akses = strtoupper(trim($userinfo['level_akses']));
+        $level = strtoupper(trim($this->m_akses->q_user_check()->row()->level_akses)) === 'A';
 		$this->db->trans_start();
 		$this->m_dinas->q_temporary_delete(array('update_by' => trim($this->session->userdata('nik'))));
 		$edited = $this->m_dinas->q_temporary_read_where(' 
@@ -1412,7 +1416,7 @@ class Dinas extends MX_Controller
 					'title' => 'Update Dinas Karyawan : <b>' . $temporary->nodok . '</b>',
 					'employee' => $this->m_employee->q_mst_read_where(' AND nik = \'' . $json->nik . '\' ')->row(),
                     'canextend' => $canextend,
-                    'userhr' => $userhr,
+                    'userhr' => ($userhr OR $level),
                     'level_akses' => $level_akses,
 					'default' => json_decode(
 						json_encode(
@@ -1461,7 +1465,7 @@ class Dinas extends MX_Controller
 			if ($opsi_dinas->status == "T") {
 				$value = strtolower($opsi_dinas->value1);
 				$value = str_replace("d", " day", $value);
-                if (date('Y-m-d H:i', strtotime($format_mulai)) < date('Y-m-d 08:00', strtotime($value)) AND $json->config == 'update' ) {
+                if (date('Y-m-d', strtotime($format_mulai)) < date('Y-m-d', strtotime($value)) AND $json->config == 'update' ) {
 					header('Content-Type: application/json');
 					http_response_code(404);
 					echo json_encode(

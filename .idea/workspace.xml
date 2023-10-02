@@ -5,28 +5,122 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/information_schema.FNRwLQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/information_schema.FNRwLQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_crm.bxfdyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_crm.bxfdyQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_his.IyndyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_his.IyndyQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_im.cwGDBg.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_im.cwGDBg.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_log.1TjdyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_log.1TjdyQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_mst.Hz3dyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_mst.Hz3dyQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_rec.IU7dyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_rec.IU7dyQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_rep.Lk7dyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_rep.Lk7dyQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_retable.jHp04Q.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_retable.jHp04Q.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1696233072.117.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1696233080.3568.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1696233134.8199.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1696233146.4975.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1696234255.328.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1696234518.1933.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1696234574.763.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1696234587.7933.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1696234811.1664.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/DeclarationCashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/DeclarationCashbon.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1695960997.9474.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1695961018.5775.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/migrations/sql/00020.20230926.01.Revisi-Optimalisasi-Hrms/+up/004.alter.function.sc_trx.tr_transready_uangmkn.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/sql/00020.20230926.01.Revisi-Optimalisasi-Hrms/+up/004.alter.function.sc_trx.tr_transready_uangmkn.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/intern/models/m_mobileApprovals.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/intern/models/m_mobileApprovals.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/dinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/dinas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_createdinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_createdinas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_input.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_input.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_updatedinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_updatedinas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696034919.2314.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696034930.7429.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696035326.133.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696035326.2195.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696035329.2717.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696035360.5909.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696035369.1966.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696035590.1795.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696035598.3076.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696035621.0708.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696035629.3655.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696035638.5358.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696035647.1098.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696035652.3886.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696036507.3328.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696036511.3352.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696036915.0774.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696036923.2236.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696037068.1607.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696037076.4406.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696037080.0515.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696037143.4914.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696037148.7647.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696037149.4196.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696037154.7723.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696037255.1133.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696037255.9642.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696037289.5461.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696037675.1828.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696037698.2228.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696037762.72.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696037770.9367.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696037803.5946.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696037871.437.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696037943.4574.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696038029.0016.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696038289.7884.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696038298.1458.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696038652.7904.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696038661.2807.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696038671.554.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696038680.7449.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696038708.5218.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696038716.7637.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696038974.2794.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696038983.2814.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039032.4663.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039092.3165.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039101.1582.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039121.2031.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039123.8518.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039126.2053.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039167.4244.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039175.5734.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039381.2859.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039389.6923.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039465.2872.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039477.5594.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039480.2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039485.8173.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039516.7911.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039525.5206.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039553.5542.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039561.764.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039582.7289.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039590.8708.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039595.5136.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039788.3879.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039821.3121.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039956.513.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039956.58.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696039975.6385.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696040158.8266.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696040173.9703.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696040190.5908.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696040335.5815.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696040343.7422.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696040354.0967.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696040373.8777.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696040517.6118.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696040525.9611.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696040562.8992.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696040571.1993.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696040573.3742.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696040574.6476.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696040575.157.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696040575.6549.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696040578.6128.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696041295.1447.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696041503.6773.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696041512.0503.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696041540.1186.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696041577.7175.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696041595.7366.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696041672.2158.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696041711.6085.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696041864.3303.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696041907.0081.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1696041915.3664.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -345,32 +439,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "database.data.extractors.current.export.id": "SQL Inserts",
-    "database.data.extractors.current.id": "SQL Inserts",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/PROJECT/hrms.cni",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "yarn",
-    "settings.editor.selected.configurable": "ml.llm.AIAssistantPromptsLibrary",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;database.data.extractors.current.export.id&quot;: &quot;SQL Inserts&quot;,
+    &quot;database.data.extractors.current.id&quot;: &quot;SQL Inserts&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/PROJECT/hrms.cni&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;ml.llm.AIAssistantPromptsLibrary&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ],
-    "com.intellij.ide.scratch.LRUPopupBuilder$1/": [
-      "PostgreSQL"
+    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/&quot;: [
+      &quot;PostgreSQL&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00020.20230926.01.Revisi-Optimalisasi-Hrms\+up" />

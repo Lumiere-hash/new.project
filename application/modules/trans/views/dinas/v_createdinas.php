@@ -1,4 +1,5 @@
 <?php
+
 ?>
 <style>
 .space {
@@ -298,6 +299,9 @@ $(document).ready(function() {
     }).on('change', function(e) {});
     $('input[name=\'tgl_mulai\']').datetimepicker({
         format: 'DD-MM-YYYY',
+        <?php if (!$userhr){ ?>
+        minDate: new Date('<?php echo date('Y-m-d', strtotime(' +1 day')) ?>'),
+        <?php } ?>
         locale: 'id',
 		useCurrent:false,
     }).on('dp.change', function(e) {

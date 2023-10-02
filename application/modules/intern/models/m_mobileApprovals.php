@@ -332,7 +332,7 @@ class M_mobileApprovals extends CI_Model{
                     coalesce(trim(b.nmsubdept      ::text),'') as nmsubdept,
                     coalesce(trim(b.nmjabatan      ::text),'') as nmjabatan,
                     coalesce(trim(b.nmlvljabatan      ::text),'') as nmlvljabatan,
-                    coalesce(trim(c.tujuan_kota      ::text),'') as tujuan,
+                    coalesce(trim(d.namakotakab      ::text),trim(c.tujuan_kota::text)) as tujuan,
                     coalesce(trim(c.keperluan      ::text),'') as keperluan,
                     coalesce(trim(c1.nmkategori      ::text),'') as nmkategori,
                     coalesce(trim(to_char(c.tgl_mulai,'dd-mm-yyyy'      )::text),'') as tgl_mulai,
@@ -356,6 +356,7 @@ class M_mobileApprovals extends CI_Model{
                     left outer join sc_mst.lv_m_karyawan b on a.docref=b.nik
                     left outer join sc_trx.dinas c on a.docref=c.nik and a.docno=c.nodok
                     left outer join sc_mst.kategori c1 on c.kdkategori=c1.kdkategori and c1.typekategori='DINAS'
+                    left outer join sc_mst.kotakab d ON c.tujuan_kota = d.kodekotakab
                     ) as x where docno is not null  $param");
     }
 
