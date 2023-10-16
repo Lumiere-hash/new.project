@@ -397,7 +397,7 @@
 
 <script>
     $(document).ready(function (){
-        $('form.add_cuti').on('submit', function (){
+        $('form.add_cuti').on('submit', fun ction (){
             $('button.save').attr("disabled", true)
             $('a.back').attr("disabled", true)
         })
