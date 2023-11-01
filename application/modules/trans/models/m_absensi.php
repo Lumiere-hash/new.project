@@ -991,6 +991,7 @@ class M_absensi extends CI_Model {
                                 LEFT JOIN sc_mst.\"user\" b ON BTRIM(a.userid::TEXT) = BTRIM(b.userid::TEXT)
                                 LEFT JOIN sc_mst.customer c ON COALESCE(NULLIF(c.customercodelocal, ''''), c.custcode) = COALESCE(NULLIF(a.customercodelocal, ''''), a.customeroutletcode)
 								where a.checkouttime > a.checkintime
+								AND (onlocation NOT IN ('N') AND checkintype NOT IN ('N') )
                             ) x
                             WHERE COALESCE(x.userid, ''''::BPCHAR) <> ''''::BPCHAR
                             GROUP BY x.userid, x.usersname, x.nik, x.checktime, x.customeroutletcode, x.customercodelocal, x.custname, x.customertype
