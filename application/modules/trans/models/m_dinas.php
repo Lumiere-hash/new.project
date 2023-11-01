@@ -332,6 +332,8 @@ class M_dinas extends CI_Model{
         return sprintf(<<<'SQL'
 			SELECT * FROM (
 				SELECT
+                    COALESCE(TRIM(a.nodok), '') AS id,
+                    COALESCE(TRIM(b.nmlengkap), '') AS text,
                     COALESCE(TRIM(a.nik), '') AS nik,
                     COALESCE(TRIM(a.nodok), '') AS nodok,
                     a.tgl_dok AS tgl_dok,
@@ -346,8 +348,10 @@ class M_dinas extends CI_Model{
                     CASE
                         WHEN a.callplan IS TRUE THEN 'YA'
                         ELSE 'TIDAK'
-                    END AS callplan_reformat,
+                        END AS callplan_reformat,
                     COALESCE(TRIM(a.tujuan_kota), '') AS tujuan_kota,
+                    COALESCE(TRIM(c.namakotakab), a.tujuan_kota) AS tujuan_kota_text,
+                    CONCAT(TO_CHAR(a.tgl_mulai, 'dd-mm-yyyy'), ', ', TO_CHAR(a.tgl_selesai, 'dd-mm-yyyy')) AS dutieperiod,
                     a.input_date AS input_date,
                     COALESCE(TRIM(a.input_by), '') AS input_by,
                     a.approval_date AS approval_date,
@@ -360,10 +364,19 @@ class M_dinas extends CI_Model{
                     a.cancel_date AS cancel_date,
                     COALESCE(TRIM(a.kdkategori), '') AS kdkategori,
                     COALESCE(TRIM(a.transportasi), '') AS transportasi,
+                    COALESCE(TRIM(e.uraian), 'Lain - Lain') AS transportasi_text,
                     COALESCE(TRIM(a.tipe_transportasi), '') AS tipe_transportasi,
+                    COALESCE(TRIM(d.uraian), 'Lain - Lain') AS tipe_transportasi_text,
                     COALESCE(TRIM(a.jenis_tujuan), '') AS jenis_tujuan,
+                    COALESCE(TRIM(f.description), '') AS jenis_tujuan_text,
                     COALESCE(TRIM(a.no_telp), '') AS no_telp
-				FROM sc_trx.dinas a WHERE TRUE
+                FROM sc_trx.dinas a
+                    LEFT OUTER JOIN sc_mst.karyawan b ON a.nik = b.nik
+                    LEFT OUTER JOIN sc_mst.kotakab c ON a.tujuan_kota = c.kodekotakab
+                    LEFT OUTER JOIN sc_mst.trxtype d ON a.tipe_transportasi = d.kdtrx AND d.jenistrx = 'TRANSPTYPE'
+                    LEFT OUTER JOIN sc_mst.trxtype e ON a.transportasi = e.kdtrx AND e.jenistrx = 'TRANSP'
+                    LEFT OUTER JOIN sc_mst.destination_type f ON a.jenis_tujuan = f.destinationid
+                WHERE TRUE
 			) AS aa WHERE TRUE
 SQL
             ).$clause;

@@ -16,8 +16,10 @@
             <node kind="database">
               <name qname="HRMS.NUSA" />
               <name qname="HRMS.NUSA.TRIAL" />
+              <name qname="WEB.RECRUITMENT.CNI" />
               <node kind="schema" negative="1" />
             </node>
+            <node kind="database" qname="HRMS.SNI.LIVE" />
           </node>
         </introspection-scope>
       </schema-mapping>
@@ -32,7 +34,9 @@
       <schema-mapping>
         <introspection-scope>
           <node negative="1">
-            <node kind="database" qname="HRMS.NUSA.NEW">
+            <node kind="database">
+              <name qname="HRMS.NUSA" />
+              <name qname="HRMS.NUSA.NEW" />
               <node kind="schema" negative="1" />
             </node>
             <node kind="database" qname="postgres" />

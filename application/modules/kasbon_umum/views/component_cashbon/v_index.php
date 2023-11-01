@@ -1,9 +1,18 @@
 <?php
 ?>
+<style>
+    .ml-3{
+        margin-left: 3px;
+    }
+</style>
 <div class="box">
     <div class="box-header">
-        <div class="col-sm-12">
-            <h3 class="pull-left"><?php echo $title ?></h3>
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 ><?php echo $title ?></h3>
+                <br>
+                <a href="<?php echo $createUrl ?>" class="btn btn-md btn-instagram ml-3"><i class="fa fa-plus"></i> Tambah Komponen</a>
+            </div>
         </div>
     </div>
     <div class="box-body">
@@ -65,7 +74,50 @@
                             denyButtonText: `Tutup`,
                         }).then(function (result) {
                             if (result.isConfirmed) {
-                                window.location.replace(data.next);
+                                $.getJSON(data.next, {})
+                                    .done(function(data) {
+                                        Swal.mixin({
+                                            customClass: {
+                                                confirmButton: 'btn btn-sm btn-success ml-3',
+                                                cancelButton: 'btn btn-sm btn-warning ml-3',
+                                                denyButton: 'btn btn-sm btn-danger ml-3',
+                                            },
+                                            buttonsStyling: false,
+                                        }).fire({
+                                            position: 'top',
+                                            icon: 'success',
+                                            title: 'Berhasil Dihapus',
+                                            html: data.message,
+                                            timer: 3000,
+                                            timerProgressBar: true,
+                                            showCloseButton: true,
+                                            showConfirmButton: false,
+                                            showDenyButton: true,
+                                            denyButtonText: `Tutup`,
+                                        }).then(function(){
+                                            $('table#table-component-cashbon').DataTable().draw(false)
+                                        });
+                                    })
+                                    .fail(function(xhr, status, thrown) {
+                                        Swal.mixin({
+                                            customClass: {
+                                                confirmButton: 'btn btn-sm btn-success ml-3',
+                                                cancelButton: 'btn btn-sm btn-warning ml-3',
+                                                denyButton: 'btn btn-sm btn-danger ml-3',
+                                            },
+                                            buttonsStyling: false,
+                                        }).fire({
+                                            position: 'top',
+                                            icon: 'error',
+                                            title: 'Gagal Memuat Status',
+                                            html: (xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : xhr.statusText),
+                                            showCloseButton: true,
+                                            showConfirmButton: false,
+                                            showDenyButton: true,
+                                            denyButtonText: `Tutup`,
+                                        }).then(function () {
+                                        });
+                                    });
                             }
                         });
                     }

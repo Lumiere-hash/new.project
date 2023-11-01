@@ -7,6 +7,9 @@
     .mr-4{
         margin-right: 20px;
     }
+    .ml-3{
+        margin-left: 3px;
+    }
     .select2-selection__rendered {
         line-height: 31px !important;
     }
@@ -44,8 +47,8 @@
                     </button>
                     <ul class="dropdown-menu bg-primary ">
                         <?php
-                        echo '<li><a href="'.site_url('trans/cashbon').'">DINAS</a></li>';
-                        foreach ($types as $type){
+                        echo '<li><a href="'.site_url('kasbon_umum/cashbondinas/create_cashbon/'.bin2hex(json_encode(array('type'=>'DN')))).'">DINAS</a></li>';
+                        foreach ($type as $type){
                             echo '<li><a href="'.site_url('kasbon_umum/cashbon/create_cashbon/'.bin2hex(json_encode(array('type'=>$type->id))) ).'">'.$type->text.'</a></li>';
                         }
                         ?>

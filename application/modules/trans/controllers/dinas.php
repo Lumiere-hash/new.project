@@ -1789,4 +1789,62 @@ class Dinas extends MX_Controller
         }
     }
 
+    public function search() {
+        $this->load->model(array('trans/m_dinas', 'master/m_option'));
+        header('Content-Type: application/json');
+        $setup = $this->m_option->read(' AND kdoption =\'DUTIE:LIMIT:DATE\' AND group_option = \'DINAS\' ');
+        $setup = (($setup->num_rows() > 0) ? $setup->row()->value1 : '' );
+        $filter = ' AND status = \'P\'  ';
+        if (!is_null($this->input->get_post('user'))){
+            $filter .= ' AND nik = \''.$this->input->get_post('user').'\' ';
+        }
+        if (!empty($setup)){
+            $filter .= ' AND to_char(input_date, \'yyyy-mm-dd\') >= \''.$setup.'\' ';
+        }else{
+            $filter .= ' AND to_char(input_date, \'yyyy-mm-dd\') >= \'2023-01-01\' ';
+        }
+        if (!is_null($this->input->get_post('config'))){
+            switch (strtoupper($this->input->get_post('config'))){
+                case "CREATE":
+                    $filter .= ' AND (COALESCE(TRIM(nodok), \'\') NOT IN ( SELECT unnest(string_to_array(trim(dutieid),\',\')) FROM sc_trx.cashbon WHERE TRUE AND (status IN (\'P\',\'I\') ) )) ';
+                    $filter .= ' AND (COALESCE(TRIM(nodok), \'\') NOT IN ( SELECT unnest(string_to_array(trim(dutieid),\',\')) FROM sc_trx.declaration_cashbon WHERE TRUE AND (status IN (\'P\',\'I\') ) )) ';
+                    break;
+                case "UPDATE":
+//                    var_dump('dddd');die();
+                    $cashbonid = (!is_null($this->input->get_post('cashbonid')) ? $this->input->get_post('cashbonid') : null );
+                    $filter .= ' AND (COALESCE(TRIM(nodok), \'\') NOT IN ( SELECT unnest(string_to_array(trim(dutieid),\',\')) FROM sc_trx.cashbon WHERE TRUE AND (status IN (\'P\',\'I\') ) AND cashbonid <> \''.$cashbonid.'\'  )) ';
+                    $filter .= ' AND (COALESCE(TRIM(nodok), \'\') NOT IN ( SELECT unnest(string_to_array(trim(dutieid),\',\')) FROM sc_trx.declaration_cashbon WHERE TRUE AND (status IN (\'P\',\'I\') ) AND cashbonid <> \''.$cashbonid.'\'  )) ';
+                    break;
+            }
+        }
+//        var_dump($filter);die();
+        $count = $this->m_dinas->q_transaction_read_where($filter.'
+			
+			')->num_rows();
+        $search = $this->input->get_post('search');
+        $search = strtolower(urldecode($search));
+        $perpage = $this->input->get_post('perpage');
+        $perpage = intval($perpage);
+        $perpage = $perpage < 1 ? $count : $perpage;
+        $page = $this->input->get_post('page');
+        $page = intval($page > 0 ? $page : 1);
+        $limit = $perpage * ($page -1);
+        $result = $this->m_dinas->q_transaction_read_where($filter.'
+            
+            AND ( LOWER(id) LIKE \'%'.$search.'%\'
+            OR LOWER(text) LIKE \'%'.$search.'%\'
+            )
+            ORDER BY id ASC
+            LIMIT '.$perpage.' OFFSET '.$limit.'
+            ')->result();
+        echo json_encode(array(
+            'totalcount' => $count,
+            'search' => $search,
+            'perpage' => $perpage,
+            'page' => $page,
+            'limit' => $limit,
+            'location' => $result
+        ), JSON_NUMERIC_CHECK);
+    }
+
 }

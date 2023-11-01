@@ -96,7 +96,7 @@ class Default_style
         <script src="'.base_url('assets/plugins/jQuery/jquery-2.2.3.min.js'). '"></script>
         <!-- jQuery UI 1.11.4 -->
         <script src="'.base_url('assets/plugins/jQueryUI/jquery-ui.min.js'). '"></script>
-        <!--<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>-->
+        
         <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
         <script>
             $.widget.bridge("uibutton", $.ui.button);
@@ -104,7 +104,7 @@ class Default_style
         <!-- Bootstrap 3.3.6 -->
         <script src="'.base_url('assets/bootstrap/js/bootstrap.min.js'). '"></script>
         <!-- Morris.js charts -->
-        <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script---->
+        
         <script src="'.base_url('assets/plugins/morris/morris.min.js'). '"></script>
         <!-- Sparkline -->
         <script src="'.base_url('assets/plugins/sparkline/jquery.sparkline.min.js'). '"></script>
@@ -114,7 +114,7 @@ class Default_style
         <!-- jQuery Knob Chart -->
         <script src="'.base_url('assets/plugins/knob/jquery.knob.js'). '"></script>
         <!-- daterangepicker -->
-        <!--script src="'.base_url('assets/https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js'). '"></script-->
+        
         <!-- Moment JS FOR DATERAANGE-->
         <script src="'.base_url('assets/js/moment.min.js'). '" type="text/javascript"></script>
         <script src="'.base_url('assets/js/moment-with-locales.js'). '" type="text/javascript"></script>

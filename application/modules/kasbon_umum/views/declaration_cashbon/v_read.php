@@ -1,14 +1,19 @@
 <?php
+
 ?>
 <style>
     .table-bordered>tbody>tr>td {
         vertical-align: middle !important;
     }
+    .ml-3{
+        margin-left: 3px;
+    }
 </style>
 <div class="box">
     <div class="box-header">
         <div class="col-sm-12">
-            <h3 class="pull-left"><?php echo $title ?></h3>
+            <h3><?php echo $title ?></h3><br>
+            <a href="<?php echo $createUrl ?>" class="btn btn-md btn-instagram">Buat Deklarasi</a>
         </div>
     </div>
     <div class="box-body">

@@ -1,4 +1,5 @@
 <?php
+//var_dump($type);die();
 ?>
 <style>
     .has-error .help-block,
@@ -70,6 +71,26 @@
                 </div>
             </div>
             <div class="form-group row">
+                <label for="type" class="p-2 col-sm-2 col-form-label font-weight-bold">Tipe</label>
+                <div class="col-sm-3">
+                    <select name="type" class="select2 form-control " id="type">
+                        <?php if (isset($type) && count($type) > 0) {
+                            foreach ($type as $index => $row) { ?>
+                                <option value="<?php echo $row->id ?>" <?php echo ($row->id == $data->type ? 'selected' : '') ?> ><?php echo $row->text ?></option>
+                            <?php }
+                        } else { ?>
+                            <option></option>
+                        <?php } ?>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="unit" class="p-2 col-sm-2 col-form-label font-weight-bold">Aturan perhitungan</label>
+                <div class="col-sm-3">
+                    <input type="number" name="rules" class="form-control " id="rules" placeholder value="<?php echo number_format($data->rules)  ?>" min="-1" max="5">
+                </div>
+            </div>
+            <div class="form-group row">
                 <label for="unit" class="p-2 col-sm-2 col-form-label font-weight-bold">Urutan</label>
                 <div class="col-sm-3">
                     <input type="number" name="sort" class="form-control " id="sort" placeholder value="<?php echo number_format($data->sort)  ?>" min="1" max="99">
@@ -102,6 +123,15 @@
                     </select>
                 </div>
             </div>
+            <div class="form-group row">
+                <label for="multiplication" class="p-2 col-sm-2 col-form-label font-weight-bold">Multiplikasi (Pengali otomatis)</label>
+                <div class="col-sm-3">
+                    <select name="multiplication" id="multiplication" class="form-control select2">
+                        <option <?php echo ($data->multiplication=='t')?'selected':''; ?> value="true">Ya</option>
+                        <option <?php echo ($data->multiplication=='f')?'selected':''; ?> value="false">Tidak</option>
+                    </select>
+                </div>
+            </div>
 
             <div class="form-group row">
                 <div class="col-sm-3">
@@ -119,7 +149,53 @@
         $('.select2').select2({
             placeholder : 'Pilih salah satu'
         });
-
+        $('select[name=\'type\']').select2({
+            allowClear:true,
+            ajax: {
+                url: '<?php echo site_url('trans/transactiontype/search'); ?>',
+                dataType: 'json',
+                delay: 250,
+                multiple: true,
+                closeOnSelect: false,
+                data: function (params) {
+                    return {
+                        group: 'CBN:COMPONENT:TYPE',
+                        search: params.term,
+                        page: params.page,
+                        perpage: 7
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: data.location,
+                        pagination: {
+                            more: (params.page * 7) < data.totalcount
+                        }
+                    };
+                },
+                cache: true
+            },
+            placeholder: 'Pilih tipe komponen...',
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            maximumSelectionLength: 3,
+            minimumInputLength: 0,
+            templateResult: function (repo) {
+                if (repo.loading) {
+                    return repo.text;
+                }
+                return `
+<div class='row' style='width: 400px'>
+    <div class='col-sm-3'>${repo.id}</div>
+    <div class='col-sm-8'>${repo.text}</div>
+</div>`;
+            },
+            templateSelection: function (repo) {
+                return repo.text || repo.text;
+            },
+        }).on('change', function(e) {})
         jQuery.extend(jQuery.validator.messages, {
             required: 'Bagian ini diperlukan...',
             remote: 'Harap perbaiki bidang ini...',
@@ -163,11 +239,27 @@
                 sort:{
                     required: true,
                     number: true,
-                }
+                },
+                calculated:{
+                    required: true,
+                },
+                rules:{
+                    required: true,
+                },
+                active:{
+                    required: true,
+                },
+                readonly:{
+                    required: true,
+                },
+                multiplication:{
+                    required: true,
+                },
             },
-            invalidHandler: function(event, validator) {
-
+            onfocusout: function(element) {
+                $(element).valid();
             },
+            invalidHandler: function(event, validator) { },
             errorPlacement: function(error, element) {
                 if (element.hasClass('select2') && element.next('.select2-container').length) {
                     error.insertAfter(element.next('.select2-container'));
@@ -201,44 +293,53 @@
                     showCloseButton: true,
                     confirmButtonText: 'Konfirmasi',
                 }).then(function (result) {
-                    var response
                     if (result.isConfirmed) {
                         $.ajax({
                             url: '<?php echo $saveurl?>',
                             data: $('form.form-component').serialize(),
                             type: 'POST',
                             success: function (data) {
-                                response = jQuery.parseJSON(data)
-                                if (response['status']){
-                                    Swal.fire({
-                                        position: 'top',
-                                        icon: 'success',
-                                        title: response['title'],
-                                        text: response['message'],
-                                        showConfirmButton: false,
-                                        timer: 3000,
-                                    });
-                                }else{
-                                    Swal.fire({
-                                        position: 'top',
-                                        icon: 'error',
-                                        title: response['title'],
-                                        text: response['message'],
-                                        showConfirmButton: false,
-                                        timer: 3000,
-                                    });
-                                }
-
+                                Swal.mixin({
+                                    customClass: {
+                                        confirmButton: 'btn btn-sm btn-success ml-3',
+                                        cancelButton: 'btn btn-sm btn-warning ml-3',
+                                        denyButton: 'btn btn-sm btn-danger ml-3',
+                                    },
+                                    buttonsStyling: false,
+                                }).fire({
+                                    position: 'top',
+                                    icon: 'success',
+                                    title: 'Berhasil Diubah',
+                                    html: data.message,
+                                    timer: 3000,
+                                    timerProgressBar: true,
+                                    showCloseButton: true,
+                                    showConfirmButton: false,
+                                    showDenyButton: true,
+                                    denyButtonText: `Tutup`,
+                                }).then(function(){
+                                    window.location.replace('<?php echo site_url('kasbon_umum/ComponentCashbon/') ?>');
+                                });
                             },
                             error: function (xhr, status, thrown) {
-                                Swal.fire({
+                                console.log(xhr)
+                                Swal.mixin({
+                                    customClass: {
+                                        confirmButton: 'btn btn-sm btn-success ml-3',
+                                        cancelButton: 'btn btn-sm btn-warning ml-3',
+                                        denyButton: 'btn btn-sm btn-danger ml-3',
+                                    },
+                                    buttonsStyling: false,
+                                }).fire({
                                     position: 'top',
                                     icon: 'error',
-                                    title: 'Gagal Disimpan',
-                                    text: xhr.statusText,
+                                    title: 'Gagal Dibuat',
+                                    html: (xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : xhr.statusText),
+                                    showCloseButton: true,
                                     showConfirmButton: false,
-                                    timer: 3000,
-                                });
+                                    showDenyButton: true,
+                                    denyButtonText: `Tutup`,
+                                }).then(function(){ });
                             },
                         });
                     }

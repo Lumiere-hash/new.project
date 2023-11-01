@@ -8,6 +8,8 @@ DECLARE
     -- Penyesuaian Realisasi Callplan Dengan Kolom NIK
     -- UPDATE By RKM : 26/08/2023
     -- Penambahan bbm dan sewa kendaraan
+    -- UPDATE By RKM : 17/10/2023
+    -- realisasi customertype <> C juga dihitung masuk masuk sesuai callplan
     vr_tglapproval DATE;
     vr_tgl_act DATE;
     vr_tgl_dok DATE;
@@ -187,7 +189,7 @@ BEGIN
                           FROM sc_tmp.checkinout xa
                           WHERE xa.checktime::DATE = a.tgl
                             AND xa.nik = a.nik
-                            AND xa.customertype = 'C'
+                            --AND xa.customertype = 'C'
                             AND COALESCE(NULLIF(xa.customeroutletcode, ''), NULLIF(xa.customercodelocal, '')) IN (
                               SELECT COALESCE(NULLIF(xa.locationid, ''), NULLIF(xa.locationidlocal, '')) AS custcode
                               FROM sc_tmp.scheduletolocation xa

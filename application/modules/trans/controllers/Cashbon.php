@@ -184,7 +184,7 @@ class Cashbon extends CI_Controller {
         $dutie = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$json->dutieid.'\' ')->row();
         $filter = ($dutie->tipe_transportasi == 'TDN' ? " AND componentid <> 'SWK' "  : "");
         $this->db->trans_start();
-        foreach ($this->M_CashbonComponent->q_empty_read_where(' AND dutieid = \''.$json->dutieid.'\' AND active '.$filter)->result() as $index => $row) {
+        foreach ($this->M_CashbonComponent->q_empty_read_where(' AND dutieids = \''.$json->dutieid.'\' AND active '.$filter)->result() as $index => $row) {
             $this->M_CashbonComponent->q_temporary_create(array(
                 'branch' => $this->session->userdata('branch'),
                 'cashbonid' => $this->session->userdata('nik'),

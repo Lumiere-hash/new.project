@@ -75,13 +75,13 @@ class Cashbon extends CI_Controller {
         $this->load->library(array('datatablessp'));
         $this->load->model(array('M_Cashbon'));
         $cashbon = $this->M_Cashbon->q_transaction_read_where(' AND cashbonid = \''.$json->cashbonid.'\' ')->row();
-        $url = (trim($cashbon->type) == 'DN' ) ? 'trans/':'kasbon_umum/';
+        $url = (trim($cashbon->type) == 'DN' ) ? 'kasbon_umum/cashbondinas':'kasbon_umum/cashbon';
         header('Content-Type: application/json');
         if (!is_null($cashbon->approveby) && !empty($cashbon->approveby) && !is_null($cashbon->approvedate)) {
             echo json_encode(array(
                 'data' => $cashbon,
                 'canprint' => true,
-                'next' => site_url( $url.'cashbon/printoption/'.bin2hex(json_encode(array('branch' => empty($cashbon->branch) ? $this->session->userdata('branch') : $cashbon->branch, 'cashbonid' => $cashbon->cashbonid, 'dutieid' => $cashbon->dutieid, )))),
+                'next' => site_url( $url.'/printoption/'.bin2hex(json_encode(array('branch' => empty($cashbon->branch) ? $this->session->userdata('branch') : $cashbon->branch, 'cashbonid' => $cashbon->cashbonid, 'dutieid' => $cashbon->dutieid, )))),
             ));
         } else if (!is_null($cashbon->cashbonid) && !is_null($cashbon->cashbonid) && !empty($cashbon->cashbonid)) {
             if ($cashbon->status != 'C'){
@@ -90,15 +90,15 @@ class Cashbon extends CI_Controller {
                         'data' => $cashbon,
                         'canapprove' => true,
                         'next' => array(
-                            'update' => site_url($url.'cashbon/update/' . bin2hex(json_encode(array('branch' => empty($cashbon->branch) ? $this->session->userdata('branch') : $cashbon->branch, 'cashbonid' => $cashbon->cashbonid, 'dutieid' => $cashbon->dutieid, 'type' => $cashbon->type)))),
-                            'approve' => site_url($url.'cashbon/approve/' . bin2hex(json_encode(array('branch' => empty($cashbon->branch) ? $this->session->userdata('branch') : $cashbon->branch, 'cashbonid' => $cashbon->cashbonid, 'dutieid' => $cashbon->dutieid, 'type' => $cashbon->type)))),
+                            'update' => site_url($url.'/update/' . bin2hex(json_encode(array('branch' => empty($cashbon->branch) ? $this->session->userdata('branch') : $cashbon->branch, 'cashbonid' => $cashbon->cashbonid, 'dutieid' => $cashbon->dutieid, 'type' => $cashbon->type)))),
+                            'approve' => site_url($url.'/approve/' . bin2hex(json_encode(array('branch' => empty($cashbon->branch) ? $this->session->userdata('branch') : $cashbon->branch, 'cashbonid' => $cashbon->cashbonid, 'dutieid' => $cashbon->dutieid, 'type' => $cashbon->type)))),
                         ),
                     ));
                 } else {
                     echo json_encode(array(
                         'data' => $cashbon,
                         'canupdate' => true,
-                        'next' => site_url($url.'cashbon/update/' . bin2hex(json_encode(array('branch' => empty($cashbon->branch) ? $this->session->userdata('branch') : $cashbon->branch, 'cashbonid' => $cashbon->cashbonid, 'dutieid' => $cashbon->dutieid,)))),
+                        'next' => site_url($url.'/update/' . bin2hex(json_encode(array('branch' => empty($cashbon->branch) ? $this->session->userdata('branch') : $cashbon->branch, 'cashbonid' => $cashbon->cashbonid, 'dutieid' => $cashbon->dutieid,)))),
                     ));
                 }
             }else{
@@ -112,7 +112,7 @@ class Cashbon extends CI_Controller {
             echo json_encode(array(
                 'data' => array('dutieid' => $json->dutieid),
                 'cancreate' => true,
-                'next' => site_url($url.'cashbon/create/'.bin2hex(json_encode(array('branch' => empty($cashbon->branch) ? $this->session->userdata('branch') : $cashbon->branch, 'dutieid' => $cashbon->dutieid, )))),
+                'next' => site_url($url.'/create/'.bin2hex(json_encode(array('branch' => empty($cashbon->branch) ? $this->session->userdata('branch') : $cashbon->branch, 'dutieid' => $cashbon->dutieid, )))),
             ));
         }
     }
@@ -167,6 +167,7 @@ class Cashbon extends CI_Controller {
             $type = $this->M_TrxType->q_master_search_where('
 			    AND a.group IN (\'CASHBONTYPE\') AND id IN (\''.$json->type.'\')
 			')->row();
+
             if ($type) {
 
                 switch ($type->id){
@@ -209,6 +210,41 @@ class Cashbon extends CI_Controller {
                             'cashboncomponentsempty'    => $this->M_CashbonComponent->q_empty_read_where(' AND active AND calculated AND type = \''.$json->type.'\'')->result(),
                         );
                         $this->template->display('kasbon_umum/cashbon/v_create_bl', $data);
+                        break;
+                    case "DN":
+                        $this->load->library(array('datatablessp'));
+                        $this->load->model(array('trans/M_Employee'));
+                        if ($this->m_akses->list_aksesperdep()->num_rows() < 0 OR strtoupper(trim($this->m_akses->q_user_check()->row()->level_akses)) === 'B') {
+                            $this->datatablessp->datatable('table-employee', 'table table-striped table-bordered table-hover', true)
+                                ->columns('branch, nik, nmlengkap, nmdept, nmsubdept, nmjabatan')
+                                ->addcolumn('no', 'no')
+                                ->addcolumn('popup', '<a href=\'javascript:void(0)\' data-href=\''.site_url('kasbon_umum/cashbon/createpopup/$1').'\' class=\'btn btn-sm btn-success popup pull-right\'>Buat Kasbon</a>', 'branch, nik', true)
+                                ->querystring($this->M_Employee->q_mst_txt_where(' AND TRUE '))
+                                ->header('No.', 'no', false, false, true)
+                                ->header('Nik', 'nik', true, true, true, array('nik','popup') )
+                                ->header('Nama Karyawan', 'nmlengkap', true, true, true )
+                                ->header('Departemen', 'nmdept', true, true, true)
+                                ->header('Subdepartemen', 'nmsubdept', true, true, true)
+                                ->header('Jabatan', 'nmjabatan', true, true, true);
+                            $this->datatablessp->generateajax();
+                            $data['title'] = 'Kasbon Dinas Karyawan';
+                            $this->template->display('kasbon_umum/cashbon/dinas/v_employee', $data);
+                        } else {
+                            $this->datatablessp->datatable('table-employee', 'table table-striped table-bordered table-hover', true)
+                                ->columns('branch, nik, nmlengkap, nmdept, nmsubdept, nmjabatan')
+                                ->addcolumn('no', 'no')
+                                ->addcolumn('popup', '<a href=\'javascript:void(0)\' data-href=\''.site_url('kasbon_umum/cashbon/createpopup/$1').'\' class=\'btn btn-sm btn-success popup pull-right\'>Buat Kasbon</a>', 'branch, nik', true)
+                                ->querystring($this->M_Employee->q_mst_txt_where(' AND search ilike \'%'.trim($this->session->userdata('nik')).'%\' '))
+                                ->header('No.', 'no', false, false, true)
+                                ->header('Nik', 'nik', true, true, true, array('nik','popup') )
+                                ->header('Nama Karyawan', 'nmlengkap', true, true, true )
+                                ->header('Departemen', 'nmdept', true, true, true)
+                                ->header('Subdepartemen', 'nmsubdept', true, true, true)
+                                ->header('Jabatan', 'nmjabatan', true, true, true);
+                            $this->datatablessp->generateajax();
+                            $data['title'] = 'Kasbon Dinas Karyawan';
+                            $this->template->display('kasbon_umum/cashbon/dinas/v_employee', $data);
+                        }
                         break;
                 }
 
@@ -1385,4 +1421,7 @@ class Cashbon extends CI_Controller {
 
         }
     }
+
+
+
 }

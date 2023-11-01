@@ -80,7 +80,7 @@ SELECT
     COALESCE(TRIM(a.updateby), '') AS updateby,
     a.updatedate AS updatedate
 FROM sc_mst.component_cashbon a
-ORDER BY sort
+ORDER BY readonly DESC , sort ASC
 ) AS a WHERE TRUE
 SQL
             ).$clause;

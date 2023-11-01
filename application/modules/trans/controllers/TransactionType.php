@@ -19,11 +19,14 @@ class TransactionType extends CI_Controller {
         $group = $this->input->get_post('group');
         $transtype = $this->input->get_post('transtype');
         $filter = '';
-        if ($transtype == 'TPB'){
-            $filter = ' AND id IN(\'SM\',\'M\') ';
-        }else{
-            $filter = ' AND id NOT IN(\'SM\',\'M\') ';
+        if (!empty($transtype)){
+            if ($transtype == 'TPB'){
+                $filter = ' AND id IN(\'SM\',\'M\') ';
+            }else{
+                $filter = ' AND id NOT IN(\'SM\',\'M\') ';
+            }
         }
+
         $count = $this->M_TrxType->q_master_search_where((isset($filter) ? $filter:'' ).'
 			AND a.group IN (\''.$group.'\')
 			')->num_rows();

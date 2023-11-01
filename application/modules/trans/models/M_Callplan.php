@@ -24,6 +24,32 @@ SQL
             )
             select
                 COALESCE(TRIM(a.nik),'') AS nik,
+                TRIM(b.callplan) = 't' AS is_callplan,
+                a.tgl AS workdate,
+                COALESCE(a.rencanacallplan,0) AS callplan,
+                COALESCE(a.realisasicallplan,0) AS realization,
+                CASE
+                    WHEN extract(day from now()::timestamp - b.tglmasukkerja::timestamp) <= 30 AND a.rencanacallplan >= 1  THEN 1
+                    WHEN (a.realisasicallplan >= a.rencanacallplan) AND a.rencanacallplan >= 1 THEN 1
+                    ELSE 0
+                    END AS achieved
+            from sc_trx.meal_allowance a
+            LEFT OUTER JOIN sc_mst.karyawan b ON a.nik = b.nik
+            WHERE TRUE
+                AND a.nik = (select fnik from filter)
+                AND a.tgl = (select fdate from filter)
+        ");
+    }
+    function check_old($nik,$date ){
+        $date = ((!is_null($date) OR !empty($date)) ? $date : date('Y-m-d'));
+        return $this->db->query("
+            with filter AS (
+                select
+                    '$nik'::varchar AS fnik,
+                    '$date'::date AS fdate
+            )
+            select
+                COALESCE(TRIM(a.nik),'') AS nik,
                 TRIM(a.callplan) = 't' AS is_callplan,
                 (select fdate from filter) AS workdate,
                 b.schedule AS callplan,
