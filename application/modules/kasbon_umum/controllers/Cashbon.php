@@ -985,24 +985,46 @@ class Cashbon extends CI_Controller {
         $json->category = (is_null($json->category)) ? 'CASHBON' : $json->category;
 
         $this->load->library(array('datatablessp'));
+
         if ($json->type == 'DN'){
-            $this->load->model(array('trans/M_TrxType', 'trans/m_employee', 'trans/m_dinas', 'trans/M_Cashbon', 'trans/M_CashbonComponent', 'trans/M_TrxType', 'trans/M_DestinationType', 'trans/M_CityCashbon'));
+            $this->load->model(array('trans/M_TrxType', 'trans/m_employee', 'trans/m_dinas', 'trans/M_Cashbon', 'trans/M_CashbonComponent', 'trans/M_TrxType', 'trans/M_DestinationType', 'trans/M_CityCashbon','M_CashbonComponentDinas'));
             $transaksi = $this->M_Cashbon->q_transaction_read_where(' AND cashbonid = \''.$json->cashbonid.'\' ')->row();
             if (!is_null($transaksi) && !is_nan($transaksi)) {
-                $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$json->dutieid.'\' ')->row();
-                $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$dinas->nik.'\' ')->row();
-                $this->template->display('trans/cashbon/v_detail', array(
+                $dutieid = $transaksi->dutieid;
+                $dutiein = "'".implode("','",explode(",",$dutieid))."'";
+                $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok IN ('.$dutiein.') ');
+                $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$dinas->row()->nik.'\' ')->row();
+                $docno = $this->input->get_post('docno');
+                if (!empty($docno) && strtolower($docno) != 'null') {
+                    $docno = "'" . implode("','", explode(",", $docno)) . "'";
+                    $filter = ' AND id IN (' . $docno . ') ';
+                } else {
+                    $filter = ' AND id IN (' . $dutiein . ') ';
+                }
+                $this->datatablessp->datatable('table-dutie', 'table table-striped table-bordered table-hover', true)
+                    ->columns('branch, id, dutieperiod, nik, callplan_reformat, tujuan_kota_text, transportasi_text, tipe_transportasi_text, keperluan')
+                    ->addcolumn('no', 'no')
+                    ->addcolumn('popup', '<a href=\'javascript:void(0)\' data-href=\'' . site_url('trans/cashbon/actionpopup/$1') . '\' class=\'text-green popup\'><i class=\'fa fa-edit\'>&nbsp;&nbsp;Action</i></a>', 'branch, id', true)
+                    ->querystring($this->m_dinas->q_transaction_txt_where(' AND TRUE ' . $filter))
+                    ->header('No.', 'no', false, false, true)
+                    ->header('<u>N</u>o.Dinas', 'id', false, true, true)
+                    ->header('Tanggal Dinas', 'dutieperiod', false, true, true)
+                    ->header('Kota Tujuan', 'tujuan_kota_text', false, true, true)
+                    ->header('Callplan', 'callplan_reformat', false, true, true)
+                    ->header('Sarana Transportasi', 'transportasi_text', false, true, true)
+                    ->header('Tipe Kendaraan', 'tipe_transportasi_text', false, true, true)
+                    ->header('Keperluan', 'keperluan', false, true, true);
+                $this->datatablessp->generateajax();
+                $this->template->display('kasbon_umum/cashbon/dinas/v_detail', array(
                     'title' => 'Rincian Kasbon Karyawan',
                     'employee' => $empleyee,
                     'category' => $json->category,
-                    'dinas' => $dinas,
-                    'destinationtype' => $this->M_DestinationType->q_master_search_where(' AND id = \''.$dinas->jenis_tujuan.'\' ')->row(),
-                    'citycashbon' => $this->M_CityCashbon->q_master_search_where(' AND id = \''.$dinas->tujuan_kota.'\' ')->row(),
+                    'dinas' => $dinas->result(),
                     'transportasi' => $this->M_TrxType->q_master_search_where(' AND a.group = \'TRANSP\' AND id = \''.$dinas->transportasi.'\' ')->row(),
-                    'paymenttype' => $this->M_TrxType->q_master_search_where(' AND a.group = \'PAYTYPE\' AND id = \''.$transaksi->paymenttype.'\' ')->row(),
+                    'paymenttype' => $this->M_TrxType->q_master_search_where(' AND a.group = \'PAYTYPE\' AND id = \''.$transaksi->paymenttype.'\' ')->result(),
                     'cashbon' => $transaksi,
-                    'cashboncomponents' => $this->M_CashbonComponent->q_transaction_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND cashbonid = \''.$json->cashbonid.'\' AND active AND calculated ')->result(),
-                    'cashboncomponentsempty' => $this->M_CashbonComponent->q_empty_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND active AND calculated ')->result(),
+                    'cashboncomponents' => $this->M_CashbonComponentDinas->q_transaction_read_where(' AND dutieid IN ('.$dutiein.') AND cashbonid = \''.$json->cashbonid.'\' AND active AND calculated ')->result(),
+                    'cashboncomponentsempty' => $this->M_CashbonComponent->q_empty_read_where(' AND dutieid IN ('.$dutiein.') AND active AND calculated ')->result(),
                 ));
             }
         }else{

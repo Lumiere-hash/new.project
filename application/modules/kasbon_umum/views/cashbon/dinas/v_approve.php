@@ -1,8 +1,18 @@
 <?php
+//var_dump($paymenttype);die();
 ?>
 <style>
+    .ml-3{
+        margin-left: 3px;
+    }
+    li.select2-selection__choice{
+        background-color: blue !important;
+    }
+    span.select2-selection__choice__remove{
+        color: white !important;
+    }
 </style>
-<form role="form" class="formapprovecashbon" action="<?php echo site_url('trans/cashbon/doapprove/'.bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $dinas->nodok, 'cashbonid' => $cashbon->cashbonid, ))))?>" method="post">
+<form role="form" class="formapprovecashbon" action="<?php echo site_url('kasbon_umum/cashbondinas/doapprove/'.bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $cashbon->dutieid, 'cashbonid' => $cashbon->cashbonid, ))))?>" method="post">
 <div class="box">
     <div class="box-header">
         <div class="col-sm-12">
@@ -19,15 +29,9 @@
                     <div class="box-body">
                         <div class="form-horizontal">
                             <div class="form-group">
-                                <label class="col-sm-4">No.Dokumen Dinas</label>
-                                <div class="col-sm-8">
-                                    <input type="text" name="" class="form-control" value="<?php echo $dinas->nodok ?>" readonly/>
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label class="col-sm-4">Nik</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="" class="form-control" value="<?php echo $employee->nik ?>" readonly/>
+                                    <input type="text" name="" class="form-control userid" value="<?php echo $employee->nik ?>" readonly/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -66,44 +70,50 @@
                     <div class="box-body">
                         <div class="form-horizontal">
                             <div class="form-group">
-                                <label class="col-sm-4">Jenis Tujuan</label>
-                                <div class="col-sm-8">
-                                    <input type="text" name="" class="form-control" value="<?php echo $destinationtype->text ?>" readonly/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-4">Tujuan Kota</label>
-                                <div class="col-sm-8">
-                                    <input type="text" name="" class="form-control" value="<?php echo $citycashbon->text ?>" readonly/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-4">Tanggal Dinas</label>
-                                <div class="col-sm-4">
-                                    <input type="text" name="" class="form-control" value="<?php echo date('d-m-Y', strtotime($dinas->tgl_mulai)) ?>" readonly/>
-                                </div>
-                                <div class="col-sm-4">
-                                    <input type="text" name="" class="form-control" value="<?php echo date('d-m-Y', strtotime($dinas->tgl_selesai)) ?>" readonly/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-4">Jumlah Hari Dinas</label>
-                                <div class="col-sm-8">
-                                    <input type="text" name="" class="form-control" value="<?php echo round((strtotime($dinas->tgl_selesai) - strtotime($dinas->tgl_mulai)) / (60 * 60 * 24)) + 1 ?>" readonly/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-4">Transportasi</label>
-                                <div class="col-sm-8">
-                                    <input type="text" name="" class="form-control" value="<?php echo $transportasi->text ?>" readonly/>
-                                </div>
-                            </div>
-                            <div class="form-group">
                                 <label class="col-sm-4">Jenis Pembayaran</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="" class="form-control" value="<?php echo $paymenttype->text ?>" readonly/>
+                                    <select name="paymenttype" class="select2 form-control " id="paymenttype" readonly>
+                                        <?php if (isset($paymenttype) && count($paymenttype) > 0) {
+                                            foreach ($paymenttype as $index => $row) { ?>
+                                                <option value="<?php echo $row->id ?>" selected ><?php echo $row->text ?></option>
+                                            <?php }
+                                        } else { ?>
+                                            <option></option>
+                                        <?php } ?>
+                                    </select>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-sm-4">Dokumen Dinas</label>
+                                <div class="col-sm-8">
+                                    <select name="dutieid[]" class="select2 form-control " id="dutieid[]" multiple="multiple" readonly>
+                                        <?php if (isset($dinas) && count($dinas) > 0) {
+                                            foreach ($dinas as $index => $row) { ?>
+                                                <option value="<?php echo $row->id ?>" selected ><?php echo $row->text ?></option>
+                                            <?php }
+                                        } else { ?>
+                                            <option></option>
+                                        <?php } ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="box box-info" >
+                    <div class="box-header">
+                        <h3 class="box-title text-muted">Dokumen Dinas</h3>
+                    </div>
+                    <div class="box-body">
+                        <div class="col-sm-12 table-responsive">
+                            <?php
+                            $this->datatablessp->generatetable();
+                            $this->datatablessp->jquery();
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -114,11 +124,12 @@
                 <div class="box box-success" >
                     <div class="box-header">
                         <h3 class="box-title text-muted">Data Detail Dinas</h3>
+
                     </div>
                     <div class="box-body">
                         <div class="table-responsive">
                             <table class="table table-hover table-bordered table-striped" id="cashboncomponent">
-                                <?php include APPPATH.'\modules\trans\views\cashbon\v_component_read.php';?>
+                                <?php include APPPATH.'\modules\kasbon_umum\views\cashbon\dinas\v_component_read.php';?>
                             </table>
                         </div>
                     </div>
@@ -136,6 +147,100 @@
 </form>
 <script>
     $(document).ready(function() {
+        $('select[name=\'dutieid[]\']').select2({
+            disabled: true,
+            ajax: {
+                url: '<?php echo site_url('trans/dinas/search'); ?>',
+                dataType: 'json',
+                delay: 250,
+                multiple: true,
+                closeOnSelect: false,
+                data: function (params) {
+                    return {
+                        user: $('input.userid').val(),
+                        search: params.term,
+                        page: params.page,
+                        perpage: 7
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: data.location,
+                        pagination: {
+                            more: (params.page * 7) < data.totalcount
+                        }
+                    };
+                },
+                cache: true
+            },
+            placeholder: 'Pilih dokumen dinas...',
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            maximumSelectionLength: 3,
+            minimumInputLength: 0,
+            templateResult: function (repo) {
+                if (repo.loading) {
+                    return repo.text;
+                }
+                return `
+<div class='row' style='width: 400px'>
+    <div class='col-sm-3'>${repo.id}</div>
+    <div class='col-sm-8'>${repo.text}</div>
+</div>`;
+            },
+            templateSelection: function (repo) {
+                return repo.id || repo.id;
+            },
+        }).on('change', function(e) {
+        })
+        $('select[name=\'paymenttype\']').select2({
+            disabled: true,
+            ajax: {
+                url: '<?php echo site_url('trans/transactiontype/search'); ?>',
+                dataType: 'json',
+                delay: 250,
+                multiple: false,
+                closeOnSelect: false,
+                data: function (params) {
+                    return {
+                        group: 'PAYTYPE',
+                        search: params.term,
+                        page: params.page,
+                        perpage: 7
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: data.location,
+                        pagination: {
+                            more: (params.page * 7) < data.totalcount
+                        }
+                    };
+                },
+                cache: true
+            },
+            placeholder: 'Pilih jenis pembayaran...',
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 0,
+            templateResult: function (repo) {
+                if (repo.loading) {
+                    return repo.text;
+                }
+                return `
+<div class='row' style='width: 400px'>
+    <div class='col-sm-2'>${repo.id}</div>
+    <div class='col-sm-4'>${repo.text}</div>
+</div>`;
+            },
+            templateSelection: function (repo) {
+                return repo.text || repo.text;
+            },
+        }).on('change', function(e) {});
         $.extend($.validator.messages, {
             required: 'Bagian ini diperlukan...',
             remote: 'Harap perbaiki bidang ini...',
@@ -189,7 +294,7 @@
                 confirmButtonText: 'Konfirmasi',
             }).then(function (result) {
                 if (result.isConfirmed) {
-                    window.location.replace('<?php echo site_url('trans/cashbon/') ?>');
+                    window.location.replace('<?php echo site_url('kasbon_umum/cashbon/') ?>');
                 }
             });
         }).validate({
@@ -263,7 +368,7 @@
                                     showDenyButton: true,
                                     denyButtonText: `Tutup`,
                                 }).then(function(){
-                                    window.location.replace('<?php echo site_url('trans/cashbon/') ?>');
+                                    window.location.replace('<?php echo site_url('kasbon_umum/cashbon/') ?>');
                                 });
                             },
                             error: function (xhr, status, thrown) {

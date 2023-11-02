@@ -1,3 +1,4 @@
+
 <style type="text/css">
     @page { margin: <?php echo ($marginsize > 0 ? $marginsize : 10) ?>px; }
     .preview {
@@ -109,9 +110,13 @@
     </colgroup>
     <tbody>
     <tr>
+        <td class="paddingall fontsize12">Nomor Dokumen</td>
+        <td class="fontsize12" colspan="9"><span> : </span><span class="paddingleft paddingleft"><?php echo $cashbon->cashbonid ?></span></td>
+    </tr>
+    <tr>
         <td class="paddingall fontsize12">Nama</td>
         <td class="fontsize12" colspan="9"><span> : </span><span class="paddingleft paddingleft"><?php echo $employee->nmlengkap ?></span></td>
-        <td class="paddingall borderall fontsize12 textcenter" colspan="2"><b><?php echo $dinas->nodok ?></b></td>
+
     </tr>
     <tr>
         <td class="paddingall fontsize12">Nik</td>
@@ -143,79 +148,62 @@
     <tr>
         <td class="borderleft borderright borderbottom textleft textmiddle paddingall fontsize14 fontbold" colspan="12"></td>
     </tr>
-    <tr>
-        <td class="borderall fontsize12 paddingall" rowspan="7"></td>
-        <td class="borderall fontsize12 paddingall">1. Nomer Dokumen</td>
-        <td class="borderall fontsize12 paddingall textleft backgreen" colspan="10"><b><?php echo $cashbon->cashbonid ?></b></td>
-    </tr>
-    <tr>
-        <td class="borderall fontsize12 paddingall">2. Kota Tujuan</td>
-        <td class="borderall fontsize12 paddingall textleft backgreen" colspan="10"><?php echo $citycashbon->text ?></td>
-    </tr>
-    <tr>
-        <td class="borderall fontsize12 paddingall">3. Jenis Kota Tujuan</td>
-        <td class="borderall fontsize12 paddingall textleft backgreen" colspan="10"><?php echo $destinationtype->text ?></td>
-    </tr>
-    <tr>
-        <td class="borderall fontsize12 paddingall">4. Sarana Transportasi</td>
 
-        <td class="borderall fontsize12 paddingall" colspan="10"><?php echo $transportasi->text ?></td>
+    <tr>
+        <td class="borderleft borderright fontsize12 paddingall" colspan="12">.</td>
     </tr>
     <tr>
-        <td class="borderall fontsize12 paddingall">5. Berangkat :</td>
-
-        <td class="borderall fontsize12 paddingall">Tgl.</td>
-        <td class="borderall fontsize12 paddingall textright"><?php echo date('d-m-Y', strtotime($dinas->tgl_mulai)) ?></td>
-        <td class="borderall fontsize12 paddingall">Jam</td>
-        <td class="borderall fontsize12 paddingall textright"><?php echo date('H:i:s', strtotime($dinas->jam_mulai)) ?></td>
-        <td class="borderall fontsize12 paddingall">Tiba :</td>
-        <td class="borderall fontsize12 paddingall">Tgl.</td>
-        <td class="borderall fontsize12 paddingall textright"><?php echo date('d-m-Y', strtotime($dinas->tgl_mulai)) ?></td>
-        <td class="borderall fontsize12 paddingall">Jam</td>
-        <td class="borderall fontsize12 paddingall textright" colspan="2"><?php echo date('H:i:s', strtotime($dinas->jam_mulai)) ?></td>
+        <td class="borderleft borderright fontsize12 paddingall" colspan="12"><b>Rincian Dinas</b></td>
     </tr>
     <tr>
-        <td class="borderall fontsize12 paddingall">6. Pulang</td>
-
-        <td class="borderall fontsize12 paddingall">Tgl.</td>
-        <td class="borderall fontsize12 paddingall textright"><?php echo date('d-m-Y', strtotime($dinas->tgl_selesai)) ?></td>
-        <td class="borderall fontsize12 paddingall">Jam</td>
-        <td class="borderall fontsize12 paddingall textright"><?php echo date('H:i:s', strtotime($dinas->jam_selesai)) ?></td>
-        <td class="borderall fontsize12 paddingall">Tiba :</td>
-        <td class="borderall fontsize12 paddingall">Tgl.</td>
-        <td class="borderall fontsize12 paddingall textright"><?php echo date('d-m-Y', strtotime($dinas->tgl_selesai)) ?></td>
-        <td class="borderall fontsize12 paddingall">Jam</td>
-        <td class="borderall fontsize12 paddingall textright" colspan="2"><?php echo date('H:i:s', strtotime($dinas->jam_selesai)) ?></td>
-    </tr>
-    <tr>
-        <td class="borderall fontsize12 paddingall">.</td>
-        <td class="borderall fontsize12 paddingall"></td>
-        <td class="borderall fontsize12 paddingall"></td>
-        <td class="borderall fontsize12 paddingall"></td>
-        <td class="borderall fontsize12 paddingall"></td>
-        <td class="borderall fontsize12 paddingall"></td>
-        <td class="borderall fontsize12 paddingall"></td>
-        <td class="borderall fontsize12 paddingall"></td>
-        <td class="borderall fontsize12 paddingall"></td>
-        <td class="borderall fontsize12 paddingall" colspan="2"></td>
-    </tr>
-    <tr>
-        <td class="borderall fontsize12 paddingall" colspan="12">Tujuan / Target Perjalanan Dinas : <?php echo $dinas->keperluan ?></td>
+        <td class="borderleft borderright fontsize12" colspan="12">
+            <table class="bordernone" style="width: 100%">
+                <thead>
+                <tr>
+                    <th class="borderall textmiddle paddingall fontsize12 fontbold" width="10%">Nomor Dinas</th>
+                    <th class="borderall textmiddle paddingall fontsize12 fontbold" width="12%">Tanggal Dinas</th>
+                    <th class="borderall textmiddle paddingall fontsize12 fontbold" width="15%">Kota Tujuan</th>
+                    <th class="borderall textmiddle paddingall fontsize12 fontbold" width="5%">Callplan</th>
+                    <th class="borderall textmiddle paddingall fontsize12 fontbold" width="10%">Sarana Transportasi</th>
+                    <th class="borderall textmiddle paddingall fontsize12 fontbold" width="8%">Tipe Kendaraan</th>
+                    <th class="borderall textmiddle paddingall fontsize12 fontbold">Keperluan</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($dinas as $index => $row) { ?>
+                    <tr>
+                        <td class="borderall textmiddle paddingall fontsize12"><?php echo $row->nodok ?></td>
+                        <td class="borderall textmiddle paddingall fontsize12"><?php echo $row->dutieperiod ?></td>
+                        <td class="borderall textmiddle paddingall fontsize12"><?php echo $row->tujuan_kota_text ?></td>
+                        <td class="borderall textmiddle paddingall fontsize12"><?php echo $row->callplan_reformat ?></td>
+                        <td class="borderall textmiddle paddingall fontsize12"><?php echo $row->transportasi_text ?></td>
+                        <td class="borderall textmiddle paddingall fontsize12"><?php echo $row->tipe_transportasi_text ?></td>
+                        <td class="borderall textmiddle paddingall fontsize12"><?php echo $row->keperluan ?></td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+        </td>
     </tr>
     <tr>
         <td class="borderleft borderright fontsize12 paddingall" colspan="12">.</td>
     </tr>
     <tr>
+        <td class="borderleft borderright fontsize12 paddingall" colspan="12"><b>Rincian Kasbon</b></td>
+    </tr>
+    <tr>
         <td class="borderall fontsize12 paddingall textcenter" >No.</td>
+        <td class="borderall fontsize12 paddingall textcenter" >Nomor Dinas</td>
         <td class="borderall fontsize12 paddingall textcenter" >Keperluan</td>
         <td class="borderall fontsize12 paddingall textcenter" >Biaya Per Hari</td>
         <td class="borderall fontsize12 paddingall textcenter" >Jml.Satuan Hari</td>
         <td class="borderall fontsize12 paddingall textcenter" >Total</td>
-        <td class="borderleft borderright fontsize12 paddingall" colspan="7" rowspan="7"></td>
+        <td class="borderleft borderright fontsize12 paddingall" colspan="7" rowspan="<?php echo (int)count($cashboncomponents) + 2 ?>"></td>
     </tr>
     <?php foreach ($cashboncomponents as $index => $row ) { ?>
         <tr>
             <td class="borderall fontsize12 paddingall textcenter" ><?php echo $index +1 ?></td>
+            <td class="borderall fontsize12 paddingall" ><?php echo $row->dutieid ?></td>
             <td class="borderall fontsize12 paddingall" ><?php echo $row->componentname ?></td>
             <td class="borderall fontsize12 paddingall textright" ><?php echo $row->calculated == 't' ? '' : '' ?> <?php echo $row->nominalformat ?></td>
             <td class="borderall fontsize12 paddingall textright" ><?php echo ($row->multiplication == 't' ? $row->quantityday : '') ?></td>
@@ -223,14 +211,14 @@
         </tr>
     <?php } ?>
     <tr>
-        <td class="borderall fontsize12 paddingall textright"  colspan="4">Total Yang Bisa Diberikan Secara Tunai</td>
-        <td class="borderall fontsize12 paddingall textright" > <?php echo (isset($cashbon->totalcashbon) ? $cashbon->totalcashbonformat : 0) ?></td>
+        <td class="borderall fontsize12 paddingall textright"  colspan="5">Total Yang Bisa Diberikan </td>
+        <td class="borderall fontsize12 paddingall textright" > Rp<?php echo (isset($cashbon->totalcashbon) ? $cashbon->totalcashbonformat : 0) ?>,-</td>
     </tr>
     <tr>
         <td class="borderleft borderright fontsize12 paddingall" colspan="12">.</td>
     </tr>
     <tr>
-        <td class="borderleft borderright bordertop fontsize12 paddingall" colspan="12">Biaya yang diberikan sejumlah : <b><?php echo (isset($cashbon->totalcashbon) ? $cashbon->totalcashbonformat : 0) ?>,-</b> dan akan diberikan dengan cara : <?php echo $paymenttype->text ?>, No. Rek. <?php echo $employee->norek ?> a.n. : <?php echo $employee->namapemilikrekening ?></td>
+        <td class="borderleft borderright bordertop fontsize12 paddingall" colspan="12">Biaya yang diberikan sejumlah : <b>Rp<?php echo (isset($cashbon->totalcashbon) ? $cashbon->totalcashbonformat : 0) ?>,-</b> dan akan diberikan dengan cara : <?php echo $paymenttype->text ?>, No. Rek. <?php echo $employee->norek ?> a.n. : <?php echo $employee->namapemilikrekening ?></td>
     </tr>
     <tr>
         <td class="borderleft borderright fontsize12 paddingall" colspan="12"></td>

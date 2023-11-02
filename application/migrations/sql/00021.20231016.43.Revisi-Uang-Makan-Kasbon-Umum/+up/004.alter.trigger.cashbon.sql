@@ -469,3 +469,41 @@ END;
 $$;
 
 
+create OR REPLACE function sc_tmp.tr_cashbon_component_before_delete() returns trigger
+    language plpgsql
+as
+$$
+DECLARE
+    int_declaration numeric;
+BEGIN
+    UPDATE sc_tmp.cashbon SET
+          totalcashbon = (
+                  (SELECT SUM(a.nominal)
+                   FROM sc_tmp.cashbon_component a
+                            LEFT OUTER JOIN sc_mst.component_cashbon b ON TRUE
+                       AND TRIM(b.componentid) = TRIM(a.componentid)
+                   WHERE TRUE
+                     AND TRIM(a.cashbonid) = TRIM(OLD.cashbonid)
+                     AND b.calculated) - (SELECT COALESCE(a.nominal,0)
+                                          FROM sc_tmp.cashbon_component a
+                                                   LEFT OUTER JOIN sc_mst.component_cashbon b ON TRUE
+                                              AND TRIM(b.componentid) = TRIM(a.componentid)
+                                          WHERE TRUE
+                                            AND TRIM(a.cashbonid) = TRIM(OLD.cashbonid)
+                                            AND b.calculated
+                                            AND a.componentid = old.componentid
+                                            AND a.dutieid = old.dutieid
+                  )
+              )
+    WHERE TRUE
+      AND cashbonid = OLD.cashbonid;
+    RETURN old;
+END;
+$$;
+
+DROP TRIGGER IF EXISTS tr_cashbon_component_before_delete ON sc_tmp.cashbon_component;
+create trigger tr_cashbon_component_before_delete
+    before delete
+    on sc_tmp.cashbon_component
+    for each row
+execute procedure sc_tmp.tr_cashbon_component_before_delete();

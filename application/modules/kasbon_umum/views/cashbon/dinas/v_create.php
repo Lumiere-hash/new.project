@@ -147,7 +147,40 @@
                 .ajax.url('<?php echo base_url('kasbon_umum/cashbondinas/create')?>?docno=' + docno +'')
                 .load();
         }
+        function loadDocno(docno){
+            var docno;
+            $.ajax({
+                url:'<?php echo $loadDocnoUrl ?>',
+                method: 'POST',
+                data: {docno:docno},
+                success: function (data){
+                    $('table.table#cashboncomponent')
+                        .empty()
+                        .load(data.data.url.detail, {}, function (response, status, xhr) {
+                            if (status === 'error') {
+                                Swal.mixin({
+                                    customClass: {
+                                        confirmButton: 'btn btn-sm btn-success ml-3',
+                                        cancelButton: 'btn btn-sm btn-warning ml-3',
+                                        denyButton: 'btn btn-sm btn-danger ml-3',
+                                    },
+                                    buttonsStyling: false,
+                                }).fire({
+                                    position: 'top',
+                                    icon: 'error',
+                                    title: 'Gagal Memuat Detail',
+                                    html: (xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : xhr.statusText),
+                                    showCloseButton: true,
+                                    showConfirmButton: false,
+                                    showDenyButton: true,
+                                    denyButtonText: `Tutup`,
+                                }).then(function(){ });
+                            }
+                        });
 
+                }
+            })
+        }
         $('select[name=\'paymenttype\']').select2({
             ajax: {
                 url: '<?php echo site_url('trans/transactiontype/search'); ?>',
@@ -195,8 +228,8 @@
         }).on('change', function(e) {});
 
         $('select[name=\'dutieid[]\']').select2({
-            allowClear:true,
-
+            allowClear:false,
+            tags: true,
             ajax: {
                 url: '<?php echo site_url('trans/dinas/search'); ?>',
                 dataType: 'json',
@@ -245,8 +278,10 @@
         }).on('change', function(e) {
             if($('select[name=\'dutieid[]\']').val() != null){
                 checkdocno($('select[name=\'dutieid[]\']').val().join(','))
+                loadDocno($('select[name=\'dutieid[]\']').val().join(','))
             }else{
                 checkdocno(null)
+                loadDocno(null)
             }
         })
 
@@ -487,10 +522,10 @@
         });
 
         $('div.modal#createcashboncomponent').on('hide.bs.modal', function(){
-            var dutieid = $('select[name=\'dutieid[]\']').val()
+            var docno = $('select[name=\'dutieid[]\']').val().join(',')
             $('table.table#cashboncomponent')
                 .empty()
-                .load('<?php echo site_url('kasbon_umum/cashbondinas/createcomponent/'.bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $dinas->nodok, 'schema' => 'temporary' )))) ?>', {dutieid : dutieid.join(',')}, function (response, status, xhr) {
+                .load('<?php echo site_url('kasbon_umum/cashbondinas/createcomponent/'.bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $dinas->nodok, 'schema' => 'temporary' )))) ?>', {dutieid:docno}, function (response, status, xhr) {
                     if (status === 'error') {
                         Swal.mixin({
                             customClass: {

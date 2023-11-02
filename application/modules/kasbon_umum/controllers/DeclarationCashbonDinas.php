@@ -125,14 +125,18 @@ class DeclarationCashbonDinas extends CI_Controller
             $filter = ' AND id = \'1\' ';
         }
         $this->datatablessp->datatable('table-dutie', 'table table-striped table-bordered table-hover', true)
-            ->columns('branch, id, dutieperiod, nik, callplan_reformat')
+            ->columns('branch, id, dutieperiod, nik, callplan_reformat, tujuan_kota_text, transportasi_text, tipe_transportasi_text, keperluan')
             ->addcolumn('no', 'no')
             ->addcolumn('popup', '<a href=\'javascript:void(0)\' data-href=\'' . site_url('trans/cashbon/actionpopup/$1') . '\' class=\'text-green popup\'><i class=\'fa fa-edit\'>&nbsp;&nbsp;Action</i></a>', 'branch, id', true)
             ->querystring($this->m_dinas->q_transaction_txt_where(' AND TRUE ' . $filter))
             ->header('No.', 'no', false, false, true)
             ->header('<u>N</u>o.Dinas', 'id', false, true, true)
             ->header('Tanggal Dinas', 'dutieperiod', false, true, true)
-            ->header('Callplan', 'callplan_reformat', false, true, true);
+            ->header('Kota Tujuan', 'tujuan_kota_text', false, true, true)
+            ->header('Callplan', 'callplan_reformat', false, true, true)
+            ->header('Sarana Transportasi', 'transportasi_text', false, true, true)
+            ->header('Tipe Kendaraan', 'tipe_transportasi_text', false, true, true)
+            ->header('Keperluan', 'keperluan', false, true, true);
         $this->datatablessp->generateajax();
         $cashbon = $this->M_Cashbon->q_transaction_read_where(' AND dutieid = \'' . $json->dutieid . '\' AND cashbonid = \'' . $json->cashbonid . '\' ')->row();
         $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \'' . $json->dutieid . '\' ')->row();
@@ -451,14 +455,18 @@ class DeclarationCashbonDinas extends CI_Controller
             $filter = ' AND id IN (' . $dutiein . ') ';
         }
         $this->datatablessp->datatable('table-dutie', 'table table-striped table-bordered table-hover', true)
-            ->columns('branch, id, dutieperiod, nik, callplan_reformat')
+            ->columns('branch, id, dutieperiod, nik, callplan_reformat, tujuan_kota_text, transportasi_text, tipe_transportasi_text, keperluan')
             ->addcolumn('no', 'no')
             ->addcolumn('popup', '<a href=\'javascript:void(0)\' data-href=\'' . site_url('trans/cashbon/actionpopup/$1') . '\' class=\'text-green popup\'><i class=\'fa fa-edit\'>&nbsp;&nbsp;Action</i></a>', 'branch, id', true)
-            ->querystring($this->m_dinas->q_transaction_txt_where(' AND TRUE  ' . $filter))
+            ->querystring($this->m_dinas->q_transaction_txt_where(' AND TRUE ' . $filter))
             ->header('No.', 'no', false, false, true)
-            ->header('<u>N</u>o.Dinas', 'id', true, true, true)
-            ->header('Tanggal Dinas', 'dutieperiod', true, true, true)
-            ->header('Callplan', 'callplan_reformat', true, true, true);
+            ->header('<u>N</u>o.Dinas', 'id', false, true, true)
+            ->header('Tanggal Dinas', 'dutieperiod', false, true, true)
+            ->header('Kota Tujuan', 'tujuan_kota_text', false, true, true)
+            ->header('Callplan', 'callplan_reformat', false, true, true)
+            ->header('Sarana Transportasi', 'transportasi_text', false, true, true)
+            ->header('Tipe Kendaraan', 'tipe_transportasi_text', false, true, true)
+            ->header('Keperluan', 'keperluan', false, true, true);
         $this->datatablessp->generateajax();
         $this->db->trans_complete();
         $this->template->display('kasbon_umum/declaration_cashbon/dinas/v_update', array(
@@ -584,7 +592,7 @@ class DeclarationCashbonDinas extends CI_Controller
                 } else {
                     $a = 'fffff';
 
-                    /*$this->M_DeclarationCashbonComponentDinas->q_temporary_create(array(
+                    $this->M_DeclarationCashbonComponentDinas->q_temporary_create(array(
                         'branch' => $this->session->userdata('branch'),
                         'declarationid' => $json->declarationid,
                         'componentid' => $row->componentid,
@@ -595,7 +603,7 @@ class DeclarationCashbonDinas extends CI_Controller
                         'description' => $row->description,
                         'inputby' => trim($this->session->userdata('nik')),
                         'inputdate' => date('Y-m-d H:i:s'),
-                    ));*/
+                    ));
                 }
 
             }
@@ -825,14 +833,18 @@ class DeclarationCashbonDinas extends CI_Controller
             $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok IN ('.$dutiein.') ');
             $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \'' . $dinas->row()->nik . '\' ')->row();
             $this->datatablessp->datatable('table-dutie', 'table table-striped table-bordered table-hover', true)
-                ->columns('branch, id, dutieperiod, nik, callplan_reformat')
+                ->columns('branch, id, dutieperiod, nik, callplan_reformat, tujuan_kota_text, transportasi_text, tipe_transportasi_text, keperluan')
                 ->addcolumn('no', 'no')
                 ->addcolumn('popup', '<a href=\'javascript:void(0)\' data-href=\'' . site_url('trans/cashbon/actionpopup/$1') . '\' class=\'text-green popup\'><i class=\'fa fa-edit\'>&nbsp;&nbsp;Action</i></a>', 'branch, id', true)
-                ->querystring($this->m_dinas->q_transaction_txt_where(' AND TRUE AND id IN ('.$dutiein.') '))
+                ->querystring($this->m_dinas->q_transaction_txt_where(' AND TRUE ' . $filter))
                 ->header('No.', 'no', false, false, true)
                 ->header('<u>N</u>o.Dinas', 'id', false, true, true)
                 ->header('Tanggal Dinas', 'dutieperiod', false, true, true)
-                ->header('Callplan', 'callplan_reformat', false, true, true);
+                ->header('Kota Tujuan', 'tujuan_kota_text', false, true, true)
+                ->header('Callplan', 'callplan_reformat', false, true, true)
+                ->header('Sarana Transportasi', 'transportasi_text', false, true, true)
+                ->header('Tipe Kendaraan', 'tipe_transportasi_text', false, true, true)
+                ->header('Keperluan', 'keperluan', false, true, true);
             $this->datatablessp->generateajax();
             $this->db->trans_complete();
             $this->template->display('kasbon_umum/declaration_cashbon/dinas/v_approve', array(

@@ -45,7 +45,7 @@
                                 <div class="panel-heading">Print Preview</div>
                                 <div class="panel-body scroll">
                                     <div class="preview">
-                                        <?php include APPPATH.'\modules\trans\views\cashbon\v_read_pdf.php' ?>
+                                        <?php include APPPATH.'\modules\kasbon_umum\views\cashbon\dinas\v_read_pdf.php' ?>
                                     </div>
                                 </div>
                             </div>
@@ -98,12 +98,12 @@
             });*/
         });
         $('button.download').on('click', function () {
-            window.location.replace('<?php echo site_url('trans/cashbon/exportpdf/'.bin2hex(json_encode(array('cashbonid' => $cashbon->cashbonid, )))) ?>?' + $('form.formprintoption').serialize())
+            window.location.replace('<?php echo site_url('kasbon_umum/cashbondinas/exportpdf/'.bin2hex(json_encode(array('cashbonid' => $cashbon->cashbonid, )))) ?>?' + $('form.formprintoption').serialize())
         });
         $('button.option').on('click', function () {
             $('div.preview')
                 .empty()
-                .load('<?php echo site_url('trans/cashbon/preview/'.bin2hex(json_encode(array('cashbonid' => $cashbon->cashbonid, )))) ?>', $('form.formprintoption').serialize(), function (response, status, xhr) {
+                .load('<?php echo site_url('kasbon_umum/cashbondinas/preview/'.bin2hex(json_encode(array('cashbonid' => $cashbon->cashbonid, )))) ?>', $('form.formprintoption').serialize(), function (response, status, xhr) {
                     if (status === 'error') {
                         Swal.mixin({
                             customClass: {

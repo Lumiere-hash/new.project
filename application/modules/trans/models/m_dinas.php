@@ -377,7 +377,9 @@ class M_dinas extends CI_Model{
                     LEFT OUTER JOIN sc_mst.trxtype e ON a.transportasi = e.kdtrx AND e.jenistrx = 'TRANSP'
                     LEFT OUTER JOIN sc_mst.destination_type f ON a.jenis_tujuan = f.destinationid
                 WHERE TRUE
+                order by id
 			) AS aa WHERE TRUE
+			
 SQL
             ).$clause;
     }

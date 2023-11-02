@@ -169,7 +169,7 @@ FROM (
                  CONCAT(COALESCE(TRIM(d.nik), ''), '.', COALESCE(TRIM(d.nik_atasan), ''), '.', COALESCE(TRIM(d.nik_atasan2), ''), '.') AS search
              FROM sc_trx.cashbon a
                       LEFT OUTER JOIN sc_trx.dinas b ON TRUE
-                 AND TRIM(b.nodok) = TRIM(a.dutieid)
+                 AND TRIM(b.nodok) IN (select unnest(string_to_array(a.dutieid,',')) limit 1)
                       LEFT OUTER JOIN sc_mst.karyawan d ON TRUE
                  AND CASE
                          WHEN TRIM(a.type) in ('DN') THEN TRIM(d.nik) = TRIM(b.nik)

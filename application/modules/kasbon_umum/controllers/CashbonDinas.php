@@ -109,16 +109,22 @@ class CashbonDinas extends CI_Controller {
         $this->M_CashbonComponentDinas->q_temporary_delete(' TRUE AND cashbonid = \''.$this->session->userdata('nik').'\' ');
         $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$json->nik.'\' ')->row();
         $this->datatablessp->datatable('table-dutie', 'table table-striped table-bordered table-hover', true)
-            ->columns('branch, id, dutieperiod, employeeid, employeename, departmentname, subdepartmentname,callplan_reformat')
+            ->columns('branch, id, dutieperiod, nik, callplan_reformat, tujuan_kota_text, transportasi_text, tipe_transportasi_text, keperluan')
             ->addcolumn('no', 'no')
-            ->addcolumn('popup', '<a href=\'javascript:void(0)\' data-href=\''.site_url('trans/cashbon/actionpopup/$1').'\' class=\'text-green popup\'><i class=\'fa fa-edit\'>&nbsp;&nbsp;Action</i></a>', 'branch, dutieid', true)
-            ->querystring($this->m_dinas->q_transaction_txt_where(' AND TRUE '.$filter))
+            ->addcolumn('popup', '<a href=\'javascript:void(0)\' data-href=\'' . site_url('trans/cashbon/actionpopup/$1') . '\' class=\'text-green popup\'><i class=\'fa fa-edit\'>&nbsp;&nbsp;Action</i></a>', 'branch, id', true)
+            ->querystring($this->m_dinas->q_transaction_txt_where(' AND TRUE ' . $filter))
             ->header('No.', 'no', false, false, true)
-            ->header('<u>N</u>o.Dinas', 'id', true, true, true)
-            ->header('Tanggal Dinas', 'dutieperiod', true, true, true)
-            ->header('Callplan', 'callplan_reformat', true, true, true);
+            ->header('<u>N</u>o.Dinas', 'id', false, true, true)
+            ->header('Tanggal Dinas', 'dutieperiod', false, true, true)
+            ->header('Kota Tujuan', 'tujuan_kota_text', false, true, true)
+            ->header('Callplan', 'callplan_reformat', false, true, true)
+            ->header('Sarana Transportasi', 'transportasi_text', false, true, true)
+            ->header('Tipe Kendaraan', 'tipe_transportasi_text', false, true, true)
+            ->header('Keperluan', 'keperluan', false, true, true);
         $this->datatablessp->generateajax();
         $this->template->display('kasbon_umum/cashbon/dinas/v_create', array(
+            'loadDocnoUrl' => site_url('kasbon_umum/cashbondinas/loadDocno/' . bin2hex(json_encode(array('nik' => $json->nik, 'option' => 'CREATE', 'cashbonid' => (empty($temporary->cashbonid) ? trim($this->session->userdata('nik')) : $temporary->cashbonid))))),
+            'resetSelectUrl' => site_url('kasbon_umum/cashbondinas/clearselect/' . bin2hex(json_encode(array('nik' => $json->nik, 'option' => 'CREATE', 'cashbonid' => (empty($temporary->cashbonid) ? trim($this->session->userdata('nik')) : $temporary->cashbonid))))),
             'title' => 'Input Kasbon Dinas Karyawan',
             'employee' => $empleyee,
             'cashboncomponentsempty' => $this->M_CashbonComponentDinas->q_empty_read_where(' AND dutieid = null AND active AND calculated  ')->result(),
@@ -129,26 +135,28 @@ class CashbonDinas extends CI_Controller {
         $json = json_decode(
             hex2bin($param)
         );
-        $json->dutieid = $this->input->get_post('dutieid');
-        $json->dutieid = "'".implode("','",explode(",",$json->dutieid))."'";
-        $this->load->library(array('datatablessp'));
         $this->load->model(array('trans/m_employee', 'trans/m_dinas', 'M_Cashbon', 'M_CashbonComponentDinas', 'trans/M_DestinationType', 'trans/M_CityCashbon'));
+        $dutieid = (!empty($this->input->get_post('dutieid')) ? $this->input->get_post('dutieid') : $json->dutieid);
+        $dutieid = explode(",",$dutieid);
+        sort($dutieid);
+        $dutiein = "'".implode("','",$dutieid)."'";
+        $dutieid = implode(",",$dutieid);
+        $this->load->library(array('datatablessp'));
         $this->M_Cashbon->q_temporary_delete(array('cashbonid' => trim($this->session->userdata('nik'))));
         $edited = $this->M_Cashbon->q_temporary_read_where(' 
-            AND dutieid IN ( '.$json->dutieid.') 
+            AND dutieid = \''.$dutieid.'\' 
             AND TRIM(inputby) <> \''.$this->session->userdata('nik').'\' 
             ORDER BY inputdate DESC 
             ')->row();
         if (!is_null($edited) && !is_nan($edited)) {
             $this->flashmessage
                 ->set(array('Data kasbon dinas karyawan nomer <b>'.$edited->dutieid.'</b> sedang diinput oleh <b>'.$edited->inputby.'</b>', 'warning'))
-                ->redirect('trans/cashbon/');
+                ->redirect('kasbon_umum/cashbon/');
         }
-
         $this->M_Cashbon->q_temporary_create(array(
             'branch' => $this->session->userdata('branch'),
             'cashbonid' => $this->session->userdata('nik'),
-            'dutieid' => $this->input->get_post('dutieid'),
+            'dutieid' => $dutieid,
             'superior' => '',
             'status' => 'I',
             'paymenttype' => '',
@@ -156,7 +164,7 @@ class CashbonDinas extends CI_Controller {
             'inputby' => $this->session->userdata('nik'),
             'inputdate' => date('Y-m-d H:i:s'),
         ));
-        $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok IN ('.$json->dutieid.') ')->result();
+        $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok IN ('.$dutiein.') ')->result();
         foreach ($dinas as $index => $row) {
             $nik = $row->nik;
         }
@@ -164,22 +172,24 @@ class CashbonDinas extends CI_Controller {
         $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$nik.'\' ')->row();
         $this->load->view('kasbon_umum/cashbon/dinas/v_create_component_modal', array(
             'title' => 'Detail Biaya Kasbon',
+            'dinas' => $dinas,
             'employee' => $empleyee,
-            'dutieid' => $this->input->get_post('dutieid') ,
-            'cashboncomponents' => $this->M_CashbonComponentDinas->q_temporary_read_where(' AND dutieid IN ('.$json->dutieid.') AND cashbonid = \''.$this->session->userdata('nik').'\' AND active AND calculated '.$filter)->result(),
-            'cashboncomponentsempty' => $this->M_CashbonComponentDinas->q_empty_read_where(' AND dutieid IN ('.$json->dutieid.') AND active AND calculated  '.$filter)->result(),
+            'dutieid' => $this->input->get_post('dutieid'),
+            'cashboncomponents' => $this->M_CashbonComponentDinas->q_temporary_read_where(' AND dutieid IN ('.$dutiein.') AND cashbonid = \''.trim($this->session->userdata('nik')).'\' AND active AND calculated '.$filter)->result(),
+            'cashboncomponentsempty' => $this->M_CashbonComponentDinas->q_empty_read_where(' AND dutieid IN ('.$dutiein.') AND active AND calculated  '.$filter)->result(),
         ));
     }
 	public function docreatecomponentpopup($param=null) {
         $json = json_decode(
             hex2bin($param)
         );
-        $dutiein = "'".implode("','",explode(",",$json->dutieid))."'";
+        $dutieid = (!empty($this->input->get_post('dutieid')) ? $this->input->get_post('dutieid') : $json->dutieid);
+        $dutieid = explode(",",$dutieid);
+        sort($dutieid);
+        $dutiein = "'".implode("','",$dutieid)."'";
         $this->load->model(array('M_Cashbon', 'M_CashbonComponentDinas','trans/m_dinas' ));
         $this->M_CashbonComponentDinas->q_temporary_delete(' TRUE AND cashbonid = \''.trim($this->session->userdata('nik')).'\' ');
-//        var_dump($_POST);die();
         $id = $this->input->post('id');
-//        var_dump($id);die();
         $dutieid = $this->input->post('dutieid');
         $nominal = $this->input->post('nominal');
         $description = $this->input->post('description');
@@ -222,15 +232,29 @@ class CashbonDinas extends CI_Controller {
         $json = json_decode(
             hex2bin($param)
         );
-        $dutieid = $this->input->get_post('dutieid');
-        $dutiein = "'".implode("','",explode(",",$dutieid))."'";
         $this->load->model(array('trans/m_dinas', 'M_Cashbon', 'M_CashbonComponentDinas', ));
-        $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$json->dutieid.'\' ')->row();
+        $dutieid = (!empty($this->input->get_post('dutieid')) ? $this->input->get_post('dutieid') : $json->dutieid);
+        $dutieid = explode(",",$dutieid);
+        sort($dutieid);
+        $dutiein = "'".implode("','",$dutieid)."'";
+        $dutieid = implode(",",$dutieid);
+        if ($this->M_Cashbon->q_temporary_exists(' TRUE AND cashbonid = \'' . trim($this->session->userdata('nik')) . '\'   ')) {
+            $this->M_Cashbon->q_temporary_update(array(
+                'dutieid' => $dutieid,
+            ), array(
+                'cashbonid' => trim($this->session->userdata('nik')),
+                'inputby' => trim($this->session->userdata('nik')),
+            ));
+        }
+        if ($this->M_CashbonComponentDinas->q_temporary_exists(' TRUE AND cashbonid = \'' . trim($this->session->userdata('nik')) . '\'   ')) {
+            $this->M_CashbonComponentDinas->q_temporary_delete('TRUE AND cashbonid = \'' . trim($this->session->userdata('nik')) . '\' AND dutieid NOT IN (' . $dutiein . ') ');
+        }
+        $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok IN ('.$dutiein.') ')->row();
         $filter = ($dinas->tipe_transportasi == 'TDN' ? " AND componentid <> 'SWK' "  : "");
         $this->load->view('kasbon_umum/cashbon/dinas/v_component_read', array(
             'cashbon' => $this->M_Cashbon->q_temporary_read_where(' AND dutieid = \''.$dutieid.'\' AND cashbonid = \''.$this->session->userdata('nik').'\' ')->row(),
-            'cashboncomponents' => $this->M_CashbonComponentDinas->q_temporary_read_where(' AND dutieid = \''.$dutieid.'\' AND cashbonid = \''.$this->session->userdata('nik').'\' AND active AND calculated '.$filter)->result(),
-            'cashboncomponentsempty' => $this->M_CashbonComponentDinas->q_empty_read_where(' AND dutieid = \''.$dutieid.'\' AND active AND calculated '.$filter)->result(),
+            'cashboncomponents' => $this->M_CashbonComponentDinas->q_temporary_read_where(' AND dutieid IN ('.$dutiein.') AND cashbonid = \''.$this->session->userdata('nik').'\' AND active AND calculated '.$filter)->result(),
+            'cashboncomponentsempty' => $this->M_CashbonComponentDinas->q_empty_read_where(' AND dutieid IN ('.$dutiein.') AND active AND calculated '.$filter)->result(),
         ));
     }
 	public function docreate($param=null) {
@@ -239,9 +263,11 @@ class CashbonDinas extends CI_Controller {
         );
         $this->load->model(array('trans/m_employee', 'trans/m_dinas', 'M_Cashbon', 'M_CashbonComponentDinas', ));
         if ($this->M_Cashbon->q_temporary_exists(' TRUE AND cashbonid = \''.trim($this->session->userdata('nik')).'\' ') && $this->M_CashbonComponentDinas->q_temporary_exists(' TRUE AND cashbonid = \''.trim($this->session->userdata('nik')).'\' ')) {
-            $component = $this->M_CashbonComponentDinas->q_temporary_read_where(' AND cashbonid = \''.trim($this->session->userdata('nik')).'\' ORDER BY docref DESC')->row();
-            $item = explode(',',$component->dutieid);
+            $component = $this->M_CashbonComponentDinas->q_temporary_read_where(' AND cashbonid = \''.trim($this->session->userdata('nik')).'\' ORDER BY dutieid DESC')->row();
+            $temporary = $this->M_Cashbon->q_temporary_read_where(' AND cashbonid = \''.trim($this->session->userdata('nik')).'\' ')->row();
             $input = $this->input->post('dutieid');
+            sort($input);
+            $item = explode(',',$temporary->dutieid);
             if ($item==$input){
                 $temporaryCashbon = $this->M_Cashbon->q_temporary_read_where(' AND cashbonid = \''.trim($this->session->userdata('nik')).'\' ')->row();
                 if ($temporaryCashbon->totalcashbon > 0){
@@ -328,20 +354,43 @@ class CashbonDinas extends CI_Controller {
             ORDER BY updatedate DESC 
             ')->row();
         if (!is_null($temporary) && !is_nan($temporary)) {
-            $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok IN ('.$dutiein.') ')->row();
-            $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$dinas->nik.'\' ')->row();
+            $docno = $this->input->get_post('docno');
+            if (!empty($docno) && strtolower($docno) != 'null') {
+                $docno = "'" . implode("','", explode(",", $docno)) . "'";
+                $filter = ' AND id IN (' . $docno . ') ';
+            } else {
+                $filter = ' AND id IN (' . $dutiein . ') ';
+            }
+            $this->datatablessp->datatable('table-dutie', 'table table-striped table-bordered table-hover', true)
+                ->columns('branch, id, dutieperiod, nik, callplan_reformat, tujuan_kota_text, transportasi_text, tipe_transportasi_text, keperluan')
+                ->addcolumn('no', 'no')
+                ->addcolumn('popup', '<a href=\'javascript:void(0)\' data-href=\'' . site_url('trans/cashbon/actionpopup/$1') . '\' class=\'text-green popup\'><i class=\'fa fa-edit\'>&nbsp;&nbsp;Action</i></a>', 'branch, id', true)
+                ->querystring($this->m_dinas->q_transaction_txt_where(' AND TRUE ' . $filter))
+                ->header('No.', 'no', false, false, true)
+                ->header('<u>N</u>o.Dinas', 'id', false, true, true)
+                ->header('Tanggal Dinas', 'dutieperiod', false, true, true)
+                ->header('Kota Tujuan', 'tujuan_kota_text', false, true, true)
+                ->header('Callplan', 'callplan_reformat', false, true, true)
+                ->header('Sarana Transportasi', 'transportasi_text', false, true, true)
+                ->header('Tipe Kendaraan', 'tipe_transportasi_text', false, true, true)
+                ->header('Keperluan', 'keperluan', false, true, true);
+            $this->datatablessp->generateajax();
+            $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok IN ('.$dutiein.') ');
+            $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$dinas->row()->nik.'\' ')->row();
             $setup = $this->m_option->read(' AND kdoption =\'DUTIE:LIMIT:DATE\' AND group_option = \'DINAS\' ');
             $setup = (($setup->num_rows() > 0) ? $setup->row()->value1 : '' );
             $this->db->trans_complete();
             $this->template->display('kasbon_umum/cashbon/dinas/v_update', array(
+                'loadDocnoUrl' => site_url('kasbon_umum/cashbondinas/loadDocno/' . bin2hex(json_encode(array('nik' => $json->nik, 'option' => 'UPDATE', 'cashbonid' => (empty($temporary->cashbonid) ? trim($this->session->userdata('nik')) : $temporary->cashbonid))))),
+                'resetSelectUrl' => site_url('kasbon_umum/cashbondinas/clearselect/' . bin2hex(json_encode(array('nik' => $json->nik, 'option' => 'UPDATE', 'cashbonid' => (empty($temporary->cashbonid) ? trim($this->session->userdata('nik')) : $temporary->cashbonid))))),
                 'title' => 'Update Kasbon Dinas Karyawan',
                 'employee' => $empleyee,
-                'dinas' => $dinas,
+                'dinas' => $dinas->result(),
                 'dutiein' => $dutiein,
                 'paymenttype' => $this->M_TrxType->q_master_search_where(' AND a.group = \'PAYTYPE\' AND id = \''.$temporary->paymenttype.'\' ')->result(),
                 'cashbon' => $temporary,
-                'cashboncomponents' => $this->M_CashbonComponentDinas->q_temporary_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND cashbonid = \''.$json->cashbonid.'\' AND active AND calculated ')->result(),
-                'cashboncomponentsempty' => $this->M_CashbonComponentDinas->q_empty_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND active AND calculated ')->result(),
+                'cashboncomponents' => $this->M_CashbonComponentDinas->q_temporary_read_where(' AND dutieid IN ('.$dutiein.') AND cashbonid = \''.$json->cashbonid.'\' AND active AND calculated ')->result(),
+                'cashboncomponentsempty' => $this->M_CashbonComponentDinas->q_empty_read_where(' AND dutieid IN ('.$dutiein.') AND active AND calculated ')->result(),
             ));
         }
     }
@@ -350,24 +399,29 @@ class CashbonDinas extends CI_Controller {
             hex2bin($param)
         );
         $this->load->library(array('datatablessp'));
-        $this->load->model(array('m_employee', 'trans/m_dinas', 'M_Cashbon', 'M_CashbonComponentDinas', 'M_DestinationType', 'M_CityCashbon'));
+        $this->load->model(array('trans/m_employee', 'trans/m_dinas', 'M_Cashbon', 'M_CashbonComponentDinas',));
+        $dutieid = (!empty($this->input->get_post('dutieid')) ? $this->input->get_post('dutieid') : $json->dutieid);
+        $dutieid = explode(",",$dutieid);
+        sort($dutieid);
+        $dutiein = "'".implode("','",$dutieid)."'";
+        $dutieid = implode(",",$dutieid);
         $this->M_Cashbon->q_temporary_update(array(
             'updateby' => $this->session->userdata('nik'),
             'updatedate' => date('Y-m-d H:i:s'),
         ), array(
             'cashbonid' => $json->cashbonid,
         ));
-        $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$json->dutieid.'\' ')->row();
-        $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$dinas->nik.'\' ')->row();
-        $this->load->view('trans/cashbon/v_update_component_modal', array(
+
+        $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok IN ('.$dutiein.') ');
+        $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$dinas->row()->nik.'\' ')->row();
+        $this->load->view('kasbon_umum/cashbon/dinas/v_update_component_modal', array(
             'title' => 'Detail Biaya Kasbon',
             'employee' => $empleyee,
-            'dinas' => $dinas,
-            'destinationtype' => $this->M_DestinationType->q_master_search_where(' AND id = \''.$dinas->jenis_tujuan.'\' ')->row(),
-            'citycashbon' => $this->M_CityCashbon->q_master_search_where(' AND id = \''.$dinas->tujuan_kota.'\' ')->row(),
+            'dutieid' => $dutieid,
+            'dinas' => $dinas->result(),
             'cashbon' => $this->M_Cashbon->q_temporary_read_where(' AND cashbonid = \''.$json->cashbonid.'\' ')->row(),
-            'cashboncomponents' => $this->M_CashbonComponentDinas->q_temporary_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND cashbonid = \''.$json->cashbonid.'\' AND active AND calculated ')->result(),
-            'cashboncomponentsempty' => $this->M_CashbonComponentDinas->q_empty_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND active AND calculated ')->result(),
+            'cashboncomponents' => $this->M_CashbonComponentDinas->q_temporary_read_where(' AND dutieid IN ('.$dutiein.') AND cashbonid = \''.$json->cashbonid.'\' AND active AND calculated ')->result(),
+            'cashboncomponentsempty' => $this->M_CashbonComponentDinas->q_empty_read_where(' AND dutieid IN ('.$dutiein.') AND active AND calculated ')->result(),
         ));
     }
     public function doupdatecomponentpopup($param=null) {
@@ -375,39 +429,56 @@ class CashbonDinas extends CI_Controller {
             hex2bin($param)
         );
         $this->load->model(array('M_Cashbon', 'M_CashbonComponentDinas','trans/m_dinas' ));
+        $dutieid = (!empty($this->input->get_post('dutieid')) ? $this->input->get_post('dutieid') : $json->dutieid);
+        $dutieid = explode(",",$dutieid);
+        sort($dutieid);
+        $dutiein = "'".implode("','",$dutieid)."'";
         $id = $this->input->post('id');
+        $dutieid = $this->input->post('dutieid');
         $nominal = $this->input->post('nominal');
         $description = $this->input->post('description');
         foreach ($id as $index => $row) {
-            $data[$id[$index]] = json_decode(json_encode(array(
-                'componentid' => $id[$index],
-                'nominal' => $nominal[$index],
-                'description' => $description[$index],
-            )));
-        }
-        $dutie = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$json->nodok.'\' ')->row();
-        $filter = ($dutie->tipe_transportasi == 'TDN' ? " AND componentid <> 'SWK' "  : "");
-        $this->db->trans_start();
-        foreach ($this->M_CashbonComponentDinas->q_empty_read_where(' AND dutieid = \''.$json->dutieid.'\' AND active '.$filter)->result() as $index => $row) {
-            $totalcashbon = $data[$row->componentid]->nominal;
-            if ($row->multiplication == 't') {
-                $totalcashbon = $data[$row->componentid]->nominal * $row->quantityday;
-            }
-            $this->M_CashbonComponentDinas->q_temporary_update(array(
-                'branch' => $this->session->userdata('branch'),
-                'cashbonid' => $json->cashbonid,
-                'componentid' => $row->componentid,
-                'nominal' => $row->readonly == 't' ? $row->nominal : (int)$data[$row->componentid]->nominal,
-                'quantityday' => $row->quantityday,
-                'totalcashbon' => $row->readonly == 't' ? $row->totalcashbon : $totalcashbon,
-                'description' => $row->readonly == 't' ? $row->description : $data[$row->componentid]->description,
-                'updateby' => $this->session->userdata('nik'),
-                'updatedate' => date('Y-m-d H:i:s'),
-            ), array(
-                'cashbonid' => $json->cashbonid,
-                'componentid' => $row->componentid,
+            $data[$id[$index].':'.$dutieid[$index]] = json_decode(json_encode(
+                array(
+                    'componentid' => $id[$index],
+                    'dutieid' => $dutieid[$index],
+                    'nominal' => $nominal[$index],
+                    'description' => $description[$index],
+                )
             ));
         }
+
+        $dutie = $this->m_dinas->q_transaction_read_where(' AND nodok IN ('.$dutiein.') ')->row();
+        $filter = ($dutie->tipe_transportasi == 'TDN' ? " AND componentid <> 'SWK' "  : "");
+        $this->db->trans_start();
+        foreach (array_unique(explode(",",$json->dutieid)) as $index => $item) {
+            foreach ($this->M_CashbonComponentDinas->q_empty_read_where(' AND dutieid = \''.$item.'\' AND active '.$filter)->result() as $index => $row) {
+                $totalcashbon = $data[$row->componentid.':'.$item]->nominal;
+                $totalcashbonw = $data[$row->componentid.':'.$item]->nominal;
+                if ($row->multiplication == 't') {
+                    $totalcashbon = $data[$row->componentid.':'.$item]->nominal * $row->quantityday;
+                }
+
+                $this->M_CashbonComponentDinas->q_temporary_update(array(
+                    'branch' => $this->session->userdata('branch'),
+                    'cashbonid' => $json->cashbonid,
+                    'componentid' => $row->componentid,
+                    'nominal' => $row->readonly == 't' ? $row->nominal : (int)$data[$row->componentid.':'.$item]->nominal,
+                    'quantityday' => $row->quantityday,
+                    'totalcashbon' => $row->readonly == 't' ? $row->totalcashbon : $totalcashbon,
+                    'description' => $row->readonly == 't' ? $row->description : $data[$row->componentid.':'.$item]->description,
+                    'updateby' => $this->session->userdata('nik'),
+                    'updatedate' => date('Y-m-d H:i:s'),
+                ), array(
+                    'cashbonid' => $json->cashbonid,
+                    'componentid' => $row->componentid,
+                    'dutieid' => $item,
+                ));
+
+            }
+        }
+
+
         $this->db->trans_complete();
         header('Content-Type: application/json');
         echo json_encode(array(
@@ -419,18 +490,34 @@ class CashbonDinas extends CI_Controller {
             hex2bin($param)
         );
         $this->load->model(array('trans/m_dinas', 'M_Cashbon', 'M_CashbonComponentDinas', ));
-        $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$json->dutieid.'\' ')->row();
-        $this->load->view('trans/cashbon/v_component_read', array(
-            'cashbon' => $this->M_Cashbon->q_temporary_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND cashbonid = \''.$json->cashbonid.'\' ')->row(),
-            'cashboncomponents' => $this->M_CashbonComponentDinas->q_temporary_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND cashbonid = \''.$json->cashbonid.'\' AND active AND calculated ')->result(),
-            'cashboncomponentsempty' => $this->M_CashbonComponentDinas->q_empty_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND active AND calculated ')->result(),
+        $dutieid = (!empty($this->input->get_post('dutieid')) ? $this->input->get_post('dutieid') : $json->dutieid);
+        $dutieid = explode(",",$dutieid);
+        sort($dutieid);
+        $dutiein = "'".implode("','",$dutieid)."'";
+        $dutieid = implode(",",$dutieid);
+        if ($this->M_Cashbon->q_temporary_exists(' TRUE AND cashbonid = \'' . $json->cashbonid . '\'   ')) {
+            $this->M_Cashbon->q_temporary_update(array(
+                'dutieid' => $dutieid,
+            ), array(
+                'cashbonid' => $json->cashbonid,
+                'updateby' => trim($this->session->userdata('nik')),
+            ));
+        }
+        if ($this->M_CashbonComponentDinas->q_temporary_exists(' TRUE AND cashbonid = \'' . $json->cashbonid . '\'   ')) {
+            $this->M_CashbonComponentDinas->q_temporary_delete('TRUE AND cashbonid = \'' . $json->cashbonid . '\' AND dutieid NOT IN (' . $dutiein . ') ');
+        }
+        $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok IN ('.$dutiein.') ')->row();
+        $this->load->view('kasbon_umum/cashbon/dinas/v_component_read', array(
+            'cashbon' => $this->M_Cashbon->q_temporary_read_where(' AND cashbonid = \''.$json->cashbonid.'\' ')->row(),
+            'cashboncomponents' => $this->M_CashbonComponentDinas->q_temporary_read_where(' AND dutieid IN ('.$dutiein.') AND cashbonid = \''.$json->cashbonid.'\' AND active AND calculated ')->result(),
+            'cashboncomponentsempty' => $this->M_CashbonComponentDinas->q_empty_read_where(' AND dutieid IN ('.$dutiein.') AND active AND calculated ')->result(),
         ));
     }
     public function doupdate($param=null) {
         $json = json_decode(
             hex2bin($param)
         );
-        $this->load->model(array('m_employee', 'trans/m_dinas', 'M_Cashbon', 'M_CashbonComponentDinas', ));
+        $this->load->model(array('trans/m_employee', 'trans/m_dinas', 'M_Cashbon', 'M_CashbonComponentDinas', ));
         $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$json->dutieid.'\' ')->row();
         if ($this->M_Cashbon->q_temporary_exists(' TRUE AND cashbonid = \''.$json->cashbonid.'\' ') && $this->M_CashbonComponentDinas->q_temporary_exists(' TRUE AND cashbonid = \''.$json->cashbonid.'\' ')) {
             $this->M_Cashbon->q_temporary_update(array(
@@ -495,6 +582,8 @@ class CashbonDinas extends CI_Controller {
         );
         $this->load->library(array('datatablessp'));
         $this->load->model(array('trans/M_TrxType', 'trans/m_employee', 'trans/m_dinas', 'M_Cashbon', 'M_CashbonComponentDinas', 'trans/M_TrxType', 'trans/M_DestinationType', 'trans/M_CityCashbon'));
+        $dutieid = $json->dutieid;
+        $dutiein = "'".implode("','",explode(",",$dutieid))."'";
         $this->db->trans_start();
         $edited = $this->M_Cashbon->q_temporary_read_where(' 
             AND cashbonid = \''.$json->cashbonid.'\' 
@@ -508,20 +597,39 @@ class CashbonDinas extends CI_Controller {
         }
         $transaksi = $this->M_Cashbon->q_transaction_read_where(' AND cashbonid = \''.$json->cashbonid.'\' AND approvedate IS NULL ')->row();
         if (!is_null($transaksi) && !is_nan($transaksi)) {
-            $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$json->dutieid.'\' ')->row();
-            $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$dinas->nik.'\' ')->row();
+            $docno = $this->input->get_post('docno');
+            if (!empty($docno) && strtolower($docno) != 'null') {
+                $docno = "'" . implode("','", explode(",", $docno)) . "'";
+                $filter = ' AND id IN (' . $docno . ') ';
+            } else {
+                $filter = ' AND id IN (' . $dutiein . ') ';
+            }
+            $this->datatablessp->datatable('table-dutie', 'table table-striped table-bordered table-hover', true)
+                ->columns('branch, id, dutieperiod, nik, callplan_reformat, tujuan_kota_text, transportasi_text, tipe_transportasi_text, keperluan')
+                ->addcolumn('no', 'no')
+                ->addcolumn('popup', '<a href=\'javascript:void(0)\' data-href=\'' . site_url('trans/cashbon/actionpopup/$1') . '\' class=\'text-green popup\'><i class=\'fa fa-edit\'>&nbsp;&nbsp;Action</i></a>', 'branch, id', true)
+                ->querystring($this->m_dinas->q_transaction_txt_where(' AND TRUE ' . $filter))
+                ->header('No.', 'no', false, false, true)
+                ->header('<u>N</u>o.Dinas', 'id', false, true, true)
+                ->header('Tanggal Dinas', 'dutieperiod', false, true, true)
+                ->header('Kota Tujuan', 'tujuan_kota_text', false, true, true)
+                ->header('Callplan', 'callplan_reformat', false, true, true)
+                ->header('Sarana Transportasi', 'transportasi_text', false, true, true)
+                ->header('Tipe Kendaraan', 'tipe_transportasi_text', false, true, true)
+                ->header('Keperluan', 'keperluan', false, true, true);
+            $this->datatablessp->generateajax();
+            $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok IN ('.$dutiein.') ');
+            $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$dinas->row()->nik.'\' ')->row();
             $this->db->trans_complete();
-            $this->template->display('trans/cashbon/v_approve', array(
+            $this->template->display('kasbon_umum/cashbon/dinas/v_approve', array(
                 'title' => 'Persetujuan Kasbon Dinas Karyawan',
                 'employee' => $empleyee,
-                'dinas' => $dinas,
-                'destinationtype' => $this->M_DestinationType->q_master_search_where(' AND id = \''.$dinas->jenis_tujuan.'\' ')->row(),
-                'citycashbon' => $this->M_CityCashbon->q_master_search_where(' AND id = \''.$dinas->tujuan_kota.'\' ')->row(),
+                'dinas' => $dinas->result(),
                 'transportasi' => $this->M_TrxType->q_master_search_where(' AND a.group = \'TRANSP\' AND id = \''.$dinas->transportasi.'\' ')->row(),
-                'paymenttype' => $this->M_TrxType->q_master_search_where(' AND a.group = \'PAYTYPE\' AND id = \''.$transaksi->paymenttype.'\' ')->row(),
+                'paymenttype' => $this->M_TrxType->q_master_search_where(' AND a.group = \'PAYTYPE\' AND id = \''.$transaksi->paymenttype.'\' ')->result(),
                 'cashbon' => $transaksi,
-                'cashboncomponents' => $this->M_CashbonComponentDinas->q_transaction_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND cashbonid = \''.$json->cashbonid.'\' AND active AND calculated ')->result(),
-                'cashboncomponentsempty' => $this->M_CashbonComponentDinas->q_empty_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND active AND calculated ')->result(),
+                'cashboncomponents' => $this->M_CashbonComponentDinas->q_transaction_read_where(' AND dutieid IN ('.$dutiein.') AND cashbonid = \''.$json->cashbonid.'\' AND active AND calculated ')->result(),
+                'cashboncomponentsempty' => $this->M_CashbonComponentDinas->q_empty_read_where(' AND dutieid IN ('.$dutiein.') AND active AND calculated ')->result(),
             ));
         }
     }
@@ -529,7 +637,7 @@ class CashbonDinas extends CI_Controller {
         $json = json_decode(
             hex2bin($param)
         );
-        $this->load->model(array('m_employee', 'trans/m_dinas', 'M_Cashbon', 'M_CashbonComponentDinas', ));
+        $this->load->model(array('trans/m_employee', 'trans/m_dinas', 'M_Cashbon', 'M_CashbonComponentDinas', ));
         $this->db->trans_start();
         $edited = $this->M_Cashbon->q_temporary_read_where(' 
             AND cashbonid = \''.$json->cashbonid.'\' 
@@ -539,7 +647,7 @@ class CashbonDinas extends CI_Controller {
         if (!is_null($edited) && !is_nan($edited)) {
             $this->flashmessage
                 ->set(array('Data kasbon dinas karyawan nomer <b>'.$edited->cashbonid.'</b> sedang diupdate oleh <b>'.$edited->updateby.'</b>', 'warning'))
-                ->redirect('trans/cashbon/');
+                ->redirect('kasbon_umum/cashbon/');
         }
         $this->M_Cashbon->q_transaction_update(
             array('status' => 'P', 'approveby' => $this->session->userdata('nik'), 'approvedate' => date('Y-m-d H:i:s'),),
@@ -557,57 +665,57 @@ class CashbonDinas extends CI_Controller {
         $this->load->model(array('trans/M_TrxType', 'trans/m_dinas', 'trans/m_employee', 'M_Cashbon', 'M_CashbonComponentDinas', 'trans/M_DestinationType', 'trans/M_CityCashbon', 'master/m_option', 'master/M_RegionalOffice' ));
         $setup = $this->m_option->read(' AND kdoption = \'BRANCH:CITY\' ')->row();
         $cashbon = $this->M_Cashbon->q_transaction_read_where(' AND cashbonid = \''.$json->cashbonid.'\' ORDER BY updatedate DESC ')->row();
-        $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$cashbon->dutieid.'\' ')->row();
-        $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$dinas->nik.'\' ')->row();
+        $dutiein = "'" . implode("','", explode(",", $cashbon->dutieid)) . "'";
+        $cashbon = $this->M_Cashbon->q_transaction_read_where('  AND cashbonid = \'' . $cashbon->cashbonid . '\' AND approvedate IS NOT NULL ORDER BY updatedate DESC ')->row();
+        $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok IN ('.$dutiein.') ');
+        $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$dinas->row()->nik.'\' ')->row();
         if($this->m_option->read(' AND kdoption = \'REGIONAL:OFFICE\' AND status = \'T\' ')->num_rows() > 0){
             $city = $this->m_option->read(' AND kdoption = \'BRANCH:CITY\' ')->row()->value1;
         }else{
             $city = $this->M_RegionalOffice->read(' AND kdcabang = \''.$empleyee->kdcabang.'\' ')->row()->regional_name;
         }
-        $this->load->view('trans/cashbon/v_print_option', array(
+        $this->load->view('kasbon_umum/cashbon/dinas/v_print_option', array(
             'title' => 'Cetak Kasbon Dinas Karyawan '.$cashbon->cashbonid,
             'city' => ucfirst(strtolower($city)).', ',
             'employee' => $empleyee,
-            'dinas' => $dinas,
-            'destinationtype' => $this->M_DestinationType->q_master_search_where(' AND id = \''.$dinas->jenis_tujuan.'\' ')->row(),
-            'citycashbon' => $this->M_CityCashbon->q_master_search_where(' AND id = \''.$dinas->tujuan_kota.'\' ')->row(),
+            'dinas' => $dinas->result(),
             'transportasi' => $this->M_TrxType->q_master_search_where(' AND a.group = \'TRANSP\' AND id = \''.$dinas->transportasi.'\' ')->row(),
             'paymenttype' => $this->M_TrxType->q_master_search_where(' AND a.group = \'PAYTYPE\' AND id = \''.$cashbon->paymenttype.'\' ')->row(),
             'cashbon' => $cashbon,
-            'cashboncomponents' => $this->M_CashbonComponentDinas->q_transaction_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND cashbonid = \''.$cashbon->cashbonid.'\' AND active AND calculated ')->result(),
+            'cashboncomponents' => $this->M_CashbonComponentDinas->q_transaction_read_where(' AND dutieid IN ('.$dutiein.')  AND cashbonid = \''.$cashbon->cashbonid.'\' AND active AND calculated ')->result(),
         ));
     }
     public function preview($param=null) {
         $json = json_decode(
             hex2bin($param)
         );
-        $this->load->model(array('M_TrxType', 'trans/m_dinas', 'm_employee', 'M_Cashbon', 'M_CashbonComponentDinas', 'M_DestinationType', 'M_CityCashbon', 'master/m_option', 'master/M_RegionalOffice'));
+        $this->load->model(array('trans/M_TrxType', 'trans/m_dinas', 'trans/m_employee', 'M_Cashbon', 'M_CashbonComponentDinas',  'master/m_option', 'master/M_RegionalOffice'));
         $setup = $this->m_option->read(' AND kdoption = \'BRANCH:CITY\' ')->row();
         $fontsize = (int)($this->input->get_post('fontsize') ?: 0);
         $marginsize = (int)($this->input->get_post('marginsize') ?: 0);
         $paddingsize = (int)($this->input->get_post('paddingsize') ?: 0);
         $cashbon = $this->M_Cashbon->q_transaction_read_where(' AND cashbonid = \''.$json->cashbonid.'\' ORDER BY updatedate DESC ')->row();
-        $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$cashbon->dutieid.'\' ')->row();
-        $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$dinas->nik.'\' ')->row();
+        $dutiein = "'" . implode("','", explode(",", $cashbon->dutieid)) . "'";
+        $cashbon = $this->M_Cashbon->q_transaction_read_where('  AND cashbonid = \'' . $cashbon->cashbonid . '\' AND approvedate IS NOT NULL ORDER BY updatedate DESC ')->row();
+        $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok IN ('.$dutiein.') ');
+        $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$dinas->row()->nik.'\' ')->row();
         if($this->m_option->read(' AND kdoption = \'REGIONAL:OFFICE\' AND status = \'T\' ')->num_rows() > 0){
             $city = $this->m_option->read(' AND kdoption = \'BRANCH:CITY\' ')->row()->value1;
         }else{
             $city = $this->M_RegionalOffice->read(' AND kdcabang = \''.$empleyee->kdcabang.'\' ')->row()->regional_name;
         }
-        $this->load->view('trans/cashbon/v_read_pdf', array(
+        $this->load->view('kasbon_umum/cashbon/dinas/v_read_pdf', array(
             'title' => 'Cetak Kasbon Dinas Karyawan '.$cashbon->cashbonid,
             'city' => ucfirst(strtolower($city)).', ',
             'fontsize' => $fontsize,
             'marginsize' => $marginsize,
             'paddingsize' => $paddingsize,
             'employee' => $empleyee,
-            'dinas' => $dinas,
-            'destinationtype' => $this->M_DestinationType->q_master_search_where(' AND id = \''.$dinas->jenis_tujuan.'\' ')->row(),
-            'citycashbon' => $this->M_CityCashbon->q_master_search_where(' AND id = \''.$dinas->tujuan_kota.'\' ')->row(),
+            'dinas' => $dinas->result(),
             'transportasi' => $this->M_TrxType->q_master_search_where(' AND a.group = \'TRANSP\' AND id = \''.$dinas->transportasi.'\' ')->row(),
             'paymenttype' => $this->M_TrxType->q_master_search_where(' AND a.group = \'PAYTYPE\' AND id = \''.$cashbon->paymenttype.'\' ')->row(),
             'cashbon' => $cashbon,
-            'cashboncomponents' => $this->M_CashbonComponentDinas->q_transaction_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND cashbonid = \''.$cashbon->cashbonid.'\' AND active AND calculated ')->result(),
+            'cashboncomponents' => $this->M_CashbonComponentDinas->q_transaction_read_where(' AND dutieid IN ('.$dutiein.')  AND cashbonid = \''.$cashbon->cashbonid.'\' AND active AND calculated ')->result(),
         ));
     }
     public function exportpdf($param=null) {
@@ -615,39 +723,38 @@ class CashbonDinas extends CI_Controller {
             hex2bin($param)
         );
         $this->load->library('pdfs');
-        $this->load->model(array('M_TrxType', 'trans/m_dinas', 'm_employee', 'M_Cashbon', 'M_CashbonComponentDinas', 'M_DestinationType', 'M_CityCashbon', 'master/m_option', 'master/M_RegionalOffice'));
+        $this->load->model(array('trans/M_TrxType', 'trans/m_dinas', 'trans/m_employee', 'M_Cashbon', 'M_CashbonComponentDinas',  'master/m_option', 'master/M_RegionalOffice'));
         $setup = $this->m_option->read(' AND kdoption = \'BRANCH:CITY\' ')->row();
         $fontsize = (int)($this->input->get_post('fontsize') ?: 0);
         $marginsize = (int)($this->input->get_post('marginsize') ?: 0);
         $paddingsize = (int)($this->input->get_post('paddingsize') ?: 0);
-        $cashbon = $this->M_Cashbon->q_transaction_read_where(' AND cashbonid = \''.$json->cashbonid.'\' ORDER BY updatedate DESC ')->row();
-        $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$cashbon->dutieid.'\' ')->row();
-        $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$dinas->nik.'\' ')->row();
+        $cashbon = $this->M_Cashbon->q_transaction_read_where('  AND cashbonid = \'' . $json->cashbonid . '\' AND approvedate IS NOT NULL ORDER BY updatedate DESC ')->row();
+        $dutiein = "'" . implode("','", explode(",", $cashbon->dutieid)) . "'";
+        $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok IN ('.$dutiein.') ');
+        $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \''.$dinas->row()->nik.'\' ')->row();
         if($this->m_option->read(' AND kdoption = \'REGIONAL:OFFICE\' AND status = \'T\' ')->num_rows() > 0){
             $city = $this->m_option->read(' AND kdoption = \'BRANCH:CITY\' ')->row()->value1;
         }else{
             $city = $this->M_RegionalOffice->read(' AND kdcabang = \''.$empleyee->kdcabang.'\' ')->row()->regional_name;
         }
         $this->pdfs->loadHtml(
-            $this->load->view('trans/cashbon/v_read_pdf', array(
+            $this->load->view('kasbon_umum/cashbon/dinas/v_read_pdf', array(
                 'title' => 'Cetak Kasbon Dinas Karyawan '.$cashbon->cashbonid,
                 'city' => ucfirst(strtolower($city)).', ',
                 'fontsize' => $fontsize,
                 'marginsize' => $marginsize,
                 'paddingsize' => $paddingsize,
                 'employee' => $empleyee,
-                'dinas' => $dinas,
-                'destinationtype' => $this->M_DestinationType->q_master_search_where(' AND id = \''.$dinas->jenis_tujuan.'\' ')->row(),
-                'citycashbon' => $this->M_CityCashbon->q_master_search_where(' AND id = \''.$dinas->tujuan_kota.'\' ')->row(),
+                'dinas' => $dinas->result(),
                 'transportasi' => $this->M_TrxType->q_master_search_where(' AND a.group = \'TRANSP\' AND id = \''.$dinas->transportasi.'\' ')->row(),
                 'paymenttype' => $this->M_TrxType->q_master_search_where(' AND a.group = \'PAYTYPE\' AND id = \''.$cashbon->paymenttype.'\' ')->row(),
                 'cashbon' => $cashbon,
-                'cashboncomponents' => $this->M_CashbonComponentDinas->q_transaction_read_where(' AND dutieid = \''.$dinas->nodok.'\' AND cashbonid = \''.$cashbon->cashbonid.'\' AND active AND calculated ')->result(),
+                'cashboncomponents' => $this->M_CashbonComponentDinas->q_transaction_read_where(' AND dutieid IN ('.$dutiein.') AND cashbonid = \''.$cashbon->cashbonid.'\' AND active AND calculated ')->result(),
             ), true)
         );
         $this->pdfs->setPaper('A4', 'landscape');
         $this->pdfs->render();
-        $this->pdfs->stream('CASHBON'.$json->complaintid.'.PDF', array('Attachment' => 0));
+        $this->pdfs->stream('CASHBON'.$json->cashbonid.'.PDF', array('Attachment' => 0));
     }
     
 	public function search() {
@@ -804,6 +911,80 @@ class CashbonDinas extends CI_Controller {
                 ));
                 break;
         }
+    }
+
+    public function loadDocno($param)
+    {
+        $json = json_decode(hex2bin($param));
+        $this->load->library(array('datatablessp'));
+        $this->load->model(array('trans/m_employee', 'master/M_ComponentCashbon', 'M_Cashbon', 'M_CashbonComponent', 'M_DeclarationCashbon', 'M_DeclarationCashbonComponentDinas'));
+        $docno = $this->input->get_post('docno');
+        $employee = $this->m_employee->q_mst_read_where(' AND nik = \'' . $json->nik . '\' ')->row();
+        header('Content-Type: application/json');
+        switch (strtoupper($json->option)) {
+            case "CREATE":
+                http_response_code(200);
+                echo json_encode(array(
+                    'data' => array(
+                        'url' => array(
+                            'detail' => site_url('kasbon_umum/cashbondinas/createcomponent/' . bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $docno, 'cashbonid' => isset($cashbon->cashbonid) ? $cashbon->cashbonid : trim($this->session->userdata('nik')), 'schema' => 'temporary', 'createoption' => 'DI')))),
+                        )
+                    ),
+                ));
+                break;
+            case "UPDATE":
+                $cashbon = $this->M_Cashbon->q_temporary_read_where(' AND cashbonid = \''.$json->cashbonid.'\' ')->row();
+                http_response_code(200);
+                echo json_encode(array(
+                    'data' => array(
+                        'url' => array(
+                            'detail' => site_url('kasbon_umum/cashbondinas/updatecomponent/' . bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $docno, 'cashbonid' => isset($cashbon->cashbonid) ? $cashbon->cashbonid : trim($this->session->userdata('nik')), 'schema' => 'temporary', 'createoption' => 'DI')))),
+                        )
+                    ),
+                ));
+                break;
+        }
+
+    }
+
+    public function clearselect($param)
+    {
+        $json = json_decode(hex2bin($param));
+        $this->load->model(array('trans/m_employee', 'master/M_ComponentCashbon', 'M_Cashbon', 'M_CashbonComponent', 'M_DeclarationCashbon', 'M_DeclarationCashbonComponentDinas'));
+        $employee = $this->m_employee->q_mst_read_where(' AND nik = \'' . $json->nik . '\' ')->row();
+        header('Content-Type: application/json');
+        switch (strtoupper($json->option)) {
+            case "CREATE":
+                $declararation = $this->M_DeclarationCashbon->q_temporary_read_where(' AND declarationid = \'' . trim($this->session->userdata('nik')) . '\' ')->row();
+                if ($this->M_DeclarationCashbon->q_temporary_exists('TRUE AND declarationid = \'' . trim($this->session->userdata('nik')) . '\' ')) {
+                    $this->M_DeclarationCashbon->q_temporary_update(array('dutieid' => false), array('declarationid' => trim($this->session->userdata('nik'))));
+                }
+                if ($this->M_DeclarationCashbonComponentDinas->q_temporary_exists('TRUE AND declarationid = \'' . trim($this->session->userdata('nik')) . '\' ')) {
+                    $this->M_DeclarationCashbonComponentDinas->q_temporary_delete('TRUE AND declarationid = \'' . trim($this->session->userdata('nik')) . '\' ');
+                }
+                http_response_code(200);
+                echo json_encode(array(
+                    'CLEARED' => TRUE,
+                    'url' => site_url('kasbon_umum/declarationcashbondinas/componentbalance/' . bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $declararation->dutieid, 'cashbonid' => isset($cashbon->cashbonid) ? $cashbon->cashbonid : '', 'declarationid' => isset($declararation->declarationid) ? $declararation->declarationid : trim($this->session->userdata('nik')), 'schema' => 'temporary')))),
+                ));
+                break;
+            case "UPDATE":
+                $declararation = $this->M_DeclarationCashbon->q_temporary_read_where(' AND declarationid = \'' . $json->declarationid . '\' ')->row();
+                if ($this->M_DeclarationCashbon->q_temporary_exists('TRUE AND declarationid = \'' . $json->declarationid . '\' ')) {
+                    $this->M_DeclarationCashbon->q_temporary_update(array('dutieid' => false), array('declarationid' => $json->declarationid));
+                }
+                if ($this->M_DeclarationCashbonComponentDinas->q_temporary_exists('TRUE AND declarationid = \'' . $json->declarationid . '\' ')) {
+                    $this->M_DeclarationCashbonComponentDinas->q_temporary_delete('TRUE AND declarationid = \'' . $json->declarationid . '\' ');
+                }
+                http_response_code(200);
+                echo json_encode(array(
+                    'CLEARED' => TRUE,
+                    'url' => site_url('kasbon_umum/declarationcashbondinas/componentbalance/' . bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $declararation->dutieid, 'cashbonid' => isset($cashbon->cashbonid) ? $cashbon->cashbonid : '', 'declarationid' => isset($declararation->declarationid) ? $declararation->declarationid : trim($this->session->userdata('nik')), 'schema' => 'temporary')))),
+                ));
+                break;
+        }
+
+
     }
 
 

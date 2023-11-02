@@ -5,6 +5,15 @@
     .table-bordered>tbody>tr>td {
         vertical-align: middle !important;
     }
+    .ml-3{
+        margin-left: 3px;
+    }
+    li.select2-selection__choice{
+        background-color: blue !important;
+    }
+    span.select2-selection__choice__remove{
+        color: white !important;
+    }
 </style>
 <div class="box">
     <div class="box-header">

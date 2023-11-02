@@ -1,7 +1,16 @@
 <?php
-    var_dump($cashbon->dutieid);
+//    var_dump($dinas);die();
 ?>
 <style>
+    .ml-3{
+        margin-left: 3px;
+    }
+    li.select2-selection__choice{
+        background-color: blue !important;
+    }
+    span.select2-selection__choice__remove{
+        color: white !important;
+    }
 </style>
 <form role="form" class="formupdatecashbon" action="<?php echo site_url('kasbon_umum/cashbondinas/doupdate/'.bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $dinas->nodok, 'cashbonid' => $cashbon->cashbonid, ))))?>" method="post">
 <div class="box">
@@ -78,10 +87,34 @@
                                 <label class="col-sm-4">Dokumen Dinas</label>
                                 <div class="col-sm-8">
                                     <select name="dutieid[]" class="select2 form-control " id="dutieid[]" multiple="multiple">
-                                        <option></option>
+                                        <?php if (isset($dinas) && count($dinas) > 0) {
+                                            foreach ($dinas as $index => $row) { ?>
+                                                <option value="<?php echo $row->id ?>" selected ><?php echo $row->text ?></option>
+                                            <?php }
+                                        } else { ?>
+                                            <option></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="box box-info" >
+                    <div class="box-header">
+                        <h3 class="box-title text-muted">Dokumen Dinas</h3>
+                        <button type="button" class="btn btn-sm btn-warning pull-right reset-select">reset seleksi</button>
+                    </div>
+                    <div class="box-body">
+                        <div class="col-sm-12 table-responsive">
+                            <?php
+                            $this->datatablessp->generatetable();
+                            $this->datatablessp->jquery();
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -97,7 +130,7 @@
                     <div class="box-body">
                         <div class="table-responsive">
                             <table class="table table-hover table-bordered table-striped" id="cashboncomponent">
-                                <?php include APPPATH.'\modules\trans\views\cashbon\v_component_read.php';?>
+                                <?php include APPPATH.'\modules\kasbon_umum\views\cashbon\dinas\v_component_read.php';?>
                             </table>
                         </div>
                     </div>
@@ -126,6 +159,40 @@
                 .DataTable()
                 .ajax.url('<?php echo base_url('kasbon_umum/cashbondinas/create')?>?docno=' + docno +'')
                 .load();
+        }
+        function loadDocno(docno){
+            var docno;
+            $.ajax({
+                url:'<?php echo $loadDocnoUrl ?>',
+                method: 'POST',
+                data: {docno:docno},
+                success: function (data){
+                    $('table.table#cashboncomponent')
+                        .empty()
+                        .load(data.data.url.detail, {}, function (response, status, xhr) {
+                            if (status === 'error') {
+                                Swal.mixin({
+                                    customClass: {
+                                        confirmButton: 'btn btn-sm btn-success ml-3',
+                                        cancelButton: 'btn btn-sm btn-warning ml-3',
+                                        denyButton: 'btn btn-sm btn-danger ml-3',
+                                    },
+                                    buttonsStyling: false,
+                                }).fire({
+                                    position: 'top',
+                                    icon: 'error',
+                                    title: 'Gagal Memuat Detail',
+                                    html: (xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : xhr.statusText),
+                                    showCloseButton: true,
+                                    showConfirmButton: false,
+                                    showDenyButton: true,
+                                    denyButtonText: `Tutup`,
+                                }).then(function(){ });
+                            }
+                        });
+
+                }
+            })
         }
         $('select[name=\'paymenttype\']').select2({
             ajax: {
@@ -174,7 +241,6 @@
         }).on('change', function(e) {});
 
         $('select[name=\'dutieid[]\']').select2({
-            allowClear:true,
             ajax: {
                 url: '<?php echo site_url('trans/dinas/search'); ?>',
                 dataType: 'json',
@@ -222,8 +288,10 @@
         }).on('change', function(e) {
             if($('select[name=\'dutieid[]\']').val() != null){
                 checkdocno($('select[name=\'dutieid[]\']').val().join(','))
+                loadDocno($('select[name=\'dutieid[]\']').val().join(','))
             }else{
                 checkdocno(null)
+                loadDocno(null)
             }
         })
 
@@ -280,9 +348,9 @@
                 confirmButtonText: 'Konfirmasi',
             }).then(function (result) {
                 if (result.isConfirmed) {
-                    $.getJSON('<?php echo site_url('trans/cashbon/docancel/') ?>', {})
+                    $.getJSON('<?php echo site_url('kasbon_umum/cashbon/docancel/') ?>', {})
                         .done(function(data) {
-                            window.location.replace('<?php echo site_url('trans/cashbon/') ?>');
+                            window.location.replace('<?php echo site_url('kasbon_umum/cashbon/') ?>');
                         })
                         .fail(function(xhr, status, thrown) {
                             Swal.mixin({
@@ -381,7 +449,7 @@
                                     showDenyButton: true,
                                     denyButtonText: `Tutup`,
                                 }).then(function(){
-                                    window.location.replace('<?php echo site_url('trans/cashbon/') ?>');
+                                    window.location.replace('<?php echo site_url('kasbon_umum/cashbon/') ?>');
                                 });
                             },
                             error: function (xhr, status, thrown) {
@@ -410,9 +478,10 @@
             },
         });
         $('a.updatecashboncomponent').on('click', function () {
+            var docno = $('select[name=\'dutieid[]\']').val().join(',')
            $('div.modal#updatecashboncomponent')
                .empty()
-               .load('<?php echo site_url('trans/cashbon/updatecomponentpopup/'.bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $dinas->nodok, 'cashbonid' => $cashbon->cashbonid, )))) ?>', {}, function (response, status, xhr) {
+               .load('<?php echo site_url('kasbon_umum/cashbondinas/updatecomponentpopup/'.bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $dinas->nodok, 'cashbonid' => $cashbon->cashbonid, )))) ?>', {dutieid:docno}, function (response, status, xhr) {
                    if (status === 'error') {
                        Swal.mixin({
                            customClass: {
@@ -437,9 +506,10 @@
                });
         });
         $('div.modal#updatecashboncomponent').on('hide.bs.modal', function(){
+            var docno = $('select[name=\'dutieid[]\']').val().join(',')
             $('table.table#cashboncomponent')
                 .empty()
-                .load('<?php echo site_url('trans/cashbon/updatecomponent/'.bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $dinas->nodok, 'cashbonid' => $cashbon->cashbonid, )))) ?>', {}, function (response, status, xhr) {
+                .load('<?php echo site_url('kasbon_umum/cashbondinas/updatecomponent/'.bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $dinas->nodok, 'cashbonid' => $cashbon->cashbonid, )))) ?>', {dutieid:docno}, function (response, status, xhr) {
                     if (status === 'error') {
                         Swal.mixin({
                             customClass: {

@@ -1,5 +1,5 @@
 <?php
-    var_dump($dinas);
+//    var_dump(count(explode(",",$dutieid)));die();
 ?>
 <style>
     div.modal-content div.modal-body input{
@@ -20,19 +20,26 @@
             </div>
             <div class="modal-body">
                 <div class="form-horizontal">
-                    <?php foreach ((count($cashboncomponents) > 0 ? $cashboncomponents : $cashboncomponentsempty) as $index => $row ) { ?>
-                    <div class="form-group">
-                        <input type="hidden" name="id[]" class="form-control" value="<?php echo $row->componentid ?>" readonly/>
-                        <input type="hidden" name="dutieid[]" class="form-control" value="<?php echo $row->dutieid ?>" readonly/>
-                        <label class="col-sm-3"><?php echo $row->componentname ?><span class="text-info"><?php echo '('.$row->dutieid.')' ?></span></label>
-                        <div class="col-sm-3">
-                            <input type="text" name="nominal[]" class="form-control text-right autonumeric" value="<?php echo $row->nominal ?>" <?php echo ($row->readonly == 't' ? 'readonly' : '') ?> autocomplete="off"/>
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="text" name="description[]" class="form-control" value="<?php echo $row->description ?>" <?php echo ($row->readonly == 't' ? 'readonly' : '') ?> autocomplete="off"/>
-                        </div>
-                    </div>
+                    <?php foreach ($dinas as $index => $item) { ?>
+                        <span class="h3 text-blue"><b><?php echo $item->nodok ?></b></span>
+                        <?php foreach ((count($cashboncomponents) > 0 ? $cashboncomponents : $cashboncomponentsempty) as $index => $row ) { ?>
+                                <?php if($row->dutieid == $item->nodok){ ?>
+                            <div class="form-group">
+                                <input type="hidden" name="id[]" class="form-control" value="<?php echo $row->componentid ?>" readonly/>
+                                <input type="hidden" name="dutieid[]" class="form-control" value="<?php echo $row->dutieid ?>" readonly/>
+                                <label class="col-sm-3"><?php echo $row->componentname ?></label>
+                                <div class="col-sm-3">
+                                    <input type="text" name="nominal[]" class="form-control text-right autonumeric" value="<?php echo $row->nominal ?>" <?php echo ($row->readonly == 't' ? 'readonly' : '') ?> autocomplete="off"/>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" name="description[]" class="form-control" value="<?php echo $row->description ?>" <?php echo ($row->readonly == 't' ? 'readonly' : '') ?> autocomplete="off"/>
+                                </div>
+                            </div>
+                                <?php } ?>
+                        <?php } ?>
+                        <hr class="hr text-info" />
                     <?php } ?>
+
                 </div>
             </div>
             <div class="modal-footer">

@@ -1,10 +1,10 @@
 <?php
-//    var_dump($cashboncomponents);die();
+//    var_dump($cashboncomponentsempty);die();
 ?>
 <thead>
 <tr>
     <td><b>No</b></td>
-    <td><b>Dokumen</b></td>
+    <td><b>Nomor Dinas</b></td>
     <td><b>Nama Biaya</b></td>
     <td><b>Keterangan</b></td>
     <td><b>Nominal</b></td>
@@ -16,7 +16,7 @@
 <?php foreach ((count($cashboncomponents) > 0 ? $cashboncomponents : $cashboncomponentsempty) as $index => $row ) { ?>
     <tr>
         <td><?php echo $index +1 ?></td>
-        <td><?php echo $row->docref ?></td>
+        <td><?php echo $row->dutieid ?></td>
         <td><?php echo $row->componentname ?></td>
         <td><?php echo $row->description ?></td>
         <td class="text-right"><?php echo $row->nominalformat ?></td>

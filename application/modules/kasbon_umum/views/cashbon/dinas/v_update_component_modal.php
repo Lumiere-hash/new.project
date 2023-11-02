@@ -7,18 +7,25 @@
     div.modal-content div.modal-body label{
         font-size: medium;
     }
+    .modal-body {
+        max-height: 60vh; overflow-y: auto;
+    }
 </style>
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form role="form" class="formupdatecashboncomponent" action="<?php echo site_url('trans/cashbon/doupdatecomponentpopup/'.bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $dinas->nodok, 'cashbonid' => $cashbon->cashbonid ))))?>" method="post">
+            <form role="form" class="formupdatecashboncomponent" action="<?php echo site_url('kasbon_umum/cashbondinas/doupdatecomponentpopup/'.bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $dutieid, 'cashbonid' => $cashbon->cashbonid ))))?>" method="post">
             <div class="modal-header">
                 <h3 class="modal-title"><?php echo $title ?></h3>
             </div>
             <div class="modal-body">
                 <div class="form-horizontal">
+                    <?php foreach ($dinas as $index => $item) { ?>
+                    <span class="h3 text-blue"><b><?php echo $item->nodok ?></b></span>
                     <?php foreach ((count($cashboncomponents) > 0 ? $cashboncomponents : $cashboncomponentsempty) as $index => $row ) { ?>
+                        <?php if($row->dutieid == $item->nodok){ ?>
                     <div class="form-group">
                         <input type="hidden" name="id[]" class="form-control" value="<?php echo $row->componentid ?>" readonly/>
+                        <input type="hidden" name="dutieid[]" class="form-control" value="<?php echo $row->dutieid ?>" readonly/>
                         <label class="col-sm-3"><?php echo $row->componentname ?></label>
                         <div class="col-sm-3">
                             <input type="text" name="nominal[]" class="form-control text-right autonumeric" value="<?php echo $row->nominal ?>" <?php echo ($row->readonly == 't' ? 'readonly' : '') ?> autocomplete="off"/>
@@ -27,6 +34,9 @@
                             <input type="text" name="description[]" class="form-control" value="<?php echo $row->description ?>" <?php echo ($row->readonly == 't' ? 'readonly' : '') ?> autocomplete="off"/>
                         </div>
                     </div>
+                            <?php } ?>
+                    <?php } ?>
+                        <hr class="hr text-info" />
                     <?php } ?>
                 </div>
             </div>
