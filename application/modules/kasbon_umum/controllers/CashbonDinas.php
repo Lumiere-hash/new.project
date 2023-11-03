@@ -14,6 +14,13 @@ class CashbonDinas extends CI_Controller {
         sleep(60 * 2);
         echo 'Ok';
     }
+    public function setup($setupid)
+    {
+        $this->load->model(array('master/M_option'));
+        $setup = $this->M_option->read(' AND kdoption = \''.$setupid.'\' ')->row();
+        return $setup;
+    }
+
 	public function index() {
         $this->load->library(array('datatablessp'));
         $this->load->model(array('m_employee', 'M_Cashbon'));
@@ -123,6 +130,7 @@ class CashbonDinas extends CI_Controller {
             ->header('Keperluan', 'keperluan', false, true, true);
         $this->datatablessp->generateajax();
         $this->template->display('kasbon_umum/cashbon/dinas/v_create', array(
+            'maxLoad' => (!empty($this->setup('CBN:MAX:DUTIEID')) ? $this->setup('CBN:MAX:DUTIEID')->value3 : 1),
             'loadDocnoUrl' => site_url('kasbon_umum/cashbondinas/loadDocno/' . bin2hex(json_encode(array('nik' => $json->nik, 'option' => 'CREATE', 'cashbonid' => (empty($temporary->cashbonid) ? trim($this->session->userdata('nik')) : $temporary->cashbonid))))),
             'resetSelectUrl' => site_url('kasbon_umum/cashbondinas/clearselect/' . bin2hex(json_encode(array('nik' => $json->nik, 'option' => 'CREATE', 'cashbonid' => (empty($temporary->cashbonid) ? trim($this->session->userdata('nik')) : $temporary->cashbonid))))),
             'title' => 'Input Kasbon Dinas Karyawan',
@@ -381,6 +389,7 @@ class CashbonDinas extends CI_Controller {
             $setup = (($setup->num_rows() > 0) ? $setup->row()->value1 : '' );
             $this->db->trans_complete();
             $this->template->display('kasbon_umum/cashbon/dinas/v_update', array(
+                'maxLoad' => (!empty($this->setup('CBN:MAX:DUTIEID')) ? $this->setup('CBN:MAX:DUTIEID')->value3 : 1),
                 'loadDocnoUrl' => site_url('kasbon_umum/cashbondinas/loadDocno/' . bin2hex(json_encode(array('nik' => $json->nik, 'option' => 'UPDATE', 'cashbonid' => (empty($temporary->cashbonid) ? trim($this->session->userdata('nik')) : $temporary->cashbonid))))),
                 'resetSelectUrl' => site_url('kasbon_umum/cashbondinas/clearselect/' . bin2hex(json_encode(array('nik' => $json->nik, 'option' => 'UPDATE', 'cashbonid' => (empty($temporary->cashbonid) ? trim($this->session->userdata('nik')) : $temporary->cashbonid))))),
                 'title' => 'Update Kasbon Dinas Karyawan',

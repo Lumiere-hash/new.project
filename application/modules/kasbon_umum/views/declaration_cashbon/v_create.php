@@ -1,6 +1,10 @@
 <?php
 ?>
 <style>
+
+    .ml-3{
+        margin-left: 3px;
+    }
 </style>
 <form role="form" class="formcreatedeclarationcashbon" action="<?php echo site_url('kasbon_umum/declarationcashbon/docreate/'.bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $cashbon->dutieid ))))?>" method="post">
 <div class="box">

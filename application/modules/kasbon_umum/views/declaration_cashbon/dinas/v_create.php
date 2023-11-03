@@ -1,4 +1,5 @@
 <?php
+//    var_dump($cashboncomponents);die();
 ?>
 <style>
     .ml-3{
@@ -55,7 +56,18 @@
                                 <label class="col-sm-4">Dokumen Dinas</label>
                                 <div class="col-sm-8">
                                     <select name="dutieid[]" class="select2 form-control " id="dutieid[]" multiple="multiple">
-                                        <option></option>
+                                        <?php if ($CASHBONED){ ?>
+                                            <?php if (isset($dinas)) {
+                                                foreach ($dinas as $row) { ?>
+                                                    <option selected value="<?= $row->id ?>"><?= $row->nodok ?>
+                                                    </option>
+                                                <?php }
+                                            } else { ?>
+                                                <option></option>
+                                            <?php } ?>
+                                        <?php }else{ ?>
+                                            <option></option>
+                                        <?php } ?>
                                     </select>
                                 </div>
                             </div>
@@ -70,7 +82,9 @@
                 <div class="box box-info" >
                     <div class="box-header">
                         <h3 class="box-title text-muted">Dokumen Dinas</h3>
+                        <?php if (!$CASHBONED){ ?>
                         <button type="button" class="btn btn-sm btn-warning pull-right reset-select">Reset Seleksi</button>
+                        <?php } ?>
                     </div>
                     <div class="box-body">
                         <div class="col-sm-12 table-responsive">
@@ -108,7 +122,7 @@
                     <div class="box-body">
                         <div class="table-responsive">
                             <table class="table table-hover table-bordered table-striped" id="cashboncomponent">
-                                <?php include APPPATH.'\modules\trans\views\cashbon\v_component_read.php' ?>
+                                <?php include APPPATH.'\modules\kasbon_umum\views\cashbon\dinas\v_component_read.php' ?>
                             </table>
                         </div>
                     </div>
@@ -261,6 +275,9 @@
         }
         $('select[name=\'dutieid[]\']').select2({
             allowClear:true,
+            <?php if ($CASHBONED){ ?>
+            disabled: true,
+            <?php } ?>
             ajax: {
                 url: '<?php echo site_url('trans/dinas/search'); ?>',
                 dataType: 'json',
@@ -291,7 +308,7 @@
             escapeMarkup: function (markup) {
                 return markup;
             },
-            maximumSelectionLength: 3,
+            maximumSelectionLength: '<?php echo (isset($maxLoad) ? $maxLoad : 1) ?>',
             minimumInputLength: 0,
             templateResult: function (repo) {
                 if (repo.loading) {
@@ -315,6 +332,10 @@
                 loadDocno(null)
             }
         })
+
+        <?php if ($CASHBONED){ ?>
+        $('select[name=\'dutieid[]\']').val()
+        <?php } ?>
         $.extend($.validator.messages, {
             required: 'Bagian ini diperlukan...',
             remote: 'Harap perbaiki bidang ini...',
@@ -532,6 +553,7 @@
                });
         });
         $('div.modal#createdeclarationcomponent').on('hide.bs.modal', function(){
+
             var docno = $('select[name=\'dutieid[]\']').val().join(',')
             // console.log(docno)
             /* Pace.restart(); */

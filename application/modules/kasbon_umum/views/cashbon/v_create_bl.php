@@ -41,6 +41,9 @@
     .select2-container--bootstrap .select2-selection--single .select2-selection__rendered {
         padding: 0 0 0 12px;
     }
+    .ml-3{
+        margin-left: 3px;
+    }
 </style>
 <form role="form" class="formcreatecashbon" action="<?php echo site_url('trans/cashbon/docreate/'.bin2hex(json_encode(array('type' => $code_type))))?>" method="post">
     <div class="box">
@@ -308,8 +311,8 @@
                 }
                 return `
 <div class='row' style='width: 600px'>
-    <div class='col-sm-1'>${repo.id}</div>
-    <div class='col-sm-3'>${repo.text}</div>
+    <div class='col-sm-2'>${repo.id}</div>
+    <div class='col-sm-5'>${repo.text}</div>
 </div>`;
             },
             templateSelection: function (repo) {
@@ -353,9 +356,9 @@
                     return repo.text;
                 }
                 return `
-<div class='row' style='width: 400px'>
-    <div class='col-sm-2'>${repo.id}</div>
-    <div class='col-sm-4'>${repo.text}</div>
+<div class='row' style='width: 500px'>
+    <div class='col-sm-4'>${repo.id}</div>
+    <div class='col-sm-6'>${repo.text}</div>
 </div>`;
             },
             templateSelection: function (repo) {

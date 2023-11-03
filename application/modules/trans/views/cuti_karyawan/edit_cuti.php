@@ -9,7 +9,7 @@
         $("#tpcuti").selectize();
         $("#statptg").selectize();
         $("#kdijin_khusus").selectize();
-        $("#pelimpahan").selectize();
+        $("#pelimpahan").select2();
 
         cekCuti();
     });
@@ -229,7 +229,7 @@
                             <div class="form-group">
                                 <label class="col-sm-4">Pelimpahan Pekerjaan</label>
                                 <div class="col-sm-8">
-                                    <select class="form-control input-sm" name="pelimpahan" id="pelimpahan">
+                                    <select class="form-control input-sm" name="pelimpahan" id="pelimpahan" required>
                                         <?php foreach($list_karyawan as $listkan): ?>
                                             <option <?= trim($dtl['pelimpahan']) == trim($listkan->nik) ? 'selected' : '' ?> value="<?= trim($listkan->nik) ?>" ><?= $listkan->nmlengkap ?></option>
                                         <?php endforeach; ?>

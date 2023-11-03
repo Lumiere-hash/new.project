@@ -1,6 +1,10 @@
 <?php
 ?>
 <style>
+
+    .ml-3{
+        margin-left: 3px;
+    }
 </style>
 <form role="form" class="formapprovedeclarationcashbon" action="<?php echo site_url('kasbon_umum/declarationcashbon/doapprove/'.bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $cashbon->dutieid, 'cashbonid' => isset($cashbon->cashbonid) ? $cashbon->cashbonid : '', 'declarationid' => $declaration->declarationid, ))))?>" method="post">
     <div class="box">

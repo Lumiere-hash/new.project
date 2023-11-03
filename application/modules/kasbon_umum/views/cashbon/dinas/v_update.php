@@ -270,7 +270,7 @@
             escapeMarkup: function (markup) {
                 return markup;
             },
-            maximumSelectionLength: 3,
+            maximumSelectionLength: '<?php echo (isset($maxLoad) ? $maxLoad : 1) ?>',
             minimumInputLength: 0,
             templateResult: function (repo) {
                 if (repo.loading) {

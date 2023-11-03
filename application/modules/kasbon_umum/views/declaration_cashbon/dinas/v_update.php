@@ -72,7 +72,9 @@
                     <div class="box box-info" >
                         <div class="box-header">
                             <h3 class="box-title text-muted">Dokumen Dinas</h3>
-                            <button type="button" class="btn btn-sm btn-warning pull-right reset-select">Reset Seleksi</button>
+                            <?php if (!$CASHBONED){ ?>
+                                <button type="button" class="btn btn-sm btn-warning pull-right reset-select">Reset Seleksi</button>
+                            <?php } ?>
                         </div>
                         <div class="box-body">
                             <div class="col-sm-12 table-responsive">
@@ -110,7 +112,7 @@
                         <div class="box-body">
                             <div class="table-responsive">
                                 <table class="table table-hover table-bordered table-striped" id="cashboncomponent">
-                                    <?php include APPPATH.'\modules\kasbon_umum\views\cashbon\v_component_read.php' ?>
+                                    <?php include APPPATH.'\modules\kasbon_umum\views\cashbon\dinas\v_component_read.php' ?>
                                 </table>
                             </div>
                         </div>
@@ -262,6 +264,9 @@
         }
         $('select[name=\'dutieid[]\']').select2({
             allowClear:true,
+            <?php if ($CASHBONED){ ?>
+            disabled: true,
+            <?php } ?>
             ajax: {
                 url: '<?php echo site_url('trans/dinas/search'); ?>',
                 dataType: 'json',
@@ -292,7 +297,7 @@
             escapeMarkup: function (markup) {
                 return markup;
             },
-            maximumSelectionLength: 3,
+            maximumSelectionLength: '<?php echo (isset($maxLoad) ? $maxLoad : 1) ?>',
             minimumInputLength: 0,
             templateResult: function (repo) {
                 if (repo.loading) {

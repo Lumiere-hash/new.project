@@ -50,6 +50,7 @@ BEGIN
     INSERT INTO sc_trx.meal_allowance
         (branch, nik, tgl, checkin, checkout, nominal, keterangan, tgl_dok, dok_ref, rencanacallplan, realisasicallplan, bbm, sewa_kendaraan)
     SELECT * FROM sc_trx.uangmakan a
+
     ON CONFLICT (nik,tgl)
     DO UPDATE SET
         (checkin,

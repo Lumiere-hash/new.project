@@ -138,12 +138,82 @@
     <div class="box-footer">
         <div class="col-sm-12">
             <a href="<?php echo site_url('kasbon_umum/cashbon'); ?>"  class="btn btn-warning ml-3 pull-right">Kembali</a>
+            <?php if ($cancancel){ ?>
+                <a href="javascript:void(0)" data-href="<?php echo $cancelUrl ?>" class="btn btn-danger ml-3 pull-right cancel">Batal</a>
+            <?php } ?>
         </div>
     </div>
 </div>
 </form>
 <script>
     $(document).ready(function() {
+        $('a.cancel').on('click', function (){
+            var row = $(this)
+            Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-sm btn-success ml-3',
+                    cancelButton: 'btn btn-sm btn-warning ml-3',
+                    denyButton: 'btn btn-sm btn-danger ml-3',
+                },
+                buttonsStyling: false,
+            }).fire({
+                title: 'Konfirmasi Batal',
+                html: 'Konfirmasi batal kasbon dengan nomor <b><?php echo $cashbon->cashbonid ?></b> ?',
+                icon: 'question',
+                showCloseButton: true,
+                confirmButtonText: 'Konfirmasi',
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: row.data('href'),
+                        type: 'POST',
+                        success: function (data) {
+                            Swal.mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-sm btn-success ml-3',
+                                    cancelButton: 'btn btn-sm btn-warning ml-3',
+                                    denyButton: 'btn btn-sm btn-danger ml-3',
+                                },
+                                buttonsStyling: false,
+                            }).fire({
+                                position: 'top',
+                                icon: 'success',
+                                title: 'Berhasil Dibatalkan',
+                                html: data.message,
+                                timer: 3000,
+                                timerProgressBar: true,
+                                showCloseButton: true,
+                                showConfirmButton: false,
+                                showDenyButton: true,
+                                denyButtonText: `Tutup`,
+                            }).then(function(){
+                                window.location.replace('<?php echo site_url('kasbon_umum/declarationcashbon/') ?>');
+                            });
+                        },
+                        error: function (xhr, status, thrown) {
+                            console.log(xhr)
+                            Swal.mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-sm btn-success ml-3',
+                                    cancelButton: 'btn btn-sm btn-warning ml-3',
+                                    denyButton: 'btn btn-sm btn-danger ml-3',
+                                },
+                                buttonsStyling: false,
+                            }).fire({
+                                position: 'top',
+                                icon: 'error',
+                                title: 'Gagal Dibatalkan',
+                                html: (xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : xhr.statusText),
+                                showCloseButton: true,
+                                showConfirmButton: false,
+                                showDenyButton: true,
+                                denyButtonText: `Tutup`,
+                            }).then(function(){ });
+                        },
+                    });
+                }
+            });
+        })
         $('select[name=\'dutieid[]\']').select2({
             disabled: true,
             ajax: {
@@ -175,7 +245,6 @@
             escapeMarkup: function (markup) {
                 return markup;
             },
-            maximumSelectionLength: 3,
             minimumInputLength: 0,
             templateResult: function (repo) {
                 if (repo.loading) {

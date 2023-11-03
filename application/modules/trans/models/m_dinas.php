@@ -344,7 +344,7 @@ class M_dinas extends CI_Model{
                     a.jam_selesai AS jam_selesai,
                     COALESCE(TRIM(a.status), '') AS status,
                     a.keperluan AS keperluan,
-                    a.callplan AS callplan,
+                    COALESCE(a.callplan, false) AS callplan,
                     CASE
                         WHEN a.callplan IS TRUE THEN 'YA'
                         ELSE 'TIDAK'

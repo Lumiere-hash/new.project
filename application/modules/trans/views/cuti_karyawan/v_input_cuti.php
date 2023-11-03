@@ -325,7 +325,7 @@
                                                 })
                                             }
                                         });
-                                        $("#pelimpahan").selectize();
+                                        $("#pelimpahan").select2();
 
 
                                         $("#tglmulai").datepicker().on('changeDate',function(ev){
@@ -365,7 +365,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-4">Pelimpahan Pekerjaan</label>
                                     <div class="col-sm-8">
-                                        <select class="form-control input-sm" name="pelimpahan" id="pelimpahan">
+                                        <select class="form-control input-sm" name="pelimpahan" id="pelimpahan" required>
                                             <option value="">--PILIH KARYAWAN--</option>
                                             <?php foreach($list_pelimpahan as $listkan){ ?>
                                                 <option value="<?php echo trim($listkan->nik);?>" ><?php echo $listkan->nmlengkap;?></option>

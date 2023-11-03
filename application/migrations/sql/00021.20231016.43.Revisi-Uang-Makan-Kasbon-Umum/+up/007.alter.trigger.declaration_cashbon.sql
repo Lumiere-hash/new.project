@@ -324,11 +324,11 @@ BEGIN
         IF( vr_type = 'DN' OR vr_type is null) THEN
             vr_nik:=TRIM(COALESCE(nik),'') FROM sc_trx.dinas WHERE trim(nodok) IN (SELECT unnest(string_to_array(trim(NEW.dutieid),',')) limit 1);
             vr_ref = NEW.dutieid;
-        END IF;
-        IF( vr_type <> 'DN' OR vr_type is not NULL) THEN
+        ELSE
             vr_nik:= NEW.dutieid;
             vr_ref = NEW.cashbonid;
         END IF;
+        raise notice '%', vr_nik||'pppp';
         IF((SELECT balance from sc_trx.cashbon_blc where trim(nik)= vr_nik ORDER BY inputdate DESC LIMIT 1 ) IS NULL) OR ((SELECT balance from sc_trx.cashbon_blc where trim(nik)= vr_nik ORDER BY inputdate DESC LIMIT 1 ) = 0 ) THEN
             total_cashbon = 0;
         ELSE

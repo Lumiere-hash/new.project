@@ -45,7 +45,7 @@ SELECT * FROM (
         TO_CHAR(c.day, 'dd-mm-yyyy') AS dayformat
     FROM sc_trx.dinas b
     LEFT JOIN sc_trx.cashbon a ON TRUE
-    AND TRIM(b.nodok) = TRIM(a.dutieid)
+    AND TRIM(b.nodok) IN (select UNNEST(STRING_TO_ARRAY(a.dutieid, ',')))
     LEFT JOIN LATERAL (
         SELECT GENERATE_SERIES(b.tgl_mulai::DATE, b.tgl_selesai::DATE, '1 DAY') AS day
     ) c ON TRUE 

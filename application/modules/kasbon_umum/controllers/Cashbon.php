@@ -1015,7 +1015,14 @@ class Cashbon extends CI_Controller {
                     ->header('Tipe Kendaraan', 'tipe_transportasi_text', false, true, true)
                     ->header('Keperluan', 'keperluan', false, true, true);
                 $this->datatablessp->generateajax();
+                $this->load->model(array('master/m_akses'));
+                $userinfo = $this->m_akses->q_user_check()->row_array();
+                $userhr = $this->m_akses->list_aksesperdep()->num_rows();
+                $level_akses = strtoupper(trim($userinfo['level_akses']));
+                $cancancel = (($userhr > 0 or $level_akses == 'A') ? TRUE : FALSE);
                 $this->template->display('kasbon_umum/cashbon/dinas/v_detail', array(
+                    'cancancel' => $cancancel,
+                    'cancelUrl' => site_url('kasbon_umum/cashbon/docanceldocument/'.bin2hex(json_encode(array('cashbonid'=>$transaksi->cashbonid)))),
                     'title' => 'Rincian Kasbon Karyawan',
                     'employee' => $empleyee,
                     'category' => $json->category,
@@ -1242,13 +1249,14 @@ class Cashbon extends CI_Controller {
             'page' => $page,
             'limit' => $limit,
             'location' => $result
-        ), JSON_NUMERIC_CHECK);
+        ));
     }
 
     function employeeautofill()
     {
         $this->load->model(array('M_FindEmployee'));
-        $employee = $this->M_FindEmployee->q_mst_txt_where(' AND nik = \''.$this->input->post('nik').'\' ')->row();
+        $employee = $this->M_FindEmployee->q_mst_txt_where(' AND nik = \''.trim($this->input->post('nik')).'\' ')->row();
+//        var_dump($employee);die();
         echo json_encode(array(
             'name'  => $employee->nmlengkap,
             'deptname'  => $employee->nmdept.' '.$employee->nmsubdept,
@@ -1441,6 +1449,71 @@ class Cashbon extends CI_Controller {
             }
 
 
+        }
+    }
+
+    public function docanceldocument($param = null)
+    {
+        $json = json_decode(
+            hex2bin($param)
+        );
+        var_dump($json);die();
+        $this->load->model(array('kasbon_umum/M_Cashbon','kasbon_umum/M_BalanceCashbon',));
+        header('Content-Type: application/json');
+        if ($this->M_Cashbon->q_transaction_exists(' TRUE AND declarationid = \''.$json->declarationid.'\'  ')){
+            if ($this->M_Cashbon->q_transaction_exists(' TRUE AND declarationid = \''.$json->declarationid.'\' AND status = \'P\' ')){
+                if ($this->M_BalanceCashbon->exists(' TRUE AND docno = \''.$json->declarationid.'\' AND flag = \'NO\' AND voucher is null ')){
+                    $balance = $this->M_BalanceCashbon->q_balance_cashbon_detail_read_where(' AND docno = \''.$json->declarationid.'\' ')->row();
+                    try {
+                        $this->db->trans_start();
+                        $this->M_BalanceCashbon->delete(array(
+                            'docno' => $balance->docno,
+                        ));
+                        $this->M_DeclarationCashbon->q_transaction_update(array(
+                            'status' => 'C',
+                            'cancelby' => $this->session->userdata('nik'),
+                            'canceldate' => date('Y-m-d H:i:s'),
+                        ),array(
+                            'declarationid' => $json->declarationid
+                        ));
+                        $this->db->trans_complete();
+                        if ($this->db->trans_status()) {
+                            $this->db->trans_commit();
+                            header('Content-Type: application/json');
+                            http_response_code(200);
+                            echo json_encode(array(
+                                'statusText' => 'Berhasil',
+                                'message' => 'Data berhasil dibatalkan',
+                            ));
+                        } else {
+                            throw new Exception("Error DB", 1);
+                        }
+                    } catch (Exception $e) {
+                        $this->db->trans_rollback();
+                    }
+                }else{
+                    header('Content-Type: application/json');
+                    http_response_code(403);
+                    echo json_encode(array(
+                        'data' => array(),
+                        'message' => 'Data yang sudah dibuat voucher tidak dapat dibatalkan'
+                    ));
+                }
+            }else{
+                header('Content-Type: application/json');
+                http_response_code(404);
+                echo json_encode(array(
+                    'data' => array(),
+                    'message' => 'Dokumen sudah pernah dibatalkan'
+                ));
+            }
+        }else{
+            header('Content-Type: application/json');
+            http_response_code(404);
+            echo json_encode(array(
+                'data' => array(),
+                'message' => 'Data tidak ditemukan'
+            ));
         }
     }
 

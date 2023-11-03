@@ -245,7 +245,7 @@
             escapeMarkup: function (markup) {
                 return markup;
             },
-            maximumSelectionLength: 3,
+
             minimumInputLength: 0,
             templateResult: function (repo) {
                 if (repo.loading) {
