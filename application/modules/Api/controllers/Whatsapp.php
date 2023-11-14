@@ -349,7 +349,7 @@ class WhatsApp extends MX_Controller
             $message = '' .
                 '👉 *' . $item->nodok . '* 👈' . PHP_EOL .
                 PHP_EOL .
-                'Berikut adalah rincian pengajuan *IJIN ' . $item->jenis_ijin . '* ' . $item->tipe_ijin . ' :' . PHP_EOL .
+                'Berikut adalah rincian pengajuan *' . $item->jenis_ijin . '* ' . $item->tipe_ijin . ' :' . PHP_EOL .
                 PHP_EOL .
                 'Nama: *' . $item->nama . '*' . PHP_EOL .
                 'NIK: *' . $item->nik . '*' . PHP_EOL .
