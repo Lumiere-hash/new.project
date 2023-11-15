@@ -230,19 +230,20 @@ class WhatsApp extends MX_Controller
         ORDER BY input_date desc
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $message = '' .
-                '👉 *' . $item->nodok . '* 👈' . PHP_EOL .
+                '*PERSETUJUAN CUTI*' . PHP_EOL .
                 PHP_EOL .
-                'Berikut adalah rincian pengajuan *CUTI* :' . PHP_EOL .
+                'NO DOK *' . $item->nodok . '*' . PHP_EOL .
                 PHP_EOL .
-                'Nama:* ' . $item->nama . '*' . PHP_EOL .
-                'NIK:* ' . $item->nik . '*' . PHP_EOL .
-                'Tanggal Cuti: *' . $item->tgl_mulai . ' - ' . $item->tgl_selesai . '*' . PHP_EOL .
-                'Keterangan: *' . $item->keterangan . '*' . PHP_EOL .
-                'Jumlah cuti: *' . $item->jumlah_cuti . '* Hari' . PHP_EOL .
-                'Pelimpahan: *' . $item->pelimpahan . '*' . PHP_EOL .
+                'Nama Karyawan: *' . $item->nama . '*' . PHP_EOL .
+                'Tipe Pengajuan: *CUTI*' . PHP_EOL .
+                'Tanggal Cuti: *' . $item->tgl_mulai . ' sd ' . $item->tgl_selesai . '*' . PHP_EOL .
+                'Jumlah Cuti: *' . $item->jumlah_cuti . '* Hari' . PHP_EOL .
+                'Keterangan Cuti: *' . $item->keterangan . '*' . PHP_EOL .
+                'Pelimpahan Tugas: *' . $item->pelimpahan . '*' . PHP_EOL .
                 PHP_EOL .
+                '_Balas:_'. PHP_EOL .
+                ' _Iya = Setuju, Tidak = Tolak_' . PHP_EOL . 
                 PHP_EOL .
-                'Balas pesan ini dengan cara geser kekanan pada pesan lalu ketik: _Iya = Setuju, Tidak = Tolak_' . PHP_EOL . PHP_EOL .
                 '_Ref:' . $this->shuffle() . '_' .
                 '';
             array_push($messages, array(
@@ -336,30 +337,265 @@ class WhatsApp extends MX_Controller
         }
     }
 
-    public function msgijin()
+    public function msgijindt()
     {
         $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
 
         $messages = [];
-        foreach ($this->m_ijin->q_whatsapp_collect_where('
+        foreach ($this->m_ijin->q_whatsapp_collect_where(' 
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
-        AND ck.status = \'A\' AND whatsappsent = FALSE
+        AND ck.kdijin_absensi = \'DT\' AND ck.status = \'A\' AND whatsappsent = FALSE
         ORDER BY input_date desc
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $message = '' .
-                '👉 *' . $item->nodok . '* 👈' . PHP_EOL .
+                '*PERSETUJUAN ' . $item->jenis_ijin . '* ' . PHP_EOL .
                 PHP_EOL .
-                'Berikut adalah rincian pengajuan *' . $item->jenis_ijin . '* ' . $item->tipe_ijin . ' :' . PHP_EOL .
+                'NO DOK *' . $item->nodok . '*' . PHP_EOL .
                 PHP_EOL .
-                'Nama: *' . $item->nama . '*' . PHP_EOL .
-                'NIK: *' . $item->nik . '*' . PHP_EOL .
-                'Tanggal: *' . $item->tgl_kerja . '*' . PHP_EOL .
-                'Keterangan: *' . $item->keterangan . '*' . PHP_EOL .
-                'Kendaraan: *' . $item->kendaraan . '*' . PHP_EOL .
-                'NOPOL: *' . $item->nopol . '*' . PHP_EOL .
+                'Nama Karyawan: *' . $item->nama . '*' . PHP_EOL .
+                'Tipe Pengajuan: *' . $item->jenis_ijin . ' '.$item->tipe_ijin . '*' . PHP_EOL .
+                'Tanggal Izin: *' . $item->tgl_kerja . '*' . PHP_EOL .
+                'Jam Datang: *' . $item->jam_mulai . '*' . PHP_EOL .
+                'Keterangan Izin: *' . $item->keterangan . '*' . PHP_EOL .
                 PHP_EOL .
+                '_Balas:_'. PHP_EOL .
+                ' _Iya = Setuju, Tidak = Tolak_' . PHP_EOL . 
                 PHP_EOL .
-                'Balas pesan ini dengan cara geser kekanan pada pesan lalu ketik: _Iya = Setuju, Tidak = Tolak_' . PHP_EOL . PHP_EOL .
+                '_Ref:' . $this->shuffle() . '_' .
+                '';
+            array_push($messages, array(
+                'message' => json_encode(
+                    array(
+                        'message' => $message,
+                    )
+                ),
+                'message_type' => 'conversation',
+                'outbox_for' => $item->approverjid,
+                'is_interactive' => true,
+                'retry' => 1,
+                'session' => $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SESSION:' . $branch . '\'', 'session'),
+                'properties' => array(
+                    'type' => 'A.I.I',
+                    'objectid' => $item->nodok,
+                    'approver' => $item->approver,
+                ),
+            ));
+        }
+        if (count($messages) > 0) {
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => $this->m_setup->q_mst_read_value(' AND parameter = \'WA-BASE-URL:' . $branch . '\'', 'https://syifarahmat.github.io/whatsapp.bot/') . 'whatsapp/api/outbox/',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_SSL_VERIFYHOST => false,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => json_encode($messages),
+                CURLOPT_HTTPHEADER => array(
+                    'Authorization: Bearer ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-ACCESS:' . $branch . '\' ', 'access'),
+                    'Content-Type: application/json'
+                ),
+            ));
+            $response = curl_exec($curl);
+            $info = curl_getinfo($curl);
+            $body = json_decode($response);
+            curl_close($curl);
+            if ($body) {
+                if ($info['http_code'] == 201) {
+                    foreach ($body as $row) {
+                        $this->m_ijin->q_trx_update(array(
+                            'whatsappsent' => TRUE,
+                        ), array('TRIM(nodok)' => $row->properties->objectid));
+                        $this->db->insert('sc_log.success_notifications', array(
+                            'modul' => 'notification',
+                            'message' => json_encode($body),
+                            'properties' => json_encode($info),
+                            'input_by' => 'SYSTEM',
+                            'input_date' => date('Y-m-d H:i:s'),
+                        ));
+                    }
+                    header('Content-Type: application/json');
+                    echo json_encode(array(
+                        'return' => false,
+                        'info' => $info,
+                        'body' => $body,
+                    ), JSON_PRETTY_PRINT);
+                    return true;
+                } else {
+                    $this->db->insert('sc_log.error_notifications', array(
+                        'modul' => 'notification',
+                        'message' => json_encode($body),
+                        'properties' => json_encode($info),
+                        'input_by' => 'SYSTEM',
+                        'input_date' => date('Y-m-d H:i:s'),
+                    ));
+                }
+            }
+            header('Content-Type: application/json');
+            echo json_encode(array(
+                'return' => false,
+                'info' => $info,
+                'body' => $body,
+            ), JSON_PRETTY_PRINT);
+            return false;
+        } else {
+            header('Content-Type: application/json');
+            echo json_encode(array(
+                'return' => true,
+                'info' => array(),
+                'body' => array(),
+                'message' => 'Empty data will skip post to whatsapp bot',
+            ), JSON_PRETTY_PRINT);
+            return true;
+        }
+    }
+
+    public function msgijinik()
+    {
+        $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
+
+        $messages = [];
+        foreach ($this->m_ijin->q_whatsapp_collect_where(' 
+        AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
+        AND ck.kdijin_absensi = \'IK\' AND ck.status = \'A\' AND whatsappsent = FALSE
+        ORDER BY input_date desc
+            LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
+            $message = '' .
+                '*PERSETUJUAN ' . $item->jenis_ijin . '* ' . PHP_EOL .
+                PHP_EOL .
+                'NO DOK *' . $item->nodok . '*' . PHP_EOL .
+                PHP_EOL .
+                'Nama Karyawan: *' . $item->nama . '*' . PHP_EOL .
+                'Tipe Pengajuan: *' . $item->jenis_ijin . ' '.$item->tipe_ijin . '*' . PHP_EOL .
+                'Tanggal Izin: *' . $item->tgl_kerja . '*' . PHP_EOL .
+                'Jam Datang: *' . $item->jam_mulai . '*' . PHP_EOL .
+                'Jam Pulang: *' . $item->jam_selesai . '*' . PHP_EOL .
+                'Keterangan Izin: *' . $item->keterangan . '*' . PHP_EOL .
+                PHP_EOL .
+                '_Balas:_'. PHP_EOL .
+                ' _Iya = Setuju, Tidak = Tolak_' . PHP_EOL . 
+                PHP_EOL .
+                '_Ref:' . $this->shuffle() . '_' .
+                '';
+            array_push($messages, array(
+                'message' => json_encode(
+                    array(
+                        'message' => $message,
+                    )
+                ),
+                'message_type' => 'conversation',
+                'outbox_for' => $item->approverjid,
+                'is_interactive' => true,
+                'retry' => 1,
+                'session' => $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SESSION:' . $branch . '\'', 'session'),
+                'properties' => array(
+                    'type' => 'A.I.I',
+                    'objectid' => $item->nodok,
+                    'approver' => $item->approver,
+                ),
+            ));
+        }
+        if (count($messages) > 0) {
+            $curl = curl_init();
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => $this->m_setup->q_mst_read_value(' AND parameter = \'WA-BASE-URL:' . $branch . '\'', 'https://syifarahmat.github.io/whatsapp.bot/') . 'whatsapp/api/outbox/',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_SSL_VERIFYPEER => false,
+                CURLOPT_SSL_VERIFYHOST => false,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => json_encode($messages),
+                CURLOPT_HTTPHEADER => array(
+                    'Authorization: Bearer ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-ACCESS:' . $branch . '\' ', 'access'),
+                    'Content-Type: application/json'
+                ),
+            ));
+            $response = curl_exec($curl);
+            $info = curl_getinfo($curl);
+            $body = json_decode($response);
+            curl_close($curl);
+            if ($body) {
+                if ($info['http_code'] == 201) {
+                    foreach ($body as $row) {
+                        $this->m_ijin->q_trx_update(array(
+                            'whatsappsent' => TRUE,
+                        ), array('TRIM(nodok)' => $row->properties->objectid));
+                        $this->db->insert('sc_log.success_notifications', array(
+                            'modul' => 'notification',
+                            'message' => json_encode($body),
+                            'properties' => json_encode($info),
+                            'input_by' => 'SYSTEM',
+                            'input_date' => date('Y-m-d H:i:s'),
+                        ));
+                    }
+                    header('Content-Type: application/json');
+                    echo json_encode(array(
+                        'return' => false,
+                        'info' => $info,
+                        'body' => $body,
+                    ), JSON_PRETTY_PRINT);
+                    return true;
+                } else {
+                    $this->db->insert('sc_log.error_notifications', array(
+                        'modul' => 'notification',
+                        'message' => json_encode($body),
+                        'properties' => json_encode($info),
+                        'input_by' => 'SYSTEM',
+                        'input_date' => date('Y-m-d H:i:s'),
+                    ));
+                }
+            }
+            header('Content-Type: application/json');
+            echo json_encode(array(
+                'return' => false,
+                'info' => $info,
+                'body' => $body,
+            ), JSON_PRETTY_PRINT);
+            return false;
+        } else {
+            header('Content-Type: application/json');
+            echo json_encode(array(
+                'return' => true,
+                'info' => array(),
+                'body' => array(),
+                'message' => 'Empty data will skip post to whatsapp bot',
+            ), JSON_PRETTY_PRINT);
+            return true;
+        }
+    }
+
+    public function msgijinpa()
+    {
+        $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
+
+        $messages = [];
+        foreach ($this->m_ijin->q_whatsapp_collect_where(' 
+        AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
+        AND ck.kdijin_absensi = \'PA\' AND ck.status = \'A\' AND whatsappsent = FALSE
+        ORDER BY input_date desc
+            LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
+            $message = '' .
+                '*PERSETUJUAN ' . $item->jenis_ijin . '* ' . PHP_EOL .
+                PHP_EOL .
+                'NO DOK *' . $item->nodok . '*' . PHP_EOL .
+                PHP_EOL .
+                'Nama Karyawan: *' . $item->nama . '*' . PHP_EOL .
+                'Tipe Pengajuan: *' . $item->jenis_ijin . ' '.$item->tipe_ijin . '*' . PHP_EOL .
+                'Tanggal Izin: *' . $item->tgl_kerja . '*' . PHP_EOL .
+                'Jam Pulang: *' . $item->jam_selesai . '*' . PHP_EOL .
+                'Keterangan Izin: *' . $item->keterangan . '*' . PHP_EOL .
+                PHP_EOL .
+                '_Balas:_'. PHP_EOL .
+                ' _Iya = Setuju, Tidak = Tolak_' . PHP_EOL . 
+                PHP_EOL .
                 '_Ref:' . $this->shuffle() . '_' .
                 '';
             array_push($messages, array(
@@ -464,20 +700,21 @@ class WhatsApp extends MX_Controller
         ORDER BY input_date desc
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $message = '' .
-                '👉 *' . $item->nodok . '* 👈' . PHP_EOL .
+                '*PERSETUJUAN LEMBUR*' . PHP_EOL .
                 PHP_EOL .
-                'Berikut adalah rincian pengajuan *LEMBUR* hari *' . $item->tipe_lembur . '*:' . PHP_EOL .
+                'NO DOK *' . $item->nodok . '*' . PHP_EOL .
                 PHP_EOL .
-                'Nama: *' . $item->nama . '*' . PHP_EOL .
-                'NIK: *' . $item->nik . '*' . PHP_EOL .
+                'Nama Karyawan: *' . $item->nama . '*' . PHP_EOL .
+                'Tipe Pengajuan: *LEMBUR* Hari *' . $item->tipe_lembur . '*' . PHP_EOL .
                 'Tanggal Kerja: *' . $item->tgl_kerja . '*' .  PHP_EOL .
                 'Jam Mulai: *' . $item->jam_mulai . '*' .  PHP_EOL .
                 'Jam Selesai: *' . $item->jam_selesai . '*' .  PHP_EOL .
-                'Durasi: *' . $item->durasi . '*' .  PHP_EOL .
-                'Keterangan: *' . $item->keterangan . '*' . PHP_EOL .
+                'Durasi Lembur: *' . $item->durasi . '*' .  PHP_EOL .
+                'Keterangan Lembur: *' . $item->keterangan . '*' . PHP_EOL .
                 PHP_EOL .
+                '_Balas:_'. PHP_EOL .
+                '_Iya = Setuju, Tidak = Tolak_' . PHP_EOL . 
                 PHP_EOL .
-                'Balas pesan ini dengan cara geser kekanan pada pesan lalu ketik: _Iya = Setuju, Tidak = Tolak_' . PHP_EOL . PHP_EOL .
                 '_Ref:' . $this->shuffle() . '_' .
                 '';
             array_push($messages, array(
@@ -581,20 +818,21 @@ class WhatsApp extends MX_Controller
         AND ck.status = \'A\' AND whatsappsent = FALSE
         ORDER BY input_date desc
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
-            $message = '' .
-                '👉 *' . $item->nodok . '* 👈' . PHP_EOL .
+                $message = '' .
+                '*PERSETUJUAN DINAS*' . PHP_EOL .
                 PHP_EOL .
-                'Berikut adalah rincian pengajuan *DINAS ' . $item->jenis_tujuan . '* :' . PHP_EOL .
+                'NO DOK *' . $item->nodok . '*' . PHP_EOL .
                 PHP_EOL .
-                'Nama: *' . $item->nama . '*' . PHP_EOL .
-                'NIK: *' . $item->nik . '*' . PHP_EOL .
-                'Tanggal Dinas: *' . $item->tgl_mulai . ' - ' . $item->tgl_selesai . '*' . PHP_EOL .
+                'Nama Karyawan: *' . $item->nama . '*' . PHP_EOL .
+                'Tipe Pengajuan: *DINAS ' . $item->jenis_tujuan . '*' . PHP_EOL .
+                'Tanggal Dinas: *' . $item->tgl_mulai . ' sd ' . $item->tgl_selesai . '*' . PHP_EOL .
                 'Kota Tujuan: *' . $item->tujuan_kota . '* ' . PHP_EOL .
-                'Keperluan: *' . $item->keperluan . '* ' . PHP_EOL .
-                'Transportasi: *' . $item->transportasi . ' ' . $item->tipe_transportasi . '* ' . PHP_EOL .
+                'Keperluan Dinas: *' . $item->keperluan . '* ' . PHP_EOL .
+                'Transportasi Dinas: *' . $item->transportasi . ' ' . $item->tipe_transportasi . '* ' . PHP_EOL .
                 PHP_EOL .
+                '_Balas:_'. PHP_EOL .
+                '_Iya = Setuju, Tidak = Tolak_' . PHP_EOL . 
                 PHP_EOL .
-                'Balas pesan ini dengan cara geser kekanan pada pesan lalu ketik: _Iya = Setuju, Tidak = Tolak_' . PHP_EOL . PHP_EOL .
                 '_Ref:' . $this->shuffle() . '_' .
                 '';
             array_push($messages, array(
@@ -702,15 +940,43 @@ class WhatsApp extends MX_Controller
         }
     }
 
-    public function sendapprovalijin()
+    public function sendapprovalijindt()
     {
-        if ($this->msgijin()) {
+        if ($this->msgijindt()) {
         } else {
             if ($this->refresh()) {
-                $this->msgijin();
+                $this->msgijindt();
             } else {
                 if ($this->auth()) {
-                    $this->msgijin();
+                    $this->msgijindt();
+                }
+            }
+        }
+    }
+
+    public function sendapprovalijinik()
+    {
+        if ($this->msgijinik()) {
+        } else {
+            if ($this->refresh()) {
+                $this->msgijinik();
+            } else {
+                if ($this->auth()) {
+                    $this->msgijinik();
+                }
+            }
+        }
+    }
+
+    public function sendapprovalijinpa()
+    {
+        if ($this->msgijinpa()) {
+        } else {
+            if ($this->refresh()) {
+                $this->msgijinpa();
+            } else {
+                if ($this->auth()) {
+                    $this->msgijinpa();
                 }
             }
         }
