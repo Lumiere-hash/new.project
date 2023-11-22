@@ -16,6 +16,7 @@ class WhatsApp extends MX_Controller
             'm_dinas',
             'm_ijin',
             'm_lembur',
+            'm_sppb',
         ));
     }
 
@@ -1303,6 +1304,182 @@ class WhatsApp extends MX_Controller
         }
     }
 
+    public function msgsppb()
+    {
+        $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
+
+        $messages = [];
+        foreach ($this->m_sppb->q_whatsapp_collect_where('
+        AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
+        AND ck.status = \'A\' AND whatsappsent = FALSE
+        ORDER BY input_date desc
+            LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
+            $ref = $this->shuffle();
+            $message = '' .
+                '<table width=\'400\' background=\'' . $this->bg . '\'>
+                    <thead>
+                      <tr>
+                        <th colspan=\'3\'><b>PERSETUJUAN SPPB</b></th>
+                      </tr>
+                      <tr><th colspan=\'3\'>&nbsp;</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td colspan=\'2\'>NOMOR DOK </td>
+                        <td colspan=\'1\'><b>' . $item->nodok . '</b></td>
+                      </tr>
+                      <tr><td colspan="3">&nbsp;</td></tr>
+                      <tr>
+                        <td valign=\'top\' style=\'width: 30%;\'>Nama Karyawan</td>
+                        <td valign=\'top\' style=\'width: 5%; text-align: left;\'>:</td>
+                        <td valign=\'top\' style=\'width: 65%;\'><b>' . $item->nama . '</b></td>
+                      </tr>
+                      <tr>
+                        <td valign=\'top\' style=\'width: 30%;\'>Tipe Pengajuan</td>
+                        <td valign=\'top\' style=\'width: 5%; text-align: left;\'>:</td>
+                        <td valign=\'top\' style=\'width: 65%;\'><b>SPPB</b></td>
+                      </tr>
+                      <tr>
+                        <td valign=\'top\' style=\'width: 30%;\'>Tanggal Dokumen</td>
+                        <td valign=\'top\' style=\'width: 5%; text-align: left;\'>:</td>
+                        <td valign=\'top\' style=\'width: 65%;\'><b>' . $item->formattgldok . '</b></td>
+                      </tr>
+                      <tr>
+                        <td valign=\'top\' style=\'width: 30%;\'>Nama Barang</td>
+                        <td valign=\'top\' style=\'width: 5%; text-align: left;\'>:</td>
+                        <td valign=\'top\' style=\'width: 65%;\'><b>' . $item->nmbarang . '</b></td>
+                      </tr>
+                      <tr>
+                        <td valign=\'top\'>&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td valign=\'top\'>&nbsp;</td>
+                      </tr>
+                    </tbody>
+                </table>'
+                . '';
+            $output = 'assets/img/approval/sppb/' . $item->nodok . '_' . $ref . '.jpg';
+            $this->imageCreator($message, $output);
+
+            array_push(
+                $messages,
+                array(
+                    'message' => json_encode(
+                        array(
+                            'path' => str_replace('\\', '/', base_url($output)),
+                            'caption' => 'PERSETUJUAN  SPPB *' . $item->nodok . '*' . PHP_EOL . PHP_EOL
+                                . '_Balas:_' . PHP_EOL
+                                . '_Ya = Setuju, Tidak = Tolak_' . PHP_EOL . PHP_EOL
+                                . '_Ref:' . $ref . '_'
+                        )
+                    ),
+                    'message_type' => 'imageMessage',
+                    'outbox_for' => $item->approverjid,
+                    'is_interactive' => true,
+                    'retry' => 1,
+                    'session' => $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SESSION:' . $branch . '\'', 'session'),
+                    'properties' => array(
+                        'type' => 'A.I.S',
+                        'objectid' => $item->nodok,
+                        'approver' => $item->approver,
+                    ),
+                )
+            );
+        }
+        if (count($messages) > 0) {
+            $curl = curl_init();
+            curl_setopt_array(
+                $curl,
+                array(
+                    CURLOPT_URL => $this->m_setup->q_mst_read_value(' AND parameter = \'WA-BASE-URL:' . $branch . '\'', 'https://syifarahmat.github.io/whatsapp.bot/') . 'whatsapp/api/outbox/',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_SSL_VERIFYPEER => false,
+                    CURLOPT_SSL_VERIFYHOST => false,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => json_encode($messages),
+                    CURLOPT_HTTPHEADER => array(
+                        'Authorization: Bearer ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-ACCESS:' . $branch . '\' ', 'access'),
+                        'Content-Type: application/json'
+                    ),
+                )
+            );
+            $response = curl_exec($curl);
+            $info = curl_getinfo($curl);
+            $body = json_decode($response);
+            curl_close($curl);
+            if ($body) {
+                if ($info['http_code'] == 201) {
+                    foreach ($body as $row) {
+                        $this->m_sppb->q_trx_update(
+                            array(
+                                'whatsappsent' => TRUE,
+                            ),
+                            array('TRIM(nodok)' => $row->properties->objectid)
+                        );
+                        $this->db->insert(
+                            'sc_log.success_notifications',
+                            array(
+                                'modul' => 'notification',
+                                'message' => json_encode($body),
+                                'properties' => json_encode($info),
+                                'input_by' => 'SYSTEM',
+                                'input_date' => date('Y-m-d H:i:s'),
+                            )
+                        );
+                    }
+                    header('Content-Type: application/json');
+                    echo json_encode(
+                        array(
+                            'return' => false,
+                            'info' => $info,
+                            'body' => $body,
+                        ),
+                        JSON_PRETTY_PRINT
+                    );
+                    return true;
+                } else {
+                    $this->db->insert(
+                        'sc_log.error_notifications',
+                        array(
+                            'modul' => 'notification',
+                            'message' => json_encode($body),
+                            'properties' => json_encode($info),
+                            'input_by' => 'SYSTEM',
+                            'input_date' => date('Y-m-d H:i:s'),
+                        )
+                    );
+                }
+            }
+            header('Content-Type: application/json');
+            echo json_encode(
+                array(
+                    'return' => false,
+                    'info' => $info,
+                    'body' => $body,
+                ),
+                JSON_PRETTY_PRINT
+            );
+            return false;
+        } else {
+            header('Content-Type: application/json');
+            echo json_encode(
+                array(
+                    'return' => true,
+                    'info' => array(),
+                    'body' => array(),
+                    'message' => 'Empty data will skip post to whatsapp bot',
+                ),
+                JSON_PRETTY_PRINT
+            );
+            return true;
+        }
+    }
+
     public function sendapprovalcuti()
     {
         if ($this->msgcuti()) {
@@ -1382,6 +1559,20 @@ class WhatsApp extends MX_Controller
             } else {
                 if ($this->auth()) {
                     $this->msgdinas();
+                }
+            }
+        }
+    }
+
+    public function sendapprovalsppb()
+    {
+        if ($this->msgsppb()) {
+        } else {
+            if ($this->refresh()) {
+                $this->msgsppb();
+            } else {
+                if ($this->auth()) {
+                    $this->msgsppb();
                 }
             }
         }
