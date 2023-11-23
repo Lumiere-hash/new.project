@@ -190,8 +190,8 @@ BEGIN
                           WHERE xa.checktime::DATE = a.tgl
                             AND xa.nik = a.nik
                             --AND xa.customertype = 'C'
-                            AND COALESCE(NULLIF(xa.customeroutletcode, ''), NULLIF(xa.customercodelocal, '')) IN (
-                              SELECT COALESCE(NULLIF(xa.locationid, ''), NULLIF(xa.locationidlocal, '')) AS custcode
+                            AND COALESCE(NULLIF(TRIM(xa.customeroutletcode), ''), NULLIF(TRIM(xa.customercodelocal), '')) IN (
+                              SELECT COALESCE(NULLIF(TRIM(xa.locationid), ''), NULLIF(TRIM(xa.locationidlocal), '')) AS custcode
                               FROM sc_tmp.scheduletolocation xa
                               WHERE xa.nik = a.nik AND xa.scheduledate = a.tgl
                               GROUP BY 1
