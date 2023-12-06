@@ -115,8 +115,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-4">Tanggal Berangkat</label>
                                     <div class="col-sm-8">
-                                        <input type="text" name="tgl_mulai" value="<?php echo json_decode($date)
-                                         ?>" class="form-control" id="tgl_mulai" />
+                                        <input type="text" name="tgl_mulai"  class="form-control" id="tgl_mulai" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -359,6 +358,7 @@ $(document).ready(function() {
             return repo.text || repo.text;
         },
     }).on('change', function(e) {
+        $('[name=\'transportasi\']').empty().trigger('change');
     });
     $('select[name=\'transportasi\']').select2({
         ajax: {

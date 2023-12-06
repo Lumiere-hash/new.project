@@ -420,7 +420,9 @@
             templateSelection: function (repo) {
                 return repo.text || repo.text;
             },
-        }).on('change', function(e) {});
+        }).on('change', function(e) {
+            $('[name=\'transportasi\']').empty().trigger('change');
+        });
         $.extend($.validator.messages, {
             required: 'Bagian ini diperlukan...',
             remote: 'Harap perbaiki bidang ini...',
