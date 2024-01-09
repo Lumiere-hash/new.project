@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DataExportManager">
@@ -35,6 +35,9 @@
       <console name="Connection" type="STANDARD" schema="information_schema" session="Main" />
     </connection>
   </component>
+  <component name="DBNavigator.Project.DatabaseEditorStateManager">
+    <last-used-providers />
+  </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files />
   </component>
@@ -46,6 +49,11 @@
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
     <retain-sticky-names value="false" />
+  </component>
+  <component name="DBNavigator.Project.FileConnectionMappingManager">
+    <mapping file-url="file://$APPLICATION_CONFIG_DIR$/consoles/db/ba5f167f-425f-402f-ae87-0ce687aa64ee/console.sql" connection-id="06a4dec2-cec8-4fea-8152-f7859e39bdd5" session-id="MAIN" current-schema="HRMS.NUSA" />
+    <mapping file-url="file://$PROJECT_DIR$/application/migrations/sql/00024.20240108.22.Cuti-Karyawan/+up/004.sc_trx.adjust_employee_leave.sql" connection-id="06a4dec2-cec8-4fea-8152-f7859e39bdd5" session-id="MAIN" current-schema="sc_trx" />
+    <mapping file-url="file://$PROJECT_DIR$/application/migrations/sql/00024.20240108.22.Cuti-Karyawan/+up/003.sc_trx.pr_hanguscuti_nik_manual.sql" connection-id="06a4dec2-cec8-4fea-8152-f7859e39bdd5" session-id="MAIN" current-schema="sc_trx" />
   </component>
   <component name="DBNavigator.Project.MethodExecutionManager">
     <method-browser />
@@ -67,20 +75,22 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="06a4dec2-cec8-4fea-8152-f7859e39bdd5" active="true">
+      <connection id="06a4dec2-cec8-4fea-8152-f7859e39bdd5" active="true" signed="true">
         <database>
-          <name value="Connection" />
+          <name value="LOCAL" />
           <description value="" />
           <database-type value="POSTGRES" />
           <config-type value="BASIC" />
-          <database-version value="9.5" />
-          <driver-source value="BUILTIN" />
+          <database-version value="14.5" />
+          <driver-source value="BUNDLED" />
           <driver-library value="" />
           <driver value="" />
           <url-type value="DATABASE" />
           <host value="localhost" />
-          <port value="5432" />
-          <database value="postgres" />
+          <port value="6543" />
+          <database value="HRMS.NUSA" />
+          <tns-folder value="" />
+          <tns-profile value="" />
           <type value="USER_PASSWORD" />
           <user value="postgres" />
           <deprecated-pwd value="MTIzNDU=" />
@@ -120,8 +130,15 @@
           <max-connection-pool-size value="7" />
           <alternative-statement-delimiter value="" />
         </details>
-        <object-filters hide-empty-schemas="false" hide-pseudo-columns="false">
-          <object-type-filter use-master-settings="true">
+        <debugger>
+          <compile-dependencies value="true" />
+          <tcp-driver-tunneling value="false" />
+          <tcp-host-address value="" />
+          <tcp-port-from value="4000" />
+          <tcp-port-to value="4999" />
+        </debugger>
+        <object-filters hide-empty-schemas="false" hide-pseudo-columns="false" hide-audit-columns="false">
+          <object-type-filter>
             <object-type name="SCHEMA" enabled="true" />
             <object-type name="USER" enabled="true" />
             <object-type name="ROLE" enabled="true" />
@@ -192,6 +209,7 @@
         <object-type name="FUNCTION" sorting-type="NAME" />
         <object-type name="PROCEDURE" sorting-type="NAME" />
         <object-type name="ARGUMENT" sorting-type="POSITION" />
+        <object-type name="TYPE ATTRIBUTE" sorting-type="POSITION" />
       </sorting>
       <default-editors>
         <object-type name="VIEW" editor-type="SELECTION" />
@@ -238,11 +256,11 @@
         <nulls-first value="true" />
         <max-sorting-columns value="4" />
       </sorting>
-      <tracking-columns>
-        <columnNames value="" />
+      <audit-columns>
+        <column-names value="" />
         <visible value="true" />
         <editable value="false" />
-      </tracking-columns>
+      </audit-columns>
     </dataset-grid-settings>
     <dataset-editor-settings>
       <text-editor-popup>
@@ -299,6 +317,7 @@
       <confirmations>
         <save-changes value="false" />
         <revert-changes value="true" />
+        <exit-on-changes value="ASK" />
       </confirmations>
     </code-editor-settings>
     <code-completion-settings>
@@ -499,7 +518,6 @@
       </compiler>
       <debugger>
         <debugger-type value="JDBC" />
-        <use-generic-runners value="true" />
       </debugger>
     </operation-settings>
     <ddl-file-settings>
@@ -549,5 +567,6 @@
   </component>
   <component name="DBNavigator.Project.StatementExecutionManager">
     <execution-variables />
+    <execution-variable-types />
   </component>
 </project>

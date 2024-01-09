@@ -1402,6 +1402,7 @@ class Dinas extends MX_Controller
             ORDER BY update_date DESC 
             ')->row();
 		if (!is_null($temporary) && !is_nan($temporary)) {
+
 			$this->db->trans_complete();
             if ($temporary->status == 'P' AND date('Y-m-d') >= $temporary->tgl_mulai AND $json->config == 'extend'){
                 $canextend = TRUE;

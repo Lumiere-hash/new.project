@@ -143,8 +143,8 @@ class M_user extends CI_Model{
 
     function schedular(){
         $tgl = date('Y-m-d');
-        return $this->db->query("select sc_trx.pr_cutibased_nusa('$tgl')");
-        //return $this->db->query("select sc_trx.pr_cutirata_tgl('$tgl')");
+        return $this->db->query("select sc_trx.pr_cutirata_tgl('$tgl')");
+        //return $this->db->query("select sc_trx.pr_cutibased_nusa('$tgl')");
     }
 
     /**/
