@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Migration_approval_sppb extends CI_Migration {
-    protected $_version =  "00023.20231122.11.Approval-SPPB";
+class Migration_cuti_karyawan extends CI_Migration {
+    protected $_version =  "00024.20240108.22.Cuti-Karyawan";
 
     ################################################## DO NOT CHANGE THIS LINE !!! ##################################################
     public function up() {
