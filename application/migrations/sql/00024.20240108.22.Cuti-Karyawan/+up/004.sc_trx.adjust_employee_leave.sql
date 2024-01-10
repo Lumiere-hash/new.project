@@ -1,7 +1,7 @@
 CREATE OR REPLACE FUNCTION sc_trx.adjust_employee_leave()
     RETURNS INT AS $$
 DECLARE
-    --build by RKM
+    --author:: RKM
     done BOOLEAN DEFAULT FALSE;
     emp_id varchar;
     emp_join_date DATE;
@@ -40,7 +40,7 @@ BEGIN
                 emp_id := emp_record.nik;
                 emp_join_date := emp_record.tglmasukkerja;
                 emp_leave_last := emp_record.sisacuti;
-                emp_leave_adjusment = EXTRACT(month FROM age(concat(to_char(now(),'YYYY'),'-',to_char(emp_join_date,'MM-DD'))::date, to_char(now(),'YYYY-MM-DD')::date));
+                emp_leave_adjusment = EXTRACT(month FROM age(concat(to_char(now(),'YYYY'),'-',to_char(emp_join_date,'MM-DD'))::date, to_char(now(),'YYYY-01-01')::date));
                 -- Check if emp_leave_adjusment is 0 and set it to 12
                 IF TO_DATE(concat(to_char(now(),'YYYY'),'-',to_char(emp_join_date,'MM-DD')), 'YYYY-MM-DD') <= TO_DATE(concat(to_char(now(),'YYYY'),'-',to_char(emp_join_date,'MM'),'-15'), 'YYYY-MM-DD') THEN
                     emp_leave_adjusment = emp_leave_adjusment;
@@ -74,7 +74,7 @@ BEGIN
                                  0,
                                  emp_leave_last + emp_leave_adjusment,
                                  'IN',
-                                 'TRIAL'
+                                 'ADJUSTMENT'
                              );
                     -- Add your logic here for condition 'a'
                 ELSEIF emp_join_date > emp_entry_date_limit THEN

@@ -1,7 +1,7 @@
 CREATE OR REPLACE FUNCTION sc_trx.deduction_employee_leave()
         RETURNS INT AS $$
     DECLARE
-        --build by RKM
+        --author:: RKM
         done BOOLEAN DEFAULT FALSE;
         emp_id varchar;
         emp_join_date DATE;
