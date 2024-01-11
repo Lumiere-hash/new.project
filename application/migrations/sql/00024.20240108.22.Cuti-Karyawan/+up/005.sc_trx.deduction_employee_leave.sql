@@ -10,6 +10,8 @@ DECLARE
     emp_leave_deduction INT;
     emp_record RECORD;
     count_selected INT;
+    last_year_balance INT;
+    sisa_cuti_lalu INT;
     count_now INT;
     -- Declare a cursor to iterate through employees
 BEGIN
@@ -31,7 +33,35 @@ BEGIN
                 emp_leave_last := emp_record.sisacuti;
                 emp_leave_deduction := coalesce(sisacuti,0) - coalesce(in_cuti,0) FROM sc_trx.cuti_blc WHERE nik = emp_id AND doctype = 'IN' AND no_dokumen = 'ADJ2024';
                 -- Check if emp_leave_adjusment is 0 and set it to 12
+                last_year_balance := coalesce(last_year_balanced, 0) - coalesce(out_balance, 0) as balance
+                                     from (select SUM(out_cuti) over (partition by nik) as out_balance,
+                                                  nik
+                                           from sc_trx.cuti_blc a
+                                           where TRUE
+                                             AND nik = emp_id
+                                             and tanggal < '2024-03-01'::date
+                                             AND tanggal >= '2024-01-01'::date
+                                           ORDER BY tanggal DESC
+                                           LIMIt 1) aa
+                                              left join lateral (
+                                         select coalesce(sisacuti, 0) - coalesce(in_cuti, 0) AS last_year_balanced,
+                                                nik
+                                         from sc_trx.cuti_blc a
+                                         where TRUE
+                                           AND nik = emp_id
+                                           AND no_dokumen = 'ADJ2024'
+                                         ORDER BY tanggal DESC
+                                         LIMIt 1
+                                         ) bb ON aa.nik = bb.nik;
 
+                sisa_cuti_lalu = SUM(out_cuti) over (partition by nik) as out_balance
+                                 from sc_trx.cuti_blc a
+                                 where TRUE
+                                   AND nik = emp_id
+                                   and tanggal <= '2024-01-03'::Date
+                                   AND tanggal >= '2024-01-01'::date
+                                 ORDER BY tanggal DESC
+                                 LIMIt 1;
                 -- Check the condition and perform actions accordingly
                 IF emp_join_date <= emp_entry_date_limit THEN
                     -- If tgl_masukkerja is less than or equal to '2022-01-15'
@@ -51,8 +81,8 @@ BEGIN
                                  TO_CHAR(now(), 'YYYY-03-01 00:00:07')::TIMESTAMP ,
                                  concat('HGS',to_char(now(), 'YYYY')),
                                  0,
-                                 emp_leave_deduction,
-                                 emp_leave_last - emp_leave_deduction,
+                                 coalesce(last_year_balance,0),
+                                 emp_leave_last - sisa_cuti_lalu,
                                  'HGS',
                                  'HANGUS CUTI '||TO_CHAR(now() - INTERVAL '1 YEAR', 'YYYY')
                              );

@@ -59,6 +59,7 @@ BEGIN
                              ORDER BY tanggal DESC
                              LIMIt 1
                              ) bb ON aa.nik = bb.nik;
+    --hitung
     IF (vr_sisacuti>0) THEN --cek global jika tak mendapat cuti/cuti minus
         IF (to_char(vr_tgl,'YYYYMMDD') < to_char('2024-03-01'::date,'YYYYMMDD')) THEN
             insert into sc_trx.cuti_blc values(
@@ -67,7 +68,7 @@ BEGIN
                 vr_dokumen,
                 0,
                 adjusment_balance,
-                (select case when (adjusment_balance - vr_sisacuti) > 0 THEN adjusment_balance - vr_sisacuti ELSE 0 END AS balanced ),
+                (select case when (adjusment_balance - last_year_balance) > 0 THEN adjusment_balance - last_year_balance ELSE 0 END AS balanced ),
                 'HGS',
                 'HANGUS ADJUSTMENT'
             );

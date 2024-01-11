@@ -30,8 +30,7 @@ BEGIN
                     tglmasukkerja <=
                     TO_CHAR((vr_date::DATE + INTERVAL '3 DAY') - INTERVAL '1 YEAR', 'YYYY-MM-DD')::DATE OR
                     tglmasukkerja <= TO_CHAR((vr_date::DATE + INTERVAL '4 DAY') - INTERVAL '1 YEAR', 'YYYY-MM-DD')::DATE
-            )   AND (concat(TO_CHAR(vr_date,'YYYY'),TO_CHAR(tglmasukkerja, 'MMDD')) <= TO_CHAR(vr_date - INTERVAL '5 DAYS', 'YYYYMMDD')
-                        OR concat(TO_CHAR(vr_date,'YYYY'),TO_CHAR(tglmasukkerja, 'MMDD'))  >= TO_CHAR(vr_date, 'YYYYMMDD'))
+            ) AND TO_CHAR(tglmasukkerja, 'MM-DD') BETWEEN TO_CHAR(vr_date::DATE - INTERVAL '5 DAYS', 'MM-DD') AND TO_CHAR(vr_date::DATE, 'MM-DD')
           AND COALESCE(UPPER(statuskepegawaian), '') != 'KO' AND COALESCE(UPPER(grouppenggajian), '') != 'P0'
         ORDER BY tglmasukkerja DESC
         LOOP
