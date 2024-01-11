@@ -19,12 +19,8 @@
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/migrations/sql/00024.20240108.22.Cuti-Karyawan/+up/002.sc_trx.pr_cutirata_tgl.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/sql/00024.20240108.22.Cuti-Karyawan/+up/002.sc_trx.pr_cutirata_tgl.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/migrations/sql/00024.20240108.22.Cuti-Karyawan/+up/003.sc_trx.pr_hanguscuti_nik_manual.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/sql/00024.20240108.22.Cuti-Karyawan/+up/003.sc_trx.pr_hanguscuti_nik_manual.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/migrations/sql/00024.20240108.22.Cuti-Karyawan/+up/004.sc_trx.adjust_employee_leave.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/sql/00024.20240108.22.Cuti-Karyawan/+up/004.sc_trx.adjust_employee_leave.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/migrations/sql/00024.20240108.22.Cuti-Karyawan/+up/005.sc_trx.deduction_employee_leave.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/sql/00024.20240108.22.Cuti-Karyawan/+up/005.sc_trx.deduction_employee_leave.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -732,7 +728,7 @@
       <workItem from="1701927218834" duration="8047000" />
       <workItem from="1704678771072" duration="13921000" />
       <workItem from="1704698372671" duration="4427000" />
-      <workItem from="1704704120204" duration="81623000" />
+      <workItem from="1704704120204" duration="89923000" />
     </task>
     <servers />
   </component>
