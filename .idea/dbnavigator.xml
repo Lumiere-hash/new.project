@@ -52,6 +52,7 @@
   </component>
   <component name="DBNavigator.Project.FileConnectionMappingManager">
     <mapping file-url="file://$APPLICATION_CONFIG_DIR$/consoles/db/ba5f167f-425f-402f-ae87-0ce687aa64ee/console.sql" connection-id="06a4dec2-cec8-4fea-8152-f7859e39bdd5" session-id="MAIN" current-schema="HRMS.NUSA" />
+    <mapping file-url="file://$PROJECT_DIR$/application/migrations/sql/00024.20240108.22.Cuti-Karyawan/+up/001.data.sc_mst.master.sql" connection-id="06a4dec2-cec8-4fea-8152-f7859e39bdd5" session-id="MAIN" current-schema="sc_mst" />
     <mapping file-url="file://$PROJECT_DIR$/application/migrations/sql/00024.20240108.22.Cuti-Karyawan/+up/004.sc_trx.adjust_employee_leave.sql" connection-id="06a4dec2-cec8-4fea-8152-f7859e39bdd5" session-id="MAIN" current-schema="sc_trx" />
     <mapping file-url="file://$PROJECT_DIR$/application/migrations/sql/00024.20240108.22.Cuti-Karyawan/+up/003.sc_trx.pr_hanguscuti_nik_manual.sql" connection-id="06a4dec2-cec8-4fea-8152-f7859e39bdd5" session-id="MAIN" current-schema="sc_trx" />
   </component>
