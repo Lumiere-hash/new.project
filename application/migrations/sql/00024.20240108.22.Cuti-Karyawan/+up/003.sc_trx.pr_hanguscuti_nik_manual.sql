@@ -45,7 +45,7 @@ BEGIN
                                from sc_trx.cuti_blc a
                                where TRUE
                                  AND nik = vr_nik
-                                 and tanggal <= vr_tgl
+                                 and tanggal <= '2024-03-01'::date
                                  AND tanggal >= '2024-01-01'::date
                                ORDER BY tanggal DESC
                                LIMIt 1) aa

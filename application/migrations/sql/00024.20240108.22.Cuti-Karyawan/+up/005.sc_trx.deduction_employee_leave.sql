@@ -41,6 +41,7 @@ BEGIN
                                              AND nik = emp_id
                                              and tanggal < '2024-03-01'::date
                                              AND tanggal >= '2024-01-01'::date
+                                             AND no_dokumen ilike '%CT%'
                                            ORDER BY tanggal DESC
                                            LIMIt 1) aa
                                               left join lateral (
