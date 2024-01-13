@@ -89,6 +89,12 @@
 </script>
 
 <legend><?= $title ?></legend>
+<span>
+    <?php
+    if ($this->session->flashdata('messageStart')){
+        echo $this->session->flashdata('messageStart');
+    } ?>
+</span>
 <span id="postmessages"></span>
 
 <form action="<?= site_url('trans/cuti_karyawan/edit_cuti_karyawan') ?>" method="post">

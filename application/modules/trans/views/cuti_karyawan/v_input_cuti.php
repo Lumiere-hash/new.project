@@ -72,7 +72,12 @@
 </script>
 
 <legend><?php echo $title;?></legend>
-<span id="postmessages"></span>
+<span id="postmessages">
+    <?php
+    if ($this->session->flashdata('messageStart')){
+        echo $this->session->flashdata('messageStart');
+    } ?>
+</span>
 
 <?php foreach ($list_lk as $lb) { ?>
     <form class="add_cuti" action="<?php echo site_url('trans/cuti_karyawan/add_cuti_karyawan')?>" method="post">
@@ -397,9 +402,11 @@
 
 <script>
     $(document).ready(function (){
-        $('form.add_cuti').on('submit', fun ction (){
+        $('form.add_cuti').on('submit', function (){
             $('button.save').attr("disabled", true)
             $('a.back').attr("disabled", true)
         })
+
+
     })
 </script>

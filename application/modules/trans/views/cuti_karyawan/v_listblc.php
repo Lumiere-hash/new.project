@@ -137,7 +137,8 @@
 										<option value="">--Pilih Tahun--></option>
 										<!--option value=""><!--?php echo $tahune; ?></option-->
 										<?php
-										for ($ngantukjeh=2020; $ngantukjeh>2000; $ngantukjeh--)
+                                        $filterYear = date('Y');
+										for ($ngantukjeh = (int)$filterYear; $ngantukjeh>((int)$filterYear-10); $ngantukjeh--)
 										  { 
 											echo'<option value="'.$ngantukjeh.'">'.$ngantukjeh.'</option>'; 
 										  } 

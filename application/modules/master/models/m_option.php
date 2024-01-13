@@ -126,4 +126,10 @@ SQL
             ).$clause;
     }
 
+    function q_master_read($where){
+        return $this->db
+            ->select('*')
+            ->where($where)
+            ->get('sc_mst.option');
+    }
 }

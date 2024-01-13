@@ -163,6 +163,7 @@ class Cuti_karyawan extends MX_Controller{
         $data['list_pelimpahan']=$this->m_cuti_karyawan->list_pelimpahan($nik)->result();
         $data['list_lk']=$this->m_cuti_karyawan->list_karyawan_index($nik)->result();
         $data['list_ijin_khusus']=$this->m_cuti_karyawan->list_ijin_khusus()->result();
+        $data['urlblock'] = site_url('trans/cuti_karyawan/blockinput');
         $data['opsi_cuti'] = null;
         if($data['userhr'] == 0) {
             $data_cuti = $this->m_option->q_cekoption('BLKCT')->row();
@@ -221,11 +222,41 @@ class Cuti_karyawan extends MX_Controller{
         $jumlah_cuti=$jumlah_cuti1['jumlah'];
 		$sisa_cuti=$this->m_cuti_karyawan->list_karyawan_index($nik)->row()->sisacuti;
 		//print_r($jumlah_cuti);print_r($sisa_cuti);print_r($tpcuti);print_r($statusptg);die();
-		if ( $jumlah_cuti > $sisa_cuti and $tpcuti=='A' and $statusptg=='A1') {
-			$this->flashmessage
-                ->set(array('Jumlah cuti <b>'.$jumlah_cuti.'</b> lebih besar dari sisa cuti  <b>'.$sisa_cuti.'</b>', 'warning'))
-                ->redirect('trans/cuti_karyawan/input/'.$nik);
-		}
+        $this->load->model(array('trans/M_DtlJadwalKerja'));
+        $this->load->library(array('FlashMessage'));
+        $tgl_awal = date('Y-m-d', strtotime($tgl_awal));
+        $tgl_selesai = date('Y-m-d', strtotime($tgl_selesai));
+
+        if ($this->M_DtlJadwalKerja->q_check_transaction_exists(' AND nik = \'' . $nik . '\' AND years = \'' . date('Y', strtotime($tgl_awal)) . '\' AND months = \'' . date('m', strtotime($tgl_awal)) . '\' ')) {
+            $genStart = TRUE;
+        } else {
+            $genStart = FALSE;
+            $MonthStart = $this->checkMonth(date('m', strtotime($tgl_awal)));
+            $YearStart = date('Y', strtotime($tgl_awal));
+        }
+        if ($this->M_DtlJadwalKerja->q_check_transaction_exists(' AND nik = \'' . $nik . '\' AND years = \'' . date('Y', strtotime($tgl_selesai)) . '\' AND months = \'' . date('m', strtotime($tgl_selesai)) . '\' ')) {
+            $genFinish = TRUE;
+        } else {
+            $genFinish = FALSE;
+            $MonthFinish = $this->checkMonth(date('m', strtotime($tgl_selesai)));
+            $YearFinish = date('Y', strtotime($tgl_selesai));
+        }
+        if (!$genStart || !$genFinish) {
+            if (!$genStart && !$genFinish) {
+                $this->session->set_flashdata('messageStart', '<div class="alert alert-danger text-uppercase alert-dismissable" role="alert"><button type="button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close" data-dismiss="alert" autocomplete="off"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button> Jadwal Kerja bulan ' . $MonthStart . '  tahun ' . $YearStart . ' dan bulan ' . $MonthFinish . ' tahun ' . $YearFinish . ' belum dibuat </div>');
+            } else if (!$genStart) {
+                $this->session->set_flashdata('messageStart', '<div class="alert alert-danger text-uppercase alert-dismissable" role="alert"><button type="button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close" data-dismiss="alert" autocomplete="off"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button> Jadwal Kerja bulan ' . $MonthStart . '  tahun ' . $YearStart . ' belum dibuat </div>');
+            } else if (!$genFinish) {
+                $this->session->set_flashdata('messageStart', '<div class="alert alert-danger text-uppercase alert-dismissable" role="alert"><button type="button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close" data-dismiss="alert" autocomplete="off"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button> Jadwal Kerja bulan ' . $MonthFinish . '  tahun ' . $YearFinish . ' belum dibuat </div>');
+            }
+            redirect('trans/cuti_karyawan/input/' . $nik);
+        } else {
+            $sisa_cuti = $this->m_cuti_karyawan->list_karyawan_index($nik)->row()->sisacuti;
+            if ($jumlah_cuti > $sisa_cuti and $tpcuti == 'A' and $statusptg == 'A1') {
+                $this->session->set_flashdata('messageStart', '<div class="alert alert-warning text-uppercase alert-dismissable" role="alert"><button type="button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close" data-dismiss="alert" autocomplete="off"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button> Jumlah cuti <b>(' . $jumlah_cuti . ')</b>  lebih besar dari sisa cuti <b>(' . $sisa_cuti . ')</b> </div>');
+                redirect('trans/cuti_karyawan/input/' . $nik);
+            }
+        }
         /*$durasi1=$this->input->post('durasi');
 if ($durasi1==''){
     $durasi=NULL;
@@ -379,6 +410,7 @@ if ($durasi1==''){
 
     }
     function edit_cuti_karyawan(){
+        $this->load->model(array('trans/M_DtlJadwalKerja'));
         //$nik1=explode('|',);
         $nik=$this->input->post('nik');
         $nodok=$this->input->post('nodok');
@@ -413,6 +445,7 @@ if ($durasi1==''){
         } else {
             $durasi=$durasi1;
         }*/
+
 		$jumlah_cuti=$this->m_cuti_karyawan->q_jumlah_cuti($nik,$tgl_awal,$tgl_selesai)->row_array()['jumlah'];
         //$jumlah_cuti=$this->input->post('jumlah_cuti');
         //$jumlah_cuti=$tgl_selesai-$tgl_awal;
@@ -425,6 +458,39 @@ if ($durasi1==''){
         $tgl_input=$this->input->post('tgl');
         $inputby=$this->input->post('inputby');
         $statusptg=$this->input->post('statptg');
+        $jumlah_cuti1=$this->m_cuti_karyawan->q_jumlah_cuti($nik,$tgl_awal,$tgl_selesai)->row_array();
+        $jumlah_cuti=$jumlah_cuti1['jumlah'];
+        $sisa_cuti=$this->m_cuti_karyawan->list_karyawan_index($nik)->row()->sisacuti;
+        if ($this->M_DtlJadwalKerja->q_check_transaction_exists(' AND nik = \'' . $nik . '\' AND years = \'' . date('Y', strtotime($tgl_awal)) . '\' AND months = \'' . date('m', strtotime($tgl_awal)) . '\' ')) {
+            $genStart = TRUE;
+        } else {
+            $genStart = FALSE;
+            $MonthStart = $this->checkMonth(date('m', strtotime($tgl_awal)));
+            $YearStart = date('Y', strtotime($tgl_awal));
+        }
+        if ($this->M_DtlJadwalKerja->q_check_transaction_exists(' AND nik = \'' . $nik . '\' AND years = \'' . date('Y', strtotime($tgl_selesai)) . '\' AND months = \'' . date('m', strtotime($tgl_selesai)) . '\' ')) {
+            $genFinish = TRUE;
+        } else {
+            $genFinish = FALSE;
+            $MonthFinish = $this->checkMonth(date('m', strtotime($tgl_selesai)));
+            $YearFinish = date('Y', strtotime($tgl_selesai));
+        }
+        if (!$genStart || !$genFinish) {
+            if (!$genStart && !$genFinish) {
+                $this->session->set_flashdata('messageStart', '<div class="alert alert-danger text-uppercase alert-dismissable" role="alert"><button type="button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close" data-dismiss="alert" autocomplete="off"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button> Jadwal Kerja bulan ' . $MonthStart . '  tahun ' . $YearStart . ' dan bulan ' . $MonthFinish . ' tahun ' . $YearFinish . ' belum dibuat </div>');
+            } else if (!$genStart) {
+                $this->session->set_flashdata('messageStart', '<div class="alert alert-danger text-uppercase alert-dismissable" role="alert"><button type="button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close" data-dismiss="alert" autocomplete="off"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button> Jadwal Kerja bulan ' . $MonthStart . '  tahun ' . $YearStart . ' belum dibuat </div>');
+            } else if (!$genFinish) {
+                $this->session->set_flashdata('messageStart', '<div class="alert alert-danger text-uppercase alert-dismissable" role="alert"><button type="button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close" data-dismiss="alert" autocomplete="off"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button> Jadwal Kerja bulan ' . $MonthFinish . '  tahun ' . $YearFinish . ' belum dibuat </div>');
+            }
+            redirect('trans/cuti_karyawan/edit/' . bin2hex($this->encrypt->encode(trim($nodok))));
+        } else {
+            $sisa_cuti = $this->m_cuti_karyawan->list_karyawan_index($nik)->row()->sisacuti;
+            if ($jumlah_cuti > $sisa_cuti and $tpcuti == 'A' and $statusptg == 'A1') {
+                $this->session->set_flashdata('messageStart', '<div class="alert alert-warning text-uppercase alert-dismissable" role="alert"><button type="button" onclick="this.parentNode.parentNode.removeChild(this.parentNode);" class="close" data-dismiss="alert" autocomplete="off"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button> Jumlah cuti <b>(' . $jumlah_cuti . ')</b>  lebih besar dari sisa cuti <b>(' . $sisa_cuti . ')</b> </div>');
+                redirect('trans/cuti_karyawan/edit/' . bin2hex($this->encrypt->encode(trim($nodok))));
+            }
+        }
         $info=array(
 
             'jumlah_cuti'=>$jumlah_cuti,
@@ -933,5 +999,165 @@ if ($durasi1==''){
     }
 
 
+    public function blockinput()
+    {
+        $nik = $this->input->get_post('nik');
+        $this->load->model(array('M_DtlJadwalKerja', 'master/m_option'));
+        $begin = $this->input->get_post('begin');
+        $end = $this->input->get_post('end');
+        $jumlah_cuti = $this->m_cuti_karyawan->q_jumlah_cuti($nik, $begin, $end)->row()->jumlah;
+        $setupMin = $this->m_option->q_master_read(' TRUE AND TRIM(kdoption) = \'BLCTMAXA\' ')->row();
+        $setupMax = $this->m_option->q_master_read(' TRUE AND TRIM(kdoption) = \'BLCTMAXB\' ')->row();
+        $userhr = $this->m_akses->list_aksesperdepcuti()->num_rows();
+        $now = date('d-m-Y');
+        if (date('Ymd',strtotime($begin)) > date('Ymd',strtotime($end))){
+            header('Content-Type: application/json');
+            http_response_code(404);
+            echo json_encode(array(
+                'data' => array(),
+                'message' => 'Tanggal selesai tidak boleh lebih kecil dari tanggal mulai',
+            ));
+        }else{
+            if ($this->M_DtlJadwalKerja->q_check_transaction_exists(' AND nik = \'' . $nik . '\' AND years = \'' . date('Y', strtotime($begin)) . '\' AND months = \'' . date('m', strtotime($begin)) . '\' ')) {
+                $genStart = TRUE;
+            } else {
+                $genStart = FALSE;
+                $MonthStart = $this->checkMonth(date('m', strtotime($begin)));
+                $YearStart = date('Y', strtotime($begin));
+            }
+            if ($this->M_DtlJadwalKerja->q_check_transaction_exists(' AND nik = \'' . $nik . '\' AND years = \'' . date('Y', strtotime($end)) . '\' AND months = \'' . date('m', strtotime($end)) . '\' ')) {
+                $genFinish = TRUE;
+            } else {
+                $genFinish = FALSE;
+                $MonthFinish = $this->checkMonth(date('m', strtotime($end)));
+                $YearFinish = date('Y', strtotime($end));
+            }
+            if (!$genStart || !$genFinish) {
+                if (!$genStart && !$genFinish) {
+                    header('Content-Type: application/json');
+                    http_response_code(404);
+                    echo json_encode(array(
+                        'data' => array(),
+                        'message' => 'Jadwal Kerja bulan ' . $MonthStart . '  tahun ' . $YearStart . ' <br>dan bulan ' . $MonthFinish . ' tahun ' . $YearFinish . ' belum dibuat',
+                    ));
+                } else if (!$genStart) {
+                    header('Content-Type: application/json');
+                    http_response_code(404);
+                    echo json_encode(array(
+                        'data' => array(),
+                        'message' => 'Jadwal Kerja bulan ' . $MonthStart . '  tahun ' . $YearStart . ' belum dibuat',
+                    ));
+                } else if (!$genFinish) {
+                    header('Content-Type: application/json');
+                    http_response_code(404);
+                    echo json_encode(array(
+                        'data' => array(),
+                        'message' => 'Jadwal Kerja bulan ' . $MonthFinish . '  tahun ' . $YearFinish . ' belum dibuat',
+                    ));
+                }
+            }else{
+                $docno = ( $this->input->get_post('docno') ? $this->input->get_post('docno') : '' );
+                $isEdit = (strtoupper($this->input->get_post('config')) == 'EDIT' ? " AND trim(nodok) <> '$docno' " : "" );
+                if($userhr == 0){
+                    $find = $this->m_cuti_karyawan->q_transaction_read_where($isEdit.' AND status NOT IN (\'C\') AND nik = \''.$nik.'\' AND ( tgl_mulai1::timestamp between \''.$begin.'\' AND \''.$end.'\' OR tgl_selesai1::timestamp between \''.$begin.'\' AND \''.$end.'\' )')->row();
+                    if ($find){
+                        header('Content-Type: application/json');
+                        http_response_code(404);
+                        echo json_encode(array(
+                            'data' => array(),
+                            'message' => 'Sudah ada pengajuan cuti di rentang tanggal tersebut',
+                        ));
+                    }else{
+                        /*if ($jumlah_cuti >= 3) {
+                            $batas = date('d-m-Y', strtotime(date("d-m-Y", strtotime($begin)) . " -$setupMin->value3 day"));
+                            $stat = strtolower('PENGAJUAN CUTI LEBIH DARI ATAU SAMA DENGAN 3 HARI ANDA MAKSIMAL TANGGAL ');
+                        } else if ($jumlah_cuti < 3) {
+                            $batas = date('d-m-Y', strtotime(date("d-m-Y", strtotime($begin)) . " -$setupMax->value3 day"));
+                            $stat = strtolower('PENGAJUAN CUTI ANDA MAKSIMAL TANGGAL ');
+                        }else{
+                            header('Content-Type: application/json');
+                            http_response_code(200);
+                            echo json_encode(array(
+                                'status' => TRUE
+                            ));
+                        }*/
+                        if (date('Y-m-d',strtotime($now)) > date('Y-m-d', strtotime($batas))){
+                            header('Content-Type: application/json');
+                            http_response_code(404);
+                            echo json_encode(array(
+                                'data' => array(),
+                                'message' => ucfirst($stat).$batas,
+                            ));
+                        }else{
+                            header('Content-Type: application/json');
+                            http_response_code(200);
+                            echo json_encode(array(
+                                'status' => TRUE
+                            ));
+                        }
+                    }
+                }else{
+                    $find = $this->m_cuti_karyawan->q_transaction_read_where($isEdit.' AND status NOT IN (\'C\') AND nik = \''.$nik.'\' AND ( tgl_mulai1::timestamp between \''.$begin.'\' AND \''.$end.'\' OR tgl_selesai1::timestamp between \''.$begin.'\' AND \''.$end.'\' )')->row();
+                    if ($find){
+                        header('Content-Type: application/json');
+                        http_response_code(404);
+                        echo json_encode(array(
+                            'data' => array(),
+                            'message' => 'Sudah ada pengajuan cuti di rentang tanggal tersebut',
+                        ));
+                    }else{
+                        header('Content-Type: application/json');
+                        http_response_code(200);
+                        echo json_encode(array(
+                            'status' => TRUE
+                        ));
+                    }
+                }
+            }
 
+        }
+    }
+    function checkMonth($month)
+    {
+        switch ($month) {
+            case '1':
+                $bul = 'Januari';
+                break;
+            case '2':
+                $bul = 'Februari';
+                break;
+            case '3':
+                $bul = 'Maret';
+                break;
+            case '4':
+                $bul = 'April';
+                break;
+            case '5':
+                $bul = 'Mei';
+                break;
+            case '6':
+                $bul = 'Juni';
+                break;
+            case '7':
+                $bul = 'Juli';
+                break;
+            case '8':
+                $bul = 'Agustus';
+                break;
+            case '9':
+                $bul = 'September';
+                break;
+            case '10':
+                $bul = 'Oktober';
+                break;
+            case '11':
+                $bul = 'November';
+                break;
+            case '12':
+                $bul = 'Desember';
+                break;
+        }
+
+        return $bul;
+    }
 }
