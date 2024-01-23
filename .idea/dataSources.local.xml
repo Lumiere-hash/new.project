@@ -16,8 +16,8 @@
             </node>
             <node kind="database">
               <name qname="HRMS.NUSA" />
-              <name qname="HRMS.NUSA.TRIAL" />
               <name qname="WEB.RECRUITMENT.CNI" />
+              <name qname="HRMS.NUSA.TRIAL" />
               <node kind="schema" negative="1" />
             </node>
             <node kind="database" qname="HRMS.SNI.LIVE" />

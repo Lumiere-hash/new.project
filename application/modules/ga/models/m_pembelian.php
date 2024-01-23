@@ -324,7 +324,14 @@ class M_pembelian extends CI_Model{
                                     left outer join sc_mst.karyawan f on a.nik_atasan=f.nik
                                     left outer join sc_mst.karyawan g on a.nik_atasan2=g.nik) c on a.nik=c.nik
                                     left outer join sc_mst.trxtype f on a.status=f.kdtrx and f.jenistrx='KTSTOCK'
-                                    left outer join sc_mst.karyawan h on a.approvalby=h.nik
+                                    left outer join lateral(
+                                            select
+                                                u.username,
+                                                k.nik,
+                                                k.nmlengkap 
+                                            from sc_mst.karyawan k
+                                            left outer join sc_mst.user u on k.nik = u.nik
+                                        ) h on true and (a.approvalby = h.username or a.approvalby = h.nik)
                                     ) as x 
                                     where nodok is not null $param3_1
                                     order by nodok desc");

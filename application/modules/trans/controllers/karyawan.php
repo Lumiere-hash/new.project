@@ -849,7 +849,7 @@ class Karyawan extends MX_Controller {
         $newkdjabatan=strtoupper(trim($this->input->post('newkdjabatan')));
         $newkdlevel=strtoupper(trim($this->input->post('newkdlevel')));
         $newnikatasan=strtoupper(trim($this->input->post('newnikatasan')));
-        $newnikatasan2=strtoupper(trim($this->input->post('newnikatasan')));
+        $newnikatasan2=strtoupper(trim($this->input->post('newnikatasan2')));
         $nosk=strtoupper(trim($this->input->post('nodoksk')));
         $tglsk=strtoupper(trim($this->input->post('tglsk')));
         $tglmemo=strtoupper(trim($this->input->post('tglmemo')));

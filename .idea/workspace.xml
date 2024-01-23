@@ -5,37 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/information_schema.FNRwLQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/information_schema.FNRwLQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_his.IyndyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_his.IyndyQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_im.cwGDBg.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_im.cwGDBg.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_log.1TjdyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_log.1TjdyQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_mst.Hz3dyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_mst.Hz3dyQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_mst.Hz3dyQ.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_mst.Hz3dyQ.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_rec.IU7dyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_rec.IU7dyQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_retable.jHp04Q.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_retable.jHp04Q.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.zip" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/migrations/sql/00024.20240108.22.Cuti-Karyawan/+up/001.data.sc_mst.master.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/sql/00024.20240108.22.Cuti-Karyawan/+up_old/001.data.sc_mst.master.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/migrations/sql/00024.20240108.22.Cuti-Karyawan/+up/002.sc_trx.pr_cutirata_tgl.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/sql/00024.20240108.22.Cuti-Karyawan/+up_old/002.sc_trx.pr_cutirata_tgl.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/migrations/sql/00024.20240108.22.Cuti-Karyawan/+up/003.sc_trx.pr_hanguscuti_nik_manual.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/sql/00024.20240108.22.Cuti-Karyawan/+up_old/003.sc_trx.pr_hanguscuti_nik_manual.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/migrations/sql/00024.20240108.22.Cuti-Karyawan/+up/004.sc_trx.adjust_employee_leave.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/sql/00024.20240108.22.Cuti-Karyawan/+up_old/004.sc_trx.adjust_employee_leave.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/migrations/sql/00024.20240108.22.Cuti-Karyawan/+up/005.sc_trx.deduction_employee_leave.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/sql/00024.20240108.22.Cuti-Karyawan/+up_old/005.sc_trx.deduction_employee_leave.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/migrations/sql/00024.20240108.22.Cuti-Karyawan/+up/006.public.function_log.sql" beforeDir="false" afterPath="$PROJECT_DIR$/application/migrations/sql/00024.20240108.22.Cuti-Karyawan/+up_old/006.public.function_log.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/master/models/m_option.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/master/models/m_option.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/cuti_karyawan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/cuti_karyawan.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan/edit_cuti.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan/edit_cuti.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan/v_input_cuti.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan/v_input_cuti.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan/v_listblc.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan/v_listblc.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1704683906.3545.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1704683914.7652.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1704683996.5363.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1704684013.0479.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/models/m_pembelian.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/ga/models/m_pembelian.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/karyawan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/karyawan.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1705111435.5444.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1705111444.3514.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -362,8 +340,8 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;database.data.extractors.current.export.id&quot;: &quot;Where Clause&quot;,
-    &quot;database.data.extractors.current.id&quot;: &quot;Where Clause&quot;,
+    &quot;database.data.extractors.current.export.id&quot;: &quot;SQL Inserts&quot;,
+    &quot;database.data.extractors.current.id&quot;: &quot;SQL Inserts&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/PROJECT/hrms.nusa&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -746,7 +724,9 @@
       <workItem from="1704704120204" duration="105661000" />
       <workItem from="1705027271210" duration="4932000" />
       <workItem from="1705041744846" duration="9841000" />
-      <workItem from="1705109659193" duration="6135000" />
+      <workItem from="1705109659193" duration="6316000" />
+      <workItem from="1705912501143" duration="4270000" />
+      <workItem from="1705975321649" duration="1919000" />
     </task>
     <servers />
   </component>
