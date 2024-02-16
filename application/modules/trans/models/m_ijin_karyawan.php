@@ -143,7 +143,7 @@ class M_ijin_karyawan extends CI_Model{
 										when a.type_ijin='DN' then 'DINAS'
 										when a.type_ijin='PB' then 'PRIBADI'
 										end as nmtype,
-										a.*,b.nmlengkap,c.nmdept,d.nmsubdept,e.nmlvljabatan,f.nmjabatan,g.nmijin_absensi,h.nmlengkap as nmatasan1,i.nmlengkap as nmapproval from sc_trx.ijin_karyawan a 
+										a.*,b.nmlengkap,c.nmdept,d.nmsubdept,e.nmlvljabatan,f.nmjabatan,g.nmijin_absensi,h.nmlengkap as nmatasan1,i2.nmlengkap as nmapproval from sc_trx.ijin_karyawan a 
 										left outer join sc_mst.karyawan b on a.nik=b.nik
 										left outer join sc_mst.departmen c on a.kddept=c.kddept
 										left outer join sc_mst.subdepartmen d on a.kdsubdept=d.kdsubdept and d.kddept=b.bag_dept
@@ -152,6 +152,14 @@ class M_ijin_karyawan extends CI_Model{
 										left outer join sc_mst.ijin_absensi g on a.kdijin_absensi=g.kdijin_absensi
 										left outer join sc_mst.karyawan h on a.nmatasan=h.nik
 										left outer join sc_mst.karyawan i on a.approval_by=i.nik
+                                        left outer join lateral(
+                                            select
+                                                u.username,
+                                                k.nik,
+                                                k.nmlengkap 
+                                            from sc_mst.karyawan k
+                                            left outer join sc_mst.user u on k.nik = u.nik
+                                        ) i2 on true and (a.approval_by = i2.username or a.approval_by = i2.nik)
 										) as x where nodok is not null $param order by nodok desc");
 	}
 

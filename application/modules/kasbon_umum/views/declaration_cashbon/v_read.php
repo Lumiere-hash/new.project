@@ -58,6 +58,11 @@
 </div>
 <div class="modal fade" id="printcashbon" role="dialog" aria-hidden="true"></div>
 <script>
+    $("input[name=\'filterdate\']").datepicker( {
+        format: "mm-yyyy",
+        startView: "year",
+        minViewMode: "months"
+    });
     function defaultFilter(){
         var status = $('select#declarationcashbonstatus')
         var table = $('table#table-declarationcashbon').DataTable();

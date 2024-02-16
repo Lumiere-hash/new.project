@@ -1,4 +1,4 @@
-﻿    <?xml version="1.0" encoding="utf-8" standalone="yes"?>
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <StiSerializer version="1.02" type="Net" application="StiReport">
   <AutoLocalizeReportOnRun>True</AutoLocalizeReportOnRun>
   <Culture>id-ID</Culture>
@@ -60,16 +60,19 @@
           <value>tgldok_p,System.DateTime</value>
         </Columns>
         <Dictionary isRef="1" />
+        <Key>5218b466aca0480097cb1376be037cea</Key>
         <Name>dinas</Name>
         <NameInSource>dinas.dinas</NameInSource>
       </dinas>
     </DataSources>
     <Relations isList="true" count="0" />
     <Report isRef="0" />
+    <Resources isList="true" count="0" />
     <Variables isList="true" count="0" />
   </Dictionary>
   <EngineVersion>EngineV2</EngineVersion>
   <GlobalizationStrings isList="true" count="0" />
+  <Key>40f6b47faf414abebe53aa9fb1f90c4c</Key>
   <MetaTags isList="true" count="0" />
   <Pages isList="true" count="3">
     <Page3 Ref="4" type="Page" isKey="true">
@@ -1267,20 +1270,16 @@
       <PageWidth>21</PageWidth>
       <PaperSize>A4</PaperSize>
       <Report isRef="0" />
-      <Watermark Ref="84" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
-        <Font>Arial,100</Font>
-        <TextBrush>[50:0:0:0]</TextBrush>
-      </Watermark>
     </Page3>
-    <Page1 Ref="85" type="Page" isKey="true">
+    <Page1 Ref="84" type="Page" isKey="true">
       <Border>None;Black;2;Solid;False;4;Black</Border>
       <Brush>Transparent</Brush>
       <Components isList="true" count="2">
-        <ReportTitleBand Ref="86" type="ReportTitleBand" isKey="true">
+        <ReportTitleBand Ref="85" type="ReportTitleBand" isKey="true">
           <Brush>Transparent</Brush>
           <ClientRectangle>0,0.4,19,1</ClientRectangle>
           <Components isList="true" count="1">
-            <Text23 Ref="87" type="Text" isKey="true">
+            <Text23 Ref="86" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>0,0,19,0.6</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -1288,8 +1287,8 @@
               <HorAlignment>Center</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text23</Name>
-              <Page isRef="85" />
-              <Parent isRef="86" />
+              <Page isRef="84" />
+              <Parent isRef="85" />
               <Text>SURAT PERJALANAN DINAS</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
@@ -1298,16 +1297,16 @@
           <Conditions isList="true" count="0" />
           <Guid>905f0f46e13241e19fd2f7aa451444b7</Guid>
           <Name>ReportTitleBand</Name>
-          <Page isRef="85" />
-          <Parent isRef="85" />
+          <Page isRef="84" />
+          <Parent isRef="84" />
         </ReportTitleBand>
-        <DataBandDinas Ref="88" type="DataBand" isKey="true">
+        <DataBandDinas Ref="87" type="DataBand" isKey="true">
           <Border>None;[193:152:89];1;Solid;False;4;Black</Border>
           <Brush>White</Brush>
           <BusinessObjectGuid isNull="true" />
           <ClientRectangle>0,2.2,19,11.8</ClientRectangle>
           <Components isList="true" count="29">
-            <Text3 Ref="89" type="Text" isKey="true">
+            <Text3 Ref="88" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>2.6,0.6,7,0.6</ClientRectangle>
@@ -1315,14 +1314,14 @@
               <Font>Arial,10</Font>
               <Margins>0,0,0,0</Margins>
               <Name>Text3</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <Text> {dinas.nmlengkap}</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text3>
-            <Text5 Ref="90" type="Text" isKey="true">
+            <Text5 Ref="89" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>0.2,0.6,2.4,0.6</ClientRectangle>
@@ -1330,14 +1329,14 @@
               <Font>Arial,10</Font>
               <Margins>0,0,0,0</Margins>
               <Name>Text5</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <Text> Nama</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text5>
-            <Text1 Ref="91" type="Text" isKey="true">
+            <Text1 Ref="90" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>[221:217:195]</Brush>
               <ClientRectangle>0.2,0,18.6,0.6</ClientRectangle>
@@ -1346,14 +1345,14 @@
               <HorAlignment>Center</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text1</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <Text>DINAS</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text1>
-            <Text2 Ref="92" type="Text" isKey="true">
+            <Text2 Ref="91" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>2.6,1.2,7,0.6</ClientRectangle>
@@ -1362,14 +1361,14 @@
               <Guid>5ae8845cb0a341e094ef3451b053e3de</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text2</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <Text> {dinas.tujuan}</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text2>
-            <Text4 Ref="93" type="Text" isKey="true">
+            <Text4 Ref="92" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>0.2,1.2,2.4,0.6</ClientRectangle>
@@ -1378,14 +1377,14 @@
               <Guid>509b441cf6f8450abe8a17815d52807f</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text4</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <Text> Tujuan</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text4>
-            <Text8 Ref="94" type="Text" isKey="true">
+            <Text8 Ref="93" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>2.6,1.8,7,0.6</ClientRectangle>
@@ -1394,14 +1393,14 @@
               <Guid>896155ffda8a46a0ac149568d572c267</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text8</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <Text> {dinas.tgl_mulai} S/D {dinas.tgl_selesai}</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text8>
-            <Text9 Ref="95" type="Text" isKey="true">
+            <Text9 Ref="94" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>0.2,1.8,2.4,0.6</ClientRectangle>
@@ -1410,14 +1409,14 @@
               <Guid>bcdd978646174f9192e54cb4aaf98fea</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text9</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <Text> Tanggal</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text9>
-            <Text7 Ref="96" type="Text" isKey="true">
+            <Text7 Ref="95" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>13.2,0.6,5.6,0.6</ClientRectangle>
@@ -1426,14 +1425,14 @@
               <Guid>5a56d3b800f848d9a2eb4ea655098b69</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text7</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <Text> {dinas.nmjabatan}</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text7>
-            <Text10 Ref="97" type="Text" isKey="true">
+            <Text10 Ref="96" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>9.6,0.6,3.6,0.6</ClientRectangle>
@@ -1442,14 +1441,14 @@
               <Guid>54578686eba6440e85e6dfdb1f823219</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text10</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <Text> Jabatan</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text10>
-            <Text11 Ref="98" type="Text" isKey="true">
+            <Text11 Ref="97" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>9.6,1.2,3.6,0.6</ClientRectangle>
@@ -1458,14 +1457,14 @@
               <Guid>7eb95bbeb27b401aa07f5bcf3910c264</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text11</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <Text> Division/Departement</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text11>
-            <Text13 Ref="99" type="Text" isKey="true">
+            <Text13 Ref="98" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>13.2,1.2,5.6,0.6</ClientRectangle>
@@ -1474,14 +1473,14 @@
               <Guid>3c0713df569b4be8a8e8d1e7c7740ce4</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text13</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <Text> {dinas.nmdept}</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text13>
-            <Text14 Ref="100" type="Text" isKey="true">
+            <Text14 Ref="99" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>9.6,1.8,9.2,0.6</ClientRectangle>
@@ -1490,21 +1489,21 @@
               <Guid>20ac586e305f4be19d48a774b11f2bc1</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text14</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text14>
-            <Panel8 Ref="101" type="Panel" isKey="true">
+            <Panel8 Ref="100" type="Panel" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>0.2,5,18.6,2.2</ClientRectangle>
               <Components isList="true" count="5">
-                <Panel9 Ref="102" type="Panel" isKey="true">
+                <Panel9 Ref="101" type="Panel" isKey="true">
                   <Border>Left, Right, Bottom;Black;1;Solid;False;4;Black</Border>
                   <Brush>Transparent</Brush>
                   <ClientRectangle>0,0.6,6.4,0.8</ClientRectangle>
                   <Components isList="true" count="2">
-                    <Text38 Ref="103" type="Text" isKey="true">
+                    <Text38 Ref="102" type="Text" isKey="true">
                       <Brush>Transparent</Brush>
                       <ClientRectangle>0.8,0,5.2,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
@@ -1512,14 +1511,14 @@
                       <Guid>eb8769ef58fd46a5b6acc830b2180058</Guid>
                       <Margins>0,0,0,0</Margins>
                       <Name>Text38</Name>
-                      <Page isRef="85" />
-                      <Parent isRef="102" />
+                      <Page isRef="84" />
+                      <Parent isRef="101" />
                       <Text>Pesawat Udara</Text>
                       <TextBrush>Black</TextBrush>
                       <Type>Expression</Type>
                       <VertAlignment>Center</VertAlignment>
                     </Text38>
-                    <Text70 Ref="104" type="Text" isKey="true">
+                    <Text70 Ref="103" type="Text" isKey="true">
                       <Border>All;Black;1;Solid;False;4;Black</Border>
                       <Brush>Transparent</Brush>
                       <ClientRectangle>0.2,0.2,0.4,0.4</ClientRectangle>
@@ -1528,23 +1527,23 @@
                       <Guid>78bbc86f85944927aacb2d7f9e416bf4</Guid>
                       <Margins>0,0,0,0</Margins>
                       <Name>Text70</Name>
-                      <Page isRef="85" />
-                      <Parent isRef="102" />
+                      <Page isRef="84" />
+                      <Parent isRef="101" />
                       <TextBrush>Black</TextBrush>
                       <Type>Expression</Type>
                     </Text70>
                   </Components>
                   <Conditions isList="true" count="0" />
                   <Name>Panel9</Name>
-                  <Page isRef="85" />
-                  <Parent isRef="101" />
+                  <Page isRef="84" />
+                  <Parent isRef="100" />
                 </Panel9>
-                <Panel11 Ref="105" type="Panel" isKey="true">
+                <Panel11 Ref="104" type="Panel" isKey="true">
                   <Border>Bottom;Black;1;Solid;False;4;Black</Border>
                   <Brush>Transparent</Brush>
                   <ClientRectangle>12.6,0.6,6,0.8</ClientRectangle>
                   <Components isList="true" count="2">
-                    <Text41 Ref="106" type="Text" isKey="true">
+                    <Text41 Ref="105" type="Text" isKey="true">
                       <Border>Right;Black;1;Solid;False;4;Black</Border>
                       <Brush>Transparent</Brush>
                       <ClientRectangle>0.8,0,5.2,0.8</ClientRectangle>
@@ -1553,14 +1552,14 @@
                       <Guid>79ae70798769481c8c531e0cb84a100b</Guid>
                       <Margins>0,0,0,0</Margins>
                       <Name>Text41</Name>
-                      <Page isRef="85" />
-                      <Parent isRef="105" />
+                      <Page isRef="84" />
+                      <Parent isRef="104" />
                       <Text>Mobil Wilayah</Text>
                       <TextBrush>Black</TextBrush>
                       <Type>Expression</Type>
                       <VertAlignment>Center</VertAlignment>
                     </Text41>
-                    <Text73 Ref="107" type="Text" isKey="true">
+                    <Text73 Ref="106" type="Text" isKey="true">
                       <Border>All;Black;1;Solid;False;4;Black</Border>
                       <Brush>Transparent</Brush>
                       <ClientRectangle>0.2,0.2,0.4,0.4</ClientRectangle>
@@ -1569,8 +1568,8 @@
                       <Guid>014323e45ecd413391fc9d90b492fe2c</Guid>
                       <Margins>0,0,0,0</Margins>
                       <Name>Text73</Name>
-                      <Page isRef="85" />
-                      <Parent isRef="105" />
+                      <Page isRef="84" />
+                      <Parent isRef="104" />
                       <TextBrush>Black</TextBrush>
                       <Type>Expression</Type>
                     </Text73>
@@ -1578,15 +1577,15 @@
                   <Conditions isList="true" count="0" />
                   <Guid>2fed7f04a4094ff3b35d0e60e41e8885</Guid>
                   <Name>Panel11</Name>
-                  <Page isRef="85" />
-                  <Parent isRef="101" />
+                  <Page isRef="84" />
+                  <Parent isRef="100" />
                 </Panel11>
-                <Panel10 Ref="108" type="Panel" isKey="true">
+                <Panel10 Ref="107" type="Panel" isKey="true">
                   <Border>Bottom;Black;1;Solid;False;4;Black</Border>
                   <Brush>Transparent</Brush>
                   <ClientRectangle>6.4,0.6,6.2,0.8</ClientRectangle>
                   <Components isList="true" count="2">
-                    <Text39 Ref="109" type="Text" isKey="true">
+                    <Text39 Ref="108" type="Text" isKey="true">
                       <Border>Right;Black;1;Solid;False;4;Black</Border>
                       <Brush>Transparent</Brush>
                       <ClientRectangle>0.8,0,5,0.8</ClientRectangle>
@@ -1595,14 +1594,14 @@
                       <Guid>486b47244ca54b009a2514ac9dd9d3dd</Guid>
                       <Margins>0,0,0,0</Margins>
                       <Name>Text39</Name>
-                      <Page isRef="85" />
-                      <Parent isRef="108" />
+                      <Page isRef="84" />
+                      <Parent isRef="107" />
                       <Text>Kereta Api</Text>
                       <TextBrush>Black</TextBrush>
                       <Type>Expression</Type>
                       <VertAlignment>Center</VertAlignment>
                     </Text39>
-                    <Text72 Ref="110" type="Text" isKey="true">
+                    <Text72 Ref="109" type="Text" isKey="true">
                       <Border>All;Black;1;Solid;False;4;Black</Border>
                       <Brush>Transparent</Brush>
                       <ClientRectangle>0.2,0.2,0.4,0.4</ClientRectangle>
@@ -1611,8 +1610,8 @@
                       <Guid>cb4a85d16026470390748eb7e084d406</Guid>
                       <Margins>0,0,0,0</Margins>
                       <Name>Text72</Name>
-                      <Page isRef="85" />
-                      <Parent isRef="108" />
+                      <Page isRef="84" />
+                      <Parent isRef="107" />
                       <TextBrush>Black</TextBrush>
                       <Type>Expression</Type>
                     </Text72>
@@ -1620,15 +1619,15 @@
                   <Conditions isList="true" count="0" />
                   <Guid>73a519892ae7429b9f6fb5433b709222</Guid>
                   <Name>Panel10</Name>
-                  <Page isRef="85" />
-                  <Parent isRef="101" />
+                  <Page isRef="84" />
+                  <Parent isRef="100" />
                 </Panel10>
-                <Panel12 Ref="111" type="Panel" isKey="true">
+                <Panel12 Ref="110" type="Panel" isKey="true">
                   <Border>Left, Right, Bottom;Black;1;Solid;False;4;Black</Border>
                   <Brush>Transparent</Brush>
                   <ClientRectangle>0,1.4,18.6,0.8</ClientRectangle>
                   <Components isList="true" count="4">
-                    <Text44 Ref="112" type="Text" isKey="true">
+                    <Text44 Ref="111" type="Text" isKey="true">
                       <Brush>Transparent</Brush>
                       <ClientRectangle>5.6,0,0.2,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
@@ -1636,14 +1635,14 @@
                       <Guid>7ffa1917fc204e7ca4a6049972fa2137</Guid>
                       <Margins>0,0,0,0</Margins>
                       <Name>Text44</Name>
-                      <Page isRef="85" />
-                      <Parent isRef="111" />
+                      <Page isRef="84" />
+                      <Parent isRef="110" />
                       <Text>:</Text>
                       <TextBrush>Black</TextBrush>
                       <Type>Expression</Type>
                       <VertAlignment>Center</VertAlignment>
                     </Text44>
-                    <Text43 Ref="113" type="Text" isKey="true">
+                    <Text43 Ref="112" type="Text" isKey="true">
                       <Border>Bottom;Black;1;Dot;False;4;Black</Border>
                       <Brush>Transparent</Brush>
                       <ClientRectangle>6,0,12,0.6</ClientRectangle>
@@ -1651,13 +1650,13 @@
                       <Font>Arial,10,Bold</Font>
                       <Margins>0,0,0,0</Margins>
                       <Name>Text43</Name>
-                      <Page isRef="85" />
-                      <Parent isRef="111" />
+                      <Page isRef="84" />
+                      <Parent isRef="110" />
                       <ShiftMode>OnlyInWidthOfComponent</ShiftMode>
                       <TextBrush>Black</TextBrush>
                       <Type>Expression</Type>
                     </Text43>
-                    <Text42 Ref="114" type="Text" isKey="true">
+                    <Text42 Ref="113" type="Text" isKey="true">
                       <Brush>Transparent</Brush>
                       <ClientRectangle>0.8,0,4.8,0.8</ClientRectangle>
                       <Conditions isList="true" count="0" />
@@ -1665,14 +1664,14 @@
                       <Guid>bcc536e6212245a1ad18327046710b39</Guid>
                       <Margins>0,0,0,0</Margins>
                       <Name>Text42</Name>
-                      <Page isRef="85" />
-                      <Parent isRef="111" />
+                      <Page isRef="84" />
+                      <Parent isRef="110" />
                       <Text>Others [lainya]:</Text>
                       <TextBrush>Black</TextBrush>
                       <Type>Expression</Type>
                       <VertAlignment>Center</VertAlignment>
                     </Text42>
-                    <Text71 Ref="115" type="Text" isKey="true">
+                    <Text71 Ref="114" type="Text" isKey="true">
                       <Border>All;Black;1;Solid;False;4;Black</Border>
                       <Brush>Transparent</Brush>
                       <ClientRectangle>0.2,0.2,0.4,0.4</ClientRectangle>
@@ -1681,8 +1680,8 @@
                       <Guid>2940b927299f4897a95f86b1c8fc76b4</Guid>
                       <Margins>0,0,0,0</Margins>
                       <Name>Text71</Name>
-                      <Page isRef="85" />
-                      <Parent isRef="111" />
+                      <Page isRef="84" />
+                      <Parent isRef="110" />
                       <TextBrush>Black</TextBrush>
                       <Type>Expression</Type>
                     </Text71>
@@ -1690,10 +1689,10 @@
                   <Conditions isList="true" count="0" />
                   <Guid>d73131243e46449eba2933e77ee866f6</Guid>
                   <Name>Panel12</Name>
-                  <Page isRef="85" />
-                  <Parent isRef="101" />
+                  <Page isRef="84" />
+                  <Parent isRef="100" />
                 </Panel12>
-                <Text40 Ref="116" type="Text" isKey="true">
+                <Text40 Ref="115" type="Text" isKey="true">
                   <Border>All;Black;1;Solid;False;4;Black</Border>
                   <Brush>[221:217:195]</Brush>
                   <ClientRectangle>0,0,18.6,0.6</ClientRectangle>
@@ -1703,8 +1702,8 @@
                   <HorAlignment>Center</HorAlignment>
                   <Margins>0,0,0,0</Margins>
                   <Name>Text40</Name>
-                  <Page isRef="85" />
-                  <Parent isRef="101" />
+                  <Page isRef="84" />
+                  <Parent isRef="100" />
                   <Text>Transportasi</Text>
                   <TextBrush>Black</TextBrush>
                   <Type>Expression</Type>
@@ -1712,10 +1711,10 @@
               </Components>
               <Conditions isList="true" count="0" />
               <Name>Panel8</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
             </Panel8>
-            <Text50 Ref="117" type="Text" isKey="true">
+            <Text50 Ref="116" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>[221:217:195]</Brush>
               <ClientRectangle>0.2,7.2,18.6,0.6</ClientRectangle>
@@ -1725,13 +1724,13 @@
               <HorAlignment>Center</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text50</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <Text>Uraian Perjalanan Dinas</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text50>
-            <Text51 Ref="118" type="Text" isKey="true">
+            <Text51 Ref="117" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>0.2,7.8,6.2,0.6</ClientRectangle>
@@ -1740,13 +1739,13 @@
               <Guid>f286007c4ec74162bccac275b2567d98</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text51</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <Text>Pemohon</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text51>
-            <Text52 Ref="119" type="Text" isKey="true">
+            <Text52 Ref="118" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>6.4,7.8,6.2,0.6</ClientRectangle>
@@ -1755,13 +1754,13 @@
               <Guid>7a2605ee5fc34a33a23931265310c3f6</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text52</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <Text>Pimpinan</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text52>
-            <Text53 Ref="120" type="Text" isKey="true">
+            <Text53 Ref="119" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>12.6,7.8,6.2,0.6</ClientRectangle>
@@ -1770,12 +1769,12 @@
               <Guid>b587feebadbb439e99f9d117c56b83b6</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text53</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text53>
-            <Text54 Ref="121" type="Text" isKey="true">
+            <Text54 Ref="120" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>0.2,8.4,6.2,1.8</ClientRectangle>
@@ -1784,12 +1783,12 @@
               <Guid>aea07a7ab5b2457a93f5c1a382381078</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text54</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text54>
-            <Text55 Ref="122" type="Text" isKey="true">
+            <Text55 Ref="121" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>6.4,8.4,6.2,1.8</ClientRectangle>
@@ -1798,12 +1797,12 @@
               <Guid>f98ac577a828411c80949816288e544c</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text55</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text55>
-            <Text56 Ref="123" type="Text" isKey="true">
+            <Text56 Ref="122" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>12.6,8.4,6.2,1.8</ClientRectangle>
@@ -1812,12 +1811,12 @@
               <Guid>9339e44095cd4f4fa9b8d07ad97e7a84</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text56</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text56>
-            <Text57 Ref="124" type="Text" isKey="true">
+            <Text57 Ref="123" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>0.2,10.2,6.2,0.6</ClientRectangle>
@@ -1826,13 +1825,13 @@
               <Guid>c7264ac99f9b487580125c8210f2d357</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text57</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <Text>TGL:</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text57>
-            <Text58 Ref="125" type="Text" isKey="true">
+            <Text58 Ref="124" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>6.4,10.2,6.2,0.6</ClientRectangle>
@@ -1841,13 +1840,13 @@
               <Guid>27dfbe6eeb1b4012847e95cfc53ee940</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text58</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <Text>TGL:</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text58>
-            <Text59 Ref="126" type="Text" isKey="true">
+            <Text59 Ref="125" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>12.6,10.2,6.2,0.6</ClientRectangle>
@@ -1856,13 +1855,13 @@
               <Guid>fe924c5004184abca74c3dc6dbe0f123</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text59</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <Text>TGL:</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text59>
-            <Text12 Ref="127" type="Text" isKey="true">
+            <Text12 Ref="126" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>0.2,2.6,6,0.6</ClientRectangle>
@@ -1872,14 +1871,14 @@
               <HorAlignment>Center</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text12</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <Text>Jenis Kunjungan/Keperluan</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text12>
-            <Text16 Ref="128" type="Text" isKey="true">
+            <Text16 Ref="127" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>6.2,2.6,12.6,0.6</ClientRectangle>
@@ -1889,14 +1888,14 @@
               <HorAlignment>Center</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text16</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <Text>Alasan Keperluan Dinas</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text16>
-            <Text17 Ref="129" type="Text" isKey="true">
+            <Text17 Ref="128" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>0.2,3.2,6,1.8</ClientRectangle>
@@ -1905,13 +1904,13 @@
               <Guid>30a6ff1803554e618adc2f374e158617</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text17</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <Text>{dinas.nmkategori}</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text17>
-            <Text19 Ref="130" type="Text" isKey="true">
+            <Text19 Ref="129" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>6.2,3.2,12.6,1.8</ClientRectangle>
@@ -1920,13 +1919,13 @@
               <Guid>8e93e9818c5c4f07bb7c5d22156c8e41</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text19</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <Text>{dinas.keperluan}</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text19>
-            <Text15 Ref="131" type="Text" isKey="true">
+            <Text15 Ref="130" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>9.6,1.8,3.6,0.6</ClientRectangle>
@@ -1935,14 +1934,14 @@
               <Guid>3cf83d9b3f2a4ca486a0e9544c19f998</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text15</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <Text> No Dokumen</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text15>
-            <Text18 Ref="132" type="Text" isKey="true">
+            <Text18 Ref="131" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>13.2,1.8,5.6,0.6</ClientRectangle>
@@ -1951,8 +1950,8 @@
               <Guid>4a06e7dae68c44aaa1d8b3e156173d2f</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text18</Name>
-              <Page isRef="85" />
-              <Parent isRef="88" />
+              <Page isRef="84" />
+              <Parent isRef="87" />
               <Text> {dinas.nodok}/{dinas.tgldok_p}</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
@@ -1965,8 +1964,8 @@
           <KeepChildTogether>True</KeepChildTogether>
           <KeepDetails>KeepDetailsTogether</KeepDetails>
           <Name>DataBandDinas</Name>
-          <Page isRef="85" />
-          <Parent isRef="85" />
+          <Page isRef="84" />
+          <Parent isRef="84" />
           <Sort isList="true" count="0" />
         </DataBandDinas>
       </Components>
@@ -1979,21 +1978,17 @@
       <PageWidth>21</PageWidth>
       <PaperSize>A5</PaperSize>
       <Report isRef="0" />
-      <Watermark Ref="133" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
-        <Font>Arial,100</Font>
-        <TextBrush>[50:0:0:0]</TextBrush>
-      </Watermark>
     </Page1>
-    <Page2 Ref="134" type="Page" isKey="true">
+    <Page2 Ref="132" type="Page" isKey="true">
       <Border>None;Black;2;Solid;False;4;Black</Border>
       <Brush>Transparent</Brush>
       <Components isList="true" count="2">
-        <Panel15 Ref="135" type="Panel" isKey="true">
+        <Panel15 Ref="133" type="Panel" isKey="true">
           <Border>None;Black;1;Dot;False;4;Black</Border>
           <Brush>Transparent</Brush>
           <ClientRectangle>0.2,1,18.6,11.8</ClientRectangle>
           <Components isList="true" count="22">
-            <Text6 Ref="136" type="Text" isKey="true">
+            <Text6 Ref="134" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>13.6,9,2.8,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -2001,14 +1996,14 @@
               <Guid>373cc0ace043497d85a97043317cdf8b</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text6</Name>
-              <Page isRef="134" />
-              <Parent isRef="135" />
+              <Page isRef="132" />
+              <Parent isRef="133" />
               <Text>Diketahui oleh,</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text6>
-            <Text24 Ref="137" type="Text" isKey="true">
+            <Text24 Ref="135" type="Text" isKey="true">
               <Border>Bottom;Black;1;Dot;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>12.6,10.8,4.6,0.6</ClientRectangle>
@@ -2017,13 +2012,13 @@
               <Guid>95fed384b528403aa922c43214af6c86</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text24</Name>
-              <Page isRef="134" />
-              <Parent isRef="135" />
+              <Page isRef="132" />
+              <Parent isRef="133" />
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text24>
-            <Text89 Ref="138" type="Text" isKey="true">
+            <Text89 Ref="136" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>12.4,10.8,0.2,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -2031,14 +2026,14 @@
               <Guid>87df2d815c0841459921b72b5b0f03ab</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text89</Name>
-              <Page isRef="134" />
-              <Parent isRef="135" />
+              <Page isRef="132" />
+              <Parent isRef="133" />
               <Text>(</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text89>
-            <Text90 Ref="139" type="Text" isKey="true">
+            <Text90 Ref="137" type="Text" isKey="true">
               <Brush>Transparent</Brush>
               <ClientRectangle>17.2,10.8,0.4,0.8</ClientRectangle>
               <Conditions isList="true" count="0" />
@@ -2046,14 +2041,14 @@
               <Guid>574dafb3a1d4408882a87369876e344c</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text90</Name>
-              <Page isRef="134" />
-              <Parent isRef="135" />
+              <Page isRef="132" />
+              <Parent isRef="133" />
               <Text>)</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text90>
-            <Text20 Ref="140" type="Text" isKey="true">
+            <Text20 Ref="138" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>0.8,2.4,12,1.6</ClientRectangle>
@@ -2062,12 +2057,12 @@
               <Guid>1086e50f02514cc7b1aa2f879add3d1e</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text20</Name>
-              <Page isRef="134" />
-              <Parent isRef="135" />
+              <Page isRef="132" />
+              <Parent isRef="133" />
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text20>
-            <Text21 Ref="141" type="Text" isKey="true">
+            <Text21 Ref="139" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>12.8,2.4,5.8,1.6</ClientRectangle>
@@ -2076,12 +2071,12 @@
               <Guid>7b38caa95a5e436cb3f39bf70ff6b5e8</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text21</Name>
-              <Page isRef="134" />
-              <Parent isRef="135" />
+              <Page isRef="132" />
+              <Parent isRef="133" />
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text21>
-            <Text22 Ref="142" type="Text" isKey="true">
+            <Text22 Ref="140" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>0,2.4,0.8,1.6</ClientRectangle>
@@ -2090,13 +2085,13 @@
               <Guid>5ab57b882c544bdaab2ba560b67d9844</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text22</Name>
-              <Page isRef="134" />
-              <Parent isRef="135" />
+              <Page isRef="132" />
+              <Parent isRef="133" />
               <Text> 2.</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text22>
-            <Text25 Ref="143" type="Text" isKey="true">
+            <Text25 Ref="141" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>0.8,4,12,1.6</ClientRectangle>
@@ -2105,12 +2100,12 @@
               <Guid>3e52d8a872de4c96b52aa9c1753644bc</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text25</Name>
-              <Page isRef="134" />
-              <Parent isRef="135" />
+              <Page isRef="132" />
+              <Parent isRef="133" />
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text25>
-            <Text26 Ref="144" type="Text" isKey="true">
+            <Text26 Ref="142" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>12.8,4,5.8,1.6</ClientRectangle>
@@ -2119,12 +2114,12 @@
               <Guid>5716c9b7c4b04584867e669a69d43c28</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text26</Name>
-              <Page isRef="134" />
-              <Parent isRef="135" />
+              <Page isRef="132" />
+              <Parent isRef="133" />
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text26>
-            <Text27 Ref="145" type="Text" isKey="true">
+            <Text27 Ref="143" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>0,4,0.8,1.6</ClientRectangle>
@@ -2133,13 +2128,13 @@
               <Guid>223d454b8d35474386a5dd91a4d812d7</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text27</Name>
-              <Page isRef="134" />
-              <Parent isRef="135" />
+              <Page isRef="132" />
+              <Parent isRef="133" />
               <Text> 3.</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text27>
-            <Text28 Ref="146" type="Text" isKey="true">
+            <Text28 Ref="144" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>0.8,5.6,12,1.6</ClientRectangle>
@@ -2148,12 +2143,12 @@
               <Guid>641dc2bdd49646319372069bd0de0129</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text28</Name>
-              <Page isRef="134" />
-              <Parent isRef="135" />
+              <Page isRef="132" />
+              <Parent isRef="133" />
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text28>
-            <Text29 Ref="147" type="Text" isKey="true">
+            <Text29 Ref="145" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>12.8,5.6,5.8,1.6</ClientRectangle>
@@ -2162,12 +2157,12 @@
               <Guid>f9a6a801def848d3b8bdfd4818aab8ce</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text29</Name>
-              <Page isRef="134" />
-              <Parent isRef="135" />
+              <Page isRef="132" />
+              <Parent isRef="133" />
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text29>
-            <Text30 Ref="148" type="Text" isKey="true">
+            <Text30 Ref="146" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>0,5.6,0.8,1.6</ClientRectangle>
@@ -2176,13 +2171,13 @@
               <Guid>cb3cdd76d00e43849b396c0eb73a1291</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text30</Name>
-              <Page isRef="134" />
-              <Parent isRef="135" />
+              <Page isRef="132" />
+              <Parent isRef="133" />
               <Text> 4.</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text30>
-            <Text31 Ref="149" type="Text" isKey="true">
+            <Text31 Ref="147" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>0.8,7.2,12,1.6</ClientRectangle>
@@ -2191,12 +2186,12 @@
               <Guid>b1e5db3c3bd94fcab2e9b8b8e0c77fe8</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text31</Name>
-              <Page isRef="134" />
-              <Parent isRef="135" />
+              <Page isRef="132" />
+              <Parent isRef="133" />
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text31>
-            <Text32 Ref="150" type="Text" isKey="true">
+            <Text32 Ref="148" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>12.8,7.2,5.8,1.6</ClientRectangle>
@@ -2205,12 +2200,12 @@
               <Guid>ea090164df7f46a380d9369883456e57</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text32</Name>
-              <Page isRef="134" />
-              <Parent isRef="135" />
+              <Page isRef="132" />
+              <Parent isRef="133" />
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text32>
-            <Text33 Ref="151" type="Text" isKey="true">
+            <Text33 Ref="149" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>0,7.2,0.8,1.6</ClientRectangle>
@@ -2219,13 +2214,13 @@
               <Guid>72b9836c7ab54a948b74efd486972093</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text33</Name>
-              <Page isRef="134" />
-              <Parent isRef="135" />
+              <Page isRef="132" />
+              <Parent isRef="133" />
               <Text> 5.</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text33>
-            <Text61 Ref="152" type="Text" isKey="true">
+            <Text61 Ref="150" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>0.8,0.8,12,1.6</ClientRectangle>
@@ -2234,12 +2229,12 @@
               <Guid>8ec2da96fc8c47338f9580fa6604211a</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text61</Name>
-              <Page isRef="134" />
-              <Parent isRef="135" />
+              <Page isRef="132" />
+              <Parent isRef="133" />
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text61>
-            <Text62 Ref="153" type="Text" isKey="true">
+            <Text62 Ref="151" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>12.8,0.2,5.8,0.6</ClientRectangle>
@@ -2249,14 +2244,14 @@
               <HorAlignment>Center</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text62</Name>
-              <Page isRef="134" />
-              <Parent isRef="135" />
+              <Page isRef="132" />
+              <Parent isRef="133" />
               <Text>Pimpinan Setempat</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text62>
-            <Text63 Ref="154" type="Text" isKey="true">
+            <Text63 Ref="152" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>12.8,0.8,5.8,1.6</ClientRectangle>
@@ -2265,12 +2260,12 @@
               <Guid>faf9a29baaee4ffba2557f786a093c28</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text63</Name>
-              <Page isRef="134" />
-              <Parent isRef="135" />
+              <Page isRef="132" />
+              <Parent isRef="133" />
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text63>
-            <Text60 Ref="155" type="Text" isKey="true">
+            <Text60 Ref="153" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>White</Brush>
               <ClientRectangle>0.8,0.2,12,0.6</ClientRectangle>
@@ -2280,14 +2275,14 @@
               <HorAlignment>Center</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text60</Name>
-              <Page isRef="134" />
-              <Parent isRef="135" />
+              <Page isRef="132" />
+              <Parent isRef="133" />
               <Text>Uraian Perjalanan Dinas</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
               <VertAlignment>Center</VertAlignment>
             </Text60>
-            <Text64 Ref="156" type="Text" isKey="true">
+            <Text64 Ref="154" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>0,0.8,0.8,1.6</ClientRectangle>
@@ -2296,13 +2291,13 @@
               <Guid>d47ea66a98d64e228f9afbd81740ec60</Guid>
               <Margins>0,0,0,0</Margins>
               <Name>Text64</Name>
-              <Page isRef="134" />
-              <Parent isRef="135" />
+              <Page isRef="132" />
+              <Parent isRef="133" />
               <Text> 1.</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
             </Text64>
-            <Text75 Ref="157" type="Text" isKey="true">
+            <Text75 Ref="155" type="Text" isKey="true">
               <Border>All;Black;1;Solid;False;4;Black</Border>
               <Brush>Transparent</Brush>
               <ClientRectangle>0,0.2,0.8,0.6</ClientRectangle>
@@ -2312,8 +2307,8 @@
               <HorAlignment>Center</HorAlignment>
               <Margins>0,0,0,0</Margins>
               <Name>Text75</Name>
-              <Page isRef="134" />
-              <Parent isRef="135" />
+              <Page isRef="132" />
+              <Parent isRef="133" />
               <Text>No</Text>
               <TextBrush>Black</TextBrush>
               <Type>Expression</Type>
@@ -2323,10 +2318,10 @@
           <Conditions isList="true" count="0" />
           <Guid>5ada9ef5aacc4d1ea6677af8bbb53d24</Guid>
           <Name>Panel15</Name>
-          <Page isRef="134" />
-          <Parent isRef="134" />
+          <Page isRef="132" />
+          <Parent isRef="132" />
         </Panel15>
-        <Text74 Ref="158" type="Text" isKey="true">
+        <Text74 Ref="156" type="Text" isKey="true">
           <Brush>Transparent</Brush>
           <ClientRectangle>0,0.2,19,0.6</ClientRectangle>
           <Conditions isList="true" count="0" />
@@ -2335,8 +2330,8 @@
           <HorAlignment>Center</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text74</Name>
-          <Page isRef="134" />
-          <Parent isRef="134" />
+          <Page isRef="132" />
+          <Parent isRef="132" />
           <Text>HASIL PERJALANAN DINAS (Non Sales)</Text>
           <TextBrush>Black</TextBrush>
           <Type>Expression</Type>
@@ -2352,14 +2347,9 @@
       <PageWidth>21</PageWidth>
       <PaperSize>A5</PaperSize>
       <Report isRef="0" />
-      <Watermark Ref="159" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
-        <Font>Arial,100</Font>
-        <TextBrush>[50:0:0:0]</TextBrush>
-      </Watermark>
     </Page2>
   </Pages>
   <PreviewMode>StandardAndDotMatrix</PreviewMode>
-  <PrinterSettings Ref="160" type="Stimulsoft.Report.Print.StiPrinterSettings" isKey="true" />
   <ReferencedAssemblies isList="true" count="8">
     <value>System.Dll</value>
     <value>System.Drawing.Dll</value>
@@ -2372,14 +2362,14 @@
   </ReferencedAssemblies>
   <ReportAlias>Realisasi Jadwal Kunjungan</ReportAlias>
   <ReportAuthor>nusa::syifarahmat.id</ReportAuthor>
-  <ReportChanged>7/21/2018 12:11:14 PM</ReportChanged>
+  <ReportChanged>2/13/2024 10:51:57 AM</ReportChanged>
   <ReportCreated>5/29/2004 2:59:00 PM</ReportCreated>
   <ReportDescription>Laporan realisasi jadwal kunjungan sales</ReportDescription>
-  <ReportFile>D:\WAPP\apache2\htdocs\hrdnew\assets\mrt\sp_dinas.mrt</ReportFile>
-  <ReportGuid>3491360b57084d49b5c02e7aee485688</ReportGuid>
+  <ReportFile>D:\PROJECT\hrms.nusa\assets\mrt\sp_dinas.mrt</ReportFile>
+  <ReportGuid>c6789811e72348b5a0fac7a963effc09</ReportGuid>
   <ReportName>realizations</ReportName>
   <ReportUnit>Centimeters</ReportUnit>
-  <ReportVersion>2015.2.0</ReportVersion>
+  <ReportVersion>2020.2.3.0</ReportVersion>
   <Script>using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -2405,7 +2395,7 @@ namespace Reports
 }</Script>
   <ScriptLanguage>CSharp</ScriptLanguage>
   <Styles isList="true" count="10">
-    <Title1 Ref="161" type="Stimulsoft.Report.StiStyle" isKey="true">
+    <Title1 Ref="157" type="Stimulsoft.Report.StiStyle" isKey="true">
       <AllowUseBorderSides>False</AllowUseBorderSides>
       <Border>None;[193:152:89];1;Solid;False;4;Black</Border>
       <Brush>Transparent</Brush>
@@ -2413,30 +2403,33 @@ namespace Reports
       <Font>Arial,19</Font>
       <HorAlignment>Right</HorAlignment>
       <Name>Title1</Name>
+      <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>[193:152:89]</TextBrush>
       <VertAlignment>Center</VertAlignment>
     </Title1>
-    <Title2 Ref="162" type="Stimulsoft.Report.StiStyle" isKey="true">
+    <Title2 Ref="158" type="Stimulsoft.Report.StiStyle" isKey="true">
       <AllowUseBorderSides>False</AllowUseBorderSides>
       <Border>None;[102:77:38];1;Solid;False;4;Black</Border>
       <Brush>Transparent</Brush>
       <Conditions isList="true" count="0" />
       <Font>Arial,9</Font>
       <Name>Title2</Name>
+      <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>[102:77:38]</TextBrush>
       <VertAlignment>Center</VertAlignment>
     </Title2>
-    <Header1 Ref="163" type="Stimulsoft.Report.StiStyle" isKey="true">
+    <Header1 Ref="159" type="Stimulsoft.Report.StiStyle" isKey="true">
       <AllowUseBorderSides>False</AllowUseBorderSides>
       <Border>None;[193:152:89];1;Solid;False;4;Black</Border>
       <Brush>Transparent</Brush>
       <Conditions isList="true" count="0" />
       <Font>Arial,19</Font>
       <Name>Header1</Name>
+      <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>[193:152:89]</TextBrush>
       <VertAlignment>Center</VertAlignment>
     </Header1>
-    <Header2 Ref="164" type="Stimulsoft.Report.StiStyle" isKey="true">
+    <Header2 Ref="160" type="Stimulsoft.Report.StiStyle" isKey="true">
       <AllowUseBorderSides>False</AllowUseBorderSides>
       <Border>None;[193:152:89];1;Solid;False;4;Black</Border>
       <Brush>Transparent</Brush>
@@ -2444,10 +2437,11 @@ namespace Reports
       <Font>Arial,12,Bold</Font>
       <HorAlignment>Center</HorAlignment>
       <Name>Header2</Name>
+      <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>[193:152:89]</TextBrush>
       <VertAlignment>Center</VertAlignment>
     </Header2>
-    <Header3 Ref="165" type="Stimulsoft.Report.StiStyle" isKey="true">
+    <Header3 Ref="161" type="Stimulsoft.Report.StiStyle" isKey="true">
       <AllowUseBorderSides>False</AllowUseBorderSides>
       <AllowUseHorAlignment>True</AllowUseHorAlignment>
       <AllowUseVertAlignment>True</AllowUseVertAlignment>
@@ -2457,20 +2451,22 @@ namespace Reports
       <Font>Arial,9,Bold</Font>
       <HorAlignment>Center</HorAlignment>
       <Name>Header3</Name>
+      <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>[193:152:89]</TextBrush>
       <VertAlignment>Center</VertAlignment>
     </Header3>
-    <Data1 Ref="166" type="Stimulsoft.Report.StiStyle" isKey="true">
+    <Data1 Ref="162" type="Stimulsoft.Report.StiStyle" isKey="true">
       <AllowUseBorderSides>False</AllowUseBorderSides>
       <Border>None;[193:152:89];1;Solid;False;4;Black</Border>
       <Brush>Transparent</Brush>
       <Conditions isList="true" count="0" />
       <Font>Arial,9</Font>
       <Name>Data1</Name>
+      <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>[102:77:38]</TextBrush>
       <VertAlignment>Center</VertAlignment>
     </Data1>
-    <Data2 Ref="167" type="Stimulsoft.Report.StiStyle" isKey="true">
+    <Data2 Ref="163" type="Stimulsoft.Report.StiStyle" isKey="true">
       <AllowUseBorderFormatting>False</AllowUseBorderFormatting>
       <AllowUseBorderSides>False</AllowUseBorderSides>
       <AllowUseFont>False</AllowUseFont>
@@ -2479,29 +2475,32 @@ namespace Reports
       <Conditions isList="true" count="0" />
       <Font>Arial,9</Font>
       <Name>Data2</Name>
+      <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>Black</TextBrush>
     </Data2>
-    <Data3 Ref="168" type="Stimulsoft.Report.StiStyle" isKey="true">
+    <Data3 Ref="164" type="Stimulsoft.Report.StiStyle" isKey="true">
       <AllowUseBorderSides>False</AllowUseBorderSides>
       <Border>None;[193:152:89];1;Solid;False;4;Black</Border>
       <Brush>[240:237:232]</Brush>
       <Conditions isList="true" count="0" />
       <Font>Arial,9</Font>
       <Name>Data3</Name>
+      <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>[102:77:38]</TextBrush>
       <VertAlignment>Center</VertAlignment>
     </Data3>
-    <Footer1 Ref="169" type="Stimulsoft.Report.StiStyle" isKey="true">
+    <Footer1 Ref="165" type="Stimulsoft.Report.StiStyle" isKey="true">
       <AllowUseBorderSides>False</AllowUseBorderSides>
       <Border>Top;[193:152:89];1;Solid;False;4;Black</Border>
       <Brush>Transparent</Brush>
       <Conditions isList="true" count="0" />
       <Font>Arial,9</Font>
       <Name>Footer1</Name>
+      <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>[102:77:38]</TextBrush>
       <VertAlignment>Center</VertAlignment>
     </Footer1>
-    <Footer2 Ref="170" type="Stimulsoft.Report.StiStyle" isKey="true">
+    <Footer2 Ref="166" type="Stimulsoft.Report.StiStyle" isKey="true">
       <AllowUseBorderSides>False</AllowUseBorderSides>
       <Border>None;[193:152:89];1;Solid;False;4;Black</Border>
       <Brush>Transparent</Brush>
@@ -2509,6 +2508,7 @@ namespace Reports
       <Font>Arial,12,Bold</Font>
       <HorAlignment>Right</HorAlignment>
       <Name>Footer2</Name>
+      <NegativeTextBrush>Red</NegativeTextBrush>
       <TextBrush>[193:152:89]</TextBrush>
       <VertAlignment>Center</VertAlignment>
     </Footer2>

@@ -21,7 +21,7 @@ class DeclarationCashbon extends CI_Controller {
         $data['status'] = array('Menunggu Persetujuan' => 'Menunggu Persetujuan','Disetujui'=>'Disetujui','Dibatalkan'=>'Dibatalkan','Belum Dibuat Kasbon'=>'Belum Dibuat Kasbon','Belum Dibuat Deklarasi'=>'Belum Dibuat Deklarasi',''=>'Semua');
         $limitDate = $this->m_option->read(' AND kdoption = \'DCL:LIMIT:DATE\' AND group_option = \'DECLARATION\' ')->row();
         $limitDate = ((is_null($limitDate) OR empty($limitDate)) ? date('Y-m-d',strtotime('2023-09-01')) : $limitDate->value1 );
-//        $startdate = date('Y-m-d',strtotime('2023-09-01'));
+//        $limitDate = date('Y-m-01');
         if ($this->m_akses->list_aksesperdep()->num_rows() > 0 OR strtoupper(trim($this->m_akses->q_user_check()->row()->level_akses)) === 'A') {
             $this->datatablessp->datatable('table-declarationcashbon', 'table table-striped table-bordered table-hover', true)
                 ->columns('branch, dutieid, cashbonid, type, typetext, documentid, documentdate, documentdateformat, departuredate, returndate, dutieperiod, employeeid, employeename, departmentname, subdepartmentname, statustext, statuscolor, category')
@@ -46,7 +46,7 @@ class DeclarationCashbon extends CI_Controller {
                 ->addcolumn('no', 'no')
                 ->addcolumn('reformatstatus', '<span class=\'label mt-5 $2 \' style=\'font-size: small; \'>$1</span>','statustext, statuscolor')
                 ->addcolumn('popup', '<a href=\'javascript:void(0)\' data-href=\''.site_url('kasbon_umum/declarationcashbon/actionpopup/$1').'\' class=\'btn btn-sm btn-info popup pull-right\'><i class=\'fa fa-edit\'>&nbsp;&nbsp;AKSI</i></a>', 'branch, dutieid, cashbonid, type', true)
-                ->addcolumn('detail', '<a href=\''.site_url('kasbon_umum/declarationcashbon/detail/$1').'\' class=\'btn btn-sm bg-maroon read-detail pull-right\'><i class=\'fa fa-bars\'>&nbsp;&nbsp;RINCIAN</i></a>', 'branch, cashbonid, type, dutieid, category', true)
+                ->addcolumn('detail', '<a href=\'javascript:void(0)\' data-href=\''.site_url('kasbon_umum/declarationcashbon/detail/$1').'\' class=\'btn btn-sm bg-maroon read-detail pull-right\'><i class=\'fa fa-bars\'>&nbsp;&nbsp;RINCIAN</i></a>', 'branch, cashbonid, type, dutieid, category', true)
                 ->querystring($this->M_DeclarationCashbon->q_cashbon_txt_where(' AND search ILIKE \'%'.$this->session->userdata('nik').'%\' AND TO_CHAR(documentdate,\'yyyy-mm-dd\') >= \''.$limitDate.'\' AND  category = \'DECLARATION\''))
                 ->header('No.', 'no', false, false, true)
                 ->header('<u>N</u>o.Dokumen', 'documentid', true, true, true, array('documentid','popup'))
@@ -779,10 +779,9 @@ class DeclarationCashbon extends CI_Controller {
             hex2bin($param)
         );
         $this->load->library(array('datatablessp'));
-
+        header('Content-Type: application/json');
         switch ($json->category){
             case "DINAS":
-                header('Content-Type: application/json');
                 http_response_code(404);
                 echo json_encode(array(
                     'data' => array(),
@@ -801,6 +800,7 @@ class DeclarationCashbon extends CI_Controller {
                 $this->load->model(array('M_DeclarationCashbon','M_Cashbon'));
                 $declaration = $this->M_DeclarationCashbon->q_transaction_read_where(' AND declarationid = \''.$json->documentid.'\' ')->row();
                 $cashbon = $this->M_Cashbon->q_transaction_read_where(' AND cashbonid = \''.$declaration->cashbonid.'\' ')->row();
+//                var_dump('dddd');die();
                 echo  json_encode(array(
                     'canread' => true,
                     'next' => site_url( 'kasbon_umum/declarationcashbon/dodetail/'.bin2hex(json_encode(array('branch' => empty($declaration->branch) ? $this->session->userdata('branch') : $declaration->branch, 'cashbonid' => $declaration->cashbonid, 'declarationid' => $declaration->declarationid, 'dutieid' => $declaration->dutieid, 'type' => $cashbon->type, 'category' => 'DECLARATION')))),

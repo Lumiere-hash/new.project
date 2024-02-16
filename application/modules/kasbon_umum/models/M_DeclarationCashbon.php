@@ -122,25 +122,14 @@ FROM (
                  a.inputdate AS documentdate,
                  CONCAT(COALESCE(TRIM(d.nik), ''), '.', COALESCE(TRIM(d.nik_atasan), ''), '.', COALESCE(TRIM(d.nik_atasan2), ''), '.') AS search
              FROM sc_trx.declaration_cashbon a
-                      LEFT OUTER JOIN sc_trx.dinas b ON TRUE
-                 AND TRIM(b.nodok) IN (select unnest(string_to_array(a.dutieid,',')) limit 1)
-                      LEFT OUTER JOIN sc_trx.cashbon c ON TRUE
-                 AND TRIM(c.cashbonid) = TRIM(a.cashbonid)
-                      LEFT OUTER JOIN sc_mst.karyawan d ON TRUE
-                 AND CASE
-                         WHEN c.cashbonid IS null THEN TRIM(d.nik) = TRIM(b.nik)
-                         WHEN TRIM(c.type) in ('DN') THEN TRIM(d.nik) = TRIM(b.nik)
-                         ELSE TRIM(d.nik) = TRIM(c.dutieid)
-                      END
-                      LEFT OUTER JOIN sc_mst.departmen e ON TRUE
-                 AND TRIM(e.kddept) = TRIM(d.bag_dept)
-                      LEFT OUTER JOIN sc_mst.subdepartmen f ON TRUE
-                 AND TRIM(f.kdsubdept) = TRIM(d.subbag_dept)
-                 AND TRIM(f.kddept) = TRIM(d.bag_dept)
-                      LEFT OUTER JOIN sc_mst.trxtype g ON TRUE
-                 AND TRIM(g.kdtrx) = TRIM(c.type)
-                 AND TRIM(g.jenistrx) = TRIM('CASHBONTYPE') 
-             WHERE TRUE
+                      LEFT OUTER JOIN sc_trx.dinas b ON TRIM(b.nodok) = ANY(string_to_array(a.dutieid, ','))
+                      LEFT OUTER JOIN sc_trx.cashbon c ON TRIM(c.cashbonid) = TRIM(a.cashbonid)
+                      LEFT OUTER JOIN sc_mst.karyawan d ON (TRIM(d.nik) = TRIM(b.nik) OR TRIM(d.nik) = TRIM(c.dutieid))
+                      LEFT OUTER JOIN sc_mst.departmen e ON TRIM(e.kddept) = TRIM(d.bag_dept)
+                      LEFT OUTER JOIN sc_mst.subdepartmen f ON TRIM(f.kdsubdept) = TRIM(d.subbag_dept) AND TRIM(f.kddept) = TRIM(d.bag_dept)
+                      LEFT OUTER JOIN sc_mst.trxtype g ON TRIM(g.kdtrx) = TRIM(COALESCE(c.type, ''))
+                                                          AND TRIM(g.jenistrx) = TRIM('CASHBONTYPE') 
+             WHERE COALESCE(a.status, '') IN ('I', 'C') OR a.approveby IS NOT NULL
              ORDER BY declarationid
          ) UNION ALL (
              SELECT
@@ -168,24 +157,14 @@ FROM (
                  a.inputdate AS documentdate,
                  CONCAT(COALESCE(TRIM(d.nik), ''), '.', COALESCE(TRIM(d.nik_atasan), ''), '.', COALESCE(TRIM(d.nik_atasan2), ''), '.') AS search
              FROM sc_trx.cashbon a
-                      LEFT OUTER JOIN sc_trx.dinas b ON TRUE
-                 AND TRIM(b.nodok) IN (select unnest(string_to_array(a.dutieid,',')) limit 1)
-                      LEFT OUTER JOIN sc_mst.karyawan d ON TRUE
-                 AND CASE
-                         WHEN TRIM(a.type) in ('DN') THEN TRIM(d.nik) = TRIM(b.nik)
-                         ELSE TRIM(d.nik) = TRIM(a.dutieid)
-                      END
-                      LEFT OUTER JOIN sc_mst.departmen e ON TRUE
-                 AND TRIM(e.kddept) = TRIM(d.bag_dept)
-                      LEFT OUTER JOIN sc_mst.subdepartmen f ON TRUE
-                 AND TRIM(f.kdsubdept) = TRIM(d.subbag_dept)
-                 AND TRIM(f.kddept) = TRIM(d.bag_dept)
-                      LEFT OUTER JOIN sc_mst.trxtype g ON TRUE
-                 AND TRIM(g.kdtrx) = TRIM(a.type)
-                 AND TRIM(g.jenistrx) = TRIM('CASHBONTYPE')
-             WHERE TRUE
-               AND COALESCE(TRIM(a.status), '') IN ('P')
-               AND COALESCE(TRIM(a.cashbonid), '') NOT IN ( SELECT declaration_cashbon.cashbonid FROM sc_trx.declaration_cashbon )
+                      LEFT OUTER JOIN sc_trx.dinas b ON TRIM(b.nodok) = ANY(string_to_array(a.dutieid, ','))
+                      LEFT OUTER JOIN sc_mst.karyawan d ON TRIM(d.nik) = TRIM(COALESCE(a.dutieid, b.nik))
+                      LEFT OUTER JOIN sc_mst.departmen e ON TRIM(e.kddept) = TRIM(d.bag_dept)
+                      LEFT OUTER JOIN sc_mst.subdepartmen f ON TRIM(f.kdsubdept) = TRIM(d.subbag_dept) AND TRIM(f.kddept) = TRIM(d.bag_dept)
+                      LEFT OUTER JOIN sc_mst.trxtype g ON TRIM(g.kdtrx) = TRIM(a.type)
+                                                          AND TRIM(g.jenistrx) = TRIM('CASHBONTYPE')
+             WHERE COALESCE(TRIM(a.status), '') IN ('P')
+               AND COALESCE(TRIM(a.cashbonid), '') NOT IN (SELECT declaration_cashbon.cashbonid FROM sc_trx.declaration_cashbon)
              ORDER BY declarationid
          ) UNION ALL (
              SELECT
@@ -210,19 +189,13 @@ FROM (
                  b.input_date AS documentdate,
                  CONCAT(COALESCE(TRIM(d.nik), ''), '.', COALESCE(TRIM(d.nik_atasan), ''), '.', COALESCE(TRIM(d.nik_atasan2), ''), '.') AS search
              FROM sc_trx.dinas b
-                      LEFT OUTER JOIN sc_trx.cashbon a ON TRUE
-                 AND TRIM(b.nodok) = TRIM(a.dutieid)
-                      LEFT OUTER JOIN sc_mst.karyawan d ON TRUE
-                 AND TRIM(d.nik) = TRIM(b.nik)
-                      LEFT OUTER JOIN sc_mst.departmen e ON TRUE
-                 AND TRIM(e.kddept) = TRIM(d.bag_dept)
-                      LEFT OUTER JOIN sc_mst.subdepartmen f ON TRUE
-                 AND TRIM(f.kdsubdept) = TRIM(d.subbag_dept)
-                 AND TRIM(f.kddept) = TRIM(d.bag_dept)
-             WHERE TRUE
-               AND COALESCE(TRIM(b.status), '') IN ('P')
-               AND COALESCE(TRIM(b.nodok), '') NOT IN ( SELECT dutieid FROM sc_trx.cashbon WHERE TRUE AND status = 'P' )
-               AND COALESCE(TRIM(b.nodok), '') NOT IN ( SELECT dutieid FROM sc_trx.declaration_cashbon WHERE TRUE AND status = 'P' )
+                      LEFT OUTER JOIN sc_trx.cashbon a ON TRIM(b.nodok) = TRIM(a.dutieid)
+                      LEFT OUTER JOIN sc_mst.karyawan d ON TRIM(d.nik) = TRIM(b.nik)
+                      LEFT OUTER JOIN sc_mst.departmen e ON TRIM(e.kddept) = TRIM(d.bag_dept)
+                      LEFT OUTER JOIN sc_mst.subdepartmen f ON TRIM(f.kdsubdept) = TRIM(d.subbag_dept)
+             WHERE COALESCE(TRIM(b.status), '') IN ('P')
+               AND COALESCE(TRIM(b.nodok), '') NOT IN (SELECT dutieid FROM sc_trx.cashbon WHERE TRIM(status) = 'P')
+               AND COALESCE(TRIM(b.nodok), '') NOT IN (SELECT dutieid FROM sc_trx.declaration_cashbon WHERE TRIM(status) = 'P')
          )
      ) AS aa
 WHERE TRUE
@@ -321,7 +294,7 @@ SELECT
              CONCAT(COALESCE(TRIM(d.nik_atasan), ''), '.', COALESCE(TRIM(d.nik_atasan2), '')) AS superiors
          FROM sc_trx.declaration_cashbon a
             LEFT OUTER JOIN sc_trx.cashbon b ON TRUE AND TRIM(b.cashbonid) = TRIM(a.cashbonid)
-            LEFT OUTER JOIN sc_trx.dinas c ON TRUE AND TRIM(c.nodok) = TRIM(b.dutieid) OR TRIM(c.nodok) = TRIM(a.dutieid)
+            LEFT OUTER JOIN sc_trx.dinas c ON TRUE AND TRIM(c.nodok) = TRIM(b.dutieid) OR TRIM(c.nodok) = ANY(string_to_array(a.dutieid, ','))
             LEFT OUTER JOIN sc_mst.karyawan d ON TRUE AND TRIM(d.nik) = TRIM(c.nik)
             LEFT OUTER JOIN sc_mst.departmen e ON trim(d.bag_dept) = trim(e.kddept)
             LEFT OUTER JOIN sc_mst.subdepartmen f ON trim(d.bag_dept) = trim(f.kddept) AND trim(d.subbag_dept) = trim(f.kdsubdept)
