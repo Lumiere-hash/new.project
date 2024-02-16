@@ -1,6 +1,6 @@
 <?php
 //    var_dump('dddd');die();
-//var_dump($declarationcomponents);
+//var_dump($components);die();
 ?>
 <thead>
 <tr>
