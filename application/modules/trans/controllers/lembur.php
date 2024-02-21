@@ -232,6 +232,8 @@ class Lembur extends MX_Controller {
             $dtlerror=$this->m_lembur->q_trxerror($paramerror)->row_array();
             if ($this->fiky_notification_push->onePushVapeApprovalHrms($nik,trim($dtl_push['nik_atasan']),trim($dtlerror['nomorakhir1']))){
                 redirect("trans/lembur/index/rep_succes/$nik");
+            }else{
+                redirect("trans/lembur/index/rep_succes/$nik");
             }
 
 		}
@@ -480,6 +482,8 @@ class Lembur extends MX_Controller {
 	}
 
     function checkConflict() {
+        $this->load->library('DateDifference');
+        $this->load->model(array('master/m_option'));
         $request_body = file_get_contents('php://input');
         $data = json_decode($request_body);
         $tgl_awal = explode(" ", $data->jam_awal)[0];
@@ -509,37 +513,96 @@ class Lembur extends MX_Controller {
                 "message" => "PERINGATAN!! ANDA BELUM MEMILIKI JADWAL PADA BULAN " . (implode(" DAN ", $error)) . ". HARAP SEGERA HUBUNGI HRD."
             ];
         } else {
+            $calculateRest = FALSE;
+            $start_date = $data->jam_awal;
+            $end_date = $data->jam_selesai;
+            $parameters = $this->m_option->read(' AND kdoption IN (\'OVERTIME:MIN\',\'OVERTIME:MAX\',\'OVERTIME:CALC:REST\') AND status = \'T\' ')->result();
+            foreach ($parameters as $index => $parameter) {
+                if ($parameter->kdoption == 'OVERTIME:MIN'){
+                    $setupMinTime = $parameter->value1;
+                }
+                if ($parameter->kdoption == 'OVERTIME:MAX'){
+                    $setupMaxTime = $parameter->value1;
+                }
+                if ($parameter->kdoption == 'OVERTIME:CALC:REST'){
+                    $calculateRest = ($parameter->value1 == 'T' ? TRUE : FALSE);
+                }
+            }
+            $minTime = (!is_numeric($setupMinTime) ? 0 : $setupMinTime);
+            $maxTime = (!is_numeric($setupMaxTime) ? 6 : $setupMaxTime);
+            $difference = $this->datedifference->getTimeDifference($start_date, $end_date,'S');
+            if ($calculateRest){
+                $rest = $this->calculateRestTime($difference->time);
+                $duration = $difference->time - $rest;
+                if ($this->secondsToHours($duration) >= 4){
+                    $duration = $duration;
+                }else{
+                    $duration = $difference->time;
+                }
+            }else{
+                $duration = $difference->time;
+            }
+            $minTimeInSecond = $this->hoursToSeconds($minTime);
+            $maxTimeInSecond= $this->hoursToSeconds($maxTime);
             $error = [];
-
-            if($check[0]["is_conflict"] == 't' && $check[0]["tgl_masuk"] != $check[0]["tgl_pulang"]) {
-                $error[] = "* " . date_format(date_create($check[0]["tgl_masuk"]),"d-m-Y") . " " . $check[0]["jam_masuk"] . " S/D " . date_format(date_create($check[0]["tgl_pulang"]),"d-m-Y") . " " . $check[0]["jam_pulang"] . ".";
-            }
-            if($check[1]["is_conflict"] == 't') {
-                $error[] = "* " . date_format(date_create($check[1]["tgl_masuk"]),"d-m-Y") . " " . $check[1]["jam_masuk"] . " S/D " . date_format(date_create($check[1]["tgl_pulang"]),"d-m-Y") . " " . $check[1]["jam_pulang"] . ".";
-            }
-            if($check[2]["is_conflict"] == 't' && $tgl_awal != $tgl_selesai) {
-                $error[] = "* " . date_format(date_create($check[2]["tgl_masuk"]),"d-m-Y")  . " " . $check[2]["jam_masuk"] . " S/D " . date_format(date_create($check[2]["tgl_pulang"]),"d-m-Y") . " " . $check[2]["jam_pulang"] . ".";
-            }
-            if(sizeof($error) > 0) {
+            if ($duration < $minTimeInSecond) {
                 $result = [
                     "status" => false,
-                    "message" => "PERINGATAN!! ANDA TIDAK DAPAT MENGAJUKAN LEMBUR SAAT JAM KERJA. PERHATIKAN JADWAL KERJA BERIKUT:<br>" . implode("<br>", $error)
+                    "message" => "MINIMAL LEMBUR {$minTime} JAM",
+                ];
+            } elseif ($duration > $maxTimeInSecond) {
+                $result = [
+                    "status" => false,
+                    "message" => "MAKSIMAL LEMBUR {$maxTime} JAM",
                 ];
             } else {
-                $error = [];
-                for($i = 3; $i < sizeof($check); $i++) {
-                    if($check[$i]["is_conflict"] == 't') {
-                        $error[] = "* NODOK: " . $check[$i]["nodok"] . " (" . date_format(date_create($check[$i]["tgl_masuk"]),"d-m-Y") . " " . $check[$i]["jam_masuk"] . " S/D " . date_format(date_create($check[$i]["tgl_pulang"]),"d-m-Y") . " " . $check[$i]["jam_pulang"] . ").";
-                    }
+                $rest = 'within';
+                if($check[0]["is_conflict"] == 't' && $check[0]["tgl_masuk"] != $check[0]["tgl_pulang"]) {
+                    $error[] = "* " . date_format(date_create($check[0]["tgl_masuk"]),"d-m-Y") . " " . $check[0]["jam_masuk"] . " S/D " . date_format(date_create($check[0]["tgl_pulang"]),"d-m-Y") . " " . $check[0]["jam_pulang"] . ".";
+                }
+                if($check[1]["is_conflict"] == 't') {
+                    $error[] = "* " . date_format(date_create($check[1]["tgl_masuk"]),"d-m-Y") . " " . $check[1]["jam_masuk"] . " S/D " . date_format(date_create($check[1]["tgl_pulang"]),"d-m-Y") . " " . $check[1]["jam_pulang"] . ".";
+                }
+                if($check[2]["is_conflict"] == 't' && $tgl_awal != $tgl_selesai) {
+                    $error[] = "* " . date_format(date_create($check[2]["tgl_masuk"]),"d-m-Y")  . " " . $check[2]["jam_masuk"] . " S/D " . date_format(date_create($check[2]["tgl_pulang"]),"d-m-Y") . " " . $check[2]["jam_pulang"] . ".";
                 }
                 if(sizeof($error) > 0) {
                     $result = [
                         "status" => false,
-                        "message" => "PERINGATAN!! ANDA SUDAH MENGAJUKAN LEMBUR PADA HARI DAN JAM TERSEBUT. PERHATIKAN PENGAJUAN LEMBUR BERIKUT:<br>" . implode("<br>", $error)
+                        "message" => "PERINGATAN!! ANDA TIDAK DAPAT MENGAJUKAN LEMBUR SAAT JAM KERJA. PERHATIKAN JADWAL KERJA BERIKUT:<br>" . implode("<br>", $error)
                     ];
+                } else {
+                    $error = [];
+                    for($i = 3; $i < sizeof($check); $i++) {
+                        if($check[$i]["is_conflict"] == 't') {
+                            $error[] = "* NODOK: " . $check[$i]["nodok"] . " (" . date_format(date_create($check[$i]["tgl_masuk"]),"d-m-Y") . " " . $check[$i]["jam_masuk"] . " S/D " . date_format(date_create($check[$i]["tgl_pulang"]),"d-m-Y") . " " . $check[$i]["jam_pulang"] . ").";
+                        }
+                    }
+                    if(sizeof($error) > 0) {
+                        $result = [
+                            "status" => false,
+                            "message" => "PERINGATAN!! ANDA SUDAH MENGAJUKAN LEMBUR PADA HARI DAN JAM TERSEBUT. PERHATIKAN PENGAJUAN LEMBUR BERIKUT:<br>" . implode("<br>", $error)
+                        ];
+                    }
                 }
             }
         }
         echo json_encode($result);
+    }
+
+    private function secondsToHours($second) {
+        return $second / 3600;
+    }
+    private function hoursToSeconds($hours) {
+        return $hours * 3600;
+    }
+
+    function calculateRestTime($duration) {
+        $restTime = 0;
+        while ($duration >= 14400) {
+            $duration -= 14400; // Subtract 4 hours
+            $restTime += 3600;  // Add 60 minutes
+        }
+        return $restTime;
     }
 }

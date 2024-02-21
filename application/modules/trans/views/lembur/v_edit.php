@@ -1,5 +1,7 @@
 <script type="text/javascript">
     var $jenis_lembur;
+
+
     $(function() {
         $("#tgl_kerja").datepicker({
             startDate: '<?= $opsi_lembur ?>'
@@ -70,7 +72,7 @@
         }
         var jam_awal = $('#jam_awal').val();
         var jam_selesai = $('#jam_selesai').val();
-
+        console.log(jam_awal);
         if(jam_awal != '' && jam_selesai != '') {
             if(tplintas == 'f' && jam_awal > jam_selesai) {
                 $('#postmessages').empty().append("<div class='alert alert-danger'>PERINGATAN!! JAM SELESAI HARUS LEBIH BESAR DARI JAM AWAL.</div>");
@@ -121,6 +123,11 @@
             }
         }
     }
+    $(document).ready(function (){
+        $('#jam_awal,#jam_selesai').clockpicker({
+            autoclose: true,
+        });
+    })
 </script>
 
 <legend><?php echo $title; ?></legend>
@@ -268,13 +275,13 @@
                                 <div class="form-group">
                                     <label class="col-sm-4">Jam Awal</label>
                                     <div class="col-sm-8">
-                                        <input type="text" id="jam_awal" name="jam_awal" data-inputmask='"mask": "99:99:99"' data-mask="" onchange="checkConflict()" value="<?php echo trim($lb->jam_awal); ?>" class="form-control" required>
+                                        <input type="text" id="jam_awal" name="jam_awal" data-inputmask='"mask": "99:99"' data-mask="" onchange="checkConflict()" value="<?php echo trim($lb->jam_awal); ?>" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-4">Jam Selesai</label>
                                     <div class="col-sm-8">
-                                        <input type="text" id="jam_selesai" name="jam_selesai" data-inputmask='"mask": "99:99:99"' data-mask="" onchange="checkConflict()" value="<?php echo trim($lb->jam_akhir); ?>" class="form-control" required>
+                                        <input type="text" id="jam_selesai" name="jam_selesai" data-inputmask='"mask": "99:99"' data-mask="" onchange="checkConflict()" value="<?php echo trim($lb->jam_akhir); ?>" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="form-group">

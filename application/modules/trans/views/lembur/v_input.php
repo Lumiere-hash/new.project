@@ -121,6 +121,11 @@
             }
         }
     }
+    $(document).ready(function (){
+        $('#jam_awal,#jam_selesai').clockpicker({
+            autoclose: true,
+        });
+    })
 </script>
 
 <legend><?php echo $title; ?></legend>
@@ -262,13 +267,13 @@
                                 <div class="form-group">
                                     <label class="col-sm-4">Jam Awal</label>
                                     <div class="col-sm-8">
-                                        <input type="text" id="jam_awal" name="jam_awal" data-inputmask='"mask": "99:99:99"' data-mask="" onchange="checkConflict()" class="form-control" required>
+                                        <input type="text" id="jam_awal" name="jam_awal" data-inputmask='"mask": "99:99"' data-mask="" onchange="checkConflict()" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-4">Jam Selesai</label>
                                     <div class="col-sm-8">
-                                        <input type="text" id="jam_selesai" name="jam_selesai" data-inputmask='"mask": "99:99:99"' data-mask="" onchange="checkConflict()" class="form-control" required>
+                                        <input type="text" id="jam_selesai" name="jam_selesai" data-inputmask='"mask": "99:99"' data-mask="" onchange="checkConflict()" class="form-control" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
