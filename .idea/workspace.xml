@@ -6,13 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/config/migration.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/config/migration.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/lembur.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/lembur.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/lembur/v_edit.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/lembur/v_edit.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/lembur/v_input.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/lembur/v_input.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1708133673.2392.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1708133673.2585.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -342,7 +336,7 @@
     "database.data.extractors.current.export.id": "SQL Inserts",
     "database.data.extractors.current.id": "SQL Inserts",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/PROJECT/hrms.nusa/application/migrations/sql/00026.20240221.18.Lembur/-down",
+    "last_opened_file_path": "D:/PROJECT/hrms.cni",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -728,7 +722,7 @@
       <workItem from="1705975321649" duration="4059000" />
       <workItem from="1707719223539" duration="15913000" />
       <workItem from="1708058562413" duration="12202000" />
-      <workItem from="1708518689151" duration="14638000" />
+      <workItem from="1708518689151" duration="15836000" />
     </task>
     <servers />
   </component>

@@ -1,9 +1,6 @@
 <?php
 class M_dinas extends CI_Model{
 
-
-
-
 	function list_karyawan(){
 		return $this->db->query("select a.*,b.nmdept from sc_mst.karyawan a
 								left outer join sc_mst.departmen b on a.bag_dept=b.kddept where a.tglkeluarkerja is null
@@ -35,7 +32,7 @@ class M_dinas extends CI_Model{
                WHEN jenis_tujuan IS NULL THEN 'LL'
                ELSE jenis_tujuan
            END AS jenis_tujuan,
-        ( select true from sc_trx.cashbon where dutieid = x1.nodok ) as casboned, (select true from sc_trx.declaration_cashbon where dutieid = x1.nodok ) as declared from 
+        ( select true from sc_trx.cashbon where dutieid = x1.nodok and status='P' ) as casboned, (select true from sc_trx.declaration_cashbon where dutieid = x1.nodok and status='P') as declared from 
 		(select a.*,b.nmlengkap,c.nmdept,d.namakotakab,b.nohp1,
 								case
 								when a.status='A' then 'PERLU PERSETUJUAN'
