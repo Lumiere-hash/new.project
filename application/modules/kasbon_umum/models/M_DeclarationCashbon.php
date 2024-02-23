@@ -88,7 +88,7 @@ SELECT *,
        END AS statuscolor
 FROM (
          (
-             SELECT
+             SELECT distinct ON (declarationid)
                  COALESCE(TRIM(a.branch), '') AS branch,
                  CASE
                      WHEN b.nodok is not null THEN COALESCE(TRIM(a.dutieid), '')

@@ -482,10 +482,11 @@ class DeclarationCashbonDinas extends CI_Controller
             $casboned = TRUE;
             $days=$this->M_DeclarationCashbon->q_days_read_where(' AND dutieid IN (' . $dutiein . ') AND cashbonid = \'' . $json->cashbonid . '\' ')->result();
         }else{
-            $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \'' . $json->dutieid . '\' ');
+			$dutiein = "'" . implode("','", explode(",", $json->dutieid)) . "'";
+            $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok IN ('.$dutiein.')  ');
             $days = array();
             $casboned = FALSE;
-            $dutiein = ' \'X\' ';
+            //$dutiein = ' \'X\' ';
         }
 //        $dutiein = "'" . implode("','", explode(",", $temporary->dutieid)) . "'";
 //        $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok IN(' . $dutiein . ') ');
