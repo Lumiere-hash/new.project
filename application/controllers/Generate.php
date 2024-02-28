@@ -1,5 +1,5 @@
 <?php
-
+/*UPDATED BY RKM::20240228*/
 class Generate extends CI_Controller
 {
     public function uangmakan()
@@ -21,28 +21,10 @@ class Generate extends CI_Controller
             $this->m_uang_makan->insert_rencana_kunjungan($host, $dbname, $userpg, $passpg, $start, $end);
             foreach ($this->M_RegionalOffice->read()->result() as $index => $item) {
                 $this->db->query("select sc_tmp.pr_hitung_rekap_um('$item->kdcabang','$start', '$end')");
+                $this->db->query("sc_trx.pr_insert_meal_allowance('$start', '$end')");
                 array_push($arr,array('office'=>$item->kdcabang));
             }
-            $this->db->query("
-                INSERT INTO sc_trx.meal_allowance
-                    (branch, nik, tgl, checkin, checkout, nominal, keterangan, tgl_dok, dok_ref, rencanacallplan, realisasicallplan, bbm, sewa_kendaraan)
-                SELECT * FROM sc_trx.uangmakan a
-                WHERE a.tgl between '$start' AND '$end'
-                ON CONFLICT (nik,tgl)
-                DO UPDATE SET
-                    (checkin,
-                    checkout,
-                    nominal,
-                    keterangan,
-                    tgl_dok,
-                    dok_ref,
-                    rencanacallplan,
-                    realisasicallplan,
-                    bbm,
-                    sewa_kendaraan) =
-                    (EXCLUDED.checkin, EXCLUDED.checkout, EXCLUDED.nominal, EXCLUDED.keterangan, EXCLUDED.tgl_dok, EXCLUDED.dok_ref, EXCLUDED.rencanacallplan,EXCLUDED.realisasicallplan,EXCLUDED.bbm,EXCLUDED.sewa_kendaraan);
-                RETURN NEW;
-            ");
+            
             $this->db->trans_complete();
             if ($this->db->trans_status()) {
                 $this->db->trans_commit();
