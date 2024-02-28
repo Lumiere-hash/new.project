@@ -60,7 +60,12 @@ CONCAT(REGEXP_REPLACE(
             WHEN '0' THEN CONCAT('62', RIGHT(COALESCE(TRIM(k2.nohp1), '08815574311'), -1))
             ELSE COALESCE(TRIM(k2.nohp1), '08815574311')
         END, '[^\w]+', '', 'g'), '@s.whatsapp.net') AS approverjid,
-CASE
+CONCAT(REGEXP_REPLACE(
+        CASE LEFT(COALESCE(TRIM(k.nohp1), '08815574311'), 1)
+            WHEN '0' THEN CONCAT('62', RIGHT(COALESCE(TRIM(k.nohp1), '08815574311'), -1))
+            ELSE COALESCE(TRIM(k.nohp1), '08815574311')
+        END, '[^\w]+', '', 'g'), '@s.whatsapp.net') AS userjid,
+        CASE
 	WHEN ck.type_ijin = 'DN' THEN 'DINAS'
 	WHEN ck.type_ijin = 'PB' THEN 'PRIBADI'
 END AS tipe_ijin,

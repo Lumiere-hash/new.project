@@ -9,15 +9,17 @@ class WhatsApp extends MX_Controller
     {
         parent::__construct();
         $this->load->library('wkhtmltoimage');
-        $this->load->model(array(
-            'm_setup',
-            'm_cabang',
-            'm_cuti',
-            'm_dinas',
-            'm_ijin',
-            'm_lembur',
-            'm_sppb',
-        ));
+        $this->load->model(
+            array(
+                'm_setup',
+                'm_cabang',
+                'm_cuti',
+                'm_dinas',
+                'm_ijin',
+                'm_lembur',
+                'm_sppb',
+            )
+        );
     }
 
     public function index()
@@ -60,7 +62,8 @@ class WhatsApp extends MX_Controller
                 'user_name' => $this->m_setup->q_mst_read_value(' AND parameter = \'WA-USER:' . $branch . '\'', 'root'),
                 'password' => $this->m_setup->q_mst_read_value(' AND parameter = \'WA-PASSWORD:' . $branch . '\'', '#Admin#'),
             ),
-        ));
+        )
+        );
         $response = curl_exec($curl);
         $info = curl_getinfo($curl);
         $body = json_decode($response);
@@ -110,22 +113,24 @@ class WhatsApp extends MX_Controller
                         $this->db->insert('sc_mst.option', $data);
                     }
                     header('Content-Type: application/json');
-                    echo json_encode(array(
-                        'return' => true,
-                        'info' => $info,
-                        'body' => $body,
-                    ), JSON_PRETTY_PRINT);
+                    echo json_encode(
+                        array(
+                            'return' => true,
+                            'info' => $info,
+                            'body' => $body,
+                        ), JSON_PRETTY_PRINT);
                     return true;
                 } catch (\Exception $e) {
                 }
             }
         }
         header('Content-Type: application/json');
-        echo json_encode(array(
-            'return' => false,
-            'info' => $info,
-            'body' => $body,
-        ), JSON_PRETTY_PRINT);
+        echo json_encode(
+            array(
+                'return' => false,
+                'info' => $info,
+                'body' => $body,
+            ), JSON_PRETTY_PRINT);
         return false;
     }
 
@@ -147,7 +152,8 @@ class WhatsApp extends MX_Controller
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => array('refresh' => $this->m_setup->q_mst_read_value(' AND parameter = \'WA-REFRESH:' . $branch . '\'', 'refresh')),
-        ));
+        )
+        );
         $response = curl_exec($curl);
         $info = curl_getinfo($curl);
         $body = json_decode($response);
@@ -200,22 +206,24 @@ class WhatsApp extends MX_Controller
                         $this->db->insert('sc_mst.option', $data);
                     }
                     header('Content-Type: application/json');
-                    echo json_encode(array(
-                        'return' => true,
-                        'info' => $info,
-                        'body' => $body,
-                    ), JSON_PRETTY_PRINT);
+                    echo json_encode(
+                        array(
+                            'return' => true,
+                            'info' => $info,
+                            'body' => $body,
+                        ), JSON_PRETTY_PRINT);
                     return true;
                 } catch (\Exception $e) {
                 }
             }
         }
         header('Content-Type: application/json');
-        echo json_encode(array(
-            'return' => false,
-            'info' => $info,
-            'body' => $body,
-        ), JSON_PRETTY_PRINT);
+        echo json_encode(
+            array(
+                'return' => false,
+                'info' => $info,
+                'body' => $body,
+            ), JSON_PRETTY_PRINT);
         return false;
     }
 
@@ -229,14 +237,14 @@ class WhatsApp extends MX_Controller
         return $charcode;
     }
 
-    public function msgcuti()
+    public function msgcuti($sent = false)
     {
         $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
 
         $messages = [];
         foreach ($this->m_cuti->q_whatsapp_collect_where('
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
-        AND ck.status = \'A\' AND whatsappsent = FALSE
+        AND ck.status = \'A\' AND whatsappsent = '.$sent.'
         ORDER BY input_date desc
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
@@ -409,14 +417,14 @@ class WhatsApp extends MX_Controller
         }
     }
 
-    public function msgijindt()
+    public function msgijindt($sent = false)
     {
         $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
 
         $messages = [];
         foreach ($this->m_ijin->q_whatsapp_collect_where(' 
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
-        AND ck.kdijin_absensi = \'DT\' AND ck.status = \'A\' AND whatsappsent = FALSE
+        AND ck.kdijin_absensi = \'DT\' AND ck.status = \'A\' AND whatsappsent = '.$sent.'
         ORDER BY input_date desc
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
@@ -455,7 +463,7 @@ class WhatsApp extends MX_Controller
                             <td valign=\'top\' style=\'width: 65%;\'><b>' . $item->jam_mulai . '</b></td>
                           </tr>
                           <tr>
-                            <td valign=\'top\' style=\'width: 30%;\'>Keterangan Cuti</td>
+                            <td valign=\'top\' style=\'width: 30%;\'>Keterangan Izin</td>
                             <td valign=\'top\' style=\'width: 5%; text-align: left;\'>:</td>
                             <td valign=\'top\' style=\'width: 65%;\'><b>' . $item->keterangan . '</b></td>
                           </tr>
@@ -584,14 +592,14 @@ class WhatsApp extends MX_Controller
         }
     }
 
-    public function msgijinik()
+    public function msgijinik($sent = false)
     {
         $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
 
         $messages = [];
         foreach ($this->m_ijin->q_whatsapp_collect_where(' 
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
-        AND ck.kdijin_absensi = \'IK\' AND ck.status = \'A\' AND whatsappsent = FALSE
+        AND ck.kdijin_absensi = \'IK\' AND ck.status = \'A\' AND whatsappsent = '.$sent.'
         ORDER BY input_date desc
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
@@ -635,7 +643,7 @@ class WhatsApp extends MX_Controller
                             <td valign=\'top\' style=\'width: 65%;\'><b>' . $item->jam_selesai . '</b></td>
                           </tr>
                           <tr>
-                            <td valign=\'top\' style=\'width: 30%;\'>Keterangan Cuti</td>
+                            <td valign=\'top\' style=\'width: 30%;\'>Keterangan Izin</td>
                             <td valign=\'top\' style=\'width: 5%; text-align: left;\'>:</td>
                             <td valign=\'top\' style=\'width: 65%;\'><b>' . $item->keterangan . '</b></td>
                           </tr>
@@ -764,14 +772,14 @@ class WhatsApp extends MX_Controller
         }
     }
 
-    public function msgijinpa()
+    public function msgijinpa($sent = false)
     {
         $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
 
         $messages = [];
         foreach ($this->m_ijin->q_whatsapp_collect_where(' 
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
-        AND ck.kdijin_absensi = \'PA\' AND ck.status = \'A\' AND whatsappsent = FALSE
+        AND ck.kdijin_absensi = \'PA\' AND ck.status = \'A\' AND whatsappsent = '.$sent.'
         ORDER BY input_date desc
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
@@ -810,7 +818,7 @@ class WhatsApp extends MX_Controller
                                 <td valign=\'top\' style=\'width: 65%;\'><b>' . $item->jam_selesai . '</b></td>
                               </tr>
                               <tr>
-                                <td valign=\'top\' style=\'width: 30%;\'>Keterangan Cuti</td>
+                                <td valign=\'top\' style=\'width: 30%;\'>Keterangan Izin</td>
                                 <td valign=\'top\' style=\'width: 5%; text-align: left;\'>:</td>
                                 <td valign=\'top\' style=\'width: 65%;\'><b>' . $item->keterangan . '</b></td>
                               </tr>
@@ -939,14 +947,14 @@ class WhatsApp extends MX_Controller
         }
     }
 
-    public function msglembur()
+    public function msglembur($sent = false)
     {
         $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
 
         $messages = [];
         foreach ($this->m_lembur->q_whatsapp_collect_where('
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
-        AND ck.status = \'A\' AND whatsappsent = FALSE
+        AND ck.status = \'A\' AND whatsappsent = '.$sent.'
         ORDER BY input_date desc
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
@@ -1124,14 +1132,14 @@ class WhatsApp extends MX_Controller
         }
     }
 
-    public function msgdinas()
+    public function msgdinas($sent = false)
     {
         $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
 
         $messages = [];
         foreach ($this->m_dinas->q_whatsapp_collect_where('
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
-        AND ck.status = \'A\' AND whatsappsent = FALSE
+        AND ck.status = \'A\' AND whatsappsent = '.$sent.'
         ORDER BY input_date desc
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
@@ -1304,14 +1312,14 @@ class WhatsApp extends MX_Controller
         }
     }
 
-    public function msgsppb()
+    public function msgsppb($sent = false)
     {
         $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
 
         $messages = [];
         foreach ($this->m_sppb->q_whatsapp_collect_where('
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
-        AND ck.status = \'A\' AND whatsappsent = FALSE
+        AND ck.status = \'A\' AND whatsappsent = '.$sent.'
         ORDER BY input_date desc
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
@@ -1573,6 +1581,292 @@ class WhatsApp extends MX_Controller
             } else {
                 if ($this->auth()) {
                     $this->msgsppb();
+                }
+            }
+        }
+    }
+
+    public function resendapprovalcuti()
+    {
+        if ($this->msgcuti(true)) {
+        } else {
+            if ($this->refresh()) {
+                $this->msgcuti(true);
+            } else {
+                if ($this->auth()) {
+                    $this->msgcuti(true);
+                }
+            }
+        }
+    }
+
+    public function resendapprovalijindt()
+    {
+        if ($this->msgijindt(true)) {
+        } else {
+            if ($this->refresh()) {
+                $this->msgijindt(true);
+            } else {
+                if ($this->auth()) {
+                    $this->msgijindt(true);
+                }
+            }
+        }
+    }
+
+    public function resendapprovalijinik()
+    {
+        if ($this->msgijinik(true)) {
+        } else {
+            if ($this->refresh()) {
+                $this->msgijinik(true);
+            } else {
+                if ($this->auth()) {
+                    $this->msgijinik(true);
+                }
+            }
+        }
+    }
+
+    public function resendapprovalijinpa()
+    {
+        if ($this->msgijinpa(true)) {
+        } else {
+            if ($this->refresh()) {
+                $this->msgijinpa(true);
+            } else {
+                if ($this->auth()) {
+                    $this->msgijinpa(true);
+                }
+            }
+        }
+    }
+
+    public function resendapprovallembur()
+    {
+        if ($this->msglembur(true)) {
+        } else {
+            if ($this->refresh()) {
+                $this->msglembur(true);
+            } else {
+                if ($this->auth()) {
+                    $this->msglembur(true);
+                }
+            }
+        }
+    }
+
+    public function resendapprovaldinas()
+    {
+        if ($this->msgdinas(true)) {
+        } else {
+            if ($this->refresh()) {
+                $this->msgdinas(true);
+            } else {
+                if ($this->auth()) {
+                    $this->msgdinas(true);
+                }
+            }
+        }
+    }
+
+    public function cancelationNotificationMessage($type)
+    {
+        $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
+
+        $messages = [];
+        if ($type == 'CUTI') {
+            foreach ($this->m_cuti->q_whatsapp_collect_where('
+            AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
+            AND ck.status = \'C\' AND ck.cancel_by = \'SYSTEM\' AND cancel_date::date = now()::date
+            ORDER BY input_date desc
+            LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
+
+                array_push(
+                    $messages,
+                    array(
+                        'message' => json_encode(
+                            array(
+                                'message' => "Pengajuan *CUTI* dengan nomor dokumen *$item->nodok*, atas nama *$item->nama*. Pada tanggal: $item->tgl_mulai - $item->tgl_selesai. Telah *Dibatalkan* otomatis oleh SYSTEM",
+                            )
+                        ),
+                        'message_type' => 'conversation',
+                        'outbox_for' => $item->userjid,
+                        'retry' => 1,
+                        'session' => $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SESSION:' . $branch . '\'', 'session'),
+                    )
+                );
+            }
+        } elseif ($type == 'IJIN') {
+            foreach ($this->m_ijin->q_whatsapp_collect_where('
+            AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
+            AND ck.status = \'C\' AND ck.cancel_by = \'SYSTEM\' AND cancel_date::date = now()::date
+            ORDER BY input_date desc
+            LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
+
+                array_push(
+                    $messages,
+                    array(
+                        'message' => json_encode(
+                            array(
+                                'message' => "Pengajuan *$item->jenis_ijin $item->tipe_ijin* dengan nomor dokumen *$item->nodok*, atas nama *$item->nama*. Pada tanggal: $item->tgl_kerja. Telah *Dibatalkan* otomatis oleh SYSTEM",
+                            )
+                        ),
+                        'message_type' => 'conversation',
+                        'outbox_for' => $item->userjid,
+                        'retry' => 1,
+                        'session' => $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SESSION:' . $branch . '\'', 'session'),
+                    )
+                );
+            }
+        } elseif ($type == 'DINAS') {
+            foreach ($this->m_dinas->q_whatsapp_collect_where('
+            AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
+            AND ck.status = \'C\' AND ck.cancel_by = \'SYSTEM\' AND cancel_date::date = now()::date
+            ORDER BY input_date desc
+            LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
+
+                array_push(
+                    $messages,
+                    array(
+                        'message' => json_encode(
+                            array(
+                                'message' => "Pengajuan *DINAS* dengan nomor dokumen *$item->nodok*, atas nama *$item->nama*. Pada tanggal: $item->tgl_mulai - $item->tgl_selesai. Telah *Dibatalkan* otomatis oleh SYSTEM",
+                            )
+                        ),
+                        'message_type' => 'conversation',
+                        'outbox_for' => $item->userjid,
+                        'retry' => 1,
+                        'session' => $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SESSION:' . $branch . '\'', 'session'),
+                    )
+                );
+            }
+        } elseif ($type == 'LEMBUR') {
+            foreach ($this->m_lembur->q_whatsapp_collect_where('
+            AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
+            AND ck.status = \'C\' AND ck.cancel_by = \'SYSTEM\' AND cancel_date::date = now()::date
+            ORDER BY input_date desc
+            LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
+
+                array_push(
+                    $messages,
+                    array(
+                        'message' => json_encode(
+                            array(
+                                'message' => "Pengajuan *LEMBUR* dengan nomor dokumen *$item->nodok*, atas nama *$item->nama*. Pada tanggal: $item->tgl_kerja. Telah *Dibatalkan* otomatis oleh SYSTEM",
+                            )
+                        ),
+                        'message_type' => 'conversation',
+                        'outbox_for' => $item->userjid,
+                        'retry' => 1,
+                        'session' => $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SESSION:' . $branch . '\'', 'session'),
+                    )
+                );
+            }
+        }
+        if (count($messages) > 0) {
+            $curl = curl_init();
+            curl_setopt_array(
+                $curl,
+                array(
+                    CURLOPT_URL => $this->m_setup->q_mst_read_value(' AND parameter = \'WA-BASE-URL:' . $branch . '\'', 'https://syifarahmat.github.io/whatsapp.bot/') . 'whatsapp/api/outbox/',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_SSL_VERIFYPEER => false,
+                    CURLOPT_SSL_VERIFYHOST => false,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => json_encode($messages),
+                    CURLOPT_HTTPHEADER => array(
+                        'Authorization: Bearer ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-ACCESS:' . $branch . '\' ', 'access'),
+                        'Content-Type: application/json'
+                    ),
+                )
+            );
+            $response = curl_exec($curl);
+            $info = curl_getinfo($curl);
+            $body = json_decode($response);
+            curl_close($curl);
+            if ($body) {
+                if ($info['http_code'] == 201) {
+                    foreach ($body as $row) {
+                        $this->m_cuti->q_trx_update(
+                            array(
+                                'whatsappsent' => TRUE,
+                            ),
+                            array('TRIM(nodok)' => $row->properties->objectid)
+                        );
+                        $this->db->insert(
+                            'sc_log.success_notifications',
+                            array(
+                                'modul' => 'notification',
+                                'message' => json_encode($body),
+                                'properties' => json_encode($info),
+                                'input_by' => 'SYSTEM',
+                                'input_date' => date('Y-m-d H:i:s'),
+                            )
+                        );
+                    }
+                    header('Content-Type: application/json');
+                    echo json_encode(
+                        array(
+                            'return' => false,
+                            'info' => $info,
+                            'body' => $body,
+                        ),
+                        JSON_PRETTY_PRINT
+                    );
+                    return true;
+                } else {
+                    $this->db->insert(
+                        'sc_log.error_notifications',
+                        array(
+                            'modul' => 'notification',
+                            'message' => json_encode($body),
+                            'properties' => json_encode($info),
+                            'input_by' => 'SYSTEM',
+                            'input_date' => date('Y-m-d H:i:s'),
+                        )
+                    );
+                }
+            }
+            header('Content-Type: application/json');
+            echo json_encode(
+                array(
+                    'return' => false,
+                    'info' => $info,
+                    'body' => $body,
+                ),
+                JSON_PRETTY_PRINT
+            );
+            return false;
+        } else {
+            header('Content-Type: application/json');
+            echo json_encode(
+                array(
+                    'return' => true,
+                    'info' => array(),
+                    'body' => array(),
+                    'message' => 'Empty data will skip post to whatsapp bot',
+                ),
+                JSON_PRETTY_PRINT
+            );
+            return true;
+        }
+    }
+
+    public function sendCancelationNotification($type)
+    {
+        if ($this->cancelationNotificationMessage($type)) {
+        } else {
+            if ($this->refresh()) {
+                $this->cancelationNotificationMessage($type);
+            } else {
+                if ($this->auth()) {
+                    $this->cancelationNotificationMessage($type);
                 }
             }
         }
