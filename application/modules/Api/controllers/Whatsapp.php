@@ -1678,7 +1678,7 @@ class WhatsApp extends MX_Controller
         if ($type == 'CUTI') {
             foreach ($this->m_cuti->q_whatsapp_collect_where('
             AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
-            AND ck.status = \'C\' AND ck.cancel_by = \'SYSTEM\' AND cancel_date::date = now()::date AND whatsappreject = FALSE
+            AND ck.status = \'C\' AND cancel_date::date = now()::date AND whatsappreject = FALSE
             ORDER BY input_date desc
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
 
@@ -1703,7 +1703,7 @@ class WhatsApp extends MX_Controller
         } elseif ($type == 'IJIN') {
             foreach ($this->m_ijin->q_whatsapp_collect_where('
             AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
-            AND ck.status = \'C\' AND ck.cancel_by = \'SYSTEM\' AND cancel_date::date = now()::date AND whatsappreject = FALSE
+            AND ck.status = \'C\' AND cancel_date::date = now()::date AND whatsappreject = FALSE
             ORDER BY input_date desc
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
 
@@ -1728,7 +1728,7 @@ class WhatsApp extends MX_Controller
         } elseif ($type == 'DINAS') {
             foreach ($this->m_dinas->q_whatsapp_collect_where('
             AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
-            AND ck.status = \'C\' AND ck.cancel_by = \'SYSTEM\' AND cancel_date::date = now()::date AND whatsappreject = FALSE
+            AND ck.status = \'C\' AND cancel_date::date = now()::date AND whatsappreject = FALSE
             ORDER BY input_date desc
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
 
@@ -1753,7 +1753,7 @@ class WhatsApp extends MX_Controller
         } elseif ($type == 'LEMBUR') {
             foreach ($this->m_lembur->q_whatsapp_collect_where('
             AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
-            AND ck.status = \'C\' AND ck.cancel_by = \'SYSTEM\' AND cancel_date::date = now()::date AND whatsappreject = FALSE
+            AND ck.status = \'C\' AND cancel_date::date = now()::date AND whatsappreject = FALSE
             ORDER BY input_date desc
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
 
