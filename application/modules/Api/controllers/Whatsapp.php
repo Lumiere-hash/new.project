@@ -237,7 +237,7 @@ class WhatsApp extends MX_Controller
         return $charcode;
     }
 
-    public function msgcuti($sent = false)
+    public function msgcuti($sent = 'false')
     {
         $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
 
@@ -417,7 +417,7 @@ class WhatsApp extends MX_Controller
         }
     }
 
-    public function msgijindt($sent = false)
+    public function msgijindt($sent = 'false')
     {
         $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
 
@@ -592,7 +592,7 @@ class WhatsApp extends MX_Controller
         }
     }
 
-    public function msgijinik($sent = false)
+    public function msgijinik($sent = 'false')
     {
         $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
 
@@ -772,7 +772,7 @@ class WhatsApp extends MX_Controller
         }
     }
 
-    public function msgijinpa($sent = false)
+    public function msgijinpa($sent = 'false')
     {
         $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
 
@@ -947,7 +947,7 @@ class WhatsApp extends MX_Controller
         }
     }
 
-    public function msglembur($sent = false)
+    public function msglembur($sent = 'false')
     {
         $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
 
@@ -1132,7 +1132,7 @@ class WhatsApp extends MX_Controller
         }
     }
 
-    public function msgdinas($sent = false)
+    public function msgdinas($sent = 'false')
     {
         $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
 
@@ -1312,7 +1312,7 @@ class WhatsApp extends MX_Controller
         }
     }
 
-    public function msgsppb($sent = false)
+    public function msgsppb($sent = 'false')
     {
         $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
 
@@ -1588,13 +1588,13 @@ class WhatsApp extends MX_Controller
 
     public function resendapprovalcuti()
     {
-        if ($this->msgcuti(true)) {
+        if ($this->msgcuti('true')) {
         } else {
             if ($this->refresh()) {
-                $this->msgcuti(true);
+                $this->msgcuti('true');
             } else {
                 if ($this->auth()) {
-                    $this->msgcuti(true);
+                    $this->msgcuti('true');
                 }
             }
         }
@@ -1602,13 +1602,13 @@ class WhatsApp extends MX_Controller
 
     public function resendapprovalijindt()
     {
-        if ($this->msgijindt(true)) {
+        if ($this->msgijindt('true')) {
         } else {
             if ($this->refresh()) {
-                $this->msgijindt(true);
+                $this->msgijindt('true');
             } else {
                 if ($this->auth()) {
-                    $this->msgijindt(true);
+                    $this->msgijindt('true');
                 }
             }
         }
@@ -1616,13 +1616,13 @@ class WhatsApp extends MX_Controller
 
     public function resendapprovalijinik()
     {
-        if ($this->msgijinik(true)) {
+        if ($this->msgijinik('true')) {
         } else {
             if ($this->refresh()) {
-                $this->msgijinik(true);
+                $this->msgijinik('true');
             } else {
                 if ($this->auth()) {
-                    $this->msgijinik(true);
+                    $this->msgijinik('true');
                 }
             }
         }
@@ -1630,13 +1630,13 @@ class WhatsApp extends MX_Controller
 
     public function resendapprovalijinpa()
     {
-        if ($this->msgijinpa(true)) {
+        if ($this->msgijinpa('true')) {
         } else {
             if ($this->refresh()) {
-                $this->msgijinpa(true);
+                $this->msgijinpa('true');
             } else {
                 if ($this->auth()) {
-                    $this->msgijinpa(true);
+                    $this->msgijinpa('true');
                 }
             }
         }
@@ -1644,13 +1644,13 @@ class WhatsApp extends MX_Controller
 
     public function resendapprovallembur()
     {
-        if ($this->msglembur(true)) {
+        if ($this->msglembur('true')) {
         } else {
             if ($this->refresh()) {
-                $this->msglembur(true);
+                $this->msglembur('true');
             } else {
                 if ($this->auth()) {
-                    $this->msglembur(true);
+                    $this->msglembur('true');
                 }
             }
         }
@@ -1658,13 +1658,13 @@ class WhatsApp extends MX_Controller
 
     public function resendapprovaldinas()
     {
-        if ($this->msgdinas(true)) {
+        if ($this->msgdinas('true')) {
         } else {
             if ($this->refresh()) {
-                $this->msgdinas(true);
+                $this->msgdinas('true');
             } else {
                 if ($this->auth()) {
-                    $this->msgdinas(true);
+                    $this->msgdinas('true');
                 }
             }
         }
