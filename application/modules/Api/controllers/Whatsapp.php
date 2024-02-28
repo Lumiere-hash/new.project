@@ -1694,6 +1694,9 @@ class WhatsApp extends MX_Controller
                         'outbox_for' => $item->userjid,
                         'retry' => 1,
                         'session' => $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SESSION:' . $branch . '\'', 'session'),
+                        'properties' => array(
+                            'objectid' => $item->nodok,
+                        ),
                     )
                 );
             }
@@ -1716,6 +1719,9 @@ class WhatsApp extends MX_Controller
                         'outbox_for' => $item->userjid,
                         'retry' => 1,
                         'session' => $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SESSION:' . $branch . '\'', 'session'),
+                        'properties' => array(
+                            'objectid' => $item->nodok,
+                        ),
                     )
                 );
             }
@@ -1738,6 +1744,9 @@ class WhatsApp extends MX_Controller
                         'outbox_for' => $item->userjid,
                         'retry' => 1,
                         'session' => $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SESSION:' . $branch . '\'', 'session'),
+                        'properties' => array(
+                            'objectid' => $item->nodok,
+                        ),
                     )
                 );
             }
@@ -1760,6 +1769,9 @@ class WhatsApp extends MX_Controller
                         'outbox_for' => $item->userjid,
                         'retry' => 1,
                         'session' => $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SESSION:' . $branch . '\'', 'session'),
+                        'properties' => array(
+                            'objectid' => $item->nodok,
+                        ),
                     )
                 );
             }
