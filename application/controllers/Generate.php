@@ -21,10 +21,9 @@ class Generate extends CI_Controller
             $this->m_uang_makan->insert_rencana_kunjungan($host, $dbname, $userpg, $passpg, $start, $end);
             foreach ($this->M_RegionalOffice->read()->result() as $index => $item) {
                 $this->db->query("select sc_tmp.pr_hitung_rekap_um('$item->kdcabang','$start', '$end')");
-                $this->db->query("sc_trx.pr_insert_meal_allowance('$start', '$end')");
+                $this->db->query("select sc_trx.pr_insert_meal_allowance('$start', '$end')");
                 array_push($arr,array('office'=>$item->kdcabang));
             }
-            
             $this->db->trans_complete();
             if ($this->db->trans_status()) {
                 $this->db->trans_commit();

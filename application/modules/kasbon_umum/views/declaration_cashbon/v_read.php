@@ -13,41 +13,12 @@
     <div class="box-header">
         <div class="col-sm-12">
             <h3><?php echo $title ?></h3><br>
-            <a href="<?php echo $createUrl ?>" class="btn btn-md btn-instagram">Buat Deklarasi</a>
+            <a href="<?php echo $createUrl ?>" class="btn btn-md btn-instagram"><span><i class="fa fa-plus"></i></span> Buat Deklarasi</a>
+            <a href="javascript:void(0)" data-href="<?php echo $filterUrl ?>" data-action="filter" class="btn btn-md btn-twitter filter"><span><i class="fa fa-search"></i></span> Filter Pencarian</a>
         </div>
     </div>
     <div class="box-body">
-        <form class="container-fluid ml-5 mr-5 mb-3" >
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group mt-2 mb-2">
-                        <label class="form-label" for="declarationcashbonstatus">Status</label>
-                        <select class="form-control dtsearch select2" name="declarationcashbonstatus" id="declarationcashbonstatus" >
-                            <?php
-							echo '<option value="">SEMUA</option>';
-                            foreach ($status as $key => $row){
-                                echo '<option value="'.$key.'">'.strtoupper($row).'</option>';
-                            }
-                            ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group mt-2 mb-2">
-                        <label class="form-label" for="type">Tipe</label>
-                        <select class="form-control dtsearch select2" name="declarationcashbontype" id="declarationcashbontype" >
-                            <?php
-                            echo '<option value="">SEMUA</option>';
-                            foreach ($type as $key => $row){
-                                echo '<option value="'.$row->text.'">'.$row->text.'</option>';
-                            }
-                            ?>
-                        </select>
-                    </div>
-                </div>
-            </div>
 
-        </form>
         <div class="col-sm-12 table-responsive">
             <?php
             $this->datatablessp->generatetable();
@@ -57,43 +28,50 @@
     </div>
 </div>
 <div class="modal fade" id="printcashbon" role="dialog" aria-hidden="true"></div>
+<div class="modal fade" id="modify-data" role="dialog" aria-hidden="true"></div>
 <script>
+    function loadmodal(url) {
+        $('div#modify-data')
+            .empty()
+            .load(url, {}, function (response, status, xhr) {
+                if (status === 'error') {
+                    Swal.mixin({
+                        customClass: {
+                            confirmButton: 'btn btn-sm btn-success m-1',
+                            cancelButton: 'btn btn-sm btn-warning m-1',
+                            denyButton: 'btn btn-sm btn-danger m-1',
+                        },
+                        buttonsStyling: false,
+                    }).fire({
+                        position: 'top',
+                        icon: 'error',
+                        title: 'Gagal Memuat Detail',
+                        html: (xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : xhr.statusText),
+                        showCloseButton: true,
+                        showConfirmButton: false,
+                        showDenyButton: true,
+                        denyButtonText: `Tutup`,
+                    }).then(function () {
+                    });
+                } else {
+                    $('div#modify-data').modal('show');
+                }
+            });
+    }
     $("input[name=\'filterdate\']").datepicker( {
         format: "mm-yyyy",
         startView: "year",
         minViewMode: "months"
     });
-    function defaultFilter(){
-        var status = $('select#declarationcashbonstatus')
-        var table = $('table#table-declarationcashbon').DataTable();
-        table
-            .columns()
-            .search('')
-            .column([5])
-            .search('')
-            .column([7])
-            .search(status.val())
-            .draw();
-    }
+
     $(document).ready(function() {
-        // $('select.select2').select2();
-        defaultFilter();
-
-        $('select.dtsearch').select2();
-
-        $('select.dtsearch').on('change',function (){
-            var status = $('select#declarationcashbonstatus')
-            var type = $('select#declarationcashbontype')
-            var table = $('table#table-declarationcashbon').DataTable();
-            table
-                .columns()
-                .search('')
-                .column([5])
-                .search(type.val())
-                .column([7])
-                .search(status.val())
-                .draw();
+        $('a.filter').on('click', function(){
+            var row = $(this);
+            console.log(row.attr('data-href'))
+            loadmodal(row.attr('data-href'))
         })
+
+
 
         $('table#table-declarationcashbon tbody').on('click', 'td a.read-detail', function () {
             var row = $(this);

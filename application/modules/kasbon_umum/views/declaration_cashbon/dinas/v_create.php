@@ -315,9 +315,10 @@
                     return repo.text;
                 }
                 return `
-<div class='row' style='width: 400px'>
-    <div class='col-sm-3'>${repo.id}</div>
-    <div class='col-sm-8'>${repo.text}</div>
+<div class='row' style='width: 600px'>
+    <div class='col-sm-2'>${repo.id}</div>
+    <div class='col-sm-4'>${repo.dutieperiod}</div>
+    <div class='col-sm-5'>${repo.tujuan_kota_text}</div>
 </div>`;
             },
             templateSelection: function (repo) {

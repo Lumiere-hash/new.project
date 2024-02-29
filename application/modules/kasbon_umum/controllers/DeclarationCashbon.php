@@ -10,51 +10,72 @@ class DeclarationCashbon extends CI_Controller {
             redirect(base_url() . '/');
         }
     }
-    public function index() {
+    public function index($param = null) {
         $this->load->library(array('datatablessp'));
         $this->load->model(array('trans/M_TrxType','trans/m_employee', 'M_DeclarationCashbon', 'M_DeclarationCashbonComponent' ,'master/m_option'));
         $data['type'] = $this->M_TrxType->q_master_search_where('
 			AND a.group IN (\'CASHBONTYPE\')
 			')->result();
+        $filter = '';
+        if (!is_null($param)){
+
+            $json = json_decode(hex2bin($param));
+
+            if (!is_null($json)){
+                if (!empty($json->month)){
+                    $filter .= ' AND TO_CHAR(documentdate,\'yyyymm\') = \''.$json->month.'\' ';
+                }
+                if (!empty($json->status)){
+                    $filter .= ' AND lower(statustext) = \''.$json->status.'\'  ';
+                }
+                if(!empty($json->type)){
+                    $filter .= ' AND lower(typetext) = \''.$json->type.'\'  ';
+                }
+            }else{
+                redirect('kasbon_umum/declarationcashbon/index');
+            }
+
+        }else{
+            $filter = ' AND TO_CHAR(documentdate,\'yyyymm\') = \''.date('yyyymm').'\' ';
+        }
+
         $this->M_DeclarationCashbon->q_temporary_delete(' TRUE AND  (declarationid = \''.trim($this->session->userdata('nik')).'\' OR inputby = \''.trim($this->session->userdata('nik')).'\' OR updateby = \''.trim($this->session->userdata('nik')).'\'  ) ');
         $this->M_DeclarationCashbonComponent->q_temporary_delete(' TRUE AND  (declarationid = \''.trim($this->session->userdata('nik')).'\' OR inputby = \''.trim($this->session->userdata('nik')).'\' OR updateby = \''.trim($this->session->userdata('nik')).'\'  ) ');
         $data['status'] = array('Menunggu Persetujuan' => 'Menunggu Persetujuan','Disetujui'=>'Disetujui','Dibatalkan'=>'Dibatalkan','Belum Dibuat Kasbon'=>'Belum Dibuat Kasbon','Belum Dibuat Deklarasi'=>'Belum Dibuat Deklarasi',''=>'Semua');
         $limitDate = $this->m_option->read(' AND kdoption = \'DCL:LIMIT:DATE\' AND group_option = \'DECLARATION\' ')->row();
         $limitDate = ((is_null($limitDate) OR empty($limitDate)) ? date('Y-m-d',strtotime('2023-09-01')) : $limitDate->value1 );
-//        $limitDate = date('Y-m-01');
+
         if ($this->m_akses->list_aksesperdep()->num_rows() > 0 OR strtoupper(trim($this->m_akses->q_user_check()->row()->level_akses)) === 'A') {
             $this->datatablessp->datatable('table-declarationcashbon', 'table table-striped table-bordered table-hover', true)
-                ->columns('branch, dutieid, cashbonid, type, typetext, documentid, documentdate, documentdateformat, departuredate, returndate, dutieperiod, employeeid, employeename, departmentname, subdepartmentname, statustext, statuscolor, category')
+                ->columns('branch, declarationid, type, typetext, documentdate, documentdateformat, departuredate, employeeid, employeename, departmentname, subdepartmentname, statustext, statuscolor, category')
                 ->addcolumn('no', 'no')
                 ->addcolumn('reformatstatus', '<span class=\'label mt-5 $2 \' style=\'font-size: small; \'>$1</span>','statustext, statuscolor')
-                ->addcolumn('popup', '<a href=\'javascript:void(0)\' data-href=\''.site_url('kasbon_umum/declarationcashbon/actionpopup/$1').'\' class=\'btn btn-sm btn-info popup pull-right\'><i class=\'fa fa-edit\'>&nbsp;&nbsp;AKSI</i></a>', 'branch, dutieid, cashbonid, type', true)
-                ->addcolumn('detail', '<a href=\'javascript:void(0)\' data-href=\''.site_url('kasbon_umum/declarationcashbon/detail/$1').'\' class=\'btn btn-sm bg-maroon read-detail pull-right\'><i class=\'fa fa-bars\'>&nbsp;&nbsp;RINCIAN</i></a>', 'branch, documentid, type, dutieid, category', true)
-                ->querystring($this->M_DeclarationCashbon->q_cashbon_txt_where(' AND TRUE AND TO_CHAR(documentdate,\'yyyy-mm-dd\') >= \''.$limitDate.'\' AND category = \'DECLARATION\' '))
+                ->addcolumn('popup', '<a href=\'javascript:void(0)\' data-href=\''.site_url('kasbon_umum/declarationcashbon/actionpopup/$1').'\' class=\'btn btn-sm btn-info popup pull-right\'><i class=\'fa fa-edit\'>&nbsp;&nbsp;AKSI</i></a>', 'branch, declarationid, type', true)
+                ->addcolumn('detail', '<a href=\'javascript:void(0)\' data-href=\''.site_url('kasbon_umum/declarationcashbon/detail/$1').'\' class=\'btn btn-sm bg-maroon read-detail pull-right\'><i class=\'fa fa-bars\'>&nbsp;&nbsp;RINCIAN</i></a>', 'branch, type, declarationid', true)
+                ->querystring($this->M_DeclarationCashbon->q_index_txt_where(' AND TO_CHAR(documentdate,\'yyyy-mm-dd\') >= \''.$limitDate.'\'  '.(isset($filter) ? $filter : '')))
                 ->header('No.', 'no', false, false, true)
                 ->header('<u>N</u>o.Dokumen', 'documentid', true, true, true, array('documentid','popup'))
                 ->header('Tanggal Dokumen', 'documentdate', true, true, true, array('documentdateformat'))
                 ->header('Nama Karyawan', 'employeename', true, true, true)
                 ->header('Jabatan', 'departmentname', true, true, true, array('departmentname', 'subdepartmentname'))
                 ->header('Tipe', 'typetext', true, true, true, array('typetext'))
-                ->header('Tanggal Dinas', 'departuredate', true, true, false, array('dutieperiod'))
                 ->header('Status', 'statustext', true, true, true, array('reformatstatus'))
                 ->header('', '', false, false, true, array('detail'));
             $this->datatablessp->generateajax();
         } else {
             $this->datatablessp->datatable('table-declarationcashbon', 'table table-striped table-bordered table-hover', true)
-                ->columns('branch, dutieid, cashbonid, type, typetext, documentid, documentdate, documentdateformat, departuredate, returndate, dutieperiod, employeeid, employeename, departmentname, subdepartmentname, statustext, statuscolor, category')
+                ->columns('branch, declarationid, type, typetext, documentdate, documentdateformat, departuredate, employeeid, employeename, departmentname, subdepartmentname, statustext, statuscolor, category')
                 ->addcolumn('no', 'no')
                 ->addcolumn('reformatstatus', '<span class=\'label mt-5 $2 \' style=\'font-size: small; \'>$1</span>','statustext, statuscolor')
-                ->addcolumn('popup', '<a href=\'javascript:void(0)\' data-href=\''.site_url('kasbon_umum/declarationcashbon/actionpopup/$1').'\' class=\'btn btn-sm btn-info popup pull-right\'><i class=\'fa fa-edit\'>&nbsp;&nbsp;AKSI</i></a>', 'branch, dutieid, cashbonid, type', true)
-                ->addcolumn('detail', '<a href=\'javascript:void(0)\' data-href=\''.site_url('kasbon_umum/declarationcashbon/detail/$1').'\' class=\'btn btn-sm bg-maroon read-detail pull-right\'><i class=\'fa fa-bars\'>&nbsp;&nbsp;RINCIAN</i></a>', 'branch, cashbonid, type, dutieid, category', true)
-                ->querystring($this->M_DeclarationCashbon->q_cashbon_txt_where(' AND search ILIKE \'%'.$this->session->userdata('nik').'%\' AND TO_CHAR(documentdate,\'yyyy-mm-dd\') >= \''.$limitDate.'\' AND  category = \'DECLARATION\''))
+                ->addcolumn('popup', '<a href=\'javascript:void(0)\' data-href=\''.site_url('kasbon_umum/declarationcashbon/actionpopup/$1').'\' class=\'btn btn-sm btn-info popup pull-right\'><i class=\'fa fa-edit\'>&nbsp;&nbsp;AKSI</i></a>', 'branch, declarationid, type', true)
+                ->addcolumn('detail', '<a href=\'javascript:void(0)\' data-href=\''.site_url('kasbon_umum/declarationcashbon/detail/$1').'\' class=\'btn btn-sm bg-maroon read-detail pull-right\'><i class=\'fa fa-bars\'>&nbsp;&nbsp;RINCIAN</i></a>', 'branch, type, declarationid', true)
+                ->querystring($this->M_DeclarationCashbon->q_index_txt_where(' AND search LIKE \'%'.$this->session->userdata('nik').'%\' AND TO_CHAR(documentdate,\'yyyy-mm-dd\') >= \''.'2024-02-01'.'\' '.(isset($filter) ? $filter : '')))
                 ->header('No.', 'no', false, false, true)
                 ->header('<u>N</u>o.Dokumen', 'documentid', true, true, true, array('documentid','popup'))
                 ->header('Tanggal Dokumen', 'documentdate', true, true, true, array('documentdateformat'))
                 ->header('Nama Karyawan', 'employeename', true, true, true)
                 ->header('Jabatan', 'departmentname', true, true, true, array('departmentname', 'subdepartmentname'))
                 ->header('Tipe', 'typetext', true, true, true, array('typetext'))
-                ->header('Tanggal Dinas', 'departuredate', true, true, false, array('dutieperiod'))
                 ->header('Status', 'statustext', true, true, true, array('reformatstatus'))
                 ->header('', '', false, false, true, array('detail'));
             $this->datatablessp->generateajax();
@@ -62,7 +83,45 @@ class DeclarationCashbon extends CI_Controller {
         }
         $data['title'] = 'Deklarasi Kasbon Karyawan';
         $data['createUrl'] = site_url('kasbon_umum/declarationcashbon/employee');
+        $data['filterUrl'] = site_url('kasbon_umum/declarationcashbon/filter');
         $this->template->display('kasbon_umum/declaration_cashbon/v_read', $data);
+    }
+
+    public function filter()
+    {
+        $this->load->model(array('trans/M_TrxType','trans/m_employee', 'M_DeclarationCashbon', 'M_DeclarationCashbonComponent' ,'master/m_option'));
+        $this->load->library(array('datedifference'));
+        $data = array(
+            'type' => $this->M_TrxType->q_master_search_where(' AND a.group IN (\'CASHBONTYPE\') ')->result(),
+            'status' => array(''=>'Semua','Menunggu Persetujuan' => 'Menunggu Persetujuan','Disetujui'=>'Disetujui','Dibatalkan'=>'Dibatalkan',),
+            'modalTitle' => 'Filter Pencarian',
+            'content' => 'kasbon_umum/declaration_cashbon/v_filter',
+            'formAction' => site_url('kasbon_umum/declarationcashbon/dofilter'),
+            'years' => $this->datedifference->years(5,2022),
+            'months' => $this->datedifference->months(),
+        );
+        $this->load->view($data['content'],$data);
+    }
+
+    public function dofilter()
+    {
+
+        $filterArr = array();
+        $month = sprintf("%02d", (int)$this->input->post('month'));
+        $year = $this->input->post('year');
+        $type = $this->input->post('declarationcashbontype');
+        $status = $this->input->post('declarationcashbonstatus');
+        if (!empty($status)){
+            $filterArr['status'] = strtolower($status);
+        }
+        if (!empty($type)){
+            $filterArr['type'] = strtolower($type);
+        }
+        if (!empty($year) && !empty($month)){
+            $setFilter = $year.$month;
+            $filterArr['month'] = $setFilter;
+        }
+        redirect('kasbon_umum/declarationcashbon/index/'.bin2hex(json_encode($filterArr)));
     }
 
     public function documentlist($param = null) {
@@ -153,7 +212,7 @@ class DeclarationCashbon extends CI_Controller {
             $this->datatablessp->generateajax();
 
         }
-        $data['title'] = 'Kasbon Dinas Karyawan';
+        $data['title'] = 'Daftar Karyawan';
         $data['direct'] = site_url('kasbon_umum/declarationcashbon/createoption/'.bin2hex(json_encode(array('createtype'=>'DI'))));
         $data['nondirect'] = site_url('kasbon_umum/declarationcashbon/createoption/'.bin2hex(json_encode(array('createtype'=>'ND'))));
         $this->template->display('kasbon_umum/declaration_cashbon/v_employee', $data);
@@ -164,11 +223,11 @@ class DeclarationCashbon extends CI_Controller {
         );
         $this->load->library(array('datatablessp'));
         $this->load->model(array('M_DeclarationCashbon'));
-        $declarationcashbon = $this->M_DeclarationCashbon->q_cashbon_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' ')->row();
-        $transaction = $this->M_DeclarationCashbon->q_transaction_read_where(' AND declarationid = \''.$declarationcashbon->declarationid.'\' AND cashbonid = \''.$declarationcashbon->cashbonid.'\' ')->row();
+        //$declarationcashbon = $this->M_DeclarationCashbon->q_cashbon_read_where(' AND dutieid = \''.$json->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' ')->row();
+        $declarationcashbon = $this->M_DeclarationCashbon->q_transaction_read_where(' AND declarationid = \''.$json->declarationid.'\' ')->row();
         $urlpath = ($json->type == 'DN')?'kasbon_umum/declarationcashbondinas':'kasbon_umum/declarationcashbon';
         header('Content-Type: application/json');
-        if ($transaction->status == 'C' && $declarationcashbon->category == 'DECLARATION'){
+        if ($declarationcashbon->status == 'C' ){
             http_response_code(403);
             echo json_encode(array(
                 'data' => array(),
@@ -779,8 +838,11 @@ class DeclarationCashbon extends CI_Controller {
             hex2bin($param)
         );
         $this->load->library(array('datatablessp'));
+        $this->load->model(array('M_DeclarationCashbon'));
         header('Content-Type: application/json');
-        switch ($json->category){
+        $transaction = $this->M_DeclarationCashbon->q_transaction_read_where(' AND declarationid = \''.$json->declarationid.'\' ')->row();
+        var_dump($transaction->d_type_text);die();
+        switch ($transaction->d_type_text){
             case "DINAS":
                 http_response_code(404);
                 echo json_encode(array(
@@ -790,7 +852,7 @@ class DeclarationCashbon extends CI_Controller {
                 break;
             case "CASHBON":
                 $this->load->model(array('M_Cashbon'));
-                $cashbon = $this->M_Cashbon->q_transaction_read_where(' AND cashbonid = \''.$json->documentid.'\' ')->row();
+                $cashbon = $this->M_Cashbon->q_transaction_read_where(' AND cashbonid = \''.$transaction->documentid.'\' ')->row();
                 echo  json_encode(array(
                     'canread' => true,
                     'next' => site_url( 'kasbon_umum/cashbon/detail/'.bin2hex(json_encode(array('branch' => empty($cashbon->branch) ? $this->session->userdata('branch') : $cashbon->branch, 'cashbonid' => $cashbon->cashbonid, 'dutieid' => $cashbon->dutieid, 'type' => $cashbon->type, 'category' => 'DECLARATION')))),

@@ -74,6 +74,59 @@ SQL
             ).$clause);
     }
 
+    function q_index_read_where($clause = null){
+        return $this->db->query($this->q_index_txt_where($clause));
+    }
+    function q_index_txt_where($clause = null){
+        return sprintf(<<<'SQL'
+SELECT *,
+       TO_CHAR(documentdate, 'dd-mm-yyyy') AS documentdateformat,
+       CASE
+           WHEN statustext = 'Disetujui' THEN 'label-success'
+           WHEN statustext = 'Kondisi Lain' THEN 'label-danger'
+           ELSE 'label-warning'
+           END AS statuscolor
+FROM (
+         SELECT distinct ON (declarationid)
+             COALESCE(TRIM(a.branch), '') AS branch,
+             COALESCE(TRIM(a.cashbonid), '') AS cashbonid,
+             COALESCE(TRIM(g.uraian), 'TANPA KASBON') AS typetext,
+             COALESCE(TRIM(d.nik), '') AS employeeid,
+             COALESCE(TRIM(d.nmlengkap), '') AS employeename,
+             COALESCE(TRIM(e.nmdept), '') AS departmentname,
+             COALESCE(TRIM(f.nmsubdept), '') AS subdepartmentname,
+             COALESCE(TRIM(a.declarationid), '') AS declarationid,
+             COALESCE(TRIM(a.approveby), '') AS approveby,
+             a.approvedate AS approvedate,
+             CASE
+                 WHEN COALESCE(a.status, '') IN ('I') THEN 'Menunggu Persetujuan'
+                 WHEN COALESCE(a.status, '') IN ('C') THEN 'Dibatalkan'
+                 WHEN a.approveby IS NOT NULL AND a.approveby IS NOT NULL THEN 'Disetujui'
+                 ELSE 'Kondisi Lain'
+             END AS statustext,
+             CASE
+                WHEN substring(a.dutieid,1,2) = 'DL' THEN 'DN'
+                ELSE '-'
+             END AS type,
+             COALESCE(TRIM(a.declarationid), '') AS documentid,
+             'DECLARATION'::TEXT  AS category,
+             a.inputdate AS documentdate,
+             CONCAT(COALESCE(TRIM(d.nik), ''), '.', COALESCE(TRIM(d.nik_atasan), ''), '.', COALESCE(TRIM(d.nik_atasan2), ''), '.') AS search
+         FROM sc_trx.declaration_cashbon a
+                  LEFT OUTER JOIN sc_trx.cashbon c ON TRIM(c.cashbonid) = TRIM(a.cashbonid)
+                  LEFT OUTER JOIN sc_mst.karyawan d ON (TRIM(d.nik) = TRIM(a.employeeid) )
+                  LEFT OUTER JOIN sc_mst.departmen e ON TRIM(e.kddept) = TRIM(d.bag_dept)
+                  LEFT OUTER JOIN sc_mst.subdepartmen f ON TRIM(f.kdsubdept) = TRIM(d.subbag_dept) AND TRIM(f.kddept) = TRIM(d.bag_dept)
+                  LEFT OUTER JOIN sc_mst.trxtype g ON TRIM(g.kdtrx) = TRIM(COALESCE(c.type, ''))
+             AND TRIM(g.jenistrx) = TRIM('CASHBONTYPE')
+         WHERE COALESCE(a.status, '') IN ('I', 'C') OR a.approveby IS NOT NULL
+         ORDER BY declarationid
+     ) AS aa
+WHERE TRUE
+SQL
+            ).$clause;
+    }
+
     function q_cashbon_read_where($clause = null){
         return $this->db->query($this->q_cashbon_txt_where($clause));
     }
@@ -81,122 +134,52 @@ SQL
         return sprintf(<<<'SQL'
 SELECT *,
        TO_CHAR(documentdate, 'dd-mm-yyyy') AS documentdateformat,
-       CASE 
+       CASE
            WHEN statustext = 'Disetujui' THEN 'label-success'
            WHEN statustext = 'Kondisi Lain' THEN 'label-danger'
            ELSE 'label-warning'
-       END AS statuscolor
+           END AS statuscolor
 FROM (
-         (
-             SELECT distinct ON (declarationid)
-                 COALESCE(TRIM(a.branch), '') AS branch,
-                 CASE
-                     WHEN b.nodok is not null THEN COALESCE(TRIM(a.dutieid), '')
-                     WHEN COALESCE(TRIM(c.type), '') = 'DN' THEN COALESCE(TRIM(a.dutieid), '')
-                     ELSE COALESCE(TRIM(d.nik), '')
-                     END AS dutieid,
-                 COALESCE(TRIM(a.cashbonid), '') AS cashbonid,
-                 CASE
-                     WHEN b.nodok is not null THEN 'DN'
-                     ELSE COALESCE(TRIM(c.type), '')
+         SELECT distinct ON (declarationid)
+             COALESCE(TRIM(a.branch), '') AS branch,
+             CASE
+                 WHEN b.nodok is not null THEN COALESCE(TRIM(a.dutieid), '')
+                 WHEN COALESCE(TRIM(c.type), '') = 'DN' THEN COALESCE(TRIM(a.dutieid), '')
+                 ELSE COALESCE(TRIM(d.nik), '')
+             END AS dutieid,
+             COALESCE(TRIM(a.cashbonid), '') AS cashbonid,
+             CASE
+                 WHEN b.nodok is not null THEN 'DN'
+                 ELSE COALESCE(TRIM(c.type), '')
                  END AS type,
-                 COALESCE(TRIM(g.uraian), 'TANPA KASBON') AS typetext,
-                 b.tgl_mulai AS departuredate,
-                 b.tgl_selesai AS returndate,
-                 CONCAT(TO_CHAR(b.tgl_mulai, 'dd-mm-yyyy'), ', ', TO_CHAR(b.tgl_selesai, 'dd-mm-yyyy')) AS dutieperiod,
-                 COALESCE(TRIM(d.nik), '') AS employeeid,
-                 COALESCE(TRIM(d.nmlengkap), '') AS employeename,
-                 COALESCE(TRIM(e.nmdept), '') AS departmentname,
-                 COALESCE(TRIM(f.nmsubdept), '') AS subdepartmentname,
-                 COALESCE(TRIM(a.declarationid), '') AS declarationid,
-                 COALESCE(TRIM(a.approveby), '') AS approveby,
-                 a.approvedate AS approvedate,
-                 CASE
-                     WHEN COALESCE(a.status, '') IN ('I') THEN 'Menunggu Persetujuan'
-                     WHEN COALESCE(a.status, '') IN ('C') THEN 'Dibatalkan'
-                     WHEN a.approveby IS NOT NULL AND a.approveby IS NOT NULL THEN 'Disetujui'
-                     ELSE 'Kondisi Lain'
-                     END AS statustext,
-                 COALESCE(TRIM(a.declarationid), '') AS documentid,
-                 'DECLARATION'  AS category,
-                 a.inputdate AS documentdate,
-                 CONCAT(COALESCE(TRIM(d.nik), ''), '.', COALESCE(TRIM(d.nik_atasan), ''), '.', COALESCE(TRIM(d.nik_atasan2), ''), '.') AS search
-             FROM sc_trx.declaration_cashbon a
-                      LEFT OUTER JOIN sc_trx.dinas b ON TRIM(b.nodok) = ANY(string_to_array(a.dutieid, ','))
-                      LEFT OUTER JOIN sc_trx.cashbon c ON TRIM(c.cashbonid) = TRIM(a.cashbonid)
-                      LEFT OUTER JOIN sc_mst.karyawan d ON (TRIM(d.nik) = TRIM(b.nik) OR TRIM(d.nik) = TRIM(c.dutieid))
-                      LEFT OUTER JOIN sc_mst.departmen e ON TRIM(e.kddept) = TRIM(d.bag_dept)
-                      LEFT OUTER JOIN sc_mst.subdepartmen f ON TRIM(f.kdsubdept) = TRIM(d.subbag_dept) AND TRIM(f.kddept) = TRIM(d.bag_dept)
-                      LEFT OUTER JOIN sc_mst.trxtype g ON TRIM(g.kdtrx) = TRIM(COALESCE(c.type, ''))
-                                                          AND TRIM(g.jenistrx) = TRIM('CASHBONTYPE') 
-             WHERE COALESCE(a.status, '') IN ('I', 'C') OR a.approveby IS NOT NULL
-             ORDER BY declarationid
-         ) UNION ALL (
-             SELECT
-                 COALESCE(TRIM(a.branch), '') AS branch,
-                 CASE
-                     WHEN COALESCE(TRIM(a.type), '') = 'DN' THEN COALESCE(TRIM(a.dutieid), '')
-                     ELSE COALESCE(TRIM(d.nik), '')
-                     END AS dutieid,
-                 COALESCE(TRIM(a.cashbonid), '') AS cashbonid,
-                 COALESCE(TRIM(a.type), '') AS type,
-                 COALESCE(TRIM(g.uraian), '') AS typetext,
-                 b.tgl_mulai AS departuredate,
-                 b.tgl_selesai AS returndate,
-                 CONCAT(TO_CHAR(b.tgl_mulai, 'dd-mm-yyyy'), ', ', TO_CHAR(b.tgl_selesai, 'dd-mm-yyyy')) AS dutieperiod,
-                 COALESCE(TRIM(d.nik), '') AS employeeid,
-                 COALESCE(TRIM(d.nmlengkap), '') AS employeename,
-                 COALESCE(TRIM(e.nmdept), '') AS departmentname,
-                 COALESCE(TRIM(f.nmsubdept), '') AS subdepartmentname,
-                 '' AS declarationid,
-                 '' AS approveby,
-                 NULL::TIMESTAMP AS approvedate,
-                 'Belum Dibuat Deklarasi' AS statustext,
-                 COALESCE(TRIM(a.cashbonid), '') AS documentid,
-                 'CASHBON'  AS category,
-                 a.inputdate AS documentdate,
-                 CONCAT(COALESCE(TRIM(d.nik), ''), '.', COALESCE(TRIM(d.nik_atasan), ''), '.', COALESCE(TRIM(d.nik_atasan2), ''), '.') AS search
-             FROM sc_trx.cashbon a
-                      LEFT OUTER JOIN sc_trx.dinas b ON TRIM(b.nodok) = ANY(string_to_array(a.dutieid, ','))
-                      LEFT OUTER JOIN sc_mst.karyawan d ON TRIM(d.nik) = TRIM(COALESCE(a.dutieid, b.nik))
-                      LEFT OUTER JOIN sc_mst.departmen e ON TRIM(e.kddept) = TRIM(d.bag_dept)
-                      LEFT OUTER JOIN sc_mst.subdepartmen f ON TRIM(f.kdsubdept) = TRIM(d.subbag_dept) AND TRIM(f.kddept) = TRIM(d.bag_dept)
-                      LEFT OUTER JOIN sc_mst.trxtype g ON TRIM(g.kdtrx) = TRIM(a.type)
-                                                          AND TRIM(g.jenistrx) = TRIM('CASHBONTYPE')
-             WHERE COALESCE(TRIM(a.status), '') IN ('P')
-               AND COALESCE(TRIM(a.cashbonid), '') NOT IN (SELECT declaration_cashbon.cashbonid FROM sc_trx.declaration_cashbon)
-             ORDER BY declarationid
-         ) UNION ALL (
-             SELECT
-                 COALESCE(TRIM(a.branch), '') AS branch,
-                 COALESCE(TRIM(b.nodok), '') AS dutieid,
-                 COALESCE(TRIM(a.cashbonid), '') AS cashbonid,
-                 'DN' AS type,
-                 'DINAS' AS typetext,
-                 b.tgl_mulai AS departuredate,
-                 b.tgl_selesai AS returndate,
-                 CONCAT(TO_CHAR(b.tgl_mulai, 'dd-mm-yyyy'), ', ', TO_CHAR(b.tgl_selesai, 'dd-mm-yyyy')) AS dutieperiod,
-                 COALESCE(TRIM(d.nik), '') AS employeeid,
-                 COALESCE(TRIM(d.nmlengkap), '') AS employeename,
-                 COALESCE(TRIM(e.nmdept), '') AS departmentname,
-                 COALESCE(TRIM(f.nmsubdept), '') AS subdepartmentname,
-                 '' AS declarationid,
-                 '' AS approveby,
-                 NULL::TIMESTAMP AS approvedate,
-                 'Belum Dibuat Kasbon' AS statustext,
-                 COALESCE(TRIM(b.nodok), '') AS documentid,
-                 'DINAS'  AS category,
-                 b.input_date AS documentdate,
-                 CONCAT(COALESCE(TRIM(d.nik), ''), '.', COALESCE(TRIM(d.nik_atasan), ''), '.', COALESCE(TRIM(d.nik_atasan2), ''), '.') AS search
-             FROM sc_trx.dinas b
-                      LEFT OUTER JOIN sc_trx.cashbon a ON TRIM(b.nodok) = TRIM(a.dutieid)
-                      LEFT OUTER JOIN sc_mst.karyawan d ON TRIM(d.nik) = TRIM(b.nik)
-                      LEFT OUTER JOIN sc_mst.departmen e ON TRIM(e.kddept) = TRIM(d.bag_dept)
-                      LEFT OUTER JOIN sc_mst.subdepartmen f ON TRIM(f.kdsubdept) = TRIM(d.subbag_dept)
-             WHERE COALESCE(TRIM(b.status), '') IN ('P')
-               AND COALESCE(TRIM(b.nodok), '') NOT IN (SELECT dutieid FROM sc_trx.cashbon WHERE TRIM(status) = 'P')
-               AND COALESCE(TRIM(b.nodok), '') NOT IN (SELECT dutieid FROM sc_trx.declaration_cashbon WHERE TRIM(status) = 'P')
-         )
+             COALESCE(TRIM(g.uraian), 'TANPA KASBON') AS typetext,
+             COALESCE(TRIM(d.nik), '') AS employeeid,
+             COALESCE(TRIM(d.nmlengkap), '') AS employeename,
+             COALESCE(TRIM(e.nmdept), '') AS departmentname,
+             COALESCE(TRIM(f.nmsubdept), '') AS subdepartmentname,
+             COALESCE(TRIM(a.declarationid), '') AS declarationid,
+             COALESCE(TRIM(a.approveby), '') AS approveby,
+             a.approvedate AS approvedate,
+             CASE
+                 WHEN COALESCE(a.status, '') IN ('I') THEN 'Menunggu Persetujuan'
+                 WHEN COALESCE(a.status, '') IN ('C') THEN 'Dibatalkan'
+                 WHEN a.approveby IS NOT NULL AND a.approveby IS NOT NULL THEN 'Disetujui'
+                 ELSE 'Kondisi Lain'
+                 END AS statustext,
+             COALESCE(TRIM(a.declarationid), '') AS documentid,
+             'DECLARATION'::TEXT  AS category,
+             a.inputdate AS documentdate,
+             CONCAT(COALESCE(TRIM(d.nik), ''), '.', COALESCE(TRIM(d.nik_atasan), ''), '.', COALESCE(TRIM(d.nik_atasan2), ''), '.') AS search
+         FROM sc_trx.declaration_cashbon a
+                  LEFT OUTER JOIN sc_trx.dinas b ON TRIM(b.nodok) = ANY(string_to_array(a.dutieid, ','))
+                  LEFT OUTER JOIN sc_trx.cashbon c ON TRIM(c.cashbonid) = TRIM(a.cashbonid)
+                  LEFT OUTER JOIN sc_mst.karyawan d ON (TRIM(d.nik) = TRIM(b.nik) )
+                  LEFT OUTER JOIN sc_mst.departmen e ON TRIM(e.kddept) = TRIM(d.bag_dept)
+                  LEFT OUTER JOIN sc_mst.subdepartmen f ON TRIM(f.kdsubdept) = TRIM(d.subbag_dept) AND TRIM(f.kddept) = TRIM(d.bag_dept)
+                  LEFT OUTER JOIN sc_mst.trxtype g ON TRIM(g.kdtrx) = TRIM(COALESCE(c.type, ''))
+             AND TRIM(g.jenistrx) = TRIM('CASHBONTYPE')
+         WHERE COALESCE(a.status, '') IN ('I', 'C') OR a.approveby IS NOT NULL
+         ORDER BY declarationid
      ) AS aa
 WHERE TRUE
 SQL
@@ -279,6 +262,15 @@ SELECT
                 WHEN COALESCE(a.status, '') IN ('P') THEN 'Disetujui'
              ELSE 'Kondisi Lain'
              END AS statustext,
+             CASE
+                 WHEN c.nodok is not null THEN 'DN'
+                 WHEN b.cashbonid is not null THEN 'CB'
+                 ELSE 'DC'
+             END AS d_type,
+             CASE
+                 WHEN b.cashbonid is not null THEN 'CASHBON'
+                 ELSE 'DECLARATION'
+             END AS d_type_text,
              COALESCE(TRIM(b.type), 'DI') AS type,
              COALESCE(TRIM(g.uraian), 'TANPA KASBON') AS typetext,
              a.totalcashbon AS totalcashbon,
