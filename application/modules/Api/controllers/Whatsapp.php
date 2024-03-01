@@ -245,7 +245,8 @@ class WhatsApp extends MX_Controller
         foreach ($this->m_cuti->q_whatsapp_collect_where('
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
         AND ck.status = \'A\' AND whatsappsent = '.$sent.'
-        ORDER BY input_date desc
+        AND (whatsappaccept IS NULL AND whatsappreject IS NULL)
+        ORDER BY input_date desc retry DESC
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
             $message = '' .
@@ -319,6 +320,7 @@ class WhatsApp extends MX_Controller
                         'type' => 'A.I.C',
                         'objectid' => $item->nodok,
                         'approver' => $item->approver,
+                        'retry' => (int)$item->retry + 1,
                     ),
                 )
             );
@@ -355,6 +357,7 @@ class WhatsApp extends MX_Controller
                         $this->m_cuti->q_trx_update(
                             array(
                                 'whatsappsent' => TRUE,
+                                'retry' => $row->properties->retry,
                             ),
                             array('TRIM(nodok)' => $row->properties->objectid)
                         );
@@ -425,7 +428,8 @@ class WhatsApp extends MX_Controller
         foreach ($this->m_ijin->q_whatsapp_collect_where(' 
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
         AND ck.kdijin_absensi = \'DT\' AND ck.status = \'A\' AND whatsappsent = '.$sent.'
-        ORDER BY input_date desc
+        AND (whatsappaccept IS NULL AND whatsappreject IS NULL)
+        ORDER BY input_date desc retry DESC
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
             $message = '' .
@@ -494,6 +498,7 @@ class WhatsApp extends MX_Controller
                         'type' => 'A.I.I',
                         'objectid' => $item->nodok,
                         'approver' => $item->approver,
+                        'retry' => (int)$item->retry + 1,
                     ),
                 )
             );
@@ -530,6 +535,7 @@ class WhatsApp extends MX_Controller
                         $this->m_ijin->q_trx_update(
                             array(
                                 'whatsappsent' => TRUE,
+                                'retry' => $row->properties->retry,
                             ),
                             array('TRIM(nodok)' => $row->properties->objectid)
                         );
@@ -600,7 +606,8 @@ class WhatsApp extends MX_Controller
         foreach ($this->m_ijin->q_whatsapp_collect_where(' 
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
         AND ck.kdijin_absensi = \'IK\' AND ck.status = \'A\' AND whatsappsent = '.$sent.'
-        ORDER BY input_date desc
+        AND (whatsappaccept IS NULL AND whatsappreject IS NULL)
+        ORDER BY input_date desc retry DESC
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
             $message = '' .
@@ -674,6 +681,7 @@ class WhatsApp extends MX_Controller
                         'type' => 'A.I.I',
                         'objectid' => $item->nodok,
                         'approver' => $item->approver,
+                        'retry' => (int)$item->retry + 1,
                     ),
                 )
             );
@@ -710,6 +718,7 @@ class WhatsApp extends MX_Controller
                         $this->m_ijin->q_trx_update(
                             array(
                                 'whatsappsent' => TRUE,
+                                'retry' => $row->properties->retry,
                             ),
                             array('TRIM(nodok)' => $row->properties->objectid)
                         );
@@ -780,7 +789,8 @@ class WhatsApp extends MX_Controller
         foreach ($this->m_ijin->q_whatsapp_collect_where(' 
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
         AND ck.kdijin_absensi = \'PA\' AND ck.status = \'A\' AND whatsappsent = '.$sent.'
-        ORDER BY input_date desc
+         AND (whatsappaccept IS NULL AND whatsappreject IS NULL)
+        ORDER BY input_date desc retry DESC
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
             $message = '' .
@@ -849,6 +859,7 @@ class WhatsApp extends MX_Controller
                         'type' => 'A.I.I',
                         'objectid' => $item->nodok,
                         'approver' => $item->approver,
+                        'retry' => (int)$item->retry + 1,
                     ),
                 )
             );
@@ -885,6 +896,7 @@ class WhatsApp extends MX_Controller
                         $this->m_ijin->q_trx_update(
                             array(
                                 'whatsappsent' => TRUE,
+                                'retry' => $row->properties->retry,
                             ),
                             array('TRIM(nodok)' => $row->properties->objectid)
                         );
@@ -955,7 +967,8 @@ class WhatsApp extends MX_Controller
         foreach ($this->m_lembur->q_whatsapp_collect_where('
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
         AND ck.status = \'A\' AND whatsappsent = '.$sent.'
-        ORDER BY input_date desc
+        AND (whatsappaccept IS NULL AND whatsappreject IS NULL)
+        ORDER BY input_date desc retry DESC
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
             $message = '' .
@@ -1034,6 +1047,7 @@ class WhatsApp extends MX_Controller
                         'type' => 'A.I.L',
                         'objectid' => $item->nodok,
                         'approver' => $item->approver,
+                        'retry' => (int)$item->retry + 1,
                     ),
                 )
             );
@@ -1070,6 +1084,7 @@ class WhatsApp extends MX_Controller
                         $this->m_lembur->q_trx_update(
                             array(
                                 'whatsappsent' => TRUE,
+                                'retry' => $row->properties->retry,
                             ),
                             array('TRIM(nodok)' => $row->properties->objectid)
                         );
@@ -1139,8 +1154,9 @@ class WhatsApp extends MX_Controller
         $messages = [];
         foreach ($this->m_dinas->q_whatsapp_collect_where('
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
-        AND ck.status = \'A\' AND whatsappsent = '.$sent.'
-        ORDER BY input_date desc
+        AND ck.status = \'A\' AND whatsappsent = '.$sent.' 
+        AND (whatsappaccept IS NULL AND whatsappreject IS NULL)
+        ORDER BY input_date desc retry DESC
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
             $message = '' .
@@ -1214,6 +1230,7 @@ class WhatsApp extends MX_Controller
                         'type' => 'A.I.D',
                         'objectid' => $item->nodok,
                         'approver' => $item->approver,
+                        'retry' => (int)$item->retry + 1,
                     ),
                 )
             );
@@ -1250,6 +1267,7 @@ class WhatsApp extends MX_Controller
                         $this->m_dinas->q_trx_update(
                             array(
                                 'whatsappsent' => TRUE,
+                                'retry' => $row->properties->retry,
                             ),
                             array('TRIM(nodok)' => $row->properties->objectid)
                         );
@@ -1320,7 +1338,8 @@ class WhatsApp extends MX_Controller
         foreach ($this->m_sppb->q_whatsapp_collect_where('
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
         AND ck.status = \'A\' AND whatsappsent = '.$sent.'
-        ORDER BY input_date desc
+        AND (whatsappaccept IS NULL AND whatsappreject IS NULL)
+        ORDER BY input_date desc retry DESC
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
             $message = '' .
@@ -1390,6 +1409,7 @@ class WhatsApp extends MX_Controller
                         'type' => 'A.I.S',
                         'objectid' => $item->nodok,
                         'approver' => $item->approver,
+                        'retry' => (int)$item->retry + 1,
                     ),
                 )
             );
@@ -1426,6 +1446,7 @@ class WhatsApp extends MX_Controller
                         $this->m_sppb->q_trx_update(
                             array(
                                 'whatsappsent' => TRUE,
+                                'retry' => $row->properties->retry,
                             ),
                             array('TRIM(nodok)' => $row->properties->objectid)
                         );

@@ -73,7 +73,8 @@ COALESCE(TRIM(ck.kendaraan),'') AS kendaraan,
 COALESCE(TRIM(ck.nopol),'') AS nopol,
 ck.whatsappsent AS whatsappsent,
 ck.whatsappaccept AS whatsappaccept,
-ck.whatsappreject AS whatsappreject
+ck.whatsappreject AS whatsappreject,
+COALESCE(ck.rety,0) AS retry
 FROM 
 sc_trx.ijin_karyawan ck
 JOIN sc_mst.karyawan k ON ck.nik = k.nik 
