@@ -14,7 +14,7 @@
             <div class="col-sm-6">
                 <div class="box box-warning" >
                     <div class="box-header">
-                        <h3 class="box-title text-muted">Data Karyawan</h3>
+                        <h3 class="box-title text-muted">Data Karyawanssss</h3>
                     </div>
                     <div class="box-body">
                         <div class="form-horizontal">

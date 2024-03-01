@@ -1793,9 +1793,10 @@ class Dinas extends MX_Controller
     public function search() {
         $this->load->model(array('trans/m_dinas', 'master/m_option'));
         header('Content-Type: application/json');
-        $setup = $this->m_option->read(' AND kdoption =\'DUTIE:LIMIT:DATE\' AND group_option = \'DINAS\' ');
-        $setup = (($setup->num_rows() > 0) ? $setup->row()->value1 : '' );
         $filter = ' AND status = \'P\'  ';
+        $setup= $this->m_option->read(' AND kdoption =\'DUTIE:LIMIT:DATE\' AND group_option = \'DINAS\' ');
+        $limitDate = (($setup->num_rows() > 0) ? $setup->row()->value1 : date('Ym') );
+        $filter .= ' AND TO_CHAR(tgl_dok,\'yyyymm\') >= \''.$limitDate.'\' ';
         if (!is_null($this->input->get_post('user'))){
             $filter .= ' AND nik = \''.$this->input->get_post('user').'\' ';
         }
@@ -1835,7 +1836,7 @@ class Dinas extends MX_Controller
             AND ( LOWER(id) LIKE \'%'.$search.'%\'
             OR LOWER(text) LIKE \'%'.$search.'%\'
             )
-            ORDER BY id ASC
+            ORDER BY tgl_dok DESC
             LIMIT '.$perpage.' OFFSET '.$limit.'
             ')->result();
         echo json_encode(array(

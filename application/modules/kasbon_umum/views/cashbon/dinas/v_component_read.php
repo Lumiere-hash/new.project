@@ -1,5 +1,5 @@
 <?php
-//    var_dump($cashboncomponentsempty);die();
+//    var_dump($cashboncomponents);die();
 ?>
 <thead>
 <tr>

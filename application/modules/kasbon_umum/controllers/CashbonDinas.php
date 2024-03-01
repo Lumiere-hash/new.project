@@ -292,6 +292,11 @@ class CashbonDinas extends CI_Controller {
                     ORDER BY inputdate DESC 
                     ')->row();
                     if (!is_null($transaction) && !is_nan($transaction)) {
+                        $this->M_Cashbon->q_transaction_update(array(
+                            'employeeid' => $this->input->post('employeeid'),
+                        ), array(
+                            'cashbonid' => $transaction->cashbonid,
+                        ));
                         header('Content-Type: application/json');
                         echo json_encode(array(
                             'data' => $transaction,

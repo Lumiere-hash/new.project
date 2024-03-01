@@ -1,4 +1,5 @@
 <?php
+//var_dump($declaration);die();
 ?>
 <div class="form-group">
     <label class="col-sm-4">Nominal Deklarasi</label>

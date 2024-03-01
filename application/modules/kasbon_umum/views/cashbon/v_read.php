@@ -29,21 +29,12 @@
 
         <div class="btn-group pull-right mr-5">
             <div class="row">
-                <div class="col-sm-6 mr-4">
-                    <div class="form-group">
-                        <select class="form-control select2" style="width: 200px;" name="cashbonstatus" id="cashbonstatus" >
-                            <?php
-                            foreach ($status as $key => $row){
-                                echo '<option value="'.$key.'">'.$row.'</option>';
-                            }
-                            ?>
-                        </select>
-                    </div>
-
+                <div class="col-sm-6">
+                    <a href="javascript:void(0)" data-href="<?php echo $filterUrl ?>" data-action="filter" class="btn btn-md btn-twitter filter"><span><i class="fa fa-search"></i></span> Filter Pencarian</a>
                 </div>
                 <div class="col-sm-2">
-                    <button type="button" class="btn btn-info dropdown-toggle ml-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Buat Kasbon <span class="caret"></span>
+                    <button type="button" class="btn btn-primary dropdown-toggle ml-5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span><i class="fa fa-plus"></i></span> Buat Kasbon <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu bg-primary ">
                         <?php
@@ -68,6 +59,7 @@
     </div>
 </div>
 <div class="modal fade" id="printcashbon" role="dialog" aria-hidden="true"></div>
+<div class="modal fade" id="modify-data" role="dialog" aria-hidden="true"></div>
 <script>
     function filter(tableid,columnIndex,source){
         var table = $(tableid).DataTable();
@@ -76,9 +68,39 @@
             .search(source.val())
             .draw();
     }
-
+    function loadmodal(url) {
+        $('div#modify-data')
+            .empty()
+            .load(url, {}, function (response, status, xhr) {
+                if (status === 'error') {
+                    Swal.mixin({
+                        customClass: {
+                            confirmButton: 'btn btn-sm btn-success m-1',
+                            cancelButton: 'btn btn-sm btn-warning m-1',
+                            denyButton: 'btn btn-sm btn-danger m-1',
+                        },
+                        buttonsStyling: false,
+                    }).fire({
+                        position: 'top',
+                        icon: 'error',
+                        title: 'Gagal Memuat Detail',
+                        html: (xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : xhr.statusText),
+                        showCloseButton: true,
+                        showConfirmButton: false,
+                        showDenyButton: true,
+                        denyButtonText: `Tutup`,
+                    }).then(function () {
+                    });
+                } else {
+                    $('div#modify-data').modal('show');
+                }
+            });
+    }
     $(document).ready(function() {
-        filter('table#table-cashbon',2,$('select#cashbonstatus'));
+        $('a.filter').on('click', function(){
+            var row = $(this);
+            loadmodal(row.attr('data-href'))
+        })
 
         $('select#cashbonstatus').select2();
         $('select#cashbonstatus').on('change',function (){

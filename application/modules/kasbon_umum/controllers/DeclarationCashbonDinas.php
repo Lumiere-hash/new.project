@@ -396,9 +396,9 @@ class DeclarationCashbonDinas extends CI_Controller
             'dinas' => $dinas,
             'declaration' => $this->M_DeclarationCashbon->q_temporary_read_where(' AND dutieid = \'' . $json->dutieid . '\' AND cashbonid = \'' . $json->cashbonid . '\' ')->row(),
             'days' => $this->M_DeclarationCashbon->q_days_read_where(' AND dutieid IN (' . $dutiein . ') AND cashbonid = \'' . $json->cashbonid . '\' ')->result(),
-            'components' => $this->M_ComponentCashbon->q_master_read_where(' AND active AND type IN ( \'DN\', \'' . $dinas->transportasi . '\' ) ')->result(),
-            'declarationcomponents' => $this->M_DeclarationCashbonComponentDinas->q_temporary_read_where(' AND dutieid IN (' . $dutiein . ') AND cashbonid = \'' . $json->cashbonid . '\' AND declarationid = \'' . trim($this->session->userdata('nik')) . '\' AND active AND type IN ( \'DN\', \'' . $dinas->transportasi . '\' ) ')->result(),
-            'declarationcomponentsempty' => $this->M_DeclarationCashbonComponentDinas->q_empty_read_where(' AND dutieid IN (' . $dutiein . ') AND cashbonid = \'' . $json->cashbonid . '\' AND active AND type IN ( \'DN\', \'' . $dinas->transportasi . '\' ) ')->result(),
+            'components' => $this->M_ComponentCashbon->q_master_read_where(' AND active AND type IN ( \'DN\', \'' . $dinas[0]->transportasi . '\' ) ')->result(),
+            'declarationcomponents' => $this->M_DeclarationCashbonComponentDinas->q_temporary_read_where(' AND dutieid IN (' . $dutiein . ') AND cashbonid = \'' . $json->cashbonid . '\' AND declarationid = \'' . trim($this->session->userdata('nik')) . '\' AND active AND type IN ( \'DN\', \'' . $dinas[0]->transportasi . '\' ) ')->result(),
+            'declarationcomponentsempty' => $this->M_DeclarationCashbonComponentDinas->q_empty_read_where(' AND dutieid IN (' . $dutiein . ') AND cashbonid = \'' . $json->cashbonid . '\' AND active AND type IN ( \'DN\', \'' . $dinas[0]->transportasi . '\' ) ')->result(),
         ));
     }
 
@@ -421,6 +421,11 @@ class DeclarationCashbonDinas extends CI_Controller
                 ORDER BY inputdate DESC 
                 ')->row();
             if (!is_null($transaction) && !is_nan($transaction)) {
+                $this->M_DeclarationCashbon->q_transaction_update(array(
+                    'employeeid' => $this->input->post('employeeid'),
+                ), array(
+                    'declarationid' => $transaction->declarationid,
+                ));
                 header('Content-Type: application/json');
                 echo json_encode(array(
                     'data' => $transaction,
@@ -526,7 +531,7 @@ class DeclarationCashbonDinas extends CI_Controller
             'maxLoad' => (!empty($this->setup('DCL:MAX:DUTIEID')) ? $this->setup('DCL:MAX:DUTIEID')->value3 : 1),
             'dinas' => $dinas->result(),
             'days' => $this->M_DeclarationCashbon->q_days_read_where(' AND dutieid IN(' . $dutiein . ') AND cashbonid = \'' . $temporary->cashbonid . '\' ')->result(),
-            'components' => $this->M_ComponentCashbon->q_master_read_where(' AND active AND type IN( \'DN\',\'' . $dinas->transportasi . '\') ')->result(),
+            'components' => $this->M_ComponentCashbon->q_master_read_where(' AND active AND type IN( \'DN\',\'' . $dinas->result()[0]->transportasi . '\') ')->result(),
             'declarationcomponents' => $this->M_DeclarationCashbonComponentDinas->q_temporary_read_where(' AND dutieid IN (' . $dutiein . ') AND cashbonid = \'' . $temporary->cashbonid . '\' AND declarationid = \'' . $json->declarationid . '\' AND active AND type IN (\'DN\',transportasi) ')->result(),
             'declarationcomponentsempty' => $this->M_DeclarationCashbonComponentDinas->q_empty_read_where(' AND dutieid IN (' . $dutiein . ') AND cashbonid = \'' . $temporary->cashbonid . '\' AND type IN (\'DN\',transportasi) ')->result(),
             'cashboncomponents' => $this->M_CashbonComponentDinas->q_transaction_read_where(' AND cashbonid = \'' . $json->cashbonid . '\' AND active AND calculated ')->result(),
@@ -746,11 +751,11 @@ class DeclarationCashbonDinas extends CI_Controller
             $this->M_DeclarationCashbonComponentDinas->q_temporary_delete('TRUE AND declarationid = \'' . $json->declarationid . '\' AND dutieid NOT IN (' . $dutiein . ') ');
         }
         $this->load->model(array('trans/m_employee', 'trans/m_dinas', 'master/M_ComponentCashbon', 'M_Cashbon', 'M_DeclarationCashbon', 'M_DeclarationCashbonComponentDinas',));
-        $json->dutieid = ((!empty($dutiepost)) ? $this->input->post('dutieid') : $json->dutieid);
-        $dutiein = "'" . implode("','", explode(",", $json->dutieid)) . "'";
+        //$json->dutieid = ((!empty($dutiepost)) ? $this->input->post('dutieid') : $json->dutieid);
+        //$dutiein = "'" . implode("','", explode(",", $json->dutieid)) . "'";
         $cashbon = $this->M_Cashbon->q_transaction_read_where(' AND dutieid = \'' . $json->dutieid . '\' AND cashbonid = \'' . $json->cashbonid . '\' ')->row();
         $declaration = $this->M_DeclarationCashbon->q_temporary_read_where(' AND dutieid = \'' . $json->dutieid . '\' AND cashbonid = \'' . $json->cashbonid . '\' ')->row();
-        $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \'' . $json->dutieid . '\' ')->row();
+        $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok IN ('.$dutiein.') ')->result();
         $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \'' . $dinas->nik . '\' ')->row();
         $this->load->view('kasbon_umum/declaration_cashbon/dinas/v_component_read', array(
             'employee' => $empleyee,
@@ -758,7 +763,7 @@ class DeclarationCashbonDinas extends CI_Controller
             'dinas' => $dinas,
             'declaration' => $declaration,
             'days' => $this->M_DeclarationCashbon->q_days_read_where(' AND dutieid IN (' . $dutiein . ') AND cashbonid = \'' . $json->cashbonid . '\' ')->result(),
-            'components' => $this->M_ComponentCashbon->q_master_read_where(' AND active AND type in( \'DN\', \'' . $dinas->transportasi . '\' ) ')->result(),
+            'components' => $this->M_ComponentCashbon->q_master_read_where(' AND active AND type in( \'DN\', \'' . $dinas[0]->transportasi . '\' ) ')->result(),
             'declarationcomponents' => $this->M_DeclarationCashbonComponentDinas->q_temporary_read_where(' AND dutieid IN (' . $dutiein . ') AND cashbonid = \'' . $json->cashbonid . '\' AND declarationid = \'' . $declaration->declarationid . '\' AND active ')->result(),
             'declarationcomponentsempty' => $this->M_DeclarationCashbonComponentDinas->q_empty_read_where(' AND dutieid IN (' . $dutiein . ') AND cashbonid = \'' . $json->cashbonid . '\' AND active ')->result(),
         ));
@@ -783,6 +788,11 @@ class DeclarationCashbonDinas extends CI_Controller
                 ORDER BY updatedate DESC 
                 ')->row();
             if (!is_null($transaction) && !is_nan($transaction)) {
+                $this->M_DeclarationCashbon->q_transaction_update(array(
+                    'employeeid' => $this->input->post('employeeid'),
+                ), array(
+                    'declarationid' => $transaction->declarationid,
+                ));
                 header('Content-Type: application/json');
                 echo json_encode(array(
                     'data' => $transaction,
@@ -816,8 +826,9 @@ class DeclarationCashbonDinas extends CI_Controller
         $dutiein = "'" . implode("','", explode(",", $json->dutieid)) . "'";
         $this->load->model(array('trans/m_employee', 'trans/m_dinas', 'master/M_ComponentCashbon', 'M_Cashbon', 'M_DeclarationCashbon', 'M_DeclarationCashbonComponentDinas',));
         $cashbon = $this->M_Cashbon->q_transaction_read_where(' AND dutieid = \'' . $json->dutieid . '\' AND cashbonid = \'' . $json->cashbonid . '\' ')->row();
-        $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok IN (' . $dutiein . ') ')->row();
-        $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \'' . $dinas->nik . '\' ')->row();
+        $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok IN (' . $dutiein . ') ')->result();
+
+        $empleyee = $this->m_employee->q_mst_read_where(' AND nik = \'' . $dinas[0]->nik . '\' ')->row();
         $this->load->view('kasbon_umum/declaration_cashbon/dinas/v_component_balance', array(
             'employee' => $empleyee,
             'cashbon' => (!is_null($cashbon) && !is_nan($cashbon)) ? $cashbon : array(),
@@ -903,7 +914,7 @@ class DeclarationCashbonDinas extends CI_Controller
                 'cashbon' => (!is_null($cashbon) && !is_nan($cashbon)) ? $cashbon : array(),
                 'dinas' => $dinas->result(),
                 'days' => $this->M_DeclarationCashbon->q_days_read_where(' AND dutieid IN ('.$dutiein.') AND cashbonid = \'' . $transaction->cashbonid . '\' ')->result(),
-                'components' => $this->M_ComponentCashbon->q_master_read_where(' AND active AND type IN( \'DN\', \'' . $dinas->transportasi . '\' ) ')->result(),
+                'components' => $this->M_ComponentCashbon->q_master_read_where(' AND active AND type IN( \'DN\', \'' . $dinas->result()[0]->transportasi . '\' ) ')->result(),
                 'declarationcomponents' => $this->M_DeclarationCashbonComponentDinas->q_transaction_read_where(' AND dutieid IN ('.$dutiein.') AND cashbonid = \'' . $transaction->cashbonid . '\' AND declarationid = \'' . $json->declarationid . '\' AND active ')->result(),
                 'declarationcomponentsempty' => $this->M_DeclarationCashbonComponentDinas->q_empty_read_where(' AND dutieid IN ('.$dutiein.') AND cashbonid = \'' . $transaction->cashbonid . '\' AND active ')->result(),
                 'cashboncomponents' => $this->M_CashbonComponentDinas->q_transaction_read_where(' AND cashbonid = \'' . $transaction->cashbonid . '\' AND active AND calculated ')->result(),

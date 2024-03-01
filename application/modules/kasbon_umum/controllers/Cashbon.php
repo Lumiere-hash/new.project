@@ -14,14 +14,35 @@ class Cashbon extends CI_Controller {
         sleep(60 * 2);
         echo 'Ok';
     }
-	public function index() {
+	public function index($param = null) {
         $this->load->library(array('datatablessp'));
         $this->load->model(array('trans/m_employee', 'M_Cashbon','trans/M_TrxType'));
         $data['type'] = $this->M_TrxType->q_master_search_where('
 			AND a.group IN (\'CASHBONTYPE\') AND id not in (\'DN\')
 			')->result();
         $data['status'] = array('Menunggu Persetujuan' => 'Menunggu Persetujuan','Disetujui'=>'Disetujui','Dibatalkan'=>'Dibatalkan',''=>'Semua');
+        $filter = '';
+        if (!is_null($param)){
 
+            $json = json_decode(hex2bin($param));
+
+            if (!is_null($json)){
+                if (!empty($json->month)){
+                    $filter .= ' AND TO_CHAR(inputdate,\'yyyymm\') = \''.$json->month.'\' ';
+                }
+                if (!empty($json->status)){
+                    $filter .= ' AND lower(statustext) = \''.$json->status.'\'  ';
+                }
+                if(!empty($json->type)){
+                    $filter .= ' AND lower(formattype) = \''.$json->type.'\'  ';
+                }
+            }else{
+                redirect('kasbon_umum/cashbon/index');
+            }
+
+        }else{
+            $filter = ' AND TO_CHAR(inputdate,\'yyyymm\') = \''.date('Ym').'\' ';
+        }
         if ($this->m_akses->list_aksesperdep()->num_rows() > 0 OR strtoupper(trim($this->m_akses->q_user_check()->row()->level_akses)) === 'A') {
             $this->datatablessp->datatable('table-cashbon', 'table table-striped table-bordered table-hover', true)
                 ->columns('branch, nik, nmlengkap, totalcashbonformat, statustext, nmdept, nmsubdept, type, statuscolor, cashbonid, dutieid, superior, status, paymenttype, formatpaymenttype, totalcashbon, formattype, inputby, inputdate, approveby, approvedate, superiors')
@@ -30,7 +51,7 @@ class Cashbon extends CI_Controller {
                 ->addcolumn('status', '<span class=\'label mt-5 $2 \' style=\'font-size: small; \'>$1</span>','statustext, statuscolor')
                 ->addcolumn('popup', '<a href=\'javascript:void(0)\' data-href=\''.site_url('kasbon_umum/cashbon/actionpopup/$1').'\' class=\'btn btn-sm btn-info popup pull-right\'><i class=\'fa fa-edit\'>&nbsp;&nbsp;AKSI</i></a>', 'branch, cashbonid, type, dutieid', true)
                 ->addcolumn('detail', '<a href=\''.site_url('kasbon_umum/cashbon/detail/$1').'\' class=\'btn btn-sm bg-maroon read-detail pull-right\'><i class=\'fa fa-bars\'>&nbsp;&nbsp;RINCIAN</i></a>', 'branch, cashbonid, type, dutieid', true)
-                ->querystring($this->M_Cashbon->q_transaction_txt_where(' AND TRUE '))
+                ->querystring($this->M_Cashbon->q_transaction_txt_where(' AND TRUE '.(isset($filter) ? $filter : '')))
                 ->header('No.', 'no', false, false, true)
                 ->header('<u>N</u>o. Kasbon', 'cashbonid', true, true, true,array('cashbonid','popup'))
                 ->header('Status', 'statustext', true, true, true, array('status'))
@@ -42,6 +63,7 @@ class Cashbon extends CI_Controller {
                 ->header('', '', false, false, true, array('detail'));
             $this->datatablessp->generateajax();
             $data['title'] = 'Kasbon Karyawan';
+            $data['filterUrl'] = site_url('kasbon_umum/cashbon/filter');
             $this->template->display('kasbon_umum/cashbon/v_read', $data);
         } else {
             $this->datatablessp->datatable('table-cashbon', 'table table-striped table-bordered table-hover', true)
@@ -51,7 +73,7 @@ class Cashbon extends CI_Controller {
                 ->addcolumn('status', '<span class=\'label mt-5 $2 \' style=\'font-size: small; \'>$1</span>','statustext, statuscolor')
                 ->addcolumn('popup', '<a href=\'javascript:void(0)\' data-href=\''.site_url('kasbon_umum/cashbon/actionpopup/$1').'\' class=\'btn btn-sm btn-info popup pull-right\'><i class=\'fa fa-edit\'>&nbsp;&nbsp;AKSI</i></a>', 'branch, cashbonid, type, dutieid', true)
                 ->addcolumn('detail', '<a href=\''.site_url('kasbon_umum/cashbon/detail/$1').'\' class=\'btn btn-sm bg-maroon read-detail pull-right\'><i class=\'fa fa-bars\'>&nbsp;&nbsp;RINCIAN</i></a>', 'branch, cashbonid, type, dutieid', true)
-                ->querystring($this->M_Cashbon->q_transaction_txt_where(' AND search ILIKE \'%'.$this->session->userdata('nik').'%\' '))
+                ->querystring($this->M_Cashbon->q_transaction_txt_where(' AND search ILIKE \'%'.$this->session->userdata('nik').'%\' '.(isset($filter) ? $filter : '')))
                 ->header('No.', 'no', false, false, true)
                 ->header('<u>N</u>o. Kasbon', 'cashbonid', true, true, true,array('cashbonid','popup'))
                 ->header('Status', 'statustext', true, true, true, array('status'))
@@ -63,9 +85,46 @@ class Cashbon extends CI_Controller {
                 ->header('', '', false, false, true, array('detail'));
             $this->datatablessp->generateajax();
             $data['title'] = 'Kasbon Karyawan';
+            $data['filterUrl'] = site_url('kasbon_umum/cashbon/filter');
             $this->template->display('kasbon_umum/cashbon/v_read', $data);
         }
 	}
+
+    public function filter()
+    {
+        $this->load->model(array('trans/M_TrxType','trans/m_employee', 'M_DeclarationCashbon', 'M_DeclarationCashbonComponent' ,'master/m_option'));
+        $this->load->library(array('datedifference'));
+        $getType = $this->M_TrxType->q_master_search_where(' AND a.group IN (\'CASHBONTYPE\') ')->result();
+        $data = array(
+            'type' => $getType,
+            'status' => array(''=>'Semua','Menunggu Persetujuan' => 'Menunggu Persetujuan','Disetujui'=>'Disetujui','Dibatalkan'=>'Dibatalkan',),
+            'modalTitle' => 'Filter Pencarian',
+            'content' => 'kasbon_umum/cashbon/v_filter',
+            'formAction' => site_url('kasbon_umum/cashbon/dofilter'),
+            'years' => $this->datedifference->years(5,2022),
+            'months' => $this->datedifference->months(),
+        );
+        $this->load->view($data['content'],$data);
+    }
+    public function dofilter()
+    {
+        $filterArr = array();
+        $month = sprintf("%02d", (int)$this->input->post('month'));
+        $year = $this->input->post('year');
+        $type = $this->input->post('cashbontype');
+        $status = $this->input->post('cashbonstatus');
+        if (!empty($status)){
+            $filterArr['status'] = strtolower($status);
+        }
+        if (!empty($type)){
+            $filterArr['type'] = strtolower($type);
+        }
+        if (!empty($year) && !empty($month)){
+            $setFilter = $year.$month;
+            $filterArr['month'] = $setFilter;
+        }
+        redirect('kasbon_umum/cashbon/index/'.bin2hex(json_encode($filterArr)));
+    }
 
     function actionpopup($param=null) {
         $json = json_decode(
@@ -985,7 +1044,6 @@ class Cashbon extends CI_Controller {
         $json->category = (is_null($json->category)) ? 'CASHBON' : $json->category;
 
         $this->load->library(array('datatablessp'));
-
         if ($json->type == 'DN'){
             $this->load->model(array('trans/M_TrxType', 'trans/m_employee', 'trans/m_dinas', 'trans/M_Cashbon', 'trans/M_CashbonComponent', 'trans/M_TrxType', 'trans/M_DestinationType', 'trans/M_CityCashbon','M_CashbonComponentDinas'));
             $transaksi = $this->M_Cashbon->q_transaction_read_where(' AND cashbonid = \''.$json->cashbonid.'\' ')->row();
@@ -1030,7 +1088,7 @@ class Cashbon extends CI_Controller {
                     'transportasi' => $this->M_TrxType->q_master_search_where(' AND a.group = \'TRANSP\' AND id = \''.$dinas->transportasi.'\' ')->row(),
                     'paymenttype' => $this->M_TrxType->q_master_search_where(' AND a.group = \'PAYTYPE\' AND id = \''.$transaksi->paymenttype.'\' ')->result(),
                     'cashbon' => $transaksi,
-                    'cashboncomponents' => $this->M_CashbonComponentDinas->q_transaction_read_where(' AND dutieid IN ('.$dutiein.') AND cashbonid = \''.$json->cashbonid.'\' AND active AND calculated ')->result(),
+                    'cashboncomponents' => $this->M_CashbonComponentDinas->q_transaction_read_where(' AND dutieid = \''.$transaksi->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND active AND calculated ')->result(),
                     'cashboncomponentsempty' => $this->M_CashbonComponent->q_empty_read_where(' AND dutieid IN ('.$dutiein.') AND active AND calculated ')->result(),
                 ));
             }

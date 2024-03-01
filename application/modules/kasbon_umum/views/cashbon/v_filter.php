@@ -30,7 +30,7 @@
                 </div>
                 <div class="form-group mt-2 mb-2">
                     <label class="form-label" for="type">TIPE</label>
-                    <select class="form-control dtsearch select2" name="declarationcashbontype" id="declarationcashbontype" >
+                    <select class="form-control dtsearch select2" name="cashbontype" id="cashbontype" >
                         <?php
                         echo '<option value="">SEMUA</option>';
                         echo '<option value="TANPA KASBON">TANPA KASBON</option>';
@@ -42,7 +42,7 @@
                 </div>
                 <div class="form-group mt-2 mb-2">
                     <label class="form-label" for="declarationcashbonstatus">STATUS</label>
-                    <select class="form-control dtsearch select2" name="declarationcashbonstatus" id="declarationcashbonstatus" >
+                    <select class="form-control dtsearch select2" name="cashbonstatus" id="cashbonstatus" >
                         <?php
                         foreach ($status as $key => $row){
                             echo '<option value="'.$key.'">'.strtoupper($row).'</option>';

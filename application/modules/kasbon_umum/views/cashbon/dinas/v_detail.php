@@ -11,7 +11,7 @@
         color: white !important;
     }
 </style>
-<form role="form" class="formapprovecashbon" action="<?php echo site_url('trans/cashbon/doapprove/'.bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $dinas->nodok, 'cashbonid' => $cashbon->cashbonid, ))))?>" method="post">
+<form role="form" class="formapprovecashbon" action="<?php echo site_url('kasbon_umum/cashbon/doapprove/'.bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $dinas->nodok, 'cashbonid' => $cashbon->cashbonid, ))))?>" method="post">
 <div class="box">
     <div class="box-header">
         <div class="col-sm-12">
@@ -30,7 +30,7 @@
                             <div class="form-group">
                                 <label class="col-sm-4">Nik</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="" class="form-control userid" value="<?php echo $employee->nik ?>" readonly/>
+                                    <input type="text" name="employeeid" class="form-control userid" value="<?php echo $employee->nik ?>" readonly/>
                                 </div>
                             </div>
                             <div class="form-group">

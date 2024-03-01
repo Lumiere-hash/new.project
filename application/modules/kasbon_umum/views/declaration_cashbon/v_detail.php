@@ -171,7 +171,7 @@
                                 showDenyButton: true,
                                 denyButtonText: `Tutup`,
                             }).then(function(){
-                                window.location.replace('<?php echo site_url('kasbon_umum/declarationcashbon/') ?>');
+                               window.location.replace('<?php echo site_url('kasbon_umum/declarationcashbon/') ?>');
                             });
                         },
                         error: function (xhr, status, thrown) {

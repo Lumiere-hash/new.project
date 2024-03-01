@@ -142,7 +142,7 @@ SQL
     }
     function q_transaction_txt_where($clause = null){
         return sprintf(<<<'SQL'
-SELECT *, 
+_SELECT *, 
     SPLIT_PART(REGEXP_REPLACE(nominal::MONEY::VARCHAR, '[Rp]', '', 'g'), ',', 1) AS nominalformat,
     SPLIT_PART(REGEXP_REPLACE(totalcashbon::MONEY::VARCHAR, '[Rp]', '', 'g'), ',', 1) AS totalcashbonformat 
 FROM (

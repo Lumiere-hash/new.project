@@ -10,8 +10,11 @@
     span.select2-selection__choice__remove{
         color: white !important;
     }
+    #declarationcomponent tbody tr:hover {
+        background-color: #C1C1C1; /* Change to any color you prefer */
+    }
 </style>
-<form role="form" class="formcreatedeclarationcashbon" action="<?php echo site_url('trans/declarationcashbon/doupdate/'.bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $dinas->nodok, 'cashbonid' => isset($cashbon->cashbonid) ? $cashbon->cashbonid : '', 'declarationid' => $declaration->declarationid, ))))?>" method="post">
+<form role="form" class="formcreatedeclarationcashbon" action="<?php echo site_url('kasbon_umum/declarationcashbondinas/doupdate/'.bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $dinas->nodok, 'cashbonid' => isset($cashbon->cashbonid) ? $cashbon->cashbonid : '', 'declarationid' => $declaration->declarationid, ))))?>" method="post">
     <div class="box">
         <div class="box-header">
             <div class="col-sm-12">
@@ -31,7 +34,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-4">Nik</label>
                                     <div class="col-sm-8">
-                                        <input type="text" name="" class="form-control userid" value="<?php echo $employee->nik ?>" readonly/>
+                                        <input type="text" name="employeeid" class="form-control userid" value="<?php echo $employee->nik ?>" readonly/>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -304,9 +307,10 @@
                     return repo.text;
                 }
                 return `
-<div class='row' style='width: 400px'>
-    <div class='col-sm-3'>${repo.id}</div>
-    <div class='col-sm-8'>${repo.text}</div>
+<div class='row' style='width: 600px'>
+    <div class='col-sm-2'>${repo.id}</div>
+    <div class='col-sm-4'>${repo.dutieperiod}</div>
+    <div class='col-sm-5'>${repo.tujuan_kota_text}</div>
 </div>`;
             },
             templateSelection: function (repo) {
