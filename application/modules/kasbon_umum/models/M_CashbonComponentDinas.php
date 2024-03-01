@@ -149,7 +149,8 @@ FROM (
 SELECT
     COALESCE(TRIM(a.branch), '') AS branch,
     COALESCE(TRIM(a.cashbonid), '') AS cashbonid,
-    COALESCE(TRIM(a.dutieid), a.dutieid) AS dutieid,
+    COALESCE(TRIM(b.dutieid), '') AS dutieid,
+    COALESCE(TRIM(a.dutieid), 'sss') AS dutieid_p,
     COALESCE(TRIM(b.componentid), '') AS componentid,
     COALESCE(TRIM(c.description), '') AS componentname,
     b.description AS description,
@@ -176,7 +177,7 @@ AND TRIM(b.cashbonid) = TRIM(a.cashbonid)
 LEFT OUTER JOIN sc_mst.component_cashbon c ON TRUE
 AND TRIM(c.componentid) = TRIM(b.componentid)
 LEFT OUTER JOIN sc_trx.dinas d ON TRUE
-AND TRIM(d.nodok) IN (select UNNEST(STRING_TO_ARRAY(a.dutieid, ', ')))
+AND TRIM(d.nodok) = b.dutieid
 LEFT JOIN LATERAL (
     SELECT (EXTRACT(EPOCH FROM AGE(d.tgl_selesai, d.tgl_mulai)) / (24 * 60 * 60))::INTEGER + 1 AS quantityday
 ) AS e ON TRUE
@@ -186,7 +187,7 @@ LEFT OUTER JOIN sc_mst.jobposition_cashbon g ON TRUE
 AND TRIM(g.componentid) = TRIM(b.componentid)
 AND TRIM(g.jobposition) = TRIM(f.lvl_jabatan)
 AND TRIM(g.destinationid) = TRIM(d.tujuan_kota)
-ORDER BY a.dutieid ASC, c.readonly desc, c.sort
+ORDER BY b.dutieid ASC, c.readonly desc, c.sort
 ) AS a WHERE TRUE AND dutieid IS NOT NULL 
 SQL
             ).$clause;

@@ -76,7 +76,7 @@ class Web extends MX_Controller{
 						);
 					$this->session->set_userdata($session_data);
 					$this->db->insert("sc_log.log_time",$log_data);
-//                    $this->m_user->schedular();
+                    $this->m_user->schedular();
                     $this->m_user->cruds();
                     $this->m_user->loginx($log_data);
 					$identity=trim($login_data['username']);

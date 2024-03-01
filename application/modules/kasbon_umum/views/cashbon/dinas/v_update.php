@@ -31,7 +31,8 @@
                             <div class="form-group">
                                 <label class="col-sm-4">Nik</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="" class="form-control userid" value="<?php echo $employee->nik ?>" readonly/>
+                                    <input type="text" name="employeeid" class="form-control userid" value="<?php echo $employee->nik ?>" readonly/>
+                                    <input type="hidden" name="cashbondid" class="form-control cashbonid" value="<?php echo $cashbon->cashbonid ?>" readonly/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -249,7 +250,9 @@
                 closeOnSelect: false,
                 data: function (params) {
                     return {
+                        config : 'UPDATE',
                         user: $('input.userid').val(),
+                        cashbonid: $('input.cashbonid').val(),
                         search: params.term,
                         page: params.page,
                         perpage: 7
@@ -277,9 +280,10 @@
                     return repo.text;
                 }
                 return `
-<div class='row' style='width: 400px'>
-    <div class='col-sm-3'>${repo.id}</div>
-    <div class='col-sm-8'>${repo.text}</div>
+<div class='row' style='width: 600px'>
+    <div class='col-sm-2'>${repo.id}</div>
+    <div class='col-sm-4'>${repo.dutieperiod}</div>
+    <div class='col-sm-5'>${repo.tujuan_kota_text}</div>
 </div>`;
             },
             templateSelection: function (repo) {

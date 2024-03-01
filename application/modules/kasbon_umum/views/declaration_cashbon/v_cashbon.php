@@ -19,41 +19,11 @@
     <div class="box-header">
         <div class="col-sm-12">
             <h3><?php echo $title ?></h3><br>
-
+            <a href="<?php echo site_url('kasbon_umum/declarationcashbon/employee') ?>" class="btn btn-md btn-warning pull-right">Kembali</a>
         </div>
     </div>
     <div class="box-body">
-        <form class="container-fluid ml-5 mr-5 mb-3" >
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="form-group mt-2 mb-2">
-                        <label class="form-label" for="declarationcashbonstatus">Status</label>
-                        <select class="form-control dtsearch select2" name="declarationcashbonstatus" id="declarationcashbonstatus" >
-                            <?php
-							echo '<option value="">SEMUA</option>';
-                            foreach ($status as $key => $row){
-                                echo '<option value="'.$key.'">'.strtoupper($row).'</option>';
-                            }
-                            ?>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-group mt-2 mb-2">
-                        <label class="form-label" for="type">Tipe</label>
-                        <select class="form-control dtsearch select2" name="declarationcashbontype" id="declarationcashbontype" >
-                            <?php
-                            echo '<option value="">SEMUA</option>';
-                            foreach ($type as $key => $row){
-                                echo '<option value="'.$row->text.'">'.$row->text.'</option>';
-                            }
-                            ?>
-                        </select>
-                    </div>
-                </div>
-            </div>
 
-        </form>
         <div class="col-sm-12 table-responsive">
             <?php
             $this->datatablessp->generatetable();

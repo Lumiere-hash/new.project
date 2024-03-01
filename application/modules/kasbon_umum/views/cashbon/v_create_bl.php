@@ -45,7 +45,7 @@
         margin-left: 3px;
     }
 </style>
-<form role="form" class="formcreatecashbon" action="<?php echo site_url('trans/cashbon/docreate/'.bin2hex(json_encode(array('type' => $code_type))))?>" method="post">
+<form role="form" class="formcreatecashbon" action="<?php echo site_url('kasbon_umum/cashbon/docreate/'.bin2hex(json_encode(array('type' => $code_type))))?>" method="post">
     <div class="box">
     <div class="box-header">
         <div class="col-sm-12">

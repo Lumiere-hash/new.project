@@ -78,7 +78,7 @@
                             <div class="form-group">
                                 <label class="col-sm-4">Tipe</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="documenttype" class="form-control" value="<?php echo $cashbon->type ?>" readonly/>
+                                    <input type="text" name="documenttype" class="form-control" value="<?php echo $cashbon->typetext ?>" readonly/>
                                 </div>
                             </div>
 

@@ -532,7 +532,7 @@ class CashbonDinas extends CI_Controller {
             hex2bin($param)
         );
         $this->load->model(array('trans/m_employee', 'trans/m_dinas', 'M_Cashbon', 'M_CashbonComponentDinas', ));
-        $dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$json->dutieid.'\' ')->row();
+        //$dinas = $this->m_dinas->q_transaction_read_where(' AND nodok = \''.$json->dutieid.'\' ')->row();
         if ($this->M_Cashbon->q_temporary_exists(' TRUE AND cashbonid = \''.$json->cashbonid.'\' ') && $this->M_CashbonComponentDinas->q_temporary_exists(' TRUE AND cashbonid = \''.$json->cashbonid.'\' ')) {
             $this->M_Cashbon->q_temporary_update(array(
                 'paymenttype' => $this->input->post('paymenttype'),
@@ -547,6 +547,11 @@ class CashbonDinas extends CI_Controller {
                 ORDER BY updatedate DESC 
                 ')->row();
             if (!is_null($transaction) && !is_nan($transaction)) {
+                $this->M_Cashbon->q_transaction_update(array(
+                    'employeeid' => $this->input->post('employeeid'),
+                ), array(
+                    'cashbonid' => $transaction->cashbonid,
+                ));
                 header('Content-Type: application/json');
                 echo json_encode(array(
                     'data' => $transaction,

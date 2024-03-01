@@ -26,7 +26,7 @@
                             <div class="form-group">
                                 <label class="col-sm-4">Nik</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="" class="form-control" value="<?php echo $employee->nik ?>" readonly/>
+                                    <input type="text" name="employeeid" class="form-control" value="<?php echo $employee->nik ?>" readonly/>
                                 </div>
                             </div>
                             <div class="form-group">

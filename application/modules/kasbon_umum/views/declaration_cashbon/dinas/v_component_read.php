@@ -1,6 +1,6 @@
 <?php
 //    var_dump('dddd');die();
-//var_dump($components);die();
+//var_dump($declaration);die();
 ?>
 
 <thead>
@@ -45,7 +45,7 @@ foreach ((count($declarationcomponents) > 0 ? $declarationcomponents : $declarat
         <td class="text-right"><b><?php echo number_format($data[$day->day]['totalperday'],0,',','.') ?></b></td>
         <td><?php echo $data[$day->day]['description'] ?></td>
         <?php if (!$approve){ ?>
-            <td><a href="javascript:void(0)" class="btn btn-sm btn-info createdeclarationcomponent" data-href="<?php echo site_url('kasbon_umum/declarationcashbondinas/'.(isset($declaration) ? 'updatecomponentpopup' : 'createcomponentpopup').'/'.bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $day->dutieid, 'cashbonid' => isset($cashbon->cashbonid) ? $cashbon->cashbonid : '', 'declarationid' => $declaration->declarationid, 'perday' => $day->day, )))) ?>"><i class="fa fa-edit"> Input Data</i></a></td>
+            <td><a href="javascript:void(0)" class="btn btn-sm btn-info createdeclarationcomponent" data-href="<?php echo site_url('kasbon_umum/declarationcashbondinas/'.(isset($declaration) ? 'updatecomponentpopup' : 'createcomponentpopup').'/'.bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $day->dutieid, 'cashbonid' => $cashbon->cashbonid, 'declarationid' => $declaration->declarationid, 'perday' => $day->day, )))) ?>"><i class="fa fa-edit"> Input Data</i></a></td>
         <?php } ?>
 
         <?php

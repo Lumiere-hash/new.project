@@ -1,6 +1,9 @@
 <?php
 ?>
 <style>
+    .ml-3{
+        margin-left: 3px;
+    }
 </style>
 <form role="form" class="formcreatedeclarationcashbon" action="<?php echo site_url('kasbon_umum/declarationcashbon/doupdate/'.bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $dinas->nodok, 'cashbonid' => isset($cashbon->cashbonid) ? $cashbon->cashbonid : '', 'declarationid' => $declaration->declarationid, ))))?>" method="post">
     <div class="box">
@@ -21,7 +24,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-4">Nik</label>
                                     <div class="col-sm-8">
-                                        <input type="text" name="" class="form-control" value="<?php echo $employee->nik ?>" readonly/>
+                                        <input type="text" name="employeeid" class="form-control" value="<?php echo $employee->nik ?>" readonly/>
                                     </div>
                                 </div>
                                 <div class="form-group">

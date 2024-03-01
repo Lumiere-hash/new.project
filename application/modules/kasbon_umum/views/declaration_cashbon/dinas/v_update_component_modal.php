@@ -1,5 +1,5 @@
 <?php
-var_dump($achieved);
+//var_dump($declaration);die();
 ?>
 <style>
     .progress{
@@ -14,7 +14,7 @@ var_dump($achieved);
 </style>
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form role="form" class="formupdatedeclarationcomponent" action="<?php echo site_url('kasbon_umum/declarationcashbondinas/doupdatecomponentpopup/'.bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $dinas->nodok, 'cashbonid' => isset($cashbon->cashbonid) ? $cashbon->cashbonid : '', 'declarationid' => $declaration->declarationid, 'perday' => $perday, ))))?>" method="post">
+            <form role="form" class="formupdatedeclarationcomponent" action="<?php echo site_url('kasbon_umum/declarationcashbondinas/doupdatecomponentpopup/'.bin2hex(json_encode(array('branch' => $employee->branch, 'employeeid' => $employee->nik, 'dutieid' => $dinas->nodok, 'cashbonid' => isset($cashbon->cashbonid) ? $cashbon->cashbonid : '', 'declarationid' => (isset($declaration->declarationid) ? $declaration->declarationid : $employee->nik), 'perday' => $perday, ))))?>" method="post">
             <div class="modal-header">
                 <h4 class="modal-title"><?php echo $title ?></h4>
             </div>

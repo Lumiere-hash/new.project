@@ -166,6 +166,7 @@ SELECT
     COALESCE(TRIM(a.status), '') AS status,
     COALESCE(TRIM(a.paymenttype), '') AS paymenttype,
     COALESCE(TRIM(a.type), '') AS type,
+    COALESCE(TRIM(d.uraian), '') AS typetext,
     a.totalcashbon AS totalcashbon,
     COALESCE(TRIM(a.inputby), '') AS inputby,
     a.inputdate AS inputdate,
@@ -179,6 +180,7 @@ LEFT OUTER JOIN sc_trx.dinas b ON TRUE
 AND TRIM(b.nodok) = TRIM(a.dutieid)
 LEFT OUTER JOIN sc_mst.karyawan c ON TRUE
 AND TRIM(c.nik) = TRIM(b.nik)
+LEFT OUTER JOIN sc_mst.trxtype d ON a.type = d.kdtrx AND jenistrx = 'CASHBONTYPE'
 ORDER BY cashbonid
 ) as aa
 WHERE TRUE 
@@ -202,6 +204,7 @@ SELECT *,
 FROM (
          SELECT
              COALESCE(TRIM(c.nik), '') AS nik,
+             COALESCE(TRIM(a.employeeid), '') AS employeeid,
              COALESCE(TRIM(c.nmlengkap), '') AS nmlengkap,
              COALESCE(TRIM(a.branch), '') AS branch,
              COALESCE(TRIM(d.nmdept), '') AS nmdept,

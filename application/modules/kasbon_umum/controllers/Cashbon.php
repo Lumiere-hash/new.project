@@ -553,7 +553,7 @@ class Cashbon extends CI_Controller {
             hex2bin($param)
         );
         $this->load->model(array('trans/m_employee', 'M_Cashbon', 'M_CashbonComponent', 'M_FindDocument' ));
-
+        //var_dump($_POST);die();
         if ($json->type == 'PO'){
             if (!$this->M_FindDocument->q_temporary_exists(' TRUE AND cashbonid = \''.$this->session->userdata('nik').'\' ') AND !$this->M_Cashbon->q_temporary_exists(' TRUE AND dutieid = \''.$this->input->post('emp_nik').'\' ') ){
                 header('Content-Type: application/json');
@@ -576,9 +576,15 @@ class Cashbon extends CI_Controller {
                     ORDER BY inputdate DESC 
                     ')->row();
             if (!is_null($transaction) && !is_nan($transaction)) {
+                $this->M_Cashbon->q_transaction_update(array(
+                    'employeeid' => $transaction->dutieid,
+                ), array(
+                    'cashbonid' => $transaction->cashbonid,
+                ));
                 header('Content-Type: application/json');
                 echo json_encode(array(
-                    'data' => $transaction,
+//                    'data' => $transaction,
+                    'statusCode' => 200,
                     'message' => 'Data kasbon karyawan berhasil dibuat dengan nomer <b>'.$transaction->cashbonid.'</b>'
                 ));
             } else {
@@ -951,6 +957,12 @@ class Cashbon extends CI_Controller {
                     ORDER BY updatedate DESC 
                 ')->row();
             if (!is_null($transaction) && !is_nan($transaction)) {
+                $this->M_Cashbon->q_transaction_update(array(
+                    'employeeid' => $transaction->dutieid,
+                ), array(
+                    'cashbonid' => $transaction->cashbonid,
+                    'employeeid' => NULL,
+                ));
                 header('Content-Type: application/json');
                 echo json_encode(array(
                     'data' => $transaction,
@@ -1088,8 +1100,8 @@ class Cashbon extends CI_Controller {
                     'transportasi' => $this->M_TrxType->q_master_search_where(' AND a.group = \'TRANSP\' AND id = \''.$dinas->transportasi.'\' ')->row(),
                     'paymenttype' => $this->M_TrxType->q_master_search_where(' AND a.group = \'PAYTYPE\' AND id = \''.$transaksi->paymenttype.'\' ')->result(),
                     'cashbon' => $transaksi,
-                    'cashboncomponents' => $this->M_CashbonComponentDinas->q_transaction_read_where(' AND dutieid = \''.$transaksi->dutieid.'\' AND cashbonid = \''.$json->cashbonid.'\' AND active AND calculated ')->result(),
-                    'cashboncomponentsempty' => $this->M_CashbonComponent->q_empty_read_where(' AND dutieid IN ('.$dutiein.') AND active AND calculated ')->result(),
+                    'cashboncomponents' => $this->M_CashbonComponentDinas->q_transaction_read_where(' AND cashbonid = \''.$json->cashbonid.'\' AND active AND calculated ')->result(),
+                    'cashboncomponentsempty' => $this->M_CashbonComponent->q_empty_read_where(' AND dutieid = \''.$transaksi->dutieid.'\' AND active AND calculated ')->result(),
                 ));
             }
         }else{

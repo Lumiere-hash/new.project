@@ -5,56 +5,65 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/application/migrations/00028_kasbon_umum.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00028.20240229.20.Kasbon-Umum/+up/000.action.schema.table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00028.20240229.20.Kasbon-Umum/+up/001.alter.sc_trx.declaration_cashbon.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00028.20240229.20.Kasbon-Umum/+up/002.insert.sc_mst.option.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00028.20240229.20.Kasbon-Umum/-down/000.action.schema.table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/views/cashbon/v_filter.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/captcha/1709220791.5128.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/captcha/1709220791.5129.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/captcha/1709220793.9536.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/captcha/1709220793.9537.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/captcha/1709220794.2131.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/captcha/1709220809.4193.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/captcha/1709220820.3123.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/captcha/1709220998.8197.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/captcha/1709221940.1877.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/config/migration.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/config/migration.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/Cashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/Cashbon.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/CashbonDinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/CashbonDinas.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/DeclarationCashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/DeclarationCashbon.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/DeclarationCashbonDinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/DeclarationCashbonDinas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/models/M_Cashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/models/M_Cashbon.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/models/M_CashbonComponentDinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/models/M_CashbonComponentDinas.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/views/cashbon/dinas/v_component_read.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/views/cashbon/dinas/v_component_read.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/views/cashbon/dinas/v_create.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/views/cashbon/dinas/v_create.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/views/cashbon/dinas/v_detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/views/cashbon/dinas/v_detail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/views/cashbon/v_detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/views/cashbon/v_detail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/views/cashbon/v_read.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/views/cashbon/v_read.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/dinas/v_component_balance.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/dinas/v_component_balance.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/views/cashbon/dinas/v_update.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/views/cashbon/dinas/v_update.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/views/cashbon/v_create_bl.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/views/cashbon/v_create_bl.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/views/cashbon/v_update.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/views/cashbon/v_update.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/dinas/v_component_read.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/dinas/v_component_read.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/dinas/v_create.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/dinas/v_create.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/dinas/v_update.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/dinas/v_update.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/v_detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/v_detail.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/v_filter.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/v_filter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/dinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/dinas.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/models/m_dinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/m_dinas.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1709196792.9486.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1709196793.3964.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1709196793.5616.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1709196794.3612.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1709196794.9599.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1709196795.465.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1709196797.7777.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1709196800.2766.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1709196800.9322.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1709196817.9204.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1709196939.1964.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1709197257.0864.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1709197260.5381.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1709197265.5365.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/dinas/v_update_component_modal.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/dinas/v_update_component_modal.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/v_cashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/v_cashbon.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/v_create.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/v_create.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/v_update.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/views/declaration_cashbon/v_update.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/web/controllers/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/web/controllers/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709253102.0345.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709253110.2998.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709253780.6707.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709253789.935.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709254074.7127.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709254082.9467.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709254596.5387.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709254980.636.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709254989.8415.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709255282.5802.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709255292.3572.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709255510.0982.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709255518.571.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709255770.5473.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709255781.1754.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709255986.151.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709255988.9752.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709255995.2887.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709255997.342.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709256107.584.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709256226.1682.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709256327.6497.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709256335.8601.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709256834.4296.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709256907.0487.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709257436.5924.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709257444.76.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709258109.1485.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709258117.4306.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709258707.8043.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709258707.9095.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709258712.1155.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709259617.7997.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709259617.9016.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709259624.0026.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709259641.0683.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709259674.9394.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709259849.3989.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709259858.8204.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709260042.4871.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1709260051.4715.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -384,7 +393,7 @@
     "database.data.extractors.current.export.id": "SQL Inserts",
     "database.data.extractors.current.id": "SQL Inserts",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/PROJECT/hrms.nusa/application/modules/kasbon_umum/views/cashbon",
+    "last_opened_file_path": "D:/PROJECT/hrms.nusa/application/migrations/sql/00028.20240229.20.Kasbon-Umum/+up",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -406,8 +415,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\PROJECT\hrms.nusa\application\modules\kasbon_umum\views\cashbon" />
       <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00028.20240229.20.Kasbon-Umum\+up" />
+      <recent name="D:\PROJECT\hrms.nusa\application\modules\kasbon_umum\views\cashbon" />
       <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql" />
       <recent name="D:\PROJECT\hrms.nusa\application\migrations" />
       <recent name="D:\PROJECT\hrms.nusa\assets" />
