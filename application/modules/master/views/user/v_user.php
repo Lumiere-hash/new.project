@@ -29,8 +29,199 @@
 				document.getElementById("password2").setCustomValidity(''); 			
 			//empty string means no validation error
 			}
+            $(document).ready(function() {
+                $('table#example1').on('click','a.reset-password', function () {
+                    var row = $(this);
+                    $.getJSON(row.attr('data-href'), {})
+                        .done(function (data) {
+                            if (data.canreset) {
+                                Swal.mixin({
+                                    customClass: {
+                                        confirmButton: 'btn btn-sm btn-success ml-3',
+                                        cancelButton: 'btn btn-sm btn-warning ml-3',
+                                        denyButton: 'btn btn-sm btn-danger ml-3',
+                                    },
+                                    buttonsStyling: false,
+                                }).fire({
+                                    position: 'top',
+                                    icon: 'question',
+                                    title: 'Perhatian',
+                                    html: 'Apakah anda yakin akan mengatur ulang password untuk user ini ?',
+                                    showCloseButton: true,
+                                    showConfirmButton: true,
+                                    showDenyButton: true,
+                                    denyButtonText: `Batal`,
+                                    confirmButtonText: `Konfirmasi`,
+                                }).then(function (result) {
+                                    if(result.isConfirmed){
+                                        $.ajax({
+                                            url: data.next,
+                                            method: 'POST',
+                                            success: function (data) {
+                                                Swal.mixin({
+                                                    customClass: {
+                                                        confirmButton: 'btn btn-sm btn-success ml-3',
+                                                        cancelButton: 'btn btn-sm btn-warning ml-3',
+                                                        denyButton: 'btn btn-sm btn-danger ml-3',
+                                                    },
+                                                    buttonsStyling: false,
+                                                }).fire({
+                                                    position: 'top',
+                                                    title: 'Berhasil',
+                                                    html: data.message,
+                                                    icon: 'success',
+                                                    showCloseButton: false,
+                                                }).then(function (result) {});
+                                            },
+                                            error: function (xhr, status, thrown) {
+                                                Swal.mixin({
+                                                    customClass: {
+                                                        confirmButton: 'btn btn-sm btn-success ml-3',
+                                                        cancelButton: 'btn btn-sm btn-warning ml-3',
+                                                        denyButton: 'btn btn-sm btn-danger ml-3',
+                                                    },
+                                                    buttonsStyling: false,
+                                                }).fire({
+                                                    position: 'top',
+                                                    icon: 'error',
+                                                    title: 'Gagal Dibuat',
+                                                    html: (xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : xhr.statusText),
+                                                    showCloseButton: true,
+                                                    showConfirmButton: false,
+                                                    showDenyButton: true,
+                                                    denyButtonText: `Tutup`,
+                                                }).then(function(){ });
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        })
+                        .fail(function(xhr, status, thrown) {
+                            Swal.mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-sm btn-success ml-3',
+                                    cancelButton: 'btn btn-sm btn-warning ml-3',
+                                    denyButton: 'btn btn-sm btn-danger ml-3',
+                                },
+                                buttonsStyling: false,
+                            }).fire({
+                                position: 'top',
+                                icon: 'error',
+                                title: 'Gagal Memuat Data',
+                                html: (xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : xhr.statusText),
+                                showCloseButton: true,
+                                showConfirmButton: false,
+                                showDenyButton: true,
+                                denyButtonText: `Tutup`,
+                            }).then(function () {
+                            });
+                        });
+                })
+                $('table#example1').on('click','a.give-access', function () {
+                    var row = $(this);
+                    $.getJSON(row.attr('data-href'), {})
+                        .done(function (data) {
+                            if (data.canupdate) {
+                                Swal.mixin({
+                                    customClass: {
+                                        confirmButton: 'btn btn-sm btn-success ml-3',
+                                        cancelButton: 'btn btn-sm btn-warning ml-3',
+                                        denyButton: 'btn btn-sm btn-danger ml-3',
+                                    },
+                                    buttonsStyling: false,
+                                }).fire({
+                                    position: 'top',
+                                    icon: 'question',
+                                    title: 'Perhatian',
+                                    html: 'Apakah anda yakin akan membuka akses user ini ?',
+                                    showCloseButton: true,
+                                    showConfirmButton: true,
+                                    showDenyButton: true,
+                                    denyButtonText: `Batal`,
+                                    confirmButtonText: `Konfirmasi`,
+                                }).then(function (result) {
+                                    if(result.isConfirmed){
+                                        $.ajax({
+                                            url: data.next,
+                                            method: 'POST',
+                                            success: function (data) {
+                                                Swal.mixin({
+                                                    customClass: {
+                                                        confirmButton: 'btn btn-sm btn-success ml-3',
+                                                        cancelButton: 'btn btn-sm btn-warning ml-3',
+                                                        denyButton: 'btn btn-sm btn-danger ml-3',
+                                                    },
+                                                    buttonsStyling: false,
+                                                }).fire({
+                                                    position: 'top',
+                                                    title: 'Berhasil',
+                                                    html: data.message,
+                                                    icon: 'success',
+                                                    showCloseButton: false,
+                                                    timer: 3000,
+                                                }).then(function () {
+                                                    window.location.reload()
+                                                });
+                                            },
+                                            error: function (xhr, status, thrown) {
+                                                Swal.mixin({
+                                                    customClass: {
+                                                        confirmButton: 'btn btn-sm btn-success ml-3',
+                                                        cancelButton: 'btn btn-sm btn-warning ml-3',
+                                                        denyButton: 'btn btn-sm btn-danger ml-3',
+                                                    },
+                                                    buttonsStyling: false,
+                                                }).fire({
+                                                    position: 'top',
+                                                    icon: 'error',
+                                                    title: 'Gagal Dibuat',
+                                                    html: (xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : xhr.statusText),
+                                                    showCloseButton: true,
+                                                    showConfirmButton: false,
+                                                    showDenyButton: true,
+                                                    denyButtonText: `Tutup`,
+                                                }).then(function(){ });
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        })
+                        .fail(function(xhr, status, thrown) {
+                            Swal.mixin({
+                                customClass: {
+                                    confirmButton: 'btn btn-sm btn-success ml-3',
+                                    cancelButton: 'btn btn-sm btn-warning ml-3',
+                                    denyButton: 'btn btn-sm btn-danger ml-3',
+                                },
+                                buttonsStyling: false,
+                            }).fire({
+                                position: 'top',
+                                icon: 'error',
+                                title: 'Gagal Memuat Data',
+                                html: (xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : xhr.statusText),
+                                showCloseButton: true,
+                                showConfirmButton: false,
+                                showDenyButton: true,
+                                denyButtonText: `Tutup`,
+                            }).then(function () {
+                            });
+                        });
+                })
+            })
 			
 </script>
+<style>
+    .btn-twitter {
+        color: #ffffff;
+        background-color: #202121 !important;
+        border-color: rgba(0, 0, 0, 0.2);
+    }
+    .ml-3{
+        margin-left: 3px;
+    }
+</style>
 <legend><?php echo $title;?></legend>
 <?php echo $message;?>
 <div class="row">
@@ -60,7 +251,7 @@
 						<?php $no=0; foreach($list_user as $lu): $no++;?>
 						<tr>										
 							<td width="2%"><?php echo $no;?></td>																							
-							<td><?php echo $lu->nik;?></td>																								
+							<td><?php echo $lu->nik; ?></td>
 							<td><?php echo $lu->username;?></td>																																																																											
 							<td><?php echo $lu->expdate;?></td>											
 							<td><?php echo $lu->hold_id;?></td>											
@@ -74,6 +265,19 @@
 								<a href='<?php echo site_url("master/user/hps/$nik/$username")?>' onclick="return confirm('Anda Yakin Hapus Data ini?')" class="btn btn-default  btn-sm">
                                     <i class="fa fa-trash-o"></i> Hapus
                                 </a>
+                                <a href="javascript:void(0)" data-href="<?php echo site_url('master/user/resetpassword/'.bin2hex(json_encode(array('nik'=>$lu->nik,'username'=>$lu->username))))?>"  class="btn btn-twitter btn-sm m-1 reset-password" title="Reset Password">
+                                    <i class="fa fa-retweet"></i>
+                                </a>
+                                <?php if (checkAccessSidia(trim($lu->nik))){ ?>
+                                    <!--<a href="javascript:void(0)" data-href="<?php /*echo site_url('master/user/resetpassword/'.bin2hex(json_encode(array('nik'=>$lu->nik,'username'=>$lu->username))))*/?>"  class="btn btn-info btn-sm m-1 give-access" title="Tutup Akses Sidia">
+                                        <i class="fa fa-unlock"></i>
+                                    </a>-->
+                                <?php }else{ ?>
+                                    <a href="javascript:void(0)" data-href="<?php echo site_url('master/user/giveaccesssidia/'.bin2hex(json_encode(array('nik'=>$lu->nik,'username'=>$lu->username))))?>"  class="btn btn-google btn-sm m-1 give-access" title="Buka Akses Sidia">
+                                        <i class="fa fa-lock"></i>
+                                    </a>
+                                <?php } ?>
+
 							</td>
 						</tr>
 						<?php endforeach;?>

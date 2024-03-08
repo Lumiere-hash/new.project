@@ -105,6 +105,53 @@ class M_user extends CI_Model{
 	function cek_tmp_akses($nik,$username){
 		return $this->db->query("select * from sc_tmp.akses where nik='$nik' and  username='$username'");
 	}
+
+    function q_user_exist($where){
+        return $this->db
+                ->select('*')
+                ->where($where)
+                ->get('sc_mst.user')
+                ->num_rows() > 0;
+    }
+
+    function q_user_create($value){
+        return $this->db
+            ->insert('sc_mst.user', $value);
+    }
+
+    function q_user_read_where($clause = null){
+        return $this->db->query($this->q_user_txt_where($clause));
+    }
+    function q_user_txt_where($clause = null){
+        return sprintf(<<<'SQL'
+SELECT * FROM (
+    SELECT
+        COALESCE(trim(a.branch),'') AS branch,
+        COALESCE(trim(a.nik),'') AS nik,
+        COALESCE(trim(a.username),'') AS username,
+        a.passwordweb,
+        COALESCE(trim(a.level_id),'') AS level_id,
+        COALESCE(trim(a.level_akses),'') AS level_akses,
+        a.expdate,
+        COALESCE(trim(a.hold_id),'') AS hold_id,
+        a.inputdate,
+        COALESCE(trim(a.inputby),'') AS inputby,
+        a.editdate,
+        COALESCE(trim(a.editby),'') AS editby,
+        a.lastlogin,
+        a.image,
+        COALESCE(trim(a.loccode),'') AS loccode
+    from sc_mst."user" a
+) AS a WHERE TRUE 
+SQL
+            ).$clause;
+    }
+
+    function q_transaction_update($value, $where){
+        return $this->db
+            ->where($where)
+            ->update('sc_mst.user', $value);
+    }
 	
 }
 

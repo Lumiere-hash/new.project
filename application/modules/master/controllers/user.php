@@ -19,6 +19,7 @@ class User extends MX_Controller{
     }
 
     function index(){
+        $this->load->helper('user');
         $data['title']="Master User";
         $data['message']="";
 		$data['list_user']=$this->m_user->list_user()->result();
@@ -47,7 +48,7 @@ class User extends MX_Controller{
 			redirect('master/user/');
 		} else {
 			$data['title']='EDIT DATA USER';
-			if($this->uri->segment(5)=="upsuccess"){
+			if($this->uri->segment(6)=="upsuccess"){
 				$data['message']="<div class='alert alert-success'>Data Berhasil di update </div>";
 			}
 			else {
@@ -213,7 +214,7 @@ class User extends MX_Controller{
 		//$nik=strtoupper(trim($splituser[0]));
 		$nik=$this->input->post('nik');
 		$username=strtoupper(trim($this->input->post('username')));
-		$password=md5(($this->input->post('passwordweb')));
+		$password=trim($this->input->post('passwordweb'));
 		$lvlid=strtoupper(trim($this->input->post('lvlid')));
 		$lvlakses=strtoupper(trim($this->input->post('lvlakses')));
 		$initial=strtoupper(trim($this->input->post('initial')));
@@ -283,12 +284,14 @@ class User extends MX_Controller{
 
 
 	function saveprofile(){
+        $this->load->model(array('master/M_UserSidia'));
+        $this->load->library(array('generatepassword'));
 		$tipe=$this->input->post('tipe');
 		$splituser=explode('|',$this->input->post('user'));
 		$nik=strtoupper(trim($splituser[0]));
 		$nama=strtoupper(trim($splituser[1]));
-		$password=md5(($this->input->post('passwordweb')));
-		$password2=md5(($this->input->post('passwordweb2')));
+		$password=$this->input->post('passwordweb');
+		$password2=$this->input->post('passwordweb2');
 		$expdate=$this->input->post('expdate');
 		$hold=$this->input->post('hold');
 		$cek_user=$this->m_user->cek_user($nik);
@@ -326,8 +329,9 @@ class User extends MX_Controller{
 				$this->db->update('sc_mst.user',$info_edit1);
 				redirect("master/user/editprofile/$nik/$nama/upsuccess");
 			} else {
+                $passwordGenerate = $this->generatepassword->sidia($password, TRUE);
 				$info_edit2=array(
-					'passwordweb'=>$password,
+					'passwordweb'=>md5($password),
 					//'expdate'=>$expdate,
 					//'hold_id'=>$hold,
 					'editdate'=>date('d-m-Y'),
@@ -335,6 +339,14 @@ class User extends MX_Controller{
 				);
 				$this->db->where('nik',$nik);
 				$this->db->update('sc_mst.user',$info_edit2);
+                $this->M_UserSidia->q_transaction_update(array(
+                    'password' => $passwordGenerate,
+                    'updatedate' => date('Y-m-d H:i:s'),
+                    'updateby' => trim($this->session->userdata('nik')),
+                ),array(
+                    'trim(nik)' => trim($nik),
+                    'trim(userid)' => trim($nik),
+                ));
 				redirect("master/user/editprofile/$nik/$nama/upsuccess");
 			}
 		} else {
@@ -426,5 +438,190 @@ class User extends MX_Controller{
         };
 		redirect("master/user/akses/$nik/$username");
 	}
+
+    public function resetpassword($param)
+    {
+        $json = json_decode(hex2bin($param));
+        $this->load->model(array('master/m_akses'));
+        $userhr = $this->m_akses->list_aksesperdep()->num_rows() > 0 OR strtoupper(trim($this->m_akses->q_user_check()->row()->level_akses)) === 'A';
+        header('Content-Type: application/json');
+        if ($userhr){
+            http_response_code(200);
+            echo json_encode(array(
+                'data' => array('nik'=>trim($json->nik)),
+                'canreset' => true,
+                'next' => site_url('master/user/doresetpassword/'.bin2hex(json_encode(array('nik'=>trim($json->nik),'action'=>'reset')))),
+            ));
+        }else{
+            http_response_code(403);
+            echo json_encode(array(
+                'data' => array(),
+                'canreset' => false,
+                'message' => 'Anda tidak memiliki akses untuk melakukan ini!'
+            ));
+        }
+
+    }
+
+    public function doresetpassword($param)
+    {
+        $json = json_decode(hex2bin($param));
+        $this->load->model(array('master/m_akses','master/M_UserSidia'));
+        $this->load->library(array('generatepassword'));
+        header('Content-Type: application/json');
+        $userhr = $this->m_akses->list_aksesperdep()->num_rows() > 0 OR strtoupper(trim($this->m_akses->q_user_check()->row()->level_akses)) === 'A';
+        if ($userhr){
+            $user = $this->m_user->q_user_read_where(' AND nik = \''.$json->nik.'\' ')->row();
+//            var_dump(md5(trim($user->nik)));die();
+            if (!empty($user)){
+                if (strtoupper($user->hold_id) == 'N' ){
+                    $this->m_user->q_transaction_update(array(
+                        'passwordweb' => md5(trim($user->nik)),
+                    ),array(
+                        'trim(nik)' => trim($user->nik),
+                        'trim(username)' => trim($user->username),
+                    ));
+                    if ($this->M_UserSidia->q_transaction_exists(' TRUE AND userid = \''.$user->nik.'\' OR nik = \''.$user->nik.'\' ')){
+                        $passwordGenerate = $this->generatepassword->sidia($user->nik, TRUE);
+                        $this->M_UserSidia->q_transaction_update(array(
+                            'password' => $passwordGenerate,
+                            'updatedate' => date('Y-m-d H:i:s'),
+                            'updateby' => trim($this->session->userdata('nik')),
+                        ),array(
+                            'trim(nik)' => trim($user->nik),
+                            'trim(userid)' => trim($user->nik),
+                        ));
+                    }
+                    http_response_code(200);
+                    echo json_encode(array(
+                        'data' => array(),
+                        'message' => 'Kata sandi berhasil direset',
+                    ));
+                }else{
+                    http_response_code(403);
+                    echo json_encode(array(
+                        'data' => array(),
+                        'message' => 'User tidak aktif',
+                    ));
+                }
+            }else{
+                http_response_code(404);
+                echo json_encode(array(
+                    'data' => array(),
+                    'message' => 'User tidak ditemukan'
+                ));
+            }
+        }else{
+            http_response_code(403);
+            echo json_encode(array(
+                'data' => array(),
+                'message' => 'Anda tidak memiliki akses untuk melakukan ini!'
+            ));
+        }
+    }
+
+    public function firstUpdatePassword()
+    {
+        $this->load->model(array('master/M_UserSidia'));
+        $this->load->library(array('generatepassword'));
+        $tipe=$this->input->post('tipe');
+        $splituser=explode('|',$this->input->post('user'));
+        $nik=strtoupper(trim($splituser[0]));
+        $nama=strtoupper(trim($splituser[1]));
+        $password=strtoupper($this->input->post('passwordweb'));
+        $password2=strtoupper($this->input->post('passwordweb2'));
+        $passwordGenerate = $this->generatepassword->sidia($password, TRUE);
+        $info_edit2 = array(
+            'passwordweb' => md5($password),
+            'editdate' => date('d-m-Y'),
+            'editby' => $this->session->userdata('nik')
+        );
+        $this->db->where('nik', $nik);
+        $this->db->update('sc_mst.user', $info_edit2);
+        $this->M_UserSidia->q_transaction_update(array(
+            'password' => $passwordGenerate,
+            'updatedate' => date('Y-m-d H:i:s'),
+            'updateby' => trim($this->session->userdata('nik')),
+        ),array(
+            'trim(nik)' => trim($nik),
+            'trim(userid)' => trim($nik),
+        ));
+        $this->session->set_userdata(array(
+            'firstuse' => (md5(trim($nik)) == md5($password) ? TRUE : FALSE),
+        ));
+    }
+
+    public function giveaccesssidia($param)
+    {
+        $json = json_decode(hex2bin($param));
+        $this->load->model(array('master/m_akses'));
+        $userhr = $this->m_akses->list_aksesperdep()->num_rows() > 0 OR strtoupper(trim($this->m_akses->q_user_check()->row()->level_akses)) === 'A';
+        header('Content-Type: application/json');
+        if ($userhr){
+            http_response_code(200);
+            echo json_encode(array(
+                'data' => array('nik'=>trim($json->nik)),
+                'canupdate' => true,
+                'next' => site_url('master/user/dogiveaccess/'.bin2hex(json_encode(array('nik'=>trim($json->nik),'action'=>'give-access')))),
+            ));
+        }else{
+            http_response_code(403);
+            echo json_encode(array(
+                'data' => array(),
+                'canreset' => false,
+                'message' => 'Anda tidak memiliki akses untuk melakukan ini!'
+            ));
+        }
+
+    }
+    public function dogiveaccess($param)
+    {
+        $json = json_decode(hex2bin($param));
+        $this->load->model(array('master/m_akses','master/M_UserSidia'));
+        $this->load->library(array('generatepassword'));
+        header('Content-Type: application/json');
+        $userhr = $this->m_akses->list_aksesperdep()->num_rows() > 0 OR strtoupper(trim($this->m_akses->q_user_check()->row()->level_akses)) === 'A';
+        if ($userhr){
+            $user = $this->m_user->q_user_read_where(' AND nik = \''.$json->nik.'\' ')->row();
+//            var_dump(md5(trim($user->nik)));die();
+            if (!empty($user)){
+                if (strtoupper($user->hold_id) == 'N' ){
+                    if ($this->M_UserSidia->q_transaction_exists(' TRUE AND userid = \''.$user->nik.'\' OR nik = \''.$user->nik.'\' ')){
+                        $this->M_UserSidia->q_transaction_update(array(
+                            'hold' => 'No',
+                            'updatedate' => date('Y-m-d H:i:s'),
+                            'updateby' => trim($this->session->userdata('nik')),
+                        ),array(
+                            'trim(nik)' => trim($user->nik),
+                            'trim(userid)' => trim($user->nik),
+                        ));
+                    }
+                    http_response_code(200);
+                    echo json_encode(array(
+                        'data' => array(),
+                        'message' => 'Akses berhasil dibuka',
+                    ));
+                }else{
+                    http_response_code(403);
+                    echo json_encode(array(
+                        'data' => array(),
+                        'message' => 'User tidak aktif',
+                    ));
+                }
+            }else{
+                http_response_code(404);
+                echo json_encode(array(
+                    'data' => array(),
+                    'message' => 'User tidak ditemukan'
+                ));
+            }
+        }else{
+            http_response_code(403);
+            echo json_encode(array(
+                'data' => array(),
+                'message' => 'Anda tidak memiliki akses untuk melakukan ini!'
+            ));
+        }
+    }
 
 }

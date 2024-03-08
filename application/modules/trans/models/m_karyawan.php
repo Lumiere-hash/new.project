@@ -231,4 +231,18 @@ class M_karyawan extends CI_Model {
 	    return $this->db->query("select * from sc_mst.m_wilayah_nominal where c_hold='NO' $param");
     }
 
+    function q_karyawan_read($where){
+        return $this->db
+            ->select('*')
+            ->where($where)
+            ->get('sc_mst.karyawan');
+    }
+    function q_karyawan_exist($where){
+        return $this->db
+                ->select('*')
+                ->where($where)
+                ->get('sc_mst.karyawan')
+                ->num_rows() > 0;
+    }
+
 }

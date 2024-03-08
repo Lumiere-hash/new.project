@@ -1,4 +1,5 @@
-<?php 
+<?php
+//var_dump($dtl_user);die();
 /*
 	@author : hanif_anak_metal \m/
 */
@@ -56,13 +57,13 @@
 					<div class="form-group">
 						<label class="col-sm-4">PASSWORD</label>	
 						<div class="col-sm-8">    
-							<input type="password" class="form-control input-sm" id="password1" name="passwordweb" pattern=".{6,}"  title="Panjang minimal 6 Karakter, dan terdiri dari angka dan huruf">
+							<input type="password" class="form-control input-sm" id="password1" name="passwordweb" pattern=".{6,}"  title="Panjang minimal 6 Karakter, dan terdiri dari angka dan huruf" placeholder="Kosongkan Jika Tidak Ingin Merubah Password">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-sm-4">ULANG PASSWORD</label>	
 						<div class="col-sm-8">    
-							<input type="password" class="form-control input-sm" id="password2" name="passwordweb2" pattern=".{6,}" title="Masukan Ulang Password Sama dengan sebelumnya"></input>
+							<input type="password" class="form-control input-sm" id="password2" name="passwordweb2" pattern=".{6,}" title="Masukan Ulang Password Sama dengan sebelumnya" placeholder="Kosongkan Jika Tidak Ingin Merubah Password"></input>
 						</div>
 					</div>		
 					<div class="form-group">
@@ -89,8 +90,8 @@
 						<label class="col-sm-4">HOLD</label>	
 						<div class="col-sm-8">    
 							<select class="form-control input-sm" name="hold" class="col-sm-12">
-								<option value="N">TIDAK</option>;																																													
-								<option value="Y">IYA</option>;																																																							
+								<option value="N" <?php echo (TRIM($dtl_user['hold_id']) == 'N' ? 'selected' : '') ?> >TIDAK</option>;
+								<option value="Y" <?php echo (TRIM($dtl_user['hold_id']) == 'Y' ? 'selected' : '') ?> >YA</option>;
 							</select>
 						</div>
 					</div>

@@ -67,6 +67,7 @@ class Web extends MX_Controller{
 						'nama' =>    trim($login_data['username']),
 						'lvl' =>     trim($login_data['level_akses']),
 						'nik' =>     trim($login_data['nik']),
+                        'firstuse' => (trim($username) == $password ? TRUE : FALSE),
 						'loccode' => trim($login_data['loccode']),
 					);
 					$log_data=array(

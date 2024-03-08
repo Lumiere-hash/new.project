@@ -181,6 +181,25 @@ class M_akses extends CI_Model{
     function q_lv_mkaryawan($param){
         return $this->db->query("select * from sc_mst.lv_m_karyawan where nik is not null $param");
     }
+
+    function q_akses_exist($where){
+        return $this->db
+                ->select('*')
+                ->where($where)
+                ->get('sc_mst.akses')
+                ->num_rows() > 0;
+    }
+
+    function q_akses_create($value){
+        return $this->db
+            ->insert('sc_mst.akses', $value);
+    }
+
+    function q_akses_delete($where){
+        return $this->db
+            ->where($where)
+            ->delete('sc_mst.akses');
+    }
 }
 
 

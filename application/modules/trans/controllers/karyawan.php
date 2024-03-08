@@ -503,8 +503,15 @@ class Karyawan extends MX_Controller {
             redirect('trans/karyawan/index/exist');
         } else {
             $insert = $this->m_karyawan->save($data);
-            echo json_encode(array("status" => TRUE));
-            redirect('trans/karyawan/index/success');
+            $this->load->model(array('master/m_option', 'master/m_akses', 'master/m_user','master/M_UserSidia',));
+            $employee = $this->m_karyawan->q_karyawan_read('TRUE AND trim(noktp) = \'' . trim($noktp) . '\' ')->row();
+//            $this->createUser(trim($employee->nik));
+            if ($this->createUser(trim($employee->nik)) == TRUE){
+                echo json_encode(array("status" => TRUE));
+                redirect('trans/karyawan/index/success');
+            }else{
+                echo json_encode(array("status" => FALSE));
+            }
         }
 
     }
@@ -1663,5 +1670,144 @@ class Karyawan extends MX_Controller {
     function get_kdlvlgp() {
         $kdgrade = $this->input->post("kdgrade");
         echo json_encode($this->m_jabatan->q_lvlgp(" AND b.kdgrade = '$kdgrade'")->result());
+    }
+
+    public function createUser($nik = null, $password= null){
+        $this->load->library(array('generatepassword'));
+        $this->load->model(array('master/m_option','master/m_user','master/M_UserSidia','master/M_Branch',));
+        $employee = $this->m_karyawan->q_karyawan_read('TRUE AND trim(nik) = \'' . trim($nik) . '\' ')->row();
+        $branchDefault = $this->M_Branch->q_master_read_where(' AND cdefault = \'YES\' ')->row();
+        $defaultAccess = $this->m_option->q_cekoption(trim('DEFACS'))->row()->value1;
+        $menu = ($defaultAccess ? explode('/',$defaultAccess) : array('I.T.B.4d', 'I.T.B.16', 'I.T.A.15') );
+        $passwordGenerate = $this->generatepassword->sidia(trim($employee->nik), TRUE);
+        /*Notification::begin*/
+        $search = array('[fullname]', '[companyName]', '[appname1]', '[username1]', '[password1]','[appname2]', '[username2]', '[password2]','[appname3]', '[username3]', '[password3]', );
+        $replace = array(trim($employee->nmlengkap), $branchDefault->branchname, 'HRMS', trim($employee->nik), trim($employee->nik), 'Mobile', trim($employee->nik), trim($employee->nik), 'Sidia', trim($employee->nik), trim($employee->nik));
+        $mailMessage = str_replace($search, $replace, $this->load->view('template/mailmessage/account_information',array(), true));
+        /*Notification::end*/
+        try {
+            $this->db->trans_start();
+            $this->m_user->q_user_create(array(
+                'branch' => trim($employee->kdcabang),
+                'nik' => trim($employee->nik),
+                'username' => trim($employee->nik),
+                'passwordweb' => md5(trim($employee->nik)),
+                'level_id' => trim($employee->lvl_jabatan),
+                'level_akses' => trim($employee->lvl_jabatan),
+                'expdate' => date('Y-m-d', strtotime(' + 1 years')),
+                'hold_id' => 'N',
+                'image' => 'admin.jpg',
+                'loccode' => trim($employee->kdcabang),
+                'inputdate' => date('d-m-Y'),
+                'inputby' => $this->session->userdata('nik')
+            ));
+            foreach ($menu as $row) {
+                $this->m_akses->q_akses_create(array(
+                    'nik' => trim($employee->nik),
+                    'kodemenu' => $row,
+                    'hold_id' => true,
+                    'aksesview' => true,
+                    'aksesinput' => true,
+                    'aksesupdate' => true,
+                    'aksesdelete' => true,
+                    'aksesapprove' => true,
+                    'aksesconvert' => true,
+                    'aksesprint' => true,
+                    'aksesdownload' => true,
+                    'aksesapprove2' => true,
+                    'aksesapprove3' => true,
+                    'aksesfilter' => true,
+                    'username' => trim($employee->nik),
+                ));
+            }
+            $this->M_UserSidia->q_transaction_create(array(
+                'branch' => (!empty($employee->branch) ? $employee->branch : $branchDefault->branch),
+                'nik' => $employee->nik,
+                'userid' => $employee->nik,
+                'usersname' => trim($employee->callname),
+                'userlname' => trim($employee->callname),
+                'password' => $passwordGenerate,
+                'groupuser' => 'IT',
+                'level' => 'E',
+                'location' => 'JA',
+                'divisi' => 'AC',
+                'hold' => 'Yes',
+                'expdate' => date('Y-m-d H:i:s', strtotime('+1 years')),
+                'inputdate' => date('Y-m-d H:i:s'),
+                'inputby' => trim($this->session->userdata('nik')),
+                'email' => $employee->email,
+            ));
+
+            $info = array(
+                'docno' => $employee->nik,
+                'doctype' => 'ACCOUNT',
+                'erptype' => 'HRMS',
+                'send_date' => date('Y-m-d H:i:s'),
+                'doctypename' => 'ACCOUNT INFORMATION',
+                'mailto' => $employee->email,
+                'mailsender' =>'noreply_nusa@nusaboard.co.id',
+                'mailsubject' => 'Informasi akun karyawan',
+                'mailtype' => 'html',
+                'mailmessage' => $mailMessage,
+                'sentby' => 'SYSTEM',
+                'mailstatus' => 'NO_SENT',
+            );
+            if (!empty ($employee->email)) {
+                $this->db->insert('public.mail_outbox', $info);
+            }
+            $this->db->trans_complete();
+            if ($this->db->trans_status()) {
+                $this->db->trans_commit();
+                return true;
+            } else {
+                throw new Exception("Error DB", 1);
+                return false;
+            }
+        } catch (Exception $e) {
+            $this->db->trans_rollback();
+        }
+    }
+
+    public function actionaccountpopup($param)
+    {
+        $json = json_decode(hex2bin($param));
+        $employee = $this->m_karyawan->q_karyawan_read('TRUE AND trim(nik) = \'' . trim($json->nik) . '\' ')->row();
+        header('Content-Type: application/json');
+        switch (strtolower($this->input->get_post('action'))) {
+            case 'read':
+                echo json_encode(array(
+                    'data' => array(),
+                    'canread' => true,
+                    'next' => site_url('trans/karyawan/accountread/' . bin2hex(json_encode(array('nik'=>trim($employee->nik))))),
+                ));
+                break;
+        }
+
+    }
+    public function accountread($param)
+    {
+        $json = json_decode(
+            hex2bin($param)
+        );
+        $this->load->library(array('generatepassword'));
+        $this->load->model(array('master/m_user','master/M_UserSidia'));
+        $employee = $this->m_karyawan->q_karyawan_read('TRUE AND trim(nik) = \'' . trim($json->nik) . '\' ')->row();
+        $userHrms = $this->m_user->q_user_read_where(' AND trim(nik) = \''.trim($employee->nik).'\' ')->row();
+        $userSidia = $this->M_UserSidia->q_transaction_read_where(' AND nik = \''.trim($employee->nik).'\' ')->row();
+
+        $accountList = array();
+
+        if (!empty($userSidia) && !empty($userHrms)){
+            $passDecript = $this->generatepassword->sidia($userSidia->password,FALSE);
+            array_push($accountList,array('application'=>'HRMS','username'=>$userHrms->username,'password'=>$passDecript));
+            array_push($accountList,array('application'=>'SIDIA','username'=>$userSidia->userid,'password'=>$passDecript));
+        }else{
+            array_push($accountList,array('application'=>'HRMS','username'=>$userHrms->username));
+        }
+        $this->load->view('trans/karyawan/modals/v_account', array(
+            'accountList' => $accountList,
+            'modalTitle' => 'Daftar Akun',
+            'modalSize' => 'modal-sm'
+        ));
     }
 }

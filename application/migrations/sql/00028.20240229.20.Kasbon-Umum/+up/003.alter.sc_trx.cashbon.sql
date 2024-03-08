@@ -9,7 +9,7 @@ $$
 			        TRIM(b.nik) AS employeeid
 			    FROM sc_trx.cashbon a
 			    LEFT OUTER JOIN sc_trx.dinas b ON TRIM(b.nodok) = ANY(string_to_array(a.dutieid, ','))
-			    WHERE a.declarationid = cc.declarationid
+			    WHERE a.cashbonid = cc.cashbonid
 			) WHERE employeeid is null;
         END IF;
     END

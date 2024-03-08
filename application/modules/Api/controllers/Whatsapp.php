@@ -245,7 +245,7 @@ class WhatsApp extends MX_Controller
         foreach ($this->m_cuti->q_whatsapp_collect_where('
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
         AND ck.status = \'A\' AND whatsappsent = '.$sent.'
-        AND (whatsappaccept IS NULL AND whatsappreject IS NULL)
+        AND (whatsappaccept = false AND whatsappreject = false)
         ORDER BY input_date desc retry DESC
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
@@ -428,7 +428,7 @@ class WhatsApp extends MX_Controller
         foreach ($this->m_ijin->q_whatsapp_collect_where(' 
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
         AND ck.kdijin_absensi = \'DT\' AND ck.status = \'A\' AND whatsappsent = '.$sent.'
-        AND (whatsappaccept IS NULL AND whatsappreject IS NULL)
+        AND (whatsappaccept = false AND whatsappreject = false)
         ORDER BY input_date desc retry DESC
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
@@ -606,7 +606,7 @@ class WhatsApp extends MX_Controller
         foreach ($this->m_ijin->q_whatsapp_collect_where(' 
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
         AND ck.kdijin_absensi = \'IK\' AND ck.status = \'A\' AND whatsappsent = '.$sent.'
-        AND (whatsappaccept IS NULL AND whatsappreject IS NULL)
+        AND (whatsappaccept = false AND whatsappreject = false)
         ORDER BY input_date desc retry DESC
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
@@ -789,7 +789,7 @@ class WhatsApp extends MX_Controller
         foreach ($this->m_ijin->q_whatsapp_collect_where(' 
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
         AND ck.kdijin_absensi = \'PA\' AND ck.status = \'A\' AND whatsappsent = '.$sent.'
-         AND (whatsappaccept IS NULL AND whatsappreject IS NULL)
+         AND (whatsappaccept = false AND whatsappreject = false)
         ORDER BY input_date desc retry DESC
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
@@ -967,7 +967,7 @@ class WhatsApp extends MX_Controller
         foreach ($this->m_lembur->q_whatsapp_collect_where('
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
         AND ck.status = \'A\' AND whatsappsent = '.$sent.'
-        AND (whatsappaccept IS NULL AND whatsappreject IS NULL)
+        AND (whatsappaccept = false AND whatsappreject = false)
         ORDER BY input_date desc retry DESC
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
@@ -1155,7 +1155,7 @@ class WhatsApp extends MX_Controller
         foreach ($this->m_dinas->q_whatsapp_collect_where('
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
         AND ck.status = \'A\' AND whatsappsent = '.$sent.' 
-        AND (whatsappaccept IS NULL AND whatsappreject IS NULL)
+        AND (whatsappaccept = false AND whatsappreject = false)
         ORDER BY input_date desc retry DESC
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
@@ -1338,7 +1338,7 @@ class WhatsApp extends MX_Controller
         foreach ($this->m_sppb->q_whatsapp_collect_where('
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
         AND ck.status = \'A\' AND whatsappsent = '.$sent.'
-        AND (whatsappaccept IS NULL AND whatsappreject IS NULL)
+        AND (whatsappaccept = false AND whatsappreject = false)
         ORDER BY input_date desc retry DESC
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();

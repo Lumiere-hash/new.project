@@ -51,7 +51,16 @@ class Dashboard extends MX_Controller{
 			$data["list_lembur"] = $this->m_report->q_remind_lembur()->result();
 			$data["title_lembur"] = "Karyawan Lembur";
 		}
-
+        if ($this->session->userdata('firstuse')){
+            $this->load->model(array('trans/m_karyawan'));
+            $employee = $this->m_karyawan->q_karyawan_read('TRUE AND trim(nik) = \'' . trim($this->session->userdata('nik')) . '\' ')->row();
+            $user = $this->m_user->cekUser(trim($this->session->userdata('nik')))->row();
+            $data['default'] = array(
+                'user'=> trim($user->nik).'|'.trim($user->username),
+                'tipe' => 'edit'
+            );
+            $data['modalTitle'] = 'Selamat datang '.(!empty($employee) ? $employee->callname : 'user');
+        }
         $day = 4;
         $data["title_recent"] = "Aktifitas ". $day ." Hari Terakhir (Recent Latest Employee Activity)";
 
