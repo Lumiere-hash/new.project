@@ -464,9 +464,10 @@ class User extends MX_Controller{
     {
         $json = json_decode(hex2bin($param));
         $this->load->model(array('master/m_akses'));
-        $userhr = $this->m_akses->list_aksesperdep()->num_rows() > 0 OR strtoupper(trim($this->m_akses->q_user_check()->row()->level_akses)) === 'A';
+        $userhr = $this->m_akses->list_aksesperdep()->num_rows() > 0;
+        $levelA = strtoupper(trim($this->m_akses->q_user_check()->row()->level_akses)) === 'A';
         header('Content-Type: application/json');
-        if ($userhr){
+        if ($userhr OR $levelA){
             http_response_code(200);
             echo json_encode(array(
                 'data' => array('nik'=>trim($json->nik)),
@@ -490,8 +491,10 @@ class User extends MX_Controller{
         $this->load->model(array('master/m_akses','master/M_UserSidia'));
         $this->load->library(array('generatepassword'));
         header('Content-Type: application/json');
-        $userhr = $this->m_akses->list_aksesperdep()->num_rows() > 0 OR strtoupper(trim($this->m_akses->q_user_check()->row()->level_akses)) === 'A';
-        if ($userhr){
+        $userhr = $this->m_akses->list_aksesperdep()->num_rows() > 0;
+        $levelA = strtoupper(trim($this->m_akses->q_user_check()->row()->level_akses)) === 'A';
+        header('Content-Type: application/json');
+        if ($userhr OR $levelA){
             $user = $this->m_user->q_user_read_where(' AND nik = \''.$json->nik.'\' ')->row();
 //            var_dump(md5(trim($user->nik)));die();
             if (!empty($user)){
@@ -576,9 +579,10 @@ class User extends MX_Controller{
     {
         $json = json_decode(hex2bin($param));
         $this->load->model(array('master/m_akses'));
-        $userhr = $this->m_akses->list_aksesperdep()->num_rows() > 0 OR strtoupper(trim($this->m_akses->q_user_check()->row()->level_akses)) === 'A';
+        $userhr = $this->m_akses->list_aksesperdep()->num_rows() > 0;
+        $levelA = strtoupper(trim($this->m_akses->q_user_check()->row()->level_akses)) === 'A';
         header('Content-Type: application/json');
-        if ($userhr){
+        if ($userhr OR $levelA){
             http_response_code(200);
             echo json_encode(array(
                 'data' => array('nik'=>trim($json->nik)),
@@ -600,9 +604,10 @@ class User extends MX_Controller{
         $json = json_decode(hex2bin($param));
         $this->load->model(array('master/m_akses','master/M_UserSidia'));
         $this->load->library(array('generatepassword'));
+        $userhr = $this->m_akses->list_aksesperdep()->num_rows() > 0;
+        $levelA = strtoupper(trim($this->m_akses->q_user_check()->row()->level_akses)) === 'A';
         header('Content-Type: application/json');
-        $userhr = $this->m_akses->list_aksesperdep()->num_rows() > 0 OR strtoupper(trim($this->m_akses->q_user_check()->row()->level_akses)) === 'A';
-        if ($userhr){
+        if ($userhr OR $levelA){
             $user = $this->m_user->q_user_read_where(' AND nik = \''.$json->nik.'\' ')->row();
 //            var_dump(md5(trim($user->nik)));die();
             if (!empty($user)){
