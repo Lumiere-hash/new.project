@@ -246,6 +246,8 @@ class User extends MX_Controller{
 				redirect('master/user/index/success');
 			}
 		} else if ($tipe=='edit'){
+            $this->load->model(array('master/M_UserSidia'));
+            $this->load->library(array('generatepassword'));
 			if (empty($password) or $password==''){
 				$info_edit1=array(
 					'expdate'=>$expdate,
@@ -259,10 +261,20 @@ class User extends MX_Controller{
 				$this->db->where('nik',$nik);
 				$this->db->where('username',$username);
 				$this->db->update('sc_mst.user',$info_edit1);
+
+                $this->M_UserSidia->q_transaction_update(array(
+                    'hold' => ($hold == 'Y' ? 'Yes' : 'No'),
+                    'updatedate' => date('Y-m-d H:i:s'),
+                    'updateby' => trim($this->session->userdata('nik')),
+                ),array(
+                    'trim(nik)' => trim($nik),
+                    'trim(userid)' => trim($nik),
+                ));
 				redirect("master/user/edit/$nik/$username/upsuccess");
 			} else {
+                $passwordGenerate = $this->generatepassword->sidia($password, TRUE);
 				$info_edit2=array(
-					'passwordweb'=>$password,
+					'passwordweb'=>md5($password),
 					'expdate'=>$expdate,
                     'initial'=>$initial,
 					'hold_id'=>$hold,
@@ -274,6 +286,15 @@ class User extends MX_Controller{
 				$this->db->where('nik',$nik);
 				$this->db->where('username',$username);
 				$this->db->update('sc_mst.user',$info_edit2);
+                $this->M_UserSidia->q_transaction_update(array(
+                    'password' => $passwordGenerate,
+                    'hold' => ($hold == 'Y' ? 'Yes' : 'No'),
+                    'updatedate' => date('Y-m-d H:i:s'),
+                    'updateby' => trim($this->session->userdata('nik')),
+                ),array(
+                    'trim(nik)' => trim($nik),
+                    'trim(userid)' => trim($nik),
+                ));
 				redirect("master/user/edit/$nik/$username/upsuccess");
 			}
 		} else {
