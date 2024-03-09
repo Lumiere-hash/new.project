@@ -506,12 +506,18 @@ class Karyawan extends MX_Controller {
             $this->load->model(array('master/m_option', 'master/m_akses', 'master/m_user','master/M_UserSidia',));
             $employee = $this->m_karyawan->q_karyawan_read('TRUE AND trim(noktp) = \'' . trim($noktp) . '\' ')->row();
 //            $this->createUser(trim($employee->nik));
-            if ($this->createUser(trim($employee->nik)) == TRUE){
+            if(trim($this->input->post('borong')) == 'f'){
+                if ($this->createUser(trim($employee->nik)) == TRUE){
+                    echo json_encode(array("status" => TRUE));
+                    redirect('trans/karyawan/index/success');
+                }else{
+                    echo json_encode(array("status" => FALSE));
+                }
+            }else{
                 echo json_encode(array("status" => TRUE));
                 redirect('trans/karyawan/index/success');
-            }else{
-                echo json_encode(array("status" => FALSE));
             }
+
         }
 
     }

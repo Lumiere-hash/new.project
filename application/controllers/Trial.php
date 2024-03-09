@@ -15,7 +15,7 @@ class Trial extends CI_Controller {
     public function test($text, $is)
     {
         $this->load->library(array('generatepassword'));
-        $vc_jwb = 'F@AE@DBH432.164';
+        $vc_jwb = 'G?BEGD05432.164';
         $vl_dcd = ($is == 'false'); // Set to true or false based on your requirements
         $result = $this->generatepassword->sidia($vc_jwb,$vl_dcd);
         echo $result;
