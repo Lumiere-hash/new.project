@@ -201,10 +201,12 @@ class DeclarationCashbonDinas extends CI_Controller
         $json = json_decode(
             hex2bin($param)
         );
+//        var_dump($json);die();
         $this->load->library(array('datatablessp'));
         $this->load->model(array('trans/m_employee', 'trans/m_dinas', 'M_DeclarationCashbon', 'M_DeclarationCashbonComponentDinas', 'trans/M_DestinationType', 'M_Cashbon', 'trans/M_CityCashbon', 'trans/M_MealAllowance', 'trans/M_Callplan'));
         $this->M_DeclarationCashbon->q_temporary_delete(array('declarationid' => trim($this->session->userdata('nik'))));
-        $dutieid = $this->input->post('dutieid');
+//        $dutieid = $this->input->post('dutieid');
+        $dutieid = $json->dutieid;
         $edited = $this->M_DeclarationCashbon->q_temporary_read_where(' 
             AND dutieid = \'' . $dutieid . '\' 
             AND cashbonid = \'' . $json->cashbonid . '\' 
@@ -568,7 +570,8 @@ class DeclarationCashbonDinas extends CI_Controller
             $dutieid = $json->dutieid;
             $cashbon = $this->M_Cashbon->q_transaction_read_where(' AND cashbonid = \'' . $json->cashbonid . '\' ')->row();
         }else{
-            $dutieid = (!empty($this->input->post('dutieid')) ? $this->input->post('dutieid') : $json->dutieid);
+            //$dutieid = (!empty($this->input->post('dutieid')) ? $this->input->post('dutieid') : $json->dutieid);
+            $dutieid = $json->dutieid;
             $cashbon = $this->M_Cashbon->q_transaction_read_where(' AND dutieid = \''.$dutieid.'\' AND cashbonid = \'' . $json->cashbonid . '\' ')->row();
         }
         $dutiein = "'" . implode("','", explode(",", $dutieid)) . "'";
