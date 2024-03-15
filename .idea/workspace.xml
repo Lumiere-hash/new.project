@@ -5,38 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/information_schema.FNRwLQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/information_schema.FNRwLQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/pg_catalog.0S1ZNQ.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/pg_catalog.0S1ZNQ.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/public.abK9xQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_crm.bxfdyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_crm.bxfdyQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_his.IyndyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_his.IyndyQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_im.cwGDBg.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_im.cwGDBg.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_log.1TjdyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_log.1TjdyQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_mst.Hz3dyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_mst.Hz3dyQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_mst.Hz3dyQ.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_mst.Hz3dyQ.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_rec.IU7dyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_rec.IU7dyQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_rep.Lk7dyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_rep.Lk7dyQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_retable.jHp04Q.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_retable.jHp04Q.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.zip" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.zip" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/config/migration.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/config/migration.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/modules/Api/controllers/Whatsapp.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/Api/controllers/Whatsapp.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/Api/models/M_Cuti.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/Api/models/M_Cuti.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/Api/models/M_Dinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/Api/models/M_Dinas.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/Api/models/M_Ijin.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/Api/models/M_Ijin.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/Api/models/M_Lembur.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/Api/models/M_Lembur.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/Api/models/M_SPPB.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/Api/models/M_SPPB.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1710211788.3268.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1710211796.9606.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1710211929.612.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1710212700.6878.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1710212765.6724.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/absensi.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/absensi.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi/v_absensi.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/absensi/v_absensi.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1710477714.1807.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -758,7 +732,7 @@
       <workItem from="1709795125989" duration="3677000" />
       <workItem from="1709882452153" duration="29394000" />
       <workItem from="1710212259119" duration="4342000" />
-      <workItem from="1710473104123" duration="11165000" />
+      <workItem from="1710473104123" duration="12490000" />
     </task>
     <servers />
   </component>

@@ -814,7 +814,7 @@ class WhatsApp extends MX_Controller
             $filter = '';
         }
         $messages = [];
-        foreach ($this->m_ijin->q_whatsapp_collect_where($filter' 
+        foreach ($this->m_ijin->q_whatsapp_collect_where($filter.' 
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
         AND ck.kdijin_absensi = \'PA\' AND ck.status = \'A\' AND whatsappsent = '.$sent.'
          AND (whatsappaccept = false AND whatsappreject = false)

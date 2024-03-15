@@ -140,7 +140,7 @@ class Absensi extends MX_Controller {
 		} else if($kdcabang=='RMBG'){
 				$data['ttldata']=$this->m_absensi->ttldata_rmbg($tgl1,$tgl2);
 				$data['list_absen']=$this->m_absensi->show_user_rmbg($tgl1,$tgl2);				
-		}else { redirect('trans/absensi/filter'); }
+		}else { redirect('trans/absensi'); }
 
 		$this->template->display('trans/absensi/v_absensi',$data);
 	}

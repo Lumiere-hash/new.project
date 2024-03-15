@@ -138,7 +138,7 @@
 			<div class="box-header">
 				<div class="col-sm-12">		
 					<!--<a href="#" data-toggle="modal" data-target="#input" class="btn btn-primary" style="margin:10px; color:#ffffff;">Input Negara</a>-->
-					<a href="<?php echo site_url('trans/absensi/filter');?>"  class="btn btn-default" style="margin:10px; color:#000000;">Kembali</a>
+					<a href="<?php echo site_url('trans/absensi');?>"  class="btn btn-default" style="margin:10px; color:#000000;">Kembali</a>
 					<button class="btn btn-success" onclick="add_person()" style="margin:10px; color:#ffffff;"><i class="glyphicon glyphicon-plus"></i> Data Mesin Absen</button>
 				</div>
 			</div><!-- /.box-header -->
