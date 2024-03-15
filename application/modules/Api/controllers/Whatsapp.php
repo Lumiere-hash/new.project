@@ -240,13 +240,18 @@ class WhatsApp extends MX_Controller
     public function msgcuti($sent = 'false')
     {
         $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
-
+        $resendTimeRange = $this->m_setup->q_mst_read_value(' AND parameter = \'WA:RESEND:PERIOD\'', '8');
+        if ($sent == 'true'){
+            $filter = ' and ( ck.properties->>\'last_sent\' is not null AND to_timestamp(ck.properties->>\'last_sent\', \'YYYY-MM-DD HH24:MI:SS\') < NOW() - INTERVAL \' '.$resendTimeRange.' hours\' ) ';
+        }else{
+            $filter = '';
+        }
         $messages = [];
-        foreach ($this->m_cuti->q_whatsapp_collect_where('
+        foreach ($this->m_cuti->q_whatsapp_collect_where($filter.'
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
         AND ck.status = \'A\' AND whatsappsent = '.$sent.'
         AND (whatsappaccept = false AND whatsappreject = false)
-        ORDER BY input_date desc retry DESC
+        ORDER BY input_date desc, retry DESC
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
             $message = '' .
@@ -298,7 +303,6 @@ class WhatsApp extends MX_Controller
                 . '';
             $output = 'assets/img/approval/cuti/' . $item->nodok . '_' . $ref . '.jpg';
             $this->imageCreator($message, $output);
-
             array_push(
                 $messages,
                 array(
@@ -358,6 +362,9 @@ class WhatsApp extends MX_Controller
                             array(
                                 'whatsappsent' => TRUE,
                                 'retry' => $row->properties->retry,
+                                'properties' => json_encode(array(
+                                    'last_sent' => date('Y-m-d H:i:s'),
+                                )),
                             ),
                             array('TRIM(nodok)' => $row->properties->objectid)
                         );
@@ -423,13 +430,18 @@ class WhatsApp extends MX_Controller
     public function msgijindt($sent = 'false')
     {
         $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
-
+        $resendTimeRange = $this->m_setup->q_mst_read_value(' AND parameter = \'WA:RESEND:PERIOD\'', '8');
+        if ($sent == 'true'){
+            $filter = ' and ( ck.properties->>\'last_sent\' is not null AND to_timestamp(ck.properties->>\'last_sent\', \'YYYY-MM-DD HH24:MI:SS\') < NOW() - INTERVAL \' '.$resendTimeRange.' hours\' ) ';
+        }else{
+            $filter = '';
+        }
         $messages = [];
-        foreach ($this->m_ijin->q_whatsapp_collect_where(' 
+        foreach ($this->m_ijin->q_whatsapp_collect_where($filter.' 
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
         AND ck.kdijin_absensi = \'DT\' AND ck.status = \'A\' AND whatsappsent = '.$sent.'
         AND (whatsappaccept = false AND whatsappreject = false)
-        ORDER BY input_date desc retry DESC
+        ORDER BY input_date desc, retry DESC
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
             $message = '' .
@@ -536,6 +548,9 @@ class WhatsApp extends MX_Controller
                             array(
                                 'whatsappsent' => TRUE,
                                 'retry' => $row->properties->retry,
+                                'properties' => json_encode(array(
+                                    'last_sent' => date('Y-m-d H:i:s'),
+                                )),
                             ),
                             array('TRIM(nodok)' => $row->properties->objectid)
                         );
@@ -601,13 +616,18 @@ class WhatsApp extends MX_Controller
     public function msgijinik($sent = 'false')
     {
         $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
-
+        $resendTimeRange = $this->m_setup->q_mst_read_value(' AND parameter = \'WA:RESEND:PERIOD\'', '8');
+        if ($sent == 'true'){
+            $filter = ' and ( ck.properties->>\'last_sent\' is not null AND to_timestamp(ck.properties->>\'last_sent\', \'YYYY-MM-DD HH24:MI:SS\') < NOW() - INTERVAL \' '.$resendTimeRange.' hours\' ) ';
+        }else{
+            $filter = '';
+        }
         $messages = [];
-        foreach ($this->m_ijin->q_whatsapp_collect_where(' 
+        foreach ($this->m_ijin->q_whatsapp_collect_where($filter.' 
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
         AND ck.kdijin_absensi = \'IK\' AND ck.status = \'A\' AND whatsappsent = '.$sent.'
         AND (whatsappaccept = false AND whatsappreject = false)
-        ORDER BY input_date desc retry DESC
+        ORDER BY input_date desc, retry DESC
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
             $message = '' .
@@ -719,6 +739,9 @@ class WhatsApp extends MX_Controller
                             array(
                                 'whatsappsent' => TRUE,
                                 'retry' => $row->properties->retry,
+                                'properties' => json_encode(array(
+                                    'last_sent' => date('Y-m-d H:i:s'),
+                                )),
                             ),
                             array('TRIM(nodok)' => $row->properties->objectid)
                         );
@@ -784,13 +807,18 @@ class WhatsApp extends MX_Controller
     public function msgijinpa($sent = 'false')
     {
         $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
-
+        $resendTimeRange = $this->m_setup->q_mst_read_value(' AND parameter = \'WA:RESEND:PERIOD\'', '8');
+        if ($sent == 'true'){
+            $filter = ' and ( ck.properties->>\'last_sent\' is not null AND to_timestamp(ck.properties->>\'last_sent\', \'YYYY-MM-DD HH24:MI:SS\') < NOW() - INTERVAL \' '.$resendTimeRange.' hours\' ) ';
+        }else{
+            $filter = '';
+        }
         $messages = [];
-        foreach ($this->m_ijin->q_whatsapp_collect_where(' 
+        foreach ($this->m_ijin->q_whatsapp_collect_where($filter' 
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
         AND ck.kdijin_absensi = \'PA\' AND ck.status = \'A\' AND whatsappsent = '.$sent.'
          AND (whatsappaccept = false AND whatsappreject = false)
-        ORDER BY input_date desc retry DESC
+        ORDER BY input_date desc, retry DESC
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
             $message = '' .
@@ -897,6 +925,9 @@ class WhatsApp extends MX_Controller
                             array(
                                 'whatsappsent' => TRUE,
                                 'retry' => $row->properties->retry,
+                                'properties' => json_encode(array(
+                                    'last_sent' => date('Y-m-d H:i:s'),
+                                )),
                             ),
                             array('TRIM(nodok)' => $row->properties->objectid)
                         );
@@ -962,13 +993,18 @@ class WhatsApp extends MX_Controller
     public function msglembur($sent = 'false')
     {
         $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
-
+        $resendTimeRange = $this->m_setup->q_mst_read_value(' AND parameter = \'WA:RESEND:PERIOD\'', '8');
+        if ($sent == 'true'){
+            $filter = ' and ( ck.properties->>\'last_sent\' is not null AND to_timestamp(ck.properties->>\'last_sent\', \'YYYY-MM-DD HH24:MI:SS\') < NOW() - INTERVAL \' '.$resendTimeRange.' hours\' ) ';
+        }else{
+            $filter = '';
+        }
         $messages = [];
-        foreach ($this->m_lembur->q_whatsapp_collect_where('
+        foreach ($this->m_lembur->q_whatsapp_collect_where($filter.'
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
         AND ck.status = \'A\' AND whatsappsent = '.$sent.'
         AND (whatsappaccept = false AND whatsappreject = false)
-        ORDER BY input_date desc retry DESC
+        ORDER BY input_date desc, retry DESC
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
             $message = '' .
@@ -1085,6 +1121,9 @@ class WhatsApp extends MX_Controller
                             array(
                                 'whatsappsent' => TRUE,
                                 'retry' => $row->properties->retry,
+                                'properties' => json_encode(array(
+                                    'last_sent' => date('Y-m-d H:i:s'),
+                                )),
                             ),
                             array('TRIM(nodok)' => $row->properties->objectid)
                         );
@@ -1150,13 +1189,18 @@ class WhatsApp extends MX_Controller
     public function msgdinas($sent = 'false')
     {
         $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
-
+        $resendTimeRange = $this->m_setup->q_mst_read_value(' AND parameter = \'WA:RESEND:PERIOD\'', '8');
+        if ($sent == 'true'){
+            $filter = ' and ( ck.properties->>\'last_sent\' is not null AND to_timestamp(ck.properties->>\'last_sent\', \'YYYY-MM-DD HH24:MI:SS\') < NOW() - INTERVAL \' '.$resendTimeRange.' hours\' ) ';
+        }else{
+            $filter = '';
+        }
         $messages = [];
-        foreach ($this->m_dinas->q_whatsapp_collect_where('
+        foreach ($this->m_dinas->q_whatsapp_collect_where($filter.'
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
         AND ck.status = \'A\' AND whatsappsent = '.$sent.' 
         AND (whatsappaccept = false AND whatsappreject = false)
-        ORDER BY input_date desc retry DESC
+        ORDER BY input_date desc, retry DESC
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
             $message = '' .
@@ -1268,6 +1312,9 @@ class WhatsApp extends MX_Controller
                             array(
                                 'whatsappsent' => TRUE,
                                 'retry' => $row->properties->retry,
+                                'properties' => json_encode(array(
+                                    'last_sent' => date('Y-m-d H:i:s'),
+                                )),
                             ),
                             array('TRIM(nodok)' => $row->properties->objectid)
                         );
@@ -1333,13 +1380,18 @@ class WhatsApp extends MX_Controller
     public function msgsppb($sent = 'false')
     {
         $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
-
+        $resendTimeRange = $this->m_setup->q_mst_read_value(' AND parameter = \'WA:RESEND:PERIOD\'', '8');
+        if ($sent == 'true'){
+            $filter = ' and ( ck.properties->>\'last_sent\' is not null AND to_timestamp(ck.properties->>\'last_sent\', \'YYYY-MM-DD HH24:MI:SS\') < NOW() - INTERVAL \' '.$resendTimeRange.' hours\' ) ';
+        }else{
+            $filter = '';
+        }
         $messages = [];
-        foreach ($this->m_sppb->q_whatsapp_collect_where('
+        foreach ($this->m_sppb->q_whatsapp_collect_where($filter.'
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
         AND ck.status = \'A\' AND whatsappsent = '.$sent.'
         AND (whatsappaccept = false AND whatsappreject = false)
-        ORDER BY input_date desc retry DESC
+        ORDER BY input_date desc, retry DESC
             LIMIT ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SEND-LIMIT:' . $branch . '\'', 10))->result() as $index => $item) {
             $ref = $this->shuffle();
             $message = '' .
@@ -1447,6 +1499,9 @@ class WhatsApp extends MX_Controller
                             array(
                                 'whatsappsent' => TRUE,
                                 'retry' => $row->properties->retry,
+                                'properties' => json_encode(array(
+                                    'last_sent' => date('Y-m-d H:i:s'),
+                                )),
                             ),
                             array('TRIM(nodok)' => $row->properties->objectid)
                         );

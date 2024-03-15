@@ -68,7 +68,8 @@ CONCAT(REGEXP_REPLACE(
 ck.whatsappsent AS whatsappsent,
 ck.whatsappaccept AS whatsappaccept,
 ck.whatsappreject AS whatsappreject,
-COALESCE(ck.rety,0) AS retry
+COALESCE(ck.retry,0) AS retry,
+COALESCE(ck.properties->>'last_sent',null) AS last_sent
 FROM 
 sc_trx.lembur ck
 JOIN sc_mst.karyawan k ON ck.nik = k.nik 
