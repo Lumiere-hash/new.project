@@ -200,7 +200,7 @@ function reload_table()
 				<div class="box">
 					<div class="box-header">
 					</div><!-- /.box-header -->	
-					<div class="box-body table-responsive" style="overflo" >
+					<div class="box-body table-responsive" style='overflow-x:scroll;'>
 						<table id="example2" class="table table-bordered table-striped" >
 							<thead>
 										<tr>											

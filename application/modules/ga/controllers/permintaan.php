@@ -28,7 +28,7 @@ class Permintaan extends MX_Controller{
 		$nama=$this->session->userdata('nik');
 		$dtlnik=$this->m_akses->list_karyawan_index($nama)->row_array();
 		$kdcabang=trim($dtlnik['kdcabang']);
-		$param1=" and riloccode='$kdcabang' and stockcode='$stockcode'";
+		$param1=" and loccode='$kdcabang' and stockcode='$stockcode'";
 		$data = $this->m_permintaan->q_stkgdw_param1($param1)->row_array();
 		echo json_encode($data, JSON_PRETTY_PRINT);
 	
