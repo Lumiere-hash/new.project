@@ -1001,6 +1001,7 @@ class Pk extends MX_Controller
 				);
 
 				echo json_encode($data);
+				return;
 			}
 		} else if (trim($dtlmst['status']) == 'E') {
 			if ($dtldtl >= 11) {
