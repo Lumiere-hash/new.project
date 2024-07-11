@@ -13,7 +13,7 @@ class Pk extends MX_Controller
 		parent::__construct();
 
 		$this->load->model(array('master/m_akses', 'm_pk', 'master/M_ApprovalRule'));
-		$this->load->library(array('form_validation', 'template', 'upload', 'pdf', 'encrypt', 'Excel_generator', 'zip', 'Fiky_report'));
+		$this->load->library(array('form_validation', 'template', 'upload', 'pdf', 'encrypt', 'Excel_generator', 'zip', 'Fiky_report', 'PHPExcel/PHPExcel/IOFactory'));
 
 		if (!$this->session->userdata('nik')) {
 			redirect('dashboard');
@@ -2295,16 +2295,20 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 			}
 
 			$fileName = $_FILES['import']['name'];
+			$fileExt = pathinfo($fileName, PATHINFO_EXTENSION);
+			if (!in_array($fileExt, array('xls', 'xlsx'))) {
+				redirect('pk/pk/form_kpi/wrong_format');
+			}
 
 			$config['upload_path'] = $dir;
 			$config['file_name'] = $fileName;
-			$config['allowed_types'] = 'xls|xlsx';
+			$config['allowed_types'] = '*';
 			$config['max_size'] = 10000;
 
 			$this->upload->initialize($config);
 
 			if (!$this->upload->do_upload('import'))
-				$this->upload->display_errors();
+				echo $this->upload->display_errors();
 
 			$media = $this->upload->data('import');
 			$inputFileName = $dir . $media['file_name'];
@@ -2467,14 +2471,15 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 		$ceknik = $this->m_akses->q_master_akses_karyawan($paramceknama)->num_rows();
 
 		if (($ceknikatasan1) > 0 and $userhr == 0) {
-			$param_list_akses = " and nik in (select trim(nik) from sc_mst.karyawan where (nik_atasan='$nama'))";
-		} else if (($ceknikatasan2) > 0 and $userhr == 0) {
-			$param_list_akses = " and nik in (select trim(nik) from sc_mst.karyawan where (nik_atasan='$nama'))";
+			$param_list_akses = " and a.nik in (select trim(nik) from sc_mst.karyawan where (nik_atasan='$nama')) ";
+			$paramnik = " and nik_atasan='$nama'";
 		} else {
 			if ($ceknik > 0 and $userhr == 0) {
-				$param_list_akses = " and nik='$nama' ";
+				$param_list_akses = " and a.nik='$nama' ";
+				$paramnik = " and nik='$nama'";
 			} else {
 				$param_list_akses = "";
+				$paramnik = "";
 			}
 		}
 
@@ -2482,7 +2487,6 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 		$data['userhr'] = $userhr;
 		$data['level_akses'] = $level_akses;
 
-		$paramnik = "";
 		$paramnya = $param_list_akses . $param_postnik . $param_postperiode;
 
 		$data['list_nik'] = $this->m_akses->q_master_akses_karyawan($paramnik)->result();

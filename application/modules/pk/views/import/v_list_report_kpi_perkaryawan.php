@@ -58,8 +58,8 @@ $(function() {
             <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
                 <li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal" data-target="#Filter"
                         href="#"><i class="fa fa-search"></i>Filter Pencarian</a></li>
-                <li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal" data-target="#Download"
-                        href="#"><i class="fa fa-download"></i>Download Xls</a></li>
+                <!-- <li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal" data-target="#Download"
+                        href="#"><i class="fa fa-download"></i>Download Xls</a></li> -->
             </ul>
         </div>
         <!--/div-->
