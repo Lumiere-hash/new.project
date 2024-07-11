@@ -47,6 +47,37 @@
             });
         });
 
+        $('#saveFinal').on('click', function (event) {
+            event.preventDefault();
+            Swal.fire({
+                title: 'Save Final',
+                text: 'Anda yakin akan melakukan save final?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: "Simpan",
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "<?php echo site_url('pk/pk/final_input_pa') ?>",
+                        type: "GET",
+                        success: function (response) {
+                            Swal.fire({
+                                title: JSON.parse(response).type,
+                                text: JSON.parse(response).message,
+                                icon: JSON.parse(response).type,
+                                confirmButtonText: 'OK'
+                            }).then((result) => {
+                                if (result.isConfirmed && JSON.parse(response).type != 'error') {
+                                    location.reload();
+                                }
+                            });
+                        },
+                    });
+                }
+            });
+        });
+
         $("#example3").dataTable();
         $("#example4").dataTable();
         $(".inputfill").selectize();
@@ -104,9 +135,8 @@
             style="margin:10px; color:#000000;">Kembali</a>
     </div>
     <div class="col-sm pull-right">
-        <a href="<?php echo site_url("pk/pk/final_input_pa") ?>" class="btn btn-primary"
-            onclick="return confirm('Apakah Anda Simpan Data Ini??')" style="margin:10px; color:#ffffff;"><i
-                class="fa fa-save"></i> SIMPAN </a>
+        <a class="btn btn-primary" id="saveFinal" style="margin:10px; color:#ffffff;"><i class="fa fa-save"></i> SIMPAN
+        </a>
     </div>
 </div>
 <div class="row">

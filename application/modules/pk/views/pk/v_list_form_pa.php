@@ -237,7 +237,7 @@ selectize css .selectize-input {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" id="submit" class="btn btn-primary submit">GENERATE</button>
+                    <button type="submit" id="submit" class="btn btn-primary submit" disabled>GENERATE</button>
                 </div>
             </form>
         </div>

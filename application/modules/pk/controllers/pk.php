@@ -707,12 +707,12 @@ class Pk extends MX_Controller
 		$cek_option_pa = $this->m_pk->q_pk_atasan()->num_rows();
 		$data['cek_option_pa'] = $cek_option_pa;
 
-		if (count($kdkriteria) != count($value1)){
+		if (count($kdkriteria) != count($value1)) {
 			$data = array(
 				'type' => 'error',
 				'message' => 'Penilaian belum lengkap, silahkan periksa terlebih dahulu',
 			);
-		
+
 			echo json_encode($data);
 			return;
 		}
@@ -779,7 +779,7 @@ class Pk extends MX_Controller
 					'type' => 'success',
 					'message' => 'Detail penilaian berhasil disimpan',
 				);
-			
+
 				echo json_encode($data);
 				// redirect("pk/pk/input_generate_pa/$enc_nik/$enc_periode");
 			} else {
@@ -798,7 +798,7 @@ class Pk extends MX_Controller
 					'type' => 'error',
 					'message' => 'Failed',
 				);
-			
+
 				echo json_encode($data);
 				// redirect("pk/pk/input_generate_pa/$enc_nik/$enc_periode");
 			}
@@ -866,7 +866,7 @@ class Pk extends MX_Controller
 					'type' => 'success',
 					'message' => 'Detail penilaian berhasil disimpan',
 				);
-			
+
 				echo json_encode($data);
 				// redirect("pk/pk/input_generate_pa/$enc_nik/$enc_periode");
 			} else {
@@ -885,7 +885,7 @@ class Pk extends MX_Controller
 					'type' => 'error',
 					'message' => 'Failed',
 				);
-			
+
 				echo json_encode($data);
 				// redirect("pk/pk/edit_generate_pa/$enc_nik/$enc_periode");
 			}
@@ -994,7 +994,13 @@ class Pk extends MX_Controller
 				$this->db->insert('sc_mst.trxerror', $insinfo);
 				$enc_nik = $this->fiky_encryption->enkript((trim($dtlmst['nik'])));
 				$enc_periode = $this->fiky_encryption->enkript((trim($dtlmst['periode'])));
-				redirect("pk/pk/input_generate_pa/$enc_nik/$enc_periode");
+				// redirect("pk/pk/input_generate_pa/$enc_nik/$enc_periode");
+				$data = array(
+					'type' => 'error',
+					'message' => 'Belum ada penilaian, atau anda belum menyimpan penilaian',
+				);
+
+				echo json_encode($data);
 			}
 		} else if (trim($dtlmst['status']) == 'E') {
 			if ($dtldtl >= 11) {
@@ -2807,19 +2813,19 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 			}
 		}
 		/*		if ($cek_f_pa==0 or $cek_f_inspek==0 or $cek_f_kondite==0){
-										  $this->db->where('userid',$nama);
-											  $this->db->where('modul','PKPA');
-											  $this->db->delete('sc_mst.trxerror');
-											  $insinfo = array (
-												  'userid' => $nama,
-												  'errorcode' => 11,
-												  'modul' => 'PKPA'
-											  );
-											  $this->db->insert('sc_mst.trxerror',$insinfo);
-										  redirect("pk/pk/form_report_final");
-										  
-									  } 
-							  */
+												$this->db->where('userid',$nama);
+													$this->db->where('modul','PKPA');
+													$this->db->delete('sc_mst.trxerror');
+													$insinfo = array (
+														'userid' => $nama,
+														'errorcode' => 11,
+														'modul' => 'PKPA'
+													);
+													$this->db->insert('sc_mst.trxerror',$insinfo);
+												redirect("pk/pk/form_report_final");
+												
+											} 
+									*/
 
 		if ($cek_first_trx > 0) {
 			$this->db->where('userid', $nama);
@@ -4111,7 +4117,7 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 
 		$param_list_akses = " and userid='$nama'";
 		$paramnya = //$param_list_akses . 
-		$param_postnik . $param_postperiode;
+			$param_postnik . $param_postperiode;
 
 		$dataexcel = $this->m_pk->q_list_report_new($paramnya);
 		$this->excel_generator->set_query($dataexcel);
