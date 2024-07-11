@@ -4104,7 +4104,7 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 			$param_postperiode = " ";
 		}
 		if (!empty($fnik)) {
-			$param_postnik = " and nik='$fnik'";
+			$param_postnik = " and a.nik='$fnik'";
 		} else {
 			$param_postnik = "";
 		}
@@ -4138,7 +4138,9 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 				'FS PA',
 				'FS KATEGORI',
 				'K PA',
-				'DESC PA'
+				'DESC PA',
+				'CATATAN',
+				'SARAN'
 			)
 		);
 
@@ -4168,32 +4170,36 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 				'f_value_ktg',
 				'kdbpa',
 				'bpa',
+				'note',
+				'suggestion'
 			)
 		);
 
 		$this->excel_generator->set_width(
 			array(
 				12,
-				40,
-				40,
-				40,
-				8,
-				8,
-				8,
-				8,
-				8,
-				8,
-				8,
-				8,
-				8,
-				8,
-				8,
-				8,
-				8,
-				8,
-				8,
-				8,
-				8,
+				30,
+				30,
+				30,
+				20,
+				10,
+				10,
+				10,
+				10,
+				10,
+				10,
+				10,
+				10,
+				10,
+				10,
+				10,
+				10,
+				10,
+				10,
+				10,
+				10,
+				20,
+				20,
 				20
 			)
 		);

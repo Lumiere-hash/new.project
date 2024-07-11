@@ -189,7 +189,7 @@ class M_pk extends CI_Model
 
 	function q_list_report_new($param){
 		$order = " ORDER BY periode desc, nmlengkap;";
-		return $this->db->query("SELECT a.*, a.*,c.nmdept,d.nmsubdept,e.nmlvljabatan,f.nmjabatan,b.nmlengkap,b1.nmlengkap as nmatasan1,b2.nmlengkap as nmatasan2,g.kdvalue as kdbpa,g.description as bpa 
+		return $this->db->query("SELECT a.*, c.nmdept,d.nmsubdept,e.nmlvljabatan,f.nmjabatan,b.nmlengkap,b1.nmlengkap as nmatasan1,b2.nmlengkap as nmatasan2,g.kdvalue as kdbpa,g.description as bpa 
 					FROM(
 						select m.branch,m.idbu,m.nodok,m.periode,m.nik,m.nikatasan1,m.nikatasan2,ttlvalue1,f_value_ktg,
 						max(CASE WHEN kdkriteria = 'AS01-01' THEN d.value1 END) as na1,
@@ -204,7 +204,8 @@ class M_pk extends CI_Model
 						max(CASE WHEN kdkriteria = 'AS02-05' THEN d.value1 END) as na10,
 						max(CASE WHEN kdkriteria = 'AS02-06' THEN d.value1 END) as na11,
 						max(CASE WHEN kdkriteria = 'AS03-01' THEN d.value1 END) as na12,
-						max(CASE WHEN kdkriteria = 'AS03-02' THEN d.value1 END) as na13
+						max(CASE WHEN kdkriteria = 'AS03-02' THEN d.value1 END) as na13,
+						m.note, m.suggestion
 						from sc_pk.pa_form_pa_trx_mst m
 						full join sc_pk.pa_form_pa_trx_dtl d on m.nodok = d.nodok
 						where m.status='P'
