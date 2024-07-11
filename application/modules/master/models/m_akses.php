@@ -200,6 +200,30 @@ class M_akses extends CI_Model{
             ->where($where)
             ->delete('sc_mst.akses');
     }
+
+    function list_aksesperdep_pk($nama){
+        $setup = $this->db->query(" select value1 from sc_mst.option where kdoption = 'PKPA:ACCESS' ")->row();
+        if (!is_null($setup)){
+            $val = explode(".",$setup->value1);
+            $dept = "'".$val[0]."'";
+            $subdept = "'".$val[1]."'";
+        }else{
+            $dept = '';
+            $subdept = '';
+        }
+        return $this->db->query(" select * from sc_mst.karyawan where nik='$nama' and bag_dept = $dept and subbag_dept = $subdept");
+    }
+    
+    function q_master_akses_karyawan($param){
+        $ordernya=" order by nmlengkap asc";
+        return $this->db->query("select * from (select a.*,b.nmdept,c.nmsubdept,d.nmlvljabatan,e.nmjabatan,f.nmlengkap as nmatasan,g.nmlengkap as nmatasan2 from sc_mst.karyawan a
+                                    left outer join sc_mst.departmen b on a.bag_dept=b.kddept
+                                    left outer join sc_mst.subdepartmen c on a.subbag_dept=c.kdsubdept and c.kddept=a.bag_dept
+                                    left outer join sc_mst.lvljabatan d on a.lvl_jabatan=d.kdlvl 
+                                    left outer join sc_mst.jabatan e on a.jabatan=e.kdjabatan and e.kdsubdept=a.subbag_dept and e.kddept=a.bag_dept
+                                    left outer join sc_mst.karyawan f on a.nik_atasan=f.nik
+                                    left outer join sc_mst.karyawan g on a.nik_atasan2=g.nik
+                                    where a.tglkeluarkerja is null  ) as x
+                                    where nik is not null and coalesce(statuskepegawaian,'')!='KO' $param $ordernya");
+    }
 }
-
-

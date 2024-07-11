@@ -145,6 +145,7 @@ class Fiky_encryption
 
     //function UniqueMachineID($salt = "GARAM") {
     function getMac(){
+        return;
         $salt = "THIS_KEY_HAS_LIMIT";
         if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
             $temp = sys_get_temp_dir().DIRECTORY_SEPARATOR."diskpartscript.txt";

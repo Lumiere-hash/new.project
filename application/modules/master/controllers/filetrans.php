@@ -288,7 +288,7 @@ class Filetrans extends MX_Controller{
 		  }
 	}
 	
-	function run_cmd(){
+	// function run_cmd(){
 	/*	system("cmd /c 
 		@echo off
 				color 7f
@@ -319,17 +319,13 @@ class Filetrans extends MX_Controller{
 		
 		");*/
 
-			echo $hiya=" D:\web\postgresql\bin\ ";
+			// echo $hiya=" D:\web\postgresql\bin\ ";
 		
-			echo "@echo off";
-			echo "color 7f";
-			echo "cd /D %~dp0";
-			echo "cls";
-			echo 'SET PGPATH='.$hiya';
+			// echo "@echo off";
+			// echo "color 7f";
+			// echo "cd /D %~dp0";
+			// echo "cls";
+			// echo 'SET PGPATH='.$hiya';
 
 		
 	}
-	
-	
-	
-}	
