@@ -981,7 +981,14 @@ class Pk extends MX_Controller
 					'modul' => 'PKPA'
 				);
 				$this->db->insert('sc_mst.trxerror', $insinfo);
-				redirect('pk/form_pk');
+				// redirect('pk/form_pk');
+				$data = array(
+					'type' => 'success',
+					'message' => 'Penilaian berhasil disimpan',
+				);
+
+				echo json_encode($data);
+				return;
 			} else {
 				$this->db->where('userid', $nama);
 				$this->db->where('modul', 'PKPA');
