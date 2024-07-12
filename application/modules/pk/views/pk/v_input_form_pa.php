@@ -301,7 +301,7 @@
                                     <div class="box-body">
                                         <div class="form-horizontal">
                                             <div class="form-group ">
-                                                <label class="col-sm-4" for="inputsm">KODE KRITERIA</label>
+                                                <label class="col-sm-4" for="inputsm">NAMA KARYAWAN</label>
                                                 <div class="col-sm-8">
 
                                                     <input type="hidden" name="nik" id="nik"

@@ -1,85 +1,84 @@
 <link href="<?php echo base_url('assets/css/datepicker.css'); ?>" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
-$(function() {
-    $("#example1").dataTable();
-    var save_method;
-    var table;
-    table = $('#example2').DataTable({
+    $(function () {
+        $("#example1").dataTable();
+        var save_method;
+        var table;
+        table = $('#example2').DataTable({
 
-        "processing": true,
-        "serverSide": true,
+            "processing": true,
+            "serverSide": true,
 
-        "ajax": {
-            "url": "<?php echo site_url('ga/permintaan/bbmpagin') ?>",
-            "type": "POST"
-        },
+            "ajax": {
+                "url": "<?php echo site_url('ga/permintaan/bbmpagin') ?>",
+                "type": "POST"
+            },
 
-        "columnDefs": [{
-            "targets": [-1],
-            "orderable": false,
-        }, ],
+            "columnDefs": [{
+                "targets": [-1],
+                "orderable": false,
+            },],
 
+        });
+
+        $("#example3").dataTable();
+        $("#example4").dataTable();
+        $(".inputfill").selectize();
+        $('.tglYM').datepicker({
+            format: "yyyy-mm",
+            viewMode: "months",
+            minViewMode: "months",
+            autoclose: true,
+            startView: "year"
+        });
+
+        $('input[name=startPeriode], input[name=endPeriode]').change(function () {
+            var namaFormulir = $(this).closest('form').attr('name');
+            var startPeriodeInput = $('form[name=' + namaFormulir + '] input[name=startPeriode]');
+            var endPeriodeInput = $('form[name=' + namaFormulir + '] input[name=endPeriode]');
+            var startDateValue = startPeriodeInput.val();
+            var endDateValue = endPeriodeInput.val();
+            if (endDateValue < startDateValue) {
+                startPeriodeInput.css('border-color', 'red');
+                endPeriodeInput.css('border-color', 'red');
+                $('form[name=' + namaFormulir + '] #submit').prop('disabled', true);
+            } else {
+                startPeriodeInput.css('border-color', '');
+                endPeriodeInput.css('border-color', '');
+                $('form[name=' + namaFormulir + '] #submit').prop('disabled', false);
+            }
+        });
     });
-
-    $("#example3").dataTable();
-    $("#example4").dataTable();
-    $(".inputfill").selectize();
-    $('.tglYM').datepicker({
-        format: "yyyy-mm",
-        viewMode: "months",
-        minViewMode: "months",
-        autoclose: true,
-        startView: "year"
-    });
-
-    $('input[name=startPeriode], input[name=endPeriode]').change(function() {
-        var namaFormulir = $(this).closest('form').attr('name');
-        var startPeriodeInput = $('form[name='+namaFormulir+'] input[name=startPeriode]');
-        var endPeriodeInput = $('form[name='+namaFormulir+'] input[name=endPeriode]');
-        var startDateValue = startPeriodeInput.val();
-        var endDateValue = endPeriodeInput.val();
-        if (endDateValue < startDateValue) {
-            startPeriodeInput.css('border-color', 'red'); 
-            endPeriodeInput.css('border-color', 'red'); 
-            $('form[name='+namaFormulir+'] #submit').prop('disabled', true); 
-        } else {
-            startPeriodeInput.css('border-color', ''); 
-            endPeriodeInput.css('border-color', '');             
-            $('form[name='+namaFormulir+'] #submit').prop('disabled', false);
-        }
-    });
-
-});
 </script>
 <style>
-selectize css .selectize-input {
-    overflow: visible;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    border-radius: 0px;
-}
+    selectize css .selectize-input {
+        overflow: visible;
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        border-radius: 0px;
+    }
 
-.selectize-input.dropdown-active {
-    min-height: 30px;
-    line-height: normal;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    border-radius: 0px;
-}
+    .selectize-input.dropdown-active {
+        min-height: 30px;
+        line-height: normal;
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        border-radius: 0px;
+    }
 
-.selectize-dropdown,
-.selectize-input,
-.selectize-input input {
-    min-height: 30px;
-    line-height: normal;
-}
+    .selectize-dropdown,
+    .selectize-input,
+    .selectize-input input {
+        min-height: 30px;
+        line-height: normal;
+    }
 
-.loading .selectize-dropdown-content:after {
-    content: 'loading...';
-    height: 30px;
-    display: block;
-    text-align: center;
-}
+    .loading .selectize-dropdown-content:after {
+        content: 'loading...';
+        height: 30px;
+        display: block;
+        text-align: center;
+    }
 </style>
 <div class="pull-right">Versi:
     <?php echo $version; ?>
@@ -100,8 +99,8 @@ selectize css .selectize-input {
                 <li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal" data-target="#Filter"
                         href="#"><i class="fa fa-search"></i>Filter Pencarian</a></li>
                 <?php if ($ceknikatasan1 > 0 || $ceknikatasan2 > 0 || $cek_option_pa == 0) { ?>
-                <li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal"
-                        data-target="#ChoiceOfLetter" href="#"><i class="fa fa-plus"></i>INPUT PA</a></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal"
+                            data-target="#ChoiceOfLetter" href="#"><i class="fa fa-plus"></i>INPUT PA</a></li>
                 <?php } ?>
             </ul>
         </div>
@@ -134,61 +133,61 @@ selectize css .selectize-input {
                             </thead>
                             <tbody>
                                 <?php $no = 0;
-								foreach ($list_tx_pa as $row):
-									$no++; ?>
-                                <tr>
-                                    <td width="2%">
-                                        <?php echo $no; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row->nodok; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row->nik; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row->nmlengkap; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row->nmjabatan; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row->nmatasan; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row->periode; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row->nmdept; ?>
-                                    </td>
-                                    <td>
-                                        <?php echo $row->nmstatus; ?>
-                                    </td>
+                                foreach ($list_tx_pa as $row):
+                                    $no++; ?>
+                                    <tr>
+                                        <td width="2%">
+                                            <?php echo $no; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row->nodok; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row->nik; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row->nmlengkap; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row->nmjabatan; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row->nmatasan; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row->periode; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row->nmdept; ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $row->nmstatus; ?>
+                                        </td>
 
-                                    <td width="8%">
-                                        <a href="<?php
-											$enc_nik = bin2hex($this->encrypt->encode(trim($row->nik)));
-											$enc_periode = bin2hex($this->encrypt->encode(trim($row->periode)));
-											echo site_url("pk/pk/detail_generate_pa") . '/' . $enc_nik . '/' . $enc_periode; ?>"
-                                            class="btn btn-default  btn-sm" title="DETAIL KATEGORI KRITERIA"><i
-                                                class="fa fa-bars"></i> </a>
-                                        <?php if ((in_array(trim($row->statustx), array('A', 'R1', 'R2'))) and ($nama == trim($row->nik_atasan) or $nama == trim($row->nik_atasan2) or $cek_option_pa == 0)) { ?>
-                                        <a href="<?php
-												$enc_nik = bin2hex($this->encrypt->encode(trim($row->nik)));
-												$enc_periode = bin2hex($this->encrypt->encode(trim($row->periode)));
-												echo site_url("pk/pk/edit_generate_pa") . '/' . $enc_nik . '/' . $enc_periode; ?>"
-                                            class="btn btn-primary  btn-sm" title="UBAH NILAI"><i
-                                                class="fa fa-gear"></i> </a>
+                                        <td width="8%">
+                                            <a href="<?php
+                                            $enc_nik = bin2hex($this->encrypt->encode(trim($row->nik)));
+                                            $enc_periode = bin2hex($this->encrypt->encode(trim($row->periode)));
+                                            echo site_url("pk/pk/detail_generate_pa") . '/' . $enc_nik . '/' . $enc_periode; ?>"
+                                                class="btn btn-default  btn-sm" title="DETAIL KATEGORI KRITERIA"><i
+                                                    class="fa fa-bars"></i> </a>
+                                            <?php if ((in_array(trim($row->statustx), array('A', 'R1', 'R2'))) and ($nama == trim($row->nik_atasan) or $nama == trim($row->nik_atasan2) or $cek_option_pa == 0)) { ?>
+                                                <a href="<?php
+                                                $enc_nik = bin2hex($this->encrypt->encode(trim($row->nik)));
+                                                $enc_periode = bin2hex($this->encrypt->encode(trim($row->periode)));
+                                                echo site_url("pk/pk/edit_generate_pa") . '/' . $enc_nik . '/' . $enc_periode; ?>"
+                                                    class="btn btn-primary  btn-sm" title="UBAH NILAI"><i
+                                                        class="fa fa-gear"></i> </a>
 
-                                        <a href="<?php
-												$enc_nik = bin2hex($this->encrypt->encode(trim($row->nik)));
-												$enc_periode = bin2hex($this->encrypt->encode(trim($row->periode)));
-												echo site_url("pk/pk/delete_generate_pa") . '/' . $enc_nik . '/' . $enc_periode; ?>"
-                                            class="btn btn-danger  btn-sm" title="HAPUS DATA"><i
-                                                class="fa fa-trash-o"></i> </a>
-                                        <?php } ?>
-                                    </td>
-                                </tr>
+                                                <a href="<?php
+                                                $enc_nik = bin2hex($this->encrypt->encode(trim($row->nik)));
+                                                $enc_periode = bin2hex($this->encrypt->encode(trim($row->periode)));
+                                                echo site_url("pk/pk/delete_generate_pa") . '/' . $enc_nik . '/' . $enc_periode; ?>"
+                                                    class="btn btn-danger  btn-sm" title="HAPUS DATA"><i
+                                                        class="fa fa-trash-o"></i> </a>
+                                            <?php } ?>
+                                        </td>
+                                    </tr>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
@@ -213,23 +212,71 @@ selectize css .selectize-input {
                         <div class="col-sm-12">
                             <div class="box box-danger">
                                 <div class="box-body">
-                                    <div class="form-horizontal">
-                                        <label class="col-sm-4" for="inputsm">PILIH PERIODE</label>
-                                        <div class="col-sm-8">
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    <input type="text" name="startPeriode" id="startDate"
-                                                        class="tglYM form-control input-sm startPeriode" readonly
-                                                        required>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <input type="text" name="endPeriode" id="endDate"
-                                                        class="tglYM form-control input-sm startPeriode" readonly
-                                                        required>
+                                    <?php if ($range_option == 'FREE'): ?>
+                                        <div class="form-horizontal">
+                                            <label class="col-sm-4" for="inputsm">PILIH PERIODE</label>
+                                            <div class="col-sm-8">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <input type="text" name="startPeriode" id="startDate"
+                                                            class="tglYM form-control input-sm startPeriode" readonly
+                                                            required>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <input type="text" name="endPeriode" id="endDate"
+                                                            class="tglYM form-control input-sm startPeriode" readonly
+                                                            required>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    <?php endif ?>
+                                    <?php if ($range_option == 'SEMESTER'): ?>
+                                        <div class="form-horizontal">
+                                            <label class="col-sm-4" for="inputsm">PERIODE</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control input-sm" name="periode" id="periode" required>
+                                                    <option value=""></option>
+                                                    <option value="S1">SEMESTER 1</option>
+                                                    <option value="S2">SEMESTER 2</option>
+                                                </select>
+                                            </div>
+                                            <label class="col-sm-4" for="inputsm">TAHUN</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control input-sm" name="tahun" id="tahun" required>
+                                                    <option value=""></option>
+                                                    <?php
+                                                    for ($i = 0; $i <= 6; $i++): ?>
+                                                        <option value="<?= 2024 - $i ?>"><?= 2024 - $i ?></option>
+                                                    <?php endfor; ?>
+                                                </select>
+                                            </div>
+                                            <input type="hidden" name="startPeriode" id="startDate" value="">
+                                            <input type="hidden" name="endPeriode" id="endDate" value="">
+                                            <script>
+                                                $(function () {
+                                                    $('select[name=periode], select[name=tahun]').change(function () {
+                                                        var namaFormulir = $(this).closest('form').attr('name');
+                                                        var periode = $('form[name=' + namaFormulir + '] select[name=periode]').val();
+                                                        var tahun = $('form[name=' + namaFormulir + '] select[name=tahun]').val();
+
+                                                        if (periode == 'S1') {
+                                                            $('form[name=' + namaFormulir + '] #startDate').val(tahun + '-01');
+                                                            $('form[name=' + namaFormulir + '] #endDate').val(tahun + '-06');
+                                                        }
+                                                        if (periode == 'S2') {
+                                                            $('form[name=' + namaFormulir + '] #startDate').val(tahun + '-07');
+                                                            $('form[name=' + namaFormulir + '] #endDate').val(tahun + '-12');
+                                                        }
+
+                                                        if ($('form[name=' + namaFormulir + '] #endDate').val().length == 7) {
+                                                            $('form[name=' + namaFormulir + '] #submit').prop('disabled', false);
+                                                        }
+                                                    });
+                                                });
+                                            </script>
+                                        </div>
+                                    <?php endif ?>
                                 </div>
                             </div>
                         </div>
@@ -257,23 +304,71 @@ selectize css .selectize-input {
                         <div class="col-sm-12">
                             <div class="box box-danger">
                                 <div class="box-body">
-                                    <div class="form-horizontal">
-                                        <label class="col-sm-4" for="inputsm">PILIH PERIODE</label>
-                                        <div class="col-sm-8">
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    <input type="text" name="startPeriode" id="startDate"
-                                                        class="tglYM form-control input-sm startPeriode" readonly
-                                                        required>
-                                                </div>
-                                                <div class="col-sm-4">
-                                                    <input type="text" name="endPeriode" id="endDate"
-                                                        class="tglYM form-control input-sm startPeriode" readonly
-                                                        required>
+                                <?php if ($range_option == 'FREE'): ?>
+                                        <div class="form-horizontal">
+                                            <label class="col-sm-4" for="inputsm">PILIH PERIODE</label>
+                                            <div class="col-sm-8">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <input type="text" name="startPeriode" id="startDate"
+                                                            class="tglYM form-control input-sm startPeriode" readonly
+                                                            required>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <input type="text" name="endPeriode" id="endDate"
+                                                            class="tglYM form-control input-sm startPeriode" readonly
+                                                            required>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    <?php endif ?>
+                                    <?php if ($range_option == 'SEMESTER'): ?>
+                                        <div class="form-horizontal">
+                                            <label class="col-sm-4" for="inputsm">PERIODE</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control input-sm" name="periode" id="periode" required>
+                                                    <option value=""></option>
+                                                    <option value="S1">SEMESTER 1</option>
+                                                    <option value="S2">SEMESTER 2</option>
+                                                </select>
+                                            </div>
+                                            <label class="col-sm-4" for="inputsm">TAHUN</label>
+                                            <div class="col-sm-8">
+                                                <select class="form-control input-sm" name="tahun" id="tahun" required>
+                                                    <option value=""></option>
+                                                    <?php
+                                                    for ($i = 0; $i <= 6; $i++): ?>
+                                                        <option value="<?= 2024 - $i ?>"><?= 2024 - $i ?></option>
+                                                    <?php endfor; ?>
+                                                </select>
+                                            </div>
+                                            <input type="hidden" name="startPeriode" id="startDate" value="">
+                                            <input type="hidden" name="endPeriode" id="endDate" value="">
+                                            <script>
+                                                $(function () {
+                                                    $('select[name=periode], select[name=tahun]').change(function () {
+                                                        var namaFormulir = $(this).closest('form').attr('name');
+                                                        var periode = $('form[name=' + namaFormulir + '] select[name=periode]').val();
+                                                        var tahun = $('form[name=' + namaFormulir + '] select[name=tahun]').val();
+
+                                                        if (periode == 'S1') {
+                                                            $('form[name=' + namaFormulir + '] #startDate').val(tahun + '-01');
+                                                            $('form[name=' + namaFormulir + '] #endDate').val(tahun + '-06');
+                                                        }
+                                                        if (periode == 'S2') {
+                                                            $('form[name=' + namaFormulir + '] #startDate').val(tahun + '-07');
+                                                            $('form[name=' + namaFormulir + '] #endDate').val(tahun + '-12');
+                                                        }
+
+                                                        if ($('form[name=' + namaFormulir + '] #endDate').val().length == 7) {
+                                                            $('form[name=' + namaFormulir + '] #submit').prop('disabled', false);
+                                                        }
+                                                    });
+                                                });
+                                            </script>
+                                        </div>
+                                    <?php endif ?>
                                 </div>
                             </div>
                         </div>
@@ -289,6 +384,6 @@ selectize css .selectize-input {
 </div>
 
 <script>
-$("#tgl").datepicker();
-$(".tglan").datepicker();
+    $("#tgl").datepicker();
+    $(".tglan").datepicker();
 </script>

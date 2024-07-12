@@ -178,7 +178,7 @@ class Pk extends MX_Controller
 		$data['cek_option_pa'] = $cek_option_pa;
 		$data['ceknikatasan1'] = $ceknikatasan1;
 		$data['ceknikatasan2'] = $ceknikatasan2;
-
+		$data['range_option'] = $this->m_pk->q_option(['kdoption'=>'PKPARP','status'=>'T'])->row()->value1;
 		$paramnya = $param_list_akses . $param_postnik . $param_postperiode;
 
 		$data['list_nik'] = $this->m_akses->q_master_akses_karyawan($param_list_akses)->result();
@@ -711,6 +711,16 @@ class Pk extends MX_Controller
 			$data = array(
 				'type' => 'error',
 				'message' => 'Penilaian belum lengkap, silahkan periksa terlebih dahulu',
+			);
+
+			echo json_encode($data);
+			return;
+		}
+
+		if ($note == '' or $suggestion == '') {
+			$data = array(
+				'type' => 'error',
+				'message' => 'Penilaian belum lengkap, silahkan isi catatan & saran terlebih dahulu',
 			);
 
 			echo json_encode($data);
@@ -2343,7 +2353,7 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 				$this->db->where($data);
 				if ($this->db->get("sc_pk.kpi_trx_mst")->num_rows() < 1) {
 					$data_import = array(
-						'branch' => 'SNIBBT',
+						'branch' => 'SBYNSA',
 						'idbu' => 'AR',
 						'nodok' => $this->session->userdata('nik'),
 						'periode' => $rowData[0][0],
