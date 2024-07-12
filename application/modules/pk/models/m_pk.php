@@ -187,7 +187,8 @@ class M_pk extends CI_Model
 									where nodok is not null $param $order");
 	}
 
-	function q_list_report_new($param){
+	function q_list_report_new($param)
+	{
 		$order = " ORDER BY periode desc, nmlengkap;";
 		return $this->db->query("SELECT a.*, c.nmdept,d.nmsubdept,e.nmlvljabatan,f.nmjabatan,b.nmlengkap,b1.nmlengkap as nmatasan1,b2.nmlengkap as nmatasan2,g.kdvalue as kdbpa,g.description as bpa 
 					FROM(
@@ -844,5 +845,79 @@ SQL
 	{
 		$query = $this->db->select('*')->where($arg)->get('sc_mst.option');
 		return $query;
+	}
+
+	function q_list_kpi_report_yearly($arg)
+	{
+
+		return $this->db->query("SELECT * from (SELECT 
+				nik,
+				nmlengkap,
+				nmsubdept,
+				nmjabatan,
+				tahun,  
+				ROUND(MAX(Januari), 2) AS Januari,
+				ROUND(MAX(Februari), 2) AS Februari,
+				ROUND(MAX(Maret), 2) AS Maret,
+				ROUND(MAX(April), 2) AS April,
+				ROUND(MAX(Mei), 2) AS Mei,
+				ROUND(MAX(Juni), 2) AS Juni,
+				ROUND(MAX(Juli), 2) AS Juli,
+				ROUND(MAX(Agustus), 2) AS Agustus,
+				ROUND(MAX(September), 2) AS September,
+				ROUND(MAX(Oktober), 2) AS Oktober,
+				ROUND(MAX(November), 2) AS November,
+				ROUND(MAX(Desember), 2) AS Desember,
+				ROUND(
+					COALESCE(
+						(SUM(COALESCE(Januari, 0) + COALESCE(Februari, 0) + COALESCE(Maret, 0) + COALESCE(April, 0) + COALESCE(Mei, 0) + COALESCE(Juni, 0) +
+						COALESCE(Juli, 0) + COALESCE(Agustus, 0) + COALESCE(September, 0) + COALESCE(Oktober, 0) + COALESCE(November, 0) + COALESCE(Desember, 0))
+						/ NULLIF(COUNT(
+							CASE WHEN COALESCE(Januari, 0) != 0 THEN 1
+								WHEN COALESCE(Februari, 0) != 0 THEN 1
+								WHEN COALESCE(Maret, 0) != 0 THEN 1
+								WHEN COALESCE(April, 0) != 0 THEN 1
+								WHEN COALESCE(Mei, 0) != 0 THEN 1
+								WHEN COALESCE(Juni, 0) != 0 THEN 1
+								WHEN COALESCE(Juli, 0) != 0 THEN 1
+								WHEN COALESCE(Agustus, 0) != 0 THEN 1
+								WHEN COALESCE(September, 0) != 0 THEN 1
+								WHEN COALESCE(Oktober, 0) != 0 THEN 1
+								WHEN COALESCE(November, 0) != 0 THEN 1
+								WHEN COALESCE(Desember, 0) != 0 THEN 1
+							END
+						), 0)), 0
+					), 2
+				) AS average
+			FROM (
+				SELECT 
+					a.nodok, 
+					a.nik,
+					s.nmsubdept,
+					f.nmjabatan, 
+					b.nmlengkap,
+					SUBSTRING(a.periode FROM 1 FOR 4) AS tahun,
+					CASE WHEN SUBSTRING(a.periode FROM 5 FOR 2) = '01' THEN a.kpi_point END AS Januari,
+					CASE WHEN SUBSTRING(a.periode FROM 5 FOR 2) = '02' THEN a.kpi_point END AS Februari,
+					CASE WHEN SUBSTRING(a.periode FROM 5 FOR 2) = '03' THEN a.kpi_point END AS Maret,
+					CASE WHEN SUBSTRING(a.periode FROM 5 FOR 2) = '04' THEN a.kpi_point END AS April,
+					CASE WHEN SUBSTRING(a.periode FROM 5 FOR 2) = '05' THEN a.kpi_point END AS Mei,
+					CASE WHEN SUBSTRING(a.periode FROM 5 FOR 2) = '06' THEN a.kpi_point END AS Juni,
+					CASE WHEN SUBSTRING(a.periode FROM 5 FOR 2) = '07' THEN a.kpi_point END AS Juli,
+					CASE WHEN SUBSTRING(a.periode FROM 5 FOR 2) = '08' THEN a.kpi_point END AS Agustus,
+					CASE WHEN SUBSTRING(a.periode FROM 5 FOR 2) = '09' THEN a.kpi_point END AS September,
+					CASE WHEN SUBSTRING(a.periode FROM 5 FOR 2) = '10' THEN a.kpi_point END AS Oktober,
+					CASE WHEN SUBSTRING(a.periode FROM 5 FOR 2) = '11' THEN a.kpi_point END AS November,
+					CASE WHEN SUBSTRING(a.periode FROM 5 FOR 2) = '12' THEN a.kpi_point END AS Desember
+				FROM sc_pk.kpi_trx_mst a 
+				LEFT OUTER JOIN sc_mst.karyawan b ON a.nik = b.nik 
+				LEFT OUTER JOIN sc_mst.jabatan f ON b.jabatan = f.kdjabatan AND f.kdsubdept = b.subbag_dept AND f.kddept = b.bag_dept
+				LEFT OUTER JOIN sc_mst.subdepartmen s ON b.subbag_dept = s.kdsubdept
+			) AS x
+			GROUP BY 
+				nik, nmlengkap, nmsubdept, nmjabatan, tahun
+			ORDER BY 
+				nmlengkap asc) z
+			where true $arg;");
 	}
 }

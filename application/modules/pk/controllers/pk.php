@@ -178,7 +178,7 @@ class Pk extends MX_Controller
 		$data['cek_option_pa'] = $cek_option_pa;
 		$data['ceknikatasan1'] = $ceknikatasan1;
 		$data['ceknikatasan2'] = $ceknikatasan2;
-		$data['range_option'] = $this->m_pk->q_option(['kdoption'=>'PKPARP','status'=>'T'])->row()->value1;
+		$data['range_option'] = $this->m_pk->q_option(['kdoption' => 'PKPARP', 'status' => 'T'])->row()->value1;
 		$paramnya = $param_list_akses . $param_postnik . $param_postperiode;
 
 		$data['list_nik'] = $this->m_akses->q_master_akses_karyawan($param_list_akses)->result();
@@ -2626,6 +2626,124 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 		$dtlerror = $this->m_pk->q_deltrxerror($paramerror);
 	}
 
+	function form_report_kpi_yearly()
+	{
+		$data['title'] = "REKAP KPI KARYAWAN TAHUNAN";
+		$nama = trim($this->session->userdata('nik'));
+		$dtlbranch = $this->m_akses->q_branch()->row_array();
+		$branch = $dtlbranch['branch'];
+
+		/* CODE UNTUK VERSI*/
+		$nama = trim($this->session->userdata('nik'));
+		$kodemenu = 'I.A.A.1';
+		$versirelease = 'I.A.A.1/ALPHA.002';
+		$releasedate = date('2023-11-01');
+		$versidb = $this->fiky_version->version($kodemenu, $versirelease, $releasedate, $nama);
+		$x = $this->fiky_menu->menus($kodemenu, $versirelease, $releasedate);
+		$data['x'] = $x['rows'];
+		$data['y'] = $x['res'];
+		$data['t'] = $x['xn'];
+		$data['kodemenu'] = $kodemenu;
+		$data['version'] = $versidb;
+		/* END CODE UNTUK VERSI */
+
+		$paramerror = " and userid='$nama' and modul='PKPA'";
+		$dtlerror = $this->m_pk->q_trxerror($paramerror)->row_array();
+		$count_err = $this->m_pk->q_trxerror($paramerror)->num_rows();
+		if (isset($dtlerror['description'])) {
+			$errordesc = trim($dtlerror['description']);
+		} else {
+			$errordesc = '';
+		}
+		if (isset($dtlerror['nomorakhir1'])) {
+			$nomorakhir1 = trim($dtlerror['nomorakhir1']);
+		} else {
+			$nomorakhir1 = '';
+		}
+		if (isset($dtlerror['errorcode'])) {
+			$errorcode = trim($dtlerror['errorcode']);
+		} else {
+			$errorcode = '';
+		}
+
+		if ($count_err > 0 and $errordesc <> '') {
+			if ($dtlerror['errorcode'] == 0) {
+				$data['message'] = "<div class='alert alert-info'>DATA SUKSES DISIMPAN/DIUBAH $nomorakhir1 </div>";
+			} else {
+				$data['message'] = "<div class='alert alert-info'>$errordesc</div>";
+			}
+		} else {
+			if ($errorcode == '0') {
+				$data['message'] = "<div class='alert alert-info'>DATA SUKSES DISIMPAN/DIUBAH $nomorakhir1 </div>";
+			} else {
+				$data['message'] = "";
+			}
+		}
+
+		/* akses approve atasan */
+		$ceknikatasan1 = $this->m_akses->list_aksesatasan1($nama)->num_rows();
+		$ceknikatasan2 = $this->m_akses->list_aksesatasan2($nama)->num_rows();
+		$nikatasan1 = $this->m_akses->list_aksesatasan1($nama)->result();
+		$nikatasan2 = $this->m_akses->list_aksesatasan2($nama)->result();
+
+		$userinfo = $this->m_akses->q_user_check()->row_array();
+		$userhr = $this->m_akses->list_aksesperdep_pk($nama)->num_rows();
+		$level_akses = strtoupper(trim($userinfo['level_akses']));
+		$inputfill = strtoupper(trim($this->input->post('inputfill')));
+		$tahun = ($this->input->post('tahun'));
+		$fnik = strtoupper(trim($this->input->post('nik')));
+
+		if (!empty($tahun)) {
+			$periode = $tahun;
+			$param_postperiode = " and tahun='$tahun'";
+		} else {
+			$periode = date('Y');
+			$param_postperiode = " ";
+		}
+		if (!empty($fnik)) {
+			$param_postnik = " and nik='$fnik'";
+		} else {
+			$param_postnik = "";
+		}
+
+		/* akses approve atasan */
+		$ceknikatasan1 = $this->m_akses->list_aksesatasan1($nama)->num_rows();
+		$ceknikatasan2 = $this->m_akses->list_aksesatasan2($nama)->num_rows();
+		$nikatasan1 = $this->m_akses->list_aksesatasan1($nama)->result();
+		$nikatasan2 = $this->m_akses->list_aksesatasan2($nama)->result();
+
+		$userinfo = $this->m_akses->q_user_check()->row_array();
+		$userhr = $this->m_akses->list_aksesperdep_pk($nama)->num_rows();
+		$level_akses = strtoupper(trim($userinfo['level_akses']));
+		$paramceknama = " and nik='$nama'";
+		$ceknik = $this->m_akses->q_master_akses_karyawan($paramceknama)->num_rows();
+
+		if (($ceknikatasan1) > 0 and $userhr == 0) {
+			$param_list_akses = " and nik in (select trim(nik) from sc_mst.karyawan where (nik_atasan='$nama')) ";
+			$paramnik = " and nik_atasan='$nama'";
+		} else {
+			if ($ceknik > 0 and $userhr == 0) {
+				$param_list_akses = " and a.nik='$nama' ";
+				$paramnik = " and nik='$nama'";
+			} else {
+				$param_list_akses = "";
+				$paramnik = "";
+			}
+		}
+
+		$data['nama'] = $nama;
+		$data['userhr'] = $userhr;
+		$data['level_akses'] = $level_akses;
+
+		$paramnya = $param_list_akses . $param_postnik . $param_postperiode;
+
+		$data['list_nik'] = $this->m_akses->q_master_akses_karyawan($paramnik)->result();
+		$data['list_report'] = $this->m_pk->q_list_kpi_report_yearly($paramnya)->result();
+		$this->template->display('pk/import/v_list_report_kpi_yearly', $data);
+
+		$paramerror = " and userid='$nama'";
+		$dtlerror = $this->m_pk->q_deltrxerror($paramerror);
+	}
 
 	function form_report_final()
 	{
@@ -2835,19 +2953,19 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 			}
 		}
 		/*		if ($cek_f_pa==0 or $cek_f_inspek==0 or $cek_f_kondite==0){
-												$this->db->where('userid',$nama);
-													$this->db->where('modul','PKPA');
-													$this->db->delete('sc_mst.trxerror');
-													$insinfo = array (
-														'userid' => $nama,
-														'errorcode' => 11,
-														'modul' => 'PKPA'
-													);
-													$this->db->insert('sc_mst.trxerror',$insinfo);
-												redirect("pk/pk/form_report_final");
-												
-											} 
-									*/
+													  $this->db->where('userid',$nama);
+														  $this->db->where('modul','PKPA');
+														  $this->db->delete('sc_mst.trxerror');
+														  $insinfo = array (
+															  'userid' => $nama,
+															  'errorcode' => 11,
+															  'modul' => 'PKPA'
+														  );
+														  $this->db->insert('sc_mst.trxerror',$insinfo);
+													  redirect("pk/pk/form_report_final");
+													  
+												  } 
+										  */
 
 		if ($cek_first_trx > 0) {
 			$this->db->where('userid', $nama);
@@ -4233,6 +4351,101 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 			)
 		);
 		$this->excel_generator->exportTo2007("Report PA Karyawan Periode $startPeriode - $endPeriode");
+	}
+
+	function excel_report_form_kpi()
+	{
+		$nama = trim($this->session->userdata('nik'));
+		$tahun = $this->input->post('inputfill');
+		$fnik = strtoupper(trim($this->input->post('nik')));
+
+		if (!empty($tahun)) {
+			$param_postperiode = " and tahun = '$tahun'";
+		} else {
+			$periode = date('Y');
+			$param_postperiode = " ";
+		}
+		if (!empty($fnik)) {
+			$param_postnik = " and nik='$fnik'";
+		} else {
+			$param_postnik = "";
+		}
+
+		$param_list_akses = " and userid='$nama'";
+		$paramnya = //$param_list_akses . 
+			$param_postnik . $param_postperiode;
+
+		$dataexcel = $this->m_pk->q_list_kpi_report_yearly($paramnya);
+		$this->excel_generator->set_query($dataexcel);
+		$this->excel_generator->set_header(
+			array(
+				'NIK',
+				'NAMA LENGKAP',
+				'BAGIAN',
+				'JABATAN',
+				'TAHUN',
+				'JANUARI',
+				'FEBRUARI',
+				'MARET',
+				'APRIL',
+				'MEI',
+				'JUNI',
+				'JULI',
+				'AGUSTUS',
+				'SEPTEMBER',
+				'OKTOBER',
+				'NOVEMBER',
+				'DESEMBER',
+				'RATA-RATA'
+			)
+		);
+
+		$this->excel_generator->set_column(
+			array(
+				'nik',
+				'nmlengkap',
+				'nmsubdept',
+				'nmjabatan',
+				'tahun',
+				'januari',
+				'februari',
+				'maret',
+				'april',
+				'mei',
+				'juni',
+				'juli',
+				'agustus',
+				'september',
+				'oktober',
+				'november',
+				'desember',
+				'average'
+			)
+		);
+
+		$this->excel_generator->set_width(
+			array(
+				12,
+				30,
+				30,
+				30,
+				20,
+				15,
+				15,
+				15,
+				15,
+				15,
+				15,
+				15,
+				15,
+				15,
+				15,
+				15,
+				15,
+				15
+			)
+		);
+		$this->excel_generator->exportTo2007("Report KPI Karyawan $tahun");
 	}
 
 	function excel_report_form_inspeksi()
