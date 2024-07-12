@@ -143,7 +143,7 @@
     <div class="col-sm-12">
         <div class="box">
             <div class="box-header">
-                <h5 class="text-center">LIST KONDITE</h5>
+                <h5 class="text-center">SUMMARY KONDITE</h5>
             </div>
             <div class="box-body table-responsive" style='overflow-x:scroll;'>
                 <table id="example1" class="table table-bordered table-striped tg">
