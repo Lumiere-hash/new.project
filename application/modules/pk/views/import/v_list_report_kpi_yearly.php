@@ -146,7 +146,7 @@
                                     <th>BAGIAN</th>
                                     <th>JABATAN</th>
                                     <th>TAHUN</th>
-                                    <th class="tg-yp2e">JANUAI</th>
+                                    <th class="tg-yp2e">JANUARI</th>
                                     <th class="tg-yp2e">FEBRUARI</th>
                                     <th class="tg-yp2e">MARET</th>
                                     <th class="tg-yp2e">APRIL</th>
