@@ -4122,11 +4122,12 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 		$inputfill = strtoupper(trim($this->input->post('inputfill')));
 		$startPeriode = str_replace('-', '', strtoupper(trim($this->input->post('startPeriode'))));
 		$endPeriode = str_replace('-', '', strtoupper(trim($this->input->post('endPeriode'))));
-		$periode = $startPeriode . '-' . $endPeriode;
+		$firstperiode = $startPeriode . '-' . $startPeriode;
+		$secondperiode = $endPeriode . '-' . $endPeriode;
 		$fnik = strtoupper(trim($this->input->post('nik')));
 
 		if (!empty($startPeriode)) {
-			$param_postperiode = " and periode='$periode'";
+			$param_postperiode = " and periode between '$firstperiode' and '$secondperiode'";
 		} else {
 			$periode = date('Ym');
 			$param_postperiode = " ";
