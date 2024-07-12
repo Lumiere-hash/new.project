@@ -570,7 +570,7 @@
                                     <h6><strong>CATATAN UNTUK KARYAWAN</strong></h6>
                                 </td>
                                 <td>
-                                    <textarea name="note" id="note" style="width: 100%; resize: none;"
+                                    <textarea name="note" id="note" style="width: 100%; resize: none; text-transform: uppercase;"
                                         class="form-control"><?php echo $dtlrow['note']; ?></textarea>
                                 </td>
                             </tr>
@@ -580,7 +580,7 @@
                                     <h6><strong>SARAN UNTUK KARYAWAN</strong></h6>
                                 </td>
                                 <td>
-                                    <textarea name="suggestion" id="suggestion" style="width: 100%; resize: none;"
+                                    <textarea name="suggestion" id="suggestion" style="width: 100%; resize: none; text-transform: uppercase;"
                                         class="form-control"><?php echo $dtlrow['suggestion']; ?></textarea>
                                 </td>
                             </tr>
