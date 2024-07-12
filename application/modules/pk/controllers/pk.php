@@ -4232,7 +4232,7 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 				20
 			)
 		);
-		$this->excel_generator->exportTo2007("Report PA Karyawan Periode $periode");
+		$this->excel_generator->exportTo2007("Report PA Karyawan Periode $startPeriode - $endPeriode");
 	}
 
 	function excel_report_form_inspeksi()
