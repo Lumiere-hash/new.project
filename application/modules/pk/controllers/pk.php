@@ -4356,7 +4356,7 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 	function excel_report_form_kpi()
 	{
 		$nama = trim($this->session->userdata('nik'));
-		$tahun = $this->input->post('inputfill');
+		$tahun = $this->input->post('tahun');
 		$fnik = strtoupper(trim($this->input->post('nik')));
 
 		if (!empty($tahun)) {
