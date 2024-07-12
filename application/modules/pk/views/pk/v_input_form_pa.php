@@ -142,6 +142,317 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="box">
+            <div class="box-header">
+            </div><!-- /.box-header -->
+            <div class="box-body table-responsive" style='overflow-x:scroll;'>
+                <table id="example1" class="table table-bordered table-striped tg">
+                    <thead>
+                        <tr>
+                            <th class="tg-031e" rowspan="2">NO</th>
+                            <th class="tg-031e" rowspan="2">NIK</th>
+                            <th class="tg-031e" rowspan="2">NAMA LENGKAP</th>
+                            <th class="tg-031e" rowspan="2">BAGIAN</th>
+                            <th class="tg-031e" rowspan="2">JABATAN</th>
+                            <th class="tg-031e" rowspan="2">PERIODE</th>
+                            <th class="tg-yp2e" colspan="11">
+                                <center><strong>NILAI UMUM</strong></center>
+                            </th>
+                            <th class="tg-yp2e" colspan="11">
+                                <center><strong>PERHITUNGAN</strong></center>
+                            </th>
+                            <th class="tg-031e" rowspan="2">FS </th>
+                            <th class="tg-031e" rowspan="2">FS KTG</th>
+                            <th class="tg-031e" rowspan="2">FS DESC</th>
+                        </tr>
+                        <tr>
+                            <td class="tg-wsnc">IP</td>
+                            <td class="tg-lkh3">SD</td>
+                            <td class="tg-wsnc">AL</td>
+                            <td class="tg-lkh3">TL</td>
+                            <td class="tg-lkh3">DT</td>
+                            <td class="tg-lkh3">PA</td>
+                            <td class="tg-wsnc">SP1</td>
+                            <td class="tg-lkh3">SP2</td>
+                            <td class="tg-wsnc">SP3</td>
+                            <td class="tg-lkh3">CT</td>
+                            <td class="tg-wsnc">IK</td>
+                            <td class="tg-wsnc">IP</td>
+                            <td class="tg-lkh3">SD</td>
+                            <td class="tg-wsnc">AL</td>
+                            <td class="tg-lkh3">TL</td>
+                            <td class="tg-lkh3">DT</td>
+                            <td class="tg-lkh3">PA</td>
+                            <td class="tg-wsnc">SP1</td>
+                            <td class="tg-lkh3">SP2</td>
+                            <td class="tg-wsnc">SP3</td>
+                            <td class="tg-lkh3">CT</td>
+                            <td class="tg-wsnc">IK</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $no = 0;
+                        foreach ($list_report_kondite as $row):
+                            $no++; ?>
+                            <tr>
+                                <td width="2%">
+                                    <?php echo $no; ?>
+                                </td>
+                                <td>
+                                    <?php echo $row->nik; ?>
+                                </td>
+                                <td>
+                                    <?php echo $row->nmlengkap; ?>
+                                </td>
+                                <td>
+                                    <?php echo $row->nmsubdept; ?>
+                                </td>
+                                <td>
+                                    <?php echo $row->nmjabatan; ?>
+                                </td>
+                                <td>
+                                    <?php echo $row->periode; ?>
+                                </td>
+                                <td align="right">
+                                    <?php if (trim($row->ttlvalueip) == '0') {
+                                        echo '';
+                                    } else {
+                                        echo $row->ttlvalueip;
+                                    } ?>
+                                </td>
+                                <td align="right">
+                                    <?php if (trim($row->ttlvaluesd) == '0') {
+                                        echo '';
+                                    } else {
+                                        echo $row->ttlvaluesd;
+                                    } ?>
+                                </td>
+                                <td align="right">
+                                    <?php if (trim($row->ttlvalueal) == '0') {
+                                        echo '';
+                                    } else {
+                                        echo $row->ttlvalueal;
+                                    } ?>
+                                </td>
+                                <td align="right">
+                                    <?php if (trim($row->ttlvaluetl) == '0') {
+                                        echo '';
+                                    } else {
+                                        echo $row->ttlvaluetl;
+                                    } ?>
+                                </td>
+                                <td align="right">
+                                    <?php if (trim($row->ttlvalueitl) == '0') {
+                                        echo '';
+                                    } else {
+                                        echo $row->ttlvalueitl;
+                                    } ?>
+                                </td>
+                                <td align="right">
+                                    <?php if (trim($row->ttlvalueipa) == '0') {
+                                        echo '';
+                                    } else {
+                                        echo $row->ttlvalueipa;
+                                    } ?>
+                                </td>
+                                <td align="right">
+                                    <?php if (trim($row->ttlvaluesp1) == '0') {
+                                        echo '';
+                                    } else {
+                                        echo $row->ttlvaluesp1;
+                                    } ?>
+                                </td>
+                                <td align="right">
+                                    <?php if (trim($row->ttlvaluesp2) == '0') {
+                                        echo '';
+                                    } else {
+                                        echo $row->ttlvaluesp2;
+                                    } ?>
+                                </td>
+                                <td align="right">
+                                    <?php if (trim($row->ttlvaluesp3) == '0') {
+                                        echo '';
+                                    } else {
+                                        echo $row->ttlvaluesp3;
+                                    } ?>
+                                </td>
+                                <td align="right">
+                                    <?php if (trim($row->ttlvaluect) == '0') {
+                                        echo '';
+                                    } else {
+                                        echo $row->ttlvaluect;
+                                    } ?>
+                                </td>
+                                <td align="right">
+                                    <?php if (trim($row->ttlvalueik) == '0') {
+                                        echo '';
+                                    } else {
+                                        echo $row->ttlvalueik;
+                                    } ?>
+                                </td>
+
+                                <td align="right">
+                                    <?php if (trim($row->c2_ttlvalueip) == '0') {
+                                        echo '';
+                                    } else {
+                                        echo $row->c2_ttlvalueip;
+                                    } ?>
+                                </td>
+                                <td align="right">
+                                    <?php if (trim($row->c2_ttlvaluesd) == '0') {
+                                        echo '';
+                                    } else {
+                                        echo $row->c2_ttlvaluesd;
+                                    } ?>
+                                </td>
+                                <td align="right">
+                                    <?php if (trim($row->c2_ttlvalueal) == '0') {
+                                        echo '';
+                                    } else {
+                                        echo $row->c2_ttlvalueal;
+                                    } ?>
+                                </td>
+                                <td align="right">
+                                    <?php if (trim($row->c2_ttlvaluetl) == '0') {
+                                        echo '';
+                                    } else {
+                                        echo $row->c2_ttlvaluetl;
+                                    } ?>
+                                </td>
+                                <td align="right">
+                                    <?php if (trim($row->c2_ttlvalueitl) == '0') {
+                                        echo '';
+                                    } else {
+                                        echo $row->c2_ttlvalueitl;
+                                    } ?>
+                                </td>
+                                <td align="right">
+                                    <?php if (trim($row->c2_ttlvalueipa) == '0') {
+                                        echo '';
+                                    } else {
+                                        echo $row->c2_ttlvalueipa;
+                                    } ?>
+                                </td>
+                                <td align="right">
+                                    <?php if (trim($row->c2_ttlvaluesp1) == '0') {
+                                        echo '';
+                                    } else {
+                                        echo $row->c2_ttlvaluesp1;
+                                    } ?>
+                                </td>
+                                <td align="right">
+                                    <?php if (trim($row->c2_ttlvaluesp2) == '0') {
+                                        echo '';
+                                    } else {
+                                        echo $row->c2_ttlvaluesp2;
+                                    } ?>
+                                </td>
+                                <td align="right">
+                                    <?php if (trim($row->c2_ttlvaluesp3) == '0') {
+                                        echo '';
+                                    } else {
+                                        echo $row->c2_ttlvaluesp3;
+                                    } ?>
+                                </td>
+                                <td align="right">
+                                    <?php if (trim($row->c2_ttlvaluect) == '0') {
+                                        echo '';
+                                    } else {
+                                        echo $row->c2_ttlvaluect;
+                                    } ?>
+                                </td>
+                                <td align="right">
+                                    <?php if (trim($row->c2_ttlvalueik) == '0') {
+                                        echo '';
+                                    } else {
+                                        echo $row->c2_ttlvalueik;
+                                    } ?>
+                                </td>
+
+                                <td align="right">
+                                    <?php echo $row->f_score_k; ?>
+                                </td>
+                                <td align="right">
+                                    <?php echo $row->f_ktg_fs; ?>
+                                </td>
+                                <td align="right">
+                                    <?php echo $row->bpa; ?>
+                                </td>
+
+
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->
+    </div>
+
+    <div class="col-sm-12">
+        <div class="box">
+            <div class="box-header">
+            </div><!-- /.box-header -->
+            <div class="box-body table-responsive" style='overflow-x:scroll;'>
+                <table id="example1" class="table table-bordered table-striped tg">
+                    <thead>
+                        <tr>
+                            <th>NO</th>
+                            <th>NIK</th>
+                            <th>NAMA LENGKAP</th>
+                            <th>BAGIAN</th>
+                            <th>JABATAN</th>
+                            <th>TAHUN</th>
+                            <th class="tg-yp2e">JANUARI</th>
+                            <th class="tg-yp2e">FEBRUARI</th>
+                            <th class="tg-yp2e">MARET</th>
+                            <th class="tg-yp2e">APRIL</th>
+                            <th class="tg-yp2e">MEI</th>
+                            <th class="tg-yp2e">JUNI</th>
+                            <th class="tg-yp2e">JULI</th>
+                            <th class="tg-yp2e">AGUSTUS</th>
+                            <th class="tg-yp2e">SEPTEMBER</th>
+                            <th class="tg-yp2e">OKTOBER</th>
+                            <th class="tg-yp2e">NOVEMBER</th>
+                            <th class="tg-yp2e">DESEMBER</th>
+                            <th class="tg-lkh3">RATA-RATA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $no = 0;
+                        foreach ($list_report_kpi as $row):
+                            $no++; ?>
+                            <tr>
+                                <td width="2%"><?php echo $no; ?></td>
+                                <td><?php echo $row->nik; ?></td>
+                                <td><?php echo $row->nmlengkap; ?></td>
+                                <td><?php echo $row->nmsubdept; ?></td>
+                                <td><?php echo $row->nmjabatan; ?></td>
+                                <td><?php echo $row->tahun; ?></td>
+                                <td><?php echo $row->januari; ?></td>
+                                <td><?php echo $row->februari; ?></td>
+                                <td><?php echo $row->maret; ?></td>
+                                <td><?php echo $row->april; ?></td>
+                                <td><?php echo $row->mei; ?></td>
+                                <td><?php echo $row->juni; ?></td>
+                                <td><?php echo $row->juli; ?></td>
+                                <td><?php echo $row->agustus; ?></td>
+                                <td><?php echo $row->september; ?></td>
+                                <td><?php echo $row->oktober; ?></td>
+                                <td><?php echo $row->november; ?></td>
+                                <td><?php echo $row->desember; ?></td>
+                                <td><?php echo $row->average; ?></td>
+
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->
+    </div>
+
+    <div class="col-sm-12">
+        <div class="box">
             <div class="box-body table-responsive" style='overflow-x:scroll;'>
                 <table id="datatableMaster" class="table table-bordered table-striped">
                     <thead>

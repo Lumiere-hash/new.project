@@ -424,6 +424,10 @@ class Pk extends MX_Controller
 				$data['message'] = "";
 			}
 		}
+		$tahun = substr($periode,0,4);
+		$array_period = explode('-', $periode);
+		$param_list_kondite = " and nik='$nik' and periode between '$array_period[0]' and '$array_period[1]'";
+		$param_list_kpi = " and nik='$nik' and tahun='$tahun'";
 		$param_list_akses = " and nik='$nik' and periode='$periode'";
 		$data['title'] = ' INPUT PERFORMA APPRAISAL ';
 		$data['nama'] = $nama;
@@ -436,6 +440,8 @@ class Pk extends MX_Controller
 
 		$data['cek_option_pa'] = $cek_option_pa;
 
+		$data['list_report_kondite'] = $this->m_pk->q_list_kondite_report($param_list_kondite)->result();
+		$data['list_report_kpi'] = $this->m_pk->q_list_kpi_report_yearly($param_list_kpi)->result();
 		$data['list_tmp_pa_mst'] = $this->m_pk->q_tx_form_pa_tmp_mst($param_list_akses)->result();
 		$data['list_tmp_pa_dtl'] = $this->m_pk->q_tx_form_pa_tmp_dtl($param_list_akses)->result();
 		$data['list_question'] = $this->m_pk->list_pa_questions()->result();
@@ -1399,8 +1405,6 @@ class Pk extends MX_Controller
 		$ceknik = $this->m_akses->q_master_akses_karyawan($paramceknama)->num_rows();
 
 		if (($ceknikatasan1) > 0 and $userhr == 0) {
-			$param_list_akses = " and nik in (select trim(nik) from sc_mst.karyawan where (nik_atasan='$nama')) ";
-		} else if (($ceknikatasan2) > 0 and $userhr == 0) {
 			$param_list_akses = " and nik in (select trim(nik) from sc_mst.karyawan where (nik_atasan='$nama')) ";
 		} else {
 			if ($ceknik > 0 and $userhr == 0) {
