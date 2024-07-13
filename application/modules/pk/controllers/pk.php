@@ -424,7 +424,7 @@ class Pk extends MX_Controller
 				$data['message'] = "";
 			}
 		}
-		$tahun = substr($periode,0,4);
+		$tahun = substr($periode, 0, 4);
 		$array_period = explode('-', $periode);
 		$param_list_kondite = " and a.nik='$nik' and periode between '$array_period[0]' and '$array_period[1]'";
 		$param_list_kpi = " and nik='$nik' and tahun='$tahun'";
@@ -2957,19 +2957,19 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 			}
 		}
 		/*		if ($cek_f_pa==0 or $cek_f_inspek==0 or $cek_f_kondite==0){
-													  $this->db->where('userid',$nama);
-														  $this->db->where('modul','PKPA');
-														  $this->db->delete('sc_mst.trxerror');
-														  $insinfo = array (
-															  'userid' => $nama,
-															  'errorcode' => 11,
-															  'modul' => 'PKPA'
-														  );
-														  $this->db->insert('sc_mst.trxerror',$insinfo);
-													  redirect("pk/pk/form_report_final");
-													  
-												  } 
-										  */
+															$this->db->where('userid',$nama);
+																$this->db->where('modul','PKPA');
+																$this->db->delete('sc_mst.trxerror');
+																$insinfo = array (
+																	'userid' => $nama,
+																	'errorcode' => 11,
+																	'modul' => 'PKPA'
+																);
+																$this->db->insert('sc_mst.trxerror',$insinfo);
+															redirect("pk/pk/form_report_final");
+															
+														} 
+												*/
 
 		if ($cek_first_trx > 0) {
 			$this->db->where('userid', $nama);
@@ -4110,16 +4110,29 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 
 	function excel_report_form_kondite()
 	{
-		$inputfill = strtoupper(trim($this->input->post('inputfill')));
+		$nama = trim($this->session->userdata('nik'));
 		$startPeriode = str_replace('-', '', strtoupper(trim($this->input->post('startPeriode'))));
 		$endPeriode = str_replace('-', '', strtoupper(trim($this->input->post('endPeriode'))));
-		$periode = $startPeriode . '-' . $endPeriode;
 		$fnik = strtoupper(trim($this->input->post('nik')));
+
+		$ceknikatasan1 = $this->m_akses->list_aksesatasan1($nama)->num_rows();
+		$userhr = $this->m_akses->list_aksesperdep_pk($nama)->num_rows();
+		$paramceknama = " and nik='$nama'";
+		$ceknik = $this->m_akses->q_master_akses_karyawan($paramceknama)->num_rows();
+
+		if (($ceknikatasan1) > 0 and $userhr == 0) {
+			$param_list_akses = " and nik in (select trim(nik) from sc_mst.karyawan where (nik_atasan='$nama')) ";
+		} else {
+			if ($ceknik > 0 and $userhr == 0) {
+				$param_list_akses = " and nik='$nama' ";
+			} else {
+				$param_list_akses = "";
+			}
+		}
 
 		if (!empty($startPeriode)) {
 			$param_postperiode = " and periode between '$startPeriode' and '$endPeriode' ";
 		} else {
-			$periode = date('Ym');
 			$param_postperiode = " ";
 		}
 		if (!empty($fnik)) {
@@ -4128,7 +4141,7 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 			$param_postnik = "";
 		}
 
-		$paramnya = $param_postnik . $param_postperiode;
+		$paramnya = $param_list_akses . $param_postnik . $param_postperiode;
 		$dataexcel = $this->m_pk->q_list_kondite_report($paramnya);
 		$this->excel_generator->set_query($dataexcel);
 		$this->excel_generator->set_header(
@@ -4241,17 +4254,30 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 	function excel_report_form_pa()
 	{
 		$nama = trim($this->session->userdata('nik'));
-		$inputfill = strtoupper(trim($this->input->post('inputfill')));
 		$startPeriode = str_replace('-', '', strtoupper(trim($this->input->post('startPeriode'))));
 		$endPeriode = str_replace('-', '', strtoupper(trim($this->input->post('endPeriode'))));
 		$firstperiode = $startPeriode . '-' . $startPeriode;
 		$secondperiode = $endPeriode . '-' . $endPeriode;
 		$fnik = strtoupper(trim($this->input->post('nik')));
 
+		$ceknikatasan1 = $this->m_akses->list_aksesatasan1($nama)->num_rows();
+		$userhr = $this->m_akses->list_aksesperdep_pk($nama)->num_rows();
+		$paramceknama = " and nik='$nama'";
+		$ceknik = $this->m_akses->q_master_akses_karyawan($paramceknama)->num_rows();
+
+		if (($ceknikatasan1) > 0 and $userhr == 0) {
+			$param_list_akses = " and nik in (select trim(nik) from sc_mst.karyawan where (nik_atasan='$nama')) ";
+		} else {
+			if ($ceknik > 0 and $userhr == 0) {
+				$param_list_akses = " and nik='$nama' ";
+			} else {
+				$param_list_akses = "";
+			}
+		}
+
 		if (!empty($startPeriode)) {
 			$param_postperiode = " and periode between '$firstperiode' and '$secondperiode'";
 		} else {
-			$periode = date('Ym');
 			$param_postperiode = " ";
 		}
 		if (!empty($fnik)) {
@@ -4261,8 +4287,7 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 		}
 
 		$param_list_akses = " and userid='$nama'";
-		$paramnya = //$param_list_akses . 
-			$param_postnik . $param_postperiode;
+		$paramnya = $param_list_akses . $param_postnik . $param_postperiode;
 
 		$dataexcel = $this->m_pk->q_list_report_new($paramnya);
 		$this->excel_generator->set_query($dataexcel);
