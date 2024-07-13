@@ -4388,10 +4388,24 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 		$tahun = $this->input->post('tahun');
 		$fnik = strtoupper(trim($this->input->post('nik')));
 
+		$ceknikatasan1 = $this->m_akses->list_aksesatasan1($nama)->num_rows();
+		$userhr = $this->m_akses->list_aksesperdep_pk($nama)->num_rows();
+		$paramceknama = " and nik='$nama'";
+		$ceknik = $this->m_akses->q_master_akses_karyawan($paramceknama)->num_rows();
+
+		if (($ceknikatasan1) > 0 and $userhr == 0) {
+			$param_list_akses = " and nik in (select trim(nik) from sc_mst.karyawan where (nik_atasan='$nama')) ";
+		} else {
+			if ($ceknik > 0 and $userhr == 0) {
+				$param_list_akses = " and nik='$nama' ";
+			} else {
+				$param_list_akses = "";
+			}
+		}
+
 		if (!empty($tahun)) {
 			$param_postperiode = " and tahun = '$tahun'";
 		} else {
-			$periode = date('Y');
 			$param_postperiode = " ";
 		}
 		if (!empty($fnik)) {
@@ -4401,7 +4415,7 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 		}
 
 		$param_list_akses = " and userid='$nama'";
-		$paramnya = //$param_list_akses . 
+		$paramnya = $param_list_akses . 
 			$param_postnik . $param_postperiode;
 
 		$dataexcel = $this->m_pk->q_list_kpi_report_yearly($paramnya);
