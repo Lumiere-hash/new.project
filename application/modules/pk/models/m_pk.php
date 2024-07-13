@@ -491,7 +491,7 @@ class M_pk extends CI_Model
 
 	function q_list_kondite_report($param)
 	{
-		$order = " ORDER BY nmsubdept,nmjabatan,nmlengkap";
+		$order = " ORDER BY periode";
 		$limit = "";
 		return $this->db->query("select * from (
 										select a.*,c.nmdept,d.nmsubdept,e.nmlvljabatan,f.nmjabatan,b.nmlengkap,b1.nmlengkap as nmatasan1,b2.nmlengkap as nmatasan2,g.kdvalue as kdbpa,g.description as bpa from sc_pk.kondite_trx_mst a 
@@ -503,7 +503,35 @@ class M_pk extends CI_Model
 										left outer join sc_mst.lvljabatan e on b.lvl_jabatan=e.kdlvl 
 										left outer join sc_mst.jabatan f on b.jabatan=f.kdjabatan and f.kdsubdept=b.subbag_dept and f.kddept=b.bag_dept
 										left outer join sc_pk.m_bobot g on g.kdvalue=a.f_kdvalue_fs and g.kdcategory='KONDITE') as x
-										where nodok is not null $param");
+										where nodok is not null $param $order");
+	}
+
+	function q_summary_kondite_report($param)
+	{
+		$order = " ORDER BY periode";
+		$limit = "";
+		return $this->db->query("SELECT branch, nik, nmlengkap, nmsubdept, nmjabatan, min(periode)||'-'||max(periode) as periode, 
+					SUM(ttlvalueip::numeric) as ttlvalueip, SUM(ttlvaluesd::numeric) as ttlvaluesd, SUM(ttlvalueal::numeric) as ttlvalueal, 
+					SUM(ttlvaluetl::numeric) as ttlvaluetl, SUM(ttlvaluesp1::numeric) as ttlvaluesp1, SUM(ttlvaluesp2::numeric) as ttlvaluesp2, 
+					SUM(ttlvaluesp3::numeric) as ttlvaluesp3, SUM(ttlvaluect::numeric) as ttlvaluect, SUM(ttlvalueik::numeric) as ttlvalueik, 
+					SUM(ttlvalueitl::numeric) as ttlvalueitl, SUM(ttlvalueipa::numeric) as ttlvalueipa
+				FROM (
+					SELECT a.*, c.nmdept, d.nmsubdept, e.nmlvljabatan, f.nmjabatan, b.nmlengkap, b1.nmlengkap as nmatasan1, 
+						b2.nmlengkap as nmatasan2, g.kdvalue as kdbpa, g.description as bpa
+					FROM sc_pk.kondite_trx_mst a 
+					LEFT OUTER JOIN sc_mst.karyawan b ON a.nik = b.nik
+					LEFT OUTER JOIN sc_mst.karyawan b1 ON b.nik_atasan = b1.nik
+					LEFT OUTER JOIN sc_mst.karyawan b2 ON b.nik_atasan2 = b2.nik
+					LEFT OUTER JOIN sc_mst.departmen c ON b.bag_dept = c.kddept
+					LEFT OUTER JOIN sc_mst.subdepartmen d ON b.subbag_dept = d.kdsubdept AND d.kddept = b.bag_dept
+					LEFT OUTER JOIN sc_mst.lvljabatan e ON b.lvl_jabatan = e.kdlvl 
+					LEFT OUTER JOIN sc_mst.jabatan f ON b.jabatan = f.kdjabatan AND f.kdsubdept = b.subbag_dept AND f.kddept = b.bag_dept
+					LEFT OUTER JOIN sc_pk.m_bobot g ON g.kdvalue = a.f_kdvalue_fs AND g.kdcategory = 'KONDITE'
+					WHERE true $param
+					$order 
+				) AS x
+				WHERE nodok IS NOT NULL
+				GROUP BY branch, nik, nmlengkap, nmsubdept, nmjabatan");
 	}
 
 	function q_list_kpi_report($param)

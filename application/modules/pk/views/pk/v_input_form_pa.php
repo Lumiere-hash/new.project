@@ -158,25 +158,8 @@
                             <th class="tg-yp2e" colspan="11">
                                 <center><strong>NILAI UMUM</strong></center>
                             </th>
-                            <th class="tg-yp2e" colspan="11">
-                                <center><strong>PERHITUNGAN</strong></center>
-                            </th>
-                            <th class="tg-031e" rowspan="2">FS </th>
-                            <th class="tg-031e" rowspan="2">FS KTG</th>
-                            <th class="tg-031e" rowspan="2">FS DESC</th>
                         </tr>
                         <tr>
-                            <td class="tg-wsnc">IP</td>
-                            <td class="tg-lkh3">SD</td>
-                            <td class="tg-wsnc">AL</td>
-                            <td class="tg-lkh3">TL</td>
-                            <td class="tg-lkh3">DT</td>
-                            <td class="tg-lkh3">PA</td>
-                            <td class="tg-wsnc">SP1</td>
-                            <td class="tg-lkh3">SP2</td>
-                            <td class="tg-wsnc">SP3</td>
-                            <td class="tg-lkh3">CT</td>
-                            <td class="tg-wsnc">IK</td>
                             <td class="tg-wsnc">IP</td>
                             <td class="tg-lkh3">SD</td>
                             <td class="tg-wsnc">AL</td>
@@ -289,97 +272,6 @@
                                     } else {
                                         echo $row->ttlvalueik;
                                     } ?>
-                                </td>
-
-                                <td align="right">
-                                    <?php if (trim($row->c2_ttlvalueip) == '0') {
-                                        echo '';
-                                    } else {
-                                        echo $row->c2_ttlvalueip;
-                                    } ?>
-                                </td>
-                                <td align="right">
-                                    <?php if (trim($row->c2_ttlvaluesd) == '0') {
-                                        echo '';
-                                    } else {
-                                        echo $row->c2_ttlvaluesd;
-                                    } ?>
-                                </td>
-                                <td align="right">
-                                    <?php if (trim($row->c2_ttlvalueal) == '0') {
-                                        echo '';
-                                    } else {
-                                        echo $row->c2_ttlvalueal;
-                                    } ?>
-                                </td>
-                                <td align="right">
-                                    <?php if (trim($row->c2_ttlvaluetl) == '0') {
-                                        echo '';
-                                    } else {
-                                        echo $row->c2_ttlvaluetl;
-                                    } ?>
-                                </td>
-                                <td align="right">
-                                    <?php if (trim($row->c2_ttlvalueitl) == '0') {
-                                        echo '';
-                                    } else {
-                                        echo $row->c2_ttlvalueitl;
-                                    } ?>
-                                </td>
-                                <td align="right">
-                                    <?php if (trim($row->c2_ttlvalueipa) == '0') {
-                                        echo '';
-                                    } else {
-                                        echo $row->c2_ttlvalueipa;
-                                    } ?>
-                                </td>
-                                <td align="right">
-                                    <?php if (trim($row->c2_ttlvaluesp1) == '0') {
-                                        echo '';
-                                    } else {
-                                        echo $row->c2_ttlvaluesp1;
-                                    } ?>
-                                </td>
-                                <td align="right">
-                                    <?php if (trim($row->c2_ttlvaluesp2) == '0') {
-                                        echo '';
-                                    } else {
-                                        echo $row->c2_ttlvaluesp2;
-                                    } ?>
-                                </td>
-                                <td align="right">
-                                    <?php if (trim($row->c2_ttlvaluesp3) == '0') {
-                                        echo '';
-                                    } else {
-                                        echo $row->c2_ttlvaluesp3;
-                                    } ?>
-                                </td>
-                                <td align="right">
-                                    <?php if (trim($row->c2_ttlvaluect) == '0') {
-                                        echo '';
-                                    } else {
-                                        echo $row->c2_ttlvaluect;
-                                    } ?>
-                                </td>
-                                <td align="right">
-                                    <?php if (trim($row->c2_ttlvalueik) == '0') {
-                                        echo '';
-                                    } else {
-                                        echo $row->c2_ttlvalueik;
-                                    } ?>
-                                </td>
-
-                                <td align="right">
-                                    <?php echo $row->f_score_k; ?>
-                                </td>
-                                <td align="right">
-                                    <?php echo $row->f_ktg_fs; ?>
-                                </td>
-                                <td align="right">
-                                    <?php echo $row->bpa; ?>
-                                </td>
-
-
                                 </td>
                             </tr>
                         <?php endforeach; ?>
@@ -570,7 +462,8 @@
                                     <h6><strong>CATATAN UNTUK KARYAWAN</strong></h6>
                                 </td>
                                 <td>
-                                    <textarea name="note" id="note" style="width: 100%; resize: none; text-transform: uppercase;"
+                                    <textarea name="note" id="note"
+                                        style="width: 100%; resize: none; text-transform: uppercase;"
                                         class="form-control"><?php echo $dtlrow['note']; ?></textarea>
                                 </td>
                             </tr>
@@ -580,7 +473,8 @@
                                     <h6><strong>SARAN UNTUK KARYAWAN</strong></h6>
                                 </td>
                                 <td>
-                                    <textarea name="suggestion" id="suggestion" style="width: 100%; resize: none; text-transform: uppercase;"
+                                    <textarea name="suggestion" id="suggestion"
+                                        style="width: 100%; resize: none; text-transform: uppercase;"
                                         class="form-control"><?php echo $dtlrow['suggestion']; ?></textarea>
                                 </td>
                             </tr>

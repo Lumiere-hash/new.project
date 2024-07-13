@@ -426,7 +426,7 @@ class Pk extends MX_Controller
 		}
 		$tahun = substr($periode,0,4);
 		$array_period = explode('-', $periode);
-		$param_list_kondite = " and nik='$nik' and periode between '$array_period[0]' and '$array_period[1]'";
+		$param_list_kondite = " and a.nik='$nik' and periode between '$array_period[0]' and '$array_period[1]'";
 		$param_list_kpi = " and nik='$nik' and tahun='$tahun'";
 		$param_list_akses = " and nik='$nik' and periode='$periode'";
 		$data['title'] = ' INPUT PERFORMA APPRAISAL ';
@@ -440,7 +440,7 @@ class Pk extends MX_Controller
 
 		$data['cek_option_pa'] = $cek_option_pa;
 
-		$data['list_report_kondite'] = $this->m_pk->q_list_kondite_report($param_list_kondite)->result();
+		$data['list_report_kondite'] = $this->m_pk->q_summary_kondite_report($param_list_kondite)->result();
 		$data['list_report_kpi'] = $this->m_pk->q_list_kpi_report_yearly($param_list_kpi)->result();
 		$data['list_tmp_pa_mst'] = $this->m_pk->q_tx_form_pa_tmp_mst($param_list_akses)->result();
 		$data['list_tmp_pa_dtl'] = $this->m_pk->q_tx_form_pa_tmp_dtl($param_list_akses)->result();
@@ -1384,7 +1384,7 @@ class Pk extends MX_Controller
 			$param_postperiode = " and periode='$periode' ";
 		} else {
 			$periode = date('Ym') . '-' . date('Ym');
-			$param_postperiode = " and periode= '$periode' ";
+			$param_postperiode = " ";
 		}
 		if (!empty($fnik)) {
 			$param_postnik = " and nik='$fnik'";
@@ -2159,7 +2159,7 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 				$enc_nik = $this->fiky_encryption->enkript((trim($dtlmst['nik'])));
 				$enc_startperiode = $this->fiky_encryption->enkript((trim($startPeriode)));
 				$enc_endperiode = $this->fiky_encryption->enkript((trim($endPeriode)));
-				redirect("pk/pk/input_kondite/$enc_nik/$enc_startperiode/$enc_endperiode");
+				redirect("pk/input_kondite/$enc_nik/$enc_startperiode/$enc_endperiode");
 			}
 		} else if (trim($dtlmst['status']) == 'E') {
 			if (isset($dtlmst['f_score_k'])) {
@@ -2186,7 +2186,7 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 				$enc_nik = $this->fiky_encryption->enkript((trim($dtlmst['nik'])));
 				$enc_startperiode = $this->fiky_encryption->enkript((trim($startPeriode)));
 				$enc_endperiode = $this->fiky_encryption->enkript((trim($endPeriode)));
-				redirect("pk/pk/edit_kondite/$enc_nik/$enc_startperiode/$enc_endperiode");
+				redirect("pk/edit_kondite/$enc_nik/$enc_startperiode/$enc_endperiode");
 			}
 		}
 	}
@@ -2233,7 +2233,7 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 		if ($code == 'p')
 			$info = array('status' => strtoupper($code), 'updatedate' => $inputdate, 'updateby' => $inputby, 'a1_approved' => 't', 'a2_approved' => 't');
 		elseif ($code == 'a2')
-			$info = array('status' => strtoupper($code), 'updatedate' => $inputdate, 'updateby' => $inputby, 'a1_approved' => 't');
+			$info = array('status' => strtoupper('p'), 'updatedate' => $inputdate, 'updateby' => $inputby, 'a1_approved' => 't', 'a2_approved' => 't');
 
 		$this->db->where('nik', $nik);
 		$this->db->where("periode between '$startPeriode' and '$endPeriode' ");
@@ -2348,7 +2348,7 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 				);
 
 				$data = array(
-					'branch' => 'SNIBBT',
+					'branch' => 'SBYNSA',
 					'idbu' => 'AR',
 					'periode' => (string) $rowData[0][0],
 					'nik' => (string) $rowData[0][1]
