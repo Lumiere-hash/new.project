@@ -4286,7 +4286,7 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 			$param_postnik = "";
 		}
 
-		$param_list_akses = " and userid='$nama'";
+		// $param_list_akses = " and userid='$nama'";
 		$paramnya = $param_list_akses . $param_postnik . $param_postperiode;
 
 		$dataexcel = $this->m_pk->q_list_report_new($paramnya);
@@ -4414,7 +4414,7 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 			$param_postnik = "";
 		}
 
-		$param_list_akses = " and userid='$nama'";
+		// $param_list_akses = " and userid='$nama'";
 		$paramnya = $param_list_akses . 
 			$param_postnik . $param_postperiode;
 
