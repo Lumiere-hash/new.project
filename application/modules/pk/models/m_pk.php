@@ -514,7 +514,13 @@ class M_pk extends CI_Model
 					SUM(ttlvalueip::numeric) as ttlvalueip, SUM(ttlvaluesd::numeric) as ttlvaluesd, SUM(ttlvalueal::numeric) as ttlvalueal, 
 					SUM(ttlvaluetl::numeric) as ttlvaluetl, SUM(ttlvaluesp1::numeric) as ttlvaluesp1, SUM(ttlvaluesp2::numeric) as ttlvaluesp2, 
 					SUM(ttlvaluesp3::numeric) as ttlvaluesp3, SUM(ttlvaluect::numeric) as ttlvaluect, SUM(ttlvalueik::numeric) as ttlvalueik, 
-					SUM(ttlvalueitl::numeric) as ttlvalueitl, SUM(ttlvalueipa::numeric) as ttlvalueipa
+					SUM(ttlvalueitl::numeric) as ttlvalueitl, SUM(ttlvalueipa::numeric) as ttlvalueipa, SUM(c2_ttlvalueip::numeric) as c2_ttlvalueip,
+					SUM(c2_ttlvaluesd::numeric) as c2_ttlvaluesd, SUM(c2_ttlvalueal::numeric) as c2_ttlvalueal, SUM(c2_ttlvaluetl::numeric) as c2_ttlvaluetl,
+					SUM(c2_ttlvaluesp1::numeric) as c2_ttlvaluesp1, SUM(c2_ttlvaluesp2::numeric) as c2_ttlvaluesp2, SUM(c2_ttlvaluesp3::numeric) as c2_ttlvaluesp3,
+					SUM(c2_ttlvaluect::numeric) as c2_ttlvaluect, SUM(c2_ttlvalueik::numeric) as c2_ttlvalueik, SUM(c2_ttlvalueitl::numeric) as c2_ttlvalueitl,
+					SUM(c2_ttlvalueipa::numeric) as c2_ttlvalueipa, SUM(ttlvalueitl::numeric) as ttlvalueitl, SUM(ttlvalueipa::numeric) as ttlvalueipa,
+					(SUM(c2_ttlvaluesd::numeric) + SUM(c2_ttlvalueal::numeric) + SUM(c2_ttlvaluetl::numeric) + SUM(c2_ttlvaluesp1::numeric) + SUM(c2_ttlvaluesp2::numeric) 
+					+ SUM(c2_ttlvaluesp3::numeric) + SUM(c2_ttlvaluect::numeric) + SUM(c2_ttlvalueik::numeric) + SUM(c2_ttlvalueitl::numeric) + SUM(c2_ttlvalueipa::numeric)) as total_score
 				FROM (
 					SELECT a.*, c.nmdept, d.nmsubdept, e.nmlvljabatan, f.nmjabatan, b.nmlengkap, b1.nmlengkap as nmatasan1, 
 						b2.nmlengkap as nmatasan2, g.kdvalue as kdbpa, g.description as bpa
