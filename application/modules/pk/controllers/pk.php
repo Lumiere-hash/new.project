@@ -4266,7 +4266,7 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 		$ceknik = $this->m_akses->q_master_akses_karyawan($paramceknama)->num_rows();
 
 		if (($ceknikatasan1) > 0 and $userhr == 0) {
-			$param_list_akses = " and nik in (select trim(nik) from sc_mst.karyawan where (nik_atasan='$nama')) ";
+			$param_list_akses = " and a.nik in (select trim(nik) from sc_mst.karyawan where (nik_atasan='$nama')) ";
 		} else {
 			if ($ceknik > 0 and $userhr == 0) {
 				$param_list_akses = " and nik='$nama' ";
