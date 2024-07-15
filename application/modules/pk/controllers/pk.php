@@ -178,8 +178,8 @@ class Pk extends MX_Controller
 		$data['cek_option_pa'] = $cek_option_pa;
 		$data['ceknikatasan1'] = $ceknikatasan1;
 		$data['ceknikatasan2'] = $ceknikatasan2;
-		$data['range_option'] = $this->m_pk->q_option(['kdoption' => 'PKPARP', 'status' => 'T'])->row()->value1;
-		$data['range_option_semester'] = $this->m_pk->q_option(['kdoption' => 'PKPARPS', 'status' => 'T'])->row()->value1;
+		$data['range_option'] = trim($this->m_pk->q_option(['kdoption' => 'PKPARP', 'status' => 'T'])->row()->value1);
+		$data['range_option_semester'] = trim($this->m_pk->q_option(['kdoption' => 'PKPARPS', 'status' => 'T'])->row()->value1);
 		$paramnya = $param_list_akses . $param_postnik . $param_postperiode;
 
 		$data['list_nik'] = $this->m_akses->q_master_akses_karyawan($param_list_akses)->result();
