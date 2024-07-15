@@ -10,6 +10,7 @@ class M_option extends CI_Model{
 									when status='T' then 'AKTIF' 
 									when status='F' then 'TIDAK AKTIF'
 									end as status1,
+                                    REPLACE(kdoption, ':', '_') as kdoption_reformat,
 									* from sc_mst.option order by kdoption asc
 									 ");
 	}
