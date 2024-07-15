@@ -243,7 +243,7 @@
 
                                                         if ($selected) {
                                                             echo "<option value=\"$key\" $selected>$value</option>";
-                                                            break; 
+                                                            break;
                                                         }
                                                     }
                                                     ?>
@@ -252,35 +252,28 @@
                                             <label class="col-sm-4" for="inputsm">TAHUN</label>
                                             <div class="col-sm-8">
                                                 <select class="form-control input-sm" name="tahun" id="tahun" required>
-                                                    <option value=""></option>
-                                                    <?php
-                                                    for ($i = 0; $i <= 6; $i++): ?>
-                                                        <option value="<?= 2024 - $i ?>"><?= 2024 - $i ?></option>
-                                                    <?php endfor; ?>
+                                                    <option value="<?= date('Y') ?>" selected><?= date('Y') ?></option>
                                                 </select>
                                             </div>
                                             <input type="hidden" name="startPeriode" id="startDate" value="">
                                             <input type="hidden" name="endPeriode" id="endDate" value="">
                                             <script>
                                                 $(function () {
-                                                    $('select[name=periode], select[name=tahun]').change(function () {
-                                                        var namaFormulir = $(this).closest('form').attr('name');
-                                                        var periode = $('form[name=' + namaFormulir + '] select[name=periode]').val();
-                                                        var tahun = $('form[name=' + namaFormulir + '] select[name=tahun]').val();
+                                                    var periode = $('form[name=inputPeriode] select[name=periode]').val();
+                                                    var tahun = $('form[name=inputPeriode] select[name=tahun]').val();
 
-                                                        if (periode == 'S1') {
-                                                            $('form[name=' + namaFormulir + '] #startDate').val(tahun + '-01');
-                                                            $('form[name=' + namaFormulir + '] #endDate').val(tahun + '-06');
-                                                        }
-                                                        if (periode == 'S2') {
-                                                            $('form[name=' + namaFormulir + '] #startDate').val(tahun + '-07');
-                                                            $('form[name=' + namaFormulir + '] #endDate').val(tahun + '-12');
-                                                        }
+                                                    if (periode == 'S1') {
+                                                        $('form[name=inputPeriode] #startDate').val(tahun + '-01');
+                                                        $('form[name=inputPeriode] #endDate').val(tahun + '-06');
+                                                    }
+                                                    if (periode == 'S2') {
+                                                        $('form[name=inputPeriode] #startDate').val(tahun + '-07');
+                                                        $('form[name=inputPeriode] #endDate').val(tahun + '-12');
+                                                    }
 
-                                                        if ($('form[name=' + namaFormulir + '] #endDate').val().length == 7) {
-                                                            $('form[name=' + namaFormulir + '] #submit').prop('disabled', false);
-                                                        }
-                                                    });
+                                                    if ($('form[name=inputPeriode] #endDate').val().length == 7) {
+                                                        $('form[name=inputPeriode] #submit').prop('disabled', false);
+                                                    }
                                                 });
                                             </script>
                                         </div>
