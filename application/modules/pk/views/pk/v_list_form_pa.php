@@ -233,16 +233,22 @@
                                     <?php endif ?>
                                     <?php if ($range_option == 'SEMESTER'): ?>
                                         <div class="form-horizontal">
-                                            <!-- <label class="col-sm-4" for="inputsm">PERIODE</label>
+                                            <label class="col-sm-4" for="inputsm">PERIODE</label>
                                             <div class="col-sm-8">
                                                 <select class="form-control input-sm" name="periode" id="periode" required>
-                                                    <option value=""></option>
-                                                    <option value="S1">SEMESTER 1</option>
-                                                    <option value="S2">SEMESTER 2</option>
+                                                    <?php
+                                                    $semesters = ['S1' => 'SEMESTER 1', 'S2' => 'SEMESTER 2'];
+                                                    foreach ($semesters as $key => $value) {
+                                                        $selected = ($range_option_semester == $key) ? 'selected' : '';
+
+                                                        if ($selected) {
+                                                            echo "<option value=\"$key\" $selected>$value</option>";
+                                                            break; 
+                                                        }
+                                                    }
+                                                    ?>
                                                 </select>
-                                            </div> -->
-                                            <input type="hidden" name="periode" id="periode"
-                                                value="<?= $range_option_semester ?>">
+                                            </div>
                                             <label class="col-sm-4" for="inputsm">TAHUN</label>
                                             <div class="col-sm-8">
                                                 <select class="form-control input-sm" name="tahun" id="tahun" required>
@@ -257,10 +263,9 @@
                                             <input type="hidden" name="endPeriode" id="endDate" value="">
                                             <script>
                                                 $(function () {
-                                                    $('select[name=tahun]').change(function () {
+                                                    $('select[name=periode], select[name=tahun]').change(function () {
                                                         var namaFormulir = $(this).closest('form').attr('name');
-                                                        // var periode = $('form[name=' + namaFormulir + '] select[name=periode]').val();
-                                                        var periode = $('form[name=' + namaFormulir + '] #periode').val();
+                                                        var periode = $('form[name=' + namaFormulir + '] select[name=periode]').val();
                                                         var tahun = $('form[name=' + namaFormulir + '] select[name=tahun]').val();
 
                                                         if (periode == 'S1') {
@@ -307,7 +312,7 @@
                         <div class="col-sm-12">
                             <div class="box box-danger">
                                 <div class="box-body">
-                                <?php if ($range_option == 'FREE'): ?>
+                                    <?php if ($range_option == 'FREE'): ?>
                                         <div class="form-horizontal">
                                             <label class="col-sm-4" for="inputsm">PILIH PERIODE</label>
                                             <div class="col-sm-8">
