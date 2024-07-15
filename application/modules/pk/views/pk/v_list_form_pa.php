@@ -233,14 +233,16 @@
                                     <?php endif ?>
                                     <?php if ($range_option == 'SEMESTER'): ?>
                                         <div class="form-horizontal">
-                                            <label class="col-sm-4" for="inputsm">PERIODE</label>
+                                            <!-- <label class="col-sm-4" for="inputsm">PERIODE</label>
                                             <div class="col-sm-8">
                                                 <select class="form-control input-sm" name="periode" id="periode" required>
                                                     <option value=""></option>
                                                     <option value="S1">SEMESTER 1</option>
                                                     <option value="S2">SEMESTER 2</option>
                                                 </select>
-                                            </div>
+                                            </div> -->
+                                            <input type="hidden" name="periode" id="periode"
+                                                value="<?= $range_option_semester ?>">
                                             <label class="col-sm-4" for="inputsm">TAHUN</label>
                                             <div class="col-sm-8">
                                                 <select class="form-control input-sm" name="tahun" id="tahun" required>
@@ -255,10 +257,13 @@
                                             <input type="hidden" name="endPeriode" id="endDate" value="">
                                             <script>
                                                 $(function () {
-                                                    $('select[name=periode], select[name=tahun]').change(function () {
+                                                    $('select[name=tahun]').change(function () {
                                                         var namaFormulir = $(this).closest('form').attr('name');
-                                                        var periode = $('form[name=' + namaFormulir + '] select[name=periode]').val();
+                                                        // var periode = $('form[name=' + namaFormulir + '] select[name=periode]').val();
+                                                        var periode = $('form[name=' + namaFormulir + '] #periode').val();
                                                         var tahun = $('form[name=' + namaFormulir + '] select[name=tahun]').val();
+
+                                                        console.log(periode)
 
                                                         if (periode == 'S1') {
                                                             $('form[name=' + namaFormulir + '] #startDate').val(tahun + '-01');
