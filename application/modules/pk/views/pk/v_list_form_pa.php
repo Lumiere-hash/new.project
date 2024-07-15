@@ -263,8 +263,6 @@
                                                         var periode = $('form[name=' + namaFormulir + '] #periode').val();
                                                         var tahun = $('form[name=' + namaFormulir + '] select[name=tahun]').val();
 
-                                                        console.log(periode)
-
                                                         if (periode == 'S1') {
                                                             $('form[name=' + namaFormulir + '] #startDate').val(tahun + '-01');
                                                             $('form[name=' + namaFormulir + '] #endDate').val(tahun + '-06');
