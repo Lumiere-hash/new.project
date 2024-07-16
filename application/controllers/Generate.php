@@ -8,7 +8,7 @@ class Generate extends CI_Controller
         //$numDays = (($this->m_option->read()->num_rows() > 0));
         $end = '';
         $end = ((is_null($end) OR empty($end)) ? date('Y-m-d') : $end );
-        $start = date('Y-m-d', strtotime($end.'-7 days'));
+        $start = date('Y-m-d', strtotime($end.'-4 days'));
         try {
             $this->db->trans_start();
             $arr = array();
