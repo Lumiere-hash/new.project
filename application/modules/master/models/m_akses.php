@@ -206,12 +206,13 @@ class M_akses extends CI_Model{
         if (!is_null($setup)){
             $val = explode(".",$setup->value1);
             $dept = "'".$val[0]."'";
-            $subdept = "'".$val[1]."'";
+            $arrsub = explode(',',$val[1]);
+            $subdept = "("."'" . implode ( "', '", $arrsub ) . "'".")";;
         }else{
             $dept = '';
             $subdept = '';
         }
-        return $this->db->query(" select * from sc_mst.karyawan where nik='$nama' and bag_dept = $dept and subbag_dept = $subdept");
+        return $this->db->query(" select * from sc_mst.karyawan where nik='$nama' and bag_dept = $dept and subbag_dept in $subdept");
     }
     
     function q_master_akses_karyawan($param){
