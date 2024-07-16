@@ -804,7 +804,7 @@ class WhatsApp extends MX_Controller
         }
     }
 	
-		    public function msgskd($sent = 'false')
+		public function msgskd($sent = 'false')
     {
         $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
         $resendTimeRange = $this->m_setup->q_mst_read_value(' AND parameter = \'WA:RESEND:PERIOD\'', '8');
@@ -1900,13 +1900,13 @@ class WhatsApp extends MX_Controller
 	
 	public function resendapprovalijinskd()
     {
-        if ($this->msgijinskd('true')) {
+        if ($this->msgskd('true')) {
         } else {
             if ($this->refresh()) {
-                $this->msgijinskd('true');
+                $this->msgskd('true');
             } else {
                 if ($this->auth()) {
-                    $this->msgijinskd('true');
+                    $this->msgskd('true');
                 }
             }
         }
