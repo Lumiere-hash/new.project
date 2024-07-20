@@ -146,8 +146,8 @@
                             <thead>
                                 <tr>
                                     <th width="2%">No.</th>
-                                    <th width="25%">DESKRIPSI</th>
-                                    <th>PENILAIAN ATASAN</th>
+                                    <th width="25%" class="text-center">DESKRIPSI</th>
+                                    <th class="text-center">PENILAIAN ATASAN</th>
                                 </tr>
                             </thead>
                             <tbody>
