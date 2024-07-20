@@ -501,9 +501,9 @@
                         <thead>
                             <tr>
                                 <th width="2%">No.</th>
-                                <th width="25%">DESKRIPSI</th>
+                                <th width="25%" class="text-center">DESKRIPSI</th>
                                 <?php if ($cek_option_pa == 0 or trim($dtlrow['nikatasan1']) == $nama) { ?>
-                                    <th>PENILAIAN ATASAN</th>
+                                    <th class="text-center">PENILAIAN ATASAN</th>
                                 <?php } ?>
                             </tr>
                         </thead>
@@ -525,7 +525,7 @@
                                     <td width="2%"><?php echo $no; ?></td>
                                     <td width="25%">
                                         <h6><strong><?php echo strtoupper($row->description); ?></strong></h6>
-                                        <p><?php echo strtoupper($row->fulldescription); ?></p>
+                                        <p class="capitalize-first"><?php echo $row->fulldescription; ?></p>
                                     </td>
                                     <!-- <input type="number" name="value1[]" id="value1[]"
                                                 value="<?php //echo strtoupper(trim($row->value1)); ?>" style="text-align: right"
@@ -541,9 +541,9 @@
                                                                 <?= trim($row->value1) == $lq->point ? 'checked' : '' ?> required>
                                                         </div>
                                                         <div class="col-sm-11">
-                                                            <label class="form-check-label">
+                                                            <p class="capitalize-first">
                                                                 <?= $lq->description ?>
-                                                            </label>
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 <?php }
@@ -559,7 +559,7 @@
                                 </td>
                                 <td>
                                     <textarea name="note" id="note"
-                                        style="width: 100%; resize: none; text-transform: uppercase;"
+                                        style="width: 100%; resize: none;"
                                         class="form-control"><?php echo $dtlrow['note']; ?></textarea>
                                 </td>
                             </tr>
@@ -570,7 +570,7 @@
                                 </td>
                                 <td>
                                     <textarea name="suggestion" id="suggestion"
-                                        style="width: 100%; resize: none; text-transform: uppercase;"
+                                        style="width: 100%; resize: none;"
                                         class="form-control"><?php echo $dtlrow['suggestion']; ?></textarea>
                                 </td>
                             </tr>
@@ -765,4 +765,11 @@
     //Date range picker
     $("#tgl").datepicker();
     $(".tglan").datepicker();
+    function capitalizeFirstWord(element) {
+        const text = element.innerText;
+        element.innerText = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+    }
+
+    const elements = document.querySelectorAll(".capitalize-first");
+    elements.forEach(capitalizeFirstWord);
 </script>

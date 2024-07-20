@@ -198,7 +198,7 @@
                                     <td width="2%"><?php echo $no; ?></td>
                                     <td width="25%">
                                         <h6><strong><?php echo strtoupper($row->description); ?></strong></h6>
-                                        <p><?php echo strtoupper($row->fulldescription); ?></p>
+                                        <p class="capitalize-first"><?php echo strtoupper($row->fulldescription); ?></p>
                                     </td>
                                     <!-- <input type="number" name="value1[]" id="value1[]"
                                                 value="<?php //echo strtoupper(trim($row->value1)); ?>" style="text-align: right"
@@ -214,9 +214,9 @@
                                                                 <?= trim($row->value1) == $lq->point ? 'checked' : '' ?> required>
                                                         </div>
                                                         <div class="col-sm-11">
-                                                            <label class="form-check-label">
+                                                            <p class="form-check-label capitalize-first">
                                                                 <?= $lq->description ?>
-                                                            </label>
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 <?php }
@@ -467,4 +467,11 @@
     //Date range picker
     $("#tgl").datepicker();
     $(".tglan").datepicker();
+    function capitalizeFirstWord(element) {
+        const text = element.innerText;
+        element.innerText = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+    }
+
+    const elements = document.querySelectorAll(".capitalize-first");
+    elements.forEach(capitalizeFirstWord);
 </script>

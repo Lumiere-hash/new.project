@@ -158,7 +158,7 @@
                                         <td width="2%"><?php echo $no; ?></td>
                                         <td width="25%">
                                             <h6><strong><?php echo strtoupper($row->description); ?></strong></h6>
-                                            <p><?php echo strtoupper($row->fulldescription); ?></p>
+                                            <p class="capitalize-first"><?php echo strtoupper($row->fulldescription); ?></p>
                                         </td>
                                         <td>
                                             <?php foreach ($list_question as $lq) {
@@ -170,10 +170,10 @@
                                                                 <?= trim($row->value1) == $lq->point ? 'checked' : 'disabled' ?>>
                                                         </div>
                                                         <div class="col-sm-11">
-                                                            <label
-                                                                class="form-check-label <?= trim($row->value1) == $lq->point ? '' : 'grey-label' ?>">
+                                                            <p
+                                                                class="form-check-label capitalize-first <?= trim($row->value1) == $lq->point ? '' : 'grey-label' ?>">
                                                                 <?= $lq->description ?>
-                                                            </label>
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 <?php }
@@ -188,7 +188,8 @@
                                     </td>
                                     <td>
                                         <textarea name="note" id="note" style="width: 100%; resize: none;"
-                                            class="form-control" disabled><?php echo $dtlrow['note']; ?></textarea>
+                                            class="form-control capital"
+                                            disabled><?php echo $dtlrow['note']; ?></textarea>
                                     </td>
                                 </tr>
                                 <tr>
@@ -198,7 +199,7 @@
                                     </td>
                                     <td>
                                         <textarea name="suggestion" id="suggestion" style="width: 100%; resize: none;"
-                                            class="form-control"
+                                            class="form-control capital"
                                             disabled><?php echo $dtlrow['suggestion']; ?></textarea>
                                     </td>
                                 </tr>
@@ -438,4 +439,16 @@
     //Date range picker
     $("#tgl").datepicker();
     $(".tglan").datepicker();
+    function capitalizeFirstWord(element) {
+        const text = element.innerText;
+        element.innerText = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+    }
+
+    const elements = document.querySelectorAll(".capitalize-first");
+    elements.forEach(capitalizeFirstWord);
+
+    $(".capital").each(function () {
+        var text = $(this).val();
+        $(this).val(text.charAt(0).toUpperCase() + text.slice(1).toLowerCase());
+    });
 </script>
