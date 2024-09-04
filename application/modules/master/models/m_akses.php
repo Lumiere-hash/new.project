@@ -34,17 +34,17 @@ class M_akses extends CI_Model{
 
     function list_aksesperdep(){
         $nik=$this->session->userdata('nik');
-        return $this->db->query(" select * from sc_mst.karyawan where nik='$nik' and bag_dept in ('PST') and subbag_dept in ('HRGA')");
+        return $this->db->query(" select * from sc_mst.karyawan where nik='$nik' and bag_dept in ('PST') and subbag_dept in ('HRGA','DC')");
     }
 
     function list_aksesperdepcuti(){
         $nik=$this->session->userdata('nik');
-        return $this->db->query(" select * from sc_mst.karyawan where nik='$nik' and bag_dept in ('PST') and subbag_dept in ('HRGA')");
+        return $this->db->query(" select * from sc_mst.karyawan where nik='$nik' and bag_dept in ('PST') and subbag_dept in ('HRGA','DC')");
     }
 
     function list_akses_od(){
         $nik=$this->session->userdata('nik');
-        return $this->db->query(" select * from sc_mst.karyawan where nik='$nik' and bag_dept in ('PST') and subbag_dept in ('HRGA')");
+        return $this->db->query(" select * from sc_mst.karyawan where nik='$nik' and bag_dept in ('PST') and subbag_dept in ('HRGA','DC')");
     }
 
     function list_karyawan(){
