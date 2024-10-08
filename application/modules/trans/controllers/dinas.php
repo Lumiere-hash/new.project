@@ -1164,6 +1164,7 @@ class Dinas extends MX_Controller
 //		$jam_selesai = date('H:i:s', strtotime($this->input->post('tgl_selesai')));
 		$transportasi = $this->input->post('transportasi');
 		$tipe_transportasi = $this->input->post('tipe_transportasi');
+        $destination = implode(",",$tujuan_kota);
 		$userhr = $this->m_akses->list_aksesperdep()->num_rows();
 		if ($userhr == 0) {
 			$opsi_dinas = $this->m_option->q_cekoption('BLKDN')->row();
@@ -1216,7 +1217,7 @@ class Dinas extends MX_Controller
 									'jam_selesai' => $jam_selesai,
 									'keperluan' => strtoupper($keperluan),
 									'callplan' => $callplan,
-									'tujuan_kota' => $tujuan_kota,
+									'tujuan_kota' => $destination,
 									'input_date' => date('Y-m-d H:i:s'),
 									'input_by' => trim($this->session->userdata('nik')),
 									'kdkategori' => $kdkategori,
@@ -1297,7 +1298,7 @@ class Dinas extends MX_Controller
 							'jam_selesai' => $jam_selesai,
 							'keperluan' => strtoupper($keperluan),
 							'callplan' => $callplan,
-							'tujuan_kota' => $tujuan_kota,
+							'tujuan_kota' => $destination,
 							'input_date' => date('Y-m-d H:i:s'),
 							'input_by' => trim($this->session->userdata('nik')),
 							'kdkategori' => $kdkategori,
@@ -1402,7 +1403,7 @@ class Dinas extends MX_Controller
             ORDER BY update_date DESC 
             ')->row();
 		if (!is_null($temporary) && !is_nan($temporary)) {
-
+            $destinationIn = "'".implode("','",explode(",",$temporary->tujuan_kota))."'";
 			$this->db->trans_complete();
             if ($temporary->status == 'P' AND date('Y-m-d') >= $temporary->tgl_mulai AND $json->config == 'extend'){
                 $canextend = TRUE;
@@ -1424,7 +1425,8 @@ class Dinas extends MX_Controller
 							array(
 								'temporary' => $temporary,
 								'destinationtype' => $this->M_DestinationType->q_master_search_where(' AND id = \'' . $temporary->jenis_tujuan . '\' ')->result(),
-								'citycashbon' => $this->M_CityCashbon->q_master_search_where(' AND id = \'' . $temporary->tujuan_kota . '\' ')->result(),
+//								'citycashbon' => $this->M_CityCashbon->q_master_search_where(' AND id = \'' . $temporary->tujuan_kota . '\' ')->result(),
+                                'citycashbon' => $this->M_CityCashbon->q_master_search_where(' AND id IN ('.$destinationIn.') AND a.group = \''.$temporary->jenis_tujuan.'\'  ')->result(),
 								'kategori' => $this->M_Kategori->q_master_search_where(' AND id = \'' . $temporary->kdkategori . '\' ')->result(),
 								'transportasi' => $this->M_TrxType->q_master_search_where(' AND a.group = \'TRANSP\' AND id = \'' . $temporary->transportasi . '\' ')->result(),
 								'tipe_transportasi' => $this->M_TrxType->q_master_search_where(' AND a.group = \'TRANSPTYPE\' AND id = \'' . $temporary->tipe_transportasi . '\' ')->result(),
@@ -1459,7 +1461,7 @@ class Dinas extends MX_Controller
 //		$jam_selesai = date('H:i:s', strtotime($this->input->post('tgl_selesai')));
 		$transportasi = $this->input->post('transportasi');
 		$tipe_transportasi = $this->input->post('tipe_transportasi');
-
+        $destination = implode(",",$tujuan_kota);
 		$userhr = $this->m_akses->list_aksesperdep()->num_rows();
 		if ($userhr == 0) {
 			$opsi_dinas = $this->m_option->q_cekoption('BLKDN')->row();
@@ -1507,7 +1509,7 @@ class Dinas extends MX_Controller
 									'jam_selesai' => $jam_selesai,
 									'keperluan' => strtoupper($keperluan),
 									'callplan' => $callplan,
-									'tujuan_kota' => $tujuan_kota,
+									'tujuan_kota' => $destination,
 									'update_date' => date('Y-m-d H:i:s'),
 									'update_by' => trim($this->session->userdata('nik')),
 									'kdkategori' => $kdkategori,
@@ -1550,6 +1552,7 @@ class Dinas extends MX_Controller
 				}
 			}
 		} else {
+
 			if (
 				$this->m_dinas->q_transaction_read_where(' 
 				AND nik = \'' . $json->nik . '\' 
@@ -1570,6 +1573,9 @@ class Dinas extends MX_Controller
 			} else {
 				$this->db->trans_start();
 				$temporary = $this->m_dinas->q_temporary_read_where(' AND nik = \'' . $json->nik . '\' AND nodok = \'' . $json->nodok . '\' ')->row();
+                if ($json->config != 'update') {
+                    $destination = $temporary->tujuan_kota;
+                }
 				if (
 					$this->m_dinas->q_temporary_update(
 						array(
@@ -1581,7 +1587,7 @@ class Dinas extends MX_Controller
 							'jam_selesai' => $jam_selesai,
 							'keperluan' => strtoupper($keperluan),
 							'callplan' => $callplan,
-							'tujuan_kota' => $tujuan_kota,
+							'tujuan_kota' => $destination,
 							'update_date' => date('Y-m-d H:i:s'),
 							'update_by' => trim($this->session->userdata('nik')),
 							'kdkategori' => $kdkategori,
@@ -1608,7 +1614,7 @@ class Dinas extends MX_Controller
 						echo json_encode(
 							array(
 								'data' => $transaction,
-								'message' => 'Data dinas karyawan berhasil dibuat dengan nomer <b>' . $transaction->nodok . '</b>'
+								'message' => 'Data dinas karyawan berhasil diubah dengan nomer <b>' . $transaction->nodok . '</b>'
 							)
 						);
 					} else {
@@ -1633,6 +1639,7 @@ class Dinas extends MX_Controller
 		$this->load->model(array('M_TrxType', 'm_employee', 'M_DestinationType', 'M_Kategori', 'M_CityCashbon', ));
 		$transaction = $this->m_dinas->q_transaction_read_where(' AND nik = \'' . $json->nik . '\' AND nodok = \'' . $json->nodok . '\' ')->row();
 		if (!is_null($transaction) && !is_nan($transaction)) {
+            $destinationIn = "'".implode("','",explode(",",$transaction->tujuan_kota))."'";
 			$this->template->display(
 				'trans/dinas/v_detaildinas',
 				array(
@@ -1644,7 +1651,8 @@ class Dinas extends MX_Controller
 							array(
 								'transaction' => $transaction,
 								'destinationtype' => $this->M_DestinationType->q_master_search_where(' AND id = \'' . $transaction->jenis_tujuan . '\' ')->row(),
-								'citycashbon' => $this->M_CityCashbon->q_master_search_where(' AND id = \'' . $transaction->tujuan_kota . '\' ')->row(),
+//								'citycashbon' => $this->M_CityCashbon->q_master_search_where(' AND id = \'' . $transaction->tujuan_kota . '\' ')->row(),
+                                'citycashbon' => $this->M_CityCashbon->q_master_search_where(' AND id IN ('.$destinationIn.') AND a.group = \''.$transaction->jenis_tujuan.'\' ')->result(),
 								'kategori' => $this->M_Kategori->q_master_search_where(' AND id = \'' . $transaction->kdkategori . '\' ')->row(),
 								'transportasi' => $this->M_TrxType->q_master_search_where(' AND a.group = \'TRANSP\' AND id = \'' . $transaction->transportasi . '\' ')->row(),
 								'tipe_transportasi' => $this->M_TrxType->q_master_search_where(' AND a.group = \'TRANSPTYPE\' AND id = \'' . $transaction->tipe_transportasi . '\' ')->row(),

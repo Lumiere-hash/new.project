@@ -75,7 +75,15 @@
                             <div class="form-group">
                                 <label class="col-sm-4">Tujuan Kota</label>
                                 <div class="col-sm-8">
-                                    <input type="text" name="" class="form-control" value="<?php echo (!empty($default->citycashbon->text) ? $default->citycashbon->text : $default->transaction->tujuan_kota) ?>" readonly/>
+                                    <select name="tujuan_kota[]" class="select2 form-control " id="tujuan_kota[]" multiple readonly>
+                                        <?php if (isset($default->citycashbon) && count($default->citycashbon) > 0) {
+                                            foreach ($default->citycashbon as $index => $row) { ?>
+                                                <option value="<?php echo $row->id ?>" selected ><?php echo $row->text ?></option>
+                                            <?php }
+                                        } else { ?>
+                                            <option></option>
+                                        <?php } ?>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -138,6 +146,52 @@
 </form>
 <script>
     $(document).ready(function() {
+        $('select[name=\'tujuan_kota[]\']').select2({
+            disabled:true,
+            ajax: {
+                url: '<?php echo site_url('trans/citycashbon/search'); ?>',
+                dataType: 'json',
+                delay: 250,
+                multiple: true,
+                closeOnSelect: false,
+                data: function (params) {
+                    return {
+                        group: $('[name=\'jenis_tujuan\']').val(),
+                        search: params.term,
+                        page: params.page,
+                        perpage: 7
+                    };
+                },
+                processResults: function (data, params) {
+                    params.page = params.page || 1;
+                    return {
+                        results: data.location,
+                        pagination: {
+                            more: (params.page * 7) < data.totalcount
+                        }
+                    };
+                },
+                cache: true
+            },
+            placeholder: 'Pilih tujuan kota...',
+            escapeMarkup: function (markup) {
+                return markup;
+            },
+            minimumInputLength: 0,
+            templateResult: function (repo) {
+                if (repo.loading) {
+                    return repo.text;
+                }
+                return `
+<div class='row' style='width: 400px'>
+    <div class='col-sm-2'>${repo.id}</div>
+    <div class='col-sm-4'>${repo.text}</div>
+</div>`;
+            },
+            templateSelection: function (repo) {
+                return repo.text || repo.text;
+            },
+        }).on('change', function(e) {});
         $.extend($.validator.messages, {
             required: 'Bagian ini diperlukan...',
             remote: 'Harap perbaiki bidang ini...',

@@ -15,6 +15,7 @@ class Jagoan_mail
 
     public function clear($debug=true)
     {
+		
         $this->jagoan = new PHPMailer;
         $smtp = $this->_CI->db->query("select * from sc_mst.setup_mail_smtp where no_dok='NSANBI'")->row();
         $this->jagoan->SMTPDebug = $debug;

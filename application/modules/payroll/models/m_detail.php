@@ -155,8 +155,8 @@ class M_detail extends CI_Model{
 
 	function list_karyawan_susulan($kdgroup_pg,$kddept){
 		return $this->db->query("select * from sc_mst.karyawan 
-								where tglkeluarkerja is null and grouppenggajian='$kdgroup_pg' and bag_dept='$kddept' 
-								and nik not in (select nik from sc_tmp.payroll_master where kddept='$kddept')
+								where tglkeluarkerja is null and grouppenggajian='$kdgroup_pg' 
+								and nik not in (select nik from sc_tmp.payroll_master where TRUE)
 								order by nmlengkap asc");
 
 	}

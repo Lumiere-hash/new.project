@@ -28,6 +28,8 @@ class Web extends MX_Controller{
 		$cap = create_captcha($vals);
 		$capword=md5(strtolower($cap['word']));
 		$this->session->set_userdata('keycode',$capword);
+        $data['cap'] = $cap['word'];
+        $data['currentYear'] = date('Y');
 		$data['captcha_img'] = $cap['image'];
         $data['xvw']=$this->m_user->read_validation();
         $data['coldown']=$this->fiky_encryption->timerCountDown();

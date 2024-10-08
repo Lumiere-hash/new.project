@@ -80,7 +80,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-4">Tujuan Kota</label>
                                     <div class="col-sm-8">
-                                        <select name="tujuan_kota" class="select2 form-control " id="tujuan_kota">
+                                        <select name="tujuan_kota[]" class="select2 form-control " id="tujuan_kota" multiple>
                                             <?php if (isset($default->citycashbon) && count($default->citycashbon) > 0) {
                                                 foreach ($default->citycashbon as $index => $row) { ?>
                                                     <option value="<?php echo $row->id ?>" selected ><?php echo $row->text ?></option>
@@ -226,12 +226,12 @@
         }).on('change', function(e) {
             $('[name=\'tujuan_kota\']').empty().trigger('change');
         });
-        $('select[name=\'tujuan_kota\']').select2({
+        $('select[name=\'tujuan_kota[]\']').select2({
             ajax: {
                 url: '<?php echo site_url('trans/citycashbon/search'); ?>',
                 dataType: 'json',
                 delay: 250,
-                multiple: false,
+                multiple: true,
                 closeOnSelect: false,
                 data: function (params) {
                     return {
