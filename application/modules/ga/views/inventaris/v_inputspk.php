@@ -128,7 +128,7 @@
 				<span class="caret"></span></button>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="menu1" >
 				  <!--li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo site_url("ga/inventaris/input_perawatan_mst_lampiran/$nodokspk");?>">Input FAKTUR</a></li---> 
-				  <li role="presentation"><a role="menuitem" data-toggle="modal" data-target="#INPUTFAKTUR"  tabindex="-1" href="#">Input FAKTUR</a></li> 
+				  <!-- <li role="presentation"><a role="menuitem" data-toggle="modal" data-target="#INPUTFAKTUR"  tabindex="-1" href="#">Input FAKTUR</a></li>  -->
 				</ul>
 			</div>
 		<!--/div-->

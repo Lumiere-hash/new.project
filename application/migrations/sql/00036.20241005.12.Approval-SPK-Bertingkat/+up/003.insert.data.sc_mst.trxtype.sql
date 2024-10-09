@@ -1,0 +1,7 @@
+INSERT INTO sc_mst.trxtype (kdtrx, jenistrx, uraian) VALUES
+    ('A2','PASSET','APPROVAL MANAGER'),
+    ('A3','PASSET','APPROVAL RSM'),
+    ('A4','PASSET','APPROVAL MANAGER KEUANGAN'),
+    ('A5','PASSET','APPROVAL DIREKSI')
+ON CONFLICT
+    DO NOTHING;

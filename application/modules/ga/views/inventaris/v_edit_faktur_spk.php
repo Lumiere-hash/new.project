@@ -110,9 +110,9 @@
 							</a>
 
 							<!--?php/* if(trim($row->status)=='I' OR trim($row->status)=='A') { */?--->
-							<a href="#" data-toggle="modal" data-target="#EDITSPK<?php echo str_replace('.','',(trim($row->nodok).trim($row->nodokref)));?>" class="btn btn-success  btn-sm">
+							<!-- <a href="#" data-toggle="modal" data-target="#EDITSPK<?php echo str_replace('.','',(trim($row->nodok).trim($row->nodokref)));?>" class="btn btn-success  btn-sm">
 								<i class="fa fa-edit"></i> EDIT
-							</a>
+							</a> -->
 							<!--?php/* } */?---->
 					</td>
 				</tr>
