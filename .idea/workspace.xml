@@ -5,12 +5,424 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/Api/controllers/Whatsapp.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/Api/controllers/Whatsapp.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/absensi.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/absensi.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi/v_absensi.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/absensi/v_absensi.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1710477714.1807.jpg" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/information_schema.FNRwLQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/public.abK9xQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_crm.bxfdyQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_his.IyndyQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_im.cwGDBg.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_log.1TjdyQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_mst.Hz3dyQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_rec.IU7dyQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_rep.Lk7dyQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_retable.jHp04Q.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/information_schema.FNRwLQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/public.abK9xQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_his.IyndyQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_im.cwGDBg.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_log.1TjdyQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_mst.Hz3dyQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_rec.IU7dyQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_retable.jHp04Q.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ideax/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ideax/DatabaseToolDbSqlDialect.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ideax/DatabaseToolSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ideax/SqlFileSource.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ideax/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ideax/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ideax/hrms.nusa.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ideax/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ideax/material_theme_project_new.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ideax/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ideax/php.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ideax/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.ideax/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/migrations/00037_dinas_multi_kota.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00031.20241008.13.Dinas-Multi-Kota/+up/000.action.schema.table.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00031.20241008.13.Dinas-Multi-Kota/+up/001.alter.function.sc_trx.pr_dinas_after_insert.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00031.20241008.13.Dinas-Multi-Kota/-down/000.action.schema.table.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/application/migrations/sql/00031.20241008.13.Dinas-Multi-Kota/-down/001.alter.function.sc_trx.pr_dinas_after_insert.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728355860.3186.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728355902.8447.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728355904.2742.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728355904.9712.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728355905.6162.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728355966.7087.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728356010.4007.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728356032.341.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728356061.9891.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728356117.3922.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728356307.6369.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728356312.2122.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728356364.76.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728356514.1081.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728356604.9101.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728357374.1475.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728357396.266.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728357420.536.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728357455.7908.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728357470.3015.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728357475.5489.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728357492.5843.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728362833.5978.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728362841.9958.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728362856.9489.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728362862.5882.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/captcha/1728363023.1456.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/af.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/bn.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/bs.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/build.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/dsb.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/eo.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/hsb.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/hy.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/ka.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/ne.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/pa.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/ps.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/sl.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/sq.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/te.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/tk.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Trial.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Trial.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/libraries/default_style.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/default_style.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/libraries/jagoan_mail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/jagoan_mail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/Api/models/M_Dinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/Api/models/M_Dinas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/models/M_CashbonComponentDinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/models/M_CashbonComponentDinas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/payroll/controllers/detail_payroll.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/payroll/controllers/detail_payroll.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/payroll/models/m_detail.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/payroll/models/m_detail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/dinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/controllers/dinas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/dinas1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/dinas2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/ijin_karyawan.bak" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/ijin_karyawan1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/jadwal_new1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/jadwal_new2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/karyawan1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/karyawan_.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/koreksi.bak" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/lembur2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/lembur3.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/stspeg2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/stspeg_.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/uang_makan1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/controllers/upah_borong3.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/models/m_dinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/m_dinas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi2/v_absensi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi2/v_dtlabsensi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi2/v_filterabsensi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi2/v_filterdtlabsensi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi2/v_filterkoreksi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi2/v_filterlembur.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi2/v_filtertarik.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi2/v_koreksiabsensi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi2/v_lembur.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi3/v_absen_um.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi3/v_absen_um_list.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi3/v_absensi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi3/v_dtlabsensi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi3/v_dtlabsensi_regu.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi3/v_editkoresiabsensi_dept.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi3/v_filterabsensi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi3/v_filterdtlabsensi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi3/v_filterdtlabsensi1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi3/v_filterkoreksi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi3/v_filterlembur.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi3/v_filtertarik.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi3/v_koreksiabsensi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi3/v_koreksiabsensi_dept.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi3/v_lembur.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi32/v_absen_um.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi32/v_absen_um_list.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi32/v_absensi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi32/v_dtlabsensi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi32/v_editkoresiabsensi_dept.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi32/v_filterabsensi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi32/v_filterdtlabsensi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi32/v_filterdtlabsensi1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi32/v_filterkoreksi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi32/v_filterlembur.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi32/v_filtertarik.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi32/v_koreksiabsensi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi32/v_koreksiabsensi_dept.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/absensi32/v_lembur.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan bak/detail_cuti.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan bak/edit_cuti.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan bak/v_cutibersama.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan bak/v_cutibersama1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan bak/v_detail_cbersama.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan bak/v_input_cbersama.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan bak/v_input_cuti.bak" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan bak/v_input_cuti.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan bak/v_input_cuti1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan bak/v_input_cuti2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan bak/v_input_cuti3.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan bak/v_list.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan bak/v_list1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan bak/v_list2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan bak/v_list_cb_tmp.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan bak/v_list_centangcb.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan bak/v_list_karyawan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan bak/v_list_karyawan1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan bak/v_list_karyawan2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan bak/v_listblc.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan bak/v_listblc1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan bak/v_listblcdtl.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan bak/v_listblcdtl1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan bak/v_listlalu.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan bak/v_listlaludtl.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan2/v_list.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan2/v_list_karyawan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan3/v_input_cuti.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan3/v_list.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan3/v_list_karyawan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan_centang/detail_cuti.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan_centang/edit_cuti.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan_centang/v_cutibersama.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan_centang/v_detail_cbersama.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan_centang/v_input_cbersama.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan_centang/v_input_cuti.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan_centang/v_list.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan_centang/v_list1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan_centang/v_list2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan_centang/v_list_centangcb.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan_centang/v_list_karyawan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan_centang/v_list_karyawan1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan_centang/v_list_karyawan2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan_centang/v_listblc.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan_centang/v_listblc1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan_centang/v_listblcdtl.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/cuti_karyawan_centang/v_listblcdtl1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas backup/sti_form_dinas.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas backup/v_deklarasi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas backup/v_deklarasi_backup.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas backup/v_deklarasi_inputdtl.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas backup/v_deklarasi_tmp.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas backup/v_deklarasi_trx.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas backup/v_deklarasidtl_trx.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas backup/v_detail.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas backup/v_edit.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas backup/v_index_deklarasi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas backup/v_input.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas backup/v_list.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas backup/v_list_karyawan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas backup/v_list_karyawan_dtl.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas bak/sti_form_dinas.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas bak/v_deklarasi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas bak/v_deklarasi_backup.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas bak/v_deklarasi_inputdtl.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas bak/v_deklarasi_tmp.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas bak/v_deklarasi_trx.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas bak/v_deklarasidtl_trx.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas bak/v_detail.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas bak/v_edit.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas bak/v_index_deklarasi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas bak/v_input.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas bak/v_list.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas bak/v_list_karyawan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas bak/v_list_karyawan_dtl.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_createdinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_createdinas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_detaildinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_detaildinas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_updatedinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_updatedinas.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_updatedinas_hasapproved.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/views/dinas/v_updatedinas_hasapproved.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas_old/coba_angular.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas_old/sti_form_dinas.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas_old/v_create.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas_old/v_createdinas.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas_old/v_deklarasi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas_old/v_deklarasi_backup.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas_old/v_deklarasi_inputdtl.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas_old/v_deklarasi_tmp.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas_old/v_deklarasi_trx.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas_old/v_deklarasidtl_trx.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas_old/v_detail.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas_old/v_detaildinas.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas_old/v_edit.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas_old/v_index_deklarasi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas_old/v_input.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas_old/v_list.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas_old/v_list_karyawan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas_old/v_list_karyawan_dtl.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas_old/v_updatedinas.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/dinas_old/v_updatedinas_hasapproved.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/ijin_karyawan bak/v_detail.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/ijin_karyawan bak/v_edit.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/ijin_karyawan bak/v_input.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/ijin_karyawan bak/v_list.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/ijin_karyawan bak/v_list_karyawan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/ijin_karyawan_old/v_detail.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/ijin_karyawan_old/v_edit.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/ijin_karyawan_old/v_input.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/ijin_karyawan_old/v_list.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/ijin_karyawan_old/v_list_karyawan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/jadwal2/v_dtljadwal_ns.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/jadwal2/v_dtljadwalnew.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/jadwal2/v_dtljadwalregu.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/jadwal2/v_jadwal.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/jadwal2/v_jadwalnew.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan1/sti_profile_karyawan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan1/v_detailhrdkary.bak" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan1/v_detailhrdkary.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan1/v_detailhrdkary_resign.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan1/v_detailhrdkary_self.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan1/v_detailkary.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan1/v_detailkary_1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan1/v_detailkary_self.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan1/v_editkary - Copy.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan1/v_editkary.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan1/v_editkary1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan1/v_editkary2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan1/v_editkary_1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan1/v_editkary_self.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan1/v_karyawan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan1/v_karyawan1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan1/v_karyawan12.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan1/v_karyawan2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan1/v_karyawan_2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan1/v_karyawan_self.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan1/v_karyawanx1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan4/v_detailhrdkary.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan4/v_detailhrdkary_self.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan4/v_detailkary.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan4/v_detailkary_1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan4/v_detailkary_self.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan4/v_editkary.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan4/v_editkary1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan4/v_editkary2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan4/v_editkary_1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan4/v_editkary_self.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan4/v_karyawan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan4/v_karyawan1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan4/v_karyawan12.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan4/v_karyawan2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan4/v_karyawan_2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan4/v_karyawan_self.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan4/v_karyawanx1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan_/sti_profile_karyawan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan_/v_detailhrdkary.bak" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan_/v_detailhrdkary.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan_/v_detailhrdkary_resign.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan_/v_detailhrdkary_self.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan_/v_detailkary.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan_/v_detailkary_1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan_/v_detailkary_self.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan_/v_editkary - Copy.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan_/v_editkary.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan_/v_editkary1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan_/v_editkary2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan_/v_editkary_1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan_/v_editkary_self.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan_/v_karyawan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan_/v_karyawan1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan_/v_karyawan12.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan_/v_karyawan2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan_/v_karyawan_2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan_/v_karyawan_self.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/karyawan_/v_karyawanx1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/koreksi bak/v_approvkcb.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/koreksi bak/v_cancelkcb.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/koreksi bak/v_detailkcb.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/koreksi bak/v_editkcb.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/koreksi bak/v_editkoreksikhusus.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/koreksi bak/v_inputkcb.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/koreksi bak/v_inputkcbersama.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/koreksi bak/v_inputkoreksikhusus.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/koreksi bak/v_koreksi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/koreksi bak/v_koreksicutibersama.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/koreksi bak/v_koreksikondisikhusus.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/koreksi bak/v_koreksikondisikhususdtl.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/koreksi bak/v_otoinputkcbersama.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/koreksi bak/v_savefinalkck.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/lembur2/v_input.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/lembur2/v_list.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/lembur2/v_list2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/lembur2/v_list_karyawan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/lembur3/v_detail.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/lembur3/v_edit.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/lembur3/v_input.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/lembur3/v_list.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/lembur3/v_list2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/lembur3/v_list_karyawan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/stspeg_/v_edit_karkon.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/stspeg_/v_list.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/stspeg_/v_list1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/stspeg_/v_list_karkon.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/stspeg_/v_list_karpen.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/stspeg_/v_list_karyawan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/stspeg_/v_list_karyawan1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/upah_borong2/v_detail.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/upah_borong2/v_list.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/views/upah_borong2/v_list_karyawan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/web/controllers/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/web/controllers/web.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/web/views/web/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/web/views/web/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/ar.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/ar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/az.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/az.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/bg.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/bg.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/ca.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/ca.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/cs.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/cs.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/da.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/da.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/de.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/de.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/el.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/el.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/en.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/en.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/es.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/es.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/et.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/et.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/eu.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/eu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/fa.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/fa.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/fi.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/fi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/fr.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/fr.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/gl.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/gl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/he.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/he.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/hi.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/hi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/hr.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/hr.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/hu.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/hu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/id.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/id.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/is.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/is.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/it.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/it.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/ja.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/ja.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/km.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/km.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/ko.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/ko.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/lt.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/lt.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/lv.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/lv.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/mk.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/mk.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/ms.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/ms.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/nb.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/nb.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/nl.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/nl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/pl.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/pl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/pt-BR.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/pt-BR.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/pt.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/pt.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/ro.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/ro.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/ru.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/ru.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/sk.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/sk.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/sr-Cyrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/sr-Cyrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/sr.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/sr.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/sv.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/sv.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/th.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/th.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/tr.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/tr.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/uk.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/uk.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/vi.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/vi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/zh-CN.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/zh-CN.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/i18n/zh-TW.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/i18n/zh-TW.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/select2.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/select2.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/select2.full.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/select2.full.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/select2.full.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/select2.full.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/select2.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/select2.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/select2.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/select2.min.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/plugins/select2/select2.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/plugins/select2/select2.min.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -236,7 +648,7 @@
     </packageJsonPaths>
   </component>
   <component name="PhpDebugGeneral" listening_started="true" />
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="D:\APPLICATION\php82\php.exe" />
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="D:\CORE\LARAGON\bin\php\php-8.1.10-Win32-vs16-x64\php.exe" />
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="QODANA_PROBLEMS_VIEW_TAB" />
   </component>
@@ -332,41 +744,41 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "database.data.extractors.current.export.id": "SQL Inserts",
-    "database.data.extractors.current.id": "SQL Inserts",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/PROJECT/hrms.nusa/application/migrations/sql/00030.20240315.10.Whatsapp-Notification/+up",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "yarn",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "db.project.configurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;database.data.extractors.current.export.id&quot;: &quot;SQL Inserts&quot;,
+    &quot;database.data.extractors.current.id&quot;: &quot;SQL Inserts&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/PROJECT/hrms.nusa/application/migrations/sql/00031.20241008.13.Dinas-Multi-Kota/+up&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;db.project.configurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql",
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;,
+      &quot;mysql&quot;
     ],
-    "com.intellij.ide.scratch.LRUPopupBuilder$1/": [
-      "PostgreSQL"
+    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/&quot;: [
+      &quot;PostgreSQL&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00030.20240315.10.Whatsapp-Notification\+up" />
+      <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00031.20241008.13.Dinas-Multi-Kota\+up" />
       <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql" />
       <recent name="D:\PROJECT\hrms.nusa\application\migrations" />
+      <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00030.20240315.10.Whatsapp-Notification\+up" />
       <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00029.20240307.14.Management-User\sqlserver" />
-      <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00029.20240307.14.Management-User\+up" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql" />
@@ -393,7 +805,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-php-predefined-ba97393d7c68-4deba68a3988-com.jetbrains.php.sharedIndexes-PS-233.8264.9" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-PS-242.23339.16" />
+        <option value="bundled-php-predefined-a98d8de5180a-90914f2295cb-com.jetbrains.php.sharedIndexes-PS-242.23339.16" />
       </set>
     </attachedChunks>
   </component>
@@ -732,7 +1145,9 @@
       <workItem from="1709795125989" duration="3677000" />
       <workItem from="1709882452153" duration="29394000" />
       <workItem from="1710212259119" duration="4342000" />
-      <workItem from="1710473104123" duration="12490000" />
+      <workItem from="1710473104123" duration="16173000" />
+      <workItem from="1719798763755" duration="26480000" />
+      <workItem from="1728354664078" duration="13009000" />
     </task>
     <servers />
   </component>

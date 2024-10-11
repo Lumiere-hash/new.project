@@ -49,6 +49,35 @@
             right: 5px;
             top: 5px;
         }
+<<<<<<< Updated upstream
+=======
+        .footer {
+            background-color: #449d44;
+            /*background-color:#063;*/
+            border: none;
+            padding: 30px 0;
+            margin-top: 197px
+        }
+>>>>>>> Stashed changes
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .footer {
+            margin-top: auto;
+        }
+<<<<<<< Updated upstream
+=======
+        .text-white{
+            color: whitesmoke;
+        }
+        .text-white:hover{
+            color: whitesmoke;
+        }
+
+>>>>>>> Stashed changes
     </style>
     <script language="Javascript">
         <?php echo $this->fiky_encryption->keyAccess('PAGE_LOGIN'); ?>
@@ -124,7 +153,7 @@
                     <label for="inputPassword3" class="col-sm-3 control-label">
                         Kode</label>
                     <div class="col-sm-9">
-                        <input type="text" name="captcha" class="form-control" placeholder="masukan Kode" required	>
+                        <input type="text" name="captcha" class="form-control" value="<?php echo (strtoupper(ENVIRONMENT) == 'DEVELOPMENT' ? $cap : null) ?>" placeholder="masukan Kode"  required	>
                         <?php
                         $wrong = $this->input->get('cap_error');
                         if($wrong){
@@ -156,9 +185,16 @@
         </div>
     </div>
 </div>
-<footer style="padding: 30px 0; margin-top:197px; background-image:url('<?php echo base_url('assets/img/logo-depan/footer_depan.png');?>');  background-size:  100% 100% ; background-repeat: no-repeat;">
+<<<<<<< Updated upstream
+<footer class="footer" style="padding: 30px 0; background-image:url('<?php echo base_url('assets/img/logo-depan/footer_depan.png');?>');  background-size:  100% 100% ; background-repeat: no-repeat;">
     <div class="container" >
-        <p align="center" style="color:#000000">Copyright © <a href="nusaboard.co.id">nusaboard.co.id</a> 2018</p>
+        <p align="center" style="color:#ffffff">Copyright © <a href="nusaboard.co.id" style="color:#ffffff">nusaboard.co.id</a> <?php echo date('Y'); ?></p>
+=======
+<footer class="footer">
+    <div class="container">
+        <p align="center" >Copyright © <a class="text-white" href="https://nusaboard.co.id/">IT
+                NUSANTARA </a> <?php echo $currentYear ?></p>
+>>>>>>> Stashed changes
     </div>
 </footer>
 

@@ -1,0 +1,1 @@
+UPDATE sc_mst.trxtype SET uraian='APPROVAL SUPERVISOR' WHERE kdtrx='A1'

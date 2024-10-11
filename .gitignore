@@ -13,3 +13,4 @@ assets/import_directory/
 database/*.backup
 **/backup/
 /.idea
+application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt

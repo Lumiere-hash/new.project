@@ -904,7 +904,7 @@ class Detail_payroll extends MX_Controller{
                 } else if (trim($tipe)=='OTOMATIS'){
 
                     $txt='select '.$aksi_tipe.'('.chr(39).trim($nik).chr(39).','.$no_urut.','.chr(39).trim($nodok).chr(39).') as nominal';
-                    $pr=$this->db->query($txt)->row_array();
+                    //$pr=$this->db->query($txt)->row_array();
 
                 } else {
                     $txt='select sc_trx.pr_input_global('.chr(39).trim($nik).chr(39).','.$no_urut.','.chr(39).trim($nodok).chr(39).') as nominal';

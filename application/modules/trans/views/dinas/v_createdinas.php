@@ -83,7 +83,7 @@
                                 <div class="form-group">
                                     <label class="col-sm-4">Tujuan Kota</label>
                                     <div class="col-sm-8">
-                                        <select name="tujuan_kota" class="select2 form-control " id="tujuan_kota">
+                                        <select name="tujuan_kota[]" class="select2 form-control " id="tujuan_kota" multiple>
                                             <option></option>
                                         </select>
                                     </div>
@@ -206,14 +206,14 @@ $(document).ready(function() {
     }).on('change', function(e) {
         $('[name=\'tujuan_kota\']').empty().trigger('change');
     });
-    $('select[name=\'tujuan_kota\']').select2({
+    $('select[name=\'tujuan_kota[]\']').select2({
         ajax: {
             url: '<?php echo site_url('trans/citycashbon/search'); ?>',
             dataType: 'json',
             delay: 250,
-            multiple: false,
+            multiple: true,
             closeOnSelect: false,
-            data: function(params) {
+            data: function (params) {
                 return {
                     group: $('[name=\'jenis_tujuan\']').val(),
                     search: params.term,
@@ -221,7 +221,7 @@ $(document).ready(function() {
                     perpage: 7
                 };
             },
-            processResults: function(data, params) {
+            processResults: function (data, params) {
                 params.page = params.page || 1;
                 return {
                     results: data.location,
@@ -233,11 +233,11 @@ $(document).ready(function() {
             cache: true
         },
         placeholder: 'Pilih tujuan kota...',
-        escapeMarkup: function(markup) {
+        escapeMarkup: function (markup) {
             return markup;
         },
         minimumInputLength: 0,
-        templateResult: function(repo) {
+        templateResult: function (repo) {
             if (repo.loading) {
                 return repo.text;
             }
@@ -247,7 +247,7 @@ $(document).ready(function() {
     <div class='col-sm-4'>${repo.text}</div>
 </div>`;
         },
-        templateSelection: function(repo) {
+        templateSelection: function (repo) {
             return repo.text || repo.text;
         },
     }).on('change', function(e) {});

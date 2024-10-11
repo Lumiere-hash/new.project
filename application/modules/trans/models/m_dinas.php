@@ -33,7 +33,7 @@ class M_dinas extends CI_Model{
                ELSE jenis_tujuan
            END AS jenis_tujuan,
         ( select true from sc_trx.cashbon where dutieid = x1.nodok and status='P' ) as casboned, (select true from sc_trx.declaration_cashbon where dutieid = x1.nodok and status='P') as declared from 
-		(select a.*,b.nmlengkap,c.nmdept,d.namakotakab,b.nohp1,
+		(select a.*,b.nmlengkap,c.nmdept,b.nohp1,g.destination_text AS namakotakab,
 								case
 								when a.status='A' then 'PERLU PERSETUJUAN'
 								when a.status='C' then 'DIBATALKAN'
@@ -46,6 +46,19 @@ class M_dinas extends CI_Model{
 								left outer join sc_mst.karyawan b on a.nik=b.nik								
 								left outer join sc_mst.departmen c on b.bag_dept=c.kddept
 								left outer join sc_mst.kotakab d on a.tujuan_kota = d.kodekotakab
+		                        LEFT OUTER JOIN (
+                                      select
+                                          string_agg(aa.namakotakab,', ') AS destination_text,
+                                          nodok
+                                      from(
+                                              select
+                                                  a.nodok,
+                                                  b.namakotakab
+                                              from sc_trx.dinas a
+                                                       LEFT OUTER JOIN sc_mst.kotakab b ON b.kodekotakab IN (select unnest(string_to_array(a.tujuan_kota,',')))
+                                    ) aa
+                                    group by aa.nodok
+                                ) g ON a.nodok = g.nodok
 								where to_char(a.tgl_mulai, 'mmYYYY')='$tgl' and a.status $status)
 								as x1 $nikatasan
 								order by tgl_dok desc");
@@ -347,7 +360,7 @@ class M_dinas extends CI_Model{
                         ELSE 'TIDAK'
                         END AS callplan_reformat,
                     COALESCE(TRIM(a.tujuan_kota), '') AS tujuan_kota,
-                    COALESCE(TRIM(c.namakotakab), a.tujuan_kota) AS tujuan_kota_text,
+                    COALESCE(TRIM(g.destination_text), a.tujuan_kota) AS tujuan_kota_text,
                     CONCAT(TO_CHAR(a.tgl_mulai, 'dd-mm-yyyy'), ', ', TO_CHAR(a.tgl_selesai, 'dd-mm-yyyy')) AS dutieperiod,
                     a.input_date AS input_date,
                     COALESCE(TRIM(a.input_by), '') AS input_by,
@@ -373,6 +386,19 @@ class M_dinas extends CI_Model{
                     LEFT OUTER JOIN sc_mst.trxtype d ON a.tipe_transportasi = d.kdtrx AND d.jenistrx = 'TRANSPTYPE'
                     LEFT OUTER JOIN sc_mst.trxtype e ON a.transportasi = e.kdtrx AND e.jenistrx = 'TRANSP'
                     LEFT OUTER JOIN sc_mst.destination_type f ON a.jenis_tujuan = f.destinationid
+                    LEFT OUTER JOIN (
+                          select
+                              string_agg(aa.namakotakab,', ') AS destination_text,
+                              nodok
+                          from(
+                                  select
+                                      a.nodok,
+                                      b.namakotakab
+                                  from sc_trx.dinas a
+                                           LEFT OUTER JOIN sc_mst.kotakab b ON b.kodekotakab IN (select unnest(string_to_array(a.tujuan_kota,',')))
+                        ) aa
+                        group by aa.nodok
+                    ) g ON a.nodok = g.nodok
                 WHERE TRUE
                 order by TO_CHAR(tgl_mulai,'yyyymmdd') DESC
 			) AS aa WHERE TRUE
