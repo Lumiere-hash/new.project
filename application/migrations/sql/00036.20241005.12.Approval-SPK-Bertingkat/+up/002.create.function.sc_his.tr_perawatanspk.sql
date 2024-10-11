@@ -118,6 +118,17 @@ begin
 			(userid,errorcode,nomorakhir1,nomorakhir2,modul) VALUES
 			(new.nodok,0,vr_nomor,'','PERAWATAN-SPK');	
 
+		elseif (new.status='IP' and old.status='P') then
+	
+			insert into sc_tmp.perawatanspk_pembayaran 
+			(nodok,nodokref,tgl,tipe_pembayaran,keterangan,nservis,ndiskon,ndpp,nppn,nnetto,jnsperawatan,inputdate,inputby,updatedate,updateby,status,nodoktmp)
+			(select new.updateby,nodokref,now()::date,'TUNAI',keterangan,ttlservis,ttldiskon,ttldpp,ttlppn,ttlnetto,jnsperawatanref,now(),new.updateby,now(),new.updateby,'E',new.nodok from sc_his.perawatanspk where nodok=new.nodok);
+
+			delete from sc_mst.trxerror where userid=new.nodok and modul='PERAWATAN-SPK';
+			insert into sc_mst.trxerror
+			(userid,errorcode,nomorakhir1,nomorakhir2,modul) VALUES
+			(new.nodok,0,vr_nomor,'','PERAWATAN-SPK');	
+
 		end if;
 	
 	RETURN NEW;

@@ -46,12 +46,14 @@
 	<div class="col">
 		<button type="button" style="margin:10px; color:#ffffff;" class="btn btn-success pull-right"
 			onclick="swalWarning('Setujui Perawatan', '<?= site_url('ga/inventaris/finalisasi_perawatan/' . $approve['next_status'] . '/' . $this->fiky_encryption->enkript(trim($nodokspk))); ?>');">
-			<?= strlen($dtl_mst['status']) >= 3 ? 'Setujui Faktur' : 'Setujui Perawatan'; ?></button>
+			<?= strlen($dtl_mst['status']) >= 3 ? 'Setujui Faktur' : 'Setujui Perawatan'; ?>
+		</button>
 	</div>
 	<div class="col">
 		<button type="button" style="margin:10px; color:#ffffff;" class="btn btn-danger pull-right"
 			onclick="swalWarning('Tolak Perawatan', '<?= strlen($dtl_mst['status']) >= 3 ? site_url('ga/inventaris/tolak_faktur/' . $this->fiky_encryption->enkript(trim($nodokspk))) : site_url('ga/inventaris/finalisasi_perawatan/C/' . $this->fiky_encryption->enkript(trim($nodokspk))); ?>');">
-			<?= strlen($dtl_mst['status']) >= 3 ? 'Tolak Faktur' : 'Setujui Faktur'; ?></button>
+			<?= strlen($dtl_mst['status']) >= 3 ? 'Tolak Faktur' : 'Setujui Faktur'; ?>
+		</button>
 	</div>
 
 	<script>
@@ -145,6 +147,57 @@
 	<div class="row">
 
 	</div>
+	<div class="row">
+		<div class="col-sm-1">
+			<!--div class="container"--->
+			
+			<!--/div-->
+		</div><!-- /.box-header -->
+	</div>
+	<div class="box col-lg-12">
+		<div class="box-header">
+			<legend><?php echo 'MASTER PEMBAYARAN'; ?></legend>
+		</div><!-- /.box-header -->
+		<div class="box-body table-responsive" style='overflow-x:scroll;'>
+			<table id="example2" class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th width="2%">No.</th>
+						<th>NODOK</th>
+						<th>NODOKREF</th>
+						<th>TIPE PEMBAYARAN</th>
+						<th>TANGGAL PEMBAYARAN</th>
+						<th>TOTAL PEMBAYARAN</th>
+						<th>KETERANGAN</th>
+						<th>Aksi</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php $no = 0;
+					foreach ($perawatan_pembayaran as $row):
+						$no++; ?>
+						<tr>
+							<td width="2%"><?php echo $no; ?></td>
+							<td><?php echo $row->nodok; ?></td>
+							<td><?php echo $row->nodokref; ?></td>
+							<td><?php echo $row->tipe_pembayaran; ?></td>
+							<td><?php if (empty($row->tgl)) {
+								echo '';
+							} else {
+								echo date('d-m-Y', strtotime(trim($row->tgl)));
+							} ?>
+							</td>
+							<td><?php echo $row->nnetto; ?></td>
+							<td><?php echo $row->keterangan; ?></td>
+							<td width="7%">
+								
+							</td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+		</div><!-- /.box-body -->
+	</div><!-- /.box -->
 	<div class="box col-lg-12">
 		<div class="box-header">
 			<legend><?php echo 'MASTER FAKTUR UPLOAD INVOICE'; ?></legend>
@@ -188,10 +241,10 @@
 									<i class="fa fa-edit"></i> DETAIL
 								</a>
 								<?php /*
-																						<a href="#" data-toggle="modal" data-target="#DTLFAKTUR<?php echo trim($row->id);?>" class="btn btn-default  btn-sm">
-																							<i class="fa fa-edit"></i> DETAIL
-																						</a>
-																							*/ ?>
+																																<a href="#" data-toggle="modal" data-target="#DTLFAKTUR<?php echo trim($row->id);?>" class="btn btn-default  btn-sm">
+																																	<i class="fa fa-edit"></i> DETAIL
+																																</a>
+																																	*/ ?>
 							</td>
 						</tr>
 					<?php endforeach; ?>
@@ -958,21 +1011,6 @@
 										data-date-format="dd-mm-yyyy" readonly disabled>
 								</div>
 								<div class="form-group">
-									<label for="inputsm">JENIS PERAWATAN</label>
-									<select class="form-control input-sm" readonly disabled>
-										<option <?php if (trim($dtl_mst['jnsperawatan']) == '') {
-											echo 'selected';
-										} ?>
-											value=""><?php echo '-------PILIH OPTIONS------'; ?></option>
-										<option <?php if (trim($dtl_mst['jnsperawatan']) == 'BK') {
-											echo 'selected';
-										} ?>
-											value="BK"><?php echo 'BK' . ' || ' . 'BERKALA'; ?></option>
-										<option <?php if (trim($dtl_mst['jnsperawatan']) == 'IS') {
-											echo 'selected';
-										} ?>
-											value="IS"><?php echo 'IS' . ' || ' . 'ISIDENTIL'; ?></option>
-									</select>
 									<input type="hidden" class="form-control input-sm" name="jnsperawatan" id="jnsperawatan"
 										style="text-transform:uppercase" maxlength="25"
 										value="<?php echo trim($dtl_mst['jnsperawatan']); ?>">
