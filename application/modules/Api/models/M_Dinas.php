@@ -82,7 +82,7 @@ JOIN sc_mst.lvljabatan l ON k.lvl_jabatan = l.kdlvl
 JOIN sc_mst.karyawan k4 ON ck.input_by = k4.nik
 LEFT OUTER JOIN sc_mst.karyawan k5 ON ck.approval_by = k5.nik 
 JOIN sc_mst.destination_type dt ON ck.jenis_tujuan = dt.destinationid 
-JOIN sc_mst.kotakab k3 ON ck.tujuan_kota = k3.kodekotakab  
+LEFT OUTER JOIN sc_mst.kotakab k3 ON ck.tujuan_kota = k3.kodekotakab  
 JOIN sc_mst.trxtype t ON ck.transportasi = t.kdtrx AND t.jenistrx = 'TRANSP'
 JOIN sc_mst.trxtype t2 ON ck.tipe_transportasi = t2.kdtrx AND t2.jenistrx = 'TRANSPTYPE'
 LEFT OUTER JOIN (
