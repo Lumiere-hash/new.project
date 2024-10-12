@@ -1827,7 +1827,7 @@ class Dinas extends MX_Controller
                     break;
             }
         }
-//        var_dump($filter);die();
+    //    var_dump($filter);die();
         $count = $this->m_dinas->q_transaction_read_where($filter.'
 			
 			')->num_rows();
