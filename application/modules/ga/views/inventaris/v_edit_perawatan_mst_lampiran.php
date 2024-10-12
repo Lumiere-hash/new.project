@@ -35,7 +35,7 @@
 <?php echo $message; ?>
 <div class="row">
 	<div class="col-sm-1">
-		<a href="<?php echo site_url('ga/inventaris/editspk_faktur') . '/' . trim($nodoktmp); ?>" type="button"
+		<a href="<?php echo site_url('ga/inventaris/inputspk_faktur') . '/' . trim($nodoktmp); ?>" type="button"
 			style="margin:10px; color:#000000;" class="btn btn-default" /> Kembali</a>
 		<!--form role="form" action="<?php echo site_url('ga/inventaris/list_perawatan'); ?>" method="post">
 		<button type="submit" style="margin:10px; color:#000000;" class="btn btn-default">KEMBALI</button>

@@ -361,6 +361,7 @@ class M_dinas extends CI_Model{
                         END AS callplan_reformat,
                     COALESCE(TRIM(a.tujuan_kota), '') AS tujuan_kota,
                     COALESCE(TRIM(g.destination_text), a.tujuan_kota) AS tujuan_kota_text,
+                    COALESCE(TRIM(a.tujuan_kota), a.tujuan_kota) AS tujuan_kota_text,
                     CONCAT(TO_CHAR(a.tgl_mulai, 'dd-mm-yyyy'), ', ', TO_CHAR(a.tgl_selesai, 'dd-mm-yyyy')) AS dutieperiod,
                     a.input_date AS input_date,
                     COALESCE(TRIM(a.input_by), '') AS input_by,
@@ -386,19 +387,15 @@ class M_dinas extends CI_Model{
                     LEFT OUTER JOIN sc_mst.trxtype d ON a.tipe_transportasi = d.kdtrx AND d.jenistrx = 'TRANSPTYPE'
                     LEFT OUTER JOIN sc_mst.trxtype e ON a.transportasi = e.kdtrx AND e.jenistrx = 'TRANSP'
                     LEFT OUTER JOIN sc_mst.destination_type f ON a.jenis_tujuan = f.destinationid
-                    LEFT OUTER JOIN (
+                    LEFT OUTER JOIN lateral (
                           select
-                              string_agg(aa.namakotakab,', ') AS destination_text,
-                              nodok
+                              string_agg(aa.namakotakab,', ') AS destination_text
                           from(
                                   select
-                                      a.nodok,
                                       b.namakotakab
-                                  from sc_trx.dinas a
-                                           LEFT OUTER JOIN sc_mst.kotakab b ON b.kodekotakab IN (select unnest(string_to_array(a.tujuan_kota,',')))
+                                  from sc_mst.kotakab b where b.kodekotakab IN (select unnest(string_to_array(a.tujuan_kota,',')))
                         ) aa
-                        group by aa.nodok
-                    ) g ON a.nodok = g.nodok
+                    ) g ON TRUE
                 WHERE TRUE
                 order by TO_CHAR(tgl_mulai,'yyyymmdd') DESC
 			) AS aa WHERE TRUE

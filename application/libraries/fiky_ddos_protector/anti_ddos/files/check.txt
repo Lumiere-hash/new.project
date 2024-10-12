@@ -1,1 +1,5 @@
-<?php $ad_num_query =1 ; $ad_sec_query =23; ?>
+<<<<<<< Updated upstream
+<?php $ad_num_query =1 ; $ad_sec_query =58; ?>
+=======
+<?php $ad_num_query =1 ; $ad_sec_query =12; ?>
+>>>>>>> Stashed changes
