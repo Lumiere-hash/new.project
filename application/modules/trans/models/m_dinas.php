@@ -360,8 +360,7 @@ class M_dinas extends CI_Model{
                         ELSE 'TIDAK'
                         END AS callplan_reformat,
                     COALESCE(TRIM(a.tujuan_kota), '') AS tujuan_kota,
-                    COALESCE(TRIM(g.destination_text), a.tujuan_kota) AS tujuan_kota_text,
-                    COALESCE(TRIM(a.tujuan_kota), a.tujuan_kota) AS tujuan_kota_text,
+                    COALESCE(TRIM(g.destination_text), c.namakotakab) AS tujuan_kota_text,
                     CONCAT(TO_CHAR(a.tgl_mulai, 'dd-mm-yyyy'), ', ', TO_CHAR(a.tgl_selesai, 'dd-mm-yyyy')) AS dutieperiod,
                     a.input_date AS input_date,
                     COALESCE(TRIM(a.input_by), '') AS input_by,
