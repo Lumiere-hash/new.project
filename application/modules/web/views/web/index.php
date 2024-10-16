@@ -49,6 +49,13 @@
             right: 5px;
             top: 5px;
         }
+        .footer {
+            background-color: #449d44;
+            /*background-color:#063;*/
+            border: none;
+            padding: 30px 0;
+            margin-top: 197px
+        }
         body {
             min-height: 100vh;
             display: flex;
@@ -58,6 +65,14 @@
         .footer {
             margin-top: auto;
         }
+
+        .text-white{
+            color: whitesmoke;
+        }
+        .text-white:hover{
+            color: whitesmoke;
+        }
+
     </style>
     <script language="Javascript">
         <?php echo $this->fiky_encryption->keyAccess('PAGE_LOGIN'); ?>
@@ -165,9 +180,13 @@
         </div>
     </div>
 </div>
-<footer class="footer" style="padding: 30px 0; background-image:url('<?php echo base_url('assets/img/logo-depan/footer_depan.png');?>');  background-size:  100% 100% ; background-repeat: no-repeat;">
-    <div class="container" >
-        <p align="center" style="color:#ffffff">Copyright © <a href="nusaboard.co.id" style="color:#ffffff">nusaboard.co.id</a> <?php echo date('Y'); ?></p>
+
+
+<footer class="footer">
+    <div class="container">
+        <p align="center" >Copyright © <a class="text-white" href="https://nusaboard.co.id/">IT
+                NUSANTARA </a> <?php echo $currentYear ?></p>
+
     </div>
 </footer>
 
