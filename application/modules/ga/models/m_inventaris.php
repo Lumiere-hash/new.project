@@ -712,8 +712,8 @@ class M_inventaris extends CI_Model
             $isDIR = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'A'))->num_rows() > 0;
 
             $statusses = array(
-                $kode . '1' => $isSPVGA,
-                $kode . '2' => $superior2 == $this->session->userdata('nik'),
+                $kode . '1' => $superior1 == $this->session->userdata('nik'),
+                $kode . '2' => $isSPVGA,
                 $kode . '3' => $isRSM,
                 $kode . '4' => $isGM,
                 $kode . '5' => $isMGRKEU,
