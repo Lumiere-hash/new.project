@@ -300,7 +300,8 @@ class M_inventaris extends CI_Model
                                     trim(coalesce(nmmohon   ::text,'')) as    nmmohon,
                                     trim(coalesce(nmapprovalby   ::text,'')) as    nmapprovalby,
                                     trim(coalesce(nmdeptmohon    ::text,'')) as    nmdeptmohon              ,
-                                    trim(coalesce(nmsubdeptmohon ::text,'')) as    nmsubdeptmohon  
+                                    trim(coalesce(nmsubdeptmohon ::text,'')) as    nmsubdeptmohon,
+                                    trim(coalesce(nodoktmp ::text,'')) as    nodoktmp
                                      from (
                                     select x.*,a.nmlengkap,a.bag_dept,a.subbag_dept,a.jabatan,a.kdcabang,b.nmdept,c.nmsubdept,d.nmjabatan as jabpengguna,e.nmlengkap as nmpemohon,h.nmjabatan as jabpemohon,count(i.nodok) as spk,case when count(i.nodok)=0 then 'TIDAK' else 'ADA' end as nmspk ,j.uraian as nmstatus,k.nmlengkap as nmatasan1 
                                     ,e.nmlengkap as nmmohon,l.nmlengkap as nmapprovalby,f.nmdept as nmdeptmohon,g.nmsubdept as nmsubdeptmohon
@@ -734,10 +735,10 @@ class M_inventaris extends CI_Model
             }
             foreach ($statusses as $status => $isAllowed) {
                 if ($isSpkExist($status) && $isAllowed) {
-                    $nextStatus = (int) strlen($spk->row()->status_spk) >= 3 ? str_split($status, 1)[2] + 1 : str_split($status, 1)[1] + 1;
+                    $nextStatus = (int) strlen(trim($spk->row()->status_spk)) >= 3 ? str_split($status, 1)[2] + 1 : str_split($status, 1)[1] + 1;
                     $nextStatus = "$kode$nextStatus";
                     $nextStatusExists = array_key_exists($nextStatus, $statusses);
-                    return array('approve_access' => true, 'next_status' => $nextStatusExists ? "$nextStatus" : (strlen($spk->row()->status_spk) >= 3 ? 'X' : 'P'));
+                    return array('approve_access' => true, 'next_status' => $nextStatusExists ? "$nextStatus" : (strlen(trim($spk->row()->status_spk)) >= 3 ? 'X' : 'P'));
                 }
             }
         }

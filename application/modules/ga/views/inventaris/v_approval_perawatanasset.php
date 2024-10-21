@@ -158,7 +158,7 @@
 		<a href="<?php echo site_url('ga/inventaris/clear_tmp_perawatanasset');?>" class="btn btn-default  btn-sm"><i class="fa fa-edit"></i> Kembali</a>
 		<?php if (trim($dtl_perawatan['status'])=='A') { ?>
 		<input type="hidden" class="form-control input-sm" id="status" name="status" value="A">
-		<button type="submit" class="btn btn-success pull-right">Approval 1</button>
+		<button type="submit" class="btn btn-success pull-right">Approval</button>
 		<?php } else if (trim($dtl_perawatan['status'])=='A1') { ?>
 		<input type="hidden" class="form-control input-sm" id="status" name="status" value="A1">
 		<button type="submit" class="btn btn-success pull-right">Approval 2</button>

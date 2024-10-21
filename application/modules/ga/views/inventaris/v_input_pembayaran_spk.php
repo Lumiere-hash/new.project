@@ -106,13 +106,13 @@
 							<td><?php echo $row->nmbarang; ?></td>
 							<td><?php echo $row->nmbengkel; ?></td>
 							<td><?php if (empty($row->tglawal)) {
-								echo '';
+								echo null;
 							} else {
 								echo date('d-m-Y', strtotime(trim($row->tglawal)));
 							} ?>
 							</td>
 							<td><?php if (empty($row->tglakhir)) {
-								echo '';
+								echo null;
 							} else {
 								echo date('d-m-Y', strtotime(trim($row->tglakhir)));
 							} ?>
@@ -122,7 +122,7 @@
 							<td><?php echo $row->keterangan; ?></td>
 							<td width="15%">
 								<a href="#" data-toggle="modal"
-									data-target="#DTL<?php echo str_replace('.', '', (trim($row->nodok) . trim($row->nodokref))); ?>"
+									data-target="#DTL<?php echo str_replace('.', null, (trim($row->nodok) . trim($row->nodokref))); ?>"
 									class="btn btn-default  btn-sm">
 									<i class="fa fa-edit"></i> DETAIL
 								</a>
@@ -136,16 +136,16 @@
 	<div class="row">
 		<div class="col-sm-1">
 			<!--div class="container"--->
-			<div class="dropdown ">
+			<!-- <div class="dropdown ">
 				<button class="btn btn-primary dropdown-toggle " style="margin:10px; color:#ffffff;" id="menu1"
 					type="button" data-toggle="dropdown">Menu Input
 					<span class="caret"></span></button>
-				<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+				<ul class="dropdown-menu" role="menu" aria-labelledby="menu1"> -->
 					<!--li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo site_url("ga/inventaris/input_perawatan_mst_lampiran/$nodokspk"); ?>">Input PEMBAYARAN</a></li--->
 					<!-- <li role="presentation"><a role="menuitem" data-toggle="modal" data-target="#INPUTPEMBAYARAN"
 							tabindex="-1" href="#">Input PEMBAYARAN</a></li> -->
-				</ul>
-			</div>
+				<!-- </ul>
+			</div> -->
 			<!--/div-->
 		</div><!-- /.box-header -->
 	</div>
@@ -160,8 +160,45 @@
 						<th width="2%">No.</th>
 						<th>NODOK</th>
 						<th>NODOKREF</th>
-						<th>TANGGAL PEMBAYARAN</th>
 						<th>TIPE PEMBAYARAN</th>
+						<th>TANGGAL PEMBAYARAN</th>
+						<th>TOTAL PEMBAYARAN</th>
+						<th>Aksi</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php $no = 0;
+					foreach ($perawatan_pembayaran_trx as $row):
+						$no++; ?>
+						<tr>
+							<td width="2%"><?php echo $no; ?></td>
+							<td><?php echo $row->nodok; ?></td>
+							<td><?php echo $row->nodokref; ?></td>
+							<td><?php echo $row->tipe_pembayaran; ?></td>
+							<td><?php if (empty($row->tgl)) {
+								echo null;
+							} else {
+								echo date('d-m-Y', strtotime(trim($row->tgl)));
+							} ?>
+							</td>
+							<td><?php echo $row->nnetto; ?></td>
+							<td width="7%">
+								
+							</td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+		</div>
+		<div class="box-body table-responsive" style='overflow-x:scroll;'>
+			<table id="example2" class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th width="2%">No.</th>
+						<th>NODOK</th>
+						<th>NODOKREF</th>
+						<th>TIPE PEMBAYARAN</th>
+						<th>TANGGAL PEMBAYARAN</th>
 						<th>TOTAL PEMBAYARAN</th>
 						<th>Aksi</th>
 					</tr>
@@ -176,7 +213,7 @@
 							<td><?php echo $row->nodokref; ?></td>
 							<td><?php echo $row->tipe_pembayaran; ?></td>
 							<td><?php if (empty($row->tgl)) {
-								echo '';
+								echo null;
 							} else {
 								echo date('d-m-Y', strtotime(trim($row->tgl)));
 							} ?>
@@ -184,13 +221,13 @@
 							<td><?php echo $row->nnetto; ?></td>
 							<td width="7%">
 								<a href="#" data-toggle="modal"
-									data-target="#EDITPEMBAYARAN<?php echo str_replace('.', '', (trim($row->id))); ?>"
+									data-target="#EDITPEMBAYARAN<?php echo str_replace('.', null, (trim($row->id))); ?>"
 									class="btn btn-primary  btn-sm">
 									<i class="fa fa-edit"></i> EDIT
 								</a>
 								<?php if (trim($row->rowcount) == 0) { ?>
 									<a href="#" data-toggle="modal"
-										data-target="#DEL<?php echo str_replace('.', '', (trim($row->strtrimref))) . trim($row->id); ?>"
+										data-target="#DEL<?php echo str_replace('.', null, (trim($row->strtrimref))) . trim($row->id); ?>"
 										class="btn btn-danger  btn-sm">
 										<i class="fa fa-edit"></i> HAPUS
 									</a>
@@ -395,421 +432,6 @@
 	});
 
 </script>
-<!-- Modal EDIT SURAT PERINTAH KERJA -->
-<?php foreach ($list_spk as $ls) { ?>
-	<div class="modal fade" id="EDITSPK<?php echo str_replace('.', '', (trim($ls->nodok) . trim($ls->nodokref))); ?>"
-		tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
-							class="sr-only">Close</span></button>
-					<h4 class="modal-title" id="myModalLabel">EDIT PERAWATAN ASSET SPK (SURAT PERINTAH KERJA)</h4>
-				</div>
-				<div class="modal-body">
-					<form role="form" action="<?php echo site_url('ga/inventaris/save_spk'); ?>" method="post">
-						<div class='row'>
-							<div class='col-sm-6'>
-								<div class="form-group">
-									<label for="inputsm">NO DOKUMEN</label>
-									<input type="text" class="form-control input-sm" id="nodok" name="nodok"
-										style="text-transform:uppercase" maxlength="25"
-										value="<?php echo trim($ls->nodok); ?>" readonly>
-									<input type="hidden" class="form-control input-sm" id="type" name="type"
-										value="EDITTMPEDIT">
-								</div>
-								<div class="form-group">
-									<label for="inputsm">NO DOKUMEN REF</label>
-									<input type="text" class="form-control input-sm" id="nodokref" name="nodokref"
-										style="text-transform:uppercase" maxlength="25"
-										value="<?php echo trim($ls->nodokref); ?>" readonly>
-									<input type="hidden" class="form-control input-sm" id="nodoktmp" name="nodoktmp"
-										style="text-transform:uppercase" maxlength="25"
-										value="<?php echo trim($ls->nodoktmp); ?>" readonly>
-								</div>
-								<div class="form-group">
-									<label for="inputsm">DESC BARANG</label>
-									<input type="text" class="form-control input-sm" id="descbarang" name="descbarang"
-										style="text-transform:uppercase" maxlength="25"
-										value="<?php echo trim($dtl_mst['descbarang']); ?>" readonly>
-								</div>
-
-								<div class="form-group">
-									<label for="inputsm">Kode Group Barang</label>
-									<select class="form-control input-sm" id="kdgroup" disabled readonly>
-										<option value="">---PILIH KODE GROUP--</option>
-										<?php foreach ($list_scgroup as $sc) { ?>
-											<option <?php if (trim($dtl_mst['kdgroup']) == trim($sc->kdgroup)) {
-												echo 'selected';
-											} ?> value="<?php echo trim($sc->kdgroup); ?>">
-												<?php echo trim($sc->kdgroup) . ' || ' . trim($sc->nmgroup); ?>
-											</option>
-										<?php } ?>
-									</select>
-									<input type="hidden" class="form-control input-sm" name="kdgroup"
-										value="<?php echo trim($dtl_mst['kdgroup']); ?>">
-								</div>
-								<div class="form-group">
-									<label for="inputsm">Kode Sub Group Barang</label>
-									<select class="form-control input-sm " id="kdsubgroup" disabled readonly>
-										<option value="">---PILIH KODE SUB GROUP--</option>
-										<?php foreach ($list_scsubgroup as $sc) { ?>
-											<option <?php if (trim($dtl_mst['kdsubgroup']) == trim($sc->kdsubgroup)) {
-												echo 'selected';
-											} ?> value="<?php echo trim($sc->kdsubgroup); ?>"
-												class="<?php echo trim($sc->kdgroup); ?>">
-												<?php echo trim($sc->kdsubgroup) . ' || ' . trim($sc->nmsubgroup); ?>
-											</option>
-										<?php } ?>
-									</select>
-									<input type="hidden" class="form-control input-sm" name="kdsubgroup"
-										value="<?php echo trim($dtl_mst['kdsubgroup']); ?>">
-								</div>
-								<div class="form-group">
-									<label for="inputsm">Pilih Barang</label>
-									<select class="form-control input-sm" name="stockcode" id="stockcode" disabled readonly>
-										<option value="">---PILIH KODE BARANG--</option>
-										<?php foreach ($list_barang as $sc) { ?>
-											<option <?php if (trim($dtl_mst['stockcode']) == trim($sc->nodok)) {
-												echo 'selected';
-											} ?> value="<?php echo trim($sc->nodok); ?>"
-												class="<?php echo trim($sc->kdsubgroup); ?>">
-												<?php echo trim($sc->nodok) . ' || ' . trim($sc->nmbarang) . ' || ' . trim($sc->nopol); ?>
-											</option>
-										<?php } ?>
-									</select>
-									<input type="hidden" class="form-control input-sm" name="stockcode"
-										value="<?php echo trim($dtl_mst['stockcode']); ?>">
-								</div>
-								<!--div class="form-group">
-				<label for="inputsm">KANTOR CABANG PENEMPATAN</label>	
-					<select class="form-control input-sm " name="kdcabangbengkel" id="kdcabangbengkelin" >
-					<option value="">---PILIH KANTOR CABANG PENEMPATAN BENGKEL--</option> 
-					<?php foreach ($list_kanwil as $sc) { ?>					  
-					  <option value="<?php echo trim($sc->kdcabang); ?>" ><?php echo trim($sc->kdcabang) . ' || ' . trim($sc->desc_cabang); ?></option>						  
-					<?php } ?>
-					</select>
-			</div--->
-							<div class="form-group">
-								<label for="inputsm">Kode Bengkel</label>
-								<select class="form-control input-sm " name="kdbengkel" id="kdbengkeled" required>
-									<option value="">---PILIH BENGKEL--</option>
-									<?php foreach ($list_bengkel as $sc) { ?>
-									<option <?php if (trim($ls->kdbengkel) == trim($sc->kdbengkel)) {
-										echo 'selected';
-									} ?>
-										value="
-										<?php echo trim($sc->kdbengkel); ?>" >
-										<?php echo trim($sc->kdbengkel) . ' || ' . trim($sc->nmbengkel); ?>
-									</option>
-									<?php } ?>
-								</select>
-							</div>
-							<div class="form-group">
-								<label for="inputsm">Kode Sub Bengkel</label>
-								<select class="form-control input-sm " name="kdsubbengkel" id="kdsubbengkeled" required>
-									<option value="">---PILIH SUB BENGKEL--</option>
-									<?php foreach ($list_subbengkel as $sc) { ?>
-									<option <?php if (trim($ls->kdsubbengkel) == trim($sc->kdsubbengkel)) {
-										echo 'selected';
-									} ?> value="
-										<?php echo trim($sc->kdsubbengkel); ?>" class="
-										<?php echo trim($sc->kdbengkel); ?>" >
-										<?php echo trim($sc->kdsubbengkel) . ' || ' . trim($sc->nmbengkel) . ' || ' . trim($sc->city); ?>
-									</option>
-									<?php } ?>
-								</select>
-							</div>
-
-						</div> <!---- col 1 -->
-							<div class='col-sm-6'>
-								<div class="form-group">
-									<label for="inputsm">Kilometer Awal</label>
-									<input type="number" class="form-control input-sm" id="kmawal" name="kmawal"
-										value="<?php echo trim($ls->km_awal); ?>" style="text-transform:uppercase"
-										maxlength="20" required>
-								</div>
-								<div class="form-group">
-									<label for="inputsm">Kilometer Akhir</label>
-									<input type="number" class="form-control input-sm" id="kmakhir" name="kmakhir"
-										value="<?php echo trim($ls->km_akhir); ?>" style="text-transform:uppercase"
-										maxlength="20" required>
-								</div>
-								<div class="form-group">
-									<label for="inputsm">UP Bpk/Ibu/Sdr</label>
-									<input type="text" class="form-control input-sm" id="upbengkel" name="upbengkel"
-										value="<?php echo trim($ls->upbengkel); ?>" style="text-transform:uppercase"
-										maxlength="20" required>
-								</div>
-								<div class="form-group">
-									<label for="inputsm">JENIS PERAWATAN</label>
-									<select class="form-control input-sm" readonly disabled>
-										<option <?php if (trim($dtl_mst['jnsperawatan']) == 'BK') {
-											echo 'selected';
-										} ?>
-											value="BK"><?php echo 'BK' . ' || ' . 'BERKALA'; ?></option>
-										<option <?php if (trim($dtl_mst['jnsperawatan']) == 'IS') {
-											echo 'selected';
-										} ?>
-											value="IS"><?php echo 'IS' . ' || ' . 'ISIDENTIL'; ?></option>
-									</select>
-									<input type="hidden" class="form-control input-sm" name="jnsperawatan" id="jnsperawatan"
-										style="text-transform:uppercase" maxlength="25"
-										value="<?php echo trim($dtl_mst['jnsperawatan']); ?>">
-								</div>
-								<div class="form-group">
-									<label for="inputsm">KATEGORI PERAWATAN</label>
-									<select class="form-control input-sm" name="jnsperawatanref" id="jnsperawatanref"
-										required>
-										<?php foreach ($list_trxtypespk as $sc) { ?>
-											<option <?php if (trim($ls->jnsperawatanref) == trim($sc->kdtrx)) {
-												echo 'selected';
-											} ?> value="<?php echo trim($sc->kdtrx); ?>">
-												<?php echo trim($sc->kdtrx) . ' || ' . trim($sc->uraian); ?>
-											</option>
-										<?php } ?>
-									</select>
-								</div>
-								<div class="form-group">
-									<label for="inputsm">Total Biaya Servis</label>
-									<input type="number" class="form-control input-sm" id="ttlservis" name="ttlservis"
-										placeholder="0" value="<?php echo trim(trim($ls->ttlservis)); ?>" required>
-								</div>
-								<div class="form-group">
-									<label for="inputsm">Tanggal Masuk/Keluar Bengkel</label>
-									<input type="text" class="form-control input-sm tgl" id="tgl" name="tgl"
-										data-date-format="dd-mm-yyyy" value="<?php if (empty(trim($ls->tglakhir))) {
-											echo '';
-										} else {
-											echo date('d-m-Y', strtotime(trim($ls->tglawal))) . ' - ' . date('d-m-Y', strtotime(trim($ls->tglakhir)));
-										} ?>" required>
-								</div>
-								<div class="form-group">
-									<label for="inputsm">Keterangan</label>
-									<textarea class="textarea" name="keterangan" placeholder="Keterangan" maxlength="159"
-										style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px ;"><?php echo trim($ls->keterangan); ?></textarea>
-								</div>
-							</div>
-						</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="submit" class="btn btn-primary">Submit</button>
-				</div>
-				</form>
-
-			</div>
-		</div>
-	</div>
-<?php } ?>
-
-<!-- Modal DETAIL -->
-<?php foreach ($list_spk as $ls) { ?>
-	<div class="modal fade" id="DTL<?php echo str_replace('.', '', (trim($ls->nodok) . trim($ls->nodokref))); ?>"
-		tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span
-							class="sr-only">Close</span></button>
-					<h4 class="modal-title" id="myModalLabel">DETAIL PERAWATAN ASSET SPK (SURAT PERINTAH KERJA)</h4>
-				</div>
-				<div class="modal-body">
-					<form role="form" action="<?php echo site_url('ga/inventaris/save_spk'); ?>" method="post">
-						<div class='row'>
-							<div class='col-sm-6'>
-								<div class="form-group">
-									<label for="inputsm">NO DOKUMEN</label>
-									<input type="text" class="form-control input-sm" id="nodok" name="nodok"
-										style="text-transform:uppercase" maxlength="25"
-										value="<?php echo trim($ls->nodok); ?>" readonly>
-									<input type="hidden" class="form-control input-sm" id="type" name="type" value="DETAIL">
-								</div>
-								<div class="form-group">
-									<label for="inputsm">NO DOKUMEN REF</label>
-									<input type="text" class="form-control input-sm" id="nodokref" name="nodokref"
-										style="text-transform:uppercase" maxlength="25"
-										value="<?php echo trim($ls->nodokref); ?>" readonly>
-								</div>
-								<div class="form-group">
-									<label for="inputsm">DESC BARANG</label>
-									<input type="text" class="form-control input-sm" id="descbarang" name="descbarang"
-										style="text-transform:uppercase" maxlength="25"
-										value="<?php echo trim($dtl_mst['descbarang']); ?>" readonly>
-								</div>
-
-								<div class="form-group">
-									<label for="inputsm">Kode Group Barang</label>
-									<select class="form-control input-sm" id="kdgroup" disabled readonly>
-										<option value="">---PILIH KODE GROUP--</option>
-										<?php foreach ($list_scgroup as $sc) { ?>
-											<option <?php if (trim($dtl_mst['kdgroup']) == trim($sc->kdgroup)) {
-												echo 'selected';
-											} ?> value="<?php echo trim($sc->kdgroup); ?>">
-												<?php echo trim($sc->kdgroup) . ' || ' . trim($sc->nmgroup); ?>
-											</option>
-										<?php } ?>
-									</select>
-									<input type="hidden" class="form-control input-sm" name="kdgroup"
-										value="<?php echo trim($dtl_mst['kdgroup']); ?>">
-								</div>
-								<div class="form-group">
-									<label for="inputsm">Kode Sub Group Barang</label>
-									<select class="form-control input-sm " id="kdsubgroup" disabled readonly>
-										<option value="">---PILIH KODE SUB GROUP--</option>
-										<?php foreach ($list_scsubgroup as $sc) { ?>
-											<option <?php if (trim($dtl_mst['kdsubgroup']) == trim($sc->kdsubgroup)) {
-												echo 'selected';
-											} ?> value="<?php echo trim($sc->kdsubgroup); ?>"
-												class="<?php echo trim($sc->kdgroup); ?>">
-												<?php echo trim($sc->kdsubgroup) . ' || ' . trim($sc->nmsubgroup); ?>
-											</option>
-										<?php } ?>
-									</select>
-									<input type="hidden" class="form-control input-sm" name="kdsubgroup"
-										value="<?php echo trim($dtl_mst['kdsubgroup']); ?>">
-								</div>
-								<div class="form-group">
-									<label for="inputsm">Pilih Barang</label>
-									<select class="form-control input-sm" name="stockcode" id="stockcode" disabled readonly>
-										<option value="">---PILIH KODE BARANG--</option>
-										<?php foreach ($list_barang as $sc) { ?>
-											<option <?php if (trim($dtl_mst['stockcode']) == trim($sc->nodok)) {
-												echo 'selected';
-											} ?> value="<?php echo trim($sc->nodok); ?>"
-												class="<?php echo trim($sc->kdsubgroup); ?>">
-												<?php echo trim($sc->nodok) . ' || ' . trim($sc->nmbarang) . ' || ' . trim($sc->nopol); ?>
-											</option>
-										<?php } ?>
-									</select>
-									<input type="hidden" class="form-control input-sm" name="stockcode"
-										value="<?php echo trim($dtl_mst['stockcode']); ?>">
-								</div>
-								<!--div class="form-group">
-				<label for="inputsm">KANTOR CABANG PENEMPATAN</label>	
-					<select class="form-control input-sm " name="kdcabangbengkel" id="kdcabangbengkelin" >
-					<option value="">---PILIH KANTOR CABANG PENEMPATAN BENGKEL--</option> 
-					<?php foreach ($list_kanwil as $sc) { ?>					  
-					  <option value="<?php echo trim($sc->kdcabang); ?>" ><?php echo trim($sc->kdcabang) . ' || ' . trim($sc->desc_cabang); ?></option>						  
-					<?php } ?>
-					</select>
-			</div--->
-							<div class="form-group">
-								<label for="inputsm">Kode Bengkel</label>
-								<select class="form-control input-sm " name="kdbengkel" id="kdbengkeled" disabled
-									readonly>
-									<option value="">---PILIH BENGKEL--</option>
-									<?php foreach ($list_bengkel as $sc) { ?>
-									<option <?php if (trim($ls->kdbengkel) == trim($sc->kdbengkel)) {
-										echo 'selected';
-									} ?>
-										value="
-										<?php echo trim($sc->kdbengkel); ?>" >
-										<?php echo trim($sc->kdbengkel) . ' || ' . trim($sc->nmbengkel); ?>
-									</option>
-									<?php } ?>
-								</select>
-							</div>
-							<div class="form-group">
-								<label for="inputsm">Kode Sub Bengkel</label>
-								<select class="form-control input-sm " name="kdsubbengkel" id="kdsubbengkeled" disabled
-									readonly>
-									<option value="">---PILIH SUB BENGKEL--</option>
-									<?php foreach ($list_subbengkel as $sc) { ?>
-									<option <?php if (trim($ls->kdsubbengkel) == trim($sc->kdsubbengkel)) {
-										echo 'selected';
-									} ?> value="
-										<?php echo trim($sc->kdsubbengkel); ?>" class="
-										<?php echo trim($sc->kdbengkel); ?>" >
-										<?php echo trim($sc->kdsubbengkel) . ' || ' . trim($sc->nmbengkel) . ' || ' . trim($sc->city); ?>
-									</option>
-									<?php } ?>
-								</select>
-							</div>
-
-						</div> <!---- col 1 -->
-							<div class='col-sm-6'>
-								<div class="form-group">
-									<label for="inputsm">Kilometer Awal</label>
-									<input type="number" class="form-control input-sm" id="kmawal" name="kmawal"
-										value="<?php echo trim($ls->km_awal); ?>" style="text-transform:uppercase"
-										maxlength="20" disabled readonly>
-								</div>
-								<div class="form-group">
-									<label for="inputsm">Kilometer Akhir</label>
-									<input type="number" class="form-control input-sm" id="kmakhir" name="kmakhir"
-										value="<?php echo trim($ls->km_akhir); ?>" style="text-transform:uppercase"
-										maxlength="20" disabled readonly>
-								</div>
-								<div class="form-group">
-									<label for="inputsm">UP Bpk/Ibu/Sdr</label>
-									<input type="text" class="form-control input-sm" id="upbengkel" name="upbengkel"
-										value="<?php echo trim($ls->upbengkel); ?>" style="text-transform:uppercase"
-										maxlength="20" disabled readonly>
-								</div>
-								<div class="form-group">
-									<label for="inputsm">JENIS PERAWATAN</label>
-									<select class="form-control input-sm" readonly disabled>
-										<option <?php if (trim($dtl_mst['jnsperawatan']) == 'BK') {
-											echo 'selected';
-										} ?>
-											value="BK"><?php echo 'BK' . ' || ' . 'BERKALA'; ?></option>
-										<option <?php if (trim($dtl_mst['jnsperawatan']) == 'IS') {
-											echo 'selected';
-										} ?>
-											value="IS"><?php echo 'IS' . ' || ' . 'ISIDENTIL'; ?></option>
-									</select>
-									<input type="hidden" class="form-control input-sm" name="jnsperawatan" id="jnsperawatan"
-										style="text-transform:uppercase" maxlength="25"
-										value="<?php echo trim($dtl_mst['jnsperawatan']); ?>">
-								</div>
-								<div class="form-group">
-									<label for="inputsm">KATEGORI PERAWATAN</label>
-									<select class="form-control input-sm" name="jnsperawatanref" id="jnsperawatanref"
-										disabled readonly>
-										<?php foreach ($list_trxtypespk as $sc) { ?>
-											<option <?php if (trim($ls->jnsperawatanref) == trim($sc->kdtrx)) {
-												echo 'selected';
-											} ?> value="<?php echo trim($sc->kdtrx); ?>">
-												<?php echo trim($sc->kdtrx) . ' || ' . trim($sc->uraian); ?>
-											</option>
-										<?php } ?>
-									</select>
-								</div>
-								<div class="form-group">
-									<label for="inputsm">Total Biaya Servis</label>
-									<input type="number" class="form-control input-sm" id="ttlservis" name="ttlservis"
-										placeholder="0" value="<?php echo trim(trim($ls->ttlservis)); ?>" disabled readonly>
-								</div>
-								<div class="form-group">
-									<label for="inputsm">Tanggal Masuk/Keluar Bengkel</label>
-									<input type="text" class="form-control input-sm tgl" id="tgl" name="tgl"
-										data-date-format="dd-mm-yyyy" value="<?php if (empty($row->tglakhir)) {
-											echo '';
-										} else {
-											echo date('d-m-Y', strtotime(trim($ls->tglawal))) . ' - ' . date('d-m-Y', strtotime(trim($ls->tglakhir)));
-										} ?>" disabled readonly>
-								</div>
-								<div class="form-group">
-									<label for="inputsm">Keterangan</label>
-									<textarea class="textarea" name="keterangan" placeholder="Keterangan" maxlength="159"
-										style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px ;"
-										disabled readonly><?php echo trim($ls->keterangan); ?></textarea>
-								</div>
-							</div>
-						</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<!--button type="submit" class="btn btn-danger">Hapus</button--->
-			</div>
-			</form>
-
-		</div>
-	</div>
-</div>
-<?php } ?>
-
 
 <div class="modal fade" id="INPUTPEMBAYARAN" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 	aria-hidden="true">
@@ -861,7 +483,7 @@
 							<div class="form-group">
 								<label for="inputsm">JENIS PERAWATAN</label>
 								<select class="form-control input-sm" readonly disabled>
-									<option <?php if (trim($dtl_mst['jnsperawatan']) == '') {
+									<option <?php if (trim($dtl_mst['jnsperawatan']) == null) {
 										echo 'selected';
 									} ?>
 										value=""><?php echo '-------PILIH OPTIONS------'; ?></option>
@@ -917,7 +539,7 @@
 </div>
 
 <?php foreach ($perawatan_pembayaran as $ls) { ?>
-	<div class="modal fade" id="EDITPEMBAYARAN<?php echo str_replace('.', '', (trim($ls->id))); ?>" tabindex="-1"
+	<div class="modal fade" id="EDITPEMBAYARAN<?php echo str_replace('.', null, (trim($ls->id))); ?>" tabindex="-1"
 		role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
@@ -965,10 +587,10 @@
 								<div class="form-group">
 									<label for="inputsm">JENIS Pembayaran</label>
 									<select class="form-control input-sm" name="tipe_pembayaran">
-										<option value="TUNAI" <?= $ls->tipe_pembayaran == 'TUNAI' ? 'selected' : '' ?>>
+										<option value="TUNAI" <?= $ls->tipe_pembayaran == 'TUNAI' ? 'selected' : null ?>>
 											TUNAI
 										</option>
-										<option value="DP" <?= $ls->tipe_pembayaran == 'DP' ? 'selected' : '' ?>>
+										<option value="DP" <?= $ls->tipe_pembayaran == 'DP' ? 'selected' : null ?>>
 											DP
 										</option>
 									</select>
@@ -976,7 +598,7 @@
 								<div class="form-group">
 									<label for="inputsm">Total Servis Brutto</label>
 									<input type="number" class="form-control input-sm" id="nservis" name="nservis"
-										style="text-transform:uppercase" value="<?php echo trim($ls->nservis); ?>"
+										style="text-transform:uppercase" value="<?php echo (trim($ls->nservis) == null ? 0 : trim($ls->nservis)); ?>"
 										maxlength="20" placeholder="0" required>
 								</div>
 								<div class="form-group">
@@ -989,19 +611,19 @@
 								<div class="form-group">
 									<label for="inputsm">Total DPP</label>
 									<input type="number" class="form-control input-sm" id="ndpp" name="ndpp"
-										style="text-transform:uppercase" value="<?php echo trim($ls->ndpp); ?>"
+										style="text-transform:uppercase" value="<?php echo (trim($ls->ndpp) == null ? 0 : trim($ls->ndpp)); ?>"
 										maxlength="20" placeholder="0">
 								</div>
 								<div class="form-group">
 									<label for="inputsm">Total PPN</label>
 									<input type="number" class="form-control input-sm" id="nppn" name="nppn"
-										style="text-transform:uppercase" value="<?php echo trim($ls->nppn); ?>"
+										style="text-transform:uppercase" value="<?php echo (trim($ls->nppn) == null ? 0 : trim($ls->nppn)); ?>"
 										maxlength="20" placeholder="0">
 								</div>
 								<div class="form-group">
 									<label for="inputsm">Total NETTO</label>
 									<input type="number" class="form-control input-sm" id="nnetto" name="nnetto"
-										style="text-transform:uppercase" value="<?php echo trim($ls->nnetto); ?>"
+										style="text-transform:uppercase" value="<?php echo (trim($ls->nnetto) == null ? 0 : trim($ls->nnetto)); ?>"
 										maxlength="20" placeholder="0">
 								</div>
 
@@ -1018,8 +640,9 @@
 	</div>
 <?php } ?>
 
+
 <?php foreach ($perawatan_mst_lampiran as $ls) { ?>
-	<div class="modal fade" id="DEL<?php echo str_replace('.', '', (trim($ls->strtrimref))) . trim($ls->id); ?>"
+	<div class="modal fade" id="DEL<?php echo str_replace('.', null, (trim($ls->strtrimref))) . trim($ls->id); ?>"
 		tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg">
 			<div class="modal-content">
@@ -1074,7 +697,7 @@
 								<div class="form-group">
 									<label for="inputsm">JENIS PERAWATAN</label>
 									<select class="form-control input-sm" readonly disabled>
-										<option <?php if (trim($dtl_mst['jnsperawatan']) == '') {
+										<option <?php if (trim($dtl_mst['jnsperawatan']) == null) {
 											echo 'selected';
 										} ?>
 											value=""><?php echo '-------PILIH OPTIONS------'; ?></option>

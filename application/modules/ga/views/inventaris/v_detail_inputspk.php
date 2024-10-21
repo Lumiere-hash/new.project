@@ -52,7 +52,7 @@
 	<div class="col">
 		<button type="button" style="margin:10px; color:#ffffff;" class="btn btn-danger pull-right"
 			onclick="swalWarning('Tolak Perawatan', '<?= strlen($dtl_mst['status']) >= 3 ? site_url('ga/inventaris/tolak_faktur/' . $this->fiky_encryption->enkript(trim($nodokspk))) : site_url('ga/inventaris/finalisasi_perawatan/C/' . $this->fiky_encryption->enkript(trim($nodokspk))); ?>');">
-			<?= strlen($dtl_mst['status']) >= 3 ? 'Tolak Faktur' : 'Setujui Faktur'; ?>
+			<?= strlen($dtl_mst['status']) >= 3 ? 'Tolak Faktur' : 'Tolak Perawatan'; ?>
 		</button>
 	</div>
 
