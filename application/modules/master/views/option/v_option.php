@@ -58,7 +58,7 @@
 									<td><?php echo $row->status1;?></td>
 									<td><?php echo $row->keterangan;?></td>
 									<td><a href="<?php echo site_url('master/option/hps_option').'/'.trim($row->kdoption).'/'.trim($row->group_option);?>" OnClick="return confirm('Anda Yakin Hapus <?php echo trim($row->kdoption);?>?')"><i class="fa  fa-trash-o"><i> Hapus</a></td>
-									<td><a data-toggle="modal" data-target="#<?php echo trim($row->kdoption_reformat).trim($row->group_option);?>" href="#" ><i class="fa  fa-edit"><i>Edit</a></td>
+									<td><a data-toggle="modal" data-target="#<?php echo str_replace(' ', '', trim($row->kdoption_reformat).trim($row->group_option));?>" href="#" ><i class="fa  fa-edit"><i>Edit</a></td>
 								</tr>
 								<?php endforeach;?>
                                     </tbody>
@@ -184,7 +184,7 @@
 <!--Edit Department -->
 <?php foreach ($list_option as $lk){?>
 
-<div class="modal fade" id="<?php echo trim($lk->kdoption_reformat).trim($lk->group_option);?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="<?php echo str_replace(' ', '', trim($lk->kdoption_reformat).trim($lk->group_option));?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md">
 	<div class="modal-content">
 	  <div class="modal-header">

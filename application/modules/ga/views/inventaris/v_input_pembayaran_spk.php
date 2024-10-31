@@ -17,7 +17,10 @@
 		$("#kdsubbengkelin").chained("#kdbengkelin");
 		$("#kdsubbengkeled").chained("#kdbengkeled");
 	});
-
+	history.pushState(null, null, location.href);
+	window.onpopstate = function () {
+		history.go(1);
+	};
 </script>
 
 </br>
@@ -40,7 +43,8 @@
 				onclick="return confirm('Kembali Akan Membatalkan Inputan Anda , Apakah Anda Yakin....?')"
 				class="btn btn-default">KEMBALI</button>
 		</form> -->
-		<a href="<?php echo site_url('ga/inventaris/cancel_input_pembayaran') . '/' . $nodokspk; ?>" style="margin:10px; color:#000000;" class="btn btn-default"
+		<a href="<?php echo site_url('ga/inventaris/cancel_input_pembayaran') . '/' . $nodokspk; ?>"
+			style="margin:10px; color:#000000;" class="btn btn-default"
 			onclick="return confirm('Kembali Akan Membatalkan Inputan Anda , Apakah Anda Yakin....?')">KEMBALI</a>
 	</div>
 	<div class="col-sm-1  pull-right">
@@ -141,10 +145,10 @@
 					type="button" data-toggle="dropdown">Menu Input
 					<span class="caret"></span></button>
 				<ul class="dropdown-menu" role="menu" aria-labelledby="menu1"> -->
-					<!--li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo site_url("ga/inventaris/input_perawatan_mst_lampiran/$nodokspk"); ?>">Input PEMBAYARAN</a></li--->
-					<!-- <li role="presentation"><a role="menuitem" data-toggle="modal" data-target="#INPUTPEMBAYARAN"
+			<!--li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo site_url("ga/inventaris/input_perawatan_mst_lampiran/$nodokspk"); ?>">Input PEMBAYARAN</a></li--->
+			<!-- <li role="presentation"><a role="menuitem" data-toggle="modal" data-target="#INPUTPEMBAYARAN"
 							tabindex="-1" href="#">Input PEMBAYARAN</a></li> -->
-				<!-- </ul>
+			<!-- </ul>
 			</div> -->
 			<!--/div-->
 		</div><!-- /.box-header -->
@@ -183,7 +187,7 @@
 							</td>
 							<td><?php echo $row->nnetto; ?></td>
 							<td width="7%">
-								
+
 							</td>
 						</tr>
 					<?php endforeach; ?>
@@ -598,7 +602,8 @@
 								<div class="form-group">
 									<label for="inputsm">Total Servis Brutto</label>
 									<input type="number" class="form-control input-sm" id="nservis" name="nservis"
-										style="text-transform:uppercase" value="<?php echo (trim($ls->nservis) == null ? 0 : trim($ls->nservis)); ?>"
+										style="text-transform:uppercase"
+										value="<?php echo (trim($ls->nservis) == null ? 0 : trim($ls->nservis)); ?>"
 										maxlength="20" placeholder="0" required>
 								</div>
 								<div class="form-group">
@@ -611,19 +616,22 @@
 								<div class="form-group">
 									<label for="inputsm">Total DPP</label>
 									<input type="number" class="form-control input-sm" id="ndpp" name="ndpp"
-										style="text-transform:uppercase" value="<?php echo (trim($ls->ndpp) == null ? 0 : trim($ls->ndpp)); ?>"
+										style="text-transform:uppercase"
+										value="<?php echo (trim($ls->ndpp) == null ? 0 : trim($ls->ndpp)); ?>"
 										maxlength="20" placeholder="0">
 								</div>
 								<div class="form-group">
 									<label for="inputsm">Total PPN</label>
 									<input type="number" class="form-control input-sm" id="nppn" name="nppn"
-										style="text-transform:uppercase" value="<?php echo (trim($ls->nppn) == null ? 0 : trim($ls->nppn)); ?>"
+										style="text-transform:uppercase"
+										value="<?php echo (trim($ls->nppn) == null ? 0 : trim($ls->nppn)); ?>"
 										maxlength="20" placeholder="0">
 								</div>
 								<div class="form-group">
 									<label for="inputsm">Total NETTO</label>
 									<input type="number" class="form-control input-sm" id="nnetto" name="nnetto"
-										style="text-transform:uppercase" value="<?php echo (trim($ls->nnetto) == null ? 0 : trim($ls->nnetto)); ?>"
+										style="text-transform:uppercase"
+										value="<?php echo (trim($ls->nnetto) == null ? 0 : trim($ls->nnetto)); ?>"
 										maxlength="20" placeholder="0">
 								</div>
 

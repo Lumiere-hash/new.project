@@ -712,14 +712,19 @@ class M_inventaris extends CI_Model
             $isMGRKEU = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'MGRKEU'))->num_rows() > 0;
             $isDIR = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'A'))->num_rows() > 0;
 
+            $isGMIncluded = $this->db->get_where('sc_mst.option', array('kdoption' => 'SPK:APPROVAL:GM'))->row()->value1 == 'Y';
+
             $statusses = array(
-                $kode . '1' => $isSPVGA,
-                $kode . '2' => $superior2 == $this->session->userdata('nik'),
-                $kode . '3' => $isRSM,
-                $kode . '4' => $isGM,
-                $kode . '5' => $isMGRKEU,
-                $kode . '6' => $isDIR,
-            );
+				$kode . '1' => $isSPVGA,
+				$kode . '2' => $superior2 == $this->session->userdata('nik'),
+				$kode . '3' => $isRSM,
+				$kode . ($isGMIncluded ? '5' : '4') => $isMGRKEU,
+				$kode . ($isGMIncluded ? '6' : '5') => $isDIR,
+			);
+
+			if ($isGMIncluded) {
+				$statusses[$kode . '4'] = $isGM;
+			}
 
             $isSpkExist = function ($status) use ($nodok) {
                 return $this->db->get_where('sc_his.perawatanspk', array('nodok' => $nodok, 'status' => $status))->num_rows() > 0;
@@ -727,10 +732,10 @@ class M_inventaris extends CI_Model
 
             $opt = $this->db->get_where('sc_mst.option', array('kdoption' => 'SPK:APPROVAL:LEVEL'))->row()->value3;
 
-            if ($spk->row()->ttlservis < 1000000) {
+            if ($spk->row()->ttlservis <= 1000000) {
                 $statusses = array_slice($statusses, 0, $opt, true);
             }
-            if ($spk->row()->ttlservis < 4000000) {
+            if ($spk->row()->ttlservis <= 4000000) {
                 $statusses = array_slice($statusses, 0, $opt + ($opt < 3 ? 2 : 1), true);
             }
             foreach ($statusses as $status => $isAllowed) {

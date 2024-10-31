@@ -11,8 +11,6 @@ class Inventaris extends MX_Controller
 	{
 		parent::__construct();
 
-
-
 		$this->load->model(array('m_kendaraan', 'master/m_akses', 'm_inventaris'));
 		$this->load->library(array('form_validation', 'template', 'upload', 'pdf', 'encrypt', 'Excel_generator'));
 
@@ -1102,11 +1100,11 @@ class Inventaris extends MX_Controller
 
 
 		/*	$paramstatus=" and nodok='$nodok' and status not in ('A')";
-																  $cekstatus=$this->m_inventaris->q_hisperawatan($paramstatus)->num_rows();
-																  if($cekstatus>0){
-																	  redirect("ga/inventaris/form_perawatan/edit_fail");
-																  }
-															  */
+																			  $cekstatus=$this->m_inventaris->q_hisperawatan($paramstatus)->num_rows();
+																			  if($cekstatus>0){
+																				  redirect("ga/inventaris/form_perawatan/edit_fail");
+																			  }
+																		  */
 
 
 		$data['title'] = "FORM INPUT PERAWATAN ASSET";
@@ -1560,43 +1558,43 @@ class Inventaris extends MX_Controller
 	/************** FORM PERAWATAN ASET ***********************/
 
 	/*
-								function form_spk(){
-										$data['title']="FILTER DATA PERAWATAN ASSET & INPUT SPK";
-													/* CODE UNTUK VERSI
-													$kodemenu='I.G.E.2';
-													$versirelease='I.G.E.2/ALPHA.001';
-													$userid=$this->session->userdata('nama');
-													$vdb=$this->m_akses->q_versidb($kodemenu)->row_array();
-													$versidb=$vdb['vrelease'];
-													if($versidb<>$versirelease){
-														$infoversiold= array (
-															'vreleaseold'   => $versidb,
-															'vdateold'      => $vdb['vdate'],
-															'vauthorold'    => $vdb['vauthor'],
-															'vketeranganold'=> $vdb['vketerangan'],
-														);
-														$this->db->where('kodemenu',$kodemenu);
-														$this->db->update('sc_mst.version',$infoversiold);
+									  function form_spk(){
+											  $data['title']="FILTER DATA PERAWATAN ASSET & INPUT SPK";
+														  /* CODE UNTUK VERSI
+														  $kodemenu='I.G.E.2';
+														  $versirelease='I.G.E.2/ALPHA.001';
+														  $userid=$this->session->userdata('nama');
+														  $vdb=$this->m_akses->q_versidb($kodemenu)->row_array();
+														  $versidb=$vdb['vrelease'];
+														  if($versidb<>$versirelease){
+															  $infoversiold= array (
+																  'vreleaseold'   => $versidb,
+																  'vdateold'      => $vdb['vdate'],
+																  'vauthorold'    => $vdb['vauthor'],
+																  'vketeranganold'=> $vdb['vketerangan'],
+															  );
+															  $this->db->where('kodemenu',$kodemenu);
+															  $this->db->update('sc_mst.version',$infoversiold);
 
-														$infoversi= array (
-															'vrelease'   => $versirelease,
-															'vdate'      => date('2017-07-10 11:18:00'),
-															'vauthor'    => 'FIKY',
-															'vketerangan'=> 'PENAMBAHAN VERSION RELEASE',
-															'update_date' => date('Y-m-d H:i:s'),
-															'update_by'   => $userid,
-														);
-														$this->db->where('kodemenu',$kodemenu);
-														$this->db->update('sc_mst.version',$infoversi);
-													}
-													$vdb=$this->m_akses->q_versidb($kodemenu)->row_array();
-													$versidb=$vdb['vrelease'];
-													$data['version']=$versidb;
-													/* END CODE UNTUK VERSI
-										$data['list_kanwil']=$this->m_inventaris->q_mstkantor()->result();
-										$this->template->display('ga/inventaris/v_filterspk',$data);
+															  $infoversi= array (
+																  'vrelease'   => $versirelease,
+																  'vdate'      => date('2017-07-10 11:18:00'),
+																  'vauthor'    => 'FIKY',
+																  'vketerangan'=> 'PENAMBAHAN VERSION RELEASE',
+																  'update_date' => date('Y-m-d H:i:s'),
+																  'update_by'   => $userid,
+															  );
+															  $this->db->where('kodemenu',$kodemenu);
+															  $this->db->update('sc_mst.version',$infoversi);
+														  }
+														  $vdb=$this->m_akses->q_versidb($kodemenu)->row_array();
+														  $versidb=$vdb['vrelease'];
+														  $data['version']=$versidb;
+														  /* END CODE UNTUK VERSI
+											  $data['list_kanwil']=$this->m_inventaris->q_mstkantor()->result();
+											  $this->template->display('ga/inventaris/v_filterspk',$data);
 
-								}*/
+									  }*/
 
 
 
@@ -1697,6 +1695,29 @@ class Inventaris extends MX_Controller
 		} else if ($cekmstpo_hangus > 0) {	//cek cancel
 			redirect("ga/inventaris/hangus_po_atk/$enc_nodok");
 			//redirect("ga/inventaris/direct_lost_input");
+		}
+		$isGMIncluded = $this->db->get_where('sc_mst.option', array('kdoption' => 'SPK:APPROVAL:GM'))->row()->value1 == 'Y';
+
+		if ($isGMIncluded) {
+			$this->db->query("UPDATE sc_mst.trxtype
+				SET uraian = CASE kdtrx
+					WHEN 'A4' THEN 'APPROVAL GM'
+					WHEN 'A5' THEN 'APPROVAL MANAGER KEUANGAN'
+					WHEN 'AF4' THEN 'APPROVAL GM'
+					WHEN 'AF5' THEN 'APPROVAL MANAGER KEUANGAN'
+				END
+				WHERE kdtrx IN ('A4','A5','AF4','AF5')
+				AND jenistrx = 'PASSET'");
+		} else {
+			$this->db->query("UPDATE sc_mst.trxtype
+				SET uraian = CASE kdtrx
+					WHEN 'A4' THEN 'APPROVAL MANAGER KEUANGAN'
+					WHEN 'A5' THEN 'APPROVAL DIREKSI'
+					WHEN 'AF4' THEN 'APPROVAL MANAGER KEUANGAN'
+					WHEN 'AF5' THEN 'APPROVAL DIREKSI'
+				END
+				WHERE kdtrx IN ('A4','A5','AF4','AF5')
+				AND jenistrx = 'PASSET'");
 		}
 
 		$param = " and status in ('P','X')";
@@ -1968,12 +1989,12 @@ class Inventaris extends MX_Controller
 				$this->db->insert('sc_tmp.perawatanspk', $info);
 			}
 			/*	$info = array (
-																								  'status' => 'E',
-																								  'updateby' => $nama,
-																								  'updatedate' => date('Y-m-d H:i:s'),
-																							  );
-																							  $this->db->where('nodok',$nodok);
-																							  $this->db->update('sc_his.perawatanasset',$info);*/
+																													'status' => 'E',
+																													'updateby' => $nama,
+																													'updatedate' => date('Y-m-d H:i:s'),
+																												);
+																												$this->db->where('nodok',$nodok);
+																												$this->db->update('sc_his.perawatanasset',$info);*/
 		}
 
 		if (empty($nodok)) {
@@ -2126,10 +2147,10 @@ class Inventaris extends MX_Controller
 
 
 		/* $tgl=explode(' - ',str_replace('%20',' ',$this->input->post('tgl')));
-															  $tglawal=date('Y-m-d', strtotime(trim($tgl[0])));
-															  if (empty($tglawal)) { $tglawal=null; } else {$tglawal=$tglawal;}
-															  $tglakhir=date('Y-m-d', strtotime(trim($tgl[1])));
-															  if (empty($tglakhir)) { $tglakhir=null; } else {$tglakhir=$tglakhir;} */
+																		  $tglawal=date('Y-m-d', strtotime(trim($tgl[0])));
+																		  if (empty($tglawal)) { $tglawal=null; } else {$tglawal=$tglawal;}
+																		  $tglakhir=date('Y-m-d', strtotime(trim($tgl[1])));
+																		  if (empty($tglakhir)) { $tglakhir=null; } else {$tglakhir=$tglakhir;} */
 
 
 		$id = strtoupper(trim($this->input->post('id')));
@@ -3033,12 +3054,12 @@ class Inventaris extends MX_Controller
 				$this->db->update('sc_his.perawatanspk', $info);
 			}
 			/*	$info = array (
-																								  'status' => 'E',
-																								  'updateby' => $nama,
-																								  'updatedate' => date('Y-m-d H:i:s'),
-																							  );
-																							  $this->db->where('nodok',$nodok);
-																							  $this->db->update('sc_his.perawatanasset',$info);*/
+																													'status' => 'E',
+																													'updateby' => $nama,
+																													'updatedate' => date('Y-m-d H:i:s'),
+																												);
+																												$this->db->where('nodok',$nodok);
+																												$this->db->update('sc_his.perawatanasset',$info);*/
 		}
 
 		if (empty($nodok)) {

@@ -3,7 +3,7 @@ INSERT INTO
 VALUES (
         'A1',
         'PASSET',
-        'APPROVAL SUPERVISOR'
+        'APPROVAL SUPERVISOR HRGA'
     )
     ,(
         'A2',
