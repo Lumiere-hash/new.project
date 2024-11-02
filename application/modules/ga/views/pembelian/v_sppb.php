@@ -1,12 +1,12 @@
 <link href="<?php echo base_url('assets/css/datepicker.css'); ?>" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
-    $(function () {
-        $(document).ready(function () {
-            function disableBack() { window.history.forward() }
+    $(document).ready(function () {
+        function disableBack() { window.history.forward() }
 
-            window.onload = disableBack();
-            window.onpageshow = function (evt) { if (evt.persisted) disableBack() }
-        });
+        window.onload = disableBack();
+        window.onpageshow = function (evt) { if (evt.persisted) disableBack() }
+    });
+    $(function () {
         $("#example1").dataTable();
         $("#example2").dataTable();
         $("#example3").dataTable();

@@ -1,5 +1,6 @@
 <link href="<?php echo base_url('assets/css/datepicker.css'); ?>" rel="stylesheet" type="text/css" />
-<script type="text/javascript">\$(document).ready(function () {
+<script type="text/javascript">
+	$(document).ready(function () {
 		function disableBack() { window.history.forward() }
 
 		window.onload = disableBack();
