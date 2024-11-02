@@ -1,6 +1,12 @@
 <link href="<?php echo base_url('assets/css/datepicker.css'); ?>" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
     $(function () {
+        $(document).ready(function () {
+            function disableBack() { window.history.forward() }
+
+            window.onload = disableBack();
+            window.onpageshow = function (evt) { if (evt.persisted) disableBack() }
+        });
         $("#example1").dataTable();
         $("#example2").dataTable();
         $("#example3").dataTable();
@@ -120,8 +126,8 @@
                             <?php if ((trim($row->status) == 'P' or trim($row->status) == 'S') and trim($dtlakses['aksesdelete']) == 't') { ?>
                                 <a href="<?php
                                 $enc_nodok = bin2hex($this->encrypt->encode(trim($row->nodok)));
-                                echo site_url("ga/pembelian/hangus_sppb/$enc_nodok"); ?>" class="btn btn-danger  btn-sm"
-                                    title="HANGUS SPPB"><i class="fa fa-bars"></i> </a>
+                                echo site_url("ga/pembelian/hangus_sppb/$enc_nodok"); ?>"
+                                    class="btn btn-danger  btn-sm" title="HANGUS SPPB"><i class="fa fa-bars"></i> </a>
                             <?php } ?>
                             <?php if ((trim($row->status) == 'P' or trim($row->status) == 'S' or trim($row->status) == 'U')) { ?>
                                 <button class="button btn btn-warning  btn-sm"
