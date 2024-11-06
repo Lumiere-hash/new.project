@@ -1,8 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal" created-in="PS-242.23339.16">
-    <data-source name="postgres@localhost" uuid="ba5f167f-425f-402f-ae87-0ce687aa64ee">
-      <database-info product="PostgreSQL" version="14.5" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.6.0" dbms="POSTGRES" exact-version="14.5" exact-driver-version="42.6">
+    <data-source name="CRM.NUSA@192.168.6.29" uuid="1c5c38f2-6097-4525-a96f-18a3f13d007e">
+      <database-info product="PostgreSQL" version="9.5.2" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.6.0" dbms="POSTGRES" exact-version="9.5.2" exact-driver-version="42.6">
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>postgres</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node negative="1">
+            <node kind="database" qname="@">
+              <node kind="schema" qname="@" />
+            </node>
+            <node kind="database" qname="CRM.NUSA">
+              <node kind="schema" negative="1" />
+            </node>
+          </node>
+        </introspection-scope>
+      </schema-mapping>
+    </data-source>
+    <data-source name="HRMS.NUSA@192.168.6.25" uuid="5aed8ce2-a29e-458e-976a-1dbdbe11dad4">
+      <database-info product="PostgreSQL" version="9.5.2" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.6.0" dbms="POSTGRES" exact-version="9.5.2" exact-driver-version="42.6">
         <identifier-quote-string>&quot;</identifier-quote-string>
       </database-info>
       <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
@@ -16,33 +36,9 @@
             </node>
             <node kind="database">
               <name qname="HRMS.NUSA" />
-              <name qname="WEB.RECRUITMENT.CNI" />
               <name qname="HRMS.NUSA.TRIAL" />
               <node kind="schema" negative="1" />
             </node>
-            <node kind="database" qname="HRMS.SNI.LIVE" />
-          </node>
-        </introspection-scope>
-      </schema-mapping>
-    </data-source>
-    <data-source name="NUSA LIVE@192.168.6.25" uuid="485ce5f5-f953-407e-8700-b6709349a08c">
-      <database-info product="PostgreSQL" version="9.5.2" jdbc-version="4.2" driver-name="PostgreSQL JDBC Driver" driver-version="42.6.0" dbms="POSTGRES" exact-version="9.5.2" exact-driver-version="42.6">
-        <identifier-quote-string>&quot;</identifier-quote-string>
-      </database-info>
-      <case-sensitivity plain-identifiers="lower" quoted-identifiers="exact" />
-      <secret-storage>master_key</secret-storage>
-      <user-name>postgres</user-name>
-      <schema-mapping>
-        <introspection-scope>
-          <node negative="1">
-            <node kind="database">
-              <name qname="HRMS.NUSA" />
-              <name qname="TRIAL.HRMS.NUSA" />
-              <name qname="HRMS.TRIAL.NUSA" />
-              <name qname="HRMS.NUSA.NEW" />
-              <node kind="schema" negative="1" />
-            </node>
-            <node kind="database" qname="postgres" />
           </node>
         </introspection-scope>
       </schema-mapping>

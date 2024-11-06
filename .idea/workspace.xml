@@ -5,7 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/controllers/Generate.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/controllers/Generate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/master/models/m_option.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/master/models/m_option.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/models/m_uang_makan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/m_uang_makan.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1730361424.2143.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1730361443.7907.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1730361492.9945.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1730361530.7702.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1730362549.7362.jpg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -327,41 +337,43 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;database.data.extractors.current.export.id&quot;: &quot;SQL Inserts&quot;,
-    &quot;database.data.extractors.current.id&quot;: &quot;SQL Inserts&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/PROJECT/hrms.nusa/application/migrations/sql/00031.20241008.13.Dinas-Multi-Kota/+up&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;db.project.configurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.codeium.enabled": "true",
+    "com.google.cloudcode.ide_session_index": "20241106_0000",
+    "database.data.extractors.current.export.id": "SQL Inserts",
+    "database.data.extractors.current.id": "SQL Inserts",
+    "git-widget-placeholder": "development",
+    "last_opened_file_path": "D:/PROJECT/hrms.nusa/application/migrations/sql/00040.20241105.10.Meal-Allowance/+up",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "yarn",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "db.project.configurable",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;postgresql&quot;,
-      &quot;mysql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql",
+      "postgresql"
     ],
-    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/&quot;: [
-      &quot;PostgreSQL&quot;
+    "com.intellij.ide.scratch.LRUPopupBuilder$1/": [
+      "PostgreSQL"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00031.20241008.13.Dinas-Multi-Kota\+up" />
+      <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00040.20241105.10.Meal-Allowance\+up" />
       <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql" />
       <recent name="D:\PROJECT\hrms.nusa\application\migrations" />
+      <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00031.20241008.13.Dinas-Multi-Kota\+up" />
       <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00030.20240315.10.Whatsapp-Notification\+up" />
-      <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00029.20240307.14.Management-User\sqlserver" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql" />
@@ -731,6 +743,7 @@
       <workItem from="1710473104123" duration="16173000" />
       <workItem from="1719798763755" duration="26480000" />
       <workItem from="1728354664078" duration="13009000" />
+      <workItem from="1730856777896" duration="9005000" />
     </task>
     <servers />
   </component>

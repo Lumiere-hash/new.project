@@ -810,7 +810,7 @@ class M_uang_makan extends CI_Model{
     }
 
     function insert_rencana_kunjungan($host, $dbname, $dbuser, $dbpass, $awal, $akhir) {
-        $nik = trim($this->session->userdata('nik') ?: 'SYSTEM');
+        $nik = (isset($this->session->userdata('nik')) ? trim($this->session->userdata('nik')) : 'SYSTEM');
 
         $this->db->query("DELETE FROM sc_tmp.scheduletolocation WHERE scheduledate BETWEEN '$awal' AND '$akhir'");
         return $this->db->query("
