@@ -13,6 +13,7 @@ class DeclarationCashbon extends CI_Controller {
     public function index($param = null) {
         $this->load->library(array('datatablessp'));
         $this->load->model(array('trans/M_TrxType','trans/m_employee', 'M_DeclarationCashbon', 'M_DeclarationCashbonComponent' ,'master/m_option'));
+        $this->checkdutieidcharacter();
         $data['type'] = $this->M_TrxType->q_master_search_where('
 			AND a.group IN (\'CASHBONTYPE\')
 			')->result();
@@ -1175,6 +1176,20 @@ class DeclarationCashbon extends CI_Controller {
             redirect(site_url('kasbon_umum/declarationcashbondinas/create/'.bin2hex(json_encode(array('employeeid'=>$json->employeeid, 'cashbonid'=>$json->cashbonid,'type'=>$json->type,'dutieid'=>$json->dutieid)))));
         }else{
             redirect(site_url('kasbon_umum/declarationcashbon/create/'.bin2hex(json_encode(array('employeeid'=>$json->employeeid, 'cashbonid'=>$json->cashbonid,'type'=>$json->type,'dutieid'=>$json->dutieid)))));
+        }
+    }
+
+    private function checkdutieidcharacter(){
+        $this->load->model(array('kasbon_umum/M_DeclarationCashbon'));
+        if ($this->M_DeclarationCashbon->q_transaction_exists('TRUE AND dutieid ~ \'^,\' ')){
+            foreach ($this->M_DeclarationCashbon->q_transaction_read_where(' AND dutieid ~ \'^,\' ')->result() as $index => $item) {
+                $dutieidFormat = trim($item->dutieid, ',');
+                $this->M_DeclarationCashbon->q_transaction_update(array(
+                    'dutieid' => $dutieidFormat,
+                ),array(
+                    'declarationid' => $item->declarationid,
+                ));
+            }
         }
     }
 }

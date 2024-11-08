@@ -17,6 +17,7 @@ class Cashbon extends CI_Controller {
 	public function index($param = null) {
         $this->load->library(array('datatablessp'));
         $this->load->model(array('trans/m_employee', 'M_Cashbon','trans/M_TrxType'));
+        $this->checkdutieidcharacter();
         $data['type'] = $this->M_TrxType->q_master_search_where('
 			AND a.group IN (\'CASHBONTYPE\') AND id not in (\'DN\')
 			')->result();
@@ -1587,6 +1588,18 @@ class Cashbon extends CI_Controller {
         }
     }
 
-
+    private function checkdutieidcharacter(){
+        $this->load->model(array('kasbon_umum/M_Cashbon'));
+        if ($this->M_Cashbon->q_transaction_exists('TRUE AND dutieid ~ \'^,\' ')){
+            foreach ($this->M_Cashbon->q_transaction_read_where(' AND dutieid ~ \'^,\' ')->result() as $index => $item) {
+                $dutieidFormat = trim($item->dutieid, ',');
+                $this->M_Cashbon->q_transaction_update(array(
+                    'dutieid' => $dutieidFormat,
+                ),array(
+                    'cashbonid' => $item->cashbonid,
+                ));
+            }
+        }
+    }
 
 }
