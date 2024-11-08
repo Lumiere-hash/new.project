@@ -3,7 +3,7 @@ INSERT INTO
 VALUES (
         'AF1',
         'PASSET',
-        'APPROVAL SUPERVISOR'
+        'APPROVAL SUPERVISOR HRGA'
     ),
     (
         'AF2',

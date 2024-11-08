@@ -133,4 +133,23 @@ SQL
             ->where($where)
             ->get('sc_mst.option');
     }
+
+    function q_master_read_default($clause, $default)
+    {
+        $setup = $this->db
+            ->query(
+                sprintf(
+                    <<<'SQL'
+SELECT * FROM (
+    SELECT 
+        COALESCE(TRIM(a.kdoption), '') AS parameter,
+        COALESCE(TRIM(a.value1), '0') AS value    
+    FROM sc_mst.option a WHERE TRUE
+    ORDER BY parameter
+) AS a WHERE TRUE 
+SQL
+                ) . $clause
+            )->row();
+        return (isset($setup->value) ? $setup->value : $default);
+    }
 }

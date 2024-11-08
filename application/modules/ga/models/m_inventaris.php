@@ -300,7 +300,8 @@ class M_inventaris extends CI_Model
                                     trim(coalesce(nmmohon   ::text,'')) as    nmmohon,
                                     trim(coalesce(nmapprovalby   ::text,'')) as    nmapprovalby,
                                     trim(coalesce(nmdeptmohon    ::text,'')) as    nmdeptmohon              ,
-                                    trim(coalesce(nmsubdeptmohon ::text,'')) as    nmsubdeptmohon  
+                                    trim(coalesce(nmsubdeptmohon ::text,'')) as    nmsubdeptmohon,
+                                    trim(coalesce(nodoktmp ::text,'')) as    nodoktmp
                                      from (
                                     select x.*,a.nmlengkap,a.bag_dept,a.subbag_dept,a.jabatan,a.kdcabang,b.nmdept,c.nmsubdept,d.nmjabatan as jabpengguna,e.nmlengkap as nmpemohon,h.nmjabatan as jabpemohon,count(i.nodok) as spk,case when count(i.nodok)=0 then 'TIDAK' else 'ADA' end as nmspk ,j.uraian as nmstatus,k.nmlengkap as nmatasan1 
                                     ,e.nmlengkap as nmmohon,l.nmlengkap as nmapprovalby,f.nmdept as nmdeptmohon,g.nmsubdept as nmsubdeptmohon
@@ -698,27 +699,32 @@ class M_inventaris extends CI_Model
             ->get();
 
         if ($spk->num_rows() > 0) {
-            $kode = strlen($spk->row()->status_spk) >= 3 ?
+            $kode = strlen(trim($spk->row()->status_spk)) >= 3 ?
                 substr($spk->row()->status_spk, 0, 2) :
                 substr($spk->row()->status_spk, 0, 1);
             $superior1 = trim($spk->row()->nik_atasan);
             $superior2 = trim($spk->row()->nik_atasan2);
 
-            // $isSPV = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'C'))->num_rows() > 0;
+            $isSPVGA = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'C', 'subbag_dept' => 'HRGA'))->num_rows() > 0;
             // $isMGR = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B'))->num_rows() > 0;
             $isRSM = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'RSM'))->num_rows() > 0;
             $isGM = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'GMN'))->num_rows() > 0;
             $isMGRKEU = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'MGRKEU'))->num_rows() > 0;
             $isDIR = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'A'))->num_rows() > 0;
 
+            $isGMIncluded = $this->db->get_where('sc_mst.option', array('kdoption' => 'SPK:APPROVAL:GM'))->row()->value1 == 'Y';
+
             $statusses = array(
-                $kode . '1' => $superior1 == $this->session->userdata('nik'),
-                $kode . '2' => $superior2 == $this->session->userdata('nik'),
-                $kode . '3' => $isRSM,
-                $kode . '4' => $isGM,
-                $kode . '5' => $isMGRKEU,
-                $kode . '6' => $isDIR,
-            );
+				$kode . '1' => $isSPVGA,
+				$kode . '2' => $superior2 == $this->session->userdata('nik'),
+				$kode . '3' => $isRSM,
+				$kode . ($isGMIncluded ? '5' : '4') => $isMGRKEU,
+				$kode . ($isGMIncluded ? '6' : '5') => $isDIR,
+			);
+
+			if ($isGMIncluded) {
+				$statusses[$kode . '4'] = $isGM;
+			}
 
             $isSpkExist = function ($status) use ($nodok) {
                 return $this->db->get_where('sc_his.perawatanspk', array('nodok' => $nodok, 'status' => $status))->num_rows() > 0;
@@ -726,18 +732,18 @@ class M_inventaris extends CI_Model
 
             $opt = $this->db->get_where('sc_mst.option', array('kdoption' => 'SPK:APPROVAL:LEVEL'))->row()->value3;
 
-            if ($spk->row()->ttlservis < 1000000) {
+            if ($spk->row()->ttlservis <= 1000000) {
                 $statusses = array_slice($statusses, 0, $opt, true);
             }
-            if ($spk->row()->ttlservis < 4000000) {
+            if ($spk->row()->ttlservis <= 4000000) {
                 $statusses = array_slice($statusses, 0, $opt + ($opt < 3 ? 2 : 1), true);
             }
             foreach ($statusses as $status => $isAllowed) {
                 if ($isSpkExist($status) && $isAllowed) {
-                    $nextStatus = (int) strlen($spk->row()->status_spk) >= 3 ? str_split($status, 1)[2] + 1 : str_split($status, 1)[1] + 1;
+                    $nextStatus = (int) strlen(trim($spk->row()->status_spk)) >= 3 ? str_split($status, 1)[2] + 1 : str_split($status, 1)[1] + 1;
                     $nextStatus = "$kode$nextStatus";
                     $nextStatusExists = array_key_exists($nextStatus, $statusses);
-                    return array('approve_access' => true, 'next_status' => $nextStatusExists ? "$nextStatus" : (strlen($spk->row()->status_spk) >= 3 ? 'X' : 'P'));
+                    return array('approve_access' => true, 'next_status' => $nextStatusExists ? "$nextStatus" : (strlen(trim($spk->row()->status_spk)) >= 3 ? 'X' : 'P'));
                 }
             }
         }

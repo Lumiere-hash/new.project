@@ -17,6 +17,10 @@
 		$("#kdsubbengkelin").chained("#kdbengkelin");
 		$("#kdsubbengkeled").chained("#kdbengkeled");
 	});
+	history.pushState(null, null, location.href);
+	window.onpopstate = function () {
+		history.go(1);
+	};
 
 </script>
 
@@ -57,7 +61,9 @@
 <div class="row">
 	<div class="box col-lg-12">
 		<div class="box-header">
-			<legend><?php echo $title; ?></legend>
+			<legend>
+				<?php echo $title; ?>
+			</legend>
 		</div><!-- /.box-header -->
 		<div class="box-body table-responsive" style='overflow-x:scroll;'>
 			<table id="example1" class="table table-bordered table-striped">
@@ -481,10 +487,15 @@
 							</div>
 							<div class="form-group">
 								<label for="inputsm">PEMBAYARAN</label>
-								<select class="form-control input-sm" id="pembayaran" name="pembayaran" onchange="set_val_pembayaran(this.value)">
-									<option value="" data-tgl="" data-keterangan="" data-nservis="" data-ndiskon="" data-ndpp="" data-nppn="" data-nnetto="">---PILIH PEMBAYARAN--</option>
+								<select class="form-control input-sm" id="pembayaran" name="pembayaran"
+									onchange="set_val_pembayaran(this.value)">
+									<option value="" data-tgl="" data-keterangan="" data-nservis="" data-ndiskon=""
+										data-ndpp="" data-nppn="" data-nnetto="">---PILIH PEMBAYARAN--</option>
 									<?php foreach ($perawatan_pembayaran as $sc) { ?>
-									<option value="<?= $sc->id ?>" data-tgl="<?= $sc->tgl ?>" data-keterangan="<?= $sc->keterangan ?>" data-nservis="<?= $sc->nservis ?>" data-ndiskon="<?= $sc->ndiskon ?>" data-ndpp="<?= $sc->ndpp ?>" data-nppn="<?= $sc->nppn ?>" data-nnetto="<?= $sc->nnetto ?>">
+									<option value="<?= $sc->id ?>" data-tgl="<?= $sc->tgl ?>"
+										data-keterangan="<?= $sc->keterangan ?>" data-nservis="<?= $sc->nservis ?>"
+										data-ndiskon="<?= $sc->ndiskon ?>" data-ndpp="<?= $sc->ndpp ?>"
+										data-nppn="<?= $sc->nppn ?>" data-nnetto="<?= $sc->nnetto ?>">
 										<?= $sc->tipe_pembayaran . ' ' . $sc->nnetto ?>
 									</option>
 									<?php } ?>
@@ -505,7 +516,8 @@
 							</script>
 							<div class="form-group">
 								<label for="inputsm">Keterangan</label>
-								<textarea class="textarea" id="keterangan" name="keterangan" placeholder="Keterangan" maxlength="159"
+								<textarea class="textarea" id="keterangan" name="keterangan" placeholder="Keterangan"
+									maxlength="159"
 									style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px ;"></textarea>
 							</div>
 						</div> <!---- col 1 -->

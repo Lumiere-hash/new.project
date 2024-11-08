@@ -169,11 +169,11 @@ class M_uang_makan extends CI_Model{
                 c.nmdept, 
                 e.nmjabatan, 
                 TO_CHAR(a.tgl, 'TMDAY, DD-MM-YYYY') AS tglhari, 
-                a.checkin, 
-                a.checkout, 
-                CASE 
+                TO_CHAR(a.checkin,'HH24:MI:SS') AS checkin,
+                TO_CHAR(a.checkout,'HH24:MI:SS') AS checkout,
+                CASE
                     WHEN GROUPING(b.nmlengkap) = 0 AND GROUPING(a.keterangan) = 0 AND (a.checkin IS NOT NULL OR a.checkout IS NOT NULL)
-                    THEN CONCAT(LPAD(a.checkin::TEXT, 8), ' | ', a.checkout::TEXT)
+                        THEN CONCAT(LPAD(TO_CHAR(a.checkin,'HH24:MI:SS'), 8), ' | ', TO_CHAR(a.checkout,'HH24:MI:SS'))
                 END AS checktime, 
                 a.rencanacallplan, 
                 a.realisasicallplan,
@@ -810,7 +810,7 @@ class M_uang_makan extends CI_Model{
     }
 
     function insert_rencana_kunjungan($host, $dbname, $dbuser, $dbpass, $awal, $akhir) {
-        $nik = $this->session->userdata('nik');
+        $nik = trim($this->session->userdata('nik') ?: 'SYSTEM');
 
         $this->db->query("DELETE FROM sc_tmp.scheduletolocation WHERE scheduledate BETWEEN '$awal' AND '$akhir'");
         return $this->db->query("
