@@ -173,7 +173,7 @@ class M_uang_makan extends CI_Model{
                 TO_CHAR(a.checkout,'HH24:MI:SS') AS checkout,
                 CASE
                     WHEN GROUPING(b.nmlengkap) = 0 AND GROUPING(a.keterangan) = 0 AND (a.checkin IS NOT NULL OR a.checkout IS NOT NULL)
-                        THEN CONCAT(LPAD(TO_CHAR(a.checkin,'HH24:MI:SS'), 8), ' | ', TO_CHAR(a.checkin,'HH24:MI:SS'))
+                        THEN CONCAT(LPAD(TO_CHAR(a.checkin,'HH24:MI:SS'), 8), ' | ', TO_CHAR(a.checkout,'HH24:MI:SS'))
                 END AS checktime, 
                 a.rencanacallplan, 
                 a.realisasicallplan,
