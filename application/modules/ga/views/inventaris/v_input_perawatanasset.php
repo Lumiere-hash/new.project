@@ -393,7 +393,28 @@ $(function() {
 
 <script>
 
-  
+$(document).ready(function() {
+    $('#kdgroup_inp').on('change', function() {
+        var selectedGroup = $(this).val();
+        
+        if (selectedGroup === 'KDN') {
+            // Enable KM Awal and KM Akhir when "KDN" (KENDARAAN) is selected
+            $('#km_awal').prop('disabled', false);
+            $('#km_akhir').prop('disabled', false);
+        } else {
+            // Disable KM Awal and KM Akhir for other values
+            $('#km_awal').prop('disabled', true);
+            $('#km_akhir').prop('disabled', true);
+            // Optionally, clear the values in KM Awal and KM Akhir
+            $('#km_awal').val('');
+            $('#km_akhir').val('');
+        }
+    });
+
+    // Trigger the change event on page load to set initial state
+    $('#kdgroup_inp').trigger('change');
+});
+
 
 	
 	//Date range picker

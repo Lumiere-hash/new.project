@@ -86,8 +86,12 @@
 </div><!-- /.box -->	
 
 <div class="box col-lg-12">
-	<div class="col-sm-6">
-	<label for="berlaku" class="col-sm-7 control-label">BERKAS DAN LAMPIRAN NOTA/FAKTUR/INVOICE</label>
+	<div class="col-sm-15">
+	<div class="box-header">
+	 <legend><?php echo 'BERKAS DAN LAMPIRAN NOTA/FAKTUR/INVOICE';?></legend>							
+	</div><!-- /.box-header -->	
+	<!-- <legend><?php echo 'BERKAS DAN LAMPIRAN NOTA/FAKTUR/INVOICE';?></legend>							 -->
+	<!-- <label for="berlaku" class="col-sm-7 control-label">BERKAS DAN LAMPIRAN NOTA/FAKTUR/INVOICE</label> -->
 	<table id="example3" class="box-body table table-bordered table-striped" >
 			<thead>
 				<tr>																				
@@ -120,21 +124,20 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="col-sm-6 ">
+	<div class="col-sm-10 ">
 		<form role="form" enctype="multipart/form-data" action="<?php echo site_url('ga/inventaris/add_attachmentspk');?>" method="post">
 		<!--form action="<?php echo site_url('ga/inventaris/add_attachmentspk'); ?>" method='post' id="form"---> 
 			<table id="dataTableLampiran" style="width:100%" class="box-body">
 			<tr><td>
-				<div class="form-group">	
+				<!-- <div class="form-group">	
 					<label class="control-label col-sm-3">Berkas</label>	
 					<div class="col-lg-12">
 						<input type="hidden" class="form-control input-sm" id="nodok" name="nodok" style="text-transform:uppercase" maxlength="25" value="<?php echo trim($dtl_mst['nodok']);?>" readonly>
 						<input type="hidden" class="form-control input-sm" id="nodokref" name="nodokref" style="text-transform:uppercase" maxlength="25" value="<?php echo trim($dtl_mst['nodokref']);?>" readonly>
 						<input type="hidden" class="form-control input-sm" id="idfaktur" name="idfaktur" style="text-transform:uppercase" maxlength="25" value="<?php echo trim($dtl_mst['idfaktur']);?>" readonly>
 						<input type="hidden" class="form-control input-sm" id="strtrimref" name="strtrimref" style="text-transform:uppercase" maxlength="50" value="<?php echo bin2hex($this->encrypt->encode(trim($dtl_mst['strtrimref'])));?>" readonly>
-						<input type="file" class="form-control" name="userFiles[]" multiple/>
-					</div>
-				</div>
+						<input type="file" class="form-control" name="userFiles[]" multiple/>					</div>
+				</div> -->
 			</tr></td>
 			</table>
 		<?php if (trim($dtl_mst['status'])!='X') { ?>

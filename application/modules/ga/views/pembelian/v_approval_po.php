@@ -228,9 +228,10 @@
 									<a href="<?php
 									$enc_nodok = bin2hex($this->encrypt->encode(trim($row->nodok)));
 									echo site_url("ga/pembelian/detail_supplier_po_mst_tmp/$enc_nodok"); ?>"
-										onclick="return confirm('Detail Supplier')" class="btn btn-default  btn-sm-1"><i
-											class="fa fa-check-square"></i></a>
+										onclick="return confirm('Detail Supplier')" class="btn btn-default  btn-sm">
+										<i class="fa fa-edit"></i> DETAIL</a>
 								</td>
+								
 							</tr>
 						<?php endforeach; ?>
 					</tbody>
@@ -283,7 +284,8 @@
 									$enc_rowid = bin2hex($this->encrypt->encode(trim($row->id)));
 									echo site_url("ga/pembelian/detail_po_dtl_tmp/$enc_rowid"); ?>"
 										onclick="return confirm('Anda Akan Masuk Ke Menu Mapping Satuan Rekap?')"
-										class="btn btn-default  btn-sm-1"><i class="fa fa-check-square"></i></a>
+										class="btn btn-default  btn-sm">
+										<i class="fa fa-edit"></i> DETAIL</a>
 									<!--a href="#" data-toggle="modal" data-target="#APPNEXTMAP<?php echo trim($row->id); ?>"  onclick="return confirm('Hapus Item Tersebut Akan Mengembalikan Dokumen SPPB / PBK')" class="btn btn-danger  btn-sm-1"><i class="fa fa-edit"></i></a-->
 								</td>
 							</tr>

@@ -55,7 +55,7 @@
 				style="text-transform:uppercase" maxlength="25" value="<?php echo trim($nodok); ?>" readonly>
 			<button type="submit" style="margin:10px; color:#ffffff;"
 				onclick="return confirm('Opsi lanjutkan akan memproses seluruh data yang di ubah, Anda Yakin?')"
-				class="btn btn-success pull-right">LANJUTKAN</button>
+				class="btn btn-success pull-right">SIMPAN</button>
 		</form>
 	</div>
 	<?php if (trim($dtl_spkrow == 0)) { ?>
@@ -95,7 +95,7 @@
 						<th>PHONE BENGKEL</th>
 						<th>STATUS</th>
 						<th>KETERANGAN</th>
-						<th>Aksi</th>
+						<th>AKSI</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -161,13 +161,13 @@
 			<table id="example2" class="table table-bordered table-striped">
 				<thead>
 					<tr>
-						<th width="2%">No.</th>
+						<th width="2%">NO.</th>
 						<th>NODOK</th>
 						<th>NODOKREF</th>
 						<th>TIPE PEMBAYARAN</th>
 						<th>TANGGAL PEMBAYARAN</th>
 						<th>TOTAL PEMBAYARAN</th>
-						<th>Aksi</th>
+						<th>AKSI</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -195,16 +195,19 @@
 			</table>
 		</div>
 		<div class="box-body table-responsive" style='overflow-x:scroll;'>
+		<div class="box-header">
+			<legend><?php echo 'INPUT DETAIL PEMBAYARAN'; ?></legend>
+		</div><!-- /.box-header -->
 			<table id="example2" class="table table-bordered table-striped">
 				<thead>
 					<tr>
-						<th width="2%">No.</th>
+						<th width="2%">NO.</th>
 						<th>NODOK</th>
 						<th>NODOKREF</th>
 						<th>TIPE PEMBAYARAN</th>
 						<th>TANGGAL PEMBAYARAN</th>
 						<th>TOTAL PEMBAYARAN</th>
-						<th>Aksi</th>
+						<th>AKSI</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -227,15 +230,15 @@
 								<a href="#" data-toggle="modal"
 									data-target="#EDITPEMBAYARAN<?php echo str_replace('.', null, (trim($row->id))); ?>"
 									class="btn btn-primary  btn-sm">
-									<i class="fa fa-edit"></i> EDIT
+									<i class="fa fa-edit"></i> INPUT
 								</a>
-								<?php if (trim($row->rowcount) == 0) { ?>
+								<!-- <?php if (trim($row->rowcount) == 0) { ?>
 									<a href="#" data-toggle="modal"
 										data-target="#DEL<?php echo str_replace('.', null, (trim($row->strtrimref))) . trim($row->id); ?>"
 										class="btn btn-danger  btn-sm">
 										<i class="fa fa-edit"></i> HAPUS
 									</a>
-								<?php } ?>
+								<?php } ?> -->
 							</td>
 						</tr>
 					<?php endforeach; ?>
