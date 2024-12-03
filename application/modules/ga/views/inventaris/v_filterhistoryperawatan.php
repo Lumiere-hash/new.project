@@ -248,14 +248,14 @@ $(function() {
 			});
 </script>		
 										
-										<div class="form-group">
+										<!-- <div class="form-group" >
 											<label class="col-lg-3">NIK & KARYAWAN</label>	
 											<div class="col-sm-9">  
 												<select name="nik" class="form-control input-sm ch" placeholder="---KETIK NIK / NAMA KARYAWAN--" id="nik">
 													<option value="" class=""></option>
 												</select>
 											</div>
-										</div>
+										</div> -->
 <script type="text/javascript">
 $(function() {				 
 	 var totalCount, 

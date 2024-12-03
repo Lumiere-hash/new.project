@@ -241,7 +241,7 @@
 								</div>
 								<div class="form-group">
 									<label for="inputsm">JENIS PERAWATAN</label>
-									<select class="form-control input-sm" readonly disabled>
+									<select class="form-control input-sm" >
 										<option <?php if (trim($dtl_mst['jnsperawatan']) == '') {
 											echo 'selected';
 										} ?>

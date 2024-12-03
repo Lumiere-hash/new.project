@@ -54,7 +54,8 @@
 
                     
 <div class="box col-lg-12">
-	<div class="box-header">						
+	<div class="box-header">
+	<legend><?php echo 'Surat Perintah Kerja';?></legend>													
 	</div><!-- /.box-header -->	
 	<div class="box-body table-responsive" style='overflow-x:scroll;'>
 		<table id="example1" class="table table-bordered table-striped" >
@@ -106,7 +107,7 @@
 </div>	
 <div class="box col-lg-12">
 	<div class="box-header">
-	 <legend><?php echo 'MASTER FAKTUR UPLOAD INVOICE';?></legend>							
+	 <legend><?php echo 'FAKTUR';?></legend>							
 	</div><!-- /.box-header -->	
 	<div class="box-body table-responsive" style='overflow-x:scroll;'>
 		<table id="example2" class="table table-bordered table-striped" >
