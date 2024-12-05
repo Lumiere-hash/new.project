@@ -822,7 +822,7 @@ class M_pembelian extends CI_Model
 
 			$nextStatuses = array(
 				$kode . '1' => $kode . '2',
-				$kode . '2' => $isInputBySales ? $kode . '3' : (!$isInputBySales && $isGMIncluded) ? $kode . '4' : $kode . '5',
+				$kode . '2' => $isInputBySales ? $kode . '3' : ((!$isInputBySales && $isGMIncluded) ? $kode . '4' : $kode . '5'),
 			);
 
 			$opt = $this->db->get_where('sc_mst.option', array('kdoption' => 'PO:APPROVAL:LEVEL'))->row()->value3;

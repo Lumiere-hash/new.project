@@ -699,9 +699,6 @@ class M_inventaris extends CI_Model
             ->get();
 
         if ($spk->num_rows() > 0) {
-            $kode = strlen(trim($spk->row()->status_spk)) >= 3 ?
-                substr($spk->row()->status_spk, 0, 2) :
-                substr($spk->row()->status_spk, 0, 1);
             $superior1 = trim($spk->row()->nik_atasan);
             $superior2 = trim($spk->row()->nik_atasan2);
 
@@ -711,6 +708,32 @@ class M_inventaris extends CI_Model
             $isGM = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'GMN'))->num_rows() > 0;
             $isMGRKEU = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'MGRKEU'))->num_rows() > 0;
             $isDIR = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'A'))->num_rows() > 0;
+            
+            if (trim($spk->row()->status_spk) == 'AF1') {
+                $statusses = array(
+                    'AF1' => $isSPVGA,
+                );
+                foreach ($statusses as $status => $isAllowed) {
+                    if ($isAllowed) {
+                        return array('approve_access' => true, 'next_status' => 'X');
+                    }
+                }
+            }
+
+            if (trim($spk->row()->status_spk) == 'AA2') {
+                $statusses = array(
+                    'AA2' => $superior2 == $this->session->userdata('nik'),
+                );
+                foreach ($statusses as $status => $isAllowed) {
+                    if ($isAllowed) {
+                        return array('approve_access' => true, 'next_status' => 'P');
+                    }
+                }
+            }
+            $kode = 'A';
+            // strlen(trim($spk->row()->status_spk)) >= 3 ?
+            //     substr($spk->row()->status_spk, 0, 2) :
+            //     substr($spk->row()->status_spk, 0, 1);
 
             $isGMIncluded = $this->db->get_where('sc_mst.option', array('kdoption' => 'SPK:APPROVAL:GM'))->row()->value1 == 'Y';
             $isInputBySales = $this->db->select('a.*')
