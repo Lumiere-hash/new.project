@@ -691,7 +691,7 @@ class M_inventaris extends CI_Model
     function spk_approver($nodok)
     {
         $spk = $this->db
-            ->select('a.*,b.status as status_spk,b.ttlservis,c.*')
+            ->select('a.*,b.status as status_spk,b.ttlservis,b.inputby as spkinputby,c.*')
             ->from('sc_his.perawatanasset a')
             ->join('sc_his.perawatanspk b', 'a.nodok = b.nodokref')
             ->join('sc_mst.karyawan c', 'a.nikmohon = c.nik')
@@ -713,18 +713,30 @@ class M_inventaris extends CI_Model
             $isDIR = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'A'))->num_rows() > 0;
 
             $isGMIncluded = $this->db->get_where('sc_mst.option', array('kdoption' => 'SPK:APPROVAL:GM'))->row()->value1 == 'Y';
+            $isInputBySales = $this->db->select('a.*')
+                ->from('sc_mst.karyawan a')
+                ->where('nik', trim($spk->row()->spkinputby))
+                ->where('jabatan', 'AE')
+                ->get()->num_rows() > 0;
 
             $statusses = array(
-				$kode . '1' => $isSPVGA,
-				$kode . '2' => $superior2 == $this->session->userdata('nik'),
-				$kode . '3' => $isRSM,
-				$kode . ($isGMIncluded ? '5' : '4') => $isMGRKEU,
-				$kode . ($isGMIncluded ? '6' : '5') => $isDIR,
-			);
+                $kode . '1' => $isSPVGA,
+                $kode . '2' => $superior2 == $this->session->userdata('nik'),
+                $kode . '5' => $isMGRKEU,
+                $kode . '6' => $isDIR,
+            );
 
-			if ($isGMIncluded) {
-				$statusses[$kode . '4'] = $isGM;
-			}
+            if ($isInputBySales) {
+                $statusses[$kode . '3'] = $isRSM;
+            }
+            if ($isGMIncluded) {
+                $statusses[$kode . '4'] = $isGM;
+            }
+
+            $nextStatuses = array(
+                $kode . '1' => $kode . '2',
+                $kode . '2' => $isInputBySales ? $kode . '3' : (!$isInputBySales && $isGMIncluded) ? $kode . '4' : $kode . '5',
+            );
 
             $isSpkExist = function ($status) use ($nodok) {
                 return $this->db->get_where('sc_his.perawatanspk', array('nodok' => $nodok, 'status' => $status))->num_rows() > 0;
@@ -733,17 +745,21 @@ class M_inventaris extends CI_Model
             $opt = $this->db->get_where('sc_mst.option', array('kdoption' => 'SPK:APPROVAL:LEVEL'))->row()->value3;
 
             if ($spk->row()->ttlservis <= 1000000) {
-                $statusses = array_slice($statusses, 0, $opt, true);
+                $statusses = array_slice($statusses, 0, $isInputBySales ? $opt : $opt - 1, true);
+            } else {
+                $nextStatuses[$kode . '3'] = $isGMIncluded ? $kode . '4' : $kode . '5';
+                $nextStatuses[$kode . '4'] = $kode . '5';
             }
             if ($spk->row()->ttlservis <= 4000000) {
-                $statusses = array_slice($statusses, 0, $opt + ($opt < 3 ? 2 : 1), true);
+                $statusses = array_slice($statusses, 0, $isInputBySales ? ($opt + ($opt < 3 ? 2 : 1)) : ($opt + ($opt < 3 ? 1 : 0)), true);
+            } else {
+                $nextStatuses[$kode . '5'] = $kode . '6';
             }
             foreach ($statusses as $status => $isAllowed) {
                 if ($isSpkExist($status) && $isAllowed) {
-                    $nextStatus = (int) strlen(trim($spk->row()->status_spk)) >= 3 ? str_split($status, 1)[2] + 1 : str_split($status, 1)[1] + 1;
-                    $nextStatus = "$kode$nextStatus";
+                    $nextStatus = $nextStatuses[$status];
                     $nextStatusExists = array_key_exists($nextStatus, $statusses);
-                    return array('approve_access' => true, 'next_status' => $nextStatusExists ? "$nextStatus" : (strlen(trim($spk->row()->status_spk)) >= 3 ? 'X' : 'P'));
+                    return array('approve_access' => true, 'next_status' => $nextStatusExists ? $nextStatus : (strlen(trim($spk->row()->status_spk)) >= 3 ? 'X' : 'P'));
                 }
             }
         }

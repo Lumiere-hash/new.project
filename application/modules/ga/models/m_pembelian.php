@@ -799,48 +799,65 @@ class M_pembelian extends CI_Model
 			$isDIR = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'A'))->num_rows() > 0;
 
 			$isGMIncluded = $this->db->get_where('sc_mst.option', array('kdoption' => 'PO:APPROVAL:GM'))->row()->value1 == 'Y';
+			$isInputBySales = $this->db->select('a.*')
+				->from('sc_mst.karyawan a')
+				->where('nik', trim($po->row()->inputby))
+				->where('jabatan', 'AE')
+				->get()->num_rows() > 0;
 
 			$statusses = array(
 				$kode . '1' => $isSPVGA,
 				$kode . '2' => $superior2 == $this->session->userdata('nik'),
 				$kode . '3' => $isRSM,
-				$kode . ($isGMIncluded ? '5' : '4') => $isMGRKEU,
-				$kode . ($isGMIncluded ? '6' : '5') => $isDIR,
+				$kode . '5' => $isMGRKEU,
+				$kode . '6' => $isDIR,
 			);
 
+			if ($isInputBySales) {
+				$statusses[$kode . '3'] = $isRSM;
+			}
 			if ($isGMIncluded) {
 				$statusses[$kode . '4'] = $isGM;
 			}
+
+			$nextStatuses = array(
+				$kode . '1' => $kode . '2',
+				$kode . '2' => $isInputBySales ? $kode . '3' : (!$isInputBySales && $isGMIncluded) ? $kode . '4' : $kode . '5',
+			);
+
 			$opt = $this->db->get_where('sc_mst.option', array('kdoption' => 'PO:APPROVAL:LEVEL'))->row()->value3;
 
 			if ($po->row()->ttlnetto <= 1000000) {
-				$statusses = array_slice($statusses, 0, $opt, true);
+				$statusses = array_slice($statusses, 0, $isInputBySales ? $opt : $opt - 1, true);
+			} else {
+				$nextStatuses[$kode . '3'] = $isGMIncluded ? $kode . '4' : $kode . '5';
+				$nextStatuses[$kode . '4'] = $kode . '5';
 			}
 			if ($po->row()->ttlnetto <= 4000000) {
-				$statusses = array_slice($statusses, 0, $opt + ($opt < 3 ? 2 : 1), true);
+				$statusses = array_slice($statusses, 0, $isInputBySales ? ($opt + ($opt < 3 ? 2 : 1)) : ($opt + ($opt < 3 ? 1 : 0)), true);
+			} else {
+				$nextStatuses[$kode . '5'] = $kode . '6';
 			}
-			asort($statusses);
 			foreach ($statusses as $status => $isAllowed) {
 				if (trim($po->row()->status) == $status and $isAllowed) {
-					$nextStatus = (int) strlen(trim($po->row()->status)) >= 3 ? str_split($status, 1)[2] + 1 : str_split($status, 1)[1] + 1;
-					$nextStatus = "$kode$nextStatus";
-					$nextStatusExists = array_key_exists($nextStatus, $statusses);
-					return (array('approve_access' => true, 'next_status' => $nextStatusExists ? "$nextStatus" : (strlen(trim($po->row()->status_po)) >= 3 ? 'P' : 'FP')));
+					$nextStatus = $nextStatuses[$status];
+                    $nextStatusExists = array_key_exists($nextStatus, $statusses);
+                    return array('approve_access' => true, 'next_status' => $nextStatusExists ? $nextStatus : (strlen(trim($po->row()->status_po)) >= 3 ? 'P' : 'FP'));
 				}
 			}
 		}
 		return false;
 	}
 
-	function q_po_pembayaran($type,$nodok)
+	function q_po_pembayaran($type, $nodok)
 	{
 		return $this->db->where('nodokref', $nodok)
 			->get("sc_$type.po_pembayaran");
 	}
 
 	function q_po_mst_lampiran($schema, $param)
-    {
-        return $this->db->query("SELECT * 
+	{
+		return $this->db->query("SELECT * 
 			from (select x.*,x2.rowcount 
 				from (select *,trim(nodok)||trim(nodokref)||trim(idfaktur) as strtrimref from sc_$schema.po_mst_lampiran) x 
 				left outer join (select coalesce(count(*),0) as rowcount,strtrimref 
@@ -850,27 +867,27 @@ class M_pembelian extends CI_Model
 						select  trim(nodok)||trim(nodokref)||trim(idfaktur) as strtrimref from sc_$schema.po_lampiran) as x
 				group by strtrimref) x2 on x.strtrimref=x2.strtrimref) as x
 			where nodok is not null $param order by nodok desc");
-    }
+	}
 
 	function q_lampiran_at($schema, $param)
-    {
-        return $this->db->query("SELECT * 
+	{
+		return $this->db->query("SELECT * 
 			from (select *,trim(nodok)||trim(nodokref)||trim(idfaktur) as strtrimref  
 				from sc_$schema.po_lampiran) as x 
 			where nodok is not null 
 				$param  
 			order by id desc");
-    }
+	}
 
 	function insert_attachment_po($data = array())
-    {
-        $insert = $this->db->insert_batch('sc_tmp.po_lampiran', $data);
-        return $insert ? true : false;
-    }
+	{
+		$insert = $this->db->insert_batch('sc_tmp.po_lampiran', $data);
+		return $insert ? true : false;
+	}
 
 	function q_po_dtl_lampiran($schema, $param)
-    {
-        return $this->db->query("SELECT * 
+	{
+		return $this->db->query("SELECT * 
 			from (select *,trim(nodok)||trim(nodokref)||trim(idfaktur) as strtrimref 
 				from sc_$schema.po_detail_lampiran 
 				where nodok is not null  
@@ -878,5 +895,5 @@ class M_pembelian extends CI_Model
 			where nodok is not null 
 			$param 
 			order by nodok desc");
-    }
+	}
 }
