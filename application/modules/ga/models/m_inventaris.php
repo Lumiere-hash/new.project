@@ -715,7 +715,7 @@ class M_inventaris extends CI_Model
             $isGMIncluded = $this->db->get_where('sc_mst.option', array('kdoption' => 'SPK:APPROVAL:GM'))->row()->value1 == 'Y';
             $isInputBySales = $this->db->select('a.*')
                 ->from('sc_mst.karyawan a')
-                ->where('nik', trim($spk->row()->spkinputby))
+                ->where('nik', trim($spk->row()->nikmohon))
                 ->where('jabatan', 'AE')
                 ->get()->num_rows() > 0;
 
