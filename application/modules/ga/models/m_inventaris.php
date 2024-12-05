@@ -722,8 +722,6 @@ class M_inventaris extends CI_Model
             $statusses = array(
                 $kode . '1' => $isSPVGA,
                 $kode . '2' => $superior2 == $this->session->userdata('nik'),
-                $kode . '5' => $isMGRKEU,
-                $kode . '6' => $isDIR,
             );
 
             if ($isInputBySales) {
@@ -745,14 +743,14 @@ class M_inventaris extends CI_Model
             $opt = $this->db->get_where('sc_mst.option', array('kdoption' => 'SPK:APPROVAL:LEVEL'))->row()->value3;
 
             if ($spk->row()->ttlservis <= 1000000) {
-                $statusses = array_slice($statusses, 0, $isInputBySales ? $opt : $opt - 1, true);
             } else {
+                $statusses[$kode . '5'] = $isMGRKEU;
                 $nextStatuses[$kode . '3'] = $isGMIncluded ? $kode . '4' : $kode . '5';
                 $nextStatuses[$kode . '4'] = $kode . '5';
             }
             if ($spk->row()->ttlservis <= 4000000) {
-                $statusses = array_slice($statusses, 0, $isInputBySales ? ($opt + ($opt < 3 ? 2 : 1)) : ($opt + ($opt < 3 ? 1 : 0)), true);
             } else {
+                $statusses[$kode . '6'] = $isDIR;
                 $nextStatuses[$kode . '5'] = $kode . '6';
             }
             foreach ($statusses as $status => $isAllowed) {
