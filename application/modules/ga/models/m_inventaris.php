@@ -733,7 +733,7 @@ class M_inventaris extends CI_Model
 
             $nextStatuses = array(
                 $kode . '1' => $kode . '2',
-                $kode . '2' => $isInputBySales ? $kode . '3' : (!$isInputBySales && $isGMIncluded) ? $kode . '4' : $kode . '5',
+                $kode . '2' => $isInputBySales ? $kode . '3' : ((!$isInputBySales && $isGMIncluded) ? $kode . '4' : $kode . '5'),
             );
 
             $isSpkExist = function ($status) use ($nodok) {
