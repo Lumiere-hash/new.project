@@ -4,5 +4,10 @@ VALUES (
         'AA2',
         'PASSET',
         'APPROVAL MANAGER'
+    ),
+    (
+        'IT',
+        'PASSET',
+        'INPUT TAMBAHAN SPK'
     )
 ON CONFLICT DO NOTHING;

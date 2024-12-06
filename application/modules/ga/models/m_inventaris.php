@@ -536,6 +536,71 @@ class M_inventaris extends CI_Model
 							");
     }
 
+    function q_hisperawatanspk_tambahan($param)
+    {
+        return $this->db->query("SELECT coalesce(nodok        ,'')::text as nodok          ,     
+                                        coalesce(nodokref       ,'')::text as nodokref         ,     
+                                        coalesce(descbarang   ,'')::text as descbarang     ,     
+                                        coalesce(kdgroup      ,'')::text as kdgroup        ,     
+                                        coalesce(kdsubgroup   ,'')::text as kdsubgroup     ,     
+                                        coalesce(stockcode    ,'')::text as stockcode      ,     
+                                        coalesce(kdbengkel    ,'')::text as kdbengkel      ,     
+                                        coalesce(kdsubbengkel ,'')::text as kdsubbengkel   ,     
+                                        coalesce(nmbengkel ,'')::text as nmbengkel   ,     
+                                        coalesce(upbengkel    ,'')::text as upbengkel      ,     
+                                        coalesce(jnsperawatan ,'')::text as jnsperawatan   ,     
+                                        coalesce(jnsperawatanref,'')::text as jnsperawatanref,     
+                                        coalesce(to_char(tgldok  ,'dd-mm-yyyy' ),'')::text as tgldok         ,     
+                                        coalesce(to_char(tglawal ,'dd-mm-yyyy' ),'')::text as tglawal        ,     
+                                        coalesce(to_char(tglakhir,'dd-mm-yyyy' ),'')::text as tglakhir       ,     
+                                        coalesce(keterangan     ,'')::text as keterangan     ,     
+                                        coalesce(status         ,'')::text as status         ,     
+                                        coalesce(to_char(inputdate  ,'dd-mm-yyyy' )     ,'')::text as inputdate      ,     
+                                        coalesce(inputby        ,'')::text as inputby        ,     
+                                        coalesce(to_char(updatedate  ,'dd-mm-yyyy' )    ,'')::text as updatedate     ,     
+                                        coalesce(updateby       ,'')::text as updateby       ,     
+                                        coalesce(nmbarang       ,'')::text as nmbarang       ,     
+                                        coalesce(kdgudang       ,'')::text as kdgudang       ,     
+                                        coalesce(nmbengkel      ,'')::text as nmbengkel      ,     
+                                        coalesce(addbengkel     ,'')::text as addbengkel     ,     
+                                        coalesce(city           ,'')::text as city           ,     
+                                        coalesce(phone1         ,'')::text as phone1         ,     
+                                        coalesce(phone2         ,'')::text as phone2         ,     
+                                        coalesce(nopol          ,'')::text as nopol          ,     
+                                        coalesce(branch_address ,'')::text as branch_address ,     
+                                        coalesce(branch_phone1  ,'')::text as branch_phone1  ,     
+                                        coalesce(branch_phone2  ,'')::text as branch_phone2  ,     
+                                        coalesce(branch_fax     ,'')::text as branch_fax ,
+                                        coalesce(nikmohon     ,'')::text as nikmohon,
+                                        coalesce(nmmohon     ,'')::text as nmmohon,
+                                        coalesce(km_awal     ,0)::text as km_awal ,
+                                        coalesce(km_akhir     ,0)::text as km_akhir ,
+                                        coalesce(ttlservis     ,0)::text as ttlservis, 								
+                                        coalesce(ttldiskon    ,0)::text as ttldiskon, 								
+                                        coalesce(ttldpp     ,0)::text as ttldpp, 								
+                                        coalesce(ttlppn    ,0)::text as ttlppn, 								
+                                        coalesce(ttlppnbm,0)::text as ttlppnbm, 								
+                                        coalesce(ttlnetto,0)::text as ttlnetto, 								
+                                        coalesce(typeservis,'')::text as typeservis, 								
+                                        coalesce(kdrangka,'')::text as kdrangka, 								
+                                        coalesce(kdmesin,'')::text as kdmesin,								
+                                        coalesce(jenisperawatan,'')::text as jenisperawatan,								
+                                        coalesce(nmperawatanasset,'')::text as nmperawatanasset,
+                                        coalesce(nodoktmp,'')::text as nodoktmp
+                                        from (
+                                    select a.*,b.nmbarang,b.kdgudang,c.nmbengkel,c.addbengkel,c.city,c.phone1,c.phone2,b.nopol,d.address as branch_address,d.phone1 as branch_phone1,d.phone2 as branch_phone2,d.fax as branch_fax,f.nmlengkap as nmmohon,e.nikmohon
+                                    ,b.kdrangka,b.kdmesin,e.jnsperawatan as jenisperawatan,case when e.jnsperawatan='BK' then 'BERKALA' when e.jnsperawatan='IS' then 'ISIDENTIL' else '' end as nmperawatanasset
+                                    from sc_his.perawatanspk_tambahan a
+                                    left outer join sc_mst.mbarang b on a.stockcode=b.nodok and a.kdgroup=b.kdgroup and a.kdsubgroup=b.kdsubgroup
+                                    left outer join sc_mst.msubbengkel c on c.kdbengkel=a.kdbengkel and c.kdsubbengkel=a.kdsubbengkel
+                                    left outer join sc_mst.branch d on coalesce(d.cdefault,'')='YES'
+                                    left outer join sc_his.perawatanasset e on a.nodokref=e.nodok
+                                    left outer join sc_mst.karyawan f on f.nik=e.nikmohon
+                                    ) x
+                                    where nodok is not null $param order by nodok desc
+							");
+    }
+
     function q_hisperawatan_perawatan_mst_lampiran_tmp($param)
     {
         return $this->db->query("		
