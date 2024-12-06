@@ -2933,6 +2933,14 @@ class Inventaris extends MX_Controller
 	function final_spk_pembayaran()
 	{
 		$nodok = strtoupper(trim($this->input->post('nodok')));
+		$parama1 = " and nodoktmp='$nodok'";
+		$payment_list = $this->m_inventaris->q_hisperawatanspk_pembayaran_tmp($parama1)->result();
+		foreach ($payment_list as $key => $value) {
+			if ($value->netto == null) {
+				header('Location: ' . $_SERVER['HTTP_REFERER'] . '/error_payment_not_set');
+				exit;
+			}
+		}
 		$nodokref = strtoupper(trim($this->input->post('nodokref')));
 		$nama = $this->session->userdata('nik');
 		$info = array(
@@ -3422,6 +3430,8 @@ class Inventaris extends MX_Controller
 			$data['message'] = "<div class='alert alert-success'>DATA SPK BERHASIL DITAMBAHKAN</div>";
 		else if ($this->uri->segment(5) == "fail_datakembar")
 			$data['message'] = "<div class='alert alert-danger'>DATA SUDAH ADA SILAHKAN UBAH DATA TERSEBUT </div>";
+		else if ($this->uri->segment(5) == "error_payment_not_set")
+			$data['message'] = "<div class='alert alert-danger'>DATA NOMINAL PEMBAYARAN BELUM DIISI </div>";
 		else
 			$data['message'] = '';
 
