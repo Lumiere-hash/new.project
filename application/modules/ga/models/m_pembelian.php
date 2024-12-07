@@ -785,9 +785,6 @@ class M_pembelian extends CI_Model
 			->get();
 
 		if ($po->num_rows() > 0) {
-			$kode = strlen(trim($po->row()->status)) >= 3 ?
-				substr($po->row()->status, 0, 2) :
-				substr($po->row()->status, 0, 1);
 			$superior1 = trim($po->row()->nik_atasan);
 			$superior2 = trim($po->row()->nik_atasan2);
 
@@ -798,6 +795,28 @@ class M_pembelian extends CI_Model
 			$isMGRKEU = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'MGRKEU'))->num_rows() > 0;
 			$isDIR = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'A'))->num_rows() > 0;
 
+			if (trim($po->row()->status_spk) == 'AF1') {
+                $statusses = array(
+                    'AF1' => $isSPVGA,
+                );
+                foreach ($statusses as $status => $isAllowed) {
+                    if ($isAllowed) {
+                        return array('approve_access' => true, 'next_status' => 'X');
+                    }
+                }
+            }
+
+            if (trim($po->row()->status_spk) == 'AA2') {
+                $statusses = array(
+                    'AA2' => $superior2 == $this->session->userdata('nik'),
+                );
+                foreach ($statusses as $status => $isAllowed) {
+                    if ($isAllowed) {
+                        return array('approve_access' => true, 'next_status' => 'P');
+                    }
+                }
+            }
+
 			$isGMIncluded = $this->db->get_where('sc_mst.option', array('kdoption' => 'PO:APPROVAL:GM'))->row()->value1 == 'Y';
 			$isInputBySales = $this->db->select('a.*')
 				->from('sc_mst.karyawan a')
@@ -805,12 +824,14 @@ class M_pembelian extends CI_Model
 				->where('jabatan', 'AE')
 				->get()->num_rows() > 0;
 
+			$kode = 'A';
+			// strlen(trim($po->row()->status)) >= 3 ?
+			// 	substr($po->row()->status, 0, 2) :
+			// 	substr($po->row()->status, 0, 1);
+
 			$statusses = array(
 				$kode . '1' => $isSPVGA,
 				$kode . '2' => $superior2 == $this->session->userdata('nik'),
-				$kode . '3' => $isRSM,
-				$kode . '5' => $isMGRKEU,
-				$kode . '6' => $isDIR,
 			);
 
 			if ($isInputBySales) {
@@ -828,14 +849,14 @@ class M_pembelian extends CI_Model
 			$opt = $this->db->get_where('sc_mst.option', array('kdoption' => 'PO:APPROVAL:LEVEL'))->row()->value3;
 
 			if ($po->row()->ttlnetto <= 1000000) {
-				$statusses = array_slice($statusses, 0, $isInputBySales ? $opt : $opt - 1, true);
 			} else {
+				$statusses[$kode . '5'] = $isMGRKEU;
 				$nextStatuses[$kode . '3'] = $isGMIncluded ? $kode . '4' : $kode . '5';
 				$nextStatuses[$kode . '4'] = $kode . '5';
 			}
 			if ($po->row()->ttlnetto <= 4000000) {
-				$statusses = array_slice($statusses, 0, $isInputBySales ? ($opt + ($opt < 3 ? 2 : 1)) : ($opt + ($opt < 3 ? 1 : 0)), true);
 			} else {
+				$statusses[$kode . '6'] = $isDIR;
 				$nextStatuses[$kode . '5'] = $kode . '6';
 			}
 			foreach ($statusses as $status => $isAllowed) {

@@ -406,7 +406,7 @@ class Pembelian extends MX_Controller
         }
 
         $data['nama'] = $nama;
-        $data['userhr'] = $userhr;
+        $data['userhr'] = $userhr > 0;
         $data['level_akses'] = $level_akses;
         $data['ceknikatasan1'] = $ceknikatasan1;
         $data['nikatasan1'] = $nikatasan1;
@@ -1089,6 +1089,82 @@ class Pembelian extends MX_Controller
 
     }
 
+    function input_quotation_sppb()
+    {
+        $nodok = $this->encrypt->decode(hex2bin(trim($this->uri->segment(4))));
+        if (empty($nodok)) {
+            redirect("ga/pembelian/form_sppb");
+        }
+        $nama = $this->session->userdata('nik');
+
+        $param3_1 = " and nodok='$nodok'";
+        $param3_2 = " and nodok='$nodok'";
+        $sppb_mst = $this->m_pembelian->q_sppb_trx_mst_param($param3_1)->row_array();
+        $data['sppb_mst'] = $this->m_pembelian->q_sppb_trx_mst_param($param3_1)->row_array();
+        $data['list_sppb_trx_mst'] = $this->m_pembelian->q_sppb_trx_mst_param($param3_1)->result();
+        $sppb_dtl = $this->m_pembelian->q_sppb_trx_dtl_param($param3_2)->row_array();
+        $data['list_sppb_trx_dtl'] = $this->m_pembelian->q_sppb_trx_dtl_param($param3_2)->result();
+        $nik = trim($sppb_mst['nik']);
+
+        $data['nik'] = $nik;
+        $data['enc_nodok'] = bin2hex($this->encrypt->encode(trim($nama)));
+        //$data['list_niksppb']=$this->m_akses->list_karyawan()->result();
+        $data['list_lk'] = $this->m_akses->list_karyawan_index($nik)->result();
+        $data['dtlnik'] = $this->m_akses->list_karyawan_index($nik)->row_array();
+        $param_inp = " and nodok='$nodok'";
+        $dtlnik = $this->m_akses->list_karyawan_index($nama)->row_array();
+        $kdcabang = trim($this->session->userdata('loccode'));
+        $param1 = " and loccode='$kdcabang'";
+
+        $data['title'] = 'INPUT QUOTATION SPPB ';
+        if ($this->uri->segment(5) == "bc_failed")
+            $data['message'] = "<div class='alert alert-warning'>Pastikan Isi SMS ada</div>";
+        else if ($this->uri->segment(5) == "rep_succes")
+            $data['message'] = "<div class='alert alert-success'>SMS Sukes Dikirim </div>";
+        else if ($this->uri->segment(5) == "fail_fill")
+            $data['message'] = "<div class='alert alert-warning'>Kode Barang/Nama Barang Sudah Tersedia Harap Input Yang Lain</div>";
+        else if ($this->uri->segment(5) == "inp_succes")
+            $data['message'] = "<div class='alert alert-success'>Data Succes Di Input</div>";
+        else if ($this->uri->segment(5) == "del_succes")
+            $data['message'] = "<div class='alert alert-success'>Delete Succes</div>";
+        else if ($this->uri->segment(5) == "del_failed")
+            $data['message'] = "<div class='alert alert-danger'>Data Tidak Bisa Terhapus Karena Pada Sub Group Masih Tertulis Kode Skema Ini</div>";
+        else if ($this->uri->segment(5) == "inp_kembar")
+            $data['message'] = "<div class='alert alert-danger'>Kode Schema Sudah Ada Sebelumnya</div>";
+        else if ($this->uri->segment(5) == "wrong_format")
+            $data['message'] = "<div class='alert alert-danger'>Format Excel Salah</div>";
+        else
+            $data['message'] = '';
+        $data['list_scgroup'] = $this->m_pembelian->q_scgroup_atk()->result();
+        $data['list_scsubgroup'] = $this->m_pembelian->q_scsubgroup()->result();
+        $data['list_mstbarangatk'] = $this->m_pembelian->q_mstbarang_atk()->result();
+        $data['list_stkgdw'] = $this->m_pembelian->q_stkgdw_param1($param1)->result();
+        $data['dtlmst'] = $this->m_pembelian->q_sppb_trx_mst_param($param_inp)->row_array();
+
+        $dtlbranch = $this->m_akses->q_branch()->row_array();
+        $branch = strtoupper(trim($dtlbranch['branch']));
+        $param_tmp_po = " and nodok='$nama'";
+        $cek_tmp_po = $this->m_pembelian->q_tmp_po_mst_param($param_tmp_po)->num_rows();
+        if ($cek_tmp_po == 0) {
+            $info = array(
+                'branch' => $branch,
+                'nodok' => $nama,
+                'loccode' => $kdcabang,
+                'podate' => date('Y-m-d H:i:s'),
+                'status' => 'I',
+                'inputby' => $nama,
+                'inputdate' => date('Y-m-d H:i:s'),
+
+            );
+            $this->db->insert('sc_tmp.po_mst', $info);
+        }
+        $data['list_tmp_po_mst'] = $this->m_pembelian->q_tmp_po_mst_param($param_tmp_po)->result();
+
+
+        $this->template->display('ga/pembelian/v_input_quotation_sppb', $data);
+
+    }
+
     function edit_sppb()
     {
         $nodok = $this->encrypt->decode(hex2bin(trim($this->uri->segment(4))));
@@ -1505,8 +1581,7 @@ class Pembelian extends MX_Controller
 
         $isGMIncluded = $this->db->get_where('sc_mst.option', array('kdoption' => 'PO:APPROVAL:GM'))->row()->value1 == 'Y';
 
-        if ($isGMIncluded) {
-            $this->db->query("UPDATE sc_mst.trxtype
+        $this->db->query("UPDATE sc_mst.trxtype
 				SET uraian = CASE kdtrx
 					WHEN 'A4' THEN 'APPROVAL GM'
 					WHEN 'A5' THEN 'APPROVAL MANAGER KEUANGAN'
@@ -1515,17 +1590,6 @@ class Pembelian extends MX_Controller
 				END
 				WHERE kdtrx IN ('A4','A5','AF4','AF5')
 				AND jenistrx = 'POATK'");
-        } else {
-            $this->db->query("UPDATE sc_mst.trxtype
-				SET uraian = CASE kdtrx
-					WHEN 'A4' THEN 'APPROVAL MANAGER KEUANGAN'
-					WHEN 'A5' THEN 'APPROVAL DIREKSI'
-					WHEN 'AF4' THEN 'APPROVAL MANAGER KEUANGAN'
-					WHEN 'AF5' THEN 'APPROVAL DIREKSI'
-				END
-				WHERE kdtrx IN ('A4','A5','AF4','AF5')
-				AND jenistrx = 'POATK'");
-        }
 
         $paramerror = " and userid='$nama'";
         $dtlerror = $this->m_pembelian->q_trxerror($paramerror)->row_array();
@@ -1808,7 +1872,7 @@ class Pembelian extends MX_Controller
         $nodok = $this->encrypt->decode(hex2bin(trim($encNodok)));
         $nama = $this->session->userdata('nik');
         if (empty($nodok)) {
-            redirect("ga/pembelian/form_pembelian");
+            redirect("ga/pembelian/form_sppb");
         }
         $param3_1_2 = " and nodok='$nodok'";
         $dtledit = $this->m_pembelian->q_tmp_po_mst_param($param3_1_2)->row_array(); //edit row array
@@ -1876,7 +1940,7 @@ class Pembelian extends MX_Controller
         $this->db->where('nodok', $nodok);
         $this->db->delete('sc_tmp.po_dtlref');
 
-        redirect("ga/pembelian/form_pembelian/del_succes");
+        redirect("ga/pembelian/form_sppb/del_succes");
     }
 
     function clear_tmp_po_hangus()
@@ -2250,7 +2314,7 @@ class Pembelian extends MX_Controller
     {
         $nodok = $this->encrypt->decode(hex2bin(trim($this->uri->segment(4))));
         $nama = $this->session->userdata('nik');
-        $data['title'] = 'Input/Edit Supplier Master PO';
+        $data['title'] = 'Input/Edit Supplier Master Quotation PO';
         $dtlbranch = $this->m_akses->q_branch()->row_array();
         $branch = strtoupper(trim($dtlbranch['branch']));
         $dtlnik = $this->m_akses->list_karyawan_index($nama)->row_array();
@@ -2726,7 +2790,7 @@ class Pembelian extends MX_Controller
         $nama = trim($this->session->userdata('nik'));
         $nodok = $this->encrypt->decode(hex2bin($enc_nik));
         $info = array(
-            'status' => 'A',
+            'status' => 'A1',
         );
         $this->db->where('nodok', $nodok);
         $this->db->update('sc_tmp.po_mst', $info);
@@ -2742,9 +2806,9 @@ class Pembelian extends MX_Controller
         ;
 
         if ($errorcode > 0) {
-            redirect("ga/pembelian/form_pembelian/inp_succes");
+            redirect("ga/pembelian/form_sppb/inp_succes");
         } else if ($errorcode == 0) {
-            redirect("ga/pembelian/form_pembelian/success_input/$nodoktmp");
+            redirect("ga/pembelian/form_sppb/success_input/$nodoktmp");
         }
     }
 
@@ -2851,7 +2915,7 @@ class Pembelian extends MX_Controller
             $row[] = $lpo->nmbarang;
             $row[] = $lpo->keterangan;
             $row[] = $lpo->ketstatus;
-            if (in_array(trim($lpo->status), array('P', 'S',))) {
+            if (in_array(trim($lpo->status), array('P', 'S', ))) {
                 $row[] = '
                     <a class="btn btn-sm btn-default" href="' . site_url('ga/pembelian/detail_po_atk') . '/' . $enc_nodok . '" title=Detail PO"><i class="fa fa-bars"></i> </a>
                     <a class="btn btn-sm btn-warning" target="_blank" href="' . site_url('ga/pembelian/sti_po_final') . '/' . trim($lpo->nodok) . '" title="Cetak PO"><i class="fa fa-print" ></i> </a>
@@ -4215,7 +4279,7 @@ class Pembelian extends MX_Controller
 
         $parama1 = " and strtrimref='$strtrimref'";
         $data['po_detail_lampiran'] = $this->m_pembelian->q_po_dtl_lampiran('trx', $parama1)->result();
-        $data['dtl_mst'] = $this->m_pembelian->q_po_mst_lampiran('trx',$parama1)->row_array();
+        $data['dtl_mst'] = $this->m_pembelian->q_po_mst_lampiran('trx', $parama1)->row_array();
         $data['dtllamp_at'] = $this->m_pembelian->q_lampiran_at('trx', $parama1)->result();
         $this->template->display('ga/pembelian/v_detail_po_mst_lampiran', $data);
     }
@@ -4232,7 +4296,7 @@ class Pembelian extends MX_Controller
 
         $parama1 = " and strtrimref='$strtrimref'";
         $data['po_detail_lampiran'] = $this->m_pembelian->q_po_dtl_lampiran('tmp', $parama1)->result();
-        $data['dtl_mst'] = $this->m_pembelian->q_po_mst_lampiran('tmp',$parama1)->row_array();
+        $data['dtl_mst'] = $this->m_pembelian->q_po_mst_lampiran('tmp', $parama1)->row_array();
         $data['dtllamp_at'] = $this->m_pembelian->q_lampiran_at('tmp', $parama1)->result();
         $this->template->display('ga/pembelian/v_edit_po_mst_lampiran', $data);
     }

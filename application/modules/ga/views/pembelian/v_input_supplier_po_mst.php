@@ -116,12 +116,9 @@
 		$("#kdsubsupplier").chained("#kdsupplier");
 
 		$('.ch').change(function () {
-			console.log($('#loccode').val() != '');
-
 			var param1 = $('#kdgroupsupplier').val().trim();
 			var param2 = $('#kdsupplier').val().trim();
 			var param3 = $('#kdsubsupplier').val().trim();
-			//var param4=$('#mploccode').val().trim();
 			console.log(param1 + param2 + param3);
 			if ((param1 != '') && (param2 != '') && (param3 != '')) {
 				$.ajax({
@@ -129,16 +126,9 @@
 					type: "GET",
 					dataType: "JSON",
 					success: function (data) {
-
-						console.log("<?php echo site_url('ga/pembelian/js_supplier') ?>" + '/' + param1 + '/' + param2 + '/' + param3)
 						$('[name="kdcabangsupplier"]').val(data.kdcabang);
 						$('[name="pkp"]').val(data.pkp);
 						$('[name="checkppn"]').val(data.pkp);
-						//$('[name="satkecil"]').val(data.satkecil);                        
-						//$('#mpsatkecil').val(data.satkecil);                             
-						//$('[name="mpnmsatkecil"]').val(data.nmsatkecil);                        
-						//$('[name="loccode"]').val(data.loccode);                                                          
-
 					},
 					error: function (jqXHR, textStatus, errorThrown) {
 						alert('Error get data from ajax');
@@ -148,8 +138,6 @@
 		});
 
 		$('#ttlbrutto').keyup(function () {
-			//$('#ttlbrutto').ready(function(){
-
 			if ($(this).val() == '') {
 				var param1 = parseInt(0);
 				$('#satminta').prop('disabled', false);
@@ -171,11 +159,8 @@
 			var paramdisc1 = parseInt($('#disc1').val().trim());
 			var paramdisc2 = parseInt($('#disc2').val().trim());
 			var paramdisc3 = parseInt($('#disc3').val().trim());
-			///console.log(param1);
 			var subtotal = param1 * param2;
 
-
-			//console.log(paramcheckdiskon=='YES');
 			if (paramcheckdiskon == 'YES') {
 				var totaldiskon = Math.round((param1 * (paramdisc1 / 100)) + ((param1 * (paramdisc1 / 100)) * (paramdisc2 / 100)) + (((param1 * (paramdisc1 / 100)) * (paramdisc2 / 100)) * (paramdisc3 / 100)));
 			} else {
@@ -198,33 +183,15 @@
 				var totalppn = 0;
 				var vattlnetto = (param1 - totaldiskon);
 			}
-
-
-
 			var test = formatangkavalue(subtotal);
-
-
-			console.log(totaldpp);
-			console.log(totalppn);
-
-
 			$('#ttldpp').val(formatangkavalue(totaldpp));
 			$('#ttlppn').val(formatangkavalue(totalppn));
 			$('#ttlnetto').val(formatangkavalue(vattlnetto));
-
-			//	$('#ttlbruttoview').val(test);
-			//	var subtotal = formatangka(subtotalv);
-			//	console.log(subtotal);
-			//	console.log(test);
-			//	console.log($('#satminta').val());
 			$('[name="satminta"]').val($('#satminta').val());
-			///alert($('#ttlbrutto'));
 		});
 
 		$('.diskonform').hide();
 		$('#checkdiskon').change(function () {
-			console.log($(this).val().trim() == "YES");
-
 			if ($(this).val().trim() == "YES") {
 				$('.diskonform').show();
 			} else {
@@ -234,14 +201,8 @@
 		});
 	});
 
-
-
-
-	// memformat angka ribuan
 	function formatangkaobjek(objek) {
 		a = objek.value.toString();
-		//  alert(a);
-		//  alert(objek);
 		b = a.replace(/[^\d]/g, "");
 		c = "";
 		panjang = b.length;
@@ -259,8 +220,6 @@
 
 	function formatangkavalue(objek) {
 		a = objek.toString();
-		//  alert(a);
-		// alert(objek);
 		b = a.replace(/[^\d]/g, "");
 		c = "";
 		panjang = b.length;
@@ -274,9 +233,7 @@
 			}
 		}
 		objek = c;
-		///  alert(objek);
 		return objek;
-
 	}
 
 </script>
@@ -328,7 +285,8 @@
 													<option <?php if (trim($sc->kdtrx) == trim($po_mst['kdgroupsupplier'])) {
 														echo 'selected';
 													} ?> value="<?php echo trim($sc->kdtrx); ?>">
-														<?php echo trim($sc->kdtrx) . ' || ' . trim($sc->uraian); ?></option>
+														<?php echo trim($sc->kdtrx) . ' || ' . trim($sc->uraian); ?>
+													</option>
 												<?php } ?>
 											</select>
 										</div>
@@ -499,7 +457,8 @@
 			</div>
 			<div class="box-footer">
 				<?php if (trim($po_mst['status']) == 'I') { ?>
-					<a href="<?php echo site_url('ga/pembelian/input_po'); ?>" type="button" class="btn btn-default" />
+					<a href="<?php echo site_url('ga/pembelian/input_quotation_sppb'); ?>" type="button"
+						class="btn btn-default" />
 					Kembali</a>
 				<?php } else if (trim($po_mst['status']) == 'E') { ?>
 						<a href="<?php $enc_nodoktmp = bin2hex($this->encrypt->encode(trim($po_mst['nodoktmp'])));

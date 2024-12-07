@@ -118,21 +118,21 @@
                                     echo site_url("ga/pembelian/approval_sppb/$enc_nodok"); ?>"
                                         class="btn btn-success  btn-sm" title="APPROVAL SPPB"><i class="fa fa-check"></i> </a>
                                 <?php } ?>
-                                <a href="<?php
-                                $enc_nodok = bin2hex($this->encrypt->encode(trim($row->nodok)));
-                                echo site_url("ga/pembelian/hapus_sppb/$enc_nodok"); ?>" class="btn btn-danger  btn-sm"
-                                    title="BATAL SPPB"><i class="fa fa-trash-o"></i> </a>
-                            <?php } ?>
-                            <?php if ((trim($row->status) == 'P' or trim($row->status) == 'S') and trim($dtlakses['aksesdelete']) == 't') { ?>
-                                <a href="<?php
-                                $enc_nodok = bin2hex($this->encrypt->encode(trim($row->nodok)));
-                                echo site_url("ga/pembelian/hangus_sppb/$enc_nodok"); ?>"
-                                    class="btn btn-danger  btn-sm" title="HANGUS SPPB"><i class="fa fa-bars"></i> </a>
                             <?php } ?>
                             <?php if ((trim($row->status) == 'P' or trim($row->status) == 'S' or trim($row->status) == 'U')) { ?>
                                 <button class="button btn btn-warning  btn-sm"
                                     onClick="window.open('<?php echo site_url("ga/pembelian/sti_sppb_final/$enc_nodok"); ?>');"
                                     title="PRINT SPPB"><i class="fa fa-print"></i></button>
+                                <?php if ($userhr) { ?>
+                                    <a href="<?php
+                                    $enc_nodok = bin2hex($this->encrypt->encode(trim($row->nodok)));
+                                    echo site_url("ga/pembelian/hangus_sppb/$enc_nodok"); ?>"
+                                        class="btn btn-danger  btn-sm" title="HANGUS SPPB"><i class="fa fa-trash-o"></i> </a>
+                                    <a href="<?php
+                                    $enc_nodok = bin2hex($this->encrypt->encode(trim($row->nodok)));
+                                    echo site_url("ga/pembelian/input_po/$enc_nodok"); ?>"
+                                        class="btn btn-primary btn-sm" title="INPUT QUOTATION"><i class="fa fa-pencil"></i> </a>
+                                <?php } ?>
                             <?php } ?>
                         </td>
                     </tr>

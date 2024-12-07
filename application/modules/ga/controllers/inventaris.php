@@ -1790,7 +1790,7 @@ class Inventaris extends MX_Controller
 					<a class="btn btn-sm btn-primary" href="' . site_url('ga/inventaris/inputspk_tambahan') . '/' . $lpo->nodokref . '/' . $lpo->nodok . '" title="Tambahan SPK"><i class="fa fa-gear"></i></a>
 					<a class="btn btn-sm btn-success" href="' . site_url('ga/inventaris/inputspk_pembayaran') . '/' . $lpo->nodok . '" title="Input Pembayaran"><i class="fa fa-money"></i></a>
 					<a class="btn btn-sm btn-primary" href="' . site_url('ga/inventaris/inputspk_faktur') . '/' . $lpo->nodok . '" title="Input Faktur"><i class="fa fa-file-text"></i></a>
-					<a class="btn btn-sm btn-warning" href="' . site_url('ga/inventaris/sti_spk_perawatan') . '/' . $lpo->nodok . '" title="Cetak SPK"><i class="fa fa-print"></i></a>';
+					<a class="btn btn-sm btn-warning" href="' . site_url('ga/inventaris/sti_spk_perawatan') . '/' . $lpo->nodok . '" title="Cetak SPK" target="_blank"><i class="fa fa-print"></i></a>';
 			} else if (in_array(trim($lpo->status), ['P']) and $param_list2 == 0) {
 				$row[] = '
 					<a class="btn btn-sm btn-default" href="' . site_url('ga/inventaris/detail_inputspk') . '/' . $lpo->nodok . '" title="Detail SPK"><i class="fa fa-bars"></i></a>
@@ -1798,7 +1798,7 @@ class Inventaris extends MX_Controller
 			} else if (in_array(trim($lpo->status), ['X', 'P'])) {
 				$row[] = '
 					<a class="btn btn-sm btn-default" href="' . site_url('ga/inventaris/detail_inputspk') . '/' . $lpo->nodok . '" title="Detail SPK"><i class="fa fa-bars"></i></a>
-					<a class="btn btn-sm btn-warning" href="' . site_url('ga/inventaris/sti_spk_perawatan') . '/' . $lpo->nodok . '" title="Cetak SPK"><i class="fa fa-print"></i></a>';
+					<a class="btn btn-sm btn-warning" href="' . site_url('ga/inventaris/sti_spk_perawatan') . '/' . $lpo->nodok . '" title="Cetak SPK" target="_blank"><i class="fa fa-print"></i></a>';
 			} else {
 				$row[] = '
 					<a class="btn btn-sm btn-default" href="' . site_url('ga/inventaris/detail_inputspk') . '/' . $lpo->nodok . '" title="Detail SPK"><i class="fa fa-bars"></i></a>
@@ -2916,7 +2916,7 @@ class Inventaris extends MX_Controller
 		$nodokref = strtoupper(trim($this->input->post('nodokref')));
 		$nama = $this->session->userdata('nik');
 		$info = array(
-			'status' => 'AA2',
+			'status' => 'A2',
 		);
 		$this->db->where("nodok = '$nodok'");
 		$this->db->update('sc_his.perawatanspk', $info);
@@ -2936,7 +2936,7 @@ class Inventaris extends MX_Controller
 		$parama1 = " and nodoktmp='$nodok'";
 		$payment_list = $this->m_inventaris->q_hisperawatanspk_pembayaran_tmp($parama1)->result();
 		foreach ($payment_list as $key => $value) {
-			if ($value->netto == null) {
+			if ($value->nnetto == null) {
 				header('Location: ' . $_SERVER['HTTP_REFERER'] . '/error_payment_not_set');
 				exit;
 			}
