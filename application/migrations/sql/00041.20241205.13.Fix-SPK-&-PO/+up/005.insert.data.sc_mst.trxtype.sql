@@ -20,10 +20,13 @@ VALUES (
         'AA6',
         'PASSET',
         'APPROVAL DIREKSI'
-    ),
-    (
+    ),(
         'IT',
         'PASSET',
         'INPUT TAMBAHAN SPK'
+    ),(
+        'IF',
+        'PASSET',
+        'INPUT FAKTUR SPK'
     )
 ON CONFLICT DO NOTHING;

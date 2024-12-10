@@ -3301,7 +3301,7 @@ class Inventaris extends MX_Controller
 			$cek_tmp_spk = $this->m_inventaris->q_hisperawatanspk_tmp($param_tmp_spk)->num_rows();
 			if ($cek_tmp_spk == 0) {
 				$info = array(
-					'status' => 'E',
+					'status' => 'IF',
 					'updateby' => $nama,
 					'updatedate' => date('Y-m-d H:i:s'),
 
