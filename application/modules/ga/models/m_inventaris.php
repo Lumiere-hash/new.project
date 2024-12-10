@@ -785,20 +785,19 @@ class M_inventaris extends CI_Model
                 }
             }
 
-            if (trim($spk->row()->status_spk) == 'AA2') {
-                $statusses = array(
-                    'AA2' => $superior2 == $this->session->userdata('nik'),
-                );
-                foreach ($statusses as $status => $isAllowed) {
-                    if ($isAllowed) {
-                        return array('approve_access' => true, 'next_status' => 'P');
-                    }
-                }
-            }
-            $kode = 'A';
-            // strlen(trim($spk->row()->status_spk)) >= 3 ?
-            //     substr($spk->row()->status_spk, 0, 2) :
-            //     substr($spk->row()->status_spk, 0, 1);
+            // if (trim($spk->row()->status_spk) == 'AA2') {
+            //     $statusses = array(
+            //         'AA2' => $superior2 == $this->session->userdata('nik'),
+            //     );
+            //     foreach ($statusses as $status => $isAllowed) {
+            //         if ($isAllowed) {
+            //             return array('approve_access' => true, 'next_status' => 'P');
+            //         }
+            //     }
+            // }
+            $kode = strlen(trim($spk->row()->status_spk)) >= 3 ?
+                substr($spk->row()->status_spk, 0, 2) :
+                substr($spk->row()->status_spk, 0, 1);
 
             $isGMIncluded = $this->db->get_where('sc_mst.option', array('kdoption' => 'SPK:APPROVAL:GM'))->row()->value1 == 'Y';
             $isInputBySales = $this->db->select('a.*')
@@ -845,7 +844,7 @@ class M_inventaris extends CI_Model
                 if ($isSpkExist($status) && $isAllowed) {
                     $nextStatus = $nextStatuses[$status];
                     $nextStatusExists = array_key_exists($nextStatus, $statusses);
-                    return array('approve_access' => true, 'next_status' => $nextStatusExists ? $nextStatus : (strlen(trim($spk->row()->status_spk)) >= 3 ? 'X' : 'P'));
+                    return array('approve_access' => true, 'next_status' => $nextStatusExists ? $nextStatus : (substr(trim($spk->row()->status_spk), 0, 2) == 'AF' ? 'X' : 'P'));
                 }
             }
         }

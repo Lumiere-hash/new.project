@@ -801,18 +801,7 @@ class M_pembelian extends CI_Model
                 );
                 foreach ($statusses as $status => $isAllowed) {
                     if ($isAllowed) {
-                        return array('approve_access' => true, 'next_status' => 'X');
-                    }
-                }
-            }
-
-            if (trim($po->row()->status_spk) == 'AA2') {
-                $statusses = array(
-                    'AA2' => $superior2 == $this->session->userdata('nik'),
-                );
-                foreach ($statusses as $status => $isAllowed) {
-                    if ($isAllowed) {
-                        return array('approve_access' => true, 'next_status' => 'P');
+                        return array('approve_access' => true, 'next_status' => 'FP');
                     }
                 }
             }
@@ -863,7 +852,7 @@ class M_pembelian extends CI_Model
 				if (trim($po->row()->status) == $status and $isAllowed) {
 					$nextStatus = $nextStatuses[$status];
                     $nextStatusExists = array_key_exists($nextStatus, $statusses);
-                    return array('approve_access' => true, 'next_status' => $nextStatusExists ? $nextStatus : (strlen(trim($po->row()->status_po)) >= 3 ? 'P' : 'FP'));
+                    return array('approve_access' => true, 'next_status' => $nextStatusExists ? $nextStatus : (substr(trim($po->row()->status_po), 0, 2) == 'AF' ? 'P' : 'FP'));
 				}
 			}
 		}
