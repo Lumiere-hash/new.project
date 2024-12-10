@@ -4,6 +4,22 @@ VALUES (
         'AA2',
         'PASSET',
         'APPROVAL MANAGER'
+    ),(
+        'AA3',
+        'PASSET',
+        'APPROVAL RSM'
+    ),(
+        'AA4',
+        'PASSET',
+        'APPROVAL GM'
+    ),(
+        'AA5',
+        'PASSET',
+        'APPROVAL MANAGER KEUANGAN'
+    ),(
+        'AA6',
+        'PASSET',
+        'APPROVAL DIREKSI'
     ),
     (
         'IT',
