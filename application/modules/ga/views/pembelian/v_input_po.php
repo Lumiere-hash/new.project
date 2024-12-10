@@ -232,7 +232,6 @@
 						foreach ($list_tmp_po_mst as $row):
 							$no++; ?>
 							<tr>
-
 								<td width="2%"><?php echo $no; ?></td>
 								<td><?php echo $row->nodok; ?></td>
 								<td><?php echo date('d-m-Y', strtotime(trim($row->podate))); ?></td>
@@ -246,7 +245,7 @@
 									<!--a href="#" data-toggle="modal" data-target="#APPROVE<?php echo str_replace('.', '', trim($row->nodok)) . trim($row->nodoktmp); ?>" class="btn btn-success  btn-sm"><i class="fa fa-edit"></i> PROSES </a-->
 									<a href="<?php
 									$enc_nodok = bin2hex($this->encrypt->encode(trim($row->nodok)));
-									echo site_url("ga/pembelian/input_supplier_po_mst/$enc_nodok"); ?>"
+									echo site_url("ga/pembelian/input_supplier_po_mst/$enc_nodok/$nodoksppb"); ?>"
 										onclick="return confirm('Anda Akan Masuk Input Ke Supplier?')"
 										class="btn btn-primary  btn-sm-1" title="Ubah Supplier PO & Type PO"><i
 											class="fa fa-cogs"></i> </a>
@@ -338,10 +337,9 @@
 						<a href="#" data-toggle="modal" data-target="#FILTEROUTSTANDING"
 							style="margin:10px; color:#000000;" class="btn btn-default  btn-sm-1  pull-left"><i
 								class="fa fa-edit"></i></a>
-						<!--button class="btn btn-primary pull-left" onClick="TEST" style="margin:10px; color:#ffffff;" type="MODAL"> FILTER </button-->
 						<button class="btn btn-primary pull-right" onClick="TEST" style="margin:10px; color:#ffffff;"
 							type="submit" <?php if ($row_dtlref_query == 0) { ?> disabled <?php } ?>> >> </button>
-					</div><!-- /.box-header -->
+					</div>
 					<div class="box-body table-responsive" style='overflow-x:scroll;'>
 						<table id="example3" class="table table-bordered table-striped">
 							<thead>
@@ -353,10 +351,8 @@
 									<th>NAMA BARANG</th>
 									<?php if (trim($dtlmst['itemtype']) != 'JSA') { ?>
 										<th>QTY DOC</th>
-										<!--th>QTY PO</th-->
 										<th>SATUAN</th>
 									<?php } ?>
-									<!--th>SATUAN</th-->
 									<th>DETAIL</th>
 								</tr>
 							</thead>
@@ -380,7 +376,6 @@
 										<?php echo $lu->nmsatminta; ?>
 									</td>
 									<?php } ?>
-									<!--td><?php echo $lu->strtrimref; ?></td-->
 										<td>
 											<a href="#" data-toggle="modal"
 												data-target="#DTLREVITEMQUERY<?php echo trim($lu->rowid); ?>"
@@ -393,8 +388,8 @@
 						</table>
 						<input type="hidden" name="nik" value="<?php echo ''; ?>">
 						<input type="hidden" name="username" value="<?php echo ''; ?>">
-					</div><!-- /.box-body -->
-				</div><!-- /.box -->
+					</div>
+				</div>
 			</div>
 		</form>
 	</div>
@@ -404,17 +399,14 @@
 				<div class="box box-danger">
 					<div class="box-header">
 						<h4 align="center"><?php echo 'LIST DETAIL REFERENSI'; ?></h4>
-						<!--?php if($cek_full_mappdtlref>0) { ?--->
 						<button class="btn btn-primary pull-left" onClick="TEST" style="margin:10px; color:#ffffff;"
 							type="submit">
 							<< </button>
-								<!---?php if($row_dtlref==0) { ?> disabled <!?php }?>> << ----/button---->
 								<a href="<?php echo site_url('ga/pembelian/reset_po_dtlrev'); ?>" type="button"
 									style="margin:10px; color:#000000;"
 									onclick="return confirm('Detail Akan Tereset seluruhnya apakah anda yakin?')"
 									class="btn btn-default  pull-right" /> RESET</a>
-								<!--?php } ?--->
-					</div><!-- /.box-header -->
+					</div>
 					<div class="box-body table-responsive" style='overflow-x:scroll;'>
 						<table id="example4" class="table table-bordered table-striped">
 							<thead>
@@ -473,8 +465,8 @@
 						</table>
 						<input type="hidden" name="nik" value="<?php echo ''; ?>">
 						<input type="hidden" name="username" value="<?php echo ''; ?>">
-					</div><!-- /.box-body -->
-				</div><!-- /.box -->
+					</div>
+				</div>
 			</div>
 		</form>
 	</div>

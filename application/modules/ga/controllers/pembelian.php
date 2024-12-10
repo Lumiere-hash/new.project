@@ -1710,10 +1710,10 @@ class Pembelian extends MX_Controller
         $enc_nik = bin2hex($this->encrypt->encode($nama));
         $data['enc_nik'] = bin2hex($this->encrypt->encode($nama));
         if ($cekmstpo_na > 0) { //cek inputan
-            redirect("ga/pembelian/input_po/$enc_nik");
+            // redirect("ga/pembelian/input_po/$enc_nik");
             //redirect("ga/pembelian/direct_lost_input");
         } else if ($cekmstpo_ne > 0) {	//cek edit
-            redirect("ga/pembelian/edit_po_atk/$enc_nodok");
+            // redirect("ga/pembelian/edit_po_atk/$enc_nodok");
             //redirect("ga/pembelian/direct_lost_input");
         } else if ($cekmstpo_napp > 0) {	//cek approv
             redirect("ga/pembelian/approval_po_atk/$enc_nodok");
@@ -1749,6 +1749,7 @@ class Pembelian extends MX_Controller
         $data['title'] = "Pembelian Barang";
         $this->load->view("ga/pembelian/sti_v_form.php", $data);
     }
+
     function json_po_final()
     {
         $nodok = trim(strtoupper($this->uri->segment(4)));
@@ -1768,10 +1769,15 @@ class Pembelian extends MX_Controller
         );
     }
 
-
+    function input_quotation($nodok)
+    {
+        $this->session->set_userdata('nodoksppb', $nodok);
+        redirect("ga/pembelian/input_po");
+    }
 
     function input_po()
     {
+        $nodoksppb = $this->encrypt->decode(hex2bin(trim($this->session->userdata('nodoksppb'))));
         $nama = $this->session->userdata('nik');
         $tgl = explode(' - ', trim($this->input->post('tgl')));
         if (isset($tgl[0]) and isset($tgl[1])) {
@@ -1842,7 +1848,7 @@ class Pembelian extends MX_Controller
         $dtltmppo = $this->m_pembelian->q_tmp_po_mst_param($param_tmp_po)->row_array();
 
         $itemtype = trim($dtltmppo['itemtype']);
-        $param_dtlref_query = " and to_char(inputdate,'yyyy-mm-dd') between '$tgl1' and '$tgl2' and kdgroup='$itemtype'";
+        $param_dtlref_query = " and to_char(inputdate,'yyyy-mm-dd') between '$tgl1' and '$tgl2' and kdgroup='$itemtype' and nodok='$nodoksppb' ";
         $param_cekmapdtlref = " and nodok='$nama' and status<>'M'";
         $paramx = '';
         $enc_nik = bin2hex($this->encrypt->encode($nama));
@@ -1863,6 +1869,7 @@ class Pembelian extends MX_Controller
         $data['row_dtlref_query'] = $this->m_pembelian->q_dtlref_po_query_param($param_dtlref_query)->num_rows();
         $data['cek_full_mappdtlref'] = $this->m_pembelian->q_tmp_po_dtlref_param($param_cekmapdtlref)->num_rows();
         $data['dtlmst'] = $this->m_pembelian->q_tmp_po_mst_param($param_tmp_po)->row_array();
+        $data['nodoksppb'] = $nodoksppb;
         $this->template->display('ga/pembelian/v_input_po', $data);
         $this->m_pembelian->q_deltrxerror($paramerror);
     }
@@ -1888,19 +1895,16 @@ class Pembelian extends MX_Controller
             );
             $this->db->where('nodok', $nodoktmp);
             $this->db->update('sc_trx.po_mst', $info);
-            $this->db->where('nodok', $nodoktmp);
-            $this->db->update('sc_trx.po_dtl', $infodtl);
-            $this->db->where('nodok', $nodoktmp);
-            $this->db->update('sc_trx.po_dtlref', $infodtl);
-
+            // $this->db->where('nodok', $nodoktmp);
+            // $this->db->update('sc_trx.po_dtl', $infodtl);
+            // $this->db->where('nodok', $nodoktmp);
+            // $this->db->update('sc_trx.po_dtlref', $infodtl);
 
             // $info2 = array(
             //     'status' => '',
             // );
             // $this->db->where('nodok', $nama);
             // $this->db->update('sc_tmp.po_dtlref', $info2);
-
-
         } else if ($status == 'I') {
             $info = array(
                 'status' => 'A',
@@ -1940,7 +1944,13 @@ class Pembelian extends MX_Controller
         $this->db->where('nodok', $nodok);
         $this->db->delete('sc_tmp.po_dtlref');
 
-        redirect("ga/pembelian/form_sppb/del_succes");
+        if (in_array($status, ['E', 'H'])) {
+            redirect("ga/pembelian/form_pembelian/");            
+        } else if ($status == 'I') {
+            redirect("ga/pembelian/form_sppb/");
+        } else if ($status == 'C') {
+            redirect("ga/pembelian/form_pembelian/");
+        }
     }
 
     function clear_tmp_po_hangus()
@@ -2024,7 +2034,7 @@ class Pembelian extends MX_Controller
                     'modul' => 'TMPPO'
                 );
                 $this->db->insert('sc_mst.trxerror', $insinfo);
-                redirect('/ga/pembelian/form_pembelian');
+                redirect('/ga/pembelian/input_po');
             }
 
 
@@ -2049,7 +2059,7 @@ class Pembelian extends MX_Controller
 
         }
         $insert = $this->m_pembelian->add_po_dtlref($info);
-        redirect("ga/pembelian/form_pembelian");
+        redirect("ga/pembelian/input_po");
     }
 
     function kurang_itempo()
@@ -2060,7 +2070,7 @@ class Pembelian extends MX_Controller
         $username = $this->input->post('username');
         $param_dtlref_cekmap = " nodok=$nama and status='M'";
         if (empty($lb)) {
-            redirect("ga/pembelian/form_pembelian");
+            redirect("ga/pembelian/input_po");
         }
 
         /*$cek_po_dtlref=$this->m_pembelian->q_tmp_po_dtlref_param($param_dtlref_cekmap)->num_rows();
@@ -2083,7 +2093,7 @@ class Pembelian extends MX_Controller
                 'nodokref' => trim(strtoupper($ls->nodokref))
             ));
         }
-        redirect("ga/pembelian/form_pembelian");
+        redirect("ga/pembelian/input_po");
     }
 
     function reset_po_dtlrev()
@@ -2313,6 +2323,7 @@ class Pembelian extends MX_Controller
     function input_supplier_po_mst()
     {
         $nodok = $this->encrypt->decode(hex2bin(trim($this->uri->segment(4))));
+        $nodoksppb = trim($this->uri->segment(5));
         $nama = $this->session->userdata('nik');
         $data['title'] = 'Input/Edit Supplier Master Quotation PO';
         $dtlbranch = $this->m_akses->q_branch()->row_array();
@@ -2321,8 +2332,6 @@ class Pembelian extends MX_Controller
         $kdcabang = trim($this->session->userdata('loccode'));
         $param1 = " and loccode='$kdcabang'";
         $param_tmp_po = " and nodok='$nama'";
-
-
 
         $enc_nik = bin2hex($this->encrypt->encode($nama));
         $data['enc_nik'] = bin2hex($this->encrypt->encode($nama));
@@ -2336,6 +2345,7 @@ class Pembelian extends MX_Controller
         $data['list_msubsupplier'] = $this->m_pembelian->q_msubsupplier()->result();
         $data['trxsupplier'] = $this->m_pembelian->q_trxsupplier()->result();
         $data['po_mst'] = $this->m_pembelian->q_tmp_po_mst_param($param_tmp_po)->row_array();
+        $data['nodoksppb'] = $nodoksppb;
         $this->template->display('ga/pembelian/v_input_supplier_po_mst', $data);
     }
 
@@ -2406,6 +2416,7 @@ class Pembelian extends MX_Controller
         $nik = strtoupper($this->input->post('nik'));
         $nodok = strtoupper(trim($this->input->post('nodok')));
         $nodokref = strtoupper($this->input->post('nodokref'));
+        $nodoksppb = strtoupper($this->input->post('nodoksppb'));
         $kdgroup = strtoupper($this->input->post('kdgroup'));
         $kdsubgroup = strtoupper($this->input->post('kdsubgroup'));
         $stockcode = strtoupper($this->input->post('kdbarang'));
@@ -2609,11 +2620,12 @@ class Pembelian extends MX_Controller
                     );
                     $this->db->where('nodok', $nodok);
                     $this->db->update('sc_tmp.po_mst', $info);
+
                     /* INSERT TRX ERROR */
                     $param1error = 0;
                     $param2error = $nama;
                     $this->m_pembelian->ins_trxerror($param1error, $param2error);
-                    redirect("ga/pembelian/input_po/app_succes");
+                    redirect("ga/pembelian/input_po/$nodoksppb/app_succes");
                 }
             } else {
                 $info = array(
@@ -2639,7 +2651,7 @@ class Pembelian extends MX_Controller
                 $param1error = 0;
                 $param2error = $nama;
                 $this->m_pembelian->ins_trxerror($param1error, $param2error);
-                redirect("ga/pembelian/input_po/app_succes");
+                redirect("ga/pembelian/input_po/$nodoksppb/app_succes");
 
             }
 
@@ -2756,7 +2768,7 @@ class Pembelian extends MX_Controller
                 $this->db->update('sc_tmp.po_dtl', $info_dtl);
 
 
-                redirect("ga/pembelian/input_po/app_succes");
+                redirect("ga/pembelian/input_po/$nodoksppb/app_succes");
             }
         } else if ($type == 'DELETE') {
             $info = array(
@@ -2790,8 +2802,9 @@ class Pembelian extends MX_Controller
         $nama = trim($this->session->userdata('nik'));
         $nodok = $this->encrypt->decode(hex2bin($enc_nik));
         $info = array(
-            'status' => 'A1',
+            'status' => 'A',
         );
+        // var_dump($nodok);die();
         $this->db->where('nodok', $nodok);
         $this->db->update('sc_tmp.po_mst', $info);
 

@@ -520,7 +520,7 @@ class M_pembelian extends CI_Model
 
 	function q_dtlref_po_query_param($param_dtlref_query)
 	{
-		return $this->db->query("select * from (
+		return $this->db->query("SELECT * from (
 										select branch,nodok,x.nik,kdgroup,kdsubgroup,stockcode,loccode,desc_barang,(coalesce(qtyminta,0)) as qtyminta,qtybbk as qtyterima,qtyonhand,satkecil,satminta,status,keterangan,inputdate,inputby,qtypo,strtrimref,row_number() over (order by inputdate desc,nodok desc) as rowid,b.nmlengkap,b.nik_atasan,b.nik_atasan2,b.nmatasan,b.nmatasan2,b.bag_dept,b.nmdept,b.subbag_dept,b.nmsubdept,b.jabatan,b.nmjabatan,id,c.uraian as nmsatkecil,d.uraian as nmsatminta,(qtyminta-qtybbk) as qtyforpo from (
 										select a.branch,a.nodok,a.nik,a.kdgroup,a.kdsubgroup,a.stockcode,a.loccode,c.nmbarang as desc_barang,coalesce(a.qtypbk,0)-coalesce(a.qtypo,0) as qtyminta,coalesce(a.qtybbk,0) as qtybbk,a.qtyonhand,b.satkecil,b.satkecil as satminta,a.status,a.keterangan,a.inputdate,a.inputby,coalesce(a.qtypo,0) as qtypo,trim(a.nodok)||trim(a.nik)||trim(c.nmbarang)  as strtrimref,id from sc_trx.stpbk_dtl a
 											left outer join sc_mst.stkgdw b on a.kdgroup=b.kdgroup and a.kdsubgroup=b.kdsubgroup and a.stockcode=b.stockcode and a.loccode=b.loccode
@@ -532,7 +532,7 @@ class M_pembelian extends CI_Model
 										left outer join sc_mst.masterkaryawan b on x.nik=b.nik
 										left outer join sc_mst.trxtype c on x.satkecil=c.kdtrx and c.jenistrx='QTYUNIT'
 										left outer join sc_mst.trxtype d on x.satminta=d.kdtrx and d.jenistrx='QTYUNIT'
-										where /*coalesce(qtypo,0)<coalesce(qtyminta,0)*/  trim(nodok)||trim(x.nik)||trim(desc_barang) not in
+										where trim(nodok)||trim(x.nik)||trim(desc_barang) not in
 										(select trim(nodokref)||trim(nik)||trim(desc_barang) as strtrimref  from sc_tmp.po_dtlref where nodok is not null) 
 										) as a where nodok is not null $param_dtlref_query order by rowid asc");
 	}

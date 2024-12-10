@@ -254,6 +254,7 @@
 							<div class="box-body">
 								<div class="form-horizontal">
 									<div class="form-group">
+										<input type="hidden" id="nodoksppb" name="nodoksppb" value="<?= $nodoksppb; ?>">
 										<label class="col-sm-4">NO DOKUMEN</label>
 										<div class="col-sm-8">
 											<?php if (trim($po_mst['status']) == 'I') { ?>
@@ -456,13 +457,14 @@
 				</div>
 			</div>
 			<div class="box-footer">
-				<?php if (trim($po_mst['status']) == 'I') { ?>
-					<a href="<?php echo site_url('ga/pembelian/input_quotation_sppb'); ?>" type="button"
+				<?php $enc_nodoksppb = bin2hex($this->encrypt->encode(trim($nodoksppb)));
+				if (trim($po_mst['status']) == 'I') { ?>
+					<a href="<?php echo site_url("ga/pembelian/input_po/$enc_nodoksppb"); ?>" type="button"
 						class="btn btn-default" />
 					Kembali</a>
 				<?php } else if (trim($po_mst['status']) == 'E') { ?>
 						<a href="<?php $enc_nodoktmp = bin2hex($this->encrypt->encode(trim($po_mst['nodoktmp'])));
-						echo site_url("ga/pembelian/edit_po_atk/$enc_nodoktmp"); ?>" type="button" class="btn btn-default" /> Kembali</a>
+						echo site_url("ga/pembelian/edit_po_atk/$enc_nodoktmp/"); ?>" type="button" class="btn btn-default" /> Kembali</a>
 				<?php } ?>
 
 				<!--button type="button" class="btn btn-default" data-dismiss="box">Close</button--->

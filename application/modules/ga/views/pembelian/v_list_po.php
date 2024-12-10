@@ -1,5 +1,11 @@
 <link href="<?php echo base_url('assets/css/datepicker.css'); ?>" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
+	$(document).ready(function () {
+        function disableBack() { window.history.forward() }
+
+        window.onload = disableBack();
+        window.onpageshow = function (evt) { if (evt.persisted) disableBack() }
+    });
 	$(function () {
 		$("#example1").dataTable();
 		/*    var table = $('#example1').DataTable({

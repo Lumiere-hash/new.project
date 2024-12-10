@@ -130,7 +130,7 @@
                                         class="btn btn-danger  btn-sm" title="HANGUS SPPB"><i class="fa fa-trash-o"></i> </a>
                                     <a href="<?php
                                     $enc_nodok = bin2hex($this->encrypt->encode(trim($row->nodok)));
-                                    echo site_url("ga/pembelian/input_po/$enc_nodok"); ?>"
+                                    echo site_url("ga/pembelian/input_quotation/$enc_nodok"); ?>"
                                         class="btn btn-primary btn-sm" title="INPUT QUOTATION"><i class="fa fa-pencil"></i> </a>
                                 <?php } ?>
                             <?php } ?>
