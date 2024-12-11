@@ -117,7 +117,14 @@
                                     $enc_nodok = bin2hex($this->encrypt->encode(trim($row->nodok)));
                                     echo site_url("ga/pembelian/approval_sppb/$enc_nodok"); ?>"
                                         class="btn btn-success  btn-sm" title="APPROVAL SPPB"><i class="fa fa-check"></i> </a>
-                                <?php } ?>
+                                <?php }
+                            }
+                            if ((trim($row->status) == 'QA') and $isSPVGA) { ?>
+                                <a href="<?php
+                                $sts = trim($row->status);
+                                $enc_nodok = bin2hex($this->encrypt->encode(trim($row->nodok)));
+                                echo site_url("ga/pembelian/approval_quotation/$enc_nodok/$sts/A2"); ?>"
+                                    class="btn btn-success btn-sm" title="APPROVAL QUOTATION"><i class="fa fa-check"></i> </a>
                             <?php } ?>
                             <?php if ((trim($row->status) == 'P' or trim($row->status) == 'S' or trim($row->status) == 'U')) { ?>
                                 <button class="button btn btn-warning  btn-sm"
@@ -133,6 +140,10 @@
                                     echo site_url("ga/pembelian/input_quotation/$enc_nodok"); ?>"
                                         class="btn btn-primary btn-sm" title="INPUT QUOTATION"><i class="fa fa-pencil"></i> </a>
                                 <?php } ?>
+                            <?php } else if (trim($row->status) == 'QP') { ?>
+                                    <button class="button btn btn-warning  btn-sm"
+                                        onClick="window.open('<?php echo site_url("ga/pembelian/sti_sppb_final/$enc_nodok"); ?>');"
+                                        title="PRINT SPPB"><i class="fa fa-print"></i></button>
                             <?php } ?>
                         </td>
                     </tr>

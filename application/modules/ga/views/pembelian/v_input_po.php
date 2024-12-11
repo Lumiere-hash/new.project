@@ -113,13 +113,6 @@
 		$("#dateinput3").datepicker();
 		$("[data-mask]").inputmask();
 		$('#tgl').daterangepicker();
-		//	$("#kdsubgroup").chained("#kdgroup");
-		//	$("#kdbarang").chained("#kdsubgroup");
-		//	
-		//	$("#mpkdsubgroup").chained("#mpkdgroup");
-		//	$("#mpkdbarang").chained("#mpkdsubgroup");
-		////	$("#onhand").chained("#kdbarang");
-		//alert ($('#kdsubgroup').val() != '');
 
 		$('#mpkdbarang').change(function () {
 			console.log($('#loccode').val() != '');
@@ -140,12 +133,8 @@
 						console.log(data.nmsatkecil);
 						console.log("<?php echo site_url('ga/pembelian/js_viewstock_back') ?>" + '/' + param1 + '/' + param2 + '/' + param3 + '/' + param4)
 						$('[name="onhand"]').val(data.conhand);
-						$('[name="satkecil"]').val(data.satkecil);
-						//$('#mpsatkecil').val(data.satkecil);                        
-						//$('#mpnmsatkecil').val(data.nmsatkecil);                        
+						$('[name="satkecil"]').val(data.satkecil);               
 						$('[name="nmsatkecil"]').val(data.nmsatkecil);
-						//$('[name="loccode"]').val(data.loccode);                                                          
-
 					},
 					error: function (jqXHR, textStatus, errorThrown) {
 						alert('Error get data from ajax');
@@ -171,22 +160,6 @@
 				}
 			});
 		<?php } ?>
-		/*			//////////////////////////////////////////////
-					$('#qtyunitprice').change(function(){
-						if ($(this).val()=='') {	var param1 = parseInt(0); } else { var param1 = parseInt($(this).val()); }
-						if ($('#qtypo').val()=='') {	var param2 = parseInt(0); } else { var param2 = parseInt($('#qtypo').val()); }
-						
-						$('#qtytotalprice').val(param1 * param2);   
-					});
-					//////////////////////////////////////////////
-					$('#qtypo').change(function(){
-						if ($(this).val()=='') {	var param2 = parseInt(0); } else { var param2 = parseInt($(this).val()); }
-						if ($('#qtyunitprice').val()=='') {	var param1 = parseInt(0); } else { var param1 = parseInt($('#qtyunitprice').val()); }
-						
-						$('#qtytotalprice').val(param1 * param2);      
-					}); 
-			*/
-
 	});
 </script>
 
@@ -202,7 +175,7 @@
 			Kembali </a>
 
 	</div>
-	<a href="<?php echo site_url("ga/pembelian/final_input_po/$enc_nik/A1") ?>"
+	<a href="<?php echo site_url("ga/pembelian/final_input_po/$enc_nik/$enc_nodok") ?>"
 		onclick="return confirm('Anda Yakin Dengan Inputan Yang Anda Buat?')" class="btn btn-success pull-right"
 		style="margin:10px; color:#ffffff;" title="SIMPAN PURCHASE ORDER"><i class="fa fa-save"></i> </a>
 	<div class="col-xs-12">
@@ -309,13 +282,13 @@
 									echo site_url("ga/pembelian/remapping_po_dtl/$enc_rowid"); ?>"
 										onclick="return confirm('Anda Akan Masuk Ke Menu Mapping Satuan Rekap?')"
 										class="btn btn-primary  btn-sm-1" title="Ubah Rekap Per Item Barang"><i
-											class="fa fa-cogs"></i></a>
+											class="fa fa-pencil"></i></a>
 									<a href="<?php
 									$enc_rowid = bin2hex($this->encrypt->encode(trim($row->id)));
 									echo site_url("ga/pembelian/hapus_detail_inputpo/$enc_rowid"); ?>"
 										onclick="return confirm('Hapus Detail Akan Menghapus Referensi Yang Bersangkutan?')"
 										class="btn btn-danger  btn-sm-1" title="Hapus Rekap Per Item Barang"><i
-											class="fa fa-cog"></i></a>
+											class="fa fa-trash"></i></a>
 									<!--a href="#" data-toggle="modal" data-target="#APPNEXTMAP<?php echo trim($row->id); ?>"  onclick="return confirm('Hapus Item Tersebut Akan Mengembalikan Dokumen SPPB / PBK')" class="btn btn-danger  btn-sm-1"><i class="fa fa-edit"></i></a-->
 								</td>
 							</tr>

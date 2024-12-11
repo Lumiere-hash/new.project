@@ -158,6 +158,7 @@ class M_pembelian extends CI_Model
 	{
 		$this->db->select('*');
 		$this->db->from('sc_trx.po_mst_view');
+		$this->db->where("status != 'QA'");
 
 		$i = 0;
 

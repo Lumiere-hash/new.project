@@ -72,7 +72,7 @@ begin
 				(branch,nodok,nodokref,loccode,podate,kdgroupsupplier,kdsupplier,kdsubsupplier,kdcabangsupplier,pkp,disc1,disc2,disc3,disc4,exppn,ttlbrutto,ttldiskon,ttldpp,
 				ttlppn,ttlnetto,payterm,keterangan,inputdate,inputby,updatedate,updateby,approvaldate,approvalby,hangusdate,hangusby,canceldate,cancelby,nodoktmp,status,itemtype)
 				(select branch,vr_nomor,nodokref,loccode,podate,kdgroupsupplier,kdsupplier,kdsubsupplier,kdcabangsupplier,pkp,disc1,disc2,disc3,disc4,exppn,ttlbrutto,ttldiskon,ttldpp,
-				ttlppn,ttlnetto,payterm,keterangan,inputdate,inputby,updatedate,updateby,approvaldate,approvalby,hangusdate,hangusby,canceldate,cancelby,nodoktmp,'A1' as status,itemtype from sc_tmp.po_mst where nodok=new.nodok);
+				ttlppn,ttlnetto,payterm,keterangan,inputdate,inputby,updatedate,updateby,approvaldate,approvalby,hangusdate,hangusby,canceldate,cancelby,nodoktmp,'QA' as status,itemtype from sc_tmp.po_mst where nodok=new.nodok);
 				
 				insert into sc_trx.po_dtl
 				(branch,nodok,kdgroup,kdsubgroup,stockcode,loccode,nodokref,desc_barang,qtykecil,satkecil,qtyminta,satminta,qtyreceipt,qtyreceiptkecil,disc1,disc2,disc3,disc4,exppn,

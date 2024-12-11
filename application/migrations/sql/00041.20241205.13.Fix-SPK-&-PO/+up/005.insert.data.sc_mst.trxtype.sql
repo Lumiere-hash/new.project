@@ -28,5 +28,13 @@ VALUES (
         'IF',
         'PASSET',
         'INPUT FAKTUR SPK'
+    ),(
+        'QA',
+        'KTSTOCK',
+        'APPROVAL SUPERVISOR HRGA'
+    ),(
+        'QP',
+        'KTSTOCK',
+        'DISETEUJUI/PRINT'
     )
 ON CONFLICT DO NOTHING;
