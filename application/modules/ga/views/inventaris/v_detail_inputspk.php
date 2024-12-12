@@ -51,7 +51,7 @@
 	</div>
 	<div class="col">
 		<button type="button" style="margin:10px; color:#ffffff;" class="btn btn-danger pull-right"
-			onclick="swalWarning('Tolak Perawatan', '<?= strlen(substr($dtl_mst['status'], 0, 2) == 'AF' ? site_url('ga/inventaris/tolak_faktur/' . $this->fiky_encryption->enkript(trim($nodokspk))) : site_url('ga/inventaris/finalisasi_perawatan/C/' . $this->fiky_encryption->enkript(trim($nodokspk)))); ?>');">
+			onclick="swalWarning('Tolak Perawatan', '<?= strlen(substr($dtl_mst['status'], 0, 2)) == 'AF' ? site_url('ga/inventaris/tolak_faktur/' . $this->fiky_encryption->enkript(trim($nodokspk))) : site_url('ga/inventaris/finalisasi_perawatan/C/' . $this->fiky_encryption->enkript(trim($nodokspk))) ?>');">
 			<?= substr($dtl_mst['status'], 0, 2) == 'AF' ? 'Tolak Faktur' : 'Tolak Perawatan'; ?>
 		</button>
 	</div>

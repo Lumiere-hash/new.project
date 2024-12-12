@@ -1959,6 +1959,8 @@ class Pembelian extends MX_Controller
             redirect("ga/pembelian/form_sppb/");
         } else if ($status == 'C') {
             redirect("ga/pembelian/form_pembelian/");
+        } else {
+            redirect("ga/pembelian/form_sppb/");
         }
     }
 

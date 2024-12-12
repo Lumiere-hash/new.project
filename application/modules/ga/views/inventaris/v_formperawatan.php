@@ -122,7 +122,12 @@
 									onClick="window.open('<?php echo site_url('ga/inventaris/sti_perawatan_asset/' . trim($row->nodok)); ?>');"
 									title="Cetak"><i class="fa fa-print"></i></button>
 								<?php } ?>
-								<?php if (trim($row->status) == 'A' and (trim($userhr) > '0' or trim($ceknikatasan1) > '0')) { ?>
+								<?php $nikToFind = trim($row->nikmohon);
+								if (
+									trim($row->status) == 'A' and array_filter($nikatasan1, function ($item) use ($nikToFind) {
+										return trim($item->nik) === $nikToFind;
+									})
+								) { ?>
 								<a href="<?php echo site_url('ga/inventaris/approval_view_perawatanasset') . '/' . trim($row->nodok); ?>"
 									class="btn btn-success btn-sm"><i class="fa fa-check" title="Approval 1"></i></a>
 								<?php } else if (trim($row->status) == 'A1' and (trim($userhr) > '0')) { ?>
@@ -167,7 +172,8 @@
 									<option value="">---PILIH KODE GROUP--</option>
 									<?php foreach ($list_scgroup as $sc) { ?>
 										<option value="<?php echo trim($sc->kdgroup); ?>">
-											<?php echo trim($sc->kdgroup) . ' || ' . trim($sc->nmgroup); ?></option>
+											<?php echo trim($sc->kdgroup) . ' || ' . trim($sc->nmgroup); ?>
+										</option>
 									<?php } ?>
 								</select>
 							</div>
@@ -178,7 +184,8 @@
 									<?php foreach ($list_scsubgroup as $sc) { ?>
 										<option value="<?php echo trim($sc->kdsubgroup); ?>"
 											class="<?php echo trim($sc->kdgroup); ?>">
-											<?php echo trim($sc->kdsubgroup) . ' || ' . trim($sc->nmsubgroup); ?></option>
+											<?php echo trim($sc->kdsubgroup) . ' || ' . trim($sc->nmsubgroup); ?>
+										</option>
 									<?php } ?>
 								</select>
 							</div>
@@ -204,8 +211,10 @@
 								<label for="inputsm">Karyawan Pengguna</label>
 								<select class="form-control input-sm" name="userpakai" id="userpakai">
 									<?php foreach ($list_karyawanbarang as $sc) { ?>
-										<option value="<?php echo trim($sc->nik); ?>" class="<?php echo trim($sc->nodok); ?>">
-											<?php echo trim($sc->nik) . ' || ' . trim($sc->nmlengkap); ?></option>
+										<option value="<?php echo trim($sc->nik); ?>"
+											class="<?php echo trim($sc->nodok); ?>">
+											<?php echo trim($sc->nik) . ' || ' . trim($sc->nmlengkap); ?>
+										</option>
 									<?php } ?>
 								</select>
 							</div>
@@ -215,7 +224,8 @@
 									<option value="">---PILIH KARYAWAN PEMOHON--</option>
 									<?php foreach ($list_karyawanparam as $sc) { ?>
 										<option value="<?php echo trim($sc->nik); ?>">
-											<?php echo trim($sc->nik) . ' || ' . trim($sc->nmlengkap); ?></option>
+											<?php echo trim($sc->nik) . ' || ' . trim($sc->nmlengkap); ?>
+										</option>
 									<?php } ?>
 								</select>
 							</div>

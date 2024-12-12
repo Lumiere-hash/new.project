@@ -132,7 +132,7 @@ begin
 			(nodok,nodokref,descbarang,kdgroup,kdsubgroup,stockcode,kdbengkel,kdsubbengkel,upbengkel,jnsperawatan,jnsperawatanref,tgldok,tglawal,
 			tglakhir,km_awal,km_akhir,ttlservis,ttldiskon,ttldpp,ttlppn,ttlppnbm,ttlnetto,typeservis,keterangan,status,inputdate,inputby,updatedate,updateby,nodoktmp)
 			(select new.nodoktmp,nodokref,descbarang,kdgroup,kdsubgroup,stockcode,kdbengkel,kdsubbengkel,upbengkel,jnsperawatan,jnsperawatanref,tgldok,tglawal,
-			tglakhir,km_awal,km_akhir,ttlservis,ttldiskon,ttldpp,ttlppn,ttlppnbm,ttlnetto,typeservis,keterangan,'AF2' as status,inputdate,inputby,updatedate,updateby,nodoktmp from sc_tmp.perawatanspk where nodok=new.nodok);
+			tglakhir,km_awal,km_akhir,ttlservis,ttldiskon,ttldpp,ttlppn,ttlppnbm,ttlnetto,typeservis,keterangan,'AF1' as status,inputdate,inputby,updatedate,updateby,nodoktmp from sc_tmp.perawatanspk where nodok=new.nodok);
 
 			insert into sc_his.perawatan_mst_lampiran
 			(nodok,nodokref,id,idfaktur,tgl,keterangan,nservis,ndiskon,ndpp,nppn,nnetto,jnsperawatan,inputdate,inputby,updatedate,updateby,ref_type,status)

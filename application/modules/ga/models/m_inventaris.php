@@ -763,6 +763,15 @@ class M_inventaris extends CI_Model
             ->where('b.nodok', $nodok)
             ->get();
 
+        $addonSpk = $this->db
+            ->select('a.*,b.status as status_spk,b.ttlservis,b.inputby as spkinputby,c.*')
+            ->from('sc_his.perawatanasset a')
+            ->join('sc_his.perawatanspk_tambahan b', 'a.nodok = b.nodokref')
+            ->join('sc_mst.karyawan c', 'a.nikmohon = c.nik')
+            ->where('b.nodok', $nodok)
+            ->get();
+
+
         if ($spk->num_rows() > 0) {
             $superior1 = trim($spk->row()->nik_atasan);
             $superior2 = trim($spk->row()->nik_atasan2);
@@ -829,14 +838,14 @@ class M_inventaris extends CI_Model
 
             $opt = $this->db->get_where('sc_mst.option', array('kdoption' => 'SPK:APPROVAL:LEVEL'))->row()->value3;
 
-            if ($spk->row()->ttlservis <= 1000000) {
-            } else {
+            $ttlservice = $addonSpk->row()->ttlservis === NULL ? $spk->row()->ttlservis : $addonSpk->row()->ttlservis;
+
+            if ($ttlservice >= 1000000) {
                 $statusses[$kode . '5'] = $isMGRKEU;
                 $nextStatuses[$kode . '3'] = $isGMIncluded ? $kode . '4' : $kode . '5';
                 $nextStatuses[$kode . '4'] = $kode . '5';
             }
-            if ($spk->row()->ttlservis <= 4000000) {
-            } else {
+            if ($ttlservice > 4000000) {
                 $statusses[$kode . '6'] = $isDIR;
                 $nextStatuses[$kode . '5'] = $kode . '6';
             }
