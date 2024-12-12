@@ -70,7 +70,7 @@
 	<?php if ($dtl_spkrow == 0 || $userhr) { ?>
 	<div class="col-sm-1">
 		<!--div class="container"--->
-		<div class="dropdown ">
+		<!-- <div class="dropdown ">
 			<button class="btn btn-primary dropdown-toggle " style="margin:10px; color:#ffffff;" id="menu1"
 				type="button" data-toggle="dropdown">Menu Input
 				<span class="caret"></span></button>
@@ -78,7 +78,7 @@
 				<li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal" data-target="#INPUT"
 						href="#">Input SPK</a></li>
 			</ul>
-		</div>
+		</div> -->
 		<!--/div-->
 		</div><!-- /.box-header -->
 	<?php } ?>
