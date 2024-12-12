@@ -412,7 +412,8 @@ class Pembelian extends MX_Controller
             $param_list_akses = " and nik='$nama' ";
         }
 
-        $data['isSPVGA'] = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'C', 'subbag_dept' => 'HRGA'))->num_rows() > 0;
+        $hrdept = $this->m_akses->hrdept();
+        $data['isSPVGA'] = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'C', 'subbag_dept' => $hrdept))->num_rows() > 0;
 
         $data['nama'] = $nama;
         $data['userhr'] = $userhr > 0;

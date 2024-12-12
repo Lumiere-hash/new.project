@@ -8,6 +8,7 @@ class M_inventaris extends CI_Model
     {
         parent::__construct();
         $this->load->database();
+        $this->load->model('master/m_akses');
     }
 
 
@@ -772,11 +773,13 @@ class M_inventaris extends CI_Model
             ->get();
 
 
+            $hrdept = $this->m_akses->hrdept();
+
         if ($spk->num_rows() > 0) {
             $superior1 = trim($spk->row()->nik_atasan);
             $superior2 = trim($spk->row()->nik_atasan2);
 
-            $isSPVGA = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'C', 'subbag_dept' => 'HRGA'))->num_rows() > 0;
+            $isSPVGA = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'C', 'subbag_dept' => $hrdept))->num_rows() > 0;
             // $isMGR = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B'))->num_rows() > 0;
             $isRSM = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'RSM'))->num_rows() > 0;
             $isGM = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'GMN'))->num_rows() > 0;
