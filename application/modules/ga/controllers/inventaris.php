@@ -2967,20 +2967,28 @@ class Inventaris extends MX_Controller
 		$nama = $this->session->userdata('nik');
 			
 		$nodok = $this->fiky_encryption->dekript($nodok);
-		$param2 = " and nodok='$nodok' and status = 'P'";
-		$addonSPK = $this->m_inventaris->q_hisperawatanspk_tambahan($param2);
-		if ($addonSPK->num_rows() > 0) {
-			$info = array(
-				'status' => $status,
-			);
-			$this->db->where('nodok', $nodok);
-			$this->db->update('sc_his.perawatanspk_tambahan', $info);
+		if($status == 'C'){
+			$param2 = " and nodok='$nodok' and status = 'P'";
+			$addonSPK = $this->m_inventaris->q_hisperawatanspk_tambahan($param2);
+			if ($addonSPK->num_rows() > 0) {
+				$info = array(
+					'status' => $status,
+				);
+				$this->db->where('nodok', $nodok);
+				$this->db->update('sc_his.perawatanspk_tambahan', $info);
 
-			$info = array(
-				'status' => 'P',
-			);
-			$this->db->where('nodok', $nodok);
-			$this->db->update('sc_his.perawatanspk', $info);
+				$info = array(
+					'status' => 'P',
+				);
+				$this->db->where('nodok', $nodok);
+				$this->db->update('sc_his.perawatanspk', $info);
+			} else {
+				$info = array(
+					'status' => $status,
+				);
+				$this->db->where('nodok', $nodok);
+				$this->db->update('sc_his.perawatanspk', $info);
+			}
 		} else {
 			$info = array(
 				'status' => $status,
