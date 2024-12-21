@@ -774,18 +774,22 @@ class M_inventaris extends CI_Model
 
 
             $hrdept = $this->m_akses->hrdept();
+            $nikLogin = $this->session->userdata('nik');
 
         if ($spk->num_rows() > 0) {
             $superior1 = trim($spk->row()->nik_atasan);
             $superior2 = trim($spk->row()->nik_atasan2);
+            $nikMohon = trim($spk->row()->nikmohon);
 
             $isSPVGA = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'C', 'subbag_dept' => $hrdept))->num_rows() > 0;
             // $isMGR = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B'))->num_rows() > 0;
+            $isMGR = $this->db->query("select * from sc_mst.karyawan where nik='$nikMohon' and (nik_atasan in (select nik from sc_mst.karyawan where lvl_jabatan='B' and nik = '$nikLogin') or nik_atasan2 in (select nik from sc_mst.karyawan where lvl_jabatan='B' and nik = '$nikLogin') )")->num_rows() > 0;
             $isRSM = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'RSM'))->num_rows() > 0;
             $isGM = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'GMN'))->num_rows() > 0;
             $isMGRKEU = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'MGRKEU'))->num_rows() > 0;
             $isDIR = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'A'))->num_rows() > 0;
-            
+            $cekJobLvl = in_array(trim($this->db->get_where('sc_mst.karyawan', array('nik' => $nikMohon))->row()->lvl_jabatan), array('B', 'A'));
+
             if (trim($spk->row()->status_spk) == 'AF1') {
                 $statusses = array(
                     'AF1' => $isSPVGA,
@@ -797,16 +801,6 @@ class M_inventaris extends CI_Model
                 }
             }
 
-            // if (trim($spk->row()->status_spk) == 'AA2') {
-            //     $statusses = array(
-            //         'AA2' => $superior2 == $this->session->userdata('nik'),
-            //     );
-            //     foreach ($statusses as $status => $isAllowed) {
-            //         if ($isAllowed) {
-            //             return array('approve_access' => true, 'next_status' => 'P');
-            //         }
-            //     }
-            // }
             $kode = strlen(trim($spk->row()->status_spk)) >= 3 ?
                 substr($spk->row()->status_spk, 0, 2) :
                 substr($spk->row()->status_spk, 0, 1);
@@ -820,7 +814,7 @@ class M_inventaris extends CI_Model
 
             $statusses = array(
                 $kode . '1' => $isSPVGA,
-                $kode . '2' => $superior2 == $this->session->userdata('nik'),
+                $kode . '2' => $cekJobLvl ? $superior1 : $isMGR,
             );
 
             if ($isInputBySales) {

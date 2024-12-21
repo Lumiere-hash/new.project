@@ -1,6 +1,5 @@
 <link href="<?php echo base_url('assets/css/datepicker.css'); ?>" rel="stylesheet" type="text/css" />
 <style>
-	/*-- change navbar dropdown color --*/
 	.navbar-default .navbar-nav .open .dropdown-menu>li>a,
 	.navbar-default .navbar-nav .open .dropdown-menu {
 		background-color: #008040;
@@ -13,19 +12,9 @@
 		$("#example2").dataTable();
 		$("#example3").dataTable();
 		$("#example4").dataTable();
-		//$(".kdbarang").chained(".kdgroup");	
-		///$("#kdbarangin").chained("#kdgroupin");	
-		///$("#kdbaranged").chained("#kdgrouped");	
-		///
-		/////$(".kdbarang").chained(".kdgroup");	
-		/////$(".kdbengkel").chained(".kdcabang");
 		$("#kdsubbengkelin").chained("#kdbengkelin");
 		$("#kdsubbengkeled").chained("#kdbengkeled");
-		//	//$("#tglrange").daterangepicker(); 
 	});
-
-	//empty string means no validation error
-
 </script>
 
 </br>
@@ -170,7 +159,6 @@
 						foreach ($list_spk_tambahan as $row):
 							$no++; ?>
 							<tr>
-
 								<td width="2%"><?php echo $no; ?></td>
 								<td><?php echo $row->nodok; ?></td>
 								<td><?php echo $row->nodokref; ?></td>
