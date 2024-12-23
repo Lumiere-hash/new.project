@@ -814,7 +814,7 @@ class M_inventaris extends CI_Model
 
             $statusses = array(
                 $kode . '1' => $isSPVGA,
-                $kode . '2' => $cekJobLvl ? $superior1 : $isMGR,
+                $kode . '2' => $cekJobLvl ? $superior1 == $this->session->userdata('nik') : $isMGR,
             );
 
             if ($isInputBySales) {

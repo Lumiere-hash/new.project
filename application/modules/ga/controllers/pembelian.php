@@ -2959,6 +2959,118 @@ class Pembelian extends MX_Controller
         redirect("ga/pembelian/form_pembelian/inp_succes");
     }
 
+
+    function reject_approval_quotation($encNodok, $oldStatus)
+    {
+        $nodok = $this->encrypt->decode(hex2bin(trim($encNodok)));
+        $nama = $this->session->userdata('nik');
+
+        if (empty($nodok)) {
+            redirect("ga/pembelian/form_sppb");
+        }
+
+        $param3_1_2 = " and nodok='$nodok'";
+        $dtledit = $this->m_pembelian->q_tmp_po_mst_param($param3_1_2)->row_array();
+        $status = trim($dtledit['status']);
+        $nodoktmp = trim($dtledit['nodoktmp']);
+        $nodokSppb = trim($dtledit['nodokref']);
+        
+        $info = array(
+            'status' => $oldStatus,
+        );
+        $infodtl = array(
+            'status' => $oldStatus,
+        );
+        $this->db->where('nodok', $nodoktmp);
+        $this->db->update('sc_trx.po_mst', $info);
+        $this->db->where('nodok', $nodok);
+        $this->db->delete('sc_tmp.po_mst');
+        $this->db->where('nodok', $nodok);
+        $this->db->delete('sc_tmp.po_dtl');
+        $this->db->where('nodok', $nodok);
+        $this->db->delete('sc_tmp.po_dtlref');
+        
+        $info2 = array(
+            'status' => 'C',
+            'cancelby' => $nama,
+            'canceldate' => date('Y-m-d H:i:s'),
+        );
+        $this->db->where('nodok', $nodoktmp);
+        $this->db->update('sc_trx.po_mst', $info2);
+    
+        $info3 = array(
+            'status' => 'F',
+            'canceldate' => date('Y-m-d H:i:s'),
+            'cancelby' => $nama,
+        );
+        $this->db->where('nodok', $nodok);
+        $this->db->update('sc_tmp.po_mst', $info3);
+        
+        $info4 = array(
+            'status' => 'P',
+            'approvaldate' => date('Y-m-d H:i:s'),
+            'approvalby' => $nama,
+        );
+        $this->db->where('nodok', $nodokSppb);
+        $this->db->update('sc_trx.sppb_mst', $info4);
+        redirect("ga/pembelian/form_sppb/cancel_succes");
+    }
+
+    function reject_approval_po($encNodok, $oldStatus){
+        $nodok = $this->encrypt->decode(hex2bin(trim($encNodok)));
+        $nama = $this->session->userdata('nik');
+
+        if (empty($nodok)) {
+            redirect("ga/pembelian/form_pembelian");
+        }
+
+        $param3_1_2 = " and nodok='$nodok'";
+        $dtledit = $this->m_pembelian->q_tmp_po_mst_param($param3_1_2)->row_array();
+        $status = trim($dtledit['status']);
+        $nodoktmp = trim($dtledit['nodoktmp']);
+        $nodokSppb = trim($dtledit['nodokref']);
+
+        $info = array(
+            'status' => $oldStatus,
+        );
+        $infodtl = array(
+            'status' => $oldStatus,
+        );
+        $this->db->where('nodok', $nodoktmp);
+        $this->db->update('sc_trx.po_mst', $info);
+        $this->db->where('nodok', $nodok);
+        $this->db->delete('sc_tmp.po_mst');
+        $this->db->where('nodok', $nodok);
+        $this->db->delete('sc_tmp.po_dtl');
+        $this->db->where('nodok', $nodok);
+        $this->db->delete('sc_tmp.po_dtlref');
+        
+        $info2 = array(
+            'status' => 'C',
+            'cancelby' => $nama,
+            'canceldate' => date('Y-m-d H:i:s'),
+        );
+        $this->db->where('nodok', $nodoktmp);
+        $this->db->update('sc_trx.po_mst', $info2);
+    
+        $info3 = array(
+            'status' => 'F',
+            'canceldate' => date('Y-m-d H:i:s'),
+            'cancelby' => $nama,
+        );
+        $this->db->where('nodok', $nodok);
+        $this->db->update('sc_tmp.po_mst', $info3);
+        
+        $info4 = array(
+            'status' => 'P',
+            'approvaldate' => date('Y-m-d H:i:s'),
+            'approvalby' => $nama,
+        );
+        $this->db->where('nodok', $nodokSppb);
+        $this->db->update('sc_trx.sppb_mst', $info4);
+        redirect("ga/pembelian/form_pembelian/cancel_succes");
+    }
+
     function final_batal_po()
     {
         $enc_nik = trim($this->uri->segment(4));
@@ -3048,7 +3160,12 @@ class Pembelian extends MX_Controller
             $row[] = $lpo->nmbarang;
             $row[] = $lpo->keterangan;
             $row[] = $lpo->ketstatus;
-            if (in_array(trim($lpo->status), array('P', 'S', ))) {
+            if (in_array(trim($lpo->status), array('P', 'S', )) && $userhr == 0 ) {
+                $row[] = '
+                    <a class="btn btn-sm btn-default" href="' . site_url('ga/pembelian/detail_po_atk') . '/' . $enc_nodok . '" title=Detail PO"><i class="fa fa-bars"></i> </a>
+                    <a class="btn btn-sm btn-warning" target="_blank" href="' . site_url('ga/pembelian/sti_po_final') . '/' . trim($lpo->nodok) . '" title="Cetak PO"><i class="fa fa-print" ></i> </a>
+                    ';
+            } else if (in_array(trim($lpo->status), array('P', 'S', )) && $userhr > 0) {
                 $row[] = '
                     <a class="btn btn-sm btn-default" href="' . site_url('ga/pembelian/detail_po_atk') . '/' . $enc_nodok . '" title=Detail PO"><i class="fa fa-bars"></i> </a>
                     <a class="btn btn-sm btn-warning" target="_blank" href="' . site_url('ga/pembelian/sti_po_final') . '/' . trim($lpo->nodok) . '" title="Cetak PO"><i class="fa fa-print" ></i> </a>

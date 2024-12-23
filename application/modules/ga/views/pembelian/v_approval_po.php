@@ -180,12 +180,15 @@
 <div class="row">
 	<div class="col-sm-1">
 		<a href="<?php echo site_url("ga/pembelian/clear_tmp_po/$enc_nik/$oldStatus") ?>"
-			onclick="return confirm('TEKAN (OK) JIKA ANDA SETUJU, JIKA TIDAK TEKAN (BATAL)')" class="btn btn-default"
+			onclick="return confirm('TEKAN (OK) JIKA ANDA SETUJU, JIKA TIDAK TEKAN (CANCEL)')" class="btn btn-default"
 			style="margin:10px; color:#000000;">Kembali</a>
 	</div>
 	<a href="<?php echo site_url("ga/pembelian/final_approval_po/$enc_nik/$nextStatus") ?>"
 		onclick="return confirm('Anda Yakin Dengan Inputan Yang Anda Buat?')" class="btn btn-success pull-right"
 		style="margin:10px; color:#ffffff;">Approval</a>
+	<a href="<?php echo site_url("ga/pembelian/reject_approval_po/$enc_nik/$oldStatus") ?>"
+		onclick="return confirm('TEKAN (OK) JIKA ANDA SETUJU, JIKA TIDAK TEKAN (CANCELs)?')" class="btn btn-warning pull-right"
+		style="margin:10px; color:#ffffff;">Reject</a>
 	<div class="col-xs-12">
 		<div class="box">
 			<div class="box-header" align="center">

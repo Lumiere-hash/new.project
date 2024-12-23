@@ -168,6 +168,9 @@
 	<a href="<?php echo site_url("ga/pembelian/final_approval_quotation/$enc_nik/$nextStatus/$nodoksppb") ?>"
 		onclick="return confirm('Anda Yakin Dengan Inputan Yang Anda Buat?')" class="btn btn-success pull-right"
 		style="margin:10px; color:#ffffff;">Approval</a>
+	<a href="<?php echo site_url("ga/pembelian/reject_approval_quotation/$enc_nik/$oldStatus") ?>"
+		onclick="return confirm('Anda Yakin Dengan Inputan Yang Anda Buat?')" class="btn btn-warning pull-right"
+		style="margin:10px; color:#ffffff;">Reject</a>
 	<div class="col-xs-12">
 		<div class="box">
 			<div class="box-header" align="center">
