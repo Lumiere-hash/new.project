@@ -42,11 +42,15 @@
 	//empty string means no validation error
 
 </script>
-<div class="pull-right">Versi: <?php echo $version; ?></div>
+<div class="pull-right">Versi:
+	<?php echo $version; ?>
+</div>
 </br>
 
 
-<legend><?php echo $title; ?></legend>
+<legend>
+	<?php echo $title; ?>
+</legend>
 <?php echo $message; ?>
 <div class="row">
 	<!--div class="col-sm-3">
@@ -62,9 +66,8 @@
 			<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
 				<li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal" data-target="#FILTER_MODAL"
 						href="#"><i class="fa fa-search"></i>Filter Pencarian</a></li>
-				<li role="presentation"><a role="menuitem" tabindex="-1"
-						href="<?php echo site_url("ga/inventaris/input_view_perawatanasset") ?>"><i
-							class="fa fa-plus"></i>Input Perawatan</a></li>
+				<li role="presentation"><a role="menuitem" tabindex="-1" href="<?php echo site_url("
+						ga/inventaris/input_view_perawatanasset") ?>"><i class="fa fa-plus"></i>Input Perawatan</a></li>
 				<!--a href="<?php echo site_url('ga/kendaraan/form_msubbengkel') . '/' . trim($row->kdbengkel); ?>" class="btn btn-info  btn-sm">
 					<i class="fa fa-edit"></i> DETAIL
 					</a--->
@@ -104,44 +107,67 @@
 							$no++; ?>
 							<tr>
 
-								<td width="2%"><?php echo $no; ?></td>
-								<td><?php echo $row->nodok; ?></td>
-								<td><?php echo $row->nmbarang; ?></td>
-								<td><?php echo $row->numberitem; ?></td>
-								<td width="10%"><?php echo date('d-m-Y', strtotime(trim($row->tgldok))); ?></td>
-								<td><?php echo $row->nmstatus; ?></td>
-								<td><?php echo $row->nmpemohon; ?></td>
-								<td><?php echo $row->keterangan; ?></td>
-								<td><?php echo $row->nmspk; ?></td>
+								<td width="2%">
+									<?php echo $no; ?>
+								</td>
+								<td>
+									<?php echo $row->nodok; ?>
+								</td>
+								<td>
+									<?php echo $row->nmbarang; ?>
+								</td>
+								<td>
+									<?php echo $row->numberitem; ?>
+								</td>
+								<td width="10%">
+									<?php echo date('d-m-Y', strtotime(trim($row->tgldok))); ?>
+								</td>
+								<td>
+									<?php echo $row->nmstatus; ?>
+								</td>
+								<td>
+									<?php echo $row->nmpemohon; ?>
+								</td>
+								<td>
+									<?php echo $row->keterangan; ?>
+								</td>
+								<td>
+									<?php echo $row->nmspk; ?>
+								</td>
 								<td width="15%">
 									<a href="<?php echo site_url('ga/inventaris/detail_view_perawatanasset') . '/' . trim($row->nodok); ?>"
 										class="btn btn-default btn-sm" title="Detail"><i class="fa fa-bars"></i></a>
 									<?php if (trim($row->status) == 'P') { ?>
-										<!--a href="<?php echo site_url('ga/inventaris/sti_perawatan_asset/' . trim($row->nodok)); ?>" class="btn btn-warning  btn-sm">	<i class="fa fa-edit"></i> CETAK </a--->
-								<button class="button btn btn-warning  btn-sm"
-									onClick="window.open('<?php echo site_url('ga/inventaris/sti_perawatan_asset/' . trim($row->nodok)); ?>');"
-									title="Cetak"><i class="fa fa-print"></i></button>
-								<?php } ?>
-								<?php $nikToFind = trim($row->nikmohon);
-								if (
-									trim($row->status) == 'A' and array_filter($nikatasan1, function ($item) use ($nikToFind) {
-										return trim($item->nik) === $nikToFind;
-									})
-								) { ?>
-								<a href="<?php echo site_url('ga/inventaris/approval_view_perawatanasset') . '/' . trim($row->nodok); ?>"
-									class="btn btn-success btn-sm"><i class="fa fa-check" title="Approval 1"></i></a>
-								<?php } else if (trim($row->status) == 'A1' and (trim($userhr) > '0')) { ?>
-								<a href="<?php echo site_url('ga/inventaris/approval_view_perawatanasset') . '/' . trim($row->nodok); ?>"
-									class="btn btn-success btn-sm"><i class="fa fa-check" title="Approval 2"></i></a>
-								<?php } ?>
-								<?php if (trim($row->status) == 'I' or trim($row->status) == 'A') { ?>
-								<a href="<?php echo site_url('ga/inventaris/edit_view_perawatanasset') . '/' . trim($row->nodok); ?>"
-									class="btn btn-primary  btn-sm"><i class="fa fa-gear" title="UBAH"></i></a>
-								<a href="<?php echo site_url('ga/inventaris/hapus_view_perawatanasset') . '/' . trim($row->nodok); ?>"
-									class="btn btn-danger btn-sm"><i class="fa fa-trash-o" title="HAPUS"></i></a>
-								<?php } ?>
-							</td>
-						</tr>
+										<?php if (trim($row->kdgroup) == 'KDN') { ?>
+											<button class="button btn btn-warning  btn-sm"
+												onClick="window.open('<?php echo site_url('ga/inventaris/sti_perawatan_asset/' . trim($row->nodok)); ?>');"
+												title="Cetak"><i class="fa fa-print"></i></button>
+										<?php } elseif (trim($row->kdgroup) == 'BRG') { ?>
+											<button class="button btn btn-warning  btn-sm"
+												onClick="window.open('<?php echo site_url('ga/inventaris/sti_perawatan_asset_brg/' . trim($row->nodok)); ?>');"
+												title="Cetak"><i class="fa fa-print"></i></button>
+										<?php }
+									} ?>
+									<?php $nikToFind = trim($row->nikmohon);
+									if (
+										trim($row->status) == 'A' and array_filter($nikatasan1, function ($item) use ($nikToFind) {
+											return trim($item->nik) === $nikToFind;
+										})
+									) { ?>
+										<a href="<?php echo site_url('ga/inventaris/approval_view_perawatanasset') . '/' . trim($row->nodok); ?>"
+											class="btn btn-success btn-sm"><i class="fa fa-check" title="Approval 1"></i></a>
+									<?php } else if (trim($row->status) == 'A1' and (trim($userhr) > '0')) { ?>
+											<a href="<?php echo site_url('ga/inventaris/approval_view_perawatanasset') . '/' . trim($row->nodok); ?>"
+												class="btn btn-success btn-sm"><i class="fa fa-check" title="Approval 2"></i></a>
+									<?php } ?>
+									<?php if (trim($row->status) == 'I' or trim($row->status) == 'A') { ?>
+										<a href="<?php echo site_url('ga/inventaris/edit_view_perawatanasset') . '/' . trim($row->nodok); ?>"
+											class="btn btn-primary  btn-sm"><i class="fa fa-gear" title="UBAH"></i></a>
+										<a href="<?php echo site_url('ga/inventaris/hapus_view_perawatanasset') . '/' . trim($row->nodok); ?>"
+											class="btn btn-danger btn-sm"><i class="fa fa-trash-o" title="HAPUS"></i></a>
+									<?php } ?>
+								</td>
+							</tr>
 						<?php endforeach; ?>
 					</tbody>
 				</table>
@@ -233,8 +259,12 @@
 								<label for="inputsm">JENIS PERAWATAN</label>
 								<select class="form-control input-sm" name="jnsperawatan" id="jnsperawatan" required>
 									<option value="">---PILIH JENIS PERAWATAN--</option>
-									<option value="BK"><?php echo 'BK' . ' || ' . 'BERKALA'; ?></option>
-									<option value="IS"><?php echo 'IS' . ' || ' . 'ISIDENTIL'; ?></option>
+									<option value="BK">
+										<?php echo 'BK' . ' || ' . 'BERKALA'; ?>
+									</option>
+									<option value="IS">
+										<?php echo 'IS' . ' || ' . 'ISIDENTIL'; ?>
+									</option>
 
 								</select>
 							</div>

@@ -1538,6 +1538,15 @@ class Inventaris extends MX_Controller
 		$data['report_file'] = 'assets/mrt/sti_perawatanasset.mrt';
 		$this->load->view("ga/inventaris/sti_v_spk_perawatan", $data);
 	}
+	
+	function sti_perawatan_asset_brg()
+	{
+		$nodok = trim(strtoupper($this->uri->segment(4)));
+		$data['jsonfile'] = "ga/inventaris/json_perawatan_asset/$nodok";
+		$data['report_file'] = 'assets/mrt/sti_perawatanasset_edited.mrt';
+		$this->load->view("ga/inventaris/sti_v_spk_perawatan", $data);
+	}
+
 	function json_perawatan_asset()
 	{
 		$nodok = trim(strtoupper($this->uri->segment(4)));
