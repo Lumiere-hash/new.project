@@ -1543,7 +1543,7 @@ class Inventaris extends MX_Controller
 	{
 		$nodok = trim(strtoupper($this->uri->segment(4)));
 		$data['jsonfile'] = "ga/inventaris/json_perawatan_asset/$nodok";
-		$data['report_file'] = 'assets/mrt/sti_perawatanasset_edited.mrt';
+		$data['report_file'] = 'assets/mrt/sti_perawatanasset_brg.mrt';
 		$this->load->view("ga/inventaris/sti_v_spk_perawatan", $data);
 	}
 
@@ -1804,15 +1804,15 @@ class Inventaris extends MX_Controller
 					<a class="btn btn-sm btn-primary" href="' . site_url('ga/inventaris/inputspk_tambahan') . '/' . $lpo->nodokref . '/' . $lpo->nodok . '" title="Tambahan SPK"><i class="fa fa-gear"></i></a>
 					<a class="btn btn-sm btn-success" href="' . site_url('ga/inventaris/inputspk_pembayaran') . '/' . $lpo->nodok . '" title="Input Pembayaran"><i class="fa fa-money"></i></a>
 					<a class="btn btn-sm btn-primary" href="' . site_url('ga/inventaris/inputspk_faktur') . '/' . $lpo->nodok . '" title="Input Faktur"><i class="fa fa-file-text"></i></a>
-					<a class="btn btn-sm btn-warning" href="' . site_url('ga/inventaris/sti_spk_perawatan') . '/' . $lpo->nodok . '" title="Cetak SPK" target="_blank"><i class="fa fa-print"></i></a>';
+					<a class="btn btn-sm btn-warning" href="' . site_url('ga/inventaris/sti_spk_perawatan') . '/' . $lpo->nodok . '/' . trim($lpo->kdgroup) . '" title="Cetak SPK" target="_blank"><i class="fa fa-print"></i></a>';
 			} else if (in_array(trim($lpo->status), ['P']) and $param_list2 == 0) {
 				$row[] = '
 					<a class="btn btn-sm btn-default" href="' . site_url('ga/inventaris/detail_inputspk') . '/' . $lpo->nodok . '" title="Detail SPK"><i class="fa fa-bars"></i></a>
-					<a class="btn btn-sm btn-warning" href="' . site_url('ga/inventaris/sti_spk_perawatan') . '/' . $lpo->nodok . '" title="Cetak SPK"><i class="fa fa-print"></i></a>';
+					<a class="btn btn-sm btn-warning" href="' . site_url('ga/inventaris/sti_spk_perawatan') . '/' . $lpo->nodok . '/' . trim($lpo->kdgroup) .'" title="Cetak SPK"><i class="fa fa-print"></i></a>';
 			} else if (in_array(trim($lpo->status), ['X', 'P'])) {
 				$row[] = '
 					<a class="btn btn-sm btn-default" href="' . site_url('ga/inventaris/detail_inputspk') . '/' . $lpo->nodok . '" title="Detail SPK"><i class="fa fa-bars"></i></a>
-					<a class="btn btn-sm btn-warning" href="' . site_url('ga/inventaris/sti_spk_perawatan') . '/' . $lpo->nodok . '" title="Cetak SPK" target="_blank"><i class="fa fa-print"></i></a>';
+					<a class="btn btn-sm btn-warning" href="' . site_url('ga/inventaris/sti_spk_perawatan') . '/' . $lpo->nodok . '/' . trim($lpo->kdgroup) .'" title="Cetak SPK" target="_blank"><i class="fa fa-print"></i></a>';
 			} else {
 				$row[] = '
 					<a class="btn btn-sm btn-default" href="' . site_url('ga/inventaris/detail_inputspk') . '/' . $lpo->nodok . '" title="Detail SPK"><i class="fa fa-bars"></i></a>
@@ -3038,12 +3038,11 @@ class Inventaris extends MX_Controller
 		redirect("ga/inventaris/index_spk/reject_succes/$nodok");
 	}
 
-	function sti_spk_perawatan()
+	function sti_spk_perawatan($nodok, $kdgroup)
 	{
 		$this->db->cache_delete('ga', 'inventaris');
-		$nodok = trim(strtoupper($this->uri->segment(4)));
 		$data['jsonfile'] = "ga/inventaris/json_spk_perawatan/$nodok";
-		$data['report_file'] = 'assets/mrt/sti_spk_perawatanasset.mrt';
+		$data['report_file'] = $kdgroup == 'KDN' ? 'assets/mrt/sti_spk_perawatanasset.mrt' : 'assets/mrt/sti_spk_perawatanasset_brg.mrt';
 		$this->load->view("ga/inventaris/sti_v_spk_perawatan", $data);
 	}
 	function json_spk_perawatan()

@@ -123,7 +123,7 @@
               <ClientRectangle>0.4,0.4,7.2,2.2</ClientRectangle>
               <Conditions isList="true" count="0" />
               <Guid>356c934610014090865b24315d98a016</Guid>
-              <ImageBytes>iVBORw0KGgoAAAANSUhEUgAAAwAAAADICAYAAABf0obKAAAABGdBTUEAALGPC/xhBQAAm65JREFU
+              <Image>iVBORw0KGgoAAAANSUhEUgAAAwAAAADICAYAAABf0obKAAAABGdBTUEAALGPC/xhBQAAm65JREFU
 eF7tvX3orlWZNvxMWY1IYTP4ZPVs973L7b7v/Kgnyse3RISJQnikEERkmj6QQipqKGJkYmQKe2tv
 k2koGiySHEmeXgxDpMJE2JQjOckuRPqYDMf21td8LYeNOJY273GstY7rOu/1W9fH/fX7Xff9O/84
 7uu61+e5znWutc5zfV3/7W1//b8dDofD4XA4HI5di//3VWf+CZ/H9o5fcWw0fkHuv2koOjocDodj
@@ -823,7 +823,7 @@ BsCPYfrWvYA0XpTatEkzpkt3yoTCJvlI/cI0Em87ZYNhgC1ppPhwDwai6g1+0zQRommWsjJsOc0q
 XY6HlXzCvXlMAmbJ2xghJ4R0Y/lrZOklPjfS2SYjTWDZavkPabGd1+mChlK8JjTzM9C4gDy21xF5
 qLCJTwwvbJGrHFbObL6so8ijfvSm8tv8Ej+r/9Q1etWTzZfvMa0wofJ2gBNkvFOfky5c8WSfyL7o
 RBunRHfiT6JxmpeBDw11jjCUUfFTSOVC/BllZR4kPhRoP3SyaO+qK4ap42fyjvKV4jRBedVpbk33
-rHMOvvj/Bxk148DBhAkGAAAAAElFTkSuQmCC</ImageBytes>
+rHMOvvj/Bxk148DBhAkGAAAAAElFTkSuQmCC</Image>
               <Margins>0,0,0,0</Margins>
               <Name>Image1</Name>
               <Page isRef="5" />
