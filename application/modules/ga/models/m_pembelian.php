@@ -803,8 +803,8 @@ class M_pembelian extends CI_Model
 			// $isMGR = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B'))->num_rows() > 0;
 			$isMGR = $this->db->query("select * from sc_mst.karyawan where nik='$nikInput' and (nik_atasan in (select nik from sc_mst.karyawan where lvl_jabatan='B' and nik = '$nikLogin') or nik_atasan2 in (select nik from sc_mst.karyawan where lvl_jabatan='B' and nik = '$nikLogin') )")->num_rows() > 0;
 			$isRSM = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'RSM'))->num_rows() > 0;
-			$isGM = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'GMN'))->num_rows() > 0;
-			$isMGRKEU = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'MGRKEU'))->num_rows() > 0;
+			$isGM = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'A02'))->num_rows() > 0;
+			$isMGRKEU = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'FIN01'))->num_rows() > 0;
 			$isDIR = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'A'))->num_rows() > 0;
 			$cekJobLvl = in_array(trim($this->db->get_where('sc_mst.karyawan', array('nik' => $nikInput))->row()->lvl_jabatan), array('B', 'A'));
 
@@ -827,7 +827,7 @@ class M_pembelian extends CI_Model
 			$isInputBySales = $this->db->select('a.*')
 				->from('sc_mst.karyawan a')
 				->where('nik', trim($po->row()->inputby))
-				->where('jabatan', 'AE')
+				->where('jabatan', 'DIS13')
 				->get()->num_rows() > 0;
 
 			$statusses = array(
