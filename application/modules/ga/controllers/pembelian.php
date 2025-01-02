@@ -2521,9 +2521,10 @@ class Pembelian extends MX_Controller
         $qtyminta = (strtoupper(trim($this->input->post('qtyminta'))) == '' ? '0' : strtoupper(trim($this->input->post('qtyminta'))));
         $satkecil = strtoupper($this->input->post('satkecil'));
         $qtykecil = (strtoupper(trim($this->input->post('qtykecil'))) == '' ? '0' : strtoupper(trim($this->input->post('qtykecil'))));
-        $unitprice = (strtoupper(trim($this->input->post('unitprice'))) == '' ? '0' : str_replace(',', '.', (trim($this->input->post('unitprice')))));
-        $checkdisc = strtoupper($this->input->post('checkdisc'));
+        $unitprice=(strtoupper(trim($this->input->post('unitprice')))=='' ? '0' : str_replace(',','.',(trim($this->input->post('unitprice')))));
         $unitprice=str_replace(".","",$unitprice);
+        $checkdisc = strtoupper($this->input->post('checkdisc'));
+        
         if ($checkdisc == 'NO') {
             $disc1 = 0;
             $disc2 = 0;
