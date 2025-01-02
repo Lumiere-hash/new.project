@@ -1,4 +1,3 @@
-<?php var_dump($po_dtl); ?>
 <style>
 .ratakanan { text-align : right; }
 </style>
