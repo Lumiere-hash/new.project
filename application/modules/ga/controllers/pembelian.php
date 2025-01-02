@@ -2523,6 +2523,7 @@ class Pembelian extends MX_Controller
         $qtykecil = (strtoupper(trim($this->input->post('qtykecil'))) == '' ? '0' : strtoupper(trim($this->input->post('qtykecil'))));
         $unitprice = (strtoupper(trim($this->input->post('unitprice'))) == '' ? '0' : str_replace(',', '.', (trim($this->input->post('unitprice')))));
         $checkdisc = strtoupper($this->input->post('checkdisc'));
+        $unitprice=str_replace(".","",$unitprice);
         if ($checkdisc == 'NO') {
             $disc1 = 0;
             $disc2 = 0;
@@ -4818,5 +4819,52 @@ class Pembelian extends MX_Controller
             return;
         }
         $this->output->set_content_type('application/json')->set_status_header(200)->set_output(json_encode(array('message' => 'Data Gagal Disimpan ', 'type' => 'error')));
+    }
+
+    function calculation_remap_detail()
+    {
+        $nama = $this->session->userdata('nik');
+        $request_body = file_get_contents('php://input');
+        $data = json_decode($request_body);
+        if ($data->key == 'KUNCI') {
+            $databalik = $data->key;
+            $dataprocess = $data->body;
+            $dataprocess->qtyminta;
+            $dataprocess->unitprice;
+            $dataprocess->checkdisc;
+            $dataprocess->disc1;
+            $dataprocess->disc2;
+            $dataprocess->disc3;
+            $dataprocess->checkppn;
+            $dataprocess->exppn;
+
+            $info = array(
+                'keterangan' => $dataprocess->keterangan,
+                'unitprice' => $dataprocess->unitprice,
+                'disc1' => $dataprocess->disc1,
+                'disc2' => $dataprocess->disc2,
+                'disc3' => $dataprocess->disc3,
+                'pkp' => $dataprocess->checkppn,
+                'exppn' => $dataprocess->exppn,
+                'satminta' => $dataprocess->satminta,
+                'qtyminta' => $dataprocess->qtyminta,
+                'status' => ''
+            );
+            //$this->db->where('id',$rowid);
+            $this->db->where('nodok', $nama);
+            $this->db->where('kdgroup', $dataprocess->kdgroup);
+            $this->db->where('kdsubgroup', $dataprocess->kdsubgroup);
+            $this->db->where('stockcode', $dataprocess->stockcode);
+            $this->db->update('sc_tmp.po_dtl', $info);
+
+
+            $parampodtl = " and nodok='$nama' and stockcode='$dataprocess->stockcode'";
+            $dtlpodtl = $this->m_pembelian->q_tmp_po_dtl_param($parampodtl)->row_array();
+            echo json_encode(array("enkript" => $databalik, "fill" => $dtlpodtl));
+
+
+        } else {
+            header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
+        }
     }
 }

@@ -224,6 +224,21 @@
 
 		});
 
+		/*		if ($('#ttlbrutto').val()=='') {	var param1 = parseInt(0); } else { var param1 = parseInt($('#ttlbrutto').val().replace(/\./g,'')) ;}
+				if ($('#qtyminta').val()=='') {	var param2 = parseInt(0); } else { var param2 = parseInt($('#qtyminta').val().replace(/\./g,'')); }
+					var subtotal = param1 * param2;
+					var test = formatangkavalue(subtotal);
+					var unitprice = formatangkavalue(param1);
+				$('#ttlbrutto').val(unitprice);   
+				$('#ttlnetto').val(test);   
+				$('[name="satminta"]').val($('#satminta').val()); */
+		//////////////////////////////////////////////
+		/////$('#unitprice').val(formatangkavalue($('#unitprice').val())); 
+		/////$('#ttlbrutto').val(formatangkavalue($('#ttlbrutto').val())); 
+		/////$('#ttldpp').val(formatangkavalue($('#ttldpp').val())); 
+		/////$('#ttlnetto').val(formatangkavalue($('#ttlnetto').val())); 
+		/////$('#ttlppn').val(formatangkavalue($('#ttlppn').val())); 
+		/////$('#ttldiskon').val(formatangkavalue($('#ttldiskon').val())); 
 		$('#ttlbrutto,#disc1,#disc2,#disc3').keyup(function () {
 
 			if ($('#ttlbrutto').val() == '') {
@@ -236,12 +251,12 @@
 				$('#unitprice').prop('readonly', false);
 			} else {
 				var param1 = parseInt($('#ttlbrutto').val().replace(/\./g, ''));
-				// $('#satminta').prop('readonly', true);
-				// $('#satminta2').prop('readonly', true);
-				// $('#checkdiskon').prop('readonly', true);
-				// $('#checkppn').prop('readonly', true);
-				// $('#checkexppn').prop('disabled', true);
-				// $('#unitprice').prop('readonly', true);
+				$('#satminta').prop('readonly', true);
+				$('#satminta2').prop('readonly', true);
+				$('#checkdiskon').prop('readonly', true);
+				$('#checkppn').prop('readonly', true);
+				$('#checkexppn').prop('disabled', true);
+				$('#unitprice').prop('readonly', true);
 			}
 			if ($('#qtyminta').val() == '') { var param2 = parseInt(0); } else { var param2 = parseInt($('#qtyminta').val().replace(/\./g, '')); }
 			if ($('#disc1').val() == '') { var paramdisc1 = parseInt(0); } else { var paramdisc1 = parseInt($('#disc1').val().replace(/\./g, '')); }
@@ -303,7 +318,14 @@
 			$('#ttldiskon').val(formatangkavalue(totaldiskon));
 			$('#ttlppn').val(formatangkavalue(totalppn));
 			$('#ttlnetto').val(formatangkavalue(vattlnetto));
+
+			//	$('#ttlbruttoview').val(test);
+			//	var subtotal = formatangka(subtotalv);
+			//	console.log(subtotal);
+			//	console.log(test);
+			//	console.log($('#satminta').val());
 			$('[name="satminta"]').val($('#satminta').val());
+			///alert($('#ttlbrutto'));
 
 
 		});
@@ -343,7 +365,6 @@
 	   }
 	   objek.value = c;
 	}	
-	*/
 	
 	function formatangkavalue(objek) {
 	   a = objek.toString();
@@ -366,6 +387,7 @@
 	  return objek;
 	 
 	}	
+	*/
 
 </script>
 
@@ -458,14 +480,24 @@
 											<div class="col-sm-8">
 												<input type="number" id="qtyminta" name="qtyminta"
 													value="<?php echo trim($po_dtl['qtyminta']); ?>" placeholder="0"
-													class="form-control drst cal">
+													class="form-control drst">
 											</div>
 										</div>
+										<!---?php if (empty(trim($po_dtl['satminta'])) or trim($po_dtl['satminta'])=='' ) { ?>
+							<div class="form-group">
+								<label class="col-sm-4" for="inputsm">Kode Satuan Permintaan</label>	
+								<div class="col-sm-8">
+									<select class="form-control input-sm"  name="satminta" id="satminta" required>
+									 <!--option  value="">---PILIH KDSATUAN || NAMA SATUAN--</option-->
+										<!--/select>
+								</div>
+							</div>
+						<!--?php } else { ?--->
 
 									<div class="form-group">
 										<label class="col-sm-4" for="inputsm">Kode Satuan Permintaan</label>
 										<div class="col-sm-8">
-											<select class="form-control input-sm cal" name="satminta" id="satminta"
+											<select class="form-control input-sm" name="satminta" id="satminta"
 												required>
 												<option value="">---PILIH KDSATUAN || NAMA SATUAN--</option>
 												<?php foreach ($trxqtyunit as $sc) { ?>
@@ -499,7 +531,7 @@
 										<div class="col-sm-4">
 											<input type="number" id="unitprice" name="unitprice"
 												value="<?php echo $po_dtl['unitprice']; ?>"
-												placeholder="0" class="form-control ratakanan cal" required>
+												placeholder="0" class="form-control ratakanan" required>
 										</div>
 									</div>
 									<!---?php } ?---->
@@ -509,7 +541,7 @@
 										<div class="col-sm-4">
 											<input type="number" id="ttlbrutto" name="ttlbrutto"
 												value="<?php echo str_replace('.', ',', trim($po_dtl['ttlbrutto'])); ?>"
-												placeholder="0" class="form-control ratakanan cal" readonly>
+												placeholder="0" class="form-control ratakanan" readonly>
 										</div>
 										<span class="col-sm-4">
 											<label class="col-sm-4">DISKON (%)</label>
@@ -526,6 +558,12 @@
 											</span>
 										</span>
 
+										<!--span  class="col-sm-3"> 
+									<label class="col-sm-2">DISKON</label>
+									<span class="col-sm-4"> 
+									<input type="checkbox" name="checkdiskon" class="col-sm-1" value="" >
+									</span>
+								</span--->
 									</div>
 									<div class="form-group row diskonform">
 										<label class="col-sm-4">DISKON</label>
@@ -534,21 +572,21 @@
 											<input type="number"
 												value="<?php echo str_replace('.', ',', trim($po_dtl['disc1'])); ?>"
 												id="disc1" name="disc1" placeholder="0" value="0"
-												class="form-control col-sm-1 ratakanan cal">
+												class="form-control col-sm-1 ratakanan">
 										</span>
 										<span class="col-sm-2">
 											<label class="col-sm-4">2+</label>
 											<input type="number"
 												value="<?php echo str_replace('.', ',', trim($po_dtl['disc2'])); ?>"
 												id="disc2" name="disc2" placeholder="0" value="0"
-												class="form-control col-sm-1 ratakanan cal">
+												class="form-control col-sm-1 ratakanan">
 										</span>
 										<span class="col-sm-2">
 											<label class="col-sm-4">3+</label>
 											<input type="number"
 												value="<?php echo str_replace('.', ',', trim($po_dtl['disc3'])); ?>"
 												id="disc3" name="disc3" placeholder="0" value="0"
-												class="form-control col-sm-1 ratakanan cal">
+												class="form-control col-sm-1 ratakanan">
 										</span>
 									</div>
 									<div class="form-group row">
@@ -564,7 +602,7 @@
 											<span class="col-sm-6">
 												<input type="hidden" id="pkp"
 													value="<?php echo trim($po_mst['pkp']); ?>" name="pkp" readonly>
-												<select class="form-control col-sm-12 cal" id="checkppn" disabled>
+												<select class="form-control col-sm-12" id="checkppn" disabled>
 													<option <?php if (trim($po_mst['pkp']) == 'NO') {
 														echo 'selected';
 													} ?>
@@ -590,7 +628,7 @@
 											<span class="col-sm-6">
 												<input type="hidden" name="exppn"
 													value="<?php echo trim($po_mst['exppn']); ?>" readonly>
-												<select class="form-control col-sm-12 cal" name="exppn" id="checkexppn">
+												<select class="form-control col-sm-12" name="exppn" id="checkexppn">
 													<option <?php if ('INC' == trim($po_dtl['exppn'])) {
 														echo 'selected';
 													} ?> value="INC"> INCLUDE </option>
@@ -624,7 +662,7 @@
 										<div class="col-sm-8">
 											<textarea type="text" id="keterangan" name="keterangan"
 												style="text-transform:uppercase"
-												class="form-control cal"><?php echo trim($po_dtl['keterangan']); ?></textarea>
+												class="form-control"><?php echo trim($po_dtl['keterangan']); ?></textarea>
 										</div>
 									</div>
 
@@ -649,91 +687,3 @@
 		</form>
 	</div>
 </div>
-<script>
-	function calcutlation() {
-		bqtyminta = $("#qtyminta").val().toString();
-		bunitprice = $("#unitprice").val().toString();
-		bdisc1 = $("#disc1").val().toString();
-		bdisc2 = $("#disc2").val().toString();
-		bdisc3 = $("#disc3").val().toString();
-		bqtykecil = $("#qtykecil").val().toString();
-		valqtykecil = parseInt(bqtykecil.replace(/[^-?(\d*\)?\d+$;]/g,''));
-		valqtyminta = parseInt(bqtyminta.replace(/[^-?(\d*\)?\d+$;]/g,''));
-		let valunitprice = parseFloat(bunitprice.replace(/\./g, '').replace(',', '.'));
-		valdisc1 = parseInt(bdisc1.replace(/[^-?(\d*\)?\d+$;]/g,''));
-		valdisc2 = parseInt(bdisc2.replace(/[^-?(\d*\)?\d+$;]/g,''));
-		valdisc3 = parseInt(bdisc3.replace(/[^-?(\d*\)?\d+$;]/g,''));
-		checkdisc = $("#checkdisc").val();
-		checkppn = $("#checkppn").val();
-		exppn = $("#exppn").val();
-		satminta = $("#satminta").val();
-		satkecil = $("#satkecil").val();
-		kdgroup = $("#mpkdgroup").val();
-		kdsubgroup = $("#mpkdsubgroup").val();
-		stockcode = $("#mpkdbarang").val();
-		keterangan = $("#keterangan").val();
-
-		$("#loadMe").modal({
-			backdrop: "static", //remove ability to close modal with click
-			keyboard: false, //remove option to close with keyboard
-			show: true //Display loader!
-		});
-		var urlx = "<?php echo site_url('ga/pembelian/calculation_remap_detail')?>";
-		$.ajax(urlx, {
-			type: "POST",
-			data: JSON.stringify({
-				'success' : true,
-				'key': 'KUNCI',
-				'message' : '',
-				'body' : {
-					qtyminta: valqtyminta,
-					qtykecil: valqtykecil,
-					unitprice: valunitprice,
-					checkdisc: checkdisc,
-					disc1: valdisc1,
-					disc2: valdisc2,
-					disc3: valdisc3,
-					checkppn: checkppn,
-					exppn: exppn,
-					satminta: satminta,
-					satkecil: satkecil,
-					kdgroup: kdgroup,
-					kdsubgroup: kdsubgroup,
-					stockcode: stockcode,
-					keterangan: keterangan,
-				},
-			}),
-			contentType: "application/json",
-		}).done(function (data) {
-			var js = jQuery.parseJSON(data);
-			if( js.enkript === 'KUNCI') {
-				$('[name="ttlbrutto"]').val(js.fill.ttlbrutto);
-				$('[name="ttlnetto"]').val(js.fill.ttlnetto);
-				$('[name="ttldpp"]').val(js.fill.ttldpp);
-				$('[name="ttldiskon"]').val(js.fill.ttldiskon);
-				$('[name="ttlppn"]').val(js.fill.ttlppn);
-				$('[name="keterangan"]').val(js.fill.keterangan);
-
-
-				console.log(js.fill.ttlbrutto);
-				console.log(js.fill.unitprice);
-				console.log(js.fill.disc1);
-				console.log('success');
-			} else { console.log('Fail Key');}
-			$("#loadMe").modal("hide");
-		}).fail(function (xhr, status, error) {
-			alert("Could not reach the API: " + error);
-			$("#loadMe").modal("hide");
-			return true;
-		});
-
-	}
-	$(document).ready(function(){
-		$(".cal").change(function(){
-			calcutlation();
-			console.log(('Kalkulasi'))
-		});
-
-		
-	})
-</script>
