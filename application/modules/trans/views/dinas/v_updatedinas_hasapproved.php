@@ -313,7 +313,7 @@
                 jenis_tujuan: {
                     required: true,
                 },
-                tujuan_kota: {
+                'tujuan_kota[]': {
                     required: true,
                 },
                 kdkategori: {
