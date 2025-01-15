@@ -184,6 +184,8 @@ class Pk extends MX_Controller
 
 		$data['list_nik'] = $this->m_akses->q_master_akses_karyawan($param_list_akses)->result();
 		$data['list_tx_pa'] = $this->m_pk->q_view_generate_kriteria($paramnya)->result();
+
+		$data['year'] = $this->m_pk->q_option(['kdoption' => 'PKPAPY'])->row()-value3;
 		$this->template->display('pk/pk/v_list_form_pa', $data);
 
 		$paramerror = " and userid='$nama'";
