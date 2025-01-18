@@ -6,6 +6,10 @@
         color:#ffffff;
     }
 
+    .m-1{
+        margin: 2px;
+    }
+
 </style>
 <script type="text/javascript">
     $(function() {
@@ -51,71 +55,74 @@
         </div>
         <!--/div-->
     </div><!-- /.box-header -->
-
-</div>
-</br>
-<div class="col-sm-12">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
-                <div class="box-header">
-                    <legend><?php echo $title;?></legend>
-                </div><!-- /.box-header -->
-                <div class="box-body table-responsive" style='overflow-x:scroll;'>
-                    <table id="example1" class="table table-bordered table-striped" >
-                        <thead>
-                        <tr>
-                            <th width="2%">No.</th>
-                            <th>KODE KENDARAAN</th>
-                            <th>NAMA KENDARAAN</th>
-                            <th>NOPOL</th>
-                            <th>BASE</th>
-                            <th>BERLAKU STNKB</th>
-                            <th>BERLAKU PKB STNKB</th>
-                            <th>KIR</th>
-                            <th>ASURANSI</th>
-                            <th>HOLD</th>
-                            <th>Aksi</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php $no=0; foreach($list_mstkendaraan as $row): $no++;?>
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-success">
+                    <div class="box-header">
+                        <legend><?php echo $title;?></legend>
+                    </div><!-- /.box-header -->
+                    <div class="box-body " '>
+                        <table id="example1" class="table table-bordered table-striped" >
+                            <thead>
                             <tr>
+                                <th width="2%">No.</th>
+                                <th>KODE KENDARAAN</th>
+                                <th>NAMA KENDARAAN</th>
+                                <th>NOPOL</th>
+                                <th>BASE</th>
+                                <th>BERLAKU STNKB</th>
+                                <th>BERLAKU PKB STNKB</th>
+                                <th>KIR</th>
+                                <th>ASURANSI</th>
+                                <th>HOLD</th>
+                                <th>Aksi</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php $no=0; foreach($list_mstkendaraan as $row): $no++;?>
+                                <tr>
 
-                                <td width="2%"><?php echo $no;?></td>
-                                <td><?php echo $row->nodok;?></td>
-                                <td><?php echo $row->nmbarang;?></td>
-                                <td><?php echo $row->nopol;?></td>
-                                <td><?php echo $row->locaname;?></td>
-                                <td><?php echo $row->expstnkb;?></td>
-                                <td><?php echo $row->exppkbstnkb;?></td>
-                                <td><?php echo $row->ujikir;?></td>
-                                <td><?php echo $row->asuransi;?></td>
-                                <td><?php echo $row->hold_item;?></td>
-                                <td width="10%">
-                                    <a href="<?php
-                                    $enc_nodok=bin2hex($this->encrypt->encode(trim($row->nodok)));
-                                    echo site_url('ga/kendaraan/cv_edit_mstkendaraan').'/'.$enc_nodok;?>" class="btn btn-primary  btn-sm" title="Ubah Data Master Kendaraan">	<i class="fa fa-gear"></i> </a>
-                                    <?php /*
+                                    <td width="2%"><?php echo $no;?></td>
+                                    <td><?php echo $row->nodok;?></td>
+                                    <td><?php echo $row->nmbarang;?></td>
+                                    <td><?php echo $row->nopol;?></td>
+                                    <td><?php echo $row->locaname;?></td>
+                                    <td><?php echo $row->expstnkb;?></td>
+                                    <td><?php echo $row->exppkbstnkb;?></td>
+                                    <td><?php echo $row->ujikir;?></td>
+                                    <td><?php echo $row->asuransi;?></td>
+                                    <td><?php echo $row->hold_item;?></td>
+                                    <td width="10%">
+                                        <a href="<?php
+                                        $enc_nodok=bin2hex($this->encrypt->encode(trim($row->nodok)));
+                                        echo site_url('ga/kendaraan/cv_edit_mstkendaraan').'/'.$enc_nodok;?>" class="btn btn-primary  btn-sm m-1" title="Ubah Data Master Kendaraan">	<i class="fa fa-gear"></i> </a>
+                                        <?php /*
                                     <a href="<?php
                                     $enc_nodok=bin2hex($this->encrypt->encode(trim($row->nodok)));
                                     echo site_url('ga/kendaraan/cv_delete_mstkendaraan').'/'.$enc_nodok;?>" class="btn btn-danger  btn-sm" title="Hapus Data Master Kendaraan">	<i class="fa fa-trash-o"></i> </a>
                                     */ ?>
-                                    <a href="<?php
-                                    $enc_nodok=bin2hex($this->encrypt->encode(trim($row->nodok)));
-                                    echo site_url('ga/kendaraan/cv_detail_mstkendaraan').'/'.$enc_nodok;?>" class="btn btn-default  btn-sm" title="Detail Data Master Kendaraan">	<i class="fa fa-bars"></i> </a>
+                                        <a href="<?php
+                                        $enc_nodok=bin2hex($this->encrypt->encode(trim($row->nodok)));
+                                        echo site_url('ga/kendaraan/cv_detail_mstkendaraan').'/'.$enc_nodok;?>" class="btn btn-default  btn-sm m-1" title="Detail Data Master Kendaraan">	<i class="fa fa-bars"></i> </a>
 
+                                        <a href="javascript:void(0)" data-href="<?php
+                                        $enc_nodok=bin2hex($this->encrypt->encode(trim($row->nodok)));
+                                        echo site_url('ga/kendaraan/maintenance').'/'.$enc_nodok;?>" class="btn btn-facebook btn-sm m-1 maintenance" title="Detail SPK Kendaraan">	<i class="fa fa-wrench"></i> </a>
 
-                                </td>
-                            </tr>
-                        <?php endforeach;?>
-                        </tbody>
-                    </table>
-                </div><!-- /.box-body -->
-            </div><!-- /.box -->
+                                    </td>
+                                </tr>
+                            <?php endforeach;?>
+                            </tbody>
+                        </table>
+                    </div><!-- /.box-body -->
+                </div><!-- /.box -->
+            </div>
         </div>
     </div>
 </div>
+</br>
+
 
 <!-- Modal Input Master Kendaraan & STNKB -->
 <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -327,10 +334,37 @@
         </div>
     </div>
 </div>
-
+<div class="modal fade" id="modify-data" role="dialog" aria-hidden="true"></div>
 
 <script>
-
+    function loadmodal(url) {
+        $('div#modify-data')
+            .empty()
+            .load(url, {}, function (response, status, xhr) {
+                if (status === 'error') {
+                    Swal.mixin({
+                        customClass: {
+                            confirmButton: 'btn btn-sm btn-success m-1',
+                            cancelButton: 'btn btn-sm btn-warning m-1',
+                            denyButton: 'btn btn-sm btn-danger m-1',
+                        },
+                        buttonsStyling: false,
+                    }).fire({
+                        position: 'top',
+                        icon: 'error',
+                        title: 'Gagal Memuat Detail',
+                        html: (xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : xhr.statusText),
+                        showCloseButton: true,
+                        showConfirmButton: false,
+                        showDenyButton: true,
+                        denyButtonText: `Tutup`,
+                    }).then(function () {
+                    });
+                } else {
+                    $('div#modify-data').modal('show');
+                }
+            });
+    }
 
 
 
@@ -344,6 +378,11 @@
         minViewMode: "years"
 
     });
-
+    $(document).ready(function (){
+        $('a.maintenance').on('click', function(){
+            var row = $(this);
+            loadmodal(row.data('href'));
+        })
+    })
 
 </script>

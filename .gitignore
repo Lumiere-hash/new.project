@@ -14,3 +14,7 @@ database/*.backup
 **/backup/
 /.idea
 application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt
+assets/captcha/**
+.history/
+.vscode/
+assets/uploads

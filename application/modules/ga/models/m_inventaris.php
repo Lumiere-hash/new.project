@@ -443,6 +443,7 @@ class M_inventaris extends CI_Model
                                         coalesce(branch_fax     ,'')::text as branch_fax ,
                                         coalesce(nikmohon     ,'')::text as nikmohon,
                                         coalesce(nmmohon     ,'')::text as nmmohon,
+                                        coalesce(image,'')::text as image,
                                         coalesce(km_awal     ,0)::text as km_awal ,
                                         coalesce(km_akhir     ,0)::text as km_akhir ,
                                         coalesce(ttlservis     ,0)::text as ttlservis, 								
@@ -456,10 +457,12 @@ class M_inventaris extends CI_Model
                                         coalesce(kdmesin,'')::text as kdmesin,								
                                         coalesce(jenisperawatan,'')::text as jenisperawatan,								
                                         coalesce(nmperawatanasset,'')::text as nmperawatanasset,
-                                        coalesce(uraian,'')::text as uraian_status				
+                                        coalesce(uraian,'')::text as uraian_status,
+                                        idfaktur
                                         from (
-                                    select a.*,b.nmbarang,b.kdgudang,c.nmbengkel,c.addbengkel,c.city,c.phone1,c.phone2,b.nopol,d.address as branch_address,d.phone1 as branch_phone1,d.phone2 as branch_phone2,d.fax as branch_fax,f.nmlengkap as nmmohon,e.nikmohon
+                                    select a.*,b.nmbarang,b.kdgudang,coalesce('profile/'||f.image,'user.png') AS image,c.nmbengkel,c.addbengkel,c.city,c.phone1,c.phone2,b.nopol,d.address as branch_address,d.phone1 as branch_phone1,d.phone2 as branch_phone2,d.fax as branch_fax,f.nmlengkap as nmmohon,e.nikmohon
                                     ,b.kdrangka,b.kdmesin,e.jnsperawatan as jenisperawatan,case when e.jnsperawatan='BK' then 'BERKALA' when e.jnsperawatan='IS' then 'ISIDENTIL' else '' end as nmperawatanasset, g.uraian
+                                    ,hh.idfaktur
                                     from sc_his.perawatanspk a
                                     left outer join sc_mst.mbarang b on a.stockcode=b.nodok and a.kdgroup=b.kdgroup and a.kdsubgroup=b.kdsubgroup
                                     left outer join sc_mst.msubbengkel c on c.kdbengkel=a.kdbengkel and c.kdsubbengkel=a.kdsubbengkel
@@ -467,6 +470,9 @@ class M_inventaris extends CI_Model
                                     left outer join sc_his.perawatanasset e on a.nodokref=e.nodok
                                     left outer join sc_mst.karyawan f on f.nik=e.nikmohon
                                     left outer join sc_mst.trxtype g on g.kdtrx=a.status and g.jenistrx='PASSET'
+                                    left outer join lateral (
+                                        select idfaktur from sc_his.perawatan_lampiran xx WHERE xx.nodok = a.nodok AND xx.nodokref=a.nodokref LIMIT 1
+                                    ) hh ON TRUE
                                     ) x
                                     where nodok is not null  $param order by nodokref desc,nodok desc
 							");
@@ -892,5 +898,51 @@ class M_inventaris extends CI_Model
                                 order by 
                                     nodok desc
                                 ");
+    }
+
+    function q_perawatanasset_where($clause)
+    {
+        return $this->db->query("
+            SELECT * FROM(
+                 select
+                     a.nodok,
+                     a.dokref,
+                     a.kdgroup,
+                     a.kdsubgroup,
+                     a.stockcode,
+                     a.descbarang,
+                     a.nikpakai,
+                     a.nikmohon,
+                     a.jnsperawatan,
+                     a.tgldok,
+                     a.keterangan,
+                     a.laporanpk,
+                     a.laporanpsp,
+                     a.laporanksp,
+                     a.inputdate,
+                     a.inputby,
+                     a.updatedate,
+                     a.updateby,
+                     a.approvaldate,
+                     a.approvalby,
+                     a.canceldate,
+                     a.cancelby,
+                     a.nodoktmp,
+                     a.status,
+                     coalesce(a.km_awal, 0) AS km_awal,
+                     coalesce(a.km_akhir, 0) AS km_akhir,
+                     b.nmlengkap AS pemohon,
+                     bb.nmlengkap AS pengguna,
+                     case
+                         when a.jnsperawatan='BK' then 'BERKALA'
+                         when a.jnsperawatan='IS' then 'ISIDENTIL'
+                         else '-' end as nmperawatanasset,
+                     c.uraian AS nmstatus
+                 from sc_his.perawatanasset a
+                LEFT OUTER JOIN sc_mst.karyawan b on b.nik = a.nikmohon
+                LEFT OUTER JOIN sc_mst.karyawan bb on bb.nik = a.nikpakai
+                left outer join sc_mst.trxtype c on c.kdtrx=a.status and c.jenistrx='PASSET'
+            ) a WHERE TRUE
+        ".$clause);
     }
 }

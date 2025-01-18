@@ -3822,6 +3822,9 @@ class Inventaris extends MX_Controller
 	{
 		$data['title'] = "FORM MASTER MAPPING SATUAN BARANG & ATK";
 		$kdgroup = strtoupper($this->input->post('kdgroup'));
+        foreach ($kdgroup as $index => $item) {
+
+        }
 		$kdsubgroup = strtoupper($this->input->post('kdsubgroup'));
 		$stockcode = strtoupper($this->input->post('kdbarang'));
 
