@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c.xml" beforeDir="false" />
@@ -111,6 +112,10 @@
       <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_sppb_1.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/captcha/1736128688.9466.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/captcha/1736128698.0866.jpg" beforeDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/models/m_uang_makan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/m_uang_makan.php" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -841,8 +846,13 @@
       <workItem from="1719798763755" duration="26480000" />
       <workItem from="1728354664078" duration="13009000" />
       <workItem from="1730856777896" duration="9343000" />
+<<<<<<< Updated upstream
       <workItem from="1731030776758" duration="4742000" />
       <workItem from="1736903743008" duration="45558000" />
+=======
+      <workItem from="1731030776758" duration="5357000" />
+      <workItem from="1731039315855" duration="143000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>

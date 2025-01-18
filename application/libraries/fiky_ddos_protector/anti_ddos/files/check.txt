@@ -1,1 +1,9 @@
+<<<<<<< Updated upstream
 <?php $ad_num_query =1 ; $ad_sec_query =32; ?>
+=======
+<<<<<<< HEAD
+<?php $ad_num_query =1 ; $ad_sec_query =58; ?>
+=======
+<?php $ad_num_query =1 ; $ad_sec_query =43; ?>
+>>>>>>> c50cc20d40d000da5bac572c3f350440adc319c0
+>>>>>>> Stashed changes

@@ -1535,9 +1535,11 @@ class Inventaris extends MX_Controller
 	{
 		$nodok = trim(strtoupper($this->uri->segment(4)));
 		$data['jsonfile'] = "ga/inventaris/json_perawatan_asset/$nodok";
-		$data['report_file'] = 'assets/mrt/sti_perawatanasset.mrt';
+		$data['report_file'] = 'assets/mrt/Report_test.mrt';
 		$this->load->view("ga/inventaris/sti_v_spk_perawatan", $data);
 	}
+<<<<<<< HEAD
+=======
 	
 	function sti_perawatan_asset_brg()
 	{
@@ -1547,6 +1549,7 @@ class Inventaris extends MX_Controller
 		$this->load->view("ga/inventaris/sti_v_spk_perawatan", $data);
 	}
 
+>>>>>>> c50cc20d40d000da5bac572c3f350440adc319c0
 	function json_perawatan_asset()
 	{
 		$nodok = trim(strtoupper($this->uri->segment(4)));
