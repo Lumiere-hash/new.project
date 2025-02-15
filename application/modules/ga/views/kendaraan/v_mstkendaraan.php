@@ -13,7 +13,10 @@
 </style>
 <script type="text/javascript">
     $(function() {
-        $("#example1").dataTable();
+        $("#example1").DataTable({
+            "pageLength":100,
+            "lengthMenu": [[100, -1], [100, "All"]],
+        });
         $("#example2").dataTable();
         $("#example3").dataTable();
         $("#example4").dataTable();
