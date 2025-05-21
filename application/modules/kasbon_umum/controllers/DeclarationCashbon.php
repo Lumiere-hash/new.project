@@ -138,7 +138,7 @@ class DeclarationCashbon extends CI_Controller {
         $limitDate = $this->m_option->read(' AND kdoption = \'DCL:LIMIT:DATE\' AND group_option = \'DECLARATION\' ')->row();
         $limitDate = ((is_null($limitDate) OR empty($limitDate)) ? date('Y-m-d',strtotime('2023-09-01')) : $limitDate->value1 );
 //        $startdate = date('Y-m-d',strtotime('2023-09-01'));
-        $filter = ' AND employeeid = \''.$json->nik.'\' AND status =\'P\' AND cashbonid NOT IN( select dc.cashbonid FROM sc_trx.declaration_cashbon dc WHERE dc.status IN(\'I\',\'P\') )';
+        $filter = ' AND employeeid = \''.$json->nik.'\' AND status =\'P\' AND cashbonid NOT IN( select dc.cashbonid FROM sc_trx.declaration_cashbon dc WHERE dc.status IN(\'I\',\'P\') and dc.cashbonid is not null)';
         $this->datatablessp->datatable('table-declarationcashbon', 'table table-striped table-bordered table-hover', true)
             ->columns('branch, nik, nmlengkap, totalcashbonformat, statustext, nmdept, nmsubdept, type, statuscolor, cashbonid, dutieid, superior, status, paymenttype, formatpaymenttype, totalcashbon, formattype, inputby, inputdate, approveby, approvedate, superiors, employeeid')
             ->addcolumn('no', 'no')
