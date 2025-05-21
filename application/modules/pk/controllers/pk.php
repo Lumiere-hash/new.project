@@ -12,7 +12,7 @@ class Pk extends MX_Controller
 	{
 		parent::__construct();
 
-		$this->load->model(array('master/m_akses', 'm_pk', 'master/M_ApprovalRule'));
+		$this->load->model(array('master/m_akses', 'm_pk', 'master/M_ApprovalRule', 'trans/m_stspeg'));
 		$this->load->library(array('form_validation', 'template', 'upload', 'pdf', 'encrypt', 'Excel_generator', 'zip', 'Fiky_report', 'PHPExcel/PHPExcel/IOFactory'));
 
 		if (!$this->session->userdata('nik')) {
@@ -184,8 +184,6 @@ class Pk extends MX_Controller
 
 		$data['list_nik'] = $this->m_akses->q_master_akses_karyawan($param_list_akses)->result();
 		$data['list_tx_pa'] = $this->m_pk->q_view_generate_kriteria($paramnya)->result();
-
-		$data['year'] = $this->m_pk->q_option(['kdoption' => 'PKPAPY'])->row()-value3;
 		$this->template->display('pk/pk/v_list_form_pa', $data);
 
 		$paramerror = " and userid='$nama'";
@@ -638,6 +636,8 @@ class Pk extends MX_Controller
 		$data['list_trx_pa_dtl'] = $this->m_pk->q_tx_form_pa_trx_dtl($param_list_akses)->result();
 		$data['list_question'] = $this->m_pk->list_pa_questions()->result();
 		$this->template->display('pk/pk/v_detail_form_pa', $data);
+
+		//var_dump($data);
 
 		$paramerror = " and userid='$nama'";
 		$dtlerror = $this->m_pk->q_deltrxerror($paramerror);
@@ -3829,7 +3829,12 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 		$data['userhr'] = $userhr;
 		$data['level_akses'] = $level_akses;
 
-		$paramnik = "";
+		if (!empty($this->db->query("select nik from sc_pk.master_appr_list where jobposition = 'HRGA' and nik = '$nama'")->result())){
+		 	$paramnik = "";	
+		}else{
+			$paramnik = "and nik_atasan='$nama' or nik='$nama'";
+		}
+
 		$paramnya = $param_list_akses . $param_postnik . $param_postperiode;
 
 		$data['list_nik'] = $this->m_akses->q_master_akses_karyawan($paramnik)->result();
@@ -3936,17 +3941,13 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 		$paramceknama = " and nik='$nama'";
 		$ceknik = $this->m_akses->q_master_akses_karyawan($paramceknama)->num_rows();
 
-		if (($ceknikatasan1) > 0 and $userhr == 0) {
+		if (($ceknikatasan1) > 0 and $userhr == 0 and $fnik != $nama) {
 			$param_list_akses = " and nik in (select trim(nik) from sc_mst.karyawan where (nik_atasan='$nama'))";
+		} else if ($fnik==$nama){
+			$param_list_akses = " and nik='$fnik' ";
 		} else if (($ceknikatasan2) > 0 and $userhr == 0) {
-			$param_list_akses = " and nik in (select trim(nik) from sc_mst.karyawan where (nik_atasan='$nama'))";
-		} else {
-			if ($ceknik > 0 and $userhr == 0) {
-				$param_list_akses = " and nik='$nama' ";
-			} else {
-				$param_list_akses = "";
-			}
-		}
+			$param_list_akses = " and nik in (select trim(nik) from sc_mst.karyawan where (nik_atasan2='$nama'))";
+		} 
 
 		$data['fnik'] = $fnik;
 		$data['nama'] = $nama;
@@ -5799,4 +5800,617 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 		}
 
 	}
+
+	function penilaian_karyawan(){
+        $data['title'] = 'Penilaian Karyawan';
+		$nik = isset($_GET['nik']) ? $_GET['nik'] : null; 
+		$docno = isset($_GET['docno']) ? $_GET['docno'] : null; 
+
+		$type = isset($_GET['type']) ? $_GET['type'] : null; 
+		$data['type'] = $type;
+		
+		// data informasi umum;
+		$this->load->model(array('trans/m_stspeg','trans/m_karyawan')); 
+		$this->load->helper('my_helper');
+		$infoumum = $this->m_stspeg->q_kar($nik, $docno)->result();
+		$tglmulaikontrak = date('Ym', strtotime($infoumum[0]->tgl_mulai));
+		$tglselesaikontrak = date('Ym', strtotime($infoumum[0]->tgl_selesai));
+		foreach ($infoumum as &$info) {
+			$info->selisih_tgl = $this->masa_kontrak($info->tgl_mulai, $info->tgl_selesai);
+			$info->tgl_mulai1 = isset($info->tgl_mulai) ? formattgl($info->tgl_mulai) : null;
+			$info->tgl_selesai1 = isset($info->tgl_selesai) ? formattgl($info->tgl_selesai) : null;
+			$info->tglmasukkerja1 = isset($info->tglmasukkerja) ? formattgl($info->tglmasukkerja) : null;
+		}
+		//var_dump($infoumum);
+		$data['infoumum'] = $infoumum;
+		
+		//data kondite
+		$periodekon = $this->m_pk->periode_kondite($tglmulaikontrak, $tglselesaikontrak);
+		$paramkondite = "a.nik = '$nik' AND a.periode in ($periodekon)";
+		
+		// echo $paramkondite;
+		$kondite = $this->m_pk->q_kondite_cetak_periode($paramkondite)->row();
+		$data['kondite'] = $kondite;
+		
+		//data kpi
+		$paramkpi = (int) filter_var($infoumum[0]->selisih_tgl, FILTER_SANITIZE_NUMBER_INT);
+		$kpi = $this->m_pk->q_kpi_list_periode($nik, $paramkpi)->result();
+		$data['kpi'] = $kpi;
+
+		//data aspek_penilaian
+		$aspek = $this->m_pk->q_get_question()->result();
+
+		$data['aspek'] = $aspek;
+
+		$this->template->display('pk/new_pk/formpk.php', $data);
+	}
+
+	function save_penilaian_karyawanew(){
+		$nik = trim($this->input->post('nik'));
+		$docno = trim($this->input->post('docno'));
+		$type = $this->input->post('type') ?: null;
+
+		$nilai1 = $this->input->post('score1');
+		$keterangan1 = $this->input->post('keterangan1');
+		$kdaspek1 = $this->input->post('kdaspek1');
+		$nilai2 = $this->input->post('score2');
+		$keterangan2 = $this->input->post('keterangan2');
+		$kdaspek2 = $this->input->post('kdaspek2');
+		$nilai3 = $this->input->post('score3');
+		$keterangan3 = $this->input->post('keterangan3');
+		$kdaspek3 = $this->input->post('kdaspek3');
+		$nilai4 = $this->input->post('score4');
+		$keterangan4 = $this->input->post('keterangan4');
+		$kdaspek4 = $this->input->post('kdaspek4');
+		$nilai5 = $this->input->post('score5');
+		$keterangan5 = $this->input->post('keterangan5');
+		$kdaspek5 = $this->input->post('kdaspek5');
+		$nilai6 = $this->input->post('score6');
+		$keterangan6 = $this->input->post('keterangan6');
+		$kdaspek6 = $this->input->post('kdaspek6');
+		$nilai7 = $this->input->post('score7');
+		$keterangan7 = $this->input->post('keterangan7');
+		$kdaspek7 = $this->input->post('kdaspek7');
+
+		$kesimpulan = $this->input->post('kesimpulan');
+		$catatan = $this->input->post('catatan');
+
+		$createdate = date('Y-m-d H:i:s');
+		$createby = $this->session->userdata('nik');
+		$updatedate = date('Y-m-d H:i:s');
+		$updateby = $this->session->userdata('nik');
+		$query = $this->db->query("SELECT sc_mst.pr_generate_numbering('PKMODULE', 'SYSTEM_TEST', '{\"count3\": 9, \"prefix\": \"PK\", \"counterid\": 1, \"xno\": 1}') AS auto_id");
+		$auto_id = $query->row()->auto_id;
+
+		// Save to master_pk table
+		$master_data = array(
+			'kddok' => $auto_id,
+			'nik' => $nik,
+			'kdcontract' => $docno,
+			'summary' => $kesimpulan,
+			'description' => $catatan,
+			'inputdate' => $createdate,
+			'inputby' => $createby,
+			'updatedate' => $updatedate,
+			'updateby' => $updateby,
+			'approvedate' => $createdate,
+			'approveby' => 'Disetujui Sistem'
+		);
+		$this->db->insert('sc_pk.master_pk', $master_data);
+
+		// Get the inserted master_pk ID
+		$master_pk_id = $auto_id;
+
+		// Save to detail_pk table
+		$detail_data = array(
+			array('kddok' => $master_pk_id, 'score' => $nilai1, 'desc_aspect' => $keterangan1, 'kd_aspect' => $kdaspek1),
+			array('kddok' => $master_pk_id, 'score' => $nilai2, 'desc_aspect' => $keterangan2, 'kd_aspect' => $kdaspek2),
+			array('kddok' => $master_pk_id, 'score' => $nilai3, 'desc_aspect' => $keterangan3, 'kd_aspect' => $kdaspek3),
+			array('kddok' => $master_pk_id, 'score' => $nilai4, 'desc_aspect' => $keterangan4, 'kd_aspect' => $kdaspek4),
+			array('kddok' => $master_pk_id, 'score' => $nilai5, 'desc_aspect' => $keterangan5, 'kd_aspect' => $kdaspek5),
+			array('kddok' => $master_pk_id, 'score' => $nilai6, 'desc_aspect' => $keterangan6, 'kd_aspect' => $kdaspek6),
+			array('kddok' => $master_pk_id, 'score' => $nilai7, 'desc_aspect' => $keterangan7, 'kd_aspect' => $kdaspek7)
+		);
+
+		$this->db->insert_batch('sc_pk.detail_pk', $detail_data);
+
+		if ($this->db->affected_rows() > 0) {
+			if ($type == 'y') {
+				redirect("pk/list_pkpen/success_add"); // Redirect to a different page if $type is not null
+			} 
+			else {
+				redirect('trans/stspeg/index/$nik/score_succes'); // Replace 'success_page' with your success redirect URL
+			}
+		} else {
+			if ($type == 'y') {
+				redirect("pk/list_pkpen/failed_add"); // Redirect to a different page if $type is not null
+			} 
+			else {
+				redirect('trans/stspeg/index/$nik/score_failed'); // Replace 'fail_page' with your failure redirect URL
+			}
+		}
+	}
+
+	function masa_kontrak($tgl_mulai, $tgl_selesai) {
+		// Membuat objek DateTime
+		$date1 = new DateTime($tgl_mulai);
+		$date2 = new DateTime($tgl_selesai);
+	
+		// Hitung selisih tahun dan bulan
+		$year_diff = $date2->format('Y') - $date1->format('Y');
+		$month_diff = $date2->format('m') - $date1->format('m');
+	
+		// Jika bulan selisihnya negatif, kurangi tahun dan perbaiki bulan
+		if ($month_diff < 0) {
+			$year_diff--;
+			$month_diff += 12;
+		}
+	
+		// Total bulan yang dihitung dengan menambah 1 untuk bulan pertama
+		$total_months = ($year_diff * 12) + $month_diff + 1;
+	
+		// Adjust total_months if it is 7 or 13
+		if ($total_months == 7) {
+			$total_months = 6;
+		} elseif ($total_months == 13) {
+			$total_months = 12;
+		} elseif ($total_months == 5) {
+			$total_months = 6;
+		} elseif ($total_months == 11) {
+			$total_months = 12;
+		}
+	
+		return $total_months . ' bulan';
+	}
+	
+	
+	function list_karyawan_pk(){
+		$data['title'] = 'Daftar Penilaian Karyawan dengan Atasan ' . $this->m_pk->get_name($this->session->userdata('nik'));
+		$nik = isset($_GET['nik']) ? $_GET['nik'] : null; 
+		$docno = isset($_GET['docno']) ? $_GET['docno'] : null; 
+		$param = "a.nik = '$nik' AND a.periode = '$docno'";
+		$data['list_karyawan']=$this->m_pk->get_list_karyawan()->result();
+		//var_dump($data['list_karyawan']);
+		$this->template->display('pk/new_pk/informasipk.php', $data);
+	}
+
+	function list_pkpen(){
+		$data['title'] = 'Daftar Penilaian Karyawan dengan Atasan ' . $this->m_pk->get_name($this->session->userdata('nik'));
+		if(strpos($_SERVER['REQUEST_URI'],'success_add'))
+			$data['message']="<div class='alert alert-success' style='display:none;' id='alertMessage'>PENILAIAN SUKSES</div>";
+		else if(strpos($_SERVER['REQUEST_URI'], 'failed_add') !== false)
+			$data['message']="<div class='alert alert-danger' style='display:none;' id='alertMessage'>PENILAIAN GAGAL</div>";
+		else if(strpos($_SERVER['REQUEST_URI'], 'scoredit_success') !== false)
+			$data['message']="<div class='alert alert-success' style='display:none;' id='alertMessage'>SUKSES UPDATE</div>";
+		else if(strpos($_SERVER['REQUEST_URI'], 'scoredit_failed') !== false)
+			$data['message']="<div class='alert alert-danger' style='display:none;' id='alertMessage'>GAGAL UPDATE</div>";
+		else
+			$data['message']="";
+
+		// Add JavaScript to make the alert disappear after 5 seconds
+			$data['message'] .= "
+			<script>
+				window.onload = function() {
+					var alertMessage = document.getElementById('alertMessage');
+					if (alertMessage) {
+						alertMessage.style.display = 'block';
+						setTimeout(function() {
+							alertMessage.style.display = 'none'; // Hide the alert message after 1.5 seconds
+						}, 1500);
+					}
+				};
+			</script>";
+
+		//data authorization
+		$data['nikuser'] = $this->session->userdata('nik');
+
+		$this->load->helper('my_helper');
+		$listpk = $this->m_pk->get_list_pkpen($data['nikuser'])->result();
+		foreach ($listpk as &$info) {
+			$info->periode = formattgl($info->tgl_mulai). " - " .formattgl($info->tgl_selesai);
+		}
+		$data['listpk'] = $listpk;
+		//var_dump($data['listpk']);
+
+		$this->template->display('pk/new_pk/listpkpen.php', $data);
+	}
+
+	function list_pk(){
+		$data['title'] = 'Daftar Persetujuan Penilaian Karyawan dengan Atasan ' . $this->m_pk->get_name($this->session->userdata('nik'));
+		if($this->uri->segment(4)=="succes_add")
+			$data['message']="<div class='alert alert-warning' style='display:none;' id='alertMessage'>SUKSES TAMBAH</div>";
+		else if(strpos($_SERVER['REQUEST_URI'], 'upd_success') !== false)
+			$data['message']="<div class='alert alert-success' style='display:none;' id='alertMessage'>SUKSES UPDATE</div>";
+		else if(strpos($_SERVER['REQUEST_URI'], 'upd_failed') !== false)
+			$data['message']="<div class='alert alert-danger' style='display:none;' id='alertMessage'>GAGAL UPDATE</div>";
+		else if(strpos($_SERVER['REQUEST_URI'], 'del_success') !== false)
+			$data['message']="<div class='alert alert-warning' style='display:none;' id='alertMessage'>SUKSES HAPUS</div>";
+		else if(strpos($_SERVER['REQUEST_URI'], 'del_failed') !== false)
+			$data['message']="<div class='alert alert-danger' style='display:none;' id='alertMessage'>GAGAL HAPUS</div>";
+		else if(strpos($_SERVER['REQUEST_URI'], 'del_failed2') !== false)
+			$data['message']="<div class='alert alert-danger' style='display:none;' id='alertMessage'>GAGAL HAPUS DOKUMEN TIDAK DITEMUKAN</div>";
+		else if(strpos($_SERVER['REQUEST_URI'], 'upd_stat_success') !== false)
+			$data['message']="<div class='alert alert-success' style='display:none;' id='alertMessage'>DOKUMEN SUKSES DISETUJUI</div>";
+		else if(strpos($_SERVER['REQUEST_URI'], 'cancel_stat_success') !== false)
+			$data['message']="<div class='alert alert-success' style='display:none;' id='alertMessage'>DOKUMEN BERHASIL DIBATALKAN</div>";
+		else if(strpos($_SERVER['REQUEST_URI'], 'cancel_stat_failed2') !== false)
+			$data['message']="<div class='alert alert-danger' style='display:none;' id='alertMessage'>PERSETUJUAN TIDAK BISA DIBATALKAN KARENA SUDAH FINAL</div>";
+		else if(strpos($_SERVER['REQUEST_URI'], 'cancel_stat_failed') !== false)
+			$data['message']="<div class='alert alert-danger' style='display:none;' id='alertMessage'>GAGAL MEMBATALKAN DOKUMEN</div>";
+		else if(strpos($_SERVER['REQUEST_URI'], 'upd_stat_failed') !== false)
+			$data['message']="<div class='alert alert-danger' style='display:none;' id='alertMessage'>GAGAL UPDATE STATUS</div>";
+		else if(strpos($_SERVER['REQUEST_URI'], 'upd_stat_failed2') !== false)
+			$data['message']="<div class='alert alert-danger' style='display:none;' id='alertMessage'>GAGAL UPDATE STATUS DOKUMEN TIDAK DITEMUKAN</div>";
+		else
+			$data['message']="";
+
+		// Add JavaScript to make the alert disappear after 5 seconds
+		if ($data['message'] != "<div class='alert alert-success' style='display:none;' id='alertMessage'>SUKSES UPDATE</div>" &&
+			$data['message'] != "<div class='alert alert-danger' style='display:none;' id='alertMessage'>GAGAL UPDATE</div>") 
+		 {
+			$data['message'] .= "
+			<script>
+				window.onload = function() {
+					var alertMessage = document.getElementById('alertMessage');
+					if (alertMessage) {
+						alertMessage.style.display = 'block';
+						setTimeout(function() {
+							window.location.replace(document.referrer);
+						}, 1500);
+					}
+				};
+			</script>";
+
+		} else {
+			$data['message'] .= "
+			<script>
+				window.onload = function() {
+					var alertMessage = document.getElementById('alertMessage');
+					if (alertMessage) {
+						alertMessage.style.display = 'block';
+						setTimeout(function() {
+							alertMessage.style.display = 'none'; // Hide the alert message after 1.5 seconds
+						}, 1500);
+					}
+				};
+			</script>";
+		}
+
+		//data authorization
+		$data['nikuser'] = $this->session->userdata('nik');
+		$dataappr = $this->m_pk->get_appr_list();
+		$dataappr_trimmed = array_map(function($item) {
+			return [
+				'nik' => trim($item['nik']),
+				'jobposition' => trim($item['jobposition'])
+			];
+		}, $dataappr);
+		$data['apprlist'] = array_column($dataappr_trimmed, 'nik', 'jobposition');
+
+			// Cek peran user
+		$is_hrga = isset($data['apprlist']['HRGA']) && $data['nikuser'] == $data['apprlist']['HRGA'];
+		$is_gm = isset($data['apprlist']['GM']) && $data['nikuser'] == $data['apprlist']['GM'];
+		$is_dir = isset($data['apprlist']['D']) && $data['nikuser'] == $data['apprlist']['D'];
+
+		// Cek apakah nikuser adalah atasan2 dari siapa pun (via query langsung)
+		$is_atasan2 = $this->db
+			->query("SELECT 1 FROM sc_mst.karyawan WHERE trim(nik_atasan2) = '{$data['nikuser']}' LIMIT 1")
+			->num_rows() > 0;
+
+		// Tentukan $param
+		if ($is_hrga && $is_atasan2) {
+			// HRGA dan juga atasan2
+			$param = "WHERE trim(a.status) NOT IN ('N') 
+					 OR (trim(a.status) = 'N' AND trim(b.nik_atasan2) = '{$data['nikuser']}')";
+
+		} elseif ($is_hrga) {
+			// HRGA saja
+			$param = "WHERE trim(a.status) NOT IN ('N')";
+
+		} elseif ($is_gm && $is_atasan2) {
+			// GM dan atasan2
+			$param = "WHERE 
+					(trim(a.status) NOT IN ('N','A2')) 
+					OR (trim(a.status) = 'N' AND trim(b.nik_atasan2) = '{$data['nikuser']}')";
+
+		} elseif ($is_gm) {
+			// GM saja
+			$param = "WHERE trim(a.status) NOT IN ('N','A2')";
+
+		} elseif ($is_dir) {
+			// Direktur
+			$param = "WHERE trim(a.status) NOT IN ('N','A2','HR')";
+
+		} else {
+			// Default: hanya atasan2 biasa
+			$param = "WHERE trim(b.nik_atasan2) = '{$data['nikuser']}'";
+		}
+
+		$this->load->helper('my_helper');
+		$listpk = $this->m_pk->get_list_pk($param)->result();
+		foreach ($listpk as &$info) {
+			$info->periode = formattgl($info->tgl_mulai). " - " .formattgl($info->tgl_selesai);
+		}
+		$data['listpk'] = $listpk;
+		//var_dump($data['listpk']);
+
+		$this->template->display('pk/new_pk/listpkappr.php', $data);
+	}
+
+	function edit_pk_view(){
+		$data['title'] = 'Edit Penilaian Karyawan';
+		$nik = isset($_GET['nik']) ? $_GET['nik'] : null; 
+		$docno = isset($_GET['docno']) ? $_GET['docno'] : null; 
+		$kddok = isset($_GET['kddok']) ? $_GET['kddok'] : null; 
+		$type = isset($_GET['type']) ? $_GET['type'] : null; 
+
+		$data['type'] = $type;
+		// data informasi umum;
+		$this->load->model(array('trans/m_stspeg','trans/m_karyawan')); 
+		$this->load->helper('my_helper');
+		$infoumum = $this->m_stspeg->q_kar($nik, $docno)->result();
+		$tglmulaikontrak = date('Ym', strtotime($infoumum[0]->tgl_mulai));
+		$tglselesaikontrak = date('Ym', strtotime($infoumum[0]->tgl_selesai));
+		foreach ($infoumum as &$info) {
+			$info->selisih_tgl = $this->masa_kontrak($info->tgl_mulai, $info->tgl_selesai);
+			$info->tgl_mulai1 = isset($info->tgl_mulai) ? formattgl($info->tgl_mulai) : null;
+			$info->tgl_selesai1 = isset($info->tgl_selesai) ? formattgl($info->tgl_selesai) : null;
+			$info->tglmasukkerja1 = isset($info->tglmasukkerja) ? formattgl($info->tglmasukkerja) : null;
+		}
+		//var_dump($infoumum);
+		$data['infoumum'] = $infoumum;
+		
+		//data kondite
+		$periodekon = $this->m_pk->periode_kondite($tglmulaikontrak, $tglselesaikontrak);
+		$paramkondite = "a.nik = '$nik' AND a.periode in ($periodekon)";
+		
+		// echo $paramkondite;
+		$kondite = $this->m_pk->q_kondite_cetak_periode($paramkondite)->row();
+		$data['kondite'] = $kondite;
+		
+		//data kpi
+		$paramkpi = (int) filter_var($infoumum[0]->selisih_tgl, FILTER_SANITIZE_NUMBER_INT);
+		$kpi = $this->m_pk->q_kpi_list_periode($nik, $paramkpi)->result();
+		$data['kpi'] = $kpi;
+
+		//data aspek_penilaian
+		$aspek = $this->db->query("select a.*,b.aspect_question 
+								   from sc_pk.detail_pk a
+								   join sc_pk.score_aspect_pk b on a.kd_aspect = b.kd_aspect 
+								   where a.kddok = '$kddok' order by a.kd_aspect")->result();
+		
+		$data['aspek'] = $aspek;
+
+		//data detail master_pk
+		$detail = $this->m_pk->q_get_detail_lain_cetak($docno)->row();
+		$data['detail'] = $detail;
+		//var_dump($data['detail']);
+		$this->template->display('pk/new_pk/formpkedit.php', $data);
+
+	}
+
+	function save_penilaian_karyawanupd(){
+		$type = $this->input->post('type') ?: null;
+		$kddok = $this->input->post('kddok');
+		$nik = trim($this->db->query("SELECT nik FROM sc_pk.master_pk WHERE kddok = '$kddok'")
+							 ->row()->nik);
+
+		$check = $this->m_pk->check_pkstat($kddok);
+
+		$nilai1 = (!empty($this->input->post('score1')) ? $this->input->post('score1') : 0);
+		$keterangan1 = $this->input->post('keterangan1');
+		$kdaspek1 = $this->input->post('kdaspek1');
+		$nilai2 = $this->input->post('score2');
+		$keterangan2 = $this->input->post('keterangan2');
+		$kdaspek2 = $this->input->post('kdaspek2');
+		$nilai3 = $this->input->post('score3');
+		$keterangan3 = $this->input->post('keterangan3');
+		$kdaspek3 = $this->input->post('kdaspek3');
+		$nilai4 = $this->input->post('score4');
+		$keterangan4 = $this->input->post('keterangan4');
+		$kdaspek4 = $this->input->post('kdaspek4');
+		$nilai5 = $this->input->post('score5');
+		$keterangan5 = $this->input->post('keterangan5');
+		$kdaspek5 = $this->input->post('kdaspek5');
+		$nilai6 = $this->input->post('score6');
+		$keterangan6 = $this->input->post('keterangan6');
+		$kdaspek6 = $this->input->post('kdaspek6');
+		$nilai7 = $this->input->post('score7');
+		$keterangan7 = $this->input->post('keterangan7');
+		$kdaspek7 = $this->input->post('kdaspek7');
+
+		$kesimpulan = $this->input->post('kesimpulan');
+		$catatan = $this->input->post('catatan');
+
+		$updatedate = date('Y-m-d H:i:s');
+		$updateby = $this->session->userdata('nik');
+
+		if($check == true) {
+			$master_data = array(
+				'summary' => $kesimpulan,
+				'description' => $catatan,
+				'updatedate' => $updatedate,
+				'updateby' => $updateby,
+				'cancelappr' => false,
+				'canceldate' => null,
+				'cancelby' => null,
+				'status' => 'N'
+			);
+
+		} else{
+		// Save to master_pk table
+		$master_data = array(
+			'summary' => $kesimpulan,
+			'description' => $catatan,
+			'updatedate' => $updatedate,
+			'updateby' => $updateby
+			);	
+		}
+	
+		$update = $this->db->where('kddok', $kddok)
+         ->update('sc_pk.master_pk', $master_data);
+
+		// var_dump($update, $check);
+		// die;
+
+		// Save to detail_pk table
+		$detail_data = array(
+			array('score' => $nilai1, 'desc_aspect' => $keterangan1, 'kd_aspect' => $kdaspek1, 'kddok' => $kddok),
+			array('score' => $nilai2, 'desc_aspect' => $keterangan2, 'kd_aspect' => $kdaspek2, 'kddok' => $kddok),
+			array('score' => $nilai3, 'desc_aspect' => $keterangan3, 'kd_aspect' => $kdaspek3, 'kddok' => $kddok),
+			array('score' => $nilai4, 'desc_aspect' => $keterangan4, 'kd_aspect' => $kdaspek4, 'kddok' => $kddok),
+			array('score' => $nilai5, 'desc_aspect' => $keterangan5, 'kd_aspect' => $kdaspek5, 'kddok' => $kddok),
+			array('score' => $nilai6, 'desc_aspect' => $keterangan6, 'kd_aspect' => $kdaspek6, 'kddok' => $kddok),
+			array('score' => $nilai7, 'desc_aspect' => $keterangan7, 'kd_aspect' => $kdaspek7, 'kddok' => $kddok)
+		);
+
+		// var_dump($detail_data);
+		// die;
+
+		// The primary key column 'kd_aspect' should match the key in your data
+		// Update each row one by one based on kd_aspect and kddok
+		foreach ($detail_data as $row) {
+			$this->db->where('kd_aspect', $row['kd_aspect']);
+			$this->db->where('kddok', $row['kddok']);
+			$this->db->update('sc_pk.detail_pk', array(
+				'score' => $row['score'],
+				'desc_aspect' => $row['desc_aspect']
+			));
+		}
+
+		if ($this->db->affected_rows() > 0) {
+			if ($type == 'y') {
+				redirect("trans/stspeg/index/$nik/scoredit_success"); // Redirect to a different page if $type is not null
+			} 
+			elseif ($type == 'n') {
+				redirect("pk/list_pkpen/scoredit_success"); // Redirect to a different page if $type is not null
+			} 
+			else {
+				redirect('pk/list_pk/upd_success'); // Replace 'success_page' with your success redirect URL
+			}
+		} else {
+			if ($type == 'y') {
+				redirect("/trans/stspeg/index/$nik/scoredit_failed"); // Redirect to a different page if $type is not null
+			} 
+			elseif ($type == 'n') {
+				redirect("pk/list_pkpen/scoredit_failed"); // Redirect to a different page if $type is not null
+			} 
+			else {
+				redirect('pk/list_pk/upd_failed'); // Replace 'fail_page' with your failure redirect URL
+			}
+		}
+	}
+
+	function approve_pk(){
+		$kddok = isset($_GET['kddok']) ? $_GET['kddok'] : null;	
+		$status = isset($_GET['status']) ? $_GET['status'] : null;
+		
+		if ($kddok) {
+            // Transition logic based on the current status
+			if ($status == 'N') {
+				$new_status = 'A2'; // Next status is A2
+			} else if ($status == 'A2') {
+				$new_status = 'HR'; // Next status is HR
+			} else if ($status == 'HR') {
+				$new_status = 'GM'; // Next status is GM
+			} else if ($status == 'GM') {
+				$new_status = 'P'; // Next status is P
+			} else if ($status == 'P') {
+				$new_status = 'P';
+			} else {
+				// If the current status doesn't match any known case, exit
+				echo "Invalid current status!";
+				return;
+			}
+
+			$apprdate = date('Y-m-d H:i:s'); // You can change the format as needed
+            //Assuming you're storing the logged-in user's ID or username in session
+            $apprby = 'Disetujui Sistem';
+
+			$this->db->set('status', $new_status);
+			$this->db->set('approvedate', $apprdate);
+			$this->db->set('approveby', $apprby);
+			$this->db->where('kddok', $kddok);
+			$update = $this->db->update('sc_pk.master_pk');
+
+			// var_dump($update);
+			// echo $status;
+			// echo $new_status;
+			// die;
+
+            if ($update) {
+                redirect('pk/list_pk/upd_stat_success');
+            } else {
+                redirect('pk/list_pk/upd_stat_failed');
+            }
+        } else {
+            redirect('pk/list_pk/upd_stat_failed2');
+        }
+
+
+	}
+
+	function cancel_pk(){
+
+		$kddok = isset($_GET['kddok']) ? $_GET['kddok'] : null;	
+		$status = isset($_GET['status']) ? $_GET['status'] : null;
+
+		$canceldate = date('Y-m-d H:i:s'); // You can change the format as needed
+		//Assuming you're storing the logged-in user's ID or username in session
+		$cancelby = 'Dibatalkan Sistem';
+
+		if($status != 'P'){
+			$new_status = 'C';
+			
+			$this->db->set('status', $new_status);
+			$this->db->set('canceldate', $canceldate);
+			$this->db->set('cancelby', $cancelby);
+			$this->db->set('cancelappr', true);
+			$this->db->where('kddok', $kddok);
+			$update = $this->db->update('sc_pk.master_pk');
+
+			if ($update) {
+				redirect('pk/list_pk/cancel_stat_success');
+			} else {
+				redirect('pk/list_pk/cancel_stat_failed');
+			}
+		} else {
+			redirect('pk/list_pk/cancel_stat_failed2');
+		}
+
+	}
+
+	function delete_pk(){
+		 // Ambil input dari form atau parameter URL
+		 $docno = $this->input->post('docno');
+	 
+		 // Ambil kddok dari master_pk berdasarkan nik dan docno
+		 $query = $this->db->query("select kddok from sc_pk.master_pk where kddok = '$docno'");
+		 $result = $query->row();
+		 //$result = "PK000000006";
+		 if ($result) {
+			 $kddok = $result->kddok;
+			 echo $kddok;
+			
+			 // Hapus dari detail_pk
+			 $this->db->where('kddok', $kddok);
+			 $this->db->delete('sc_pk.detail_pk');
+	 
+			 // Hapus dari master_pk
+			 $this->db->where('kddok', $kddok);
+			 $this->db->delete('sc_pk.master_pk');
+	 
+			 if ($this->db->affected_rows() > 0) {
+				 // Jika penghapusan berhasil, redirect ke halaman sukses
+				 redirect("pk/list_pk/del_success"); // Ganti dengan halaman redirect yang sesuai
+			 } else {
+				 // Jika tidak ada perubahan, redirect ke halaman gagal
+				 redirect("pk/list_pk/del_failed"); // Ganti dengan halaman redirect yang sesuai
+			 }
+		 } else {
+			 // Jika tidak ditemukan data yang cocok, redirect ke halaman gagal
+			 redirect("pk/list_pk/del_failed2"); // Ganti dengan halaman redirect yang sesuai
+		 }
+	}
+
 }

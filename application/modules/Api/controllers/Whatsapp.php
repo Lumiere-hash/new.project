@@ -1744,6 +1744,200 @@ class WhatsApp extends MX_Controller
         }
     }
 
+    public function msgpk($status = '')
+    {
+        $this->load->model(array('secret/M_Secret','Api/M_Pk'));
+        $status = 'P';
+        $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
+        $messages = array();
+      
+            // var_dump($messages);
+            // die();
+
+        foreach ($this->M_Pk->q_whatsapp_collect_where(" and coalesce(a.statuspen,'') != '$status' limit 1")->result() as $item) {
+             $refurl = base_url('pk/list_pk');
+             $url = site_url('s/'.$item->identifier);
+              if(empty($item->statuspen) || $item->statuspen == 'C'){
+                    $refurl = base_url('pk/list_pkpen');
+             }
+            $ref = $this->shuffle();
+            $message = '' .
+                '<table width=\'400\' background=\'' . $this->bg . '\'>
+                    <thead>
+                      <tr>
+                        <th colspan=\'3\'><b>PENILAIAN KARYAWAN KONTRAK</b></th>
+                      </tr>
+                      <tr><th colspan=\'3\'>&nbsp;</th></tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td colspan=\'2\'>NOMOR DOK </td>
+                        <td colspan=\'1\'><b>' . trim($item->nodok) . '</b></td>
+                      </tr>
+                      <tr><td colspan="3">&nbsp;</td></tr>
+                      <tr>
+                        <td valign=\'top\' style=\'width: 30%;\'>Nama Karyawan</td>
+                        <td valign=\'top\' style=\'width: 5%; text-align: left;\'>:</td>
+                        <td valign=\'top\' style=\'width: 65%;\'><b>' . trim($item->nmlengkap) . '</b></td>
+                      </tr>
+                      <tr>
+                        <td valign=\'top\' style=\'width: 30%;\'>NIK</td>
+                        <td valign=\'top\' style=\'width: 5%; text-align: left;\'>:</td>
+                        <td valign=\'top\' style=\'width: 65%;\'><b>' . trim($item->nik) . '</b></td>
+                      </tr>
+                      <tr>
+                        <td valign=\'top\' style=\'width: 30%;\'>Bagian</td>
+                        <td valign=\'top\' style=\'width: 5%; text-align: left;\'>:</td>
+                        <td valign=\'top\' style=\'width: 65%;\'><b>' . trim($item->nmdept) . '</b></td>
+                      </tr>
+                     <tr>
+                        <td valign=\'top\' style=\'width: 30%;\'>Jabatan</td>
+                        <td valign=\'top\' style=\'width: 5%; text-align: left;\'>:</td>
+                        <td valign=\'top\' style=\'width: 65%;\'><b>' . trim($item->nmjabatan) . '</b></td>
+                      </tr>
+                        <tr>
+                          <td valign=\'top\' style=\'width: 30%;\'>Tanggal Berakhir</td>
+                          <td valign=\'top\' style=\'width: 5%; text-align: left;\'>:</td>
+                          <td valign=\'top\' style=\'width: 65%;\'><b>' . trim($item->tgl_selesai1) . '</b></td>
+                        </tr>
+                         <tr>
+                        <td valign=\'top\' style=\'width: 30%;\'>Jenis Kontrak</td>
+                        <td valign=\'top\' style=\'width: 5%; text-align: left;\'>:</td>
+                        <td valign=\'top\' style=\'width: 65%;\'><b>' . trim($item->nmkepegawaian) . '</b></td>
+                      </tr>
+                      <tr>
+                        <td valign=\'top\' style=\'width: 30%;\'>Status</td>
+                        <td valign=\'top\' style=\'width: 5%; text-align: left;\'>:</td>
+                        <td valign=\'top\' style=\'width: 65%;\'><b>' . (trim($item->deskappr) !== '' ? trim($item->deskappr) : 'MENUNGGU PENILAIAN ATASAN 1') . '</b></td>
+                      </tr>
+                      <tr>
+                        <td valign=\'top\'>&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td valign=\'top\'>&nbsp;</td>
+                      </tr>
+                    </tbody>
+                </table>'
+                . '';
+            $output = 'assets/img/notifpk/' . $item->nodok . '_' . $ref . '.jpg';
+            $fullpath = (ENVIRONMENT == 'development' ? 'https://dummyimage.com/300/09f/fff.png' : base_url($output));
+            $this->imageCreator($message, $output);
+
+             if (empty($item->statuspen) || $item->statuspen == 'C') {
+                $appr = trim($item->nmlengkapa1);
+            } elseif ($item->statuspen == 'N') {
+                $appr = trim($item->nmlengkapa2);
+            } else {
+                $appr = trim($item->nmlengkap_appr);
+            }
+            
+            array_push(
+                $messages,
+                array(
+                    'message' => json_encode(
+                        array(
+                            'path' => str_replace('\\', '/', $fullpath),
+                            'caption' => 'Yth ' . $appr . PHP_EOL . PHP_EOL . '*Harap Segera menilai/menyetujui dokumen Penilaian Karyawan yang tertera diatas*' . PHP_EOL . PHP_EOL .$url. PHP_EOL . PHP_EOL
+                            . 'Jika ada pertanyaan silahkan hubungi HRD' . PHP_EOL . PHP_EOL
+                            . 'Terima Kasih' . PHP_EOL
+                            . 'Ref:' . $ref . '_' 
+                        )
+                    ),
+                    'message_type' => 'imageMessage',
+                    'is_interactive' => false,
+                    'outbox_for' => trim( $item->approver),
+                    'retry' => 1,
+                    'session' => $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SESSION:' . $branch . '\'', 'session'),
+                    'properties' => array(
+                        'reference' => $ref,
+                        'employeeid' =>  $item->nik,
+                        //'range' => $after,
+                    ),
+                )
+            );
+
+                 if (empty($item->statuspen || $item->statuspen == 'C')) {
+                     $employee_id = trim($item->nik_atasan1);
+                } elseif ($item->statuspen == 'N') {
+                     $employee_id = trim($item->nik_atasan2);
+                } else {
+                     $employee_id = trim($item->nik_appr);
+                }
+
+                $this->M_Secret->q_transaction_create(array(
+                'employee_id' => $employee_id,
+                'secret_id' => $item->identifier,
+                'url' => $refurl,
+                'input_by' => (!empty($item->nik) ? $item->nik : 'SYSTEM'),
+                'input_date' => date('Y-m-d H:i:s'),
+            ));
+          
+        }
+            // var_dump($messages, $employee_id, $item);
+            // die();
+            
+        if (count($messages) > 0) {
+            $curl = curl_init();
+            curl_setopt_array(
+                $curl,
+                array(
+                    CURLOPT_URL => $this->m_setup->q_mst_read_value(' AND parameter = \'WA-BASE-URL:' . $branch . '\'', 'https://syifarahmat.github.io/whatsapp.bot/') . 'whatsapp/api/outbox/',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_SSL_VERIFYPEER => false,
+                    CURLOPT_SSL_VERIFYHOST => false,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => json_encode($messages),
+                    CURLOPT_HTTPHEADER => array(
+                        'Authorization: Bearer ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-ACCESS:' . $branch . '\' ', 'access'),
+                        'Content-Type: application/json'
+                    ),
+                )
+            );
+            $response = curl_exec($curl);
+            $info = curl_getinfo($curl);
+            $body = json_decode($response);
+            curl_close($curl);
+            if ($body) {
+                if ($info['http_code'] == 201) {
+                    foreach ($body as $row) {
+                        $this->db->insert(
+                            'sc_log.success_notifications',
+                            array(
+                                'modul' => 'notification',
+                                'message' => json_encode($body),
+                                'properties' => json_encode($info),
+                                'input_by' => 'SYSTEM',
+                                'input_date' => date('Y-m-d H:i:s'),
+                            )
+                        );
+                    }
+                    return true;
+                } else {
+                    $this->db->insert(
+                        'sc_log.error_notifications',
+                        array(
+                            'modul' => 'notification',
+                            'message' => json_encode($body),
+                            'properties' => json_encode($info),
+                            'input_by' => 'SYSTEM',
+                            'input_date' => date('Y-m-d H:i:s'),
+                        )
+                    );
+                }
+            }
+            header('Content-Type: application/json');
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
     public function sendapprovalcuti()
     {
         if ($this->msgcuti()) {
@@ -1753,6 +1947,20 @@ class WhatsApp extends MX_Controller
             } else {
                 if ($this->auth()) {
                     $this->msgcuti();
+                }
+            }
+        }
+    }
+
+     public function sendnotificationpk()
+    {
+        if ($this->msgpk()) {
+        } else {
+            if ($this->refresh()) {
+                $this->msgpk();
+            } else {
+                if ($this->auth()) {
+                    $this->msgpk();
                 }
             }
         }

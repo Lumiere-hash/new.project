@@ -86,6 +86,8 @@ class Default_style
         <link rel="stylesheet" href="'.base_url('assets/plugins/iCheck/minimal/_all.css'). '">
         <!-- SweetAlert -->
         <link rel="stylesheet" href="'.base_url('assets/plugins/sweetalert/sweetalert2.css'). '" rel="stylesheet" type="text/css"/>
+          <!-- FULLCALENDAR -->
+        <link href="'.base_url('assets/plugins/fullcalendar/main.css'). '" rel="stylesheet" type="text/css" />
         ';
         return $str;
     }
@@ -188,6 +190,9 @@ class Default_style
         <![endif]-->
         <script src="'. base_url('assets/js/autoNumeric/autoNumeric.min.js') .'" type="text/javascript"></script>
         <script src="'. base_url('assets/js/autoNumeric/autonumeric@4.5.4') .'"></script>
+          <!-- FULLCALENDAR-->
+		<script src="'. base_url('assets/plugins/fullcalendar-6.1.8/dist/index.global.js') .'" type="text/javascript"></script>
+		<script src="'.base_url('assets/plugins/fullcalendar/locales-all.js') .'" type="text/javascript"></script>
         
         ';
 

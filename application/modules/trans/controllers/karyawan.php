@@ -7,7 +7,7 @@ class Karyawan extends MX_Controller {
     {
         parent::__construct();
         $this->load->model(array('m_karyawan','master/m_geo','master/m_agama','master/m_nikah','master/m_department','master/m_jabatan','m_bpjs','master/m_group_penggajian','master/m_bank',
-            'm_riwayat_keluarga','m_riwayat_kesehatan','m_riwayat_pengalaman','m_riwayat_pendidikan','m_riwayat_pendidikan_nf','master/m_akses','recruitment/m_calonkaryawan','m_mutpromot','m_stspeg','payroll/m_master'));
+            'm_riwayat_keluarga','m_riwayat_kesehatan','m_riwayat_pengalaman','m_riwayat_pendidikan','m_riwayat_pendidikan_nf','master/m_akses','recruitment/m_calonkaryawan','m_mutpromot','m_stspeg','payroll/m_master','pk/m_pk','m_skperingatan'));
         $this->load->library(array('form_validation','template','upload','pdf','Excel_generator','Fiky_version','Fiky_string','Fiky_menu','Fiky_encryption'));
 
         if(!$this->session->userdata('nik')){
@@ -223,6 +223,11 @@ class Karyawan extends MX_Controller {
         $data['list_riwayat_pendidikan']=$this->m_riwayat_pendidikan->q_riwayat_pendidikan($nik)->result();
         /**/
 
+        /* SP KARYAWAN */
+        $param = " AND nik = '$nik' AND status = 'P'";
+        $lsp = $this->m_skperingatan->read_trxskperingatan($param);
+        $data['list_spkaryawan'] = $lsp->result();
+        /* END SP KARYAWAN */
 
         $data['title'] = "Detail Karyawan";
         //$data['dtl'] = $this->m_karyawan->get_dtl_id($id)->row_array();
@@ -936,7 +941,13 @@ class Karyawan extends MX_Controller {
         );
 
         $this->db->insert('sc_tmp.status_kepegawaian',$info);
-        redirect("trans/karyawan/detail/$nik/success");
+        if ($this->db->affected_rows() > 0) {
+            // Insert was successful
+            redirect("trans/karyawan/detail/$nik/success");
+        } else {
+            // Insert failed
+            redirect("trans/karyawan/detail/$nik/failure");
+        }
         //echo $inputby;
     }
 
@@ -1243,10 +1254,17 @@ class Karyawan extends MX_Controller {
         $data['list_karyawan_bpjs']=$this->m_bpjs->list_karyawan()->result();
         $data['list_lk']=$this->m_bpjs->list_karyawan_index($id)->row_array();
 
+        /* SP KARYAWAN */
+        $param = " AND nik = '$nik' AND status = 'P'";
+        $lsp = $this->m_skperingatan->read_trxskperingatan($param);
+        $data['list_spkaryawan'] = $lsp->result();
+        /* END SP KARYAWAN */
+
 
         $data['title'] = "Detail Karyawan";
         //$data['dtl'] = $this->m_karyawan->get_dtl_id($id)->row_array();
         $data['lp'] = $this->m_karyawan->get_dtl_id($id)->row_array();
+        
         $this->template->display('trans/karyawan/v_detailhrdkary_self',$data);
     }
     function edit_self($id)
@@ -1816,4 +1834,245 @@ class Karyawan extends MX_Controller {
             'modalSize' => 'modal-sm'
         ));
     }
+
+    function cetak()
+    {
+        $enc_docno = $this->input->get('enc_docno');
+        $data['jsonfile'] = "index.php/trans/karyawan/api_cetak/?enc_docno=$enc_docno";
+        $data['report_file'] = 'assets/mrt/pkk.mrt';
+        $data['title'] = "Cetak";
+        $data['report_name'] = '';
+        $this->load->view("stimulsoft/viewer_preview.php", $data);
+    }
+
+    function api_cetak()
+    {
+        //$docno = 123;
+        $docno = $this->fiky_encryption->dekript($this->input->get('enc_docno'));
+        $nik = $this->m_stspeg->q_show_edit_karkon($docno)->row()->nik;
+        $this->load->helper('my_helper');
+        $dataopt = [
+            'kepala_sdm' => '',
+            'nodok' => '',
+            'tgl_berlaku' => '',
+            'revisi' => '',
+            'halaman' => ''
+        ];
+        $infoumum = $this->m_stspeg->q_kar($nik, $docno)->result();
+		$tglmulaikontrak = date('Ym', strtotime($infoumum[0]->tgl_mulai));
+		$tglselesaikontrak = date('Ym', strtotime($infoumum[0]->tgl_selesai));
+		foreach ($infoumum as &$info) {
+            $info->nmlengkap = $this->ucstring(trim($info->nmlengkap));
+            $info->nmjabatan = (property_exists($info, 'jabatan_cetak') && !empty($info->jabatan_cetak)) ? $info->jabatan_cetak : $this->ucstring(trim($info->nmjabatan));
+            $info->nmatasan = ucfirst(strtolower(substr(trim($info->nmatasan), 0, 10)));
+            $info->nmatasan2 = ucfirst(strtolower(substr(trim($info->nmatasan2), 0, 10)));
+			$info->selisih_tgl = $this->m_karyawan->masa_kontrak_cetak1($info->tgl_mulai, $info->tgl_selesai);
+			$info->tgl_mulai1 = isset($info->tgl_mulai) ? formattgl($info->tgl_mulai) : null;
+			$info->tgl_selesai1 = isset($info->tgl_selesai) ? formattgl($info->tgl_selesai) : null;
+            $info->tglmasukkerja1 = isset($info->tglmasukkerja) ? formattgl($info->tglmasukkerja) : null;
+		}
+		//var_dump($infoumum);
+		
+        //data detail
+        $dtl = $this->m_pk->q_get_detail_lain_cetak($docno)->result();
+
+		//data kondite
+		$periodekon = $this->m_pk->periode_kondite($tglmulaikontrak, $tglselesaikontrak);
+		$paramkondite = "a.nik = '$nik' AND a.periode in ($periodekon)";
+		$kondite = $this->m_pk->q_kondite_cetak_periode($paramkondite)->result();
+		
+		//data kpi
+        $paramkpi = (int) filter_var($infoumum[0]->selisih_tgl, FILTER_SANITIZE_NUMBER_INT);
+		$kpi = $this->m_pk->q_kpi_list_periode($nik, $paramkpi)->result();
+        $newFormat = new stdClass(); // buat object baru untuk menyimpan data yang sudah diformat
+        $letters = range('a', 'z'); // buat array huruf dari a sampai z
+        
+        // loop data kpi
+        foreach ($kpi as $index => $item) {
+            $monthKey = "month" . ($index + 1); // buat key menggunakan bulan$index++.
+            $pointKey = "poin" . ($index + 1); // buat key untuk poin menggunakan bulan$index++.
+            $formattedMonth = $item->periode_formatted; 
+            $kpiPoint = $item->kpi_point; 
+        
+            // buat format mirip dengan dokumen penilaian
+            $newFormat->{$monthKey} = $letters[$index] . ".  " . $formattedMonth;
+            $newFormat->{$pointKey} = $kpiPoint;
+        }
+
+		//data aspek_penilaian
+		$aspek = $this->m_pk->q_get_detail_penilaian_cetak($docno)->result();
+
+        //data option
+        $dataopt = $this->m_pk->get_appr_list_nm()->result();
+
+        // 1. Definisikan prioritas job
+        $job_priority = [
+            'D' => 1,
+            'GM' => 2,
+            'HRGA' => 3
+        ];
+
+        // 2. Urutkan $dataopt berdasarkan prioritas job
+        usort($dataopt, function($a, $b) use ($job_priority) {
+            $prioA = isset($job_priority[$a->job]) ? $job_priority[$a->job] : 999;
+            $prioB = isset($job_priority[$b->job]) ? $job_priority[$b->job] : 999;
+        
+            if ($prioA == $prioB) return 0;
+            return ($prioA < $prioB) ? -1 : 1;
+        });
+
+        // 3. Lakukan pemrosesan seperti biasa
+        foreach ($dataopt as $opt) {
+            $opt->nama = $this->ucstring($opt->nama);
+        }
+
+        $newdataopt = new stdClass();
+        foreach ($dataopt as $index => $opt) {
+            $key = "approval" . ($index + 1);
+            $newdataopt->{$key} = $opt->nama;
+            $newdataopt->{$key . "_job" . ($index + 1)} = $opt->job;
+        }
+
+        //json
+        header("Content-Type: text/json");
+        echo json_encode(
+            [   
+                'infoumum' => $infoumum,
+                'kondite' => $kondite,
+                'kpi' => $newFormat,  
+                'detail' => $dtl,
+                'aspek' => $aspek,
+                'option' => $newdataopt
+            ],
+            JSON_PRETTY_PRINT
+        );
+    }
+
+    function ucstring($string) {
+            // Step 1: Replace spaces with underscores and convert to uppercase
+            $string = strtolower(str_replace(' ', '_', $string));
+                
+            // Step 2: Replace underscores back with spaces
+            $string = str_replace('_', ' ', $string);
+            
+            // Step 3: Capitalize the first letter of each word
+            $string = ucwords(strtolower($string));
+
+            return $string;
+    }
+
+    function cetak2()
+    {
+        $enc_docno = $this->input->get('enc_docno');
+        $docno = $this->fiky_encryption->dekript($this->input->get('enc_docno'));
+        $transaction = $this->m_stspeg->q_transaction_read_where(' AND nodok = \'' . $docno . '\' ')->row();
+        $kontrak_ke = $this->m_karyawan->jml_pkwt($transaction->nik)->result();
+        $nodoc_to_find = $docno;
+        $number_pk = null; 
+
+        //var_dump($kontrak_ke);
+        // foreach ($kontrak_ke as $item) {
+        //     //var_dump($item);
+        //     if (trim($item->nodok) == $nodoc_to_find) {
+        //         echo "Match found: " . $item->nodok;
+        //         $number_pk = $item->row_number; 
+        //         break; // Exit the loop once a match is found
+        //     }
+        // }
+
+        switch ($transaction->kdkepegawaian) {
+            case 'KT':
+                $reportFile = 'assets/mrt/pkwtt_nusa.mrt';
+                $data['report_name'] = 'PKWTT & SK';
+                break;
+            case 'KD':
+                $reportFile = 'assets/mrt/pkwtt_nusa.mrt';
+                $data['report_name'] = 'PKWT DIKARYAKAN KONTRAK KE ' . $transaction->counter;
+                break;
+            default:
+                $reportFile = 'assets/mrt/pkwt_nusa.mrt';
+                $data['report_name'] = 'PKWT KONTRAK KE ' . $number_pk;
+                break;
+        }
+
+        $this->load->library('ciqrcode');
+        $qr['string'] = rand(10, 99) . $docno . '.' . date('d-m-Y.H:i:s');
+        $qr['size'] = 2;
+        $qrCode = $this->ciqrcode->generatebase64qr($qr);
+
+        $this->m_stspeg->insert_stspeg_document($docno, $qr['string']);
+
+        $data['qr_code'] = $qrCode;
+        $data['nodok'] = $docno;
+        $data['jsonfile'] = "index.php/trans/karyawan/api_cetak2/?enc_docno=$enc_docno";
+        $data['report_file'] = $reportFile;
+        $data['title'] = "Cetak";
+        $data['nik'] = $this->session->userdata('nik');
+        $data['download_date'] = date('d-m-Y H:i:s');
+
+         $this->load->view("stimulsoft/viewer_preview.php",$data);
+        //$this->load->view("stimulsoft/viewer_preview_save.php", $data);
+    }
+
+    function api_cetak2()
+    {
+        $this->load->model(array('trans/M_Employee'));
+        $docno = $this->fiky_encryption->dekript($this->input->get('enc_docno'));
+        //        $pihak1 = array_map('trim', $this->m_stspeg->q_spv("and jabatan = 'HRD-1' and lvl_jabatan='03' and statuskepegawaian<>'KO'")->row_array());
+        $signature = $this->M_Employee->signatureSetup();
+        $transaction = $this->m_stspeg->q_transaction_read_where(' AND nodok = \'' . $docno . '\' ')->row();
+//        var_dump($transaction);die();
+        $pihak1 = array(
+            // 'nmlengkap' => ucwords(strtolower(($transaction->kdkepegawaian == 'KT' || $transaction->kdkepegawaian == 'KD') ? $signature['CONTRACT:SIGNATURE:USERNAME:KT'] : $signature['CONTRACT:SIGNATURE:USERNAME:KK'])),
+            // 'nmjabatan' => ucwords(strtolower((($transaction->kdkepegawaian == 'KT' || $transaction->kdkepegawaian == 'KD') ? $signature['CONTRACT:SIGNATURE:POSITION:KT'] : $signature['CONTRACT:SIGNATURE:POSITION:KK']))),
+            // 'alamatktp' => ucwords(strtolower($signature['CONTRACT:SIGNATURE:OFFICEADDRESS'])),
+            'nmlengkap' => 'Merry Chrissinda',
+            'nmjabatan' => 'Direktur',
+            'alamatktp' => 'Jl. Kupang Indah 10/10, RT. 03, RW. 05, Kel. Dukuh Kupang, Kec. Dukuh Pakis, Surabaya'
+        );
+        $nik = $this->m_stspeg->q_show_edit_karkon($docno)->row()->nik;
+        $pihak2 = array_map('trim', $this->m_stspeg->q_kar($nik, $docno)->row_array());
+        $specialDepartmentArr = explode(",", $signature['CONTRACT:SPECIAL:DEPARTMENT']);
+        $pihak2['nmdept_format'] = (!in_array($pihak2['department_id'], $specialDepartmentArr) ? $pihak2['nmsubdept'] : $pihak2['nmdept']);
+        $pihak2['nosk'] = trim($this->m_stspeg->q_stspeg_edit($nik, $docno)->row()->nosk);
+        $masa_pkwt_terakhir = $this->m_karyawan->pkwt_terakhir($nik)->result();
+        $pihak2['pkwt_ke'] = end($masa_pkwt_terakhir)->row_number;
+        $tgl_pkwt_last = $masa_pkwt_terakhir[0]->tgl_selesai;
+        $this->load->helper('my_helper');
+        //        var_dump();die();
+        $info = [
+            'nmhari' => nmhari($pihak2['tgl_cetak']),
+            'tgl' => date('j', strtotime($pihak2['tgl_cetak'])),
+            'bulan' => nmbulan($pihak2['tgl_cetak']),
+            'tahun' => date('Y', strtotime($pihak2['tgl_cetak'])),
+        ];
+        $kdkepegawaian = $transaction->kdkepegawaian;
+        if ($kdkepegawaian != 'KT') {
+            $pihak2['masa_kontrak_bln'] = $this->m_karyawan->masa_kontrak($pihak2['tgl_mulai'], $pihak2['tgl_selesai']);
+        }
+        $pihak2['wilpen'] = $this->ucstring($this->m_karyawan->penempatan_karyawan(trim($pihak2['nmlengkap']))->row()->cabang);
+        $pihak2['nmlengkap'] = $this->ucstring(trim($pihak2['nmlengkap']));
+        $pihak2['alamatktp'] = $this->ucstring(trim($pihak2['alamatktp']));
+        $pihak2['nmjabatan'] = !empty($pihak2['jabatan_cetak']) ? $pihak2['jabatan_cetak'] : $this->ucstring(trim($pihak2['nmjabatan']));
+        $pihak2['nmdept'] = !empty($pihak2['dept_cetak']) ? $pihak2['dept_cetak'] : $this->ucstring(trim($pihak2['nmdept']));
+        $pihak2['nmkepegawaian'] = convertNumberToRomanInString($pihak2['nmkepegawaian']);
+        $pihak2['tgl_mulai'] = formattgl($pihak2['tgl_mulai']);
+        $pihak2['tgllahir'] = formattgl($pihak2['tgllahir']);
+        $pihak2['tgl_selesai'] = $pihak2['tgl_selesai'] <> '-' ? formattgl($pihak2['tgl_selesai']) : '-';
+        $pihak2['tgl_cetak'] = formattgl($pihak2['tgl_cetak']);
+        $pihak2['tanggal_pkwt_terakhir'] = formattgl($tgl_pkwt_last);
+        header("Content-Type: text/json");
+        echo json_encode(
+            [
+                'info' => $info,
+                'pihak1' => $pihak1,
+                'pihak2' => $pihak2,
+            ],
+            JSON_PRETTY_PRINT
+        );
+    }
+        
 }
+
+
+

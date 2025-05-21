@@ -99,7 +99,7 @@ $(function() {
     <div class="col-sm-3">
         <!--div class="container"--->
         <div class="dropdown ">
-            <a class="btn btn-default" href="<?= site_url('pk/pk/report_kondite') ?>"><i
+            <a class="btn btn-default" href="<?= $_SERVER['HTTP_REFERER'] ?>"><i
                     class="fa fa-arrow-left"></i>Kembali</a>
             <button class="btn btn-primary dropdown-toggle " style="margin:10px; color:#ffffff;" id="menu1"
                 type="button" data-toggle="dropdown">Menu Filter

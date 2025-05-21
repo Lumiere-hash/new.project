@@ -97,6 +97,8 @@ SELECT
     e.nmjabatan, 
     f.nmlengkap AS nmatasan, 
     g.nmlengkap AS nmatasan2,
+    h.nodok,
+    h.tgl_selesai,
     CASE
         WHEN COALESCE(TRIM(a.nohp1), '') != ''  AND COALESCE(TRIM(a.nohp2), '') != '' THEN CONCAT(COALESCE(TRIM(a.nohp1), ''),', ',COALESCE(TRIM(a.nohp2), ''))
         WHEN (COALESCE(TRIM(a.nohp1), '') IS NULL OR a.nohp1 = '' ) THEN COALESCE(TRIM(a.nohp2), '')
@@ -111,6 +113,7 @@ LEFT OUTER JOIN sc_mst.lvljabatan d ON a.lvl_jabatan = d.kdlvl
 LEFT OUTER JOIN sc_mst.jabatan e ON a.jabatan = e.kdjabatan AND e.kdsubdept = a.subbag_dept AND e.kddept = a.bag_dept
 LEFT OUTER JOIN sc_mst.karyawan f ON a.nik_atasan = f.nik
 LEFT OUTER JOIN sc_mst.karyawan g ON a.nik_atasan2 = g.nik
+LEFT OUTER JOIN sc_trx.status_kepegawaian h ON a.nik= h.nik and h.status='B'
 WHERE a.tglkeluarkerja IS NULL
 ORDER BY nmlengkap
 ) as aa
@@ -118,5 +121,45 @@ WHERE TRUE
 
 SQL
             ).$clause;
+    }
+
+    public function signatureSetup()
+    {
+        $this->load->model(array('master/m_option','trans/M_Employee','master/M_Branch'));
+        $defaultArr = array(
+            'CONTRACT:SPECIAL:DEPARTMENT' => 'SPS,OPR,OPS,SLM',
+            'CONTRACT:SIGNATURE:POSITION:KK' => 'Spv HRD',
+            'CONTRACT:SIGNATURE:POSITION:KT' => 'Direktur Utama',
+            'CONTRACT:SIGNATURE:USERID:KK' => '3100760',
+            'CONTRACT:SIGNATURE:USERID:KT' => '3108001',
+            'CONTRACT:SIGNATURE:CITY' => 'Bati-bati',
+            'CONTRACT:SIGNATURE:OFFICEADDRESS' => 'Jl. A. Yani km 31 Ds Liang Anggang Kec. Bati – bati Kab. Tanah Laut Kal – sel.',
+            'CONTRACT:SIGNATURE:TITLE:KK' => 'Spv HRD',
+            'CONTRACT:SIGNATURE:TITLE:KT' => 'Direktur Utama',
+            'CONTRACT:SIGNATURE:BRANCH' => 'BBTSNI',
+            'DOK1' => 'HRD',
+        );
+        $parameterArr = array();
+        foreach ($defaultArr as $index => $item) {
+            array_push($parameterArr,$index);
+        }
+        $parameterIn = "'".implode("','",$parameterArr)."'";
+        $getSetup = $this->m_option->q_master_read_default_array(' AND parameter IN('.$parameterIn.') ',$defaultArr);
+        if (isset($getSetup['CONTRACT:SIGNATURE:USERID:KK'])){
+            $employeeData = $this->M_Employee->q_mst_read_where(' AND nik = \''.$getSetup['CONTRACT:SIGNATURE:USERID:KK'].'\' ')->row();
+            $getSetup['CONTRACT:SIGNATURE:USERNAME:KK'] = $employeeData->text;
+            $getSetup['CONTRACT:SIGNATURE:ADDRESS:KK'] = $employeeData->alamatktp;
+        }
+        if (isset($getSetup['CONTRACT:SIGNATURE:USERID:KT'])){
+            $employeeData = $this->M_Employee->q_mst_read_where(' AND nik = \''.$getSetup['CONTRACT:SIGNATURE:USERID:KT'].'\' ')->row();
+            $getSetup['CONTRACT:SIGNATURE:USERNAME:KT'] = $employeeData->text;
+            $getSetup['CONTRACT:SIGNATURE:ADDRESS:KT'] = $employeeData->alamatktp;
+        }
+        if (isset($getSetup['CONTRACT:SIGNATURE:BRANCH'])){
+            $getSetup['CONTRACT:SIGNATURE:BRANCHNAME'] = $this->M_Branch->q_master_read_where(' AND branch = \''.$getSetup['CONTRACT:SIGNATURE:BRANCH'].'\' ')->row()->branchname;
+            $getSetup['CONTRACT:SIGNATURE:BRANCHADDRESS'] = $this->M_Branch->q_master_read_where(' AND branch = \''.$getSetup['CONTRACT:SIGNATURE:BRANCH'].'\' ')->row()->address;
+        }
+        return $getSetup;
+
     }
 }

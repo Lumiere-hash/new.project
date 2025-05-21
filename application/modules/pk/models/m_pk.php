@@ -954,4 +954,436 @@ SQL
 				nmlengkap asc) z
 			where true $arg;");
 	}
-}
+
+	function q_kondite_cetak_periode($param){
+		return $this->db->query("SELECT 
+								SUM(CAST(a.ttlvalueip AS DECIMAL)) AS ttlvalueip,
+								SUM(CAST(a.ttlvaluesd AS DECIMAL)) AS ttlvaluesd,
+								SUM(CAST(a.ttlvalueal AS DECIMAL)) AS ttlvalueal,
+								SUM(CAST(a.ttlvaluetl AS DECIMAL)) AS ttlvaluetl,
+								SUM(CAST(a.ttlvalueipa AS DECIMAL)) AS ttlvalueipa
+							FROM 
+								sc_pk.kondite_trx_mst a
+							LEFT OUTER JOIN 
+								sc_mst.karyawan b ON a.nik = b.nik
+							LEFT OUTER JOIN 
+								sc_mst.karyawan b1 ON b.nik_atasan = b1.nik
+							LEFT OUTER JOIN 
+								sc_mst.karyawan b2 ON b.nik_atasan2 = b2.nik
+							LEFT OUTER JOIN 
+								sc_mst.departmen c ON b.bag_dept = c.kddept
+							LEFT OUTER JOIN 
+								sc_mst.subdepartmen d ON b.subbag_dept = d.kdsubdept AND d.kddept = b.bag_dept
+							LEFT OUTER JOIN 
+								sc_mst.lvljabatan e ON b.lvl_jabatan = e.kdlvl
+							LEFT OUTER JOIN 
+								sc_mst.jabatan f ON b.jabatan = f.kdjabatan AND f.kdsubdept = b.subbag_dept AND f.kddept = b.bag_dept
+							LEFT OUTER JOIN 
+								sc_pk.m_bobot g ON g.kdvalue = a.f_kdvalue_fs AND g.kdcategory = 'KONDITE'
+							WHERE 
+								$param;
+							");
+	}
+
+	function q_kondite_list_periode($param)
+	{
+		return $this->db->query("SELECT 'ttlvalueip' AS ttlname, SUM(ttlvalueip::numeric) AS total
+			FROM (
+				SELECT 
+					a.*, 
+					c.nmdept, 
+					d.nmsubdept, 
+					e.nmlvljabatan, 
+					f.nmjabatan, 
+					b.nmlengkap, 
+					b1.nmlengkap AS nmatasan1, 
+					b2.nmlengkap AS nmatasan2, 
+					g.kdvalue AS kdbpa, 
+					g.description AS bpa
+				FROM 
+					sc_pk.kondite_trx_mst a
+				LEFT OUTER JOIN 
+					sc_mst.karyawan b ON a.nik = b.nik
+				LEFT OUTER JOIN 
+					sc_mst.karyawan b1 ON b.nik_atasan = b1.nik
+				LEFT OUTER JOIN 
+					sc_mst.karyawan b2 ON b.nik_atasan2 = b2.nik
+				LEFT OUTER JOIN 
+					sc_mst.departmen c ON b.bag_dept = c.kddept
+				LEFT OUTER JOIN 
+					sc_mst.subdepartmen d ON b.subbag_dept = d.kdsubdept AND d.kddept = b.bag_dept
+				LEFT OUTER JOIN 
+					sc_mst.lvljabatan e ON b.lvl_jabatan = e.kdlvl
+				LEFT OUTER JOIN 
+					sc_mst.jabatan f ON b.jabatan = f.kdjabatan AND f.kdsubdept = b.subbag_dept AND f.kddept = b.bag_dept
+				LEFT OUTER JOIN 
+					sc_pk.m_bobot g ON g.kdvalue = a.f_kdvalue_fs AND g.kdcategory = 'KONDITE'
+				WHERE 
+					a.nik = '1020.406'
+					AND a.periode BETWEEN '202401' AND '202501'
+			) AS x
+			WHERE nodok IS NOT NULL
+
+			UNION ALL
+
+			SELECT 'ttlvaluesd', SUM(ttlvaluesd::numeric)
+			FROM (
+				SELECT 
+					a.*, 
+					c.nmdept, 
+					d.nmsubdept, 
+					e.nmlvljabatan, 
+					f.nmjabatan, 
+					b.nmlengkap, 
+					b1.nmlengkap AS nmatasan1, 
+					b2.nmlengkap AS nmatasan2, 
+					g.kdvalue AS kdbpa, 
+					g.description AS bpa
+				FROM 
+					sc_pk.kondite_trx_mst a
+				LEFT OUTER JOIN 
+					sc_mst.karyawan b ON a.nik = b.nik
+				LEFT OUTER JOIN 
+					sc_mst.karyawan b1 ON b.nik_atasan = b1.nik
+				LEFT OUTER JOIN 
+					sc_mst.karyawan b2 ON b.nik_atasan2 = b2.nik
+				LEFT OUTER JOIN 
+					sc_mst.departmen c ON b.bag_dept = c.kddept
+				LEFT OUTER JOIN 
+					sc_mst.subdepartmen d ON b.subbag_dept = d.kdsubdept AND d.kddept = b.bag_dept
+				LEFT OUTER JOIN 
+					sc_mst.lvljabatan e ON b.lvl_jabatan = e.kdlvl
+				LEFT OUTER JOIN 
+					sc_mst.jabatan f ON b.jabatan = f.kdjabatan AND f.kdsubdept = b.subbag_dept AND f.kddept = b.bag_dept
+				LEFT OUTER JOIN 
+					sc_pk.m_bobot g ON g.kdvalue = a.f_kdvalue_fs AND g.kdcategory = 'KONDITE'
+				WHERE 
+					a.nik = '1020.406'
+					AND a.periode BETWEEN '202401' AND '202501'
+			) AS x
+			WHERE nodok IS NOT NULL
+
+			UNION ALL
+
+			SELECT 'ttlvalueal', SUM(ttlvalueal::numeric)
+			FROM (
+				SELECT 
+					a.*, 
+					c.nmdept, 
+					d.nmsubdept, 
+					e.nmlvljabatan, 
+					f.nmjabatan, 
+					b.nmlengkap, 
+					b1.nmlengkap AS nmatasan1, 
+					b2.nmlengkap AS nmatasan2, 
+					g.kdvalue AS kdbpa, 
+					g.description AS bpa
+				FROM 
+					sc_pk.kondite_trx_mst a
+				LEFT OUTER JOIN 
+					sc_mst.karyawan b ON a.nik = b.nik
+				LEFT OUTER JOIN 
+					sc_mst.karyawan b1 ON b.nik_atasan = b1.nik
+				LEFT OUTER JOIN 
+					sc_mst.karyawan b2 ON b.nik_atasan2 = b2.nik
+				LEFT OUTER JOIN 
+					sc_mst.departmen c ON b.bag_dept = c.kddept
+				LEFT OUTER JOIN 
+					sc_mst.subdepartmen d ON b.subbag_dept = d.kdsubdept AND d.kddept = b.bag_dept
+				LEFT OUTER JOIN 
+					sc_mst.lvljabatan e ON b.lvl_jabatan = e.kdlvl
+				LEFT OUTER JOIN 
+					sc_mst.jabatan f ON b.jabatan = f.kdjabatan AND f.kdsubdept = b.subbag_dept AND f.kddept = b.bag_dept
+				LEFT OUTER JOIN 
+					sc_pk.m_bobot g ON g.kdvalue = a.f_kdvalue_fs AND g.kdcategory = 'KONDITE'
+				WHERE 
+					a.nik = '1020.406'
+					AND a.periode BETWEEN '202401' AND '202501'
+			) AS x
+			WHERE nodok IS NOT NULL
+
+			UNION ALL
+
+			SELECT 'ttlvaluetl', SUM(ttlvaluetl::numeric)
+			FROM (
+				SELECT 
+					a.*, 
+					c.nmdept, 
+					d.nmsubdept, 
+					e.nmlvljabatan, 
+					f.nmjabatan, 
+					b.nmlengkap, 
+					b1.nmlengkap AS nmatasan1, 
+					b2.nmlengkap AS nmatasan2, 
+					g.kdvalue AS kdbpa, 
+					g.description AS bpa
+				FROM 
+					sc_pk.kondite_trx_mst a
+				LEFT OUTER JOIN 
+					sc_mst.karyawan b ON a.nik = b.nik
+				LEFT OUTER JOIN 
+					sc_mst.karyawan b1 ON b.nik_atasan = b1.nik
+				LEFT OUTER JOIN 
+					sc_mst.karyawan b2 ON b.nik_atasan2 = b2.nik
+				LEFT OUTER JOIN 
+					sc_mst.departmen c ON b.bag_dept = c.kddept
+				LEFT OUTER JOIN 
+					sc_mst.subdepartmen d ON b.subbag_dept = d.kdsubdept AND d.kddept = b.bag_dept
+				LEFT OUTER JOIN 
+					sc_mst.lvljabatan e ON b.lvl_jabatan = e.kdlvl
+				LEFT OUTER JOIN 
+					sc_mst.jabatan f ON b.jabatan = f.kdjabatan AND f.kdsubdept = b.subbag_dept AND f.kddept = b.bag_dept
+				LEFT OUTER JOIN 
+					sc_pk.m_bobot g ON g.kdvalue = a.f_kdvalue_fs AND g.kdcategory = 'KONDITE'
+				WHERE 
+					a.nik = '1020.406'
+					AND a.periode BETWEEN '202401' AND '202501'
+			) AS x
+			WHERE nodok IS NOT NULL
+
+			UNION ALL
+
+
+			SELECT 'ttlvalueipa', SUM(ttlvalueipa::numeric)
+			FROM (
+				SELECT 
+					a.*, 
+					c.nmdept, 
+					d.nmsubdept, 
+					e.nmlvljabatan, 
+					f.nmjabatan, 
+					b.nmlengkap, 
+					b1.nmlengkap AS nmatasan1, 
+					b2.nmlengkap AS nmatasan2, 
+					g.kdvalue AS kdbpa, 
+					g.description AS bpa
+				FROM 
+					sc_pk.kondite_trx_mst a
+				LEFT OUTER JOIN 
+					sc_mst.karyawan b ON a.nik = b.nik
+				LEFT OUTER JOIN 
+					sc_mst.karyawan b1 ON b.nik_atasan = b1.nik
+				LEFT OUTER JOIN 
+					sc_mst.karyawan b2 ON b.nik_atasan2 = b2.nik
+				LEFT OUTER JOIN 
+					sc_mst.departmen c ON b.bag_dept = c.kddept
+				LEFT OUTER JOIN 
+					sc_mst.subdepartmen d ON b.subbag_dept = d.kdsubdept AND d.kddept = b.bag_dept
+				LEFT OUTER JOIN 
+					sc_mst.lvljabatan e ON b.lvl_jabatan = e.kdlvl
+				LEFT OUTER JOIN 
+					sc_mst.jabatan f ON b.jabatan = f.kdjabatan AND f.kdsubdept = b.subbag_dept AND f.kddept = b.bag_dept
+				LEFT OUTER JOIN 
+					sc_pk.m_bobot g ON g.kdvalue = a.f_kdvalue_fs AND g.kdcategory = 'KONDITE'
+				WHERE 
+					$param
+			) AS x
+			WHERE nodok IS NOT NULL;
+
+			");
+		}
+
+		function q_kpi_list_periode($nik, $kpirange){
+			return $this->db->query("SELECT * FROM 
+			(
+				SELECT 
+					a.nik, 
+					a.nodok, 
+					a.kpi_point, 
+					a.periode, 
+					CASE 
+						WHEN TO_CHAR(TO_DATE(a.periode, 'YYYYMM'), 'Mon') = 'Jan' THEN 'Januari'
+						WHEN TO_CHAR(TO_DATE(a.periode, 'YYYYMM'), 'Mon') = 'Feb' THEN 'Februari'
+						WHEN TO_CHAR(TO_DATE(a.periode, 'YYYYMM'), 'Mon') = 'Mar' THEN 'Maret'
+						WHEN TO_CHAR(TO_DATE(a.periode, 'YYYYMM'), 'Mon') = 'Apr' THEN 'April'
+						WHEN TO_CHAR(TO_DATE(a.periode, 'YYYYMM'), 'Mon') = 'May' THEN 'Mei'
+						WHEN TO_CHAR(TO_DATE(a.periode, 'YYYYMM'), 'Mon') = 'Jun' THEN 'Juni'
+						WHEN TO_CHAR(TO_DATE(a.periode, 'YYYYMM'), 'Mon') = 'Jul' THEN 'Juli'
+						WHEN TO_CHAR(TO_DATE(a.periode, 'YYYYMM'), 'Mon') = 'Aug' THEN 'Agustus'
+						WHEN TO_CHAR(TO_DATE(a.periode, 'YYYYMM'), 'Mon') = 'Sep' THEN 'September'
+						WHEN TO_CHAR(TO_DATE(a.periode, 'YYYYMM'), 'Mon') = 'Oct' THEN 'Oktober'
+						WHEN TO_CHAR(TO_DATE(a.periode, 'YYYYMM'), 'Mon') = 'Nov' THEN 'November'
+						WHEN TO_CHAR(TO_DATE(a.periode, 'YYYYMM'), 'Mon') = 'Dec' THEN 'Desember'
+						ELSE TO_CHAR(TO_DATE(a.periode, 'YYYYMM'), 'Mon')
+					END AS periode_formatted,
+					TO_CHAR(TO_DATE(a.periode, 'YYYYMM'), 'YYYY') AS tahun
+				FROM ( 
+					SELECT a.* 
+					FROM sc_pk.kpi_trx_mst a 
+				) a
+				LEFT OUTER JOIN sc_mst.karyawan b ON a.nik = b.nik 
+				LEFT OUTER JOIN sc_mst.karyawan b1 ON b.nik_atasan = b1.nik 
+				LEFT OUTER JOIN sc_mst.karyawan b2 ON b.nik_atasan2 = b2.nik 
+				LEFT OUTER JOIN sc_mst.departmen c ON b.bag_dept = c.kddept 
+				LEFT OUTER JOIN sc_mst.subdepartmen d ON b.subbag_dept = d.kdsubdept AND d.kddept = b.bag_dept 
+				LEFT OUTER JOIN sc_mst.lvljabatan e ON b.lvl_jabatan = e.kdlvl 
+				LEFT OUTER JOIN sc_mst.jabatan f ON b.jabatan = f.kdjabatan AND f.kdsubdept = b.subbag_dept AND f.kddept = b.bag_dept
+			) AS x 
+			WHERE nodok IS NOT NULL 
+			AND nik = '$nik' 
+			ORDER BY periode DESC 
+			LIMIT $kpirange;"
+				);
+
+		}
+
+		function q_get_question()
+		{
+			$query = $this->db->select('*')->where('enabled = TRUE')->order_by('kd_aspect asc')->get('sc_pk.score_aspect_pk');
+			return $query;
+		}
+
+		function q_info_identity($kddok)
+		{
+			return $this->db->query("SELECT 
+				m.nik,
+				s.aspect_question,
+				c.score,
+				c.desc_aspect	
+			FROM 
+				sc_pk.master_pk m
+			JOIN 
+				sc_pk.detail_pk c ON m.kddok = c.kddok
+			JOIN
+				sc_pk.score_aspect_pk s ON c.kd_aspect = s.kd_aspect 
+
+			where m.kddok = '$kddok';");
+		}
+
+		function q_get_detail_penilaian_cetak($kdcontract)
+		{
+			return $this->db->query("SELECT 
+				ROW_NUMBER() OVER (ORDER BY c.kd_aspect) AS no,
+				m.kdcontract,
+				m.nik,
+				s.aspect_question,
+				c.score,
+				c.desc_aspect	
+			FROM 
+				sc_pk.master_pk m
+			JOIN 
+				sc_pk.detail_pk c ON m.kddok = c.kddok
+			JOIN
+				sc_pk.score_aspect_pk s ON c.kd_aspect = s.kd_aspect 
+
+			where trim(m.kdcontract) = '$kdcontract';
+			");
+		}
+
+		function q_get_detail_lain_cetak($kdcontract)
+		{
+			return $this->db->query("select 
+					kddok, 
+					kdcontract, 
+					summary, 
+					description,
+					trim(status) as status,
+					approvedate,
+					trim(approveby) as approveby
+					from sc_pk.master_pk 
+					where kdcontract = '$kdcontract';
+			");
+		}
+
+		function get_list_karyawan($kdcontract)
+		{
+			return $this->db->query("select a.nik, a.nmlengkap, b.nmlengkap as nmlengkapatasan1, c.nmlengkap as nmlengkapatasan2 
+										from sc_mst.karyawan a
+										JOIN sc_mst.karyawan b ON a.nik_atasan = b.nik 
+										JOIN sc_mst.karyawan c ON a.nik_atasan2 = c.nik
+										where coalesce(upper(a.statuskepegawaian),'')!='KO' 
+										order by a.nmlengkap asc
+			");
+		}
+
+		function get_list_pk($param){
+			return $this->db->query("select a.*,b.nmlengkap as namakaryawan, b.nik_atasan2, c.nmlengkap as namaatasan1, d.nmlengkap as namaatasan2, e.nmlengkap as nminput, f.tgl_mulai, f.tgl_selesai,  g.nmkepegawaian, h.description as deskappr, f.status as statuskep
+										from sc_pk.master_pk a
+										join sc_mst.karyawan b on a.nik = b.nik
+										join sc_mst.karyawan c on b.nik_atasan = c.nik
+										join sc_mst.karyawan d on b.nik_atasan2 = d.nik
+										join sc_mst.karyawan e on a.inputby = e.nik
+										join sc_trx.status_kepegawaian f on a.kdcontract = f.nodok
+										join sc_mst.status_kepegawaian g on f.kdkepegawaian=g.kdkepegawaian
+										join sc_pk.master_appr h on a.status = h.kdappr
+										$param AND trim(a.status) != 'C' and trim(f.status) = 'B'
+										order by a.inputdate desc
+			");
+		}
+
+		function get_list_pkpen($nik){
+			return $this->db->query("select a.*,b.nmkepegawaian,c.nik_atasan,c.nmlengkap,to_char(a.tgl_mulai,'dd-mm-YYYY')as tgl_mulai1,
+										to_char(a.tgl_selesai,'dd-mm-YYYY')as tgl_selesai1,d.uraian as nmstatus,e.status as statuspen,e.kddok, f.description as deskappr
+										from sc_trx.status_kepegawaian a
+										left outer join sc_mst.status_kepegawaian b on a.kdkepegawaian=b.kdkepegawaian
+										left outer join sc_mst.karyawan c on a.nik=c.nik
+										left outer join sc_mst.trxtype d on a.status=d.kdtrx and d.jenistrx='STSPEG'
+										left outer join sc_pk.master_pk e on a.nodok=e.kdcontract
+										left outer join sc_pk.master_appr f on e.status = f.kdappr
+										where c.nik_atasan='$nik' and a.kdkepegawaian not in('KO', 'KT','MG','PK') and a.status='B' and tgl_selesai - INTERVAL '2 months' <= CURRENT_DATE
+										order by a.tgl_selesai desc 
+			");
+		}
+
+		function get_appr_list(){
+			return $this->db->query("select nik, jobposition from sc_pk.master_appr_list")->result_array();
+		}
+
+		function get_appr_list_nm(){
+			return $this->db->query("select trim(a.nik) as nik, trim(b.nmlengkap) as nama, trim(a.jobposition)as job from sc_pk.master_appr_list a 
+										join sc_mst.karyawan b on a.nik = b.nik");
+		}
+
+		function get_name($nik){
+			return $this->db->query("select nmlengkap from sc_mst.karyawan where nik='$nik'")->row()->nmlengkap;
+		}
+
+		function check_pkstat($kddok){
+			 $row = $this->db->query("select status from sc_pk.master_pk where kddok='$kddok'")->row();
+			 $check = $row && isset($row->status) && trim($row->status) == 'C' ? true : $row->status;
+			 return $check;
+		}
+
+		function q_remind_pk($param = ''){
+			return $this->db->query("select a.*,b.nmkepegawaian,c.nik_atasan,c.nmlengkap,g.nmdept,to_char(a.tgl_mulai,'dd-mm-YYYY')as tgl_mulai1,
+							to_char(a.tgl_selesai,'dd-mm-YYYY')as tgl_selesai1,d.uraian as nmstatus,e.status as statuspen,e.kddok, f.description as deskappr
+							from sc_trx.status_kepegawaian a
+							left outer join sc_mst.status_kepegawaian b on a.kdkepegawaian=b.kdkepegawaian
+							left outer join sc_mst.karyawan c on a.nik=c.nik
+							left outer join sc_mst.trxtype d on a.status=d.kdtrx and d.jenistrx='STSPEG'
+							left outer join sc_pk.master_pk e on a.nodok=e.kdcontract
+							left outer join sc_pk.master_appr f on e.status = f.kdappr
+							left outer join sc_mst.departmen g on g.kddept = c.bag_dept
+							where a.kdkepegawaian not in('KO', 'KT','MG','PK') and a.status='B' and tgl_selesai - INTERVAL '2 months' <= CURRENT_DATE 
+							$param
+							order by a.tgl_selesai asc ");	
+		}
+
+		function periode_kondite($tglmulaikontrak, $tglakhirkontrak) {
+		// Pastikan input dalam format 'YYYYMM' dan $tglmulaikontrak <= $tglakhirkontrak
+		$periodeArr = [];
+		$start = $tglmulaikontrak;
+		$end = $tglakhirkontrak;
+
+		if (preg_match('/^\d{6}$/', $start) && preg_match('/^\d{6}$/', $end) && $start <= $end) {
+			while ($start <= $end) {
+				$periodeArr[] = $start;
+				$year = intval(substr($start, 0, 4));
+				$month = intval(substr($start, 4, 2));
+				$month++;
+				if ($month > 12) {
+					$month = 1;
+					$year++;
+				}
+				$start = sprintf('%04d%02d', $year, $month);
+			}
+		}
+
+		// Mengubah array periode menjadi string dengan tanda kutip dan koma
+		$formattedperiod = count($periodeArr) > 0 ? ("'" . implode("','", $periodeArr) . "'") : '';
+		return $formattedperiod;
+	}
+		
+
+	}
+ 

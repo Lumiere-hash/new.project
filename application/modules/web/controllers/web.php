@@ -39,6 +39,7 @@ class Web extends MX_Controller{
         $data['_checking']=$this->fiky_encryption->checkDirectMac();
         $data['_checking_']=''; //$this->fiky_encryption->checkdelfiles();
         //echo $this->important_class->cobazz();
+		
         $this->load->view('web/web/index',$data);
     }  
     function login(){
@@ -86,6 +87,7 @@ class Web extends MX_Controller{
 					$session_id = $this->session->userdata('session_id');
 					$this->db->where('session_id', $session_id);
 					$this->db->update('osin_sessions', array('userid' => $identity));
+					$this->load->view('template/sidebar',$password);
 					redirect('dashboard');
 						
 				}else{

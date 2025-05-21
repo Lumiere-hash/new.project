@@ -252,7 +252,7 @@
                                             <label class="col-sm-4" for="inputsm">TAHUN</label>
                                             <div class="col-sm-8">
                                                 <select class="form-control input-sm" name="tahun" id="tahun" required>
-                                                    <option value="<?= date('Y')-$year ?>" selected><?= date('Y')-$year ?></option>
+                                                    <option value="<?= date('Y') ?>" selected><?= date('Y') ?></option>
                                                 </select>
                                             </div>
                                             <input type="hidden" name="startPeriode" id="startDate" value="">

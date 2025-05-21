@@ -1,55 +1,64 @@
 <?php
-class M_stspeg extends CI_Model{
-	
-	function list_jnsbpjs(){
-		return $this->db->query("select * from sc_mst.jenis_bpjs");
-	}
-	
-	
-	function list_karyawan(){
-		return $this->db->query("select * from sc_mst.karyawan where coalesce(upper(statuskepegawaian),'')!='KO' order by nmlengkap asc");
-		
-	}
-	
-	function list_kepegawaian(){
-		return $this->db->query("select * from sc_mst.status_kepegawaian");
-	}
-	
-	function list_karyawan_index($nik){
-		return $this->db->query("select a.*,b.nmdept,c.nmsubdept,d.nmlvljabatan,e.nmjabatan,f.nmlengkap as nmatasan from sc_mst.karyawan a
+class M_stspeg extends CI_Model
+{
+
+    function list_jnsbpjs()
+    {
+        return $this->db->query("select * from sc_mst.jenis_bpjs");
+    }
+
+
+    function list_karyawan()
+    {
+        return $this->db->query("select * from sc_mst.karyawan where coalesce(upper(statuskepegawaian),'')!='KO' order by nmlengkap asc");
+    }
+
+    function list_kepegawaian()
+    {
+        return $this->db->query("select * from sc_mst.status_kepegawaian");
+    }
+
+    function list_karyawan_index($nik)
+    {
+        return $this->db->query("select a.*,b.nmdept,c.nmsubdept,d.nmlvljabatan,e.nmjabatan,f.nmlengkap as nmatasan from sc_mst.karyawan a
 								left outer join sc_mst.departmen b on a.bag_dept=b.kddept
 								left outer join sc_mst.subdepartmen c on a.subbag_dept=c.kdsubdept
 								left outer join sc_mst.lvljabatan d on a.lvl_jabatan=d.kdlvl
 								left outer join sc_mst.jabatan e on a.jabatan=e.kdjabatan
 								left outer join sc_mst.karyawan f on a.nik_atasan=f.nik
 								where trim(a.nik)='$nik'");
-	}
-	
-	
-	function q_stspeg($nik){
-		return $this->db->query("select a.*,b.nmkepegawaian,c.nmlengkap,to_char(a.tgl_mulai,'dd-mm-YYYY')as tgl_mulai1,
-                                to_char(a.tgl_selesai,'dd-mm-YYYY')as tgl_selesai1,d.uraian as nmstatus
-                                 from sc_trx.status_kepegawaian a
+    }
+
+
+    function q_stspeg($nik)
+    {
+        return $this->db->query("select a.*,b.nmkepegawaian,c.nik_atasan,c.nmlengkap,to_char(a.tgl_mulai,'dd-mm-YYYY')as tgl_mulai1,
+                                to_char(a.tgl_selesai,'dd-mm-YYYY')as tgl_selesai1,d.uraian as nmstatus,e.status as statuspen,e.kddok, f.full_path
+                                from sc_trx.status_kepegawaian a
                                 left outer join sc_mst.status_kepegawaian b on a.kdkepegawaian=b.kdkepegawaian
                                 left outer join sc_mst.karyawan c on a.nik=c.nik
                                 left outer join sc_mst.trxtype d on a.status=d.kdtrx and d.jenistrx='STSPEG'
-                                where a.nik='$nik' 	
+                                left outer join sc_pk.master_pk e on a.nodok=e.kdcontract
+                                left outer join sc_trx.document_contract f on a.nodok = f.kdcontract 
+                                where a.nik = '$nik'
                                 order by b.nmkepegawaian asc");
-	}
-	
-	
-	function q_stspeg_edit($nik,$nodok){
-		return $this->db->query("sselect a.*,b.nmkepegawaian,c.nmlengkap,to_char(a.tgl_mulai,'dd-mm-YYYY')as tgl_mulai1,
+    }
+
+
+    function q_stspeg_edit($nik, $nodok)
+    {
+        return $this->db->query("select a.*,b.nmkepegawaian,c.nmlengkap,to_char(a.tgl_mulai,'dd-mm-YYYY')as tgl_mulai1,
 								to_char(a.tgl_selesai,'dd-mm-YYYY')as tgl_selesai1
 								 from sc_trx.status_kepegawaian a
 								left outer join sc_mst.status_kepegawaian b on a.kdkepegawaian=b.kdkepegawaian
 								left outer join sc_mst.karyawan c on a.nik=c.nik
 								where a.nik='$nik' and a.nodok='$nodok'	
 								order by b.nmkepegawaian asc");
-	}
-	
-	function q_list_karkon(){
-		return $this->db->query("select *,case when kuranghari<0 then 'TERLEWAT'
+    }
+
+    function q_list_karkon()
+    {
+        return $this->db->query("select *,case when kuranghari<0 then 'TERLEWAT'
                                 else 'AKAN HABIS' 
                                 end as keteranganhari  from 
                                 (select a.nmlengkap,cast(now() as date)-b.tgl_selesai as kuranghari,a.nik,b.nodok,b.kdkepegawaian,b.keterangan,c.nmkepegawaian,
@@ -64,21 +73,22 @@ class M_stspeg extends CI_Model{
                                 ) as t1
                                 order by kuranghari asc
 								");
-	}
-	
-	function q_show_edit_karkon($nodok){
-		return $this->db->query("select b.nmlengkap,tgl_selesai-cast(now() as date) as kuranghari,a.nik,a.nodok,c.nmkepegawaian,a.kdkepegawaian,a.keterangan,
+    }
+
+    function q_show_edit_karkon($nodok)
+    {
+        return $this->db->query("select b.nmlengkap,tgl_selesai-cast(now() as date) as kuranghari,a.nik,a.nodok,c.nmkepegawaian,a.kdkepegawaian,a.keterangan,
 								to_char(a.tgl_mulai,'DD-MM-YYYY') as tgl_mulai1,
 								to_char(tgl_selesai,'DD-MM-YYYY') as tgl_selesai1
 								 from sc_trx.status_kepegawaian a
 								left outer join sc_mst.karyawan b on a.nik=b.nik
 								left outer join sc_mst.status_kepegawaian c on a.kdkepegawaian=c.kdkepegawaian
 								where a.nodok='$nodok'");
-	
-	}
-	
-	function q_list_karpen(){
-		return $this->db->query("select  a.nmlengkap,a1.nmdept,to_char(age(a.tgllahir),'YY') as umur,cast(to_char(tgllahir,'DD-MM')||'-'||to_char(now(),'YYYY')as date) as tglultah,a.nik,b.nodok,b.kdkepegawaian,b.keterangan,c.nmkepegawaian,
+    }
+
+    function q_list_karpen()
+    {
+        return $this->db->query("select  a.nmlengkap,a1.nmdept,to_char(age(a.tgllahir),'YY') as umur,cast(to_char(tgllahir,'DD-MM')||'-'||to_char(now(),'YYYY')as date) as tglultah,a.nik,b.nodok,b.kdkepegawaian,b.keterangan,c.nmkepegawaian,
                                 to_char(b.tgl_mulai,'DD-MM-YYYY') as tgl_mulai1,
                                 to_char(b.tgl_selesai,'DD-MM-YYYY') as tgl_selesai1
                                 from sc_mst.karyawan a
@@ -87,9 +97,9 @@ class M_stspeg extends CI_Model{
                                 left outer join sc_mst.status_kepegawaian c on b.kdkepegawaian=c.kdkepegawaian
                                 where to_char(age(a.tgllahir),'YY')>='56' and coalesce(a.statuskepegawaian,'')!='KO'  
 								");
-	
-	}
-	function q_list_ojt($param=null){
+    }
+    function q_list_ojt1($param = null)
+    {
         return $this->db->query("select *,  case 
 	    when valueday<0 then 'TERLEWAT '||(valueday)*-1||' HARI' 
 	    when valueday=0 then 'PAS HARI INI' 
@@ -105,8 +115,51 @@ class M_stspeg extends CI_Model{
 	    ) as y on x.nik=y.nik and x.statuskepegawaian=y.kdkepegawaian
 	    where coalesce(statuskepegawaian,'') != 'KO' and valueday<=60 and coalesce(statuskepegawaian,'') in ('OJ','PK') and y.status='B' $param order by valueday asc");
     }
-	
-	function q_list_magang($param=null){
+
+        function q_list_ojt($param = null)
+    {
+        return $this->db->query("SELECT *,  
+                    CASE 
+                        WHEN valueday < 0 THEN 'TERLEWAT ' || (valueday) * -1 || ' HARI' 
+                        WHEN valueday = 0 THEN 'PAS HARI INI' 
+                        WHEN valueday > 0 THEN 'KURANG ' || (valueday) || ' HARI LAGI' 
+                        ELSE '' 
+                    END AS eventketerangan 
+                FROM sc_mst.lv_m_karyawan x
+                LEFT OUTER JOIN (
+                    SELECT a.*, b.nmkepegawaian, tgl_selesai - CAST(NOW() AS DATE) AS valueday 
+                    FROM (
+                        SELECT a.* 
+                        FROM sc_trx.status_kepegawaian a
+                        JOIN (
+                            SELECT nik, kdkepegawaian, MAX(nodok) AS nodok 
+                            FROM sc_trx.status_kepegawaian 
+                            GROUP BY nik, kdkepegawaian
+                        ) b ON a.nik = b.nik AND a.kdkepegawaian = b.kdkepegawaian AND a.nodok = b.nodok
+                    ) a
+                    LEFT OUTER JOIN sc_mst.status_kepegawaian b ON a.kdkepegawaian = b.kdkepegawaian
+                ) y ON x.nik = y.nik AND x.statuskepegawaian = y.kdkepegawaian
+                WHERE 
+                    coalesce(x.statuskepegawaian, '') != 'KO'
+                    AND y.status = 'B'
+                    AND (
+                        (
+                            coalesce(x.statuskepegawaian, '') IN ('OJ', 'PK') 
+                            AND valueday <= 60
+                        ) 
+                        OR (
+                            x.lvl_jabatan = 'D' AND valueday <= 60 AND  coalesce(x.statuskepegawaian, '') IN ('OJ', 'PK', 'P1') 
+                        )
+                        OR (
+                            x.lvl_jabatan = 'C' AND valueday <= 120 AND  coalesce(x.statuskepegawaian, '') IN ('OJ', 'PK', 'P1') 
+                        )
+                    )
+                ORDER BY valueday ASC;
+                ");
+    }
+
+    function q_list_magang($param = null)
+    {
         return $this->db->query("select *,  case 
 	    when valueday<0 then 'TERLEWAT '||(valueday)*-1||' HARI' 
 	    when valueday=0 then 'PAS HARI INI' 
@@ -122,8 +175,9 @@ class M_stspeg extends CI_Model{
 	    ) as y on x.nik=y.nik and x.statuskepegawaian=y.kdkepegawaian
 	    where coalesce(statuskepegawaian,'') != 'KO' and valueday<=60 and coalesce(statuskepegawaian,'')='MG' $param order by valueday asc");
     }
-	
-	function q_recent_employee_activities($day){
+
+    function q_recent_employee_activities($day)
+    {
         return $this->db->query("select x.*, b.nmdept,b.nmlengkap from (
                                             select nik,nodok,keterangan,input_date,input_by,'CUTI' as nmdok from sc_trx.cuti_karyawan where status='P'
                                             union all
@@ -138,82 +192,93 @@ class M_stspeg extends CI_Model{
                                             ");
     }
 
-    function q_transaction_read($where){
+    function q_transaction_read($where)
+    {
         return $this->db
             ->select('*')
             ->where($where)
             ->get('sc_trx.status_kepegawaian');
     }
 
-    function q_transaction_update($value, $where){
+    function q_transaction_update($value, $where)
+    {
         return $this->db
             ->where($where)
             ->update('sc_trx.status_kepegawaian', $value);
     }
 
-    function q_transaction_select($select,$where){
+    function q_transaction_select($select, $where)
+    {
         return $this->db
             ->select($select)
             ->where($where)
             ->get('sc_trx.status_kepegawaian');
     }
 
-    function q_transaction_read_where($clause = null){
+    function q_transaction_read_where($clause = null)
+    {
         return $this->db->query($this->q_transaction_txt_where($clause));
     }
-    function q_transaction_txt_where($clause = null){
-        return sprintf(<<<'SQL'
+    function q_transaction_txt_where($clause = null)
+    {
+        $this->db->query('set lc_time = \'ID\' ');
+        return sprintf(
+            <<<'SQL'
 SELECT *
     FROM (
+        
     select
-        COALESCE(TRIM(a.nik), '') AS nik,
-        COALESCE(TRIM(a.nodok), '') AS nodok,
-        COALESCE(TRIM(a.kdkepegawaian), '') AS kdkepegawaian,
-        a.tgl_mulai AS tgl_mulai,
-        a.tgl_selesai AS tgl_selesai,
-        COALESCE(TRIM(a.cuti), '') AS cuti,
-        COALESCE(TRIM(a.keterangan), '') AS keterangan,
-        a.input_date AS  input_date,
-        COALESCE(TRIM(a.input_by), '') AS input_by,
-        a.update_date AS update_date ,
-        COALESCE(TRIM(a.update_by), '') AS update_by,
-        COALESCE(TRIM(a.nosk), '') AS nosk,
-        COALESCE(TRIM(a.status), '') AS status,
-        COALESCE(TRIM(b.nmkepegawaian), '') AS nmkepegawaian,
-        COALESCE(TRIM(c.nmlengkap), '') AS nmlengkap,
-        to_char(a.tgl_mulai,'dd-mm-YYYY')as tgl_mulai1,
-        case 
-        	when sk.kdkepegawaian is not null then sk.tgl_selesai 
-        else a.tgl_selesai
-        end as tgl_selesai1,
-        --to_char(a.tgl_selesai,'dd-mm-YYYY')as tgl_selesai1,
-        to_char(a.tgl_mulai,'yyyymm') AS filterstart,
-        to_char(a.tgl_selesai,'yyyymm') AS filterend,
-        d.uraian as nmstatus,
-        COALESCE(TRIM(e.nmdept), '') AS deptname,
-        COALESCE(TRIM(f.nmsubdept), '') AS subdeptname,
-        COALESCE(TRIM(g.nmjabatan), '') AS positionname,
-        COALESCE(TRIM(c.statuskepegawaian), '') AS statuskepegawaian,
-        c.tglkeluarkerja AS tglkeluarkerja,
-        sk.kdkepegawaian as KO
-    from sc_trx.status_kepegawaian a
-        left outer join sc_mst.status_kepegawaian b on a.kdkepegawaian=b.kdkepegawaian
-        left outer join sc_mst.karyawan c on a.nik=c.nik
-        left outer join sc_mst.trxtype d on a.status=d.kdtrx and d.jenistrx='STSPEG'
-        LEFT OUTER JOIN sc_mst.departmen e ON c.bag_dept = e.kddept
-        LEFT OUTER JOIN sc_mst.subdepartmen f ON c.bag_dept = f.kddept AND c.subbag_dept = f.kdsubdept
-        LEFT OUTER JOIN sc_mst.jabatan g ON TRIM(c.bag_dept) = TRIM(g.kddept) AND TRIM(c.subbag_dept) = TRIM(g.kdsubdept) AND TRIM(c.jabatan) = TRIM(g.kdjabatan)
-        left outer join (
-        select nik,nodok,kdkepegawaian,tgl_selesai from sc_trx.status_kepegawaian sk where kdkepegawaian ='KO'
-        ) sk on a.nik=sk.nik and a.nodok=sk.nodok
-    order by b.nmkepegawaian asc
+    COALESCE(TRIM(a.nik), '') AS nik,
+    COALESCE(TRIM(a.nodok), '') AS nodok,
+    COALESCE(TRIM(a.kdkepegawaian), '') AS kdkepegawaian,
+    a.tgl_mulai AS tgl_mulai,
+    a.tgl_selesai AS tgl_selesai,
+    COALESCE(TRIM(a.cuti), '') AS cuti,
+    COALESCE(TRIM(a.keterangan), '') AS keterangan,
+    a.input_date AS  input_date,
+    COALESCE(TRIM(a.input_by), '') AS input_by,
+    a.update_date AS update_date ,
+    COALESCE(TRIM(a.update_by), '') AS update_by,
+    COALESCE(TRIM(a.nosk), '') AS nosk,
+    COALESCE(TRIM(c.status), '') AS status,
+    COALESCE(TRIM(a.status), '') AS contract_status,
+    COALESCE(TRIM(b.nmkepegawaian), '') AS nmkepegawaian,
+    COALESCE(TRIM(c.nmlengkap), '') AS nmlengkap,
+    to_char(a.tgl_mulai,'dd-mm-YYYY')as tgl_mulai1,
+    to_char(a.tgl_selesai,'dd-mm-YYYY')as tgl_selesai1,
+    to_char(a.tgl_mulai,'yyyymm') AS filterstart,
+    to_char(a.tgl_selesai,'yyyymm') AS filterend,
+    d.uraian as nmstatus,
+    COALESCE(TRIM(e.nmdept), '') AS deptname,
+    COALESCE(TRIM(f.nmsubdept), '') AS subdeptname,
+    COALESCE(TRIM(g.nmjabatan), '') AS positionname,
+    COALESCE(TRIM(c.statuskepegawaian), '') AS statuskepegawaian,
+    CASE
+        when tgl_selesai is null THEN concat(to_char(tgl_mulai,'FMDD Mon YYYY') )
+        ELSE concat(to_char(tgl_mulai,'FMDD Mon YYYY') ||' - '||to_char(tgl_selesai,'FMDD Mon YYYY'))
+    END as period,
+    CASE
+        when tgl_selesai is null THEN concat(to_char(c.tglmasukkerja,'FMDD Mon '),to_char(now(),'YY'))
+        ELSE to_char(tgl_selesai,'FMDD Mon YYYY')
+    END as leave_limit,
+    c.tglkeluarkerja AS tglkeluarkerja
+from sc_trx.status_kepegawaian a
+         left outer join sc_mst.status_kepegawaian b on a.kdkepegawaian=b.kdkepegawaian
+         left outer join sc_mst.karyawan c on a.nik=c.nik
+         left outer join sc_mst.trxtype d on c.status=d.kdtrx and d.jenistrx='STSPEG'
+         LEFT OUTER JOIN sc_mst.departmen e ON c.bag_dept = e.kddept
+         LEFT OUTER JOIN sc_mst.subdepartmen f ON c.bag_dept = e.kddept AND c.subbag_dept = f.kdsubdept
+         LEFT OUTER JOIN sc_mst.jabatan g ON TRIM(c.bag_dept) = TRIM(e.kddept) AND TRIM(c.subbag_dept) = TRIM(f.kdsubdept) AND TRIM(c.jabatan) = TRIM(g.kdjabatan)
+order by b.nmkepegawaian asc
 ) as aa
 WHERE TRUE 
 SQL
-            ).$clause;
+        ) . $clause;
     }
 
-    function q_spv($param = ''){
+
+    function q_spv($param = '')
+    {
         return $this->db->query("select nmlengkap,jabatan,alamatktp,nmjabatan
     from (
             select * from sc_mst.karyawan a left outer join sc_mst.jabatan b on a.jabatan=b.kdjabatan
@@ -222,23 +287,30 @@ SQL
             $param ");
     }
 
-    function q_kar($nik,$nodok){
+    function q_kar($nik, $nodok)
+    {
         return $this->db->query("with data as (select a.nik,a.nmlengkap,
                      case when a.jk = trim('L') then 'Laki-laki'::text else 'Perempuan'::text end as jk,
                      trim(c.namakotakab) as tmptlahir,
                      a.tgllahir,
                      a.noktp,
+                     a.tglmasukkerja,
                      d.nmagama,
                      coalesce(a.alamatktp, '-')                                                   as alamatktp,
                      g.nmnikah,
                      e.nmjabatan,
+                     e.jabatan_cetak,
                      f.nmdept,
+                     f.dept_cetak,
                      b.nodok,
                      b.kdkepegawaian,
+                     j.nmkepegawaian,
+                     h.nmlengkap as nmatasan,
+                     i.nmlengkap as nmatasan2,
                      coalesce(to_char(b.tgl_mulai,'yyyy-mm-dd'),'-') as tgl_mulai,
                      coalesce(to_char(b.tgl_selesai,'yyyy-mm-dd'),'-') as tgl_selesai,
                      to_char(now(), 'yyyy-mm-dd')                                                 as tgl_cetak,
-                     ROW_NUMBER() OVER (ORDER BY kdkepegawaian)
+                     ROW_NUMBER() OVER (ORDER BY b.kdkepegawaian)
               from sc_mst.karyawan a
                        right outer join sc_trx.status_kepegawaian b on a.nik = b.nik
                        left outer join sc_mst.kotakab c on a.kotalahir = c.kodekotakab
@@ -246,10 +318,121 @@ SQL
                        left outer join sc_mst.jabatan e on a.jabatan = e.kdjabatan
                        left outer join sc_mst.departmen f on a.bag_dept = f.kddept
                        left outer join sc_mst.status_nikah g on a.status_pernikahan = g.kdnikah
+                       LEFT OUTER JOIN sc_mst.karyawan h ON a.nik_atasan = h.nik
+                       LEFT OUTER JOIN sc_mst.karyawan i ON a.nik_atasan2 = i.nik
+                       LEFT OUTER JOIN sc_mst.status_kepegawaian j ON b.kdkepegawaian = j.kdkepegawaian
               where a.nik = '$nik' 
               )
                 select *
-                from data where nodok='$nodok'");
+                from data where nodok='$nodok' limit 1");
     }
 
-}	
+    function insert_stspeg_document($nodok, $uniquekey)
+    {
+        if (
+            $this->db
+                ->where('nodok', $nodok)
+                ->count_all_results('sc_trx.status_kepegawaian_document') > 0
+        ) {
+            return $this->db
+                ->where('nodok', $nodok)
+                ->update(
+                    'sc_trx.status_kepegawaian_document',
+                    [
+                        'uniquekey' => $uniquekey,
+                        'update_date' => date('Y-m-d H:i:s'),
+                        'update_by' => $this->session->userdata('nik'),
+                        'status' => 'input',
+                    ]
+                );
+        } else {
+            return $this->db
+                ->insert(
+                    'sc_trx.status_kepegawaian_document',
+                    [
+                        'nodok' => $nodok,
+                        'uniquekey' => $uniquekey,
+                        'input_date' => date('Y-m-d H:i:s'),
+                        'input_by' => $this->session->userdata('nik'),
+                        'status' => 'input',
+                    ]
+                );
+        }
+    }
+
+    function transaction_document_read($clause = null)
+    {
+        $this->db->query("
+            SELECT * FROM sc_trx.status_kepegawaian_document
+        ".$clause);
+    }
+
+    function transaction_document_exists($where){
+        return $this->db
+                ->select('*')
+                ->where($where)
+                ->get('sc_trx.status_kepegawaian_document')
+                ->num_rows() > 0;
+    }
+
+    function update_stspeg_document($nodok, $data)
+    {
+        if (
+            $this->db
+                ->where('nodok', $nodok)
+                ->count_all_results('sc_trx.status_kepegawaian_document') > 0
+        ) {
+            $this->db
+                ->where('nodok', $nodok)
+                ->update(
+                    'sc_trx.status_kepegawaian_document',
+                    $data
+                );
+            if ($this->db->affected_rows() > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    function stspeg_document_exist($nodok)
+    {
+        if (
+            $this->db
+                ->where('nodok', $nodok)
+                ->where('file IS NOT NULL')
+                ->count_all_results('sc_trx.status_kepegawaian_document') > 0
+        ) {
+            return true;
+        }
+        return false;
+    }
+
+    function get_stspeg_document_key_pages($nodok, $uniquekey, $pages)
+    {
+        $query = $this->db
+            ->where(['nodok' => $nodok, 'uniquekey' => $uniquekey, 'pages' => $pages])
+            ->get('sc_trx.status_kepegawaian_document');
+
+        return $query->num_rows() > 0;
+    }
+
+    function insert_log_document_download($nodok)
+    {
+        $nik = $this->session->userdata('nik');
+        $this->db->insert('sc_log.document_download', [
+            'nodok' => $nodok,
+            'download_by' => $nik,
+            'document_type' => 'contract',
+            'download_date' => date('Y-m-d H:i:s'),
+        ]);
+        if ($this->db->affected_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    
+}

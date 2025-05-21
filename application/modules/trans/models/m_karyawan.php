@@ -245,4 +245,240 @@ class M_karyawan extends CI_Model {
                 ->num_rows() > 0;
     }
 
+    function penempatan_karyawan($param){
+        // Menggunakan query dengan parameter untuk menghindari SQL injection
+        return $this->db->query("SELECT split_part(kw.desc_cabang, ' ', 1) AS cabang
+                                  FROM sc_mst.karyawan k
+                                  JOIN sc_mst.kantorwilayah kw ON k.kdcabang = kw.kdcabang
+                                  WHERE trim(k.nmlengkap) = ?", array($param));
+    }
+    
+
+    function read_trxstatuspegawai($param = ''){
+        return $this->db->query("select *
+from ( select x.docno,
+              x.nik,
+              x.docdate,
+              x.status,
+              x.jenis,
+              x.startdate,
+              x.enddate,
+              x.description,
+              x.olddept,
+              x.oldsubdept,
+              x.oldjabatan,
+              x.oldlvljabatan,
+              x.newdept,
+              x.newsubdept,
+              x.newjabatan,
+              x.newlvljabatan,
+              x.tgllahir,
+              x.tglmasukkerja,
+              x.status_kepegawaian,
+              x.nmlengkap,
+              x.nmnewdept,
+              x.nmnewsubdept,
+              x.nmnewjabatan,
+              x.nmolddept,
+              x.nmoldsubdept,
+              x.nmoldjabatan,
+              x.oldgrade,
+              x.newgrade,
+              x.oldgp,
+              x.newgp,
+              x.oldtjojt,
+              x.newtjojt,
+              coalesce(to_char(x.tgl_mulai_kontrak,'yyyy-mm-dd'),'-') as tgl_mulai_kontrak,
+              coalesce(to_char(x.tgl_selesai_kontrak,'yyyy-mm-dd'),'-') as tgl_selesai_kontrak,
+              coalesce(to_char(x.tgl_mulai_ojt,'yyyy-mm-dd'),'-') as tgl_mulai_ojt,
+              coalesce(to_char(x.tgl_selesai_ojt,'yyyy-mm-dd'),'-') as tgl_selesai_ojt,
+              x.urainnew,
+              x.uraianold,
+              x.tgl_berlaku,
+              x.kabag,
+              x.spv         
+       from (select case
+                 when trim(a.kdkepegawaian) = 'KK' then a.tgl_mulai
+                 else null end                                       as tgl_mulai_kontrak,
+             case
+                 when trim(a.kdkepegawaian) = 'KK' then a.tgl_selesai
+                 else null end                                       as tgl_selesai_kontrak,
+             case
+                 when trim(a.kdkepegawaian) = 'OJ' then a.tgl_mulai
+                 else null end                                       as tgl_mulai_ojt,
+             case
+                 when trim(a.kdkepegawaian) = 'OJ' then a.tgl_selesai
+                 else null end                                       as tgl_selesai_ojt,
+             a.nodok as docno,
+             a.nik,
+             a.input_date as docdate,
+             a.status,
+             trim(b.statuskepegawaian) as jenis,
+             a.tgl_mulai as startdate,
+             a.tgl_selesai as enddate,
+             a.keterangan as description,
+             c.kddept as olddept,
+             e.kdsubdept as oldsubdept,
+             c.kdjabatan as oldjabatan,
+             b.lvl_jabatan as oldlvljabatan,
+             c.kddept as newdept,
+             e.kdsubdept as newsubdept,
+             c.kdjabatan as newjabatan,
+             b.lvl_jabatan as newlvljabatan,
+             b.tgllahir,
+             b.tglmasukkerja,
+             case
+                 when trim(b.statuskepegawaian) = 'KT' then 'Tetap'
+                 when trim(b.statuskepegawaian) = 'KK' then 'Kontrak'
+                 when trim(b.statuskepegawaian) = 'MG' then 'Magang' end as status_kepegawaian,
+             b.nmlengkap,
+             d.nmdept as nmnewdept,
+             e.nmsubdept as nmnewsubdept,
+             c.nmjabatan as nmnewjabatan,
+             d.nmdept as nmolddept,
+             e.nmsubdept as nmoldsubdept,
+             c.nmjabatan as nmoldjabatan,
+             c.kdgrade as oldgrade,
+             c.kdgrade as newgrade,
+             f.total_upah as oldgp,
+             f.total_upah as newgp,
+             (f.tunjangan_jbt::money-f.tunjangan_jbt::money) * 50/100 as oldtjojt,
+             f.tunjangan_jbt as newtjojt,
+             coalesce(nullif(c.uraian,''),'-') as urainnew,
+             coalesce(nullif(c.uraian,''),'-') as uraianold,
+             upper(to_char(a.tgl_mulai, 'TMday, FMdd TMMonth yyyy')) as tgl_berlaku,
+             r.nmlengkap as spv,
+             r1.nmlengkap as kabag            
+      from sc_trx.status_kepegawaian a
+               left outer join sc_mst.karyawan b on b.nik = a.nik
+               left outer join sc_mst.jabatan c on c.kdjabatan = b.jabatan
+               left outer join sc_mst.departmen d on d.kddept = b.bag_dept
+               left outer join sc_mst.subdepartmen e on e.kdsubdept = b.subbag_dept
+               left outer join sc_mst.gaji f on f.kdgrade = c.kdgrade
+               LEFT OUTER JOIN sc_mst.karyawan r on true and r.lvl_jabatan='03' and r.bag_dept=b.bag_dept and r.subbag_dept=b.subbag_dept and r.statuskepegawaian<>'KO'
+               LEFT OUTER JOIN sc_mst.karyawan r1 on true and r1.lvl_jabatan='B' and r1.bag_dept=b.bag_dept and r1.subbag_dept=b.subbag_dept and r1.statuskepegawaian<>'KO'
+      ) as x ) as y
+        WHERE COALESCE(docno, '') != ''
+            $param
+        ");
+    }
+
+    function q_read_lvjabatan($param = '') {
+        return $this->db->query("
+            select *
+            from (select bag_dept, subbag_dept, lvl_jabatan, nmlengkap
+                  from sc_mst.lv_m_karyawan
+            ) x
+            where true 
+            $param
+        ");
+    }
+
+// Fungsi untuk mengubah angka menjadi kata
+function angka_ke_kata($angka) {
+    $huruf = [
+        1 => 'satu', 2 => 'dua', 3 => 'tiga', 4 => 'empat', 5 => 'lima',
+        6 => 'enam', 7 => 'tujuh', 8 => 'delapan', 9 => 'sembilan', 10 => 'sepuluh',
+        11 => 'sebelas', 12 => 'dua belas'
+    ];
+
+    return $huruf[$angka];
+}
+
+// Fungsi untuk menghitung selisih bulan
+function masa_kontrak($tgl_mulai, $tgl_selesai) {
+    // Membuat objek DateTime
+    $date1 = new DateTime($tgl_mulai);
+    $date2 = new DateTime($tgl_selesai);
+
+    // Hitung selisih tahun dan bulan
+    $year_diff = $date2->format('Y') - $date1->format('Y');
+    $month_diff = $date2->format('m') - $date1->format('m');
+
+    // Jika bulan selisihnya negatif, kurangi tahun dan perbaiki bulan
+    if ($month_diff < 0) {
+        $year_diff--;
+        $month_diff += 12;
+    }
+
+    // Total bulan yang dihitung dengan menambah 1 untuk bulan pertama
+    $total_months = ($year_diff * 12) + $month_diff + 1;
+
+    // Adjust total_months if it is 7 or 13
+    if ($total_months == 7) {
+        $total_months = 6;
+    } elseif ($total_months == 13) {
+        $total_months = 12;
+    } elseif ($total_months == 5) {
+        $total_months = 6;
+    } elseif ($total_months == 11) {
+        $total_months = 12;
+    }
+
+    $total_bulan_kata = $this->angka_ke_kata($total_months);
+    $result = $total_months . ' '. $total_bulan_kata;
+    return $result;
+}
+
+function pkwt_terakhir($nik){
+    return $this->db->query("
+                select a.*,b.nmkepegawaian,b.nmkepegawaian,ROW_NUMBER() OVER (ORDER BY tgl_selesai desc) AS row_number,c.nmlengkap,to_char(a.tgl_mulai,'dd-mm-YYYY')as tgl_mulai1,
+                                to_char(a.tgl_selesai,'dd-mm-YYYY')as tgl_selesai1,d.uraian as nmstatus
+                                 from sc_trx.status_kepegawaian a
+                                left outer join sc_mst.status_kepegawaian b on a.kdkepegawaian=b.kdkepegawaian
+                                left outer join sc_mst.karyawan c on a.nik=c.nik
+                                left outer join sc_mst.trxtype d on a.status=d.kdtrx and d.jenistrx='STSPEG'
+                                where a.nik='$nik' and d.uraian = 'TELAH BERAKHIR' AND b.nmkepegawaian != 'KARYAWAN TETAP'
+                                order by a.tgl_selesai desc
+        ");
+
+}
+
+function jml_pkwt($nik){
+    return $this->db->query("
+            select a.*,b.nmkepegawaian,b.nmkepegawaian,ROW_NUMBER() OVER (ORDER BY tgl_selesai) AS row_number,c.nmlengkap,to_char(a.tgl_mulai,'dd-mm-YYYY')as tgl_mulai1,
+                                            to_char(a.tgl_selesai,'dd-mm-YYYY')as tgl_selesai1,d.uraian as nmstatus
+                                            from sc_trx.status_kepegawaian a
+                                            left outer join sc_mst.status_kepegawaian b on a.kdkepegawaian=b.kdkepegawaian
+                                            left outer join sc_mst.karyawan c on a.nik=c.nik
+                                            left outer join sc_mst.trxtype d on a.status=d.kdtrx and d.jenistrx='STSPEG'
+                                            where a.nik='$nik' AND b.nmkepegawaian != 'KARYAWAN TETAP' AND a.kdkepegawaian in ('PK','P1','P2','P3','P4','P5')
+                                            order by a.tgl_selesai desc;
+            
+        ");
+}
+
+function masa_kontrak_cetak1($tgl_mulai, $tgl_selesai) {
+    // Membuat objek DateTime
+    $date1 = new DateTime($tgl_mulai);
+    $date2 = new DateTime($tgl_selesai);
+
+    // Hitung selisih tahun dan bulan
+    $year_diff = $date2->format('Y') - $date1->format('Y');
+    $month_diff = $date2->format('m') - $date1->format('m');
+
+    // Jika bulan selisihnya negatif, kurangi tahun dan perbaiki bulan
+    if ($month_diff < 0) {
+        $year_diff--;
+        $month_diff += 12;
+    }
+
+    // Total bulan yang dihitung dengan menambah 1 untuk bulan pertama
+    $total_months = ($year_diff * 12) + $month_diff + 1;
+
+    // Adjust total_months if it is 7 or 13
+    if ($total_months == 7) {
+        $total_months = 6;
+    } elseif ($total_months == 13) {
+        $total_months = 12;
+    } elseif ($total_months == 5) {
+        $total_months = 6;
+    } elseif ($total_months == 11) {
+        $total_months = 12;
+    }
+
+    return $total_months . ' bulan';
+}
+
+
 }

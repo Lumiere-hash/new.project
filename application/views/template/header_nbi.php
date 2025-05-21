@@ -7,6 +7,8 @@
 <!-- TIMER JS --->
 <!--script src="<?php echo base_url('assets/js/plugins/timer/jquery.time-to.js');?>" type="text/javascript"></script--->
 <!--script src="<?php echo base_url('assets/js/plugins/timer/Gulpfile.js');?>" type="text/javascript"></script--->
+  <!-- HIGH CHARTS-->
+  <script src="<?php echo base_url('assets/js/highcharts.js');?>" type="text/javascript"></script>
 <style>
 
 </style>
