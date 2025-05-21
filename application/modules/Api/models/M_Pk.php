@@ -72,7 +72,7 @@ class M_Pk extends CI_Model
 							left outer join sc_pk.master_pk e on a.nodok=e.kdcontract
 							left outer join sc_pk.master_appr_list appr on trim(
 												CASE 
-												    WHEN e.status = 'A2' THEN 'HR'
+												    WHEN e.status = 'A2' THEN 'HRGA'
 												    WHEN e.status = 'HR' THEN 'GM'
 												    WHEN e.status = 'GM' THEN 'D'
 												    ELSE e.status
