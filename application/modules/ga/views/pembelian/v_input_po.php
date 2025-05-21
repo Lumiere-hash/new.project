@@ -113,13 +113,6 @@
 		$("#dateinput3").datepicker();
 		$("[data-mask]").inputmask();
 		$('#tgl').daterangepicker();
-		//	$("#kdsubgroup").chained("#kdgroup");
-		//	$("#kdbarang").chained("#kdsubgroup");
-		//	
-		//	$("#mpkdsubgroup").chained("#mpkdgroup");
-		//	$("#mpkdbarang").chained("#mpkdsubgroup");
-		////	$("#onhand").chained("#kdbarang");
-		//alert ($('#kdsubgroup').val() != '');
 
 		$('#mpkdbarang').change(function () {
 			console.log($('#loccode').val() != '');
@@ -140,12 +133,8 @@
 						console.log(data.nmsatkecil);
 						console.log("<?php echo site_url('ga/pembelian/js_viewstock_back') ?>" + '/' + param1 + '/' + param2 + '/' + param3 + '/' + param4)
 						$('[name="onhand"]').val(data.conhand);
-						$('[name="satkecil"]').val(data.satkecil);
-						//$('#mpsatkecil').val(data.satkecil);                        
-						//$('#mpnmsatkecil').val(data.nmsatkecil);                        
+						$('[name="satkecil"]').val(data.satkecil);               
 						$('[name="nmsatkecil"]').val(data.nmsatkecil);
-						//$('[name="loccode"]').val(data.loccode);                                                          
-
 					},
 					error: function (jqXHR, textStatus, errorThrown) {
 						alert('Error get data from ajax');
@@ -171,22 +160,6 @@
 				}
 			});
 		<?php } ?>
-		/*			//////////////////////////////////////////////
-					$('#qtyunitprice').change(function(){
-						if ($(this).val()=='') {	var param1 = parseInt(0); } else { var param1 = parseInt($(this).val()); }
-						if ($('#qtypo').val()=='') {	var param2 = parseInt(0); } else { var param2 = parseInt($('#qtypo').val()); }
-						
-						$('#qtytotalprice').val(param1 * param2);   
-					});
-					//////////////////////////////////////////////
-					$('#qtypo').change(function(){
-						if ($(this).val()=='') {	var param2 = parseInt(0); } else { var param2 = parseInt($(this).val()); }
-						if ($('#qtyunitprice').val()=='') {	var param1 = parseInt(0); } else { var param1 = parseInt($('#qtyunitprice').val()); }
-						
-						$('#qtytotalprice').val(param1 * param2);      
-					}); 
-			*/
-
 	});
 </script>
 
@@ -202,7 +175,7 @@
 			Kembali </a>
 
 	</div>
-	<a href="<?php echo site_url("ga/pembelian/final_input_po/$enc_nik/A1") ?>"
+	<a href="<?php echo site_url("ga/pembelian/final_input_po/$enc_nik/$enc_nodok") ?>"
 		onclick="return confirm('Anda Yakin Dengan Inputan Yang Anda Buat?')" class="btn btn-success pull-right"
 		style="margin:10px; color:#ffffff;" title="SIMPAN PURCHASE ORDER"><i class="fa fa-save"></i> </a>
 	<div class="col-xs-12">
@@ -232,7 +205,6 @@
 						foreach ($list_tmp_po_mst as $row):
 							$no++; ?>
 							<tr>
-
 								<td width="2%"><?php echo $no; ?></td>
 								<td><?php echo $row->nodok; ?></td>
 								<td><?php echo date('d-m-Y', strtotime(trim($row->podate))); ?></td>
@@ -246,7 +218,7 @@
 									<!--a href="#" data-toggle="modal" data-target="#APPROVE<?php echo str_replace('.', '', trim($row->nodok)) . trim($row->nodoktmp); ?>" class="btn btn-success  btn-sm"><i class="fa fa-edit"></i> PROSES </a-->
 									<a href="<?php
 									$enc_nodok = bin2hex($this->encrypt->encode(trim($row->nodok)));
-									echo site_url("ga/pembelian/input_supplier_po_mst/$enc_nodok"); ?>"
+									echo site_url("ga/pembelian/input_supplier_po_mst/$enc_nodok/$nodoksppb"); ?>"
 										onclick="return confirm('Anda Akan Masuk Input Ke Supplier?')"
 										class="btn btn-primary  btn-sm-1" title="Ubah Supplier PO & Type PO"><i
 											class="fa fa-cogs"></i> </a>
@@ -310,13 +282,13 @@
 									echo site_url("ga/pembelian/remapping_po_dtl/$enc_rowid"); ?>"
 										onclick="return confirm('Anda Akan Masuk Ke Menu Mapping Satuan Rekap?')"
 										class="btn btn-primary  btn-sm-1" title="Ubah Rekap Per Item Barang"><i
-											class="fa fa-cogs"></i></a>
+											class="fa fa-pencil"></i></a>
 									<a href="<?php
 									$enc_rowid = bin2hex($this->encrypt->encode(trim($row->id)));
 									echo site_url("ga/pembelian/hapus_detail_inputpo/$enc_rowid"); ?>"
 										onclick="return confirm('Hapus Detail Akan Menghapus Referensi Yang Bersangkutan?')"
 										class="btn btn-danger  btn-sm-1" title="Hapus Rekap Per Item Barang"><i
-											class="fa fa-cog"></i></a>
+											class="fa fa-trash"></i></a>
 									<!--a href="#" data-toggle="modal" data-target="#APPNEXTMAP<?php echo trim($row->id); ?>"  onclick="return confirm('Hapus Item Tersebut Akan Mengembalikan Dokumen SPPB / PBK')" class="btn btn-danger  btn-sm-1"><i class="fa fa-edit"></i></a-->
 								</td>
 							</tr>
@@ -338,10 +310,9 @@
 						<a href="#" data-toggle="modal" data-target="#FILTEROUTSTANDING"
 							style="margin:10px; color:#000000;" class="btn btn-default  btn-sm-1  pull-left"><i
 								class="fa fa-edit"></i></a>
-						<!--button class="btn btn-primary pull-left" onClick="TEST" style="margin:10px; color:#ffffff;" type="MODAL"> FILTER </button-->
 						<button class="btn btn-primary pull-right" onClick="TEST" style="margin:10px; color:#ffffff;"
 							type="submit" <?php if ($row_dtlref_query == 0) { ?> disabled <?php } ?>> >> </button>
-					</div><!-- /.box-header -->
+					</div>
 					<div class="box-body table-responsive" style='overflow-x:scroll;'>
 						<table id="example3" class="table table-bordered table-striped">
 							<thead>
@@ -353,10 +324,8 @@
 									<th>NAMA BARANG</th>
 									<?php if (trim($dtlmst['itemtype']) != 'JSA') { ?>
 										<th>QTY DOC</th>
-										<!--th>QTY PO</th-->
 										<th>SATUAN</th>
 									<?php } ?>
-									<!--th>SATUAN</th-->
 									<th>DETAIL</th>
 								</tr>
 							</thead>
@@ -380,7 +349,6 @@
 										<?php echo $lu->nmsatminta; ?>
 									</td>
 									<?php } ?>
-									<!--td><?php echo $lu->strtrimref; ?></td-->
 										<td>
 											<a href="#" data-toggle="modal"
 												data-target="#DTLREVITEMQUERY<?php echo trim($lu->rowid); ?>"
@@ -393,8 +361,8 @@
 						</table>
 						<input type="hidden" name="nik" value="<?php echo ''; ?>">
 						<input type="hidden" name="username" value="<?php echo ''; ?>">
-					</div><!-- /.box-body -->
-				</div><!-- /.box -->
+					</div>
+				</div>
 			</div>
 		</form>
 	</div>
@@ -404,17 +372,14 @@
 				<div class="box box-danger">
 					<div class="box-header">
 						<h4 align="center"><?php echo 'LIST DETAIL REFERENSI'; ?></h4>
-						<!--?php if($cek_full_mappdtlref>0) { ?--->
 						<button class="btn btn-primary pull-left" onClick="TEST" style="margin:10px; color:#ffffff;"
 							type="submit">
 							<< </button>
-								<!---?php if($row_dtlref==0) { ?> disabled <!?php }?>> << ----/button---->
 								<a href="<?php echo site_url('ga/pembelian/reset_po_dtlrev'); ?>" type="button"
 									style="margin:10px; color:#000000;"
 									onclick="return confirm('Detail Akan Tereset seluruhnya apakah anda yakin?')"
 									class="btn btn-default  pull-right" /> RESET</a>
-								<!--?php } ?--->
-					</div><!-- /.box-header -->
+					</div>
 					<div class="box-body table-responsive" style='overflow-x:scroll;'>
 						<table id="example4" class="table table-bordered table-striped">
 							<thead>
@@ -473,8 +438,8 @@
 						</table>
 						<input type="hidden" name="nik" value="<?php echo ''; ?>">
 						<input type="hidden" name="username" value="<?php echo ''; ?>">
-					</div><!-- /.box-body -->
-				</div><!-- /.box -->
+					</div>
+				</div>
 			</div>
 		</form>
 	</div>

@@ -850,7 +850,6 @@ class Kendaraan extends MX_Controller{
         if (empty($expstnkb) or $expstnkb==''){ $expstnkb=null; };
         if (empty($exppkbstnkb) or $exppkbstnkb==''){ $exppkbstnkb=null; };
         if (empty($nominalpkb) or $nominalpkb==''){ $nominalpkb=null; };
-
         if ($type=='INPUT_1T'){
 
             $info = array (
@@ -1443,6 +1442,24 @@ class Kendaraan extends MX_Controller{
         $this->excel_generator->set_width(array(12,30,20,8,40,40,20));
         $this->excel_generator->exportTo2007('Laporan History STNK Kendaraan');
 
+    }
+
+    public function maintenance($param)
+    {
+        $this->load->model(array('ga/m_inventaris'));
+        $id=$this->encrypt->decode(hex2bin(trim($this->uri->segment(4))));
+        $vehicleData = $this->m_kendaraan->q_master_read_where(' AND id = \''.$id.'\' ')->row();
+        $maintenanceData = $this->m_inventaris->q_hisperawatanspk(' AND stockcode = \''.$vehicleData->nodok.'\' ')->result();
+        $submissionData = $this->m_inventaris->q_perawatanasset_where(' AND stockcode = \''.$vehicleData->nodok.'\' ')->result();
+        $data = array(
+            'maintenanceData' => $maintenanceData,
+            'submissionData' => $submissionData,
+            'modalTitle' => "DETAIL <b>{$vehicleData->vehicle_name}</b> NOPOL <b>{$vehicleData->police_number}</b> ",
+            'modalSize' => 'modal-lg',
+            'content' => 'ga/kendaraan/modals/v_maintenance',
+        );
+
+        $this->load->view($data['content'],$data);
     }
 
 }

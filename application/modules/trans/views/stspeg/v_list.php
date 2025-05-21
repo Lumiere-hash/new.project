@@ -17,6 +17,26 @@
             });
 </script>
 
+<?php
+date_default_timezone_set('Asia/Jakarta');
+function monthmin2($date){
+	if($date != null || $date != ''){
+	$dateObj = DateTime::createFromFormat('d-m-Y', $date); // Create DateTime object
+
+	// Subtract 2 months
+	$dateObj->modify('-2 months');
+
+	// Format the result back into the same format
+	$newDate = $dateObj->format('d-m-Y');
+
+	return strtotime($newDate); // Output the new date
+	}
+	else{
+		return '20-01-2050';
+	}
+} 
+?>
+
 <legend><?php echo $title;?></legend>
 <?php echo $message;?>
 <div class="row">
@@ -54,6 +74,7 @@
 					<tbody>
 						<?php $no=0; foreach($list_stspeg as $lu): $no++;?>
                             <?php $enc_docno = $this->fiky_encryption->enkript(trim($lu->nodok)); ?>
+							<?php $tglberakhirmin2 = monthmin2($lu->tgl_selesai1) ? monthmin2($lu->tgl_selesai1) : null  ?>
 						<tr>										
 							<td width="2%"><?php echo $no;?></td>																							
 							<!--<td><?php echo $lu->nik;?></td>
@@ -64,11 +85,12 @@
 							<td><?php echo $lu->tgl_mulai1;?></td>
 							<td><?php echo $lu->tgl_selesai1;?></td>
 							<td><?php echo $lu->keterangan;?></td>
+					
 							<td style="<?php echo ($lu->status == 'B' ? 'background-color: yellow' : '' ) ?>">
 								<?php echo $lu->nmstatus;?>
 							</td>
 
-							<td>
+							<td style="text-align: center;">
 								<!--<a href='<?php  $nik=trim($lu->nik); echo site_url("trans/stspeg/detail/$nik/$lu->no_urut")?>' class="btn btn-default  btn-sm">
 									<i class="fa fa-edit"></i> Detail
 								</a>-->
@@ -84,6 +106,37 @@
 								<a  href="<?php $nik=trim($lu->nik); echo site_url("trans/stspeg/hps_stspeg/$nik/$lu->nodok")?>" onclick="return confirm('Anda Yakin Hapus Data ini?')" class="btn btn-default  btn-sm">
 									<i class="fa fa-trash-o"></i> Hapus
 								</a>
+								<?php } ?>
+                                <?php if($akses['aksesprint']=='t') { ?>
+                                    <?php if(trim($lu->statuspen) == 'P'){?>
+                                    <a  href="<?= base_url('trans/karyawan/cetak') . '/?enc_docno=' . $enc_docno ?>" class="btn btn-twitter  btn-sm">
+                                        <i class="fa fa-print"></i> Cetak Penilaian Karyawan
+                                    </a>
+                                    <?php }?>
+                                    <?php if($lu->nmkepegawaian <> 'MAGANG' && $lu->nmkepegawaian <> 'KELUAR' && $lu->nmkepegawaian <> 'HARIAN LEPAS' && $lu->nmkepegawaian <> 'OJT'){?>
+                                    <a  href="<?= base_url('trans/karyawan/cetak2') . '/?enc_docno=' . $enc_docno ?>" class="btn btn-success  btn-sm">
+                                        <i class="fa fa-print"></i> Cetak Dokumen Kontrak
+                                    </a>
+                                    <?php }?>
+									<?php if($lu->full_path == null) {?>
+										<a href="#" type="button" class="btnUploadDokumen btn btn-info  btn-sm p-1" data-toggle="modal" data-target=".upldoc" data-nik="<?php echo $nik; ?>" data-nodok="<?php echo $lu->nodok; ?>">
+                                        <i class="fa fa-upload mr-1"></i>Upload Dokumen Kontrak TTD</a>
+									<?php } else { ?>
+										<a href="#" type="button" class="btnUpdateDokumen btn btn-warning  btn-sm p-1" data-toggle="modal" data-target=".upddoc" data-nik="<?php echo $nik; ?>" data-nodok="<?php echo $lu->nodok; ?>">
+										<i class="fa fa-upload mr-1"></i>Update Dokumen Kontrak TTD</a>
+										<a href="<?php echo base_url($lu->full_path); ?>" target="_blank" type="button" class="btnLihatDokumen btn btn-primary  btn-sm p-1">
+										<i class="fa fa-eye mr-1"></i>Lihat Dokumen Kontrak TTD</a>
+								 <?php } } ?> <!-- end if aksesprint -->
+								<?php if($lu->status == 'B' && $lu->nmkepegawaian != 'KARYAWAN TETAP' && trim($nikuser) == trim($lu->nik_atasan) && $tglberakhirmin2 <= strtotime(date('d-m-Y'))) { ?>
+									<?php if($lu->statuspen == null && trim($lu->statuspen) != 'P') { ?>
+										<a href="<?php echo site_url("pk/penilaian_karyawan/?nik=$nik&docno=$lu->nodok") ?>" class="btn btn-warning btn-sm" style="font-size: 14px;">
+											<i class="fa fa-star mr-1"></i> Penilaian Karyawan
+										</a>
+									<?php } elseif(trim($lu->statuspen) == 'C') { ?>
+										<a href="<?php echo site_url("pk/edit_pk_view/?nik=$nik&docno=$lu->nodok&kddok=$lu->kddok&type=y") ?>" class="btn btn-info btn-sm" style="font-size: 14px;">
+											<i class="fa fa-edit"></i> Edit Penilaian
+										</a>
+									<?php } ?>
 								<?php } ?>
 							</td>
 						</tr>
@@ -490,6 +543,107 @@
   </div>
 </div>
 <?php } ?>
+
+<!--upload dokumen-->
+<div class="modal fade upldoc" tabindex="-2" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title" id="myModalLabel">Upload Dokumen Kontrak</h4>
+				</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="box box-primary">
+                                <!-- form start -->
+                                <form class="form-horizontal" action="<?php echo site_url('trans/stspeg/up_kontrakdoc');?>" method="post" enctype="multipart/form-data">
+                                    <div class="box-body">
+										<div class="col-md-12">
+										
+											<div class="form-group">
+												<label for="exampleInputFile">File input</label>
+												<input type="hidden" name="nik" value="">
+												<input type="hidden" name="kddoc" value="">
+												<input type="file" name="file" class="form-control-file" style="margin-top: 10px;" required>
+												<p class="help-block">Upload file PDF.</p>
+											</div>
+										</div>
+                                    </div><!-- /.box-body -->
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+						<button onclick="return confirm('upload dokumen ini?')" type="submit" class="btn btn-primary">Simpan</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</form>
+				</div>
+			</div>
+		  </div>
+		</div>
+	<!--end modal dokumen-->
+	<script>
+    $(document).ready(function(){
+        $('.btnUploadDokumen').on('click', function(){
+            var nik = $(this).data('nik');
+            var nodok = $(this).data('nodok');
+
+            $('.upldoc input[name="nik"]').val(nik);
+            $('.upldoc input[name="kddoc"]').val(nodok);
+        });
+    });
+</script>
+	<!--script upload dokumen-->
+
+<!--update dokumen-->
+<div class="modal fade upddoc" tabindex="-2" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title" id="myModalLabel">Update Dokumen Kontrak</h4>
+				</div>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="box box-primary">
+                                <!-- form start -->
+                                <form class="form-horizontal" action="<?php echo site_url('trans/stspeg/up_kontrakdoc2');?>" method="post" enctype="multipart/form-data">
+                                    <div class="box-body">
+										<div class="col-md-12">
+										
+											<div class="form-group">
+												<label for="exampleInputFile">File input</label>
+												<input type="hidden" name="nik" value="">
+												<input type="hidden" name="kddoc" value="">
+												<input type="file" name="file" class="form-control-file" style="margin-top: 10px;" required>
+												<p class="help-block">Upload file PDF.</p>
+											</div>
+										</div>
+                                    </div><!-- /.box-body -->
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+						<button onclick="return confirm('upload dokumen ini?')" type="submit" class="btn btn-primary">Simpan</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					</form>
+				</div>
+			</div>
+		  </div>
+		</div>
+	<!--end modal dokumen-->
+	<script>
+    $(document).ready(function(){
+        $('.btnUpdateDokumen').on('click', function(){
+            var nik = $(this).data('nik');
+            var nodok = $(this).data('nodok');
+
+            $('.upddoc input[name="nik"]').val(nik);
+            $('.upddoc input[name="kddoc"]').val(nodok);
+        });
+    });
+</script>
+	<!--script update dokumen-->
+
 	<!--Modal status kepegawaian edit-->
 <?php foreach ($list_stspeg as $ld) { ?>
 	<div class="modal fade" id="dtl<?php echo trim($ld->nodok); ?>" tabindex="-1" role="dialog"

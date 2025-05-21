@@ -27,6 +27,8 @@ error_reporting(0);
                 <li><a href="#<?php echo str_replace('.','',trim($lp['nik']));?>tab_7" data-toggle="tab">Riwayat Pelatihan</a></li>
                 <li><a href="#<?php echo str_replace('.','',trim($lp['nik']));?>tab_8" data-toggle="tab">Riwayat Pendidikan</a></li>
                 <li><a href="#<?php echo str_replace('.','',trim($lp['nik']));?>tab_9" data-toggle="tab">BPJS</a></li>
+                <li><a href="#<?php echo str_replace('.','',trim($lp['nik']));?>tab_10" data-toggle="tab">SP</a></li>
+
             </ul>
         </div>
         <div class="tab-content">
@@ -465,6 +467,7 @@ error_reporting(0);
                                     <th>Tanggal Mulai</th>
                                     <th>Tanggal Berakhir</th>
                                     <th>Keterangan</th>
+                                    <th>Dokumen Kontrak</th>
 
                                 </tr>
                                 </thead>
@@ -478,6 +481,10 @@ error_reporting(0);
                                         <td><?php echo $lu->tgl_mulai1;?></td>
                                         <td><?php echo $lu->tgl_selesai1;?></td>
                                         <td><?php echo $lu->keterangan;?></td>
+                                        <td><?php if($lu->full_path != null){ ?>
+										<a href="<?php echo base_url($lu->full_path); ?>" target="_blank" type="button" class="btnLihatDokumen btn btn-primary btn-sm p-1">
+										Lihat Dokumen Kontrak</a>
+										<?php }?></td>
 
                                         <!--td>
 
@@ -750,7 +757,64 @@ error_reporting(0);
             </div>
             <!--End TAB BPJS-->
 
+             			<!---SP KARYAWAN -->
+            <div class="tab-pane" id="<?php echo str_replace('.','',trim($lp['nik']));?>tab_10">
+                <div class="col-sm-12">
+                    <div class="box box-info col-sm-12">
+                        <div class="box-body" style="padding:5px;">
+                            <div class="row">
+                                <div class="box-header">
+                                    <h3> Surat Peringatan Karyawan</h3>
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    <div class="col-sm-12">
+                                        <table id="examplex" class="table table-bordered table-striped" >
+                                            <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Code</th>
+                                                <th>Reference</th>
+                                                <th>Type</th>
+                                                <th>Start</th>
+                                                <th>End</th>
+                                                <th>Description</th>
+                                                <th>Link</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <?php $no=0; foreach($list_spkaryawan as $lu): $no++;?>
+                                                <tr>
+                                                    <td width="2%"><?php echo $no;?></td>
+                                                    <td><?php echo $lu->docno;?></td>
+                                                    <td><?php echo $lu->docref;?></td>
+                                                    <td><?php echo $lu->spname;?></td>
+                                                    <td><?php echo date('d-m-Y', strtotime($lu->startdate));?></td>
+                                                    <td><?php echo date('d-m-Y', strtotime($lu->enddate));?></td>
+                                                    <td><?php echo $lu->description;?></td>
+                                                    <td>
+                                                        <?php if($lu->att_name == ''): ?>
+                                                            -
+                                                        <?php else: ?>
+                                                            <a href="#" onclick="window.open('<?= site_url('assets/files/skperingatan') . '/' . $lu->att_name; ?>')"><?= $lu->att_name ?></a>
+                                                        <?php endif; ?>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach;?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-12">
 
+                                        </div>
+                                        <div class="col-sm-10"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>                                   
         </div>
 
 

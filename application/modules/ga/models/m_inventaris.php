@@ -8,6 +8,7 @@ class M_inventaris extends CI_Model
     {
         parent::__construct();
         $this->load->database();
+        $this->load->model('master/m_akses');
     }
 
 
@@ -442,6 +443,7 @@ class M_inventaris extends CI_Model
                                         coalesce(branch_fax     ,'')::text as branch_fax ,
                                         coalesce(nikmohon     ,'')::text as nikmohon,
                                         coalesce(nmmohon     ,'')::text as nmmohon,
+                                        coalesce(image,'')::text as image,
                                         coalesce(km_awal     ,0)::text as km_awal ,
                                         coalesce(km_akhir     ,0)::text as km_akhir ,
                                         coalesce(ttlservis     ,0)::text as ttlservis, 								
@@ -455,10 +457,12 @@ class M_inventaris extends CI_Model
                                         coalesce(kdmesin,'')::text as kdmesin,								
                                         coalesce(jenisperawatan,'')::text as jenisperawatan,								
                                         coalesce(nmperawatanasset,'')::text as nmperawatanasset,
-                                        coalesce(uraian,'')::text as uraian_status				
+                                        coalesce(uraian,'')::text as uraian_status,
+                                        idfaktur
                                         from (
-                                    select a.*,b.nmbarang,b.kdgudang,c.nmbengkel,c.addbengkel,c.city,c.phone1,c.phone2,b.nopol,d.address as branch_address,d.phone1 as branch_phone1,d.phone2 as branch_phone2,d.fax as branch_fax,f.nmlengkap as nmmohon,e.nikmohon
+                                    select a.*,b.nmbarang,b.kdgudang,coalesce('profile/'||f.image,'user.png') AS image,c.nmbengkel,c.addbengkel,c.city,c.phone1,c.phone2,b.nopol,d.address as branch_address,d.phone1 as branch_phone1,d.phone2 as branch_phone2,d.fax as branch_fax,f.nmlengkap as nmmohon,e.nikmohon
                                     ,b.kdrangka,b.kdmesin,e.jnsperawatan as jenisperawatan,case when e.jnsperawatan='BK' then 'BERKALA' when e.jnsperawatan='IS' then 'ISIDENTIL' else '' end as nmperawatanasset, g.uraian
+                                    ,hh.idfaktur
                                     from sc_his.perawatanspk a
                                     left outer join sc_mst.mbarang b on a.stockcode=b.nodok and a.kdgroup=b.kdgroup and a.kdsubgroup=b.kdsubgroup
                                     left outer join sc_mst.msubbengkel c on c.kdbengkel=a.kdbengkel and c.kdsubbengkel=a.kdsubbengkel
@@ -466,6 +470,9 @@ class M_inventaris extends CI_Model
                                     left outer join sc_his.perawatanasset e on a.nodokref=e.nodok
                                     left outer join sc_mst.karyawan f on f.nik=e.nikmohon
                                     left outer join sc_mst.trxtype g on g.kdtrx=a.status and g.jenistrx='PASSET'
+                                    left outer join lateral (
+                                        select idfaktur from sc_his.perawatan_lampiran xx WHERE xx.nodok = a.nodok AND xx.nodokref=a.nodokref LIMIT 1
+                                    ) hh ON TRUE
                                     ) x
                                     where nodok is not null  $param order by nodokref desc,nodok desc
 							");
@@ -526,6 +533,71 @@ class M_inventaris extends CI_Model
                                     select a.*,b.nmbarang,b.kdgudang,c.nmbengkel,c.addbengkel,c.city,c.phone1,c.phone2,b.nopol,d.address as branch_address,d.phone1 as branch_phone1,d.phone2 as branch_phone2,d.fax as branch_fax,f.nmlengkap as nmmohon,e.nikmohon
                                     ,b.kdrangka,b.kdmesin,e.jnsperawatan as jenisperawatan,case when e.jnsperawatan='BK' then 'BERKALA' when e.jnsperawatan='IS' then 'ISIDENTIL' else '' end as nmperawatanasset
                                     from sc_tmp.perawatanspk a
+                                    left outer join sc_mst.mbarang b on a.stockcode=b.nodok and a.kdgroup=b.kdgroup and a.kdsubgroup=b.kdsubgroup
+                                    left outer join sc_mst.msubbengkel c on c.kdbengkel=a.kdbengkel and c.kdsubbengkel=a.kdsubbengkel
+                                    left outer join sc_mst.branch d on coalesce(d.cdefault,'')='YES'
+                                    left outer join sc_his.perawatanasset e on a.nodokref=e.nodok
+                                    left outer join sc_mst.karyawan f on f.nik=e.nikmohon
+                                    ) x
+                                    where nodok is not null $param order by nodok desc
+							");
+    }
+
+    function q_hisperawatanspk_tambahan($param)
+    {
+        return $this->db->query("SELECT coalesce(nodok        ,'')::text as nodok          ,     
+                                        coalesce(nodokref       ,'')::text as nodokref         ,     
+                                        coalesce(descbarang   ,'')::text as descbarang     ,     
+                                        coalesce(kdgroup      ,'')::text as kdgroup        ,     
+                                        coalesce(kdsubgroup   ,'')::text as kdsubgroup     ,     
+                                        coalesce(stockcode    ,'')::text as stockcode      ,     
+                                        coalesce(kdbengkel    ,'')::text as kdbengkel      ,     
+                                        coalesce(kdsubbengkel ,'')::text as kdsubbengkel   ,     
+                                        coalesce(nmbengkel ,'')::text as nmbengkel   ,     
+                                        coalesce(upbengkel    ,'')::text as upbengkel      ,     
+                                        coalesce(jnsperawatan ,'')::text as jnsperawatan   ,     
+                                        coalesce(jnsperawatanref,'')::text as jnsperawatanref,     
+                                        coalesce(to_char(tgldok  ,'dd-mm-yyyy' ),'')::text as tgldok         ,     
+                                        coalesce(to_char(tglawal ,'dd-mm-yyyy' ),'')::text as tglawal        ,     
+                                        coalesce(to_char(tglakhir,'dd-mm-yyyy' ),'')::text as tglakhir       ,     
+                                        coalesce(keterangan     ,'')::text as keterangan     ,     
+                                        coalesce(status         ,'')::text as status         ,     
+                                        coalesce(to_char(inputdate  ,'dd-mm-yyyy' )     ,'')::text as inputdate      ,     
+                                        coalesce(inputby        ,'')::text as inputby        ,     
+                                        coalesce(to_char(updatedate  ,'dd-mm-yyyy' )    ,'')::text as updatedate     ,     
+                                        coalesce(updateby       ,'')::text as updateby       ,     
+                                        coalesce(nmbarang       ,'')::text as nmbarang       ,     
+                                        coalesce(kdgudang       ,'')::text as kdgudang       ,     
+                                        coalesce(nmbengkel      ,'')::text as nmbengkel      ,     
+                                        coalesce(addbengkel     ,'')::text as addbengkel     ,     
+                                        coalesce(city           ,'')::text as city           ,     
+                                        coalesce(phone1         ,'')::text as phone1         ,     
+                                        coalesce(phone2         ,'')::text as phone2         ,     
+                                        coalesce(nopol          ,'')::text as nopol          ,     
+                                        coalesce(branch_address ,'')::text as branch_address ,     
+                                        coalesce(branch_phone1  ,'')::text as branch_phone1  ,     
+                                        coalesce(branch_phone2  ,'')::text as branch_phone2  ,     
+                                        coalesce(branch_fax     ,'')::text as branch_fax ,
+                                        coalesce(nikmohon     ,'')::text as nikmohon,
+                                        coalesce(nmmohon     ,'')::text as nmmohon,
+                                        coalesce(km_awal     ,0)::text as km_awal ,
+                                        coalesce(km_akhir     ,0)::text as km_akhir ,
+                                        coalesce(ttlservis     ,0)::text as ttlservis, 								
+                                        coalesce(ttldiskon    ,0)::text as ttldiskon, 								
+                                        coalesce(ttldpp     ,0)::text as ttldpp, 								
+                                        coalesce(ttlppn    ,0)::text as ttlppn, 								
+                                        coalesce(ttlppnbm,0)::text as ttlppnbm, 								
+                                        coalesce(ttlnetto,0)::text as ttlnetto, 								
+                                        coalesce(typeservis,'')::text as typeservis, 								
+                                        coalesce(kdrangka,'')::text as kdrangka, 								
+                                        coalesce(kdmesin,'')::text as kdmesin,								
+                                        coalesce(jenisperawatan,'')::text as jenisperawatan,								
+                                        coalesce(nmperawatanasset,'')::text as nmperawatanasset,
+                                        coalesce(nodoktmp,'')::text as nodoktmp
+                                        from (
+                                    select a.*,b.nmbarang,b.kdgudang,c.nmbengkel,c.addbengkel,c.city,c.phone1,c.phone2,b.nopol,d.address as branch_address,d.phone1 as branch_phone1,d.phone2 as branch_phone2,d.fax as branch_fax,f.nmlengkap as nmmohon,e.nikmohon
+                                    ,b.kdrangka,b.kdmesin,e.jnsperawatan as jenisperawatan,case when e.jnsperawatan='BK' then 'BERKALA' when e.jnsperawatan='IS' then 'ISIDENTIL' else '' end as nmperawatanasset
+                                    from sc_his.perawatanspk_tambahan a
                                     left outer join sc_mst.mbarang b on a.stockcode=b.nodok and a.kdgroup=b.kdgroup and a.kdsubgroup=b.kdsubgroup
                                     left outer join sc_mst.msubbengkel c on c.kdbengkel=a.kdbengkel and c.kdsubbengkel=a.kdsubbengkel
                                     left outer join sc_mst.branch d on coalesce(d.cdefault,'')='YES'
@@ -691,40 +763,77 @@ class M_inventaris extends CI_Model
     function spk_approver($nodok)
     {
         $spk = $this->db
-            ->select('a.*,b.status as status_spk,b.ttlservis,c.*')
+            ->select('a.*,b.status as status_spk,b.ttlservis,b.inputby as spkinputby,c.*')
             ->from('sc_his.perawatanasset a')
             ->join('sc_his.perawatanspk b', 'a.nodok = b.nodokref')
             ->join('sc_mst.karyawan c', 'a.nikmohon = c.nik')
             ->where('b.nodok', $nodok)
             ->get();
 
+        $addonSpk = $this->db
+            ->select('a.*,b.status as status_spk,b.ttlservis,b.inputby as spkinputby,c.*')
+            ->from('sc_his.perawatanasset a')
+            ->join('sc_his.perawatanspk_tambahan b', 'a.nodok = b.nodokref')
+            ->join('sc_mst.karyawan c', 'a.nikmohon = c.nik')
+            ->where('b.nodok', $nodok)
+            ->get();
+
+
+            $hrdept = $this->m_akses->hrdept();
+            $nikLogin = $this->session->userdata('nik');
+
         if ($spk->num_rows() > 0) {
+            $superior1 = trim($spk->row()->nik_atasan);
+            $superior2 = trim($spk->row()->nik_atasan2);
+            $nikMohon = trim($spk->row()->nikmohon);
+
+            $isSPVGA = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'C', 'subbag_dept' => $hrdept))->num_rows() > 0;
+            // $isMGR = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B'))->num_rows() > 0;
+            $isMGR = $this->db->query("select * from sc_mst.karyawan where nik='$nikMohon' and (nik_atasan in (select nik from sc_mst.karyawan where lvl_jabatan='B' and nik = '$nikLogin') or nik_atasan2 in (select nik from sc_mst.karyawan where lvl_jabatan='B' and nik = '$nikLogin') )")->num_rows() > 0;
+            $isRSM = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'RSM'))->num_rows() > 0;
+            $isGM = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'A02'))->num_rows() > 0;
+            $isMGRKEU = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'FIN01'))->num_rows() > 0;
+            $isDIR = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'A'))->num_rows() > 0;
+            $cekJobLvl = in_array(trim($this->db->get_where('sc_mst.karyawan', array('nik' => $nikMohon))->row()->lvl_jabatan), array('B', 'A'));
+
+            if (trim($spk->row()->status_spk) == 'AF1') {
+                $statusses = array(
+                    'AF1' => $isSPVGA,
+                );
+                foreach ($statusses as $status => $isAllowed) {
+                    if ($isAllowed) {
+                        return array('approve_access' => true, 'next_status' => 'X');
+                    }
+                }
+            }
+
             $kode = strlen(trim($spk->row()->status_spk)) >= 3 ?
                 substr($spk->row()->status_spk, 0, 2) :
                 substr($spk->row()->status_spk, 0, 1);
-            $superior1 = trim($spk->row()->nik_atasan);
-            $superior2 = trim($spk->row()->nik_atasan2);
-
-            $isSPVGA = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'C', 'subbag_dept' => 'HRGA'))->num_rows() > 0;
-            // $isMGR = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B'))->num_rows() > 0;
-            $isRSM = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'RSM'))->num_rows() > 0;
-            $isGM = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'GMN'))->num_rows() > 0;
-            $isMGRKEU = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'MGRKEU'))->num_rows() > 0;
-            $isDIR = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'A'))->num_rows() > 0;
 
             $isGMIncluded = $this->db->get_where('sc_mst.option', array('kdoption' => 'SPK:APPROVAL:GM'))->row()->value1 == 'Y';
+            $isInputBySales = $this->db->select('a.*')
+                ->from('sc_mst.karyawan a')
+                ->where('nik', trim($spk->row()->nikmohon))
+                ->where('jabatan', 'DIS13')
+                ->get()->num_rows() > 0;
 
             $statusses = array(
-				$kode . '1' => $isSPVGA,
-				$kode . '2' => $superior2 == $this->session->userdata('nik'),
-				$kode . '3' => $isRSM,
-				$kode . ($isGMIncluded ? '5' : '4') => $isMGRKEU,
-				$kode . ($isGMIncluded ? '6' : '5') => $isDIR,
-			);
+                $kode . '1' => $isSPVGA,
+                $kode . '2' => $cekJobLvl ? $superior1 == $this->session->userdata('nik') : $isMGR,
+            );
 
-			if ($isGMIncluded) {
-				$statusses[$kode . '4'] = $isGM;
-			}
+            if ($isInputBySales) {
+                $statusses[$kode . '3'] = $isRSM;
+            }
+            if ($isGMIncluded) {
+                $statusses[$kode . '4'] = $isGM;
+            }
+
+            $nextStatuses = array(
+                $kode . '1' => $kode . '2',
+                $kode . '2' => $isInputBySales ? $kode . '3' : ((!$isInputBySales && $isGMIncluded) ? $kode . '4' : $kode . '5'),
+            );
 
             $isSpkExist = function ($status) use ($nodok) {
                 return $this->db->get_where('sc_his.perawatanspk', array('nodok' => $nodok, 'status' => $status))->num_rows() > 0;
@@ -732,18 +841,22 @@ class M_inventaris extends CI_Model
 
             $opt = $this->db->get_where('sc_mst.option', array('kdoption' => 'SPK:APPROVAL:LEVEL'))->row()->value3;
 
-            if ($spk->row()->ttlservis <= 1000000) {
-                $statusses = array_slice($statusses, 0, $opt, true);
+            $ttlservice = $addonSpk->row()->ttlservis === NULL ? $spk->row()->ttlservis : $addonSpk->row()->ttlservis;
+
+            if ($ttlservice >= 1000000) {
+                $statusses[$kode . '5'] = $isMGRKEU;
+                $nextStatuses[$kode . '3'] = $isGMIncluded ? $kode . '4' : $kode . '5';
+                $nextStatuses[$kode . '4'] = $kode . '5';
             }
-            if ($spk->row()->ttlservis <= 4000000) {
-                $statusses = array_slice($statusses, 0, $opt + ($opt < 3 ? 2 : 1), true);
+            if ($ttlservice > 4000000) {
+                $statusses[$kode . '6'] = $isDIR;
+                $nextStatuses[$kode . '5'] = $kode . '6';
             }
             foreach ($statusses as $status => $isAllowed) {
                 if ($isSpkExist($status) && $isAllowed) {
-                    $nextStatus = (int) strlen(trim($spk->row()->status_spk)) >= 3 ? str_split($status, 1)[2] + 1 : str_split($status, 1)[1] + 1;
-                    $nextStatus = "$kode$nextStatus";
+                    $nextStatus = $nextStatuses[$status];
                     $nextStatusExists = array_key_exists($nextStatus, $statusses);
-                    return array('approve_access' => true, 'next_status' => $nextStatusExists ? "$nextStatus" : (strlen(trim($spk->row()->status_spk)) >= 3 ? 'X' : 'P'));
+                    return array('approve_access' => true, 'next_status' => $nextStatusExists ? $nextStatus : (substr(trim($spk->row()->status_spk), 0, 2) == 'AF' ? 'X' : 'P'));
                 }
             }
         }
@@ -785,5 +898,51 @@ class M_inventaris extends CI_Model
                                 order by 
                                     nodok desc
                                 ");
+    }
+
+    function q_perawatanasset_where($clause)
+    {
+        return $this->db->query("
+            SELECT * FROM(
+                 select
+                     a.nodok,
+                     a.dokref,
+                     a.kdgroup,
+                     a.kdsubgroup,
+                     a.stockcode,
+                     a.descbarang,
+                     a.nikpakai,
+                     a.nikmohon,
+                     a.jnsperawatan,
+                     a.tgldok,
+                     a.keterangan,
+                     a.laporanpk,
+                     a.laporanpsp,
+                     a.laporanksp,
+                     a.inputdate,
+                     a.inputby,
+                     a.updatedate,
+                     a.updateby,
+                     a.approvaldate,
+                     a.approvalby,
+                     a.canceldate,
+                     a.cancelby,
+                     a.nodoktmp,
+                     a.status,
+                     coalesce(a.km_awal, 0) AS km_awal,
+                     coalesce(a.km_akhir, 0) AS km_akhir,
+                     b.nmlengkap AS pemohon,
+                     bb.nmlengkap AS pengguna,
+                     case
+                         when a.jnsperawatan='BK' then 'BERKALA'
+                         when a.jnsperawatan='IS' then 'ISIDENTIL'
+                         else '-' end as nmperawatanasset,
+                     c.uraian AS nmstatus
+                 from sc_his.perawatanasset a
+                LEFT OUTER JOIN sc_mst.karyawan b on b.nik = a.nikmohon
+                LEFT OUTER JOIN sc_mst.karyawan bb on bb.nik = a.nikpakai
+                left outer join sc_mst.trxtype c on c.kdtrx=a.status and c.jenistrx='PASSET'
+            ) a WHERE TRUE
+        ".$clause);
     }
 }

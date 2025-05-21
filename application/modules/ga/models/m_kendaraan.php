@@ -274,4 +274,72 @@ class M_kendaraan extends CI_Model{
 									SC_HIS.STNKB a left outer join sc_mst.mbarang b on a.kdrangka=b.nodok) as x
 									WHERE tanggal IS NOT NULL $param order by tanggal asc");
     }
+
+    function q_master_read_where($clause = null){
+        return $this->db->query($this->q_master_txt_where($clause));
+    }
+    function q_master_txt_where($clause = null){
+        return sprintf(<<<'SQL'
+select * from(
+     select
+         a.branch,
+         trim(a.nodok) AS id,
+         trim(a.nodok) AS nodok,
+         trim(a.nodokref) AS nodokref,
+         a.nmbarang AS vehicle_name,
+         a.nmbarang,
+         a.kdgroup,
+         a.kdsubgroup,
+         a.kdgudang,
+         a.nmpemilik,
+         a.addpemilik,
+         a.kdasuransi,
+         a.kdrangka,
+         a.kdmesin,
+         a.nopol,
+         a.nopol AS police_number,
+         a.hppemilik,
+         a.typeid,
+         a.jenisid,
+         a.modelid,
+         a.tahunpembuatan,
+         a.silinder,
+         a.warna,
+         a.bahanbakar,
+         a.warnatnkb,
+         a.tahunreg,
+         a.nobpkb,
+         a.kdlokasi,
+         a.expstnkb,
+         a.exppkbstnkb,
+         a.nopkb,
+         a.nominalpkb,
+         a.pprogresif,
+         a.brand,
+         a.hold_item,
+         a.qty,
+         a.expasuransi,
+         coalesce(trim(a.userpakai),'-') AS userpakai,
+         coalesce(b.nmlengkap,'-') AS nmlengkap,
+         a.startpakai,
+         a.endpakai,
+         a.keterangan,
+         a.inputdate,
+         a.inputby,
+         a.updatedate,
+         a.updateby,
+         a.docujikir,
+         a.expkir,
+         a.lastkmh,
+         a.ujikir,
+         a.asuransi
+     from sc_mst.mbarang a
+        LEFT OUTER JOIN sc_mst.karyawan b ON a.userpakai = b.nik
+     WHERE TRUE
+       AND a.kdgroup = 'KDN'
+ ) a
+WHERE TRUE
+SQL
+            ).$clause;
+    }
 }	

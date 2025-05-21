@@ -5,17 +5,117 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="88adb7ec-44a4-4444-b238-e84367329583" name="Default" comment="">
+<<<<<<< Updated upstream
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/public.abK9xQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_crm.bxfdyQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_his.IyndyQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_im.cwGDBg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_log.1TjdyQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_mst.Hz3dyQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_rec.IU7dyQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_rep.Lk7dyQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_retable.jHp04Q.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/485ce5f5-f953-407e-8700-b6709349a08c/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/pg_catalog.0S1ZNQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/public.abK9xQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_his.IyndyQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_im.cwGDBg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_log.1TjdyQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_mst.Hz3dyQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_rec.IU7dyQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_retable.jHp04Q.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_tmp.qFbdyQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ba5f167f-425f-402f-ae87-0ce687aa64ee/storage_v2/_src_/database/HRMS.NUSA.U53ucg/schema/sc_trx.S1fdyQ.zip" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" beforeDir="false" afterPath="$PROJECT_DIR$/application/libraries/fiky_ddos_protector/anti_ddos/files/check.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/Cashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/Cashbon.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/DeclarationCashbon.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/DeclarationCashbon.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/DeclarationCashbonDinas.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/kasbon_umum/controllers/DeclarationCashbonDinas.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1730862520.5254.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1730862529.1102.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1730862548.0367.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1730862551.4953.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/captcha/1730862841.9099.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/controllers/inventaris.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/ga/controllers/inventaris.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/controllers/kendaraan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/ga/controllers/kendaraan.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/models/m_inventaris.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/ga/models/m_inventaris.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/models/m_kendaraan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/ga/models/m_kendaraan.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/kendaraan/v_mstkendaraan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/ga/views/kendaraan/v_mstkendaraan.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/kendaraan_bak/sti_pengajuan_stnkb.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/kendaraan_bak/v_approvalstnk_v2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/kendaraan_bak/v_cancelstnk_v2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/kendaraan_bak/v_deletemstkendaraan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/kendaraan_bak/v_detailmstkendaraan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/kendaraan_bak/v_dtlinquirystnk.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/kendaraan_bak/v_editmstkendaraan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/kendaraan_bak/v_editstnk_v2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/kendaraan_bak/v_filterinquirystnk.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/kendaraan_bak/v_index.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/kendaraan_bak/v_inputpkbtahunan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/kendaraan_bak/v_inputstnk_v2.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/kendaraan_bak/v_inputstnkbaru.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/kendaraan_bak/v_inquirystnk.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/kendaraan_bak/v_listkendaraanwil.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/kendaraan_bak/v_listwilquiry.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/kendaraan_bak/v_mbengkel.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/kendaraan_bak/v_mstasuransi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/kendaraan_bak/v_mstasuransi_backup.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/kendaraan_bak/v_mstkendaraan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/kendaraan_bak/v_msubasuransi.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/kendaraan_bak/v_msubbengkel.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/kendaraan_bak/v_sckendaraan.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/kendaraan_bak/v_stnk.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/sti_v_form.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/text.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_approval_po.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_approval_sppb.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_batal_po.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_detail_po.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_detail_po_dtl.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_detail_po_dtl_tmp.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_detail_po_dtl_tmp_hangus.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_detail_sppb.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_detail_supplier_po_mst.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_detail_supplier_po_mst_tmp.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_edit_po.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_edit_pricelst.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_edit_sppb.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_filter.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_filter_his_po.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_filter_po_receipt.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_hangus_po.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_hangus_sppb.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_hapus_po - Copy.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_hapus_po.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_hapus_sppb.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_index.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_input_niksppb.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_input_pbk.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_input_po.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_input_po_asal.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_input_po_old_bak.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_input_supplier_po_mst.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_list_master_pricelist.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_list_nikpbk.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_list_niksppb.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_list_po.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_list_po_final.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_list_po_historis.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_list_po_receipt.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_listpbk.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_mapping_po_dtlrev.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_remapping_po_dtl.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_remapping_po_dtl1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_sppb.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/ga/views/pembelian_back/v_sppb_1.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1736128688.9466.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/captcha/1736128698.0866.jpg" beforeDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/modules/trans/models/m_uang_makan.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/modules/trans/models/m_uang_makan.php" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -337,43 +437,45 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
-    &quot;com.google.cloudcode.ide_session_index&quot;: &quot;20241106_0000&quot;,
-    &quot;database.data.extractors.current.export.id&quot;: &quot;SQL Inserts&quot;,
-    &quot;database.data.extractors.current.id&quot;: &quot;SQL Inserts&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/PROJECT/hrms.nusa/application/migrations/sql/00040.20241105.10.Meal-Allowance/+up&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;yarn&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;db.project.configurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.codeium.enabled": "true",
+    "com.google.cloudcode.ide_session_index": "20250115_0000",
+    "dart.analysis.tool.window.visible": "false",
+    "database.data.extractors.current.export.id": "SQL Inserts",
+    "database.data.extractors.current.id": "SQL Inserts",
+    "git-widget-placeholder": "development",
+    "last_opened_file_path": "D:/PROJECT/hrms.nusa/assets/attachment/att_spkperawatan",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "yarn",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "db.project.configurable",
+    "show.migrate.to.gradle.popup": "false",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mysql&quot;,
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql",
+      "postgresql"
     ],
-    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/&quot;: [
-      &quot;PostgreSQL&quot;
+    "com.intellij.ide.scratch.LRUPopupBuilder$1/": [
+      "PostgreSQL"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\PROJECT\hrms.nusa\assets\attachment\att_spkperawatan" />
       <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00040.20241105.10.Meal-Allowance\+up" />
       <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql" />
       <recent name="D:\PROJECT\hrms.nusa\application\migrations" />
       <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00031.20241008.13.Dinas-Multi-Kota\+up" />
-      <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql\00030.20240315.10.Whatsapp-Notification\+up" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\PROJECT\hrms.nusa\application\migrations\sql" />
@@ -400,8 +502,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-PS-242.23339.16" />
-        <option value="bundled-php-predefined-a98d8de5180a-90914f2295cb-com.jetbrains.php.sharedIndexes-PS-242.23339.16" />
+        <option value="bundled-js-predefined-d6986cc7102b-deb605915726-JavaScript-PS-243.22562.233" />
+        <option value="bundled-php-predefined-a98d8de5180a-7980c7aaca61-com.jetbrains.php.sharedIndexes-PS-243.22562.233" />
       </set>
     </attachedChunks>
   </component>
@@ -744,7 +846,13 @@
       <workItem from="1719798763755" duration="26480000" />
       <workItem from="1728354664078" duration="13009000" />
       <workItem from="1730856777896" duration="9343000" />
+<<<<<<< Updated upstream
       <workItem from="1731030776758" duration="4742000" />
+      <workItem from="1736903743008" duration="45558000" />
+=======
+      <workItem from="1731030776758" duration="5357000" />
+      <workItem from="1731039315855" duration="143000" />
+>>>>>>> Stashed changes
     </task>
     <servers />
   </component>

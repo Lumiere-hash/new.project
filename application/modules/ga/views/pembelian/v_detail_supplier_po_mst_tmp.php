@@ -447,6 +447,10 @@ function formatangkavalue(objek) {
 			</div>
 		</div>	
 	</div>	
+	<div class="box-footer">
+	  <a href="<?php $enc_nodoktmp=bin2hex($this->encrypt->encode(trim($po_mst['nodok'])));
+			echo site_url("ga/pembelian/approval_po_atk/$enc_nodoktmp");?>" type="button" class="btn btn-default"/> Kembali</a>
+		</div>
       <div class="box-footer">
 		<?php if (trim($po_mst['status'])=='A') { ?> 
 			<a href="<?php $enc_nodoktmp=bin2hex($this->encrypt->encode(trim($po_mst['nodok'])));

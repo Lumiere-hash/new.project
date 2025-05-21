@@ -873,6 +873,8 @@ class Inventaris extends MX_Controller
 		$data['userhr'] = $userhr;
 		$data['level_akses'] = $level_akses;
 		$data['ceknikatasan1'] = $ceknikatasan1;
+		$data['nikatasan1'] = $nikatasan1;
+		// var_dump($data['nikatasan1']);die();
 		/* END APPROVE ATASAN */
 
 
@@ -953,7 +955,7 @@ class Inventaris extends MX_Controller
 				'inputby' => NULL,
 				'inputdate' => NULL,
 			);
-			$this->db->where('nodok', $nodok);
+			$this->db->where('nodok ', $nodok);
 			$this->db->update('sc_his.perawatanasset', $info);
 
 		} else if ($status == 'E') {
@@ -1100,11 +1102,11 @@ class Inventaris extends MX_Controller
 
 
 		/*	$paramstatus=" and nodok='$nodok' and status not in ('A')";
-																			  $cekstatus=$this->m_inventaris->q_hisperawatan($paramstatus)->num_rows();
-																			  if($cekstatus>0){
-																				  redirect("ga/inventaris/form_perawatan/edit_fail");
-																			  }
-																		  */
+																															  $cekstatus=$this->m_inventaris->q_hisperawatan($paramstatus)->num_rows();
+																															  if($cekstatus>0){
+																																  redirect("ga/inventaris/form_perawatan/edit_fail");
+																															  }
+																														  */
 
 
 		$data['title'] = "FORM INPUT PERAWATAN ASSET";
@@ -1533,9 +1535,21 @@ class Inventaris extends MX_Controller
 	{
 		$nodok = trim(strtoupper($this->uri->segment(4)));
 		$data['jsonfile'] = "ga/inventaris/json_perawatan_asset/$nodok";
-		$data['report_file'] = 'assets/mrt/sti_perawatanasset.mrt';
+		$data['report_file'] = 'assets/mrt/Report_test.mrt';
 		$this->load->view("ga/inventaris/sti_v_spk_perawatan", $data);
 	}
+<<<<<<< HEAD
+=======
+	
+	function sti_perawatan_asset_brg()
+	{
+		$nodok = trim(strtoupper($this->uri->segment(4)));
+		$data['jsonfile'] = "ga/inventaris/json_perawatan_asset/$nodok";
+		$data['report_file'] = 'assets/mrt/sti_perawatanasset_brg.mrt';
+		$this->load->view("ga/inventaris/sti_v_spk_perawatan", $data);
+	}
+
+>>>>>>> c50cc20d40d000da5bac572c3f350440adc319c0
 	function json_perawatan_asset()
 	{
 		$nodok = trim(strtoupper($this->uri->segment(4)));
@@ -1558,43 +1572,43 @@ class Inventaris extends MX_Controller
 	/************** FORM PERAWATAN ASET ***********************/
 
 	/*
-									  function form_spk(){
-											  $data['title']="FILTER DATA PERAWATAN ASSET & INPUT SPK";
-														  /* CODE UNTUK VERSI
-														  $kodemenu='I.G.E.2';
-														  $versirelease='I.G.E.2/ALPHA.001';
-														  $userid=$this->session->userdata('nama');
-														  $vdb=$this->m_akses->q_versidb($kodemenu)->row_array();
-														  $versidb=$vdb['vrelease'];
-														  if($versidb<>$versirelease){
-															  $infoversiold= array (
-																  'vreleaseold'   => $versidb,
-																  'vdateold'      => $vdb['vdate'],
-																  'vauthorold'    => $vdb['vauthor'],
-																  'vketeranganold'=> $vdb['vketerangan'],
-															  );
-															  $this->db->where('kodemenu',$kodemenu);
-															  $this->db->update('sc_mst.version',$infoversiold);
+															  function form_spk(){
+																	  $data['title']="FILTER DATA PERAWATAN ASSET & INPUT SPK";
+																				  /* CODE UNTUK VERSI
+																				  $kodemenu='I.G.E.2';
+																				  $versirelease='I.G.E.2/ALPHA.001';
+																				  $userid=$this->session->userdata('nama');
+																				  $vdb=$this->m_akses->q_versidb($kodemenu)->row_array();
+																				  $versidb=$vdb['vrelease'];
+																				  if($versidb<>$versirelease){
+																					  $infoversiold= array (
+																						  'vreleaseold'   => $versidb,
+																						  'vdateold'      => $vdb['vdate'],
+																						  'vauthorold'    => $vdb['vauthor'],
+																						  'vketeranganold'=> $vdb['vketerangan'],
+																					  );
+																					  $this->db->where('kodemenu',$kodemenu);
+																					  $this->db->update('sc_mst.version',$infoversiold);
 
-															  $infoversi= array (
-																  'vrelease'   => $versirelease,
-																  'vdate'      => date('2017-07-10 11:18:00'),
-																  'vauthor'    => 'FIKY',
-																  'vketerangan'=> 'PENAMBAHAN VERSION RELEASE',
-																  'update_date' => date('Y-m-d H:i:s'),
-																  'update_by'   => $userid,
-															  );
-															  $this->db->where('kodemenu',$kodemenu);
-															  $this->db->update('sc_mst.version',$infoversi);
-														  }
-														  $vdb=$this->m_akses->q_versidb($kodemenu)->row_array();
-														  $versidb=$vdb['vrelease'];
-														  $data['version']=$versidb;
-														  /* END CODE UNTUK VERSI
-											  $data['list_kanwil']=$this->m_inventaris->q_mstkantor()->result();
-											  $this->template->display('ga/inventaris/v_filterspk',$data);
+																					  $infoversi= array (
+																						  'vrelease'   => $versirelease,
+																						  'vdate'      => date('2017-07-10 11:18:00'),
+																						  'vauthor'    => 'FIKY',
+																						  'vketerangan'=> 'PENAMBAHAN VERSION RELEASE',
+																						  'update_date' => date('Y-m-d H:i:s'),
+																						  'update_by'   => $userid,
+																					  );
+																					  $this->db->where('kodemenu',$kodemenu);
+																					  $this->db->update('sc_mst.version',$infoversi);
+																				  }
+																				  $vdb=$this->m_akses->q_versidb($kodemenu)->row_array();
+																				  $versidb=$vdb['vrelease'];
+																				  $data['version']=$versidb;
+																				  /* END CODE UNTUK VERSI
+																	  $data['list_kanwil']=$this->m_inventaris->q_mstkantor()->result();
+																	  $this->template->display('ga/inventaris/v_filterspk',$data);
 
-									  }*/
+															  }*/
 
 
 
@@ -1696,10 +1710,8 @@ class Inventaris extends MX_Controller
 			redirect("ga/inventaris/hangus_po_atk/$enc_nodok");
 			//redirect("ga/inventaris/direct_lost_input");
 		}
-		$isGMIncluded = $this->db->get_where('sc_mst.option', array('kdoption' => 'SPK:APPROVAL:GM'))->row()->value1 == 'Y';
 
-		if ($isGMIncluded) {
-			$this->db->query("UPDATE sc_mst.trxtype
+		$this->db->query("UPDATE sc_mst.trxtype
 				SET uraian = CASE kdtrx
 					WHEN 'A4' THEN 'APPROVAL GM'
 					WHEN 'A5' THEN 'APPROVAL MANAGER KEUANGAN'
@@ -1708,17 +1720,6 @@ class Inventaris extends MX_Controller
 				END
 				WHERE kdtrx IN ('A4','A5','AF4','AF5')
 				AND jenistrx = 'PASSET'");
-		} else {
-			$this->db->query("UPDATE sc_mst.trxtype
-				SET uraian = CASE kdtrx
-					WHEN 'A4' THEN 'APPROVAL MANAGER KEUANGAN'
-					WHEN 'A5' THEN 'APPROVAL DIREKSI'
-					WHEN 'AF4' THEN 'APPROVAL MANAGER KEUANGAN'
-					WHEN 'AF5' THEN 'APPROVAL DIREKSI'
-				END
-				WHERE kdtrx IN ('A4','A5','AF4','AF5')
-				AND jenistrx = 'PASSET'");
-		}
 
 		$param = " and status in ('P','X')";
 		$data['list_kanwil'] = $this->m_inventaris->q_mstkantor()->result();
@@ -1726,6 +1727,9 @@ class Inventaris extends MX_Controller
 		$data['list_barang'] = $this->m_inventaris->q_listbarang()->result();
 		$data['list_bengkel'] = $this->m_inventaris->q_listbengkel()->result();
 		$data['list_scgroup'] = $this->m_inventaris->q_scgroup()->result();
+
+		$data['userhr'] = $this->m_akses->list_aksesperdep()->num_rows() > 0;
+
 		$this->template->display('ga/inventaris/v_form_index_spk', $data);
 
 	}
@@ -1797,16 +1801,21 @@ class Inventaris extends MX_Controller
 					<a class="btn btn-sm btn-default" href="' . site_url('ga/inventaris/detail_inputspk') . '/' . $lpo->nodok . '" title="Detail SPK"><i class="fa fa-bars"></i></a>
 					<a class="btn btn-sm btn-primary" href="' . site_url('ga/inventaris/editspk_faktur') . '/' . $lpo->nodok . '" title="Edit Faktur"><i class="fa fa-gear"></i></a>
 					';
+			} else if (in_array(trim($lpo->status), ['P']) and $userhr > 0) {
+				$row[] = '
+					<a class="btn btn-sm btn-default" href="' . site_url('ga/inventaris/detail_inputspk') . '/' . $lpo->nodok . '" title="Detail SPK"><i class="fa fa-bars"></i></a>
+					<a class="btn btn-sm btn-primary" href="' . site_url('ga/inventaris/inputspk_tambahan') . '/' . $lpo->nodokref . '/' . $lpo->nodok . '" title="Tambahan SPK"><i class="fa fa-gear"></i></a>
+					<a class="btn btn-sm btn-success" href="' . site_url('ga/inventaris/inputspk_pembayaran') . '/' . $lpo->nodok . '" title="Input Pembayaran"><i class="fa fa-money"></i></a>
+					<a class="btn btn-sm btn-primary" href="' . site_url('ga/inventaris/inputspk_faktur') . '/' . $lpo->nodok . '" title="Input Faktur"><i class="fa fa-file-text"></i></a>
+					<a class="btn btn-sm btn-warning" href="' . site_url('ga/inventaris/sti_spk_perawatan') . '/' . $lpo->nodok . '/' . trim($lpo->kdgroup) . '" title="Cetak SPK" target="_blank"><i class="fa fa-print"></i></a>';
 			} else if (in_array(trim($lpo->status), ['P']) and $param_list2 == 0) {
 				$row[] = '
 					<a class="btn btn-sm btn-default" href="' . site_url('ga/inventaris/detail_inputspk') . '/' . $lpo->nodok . '" title="Detail SPK"><i class="fa fa-bars"></i></a>
-					<a class="btn btn-sm btn-success" href="' . site_url('ga/inventaris/inputspk_pembayaran') . '/' . $lpo->nodok . '" title="Input Pembayaran"><i class="fa fa-money"></i></a>
-					<a class="btn btn-sm btn-primary" href="' . site_url('ga/inventaris/inputspk_faktur') . '/' . $lpo->nodok . '" title="Input Faktur"><i class="fa fa-file-text"></i></a>
-					<a class="btn btn-sm btn-warning" href="' . site_url('ga/inventaris/sti_spk_perawatan') . '/' . $lpo->nodok . '" title="Cetak SPK"><i class="fa fa-print"></i></a>';
+					<a class="btn btn-sm btn-warning" href="' . site_url('ga/inventaris/sti_spk_perawatan') . '/' . $lpo->nodok . '/' . trim($lpo->kdgroup) .'" title="Cetak SPK"><i class="fa fa-print"></i></a>';
 			} else if (in_array(trim($lpo->status), ['X', 'P'])) {
 				$row[] = '
 					<a class="btn btn-sm btn-default" href="' . site_url('ga/inventaris/detail_inputspk') . '/' . $lpo->nodok . '" title="Detail SPK"><i class="fa fa-bars"></i></a>
-					<a class="btn btn-sm btn-warning" href="' . site_url('ga/inventaris/sti_spk_perawatan') . '/' . $lpo->nodok . '" title="Cetak SPK"><i class="fa fa-print"></i></a>';
+					<a class="btn btn-sm btn-warning" href="' . site_url('ga/inventaris/sti_spk_perawatan') . '/' . $lpo->nodok . '/' . trim($lpo->kdgroup) .'" title="Cetak SPK" target="_blank"><i class="fa fa-print"></i></a>';
 			} else {
 				$row[] = '
 					<a class="btn btn-sm btn-default" href="' . site_url('ga/inventaris/detail_inputspk') . '/' . $lpo->nodok . '" title="Detail SPK"><i class="fa fa-bars"></i></a>
@@ -1989,12 +1998,12 @@ class Inventaris extends MX_Controller
 				$this->db->insert('sc_tmp.perawatanspk', $info);
 			}
 			/*	$info = array (
-																													'status' => 'E',
-																													'updateby' => $nama,
-																													'updatedate' => date('Y-m-d H:i:s'),
-																												);
-																												$this->db->where('nodok',$nodok);
-																												$this->db->update('sc_his.perawatanasset',$info);*/
+																																															'status' => 'E',
+																																															'updateby' => $nama,
+																																															'updatedate' => date('Y-m-d H:i:s'),
+																																														);
+																																														$this->db->where('nodok',$nodok);
+																																														$this->db->update('sc_his.perawatanasset',$info);*/
 		}
 
 		if (empty($nodok)) {
@@ -2147,10 +2156,10 @@ class Inventaris extends MX_Controller
 
 
 		/* $tgl=explode(' - ',str_replace('%20',' ',$this->input->post('tgl')));
-																		  $tglawal=date('Y-m-d', strtotime(trim($tgl[0])));
-																		  if (empty($tglawal)) { $tglawal=null; } else {$tglawal=$tglawal;}
-																		  $tglakhir=date('Y-m-d', strtotime(trim($tgl[1])));
-																		  if (empty($tglakhir)) { $tglakhir=null; } else {$tglakhir=$tglakhir;} */
+																														  $tglawal=date('Y-m-d', strtotime(trim($tgl[0])));
+																														  if (empty($tglawal)) { $tglawal=null; } else {$tglawal=$tglawal;}
+																														  $tglakhir=date('Y-m-d', strtotime(trim($tgl[1])));
+																														  if (empty($tglakhir)) { $tglakhir=null; } else {$tglakhir=$tglakhir;} */
 
 
 		$id = strtoupper(trim($this->input->post('id')));
@@ -2332,7 +2341,6 @@ class Inventaris extends MX_Controller
 			$info = array(
 				'nodok       ' => $nodok,
 				'nodokref    ' => $nodokref,
-				'id		     ' => 0,
 				'idfaktur    ' => $idfaktur,
 				'keterangan  ' => $keterangan,
 				'nservis     ' => $nservis,
@@ -2467,7 +2475,7 @@ class Inventaris extends MX_Controller
 
 	function save_spk()
 	{
-		$nama = $this->session->userdata('nama');
+		$nama = (String) $this->session->userdata('nik') . (String) rand(1, 9);
 		$type = strtoupper($this->input->post('type'));
 		$dtlbranch = $this->m_akses->q_branch()->row_array();
 		$branch = strtoupper(trim($dtlbranch['branch']));
@@ -2551,6 +2559,33 @@ class Inventaris extends MX_Controller
 				$this->db->insert('sc_tmp.perawatanspk', $info);
 				redirect("ga/inventaris/inputspk_view/$nodok/inp_succes");
 			}
+
+		} else if ($type == 'INPUTEDIT') {
+			$info = array(
+
+				'kdgroup' => $kdgroup,
+				'kdsubgroup' => $kdsubgroup,
+				'stockcode' => $stockcode,
+				'kdbengkel' => $kdbengkel,
+				'kdsubbengkel' => $kdsubbengkel,
+				'upbengkel' => $upbengkel,
+				'jnsperawatanref' => $jnsperawatanref,
+				'tglawal' => $tglawal,
+				'tglakhir' => $tglakhir,
+				'km_awal' => $kmawal,
+				'km_akhir' => $kmakhir,
+				'ttlservis' => $ttlservis,
+				'descbarang' => $descbarang,
+				'keterangan' => $keterangan,
+				'status' => 'I',
+				'updatedate' => $inputdate,
+				'updateby' => $inputby
+
+			);
+			$this->db->where('nodok', $nodok);
+			$this->db->where('nodokref', $nodokref);
+			$this->db->update('sc_his.perawatanspk_tambahan', $info);
+			redirect("ga/inventaris/inputspk_tambahan/$nodokref/$nodok/inp_succes");
 
 		} else if ($type == 'EDITTMP') {
 			$info = array(
@@ -2730,7 +2765,6 @@ class Inventaris extends MX_Controller
 		$param = " and nodok='$nodok' and nodoktmp='$nodoktmp'";
 		$dtlmst_tmp = $this->m_inventaris->q_hisperawatanspk_tmp($param)->row_array();
 		$status = trim($dtlmst_tmp['status']);
-		// $nodoktmp = trim($dtlmst_tmp['nodoktmp']);
 		if ($status == 'E') {
 			$info = array(
 				'status' => 'A1',
@@ -2739,18 +2773,52 @@ class Inventaris extends MX_Controller
 			$this->db->update('sc_his.perawatanspk', $info);
 		}
 
-		$this->db->where('nodok', $nodok);
+		if ($status == 'PE') {
+			$info = array(
+				'status' => 'P',
+			);
+			$this->db->where('nodok', $nodoktmp);
+			$this->db->update('sc_his.perawatanspk', $info);
+		}
+
+		$this->db->where("nodok like '$nodok%'");
 		$this->db->delete('sc_tmp.perawatanspk');
-		$this->db->where('nodok', $nodok);
+		$this->db->where("nodok like '$nodok%'");
 		$this->db->delete('sc_tmp.perawatan_mst_lampiran');
-		$this->db->where('nodok', $nodok);
+		$this->db->where("nodok like '$nodok%'");
 		$this->db->delete('sc_tmp.perawatan_detail_lampiran');
-		$this->db->where('nodok', $nodok);
+		$this->db->where("nodok like '$nodok%'");
 		$this->db->delete('sc_tmp.perawatan_lampiran');
 
 		$param2 = " and modul='PERAWATAN-SPK' and userid='$nama'";
 		$dtltrx = $this->m_inventaris->trxerror($param2)->row_array();
 		$nodoktmp = trim($dtltrx['nomorakhir1']);
+
+		redirect("ga/inventaris/index_spk");
+	}
+
+	function clear_tambahanspk()
+	{
+		$nodok = strtoupper(trim($this->input->post('nodok')));
+		$nodoktmp = strtoupper(trim($this->input->post('nodoktmp')));
+		$nama = $this->session->userdata('nik');
+
+		$info = array(
+			'status' => 'P',
+		);
+		$this->db->where('nodok', $nodok);
+		$this->db->update('sc_his.perawatanspk', $info);
+
+		$this->db->where("nodok like '$nodok%' and status='I'");
+		$this->db->delete('sc_his.perawatanspk_tambahan');
+		$this->db->where("nodok like '$nodok%'");
+		$this->db->delete('sc_tmp.perawatanspk');
+		$this->db->where("nodok like '$nodok%'");
+		$this->db->delete('sc_tmp.perawatan_mst_lampiran');
+		$this->db->where("nodok like '$nodok%'");
+		$this->db->delete('sc_tmp.perawatan_detail_lampiran');
+		$this->db->where("nodok like '$nodok%'");
+		$this->db->delete('sc_tmp.perawatan_lampiran');
 
 		redirect("ga/inventaris/index_spk");
 	}
@@ -2848,7 +2916,7 @@ class Inventaris extends MX_Controller
 			'status' => 'F',
 
 		);
-		$this->db->where('nodok', $nodok);
+		$this->db->where("nodok = '$nodok'");
 		$this->db->update('sc_tmp.perawatanspk', $info);
 
 
@@ -2859,9 +2927,37 @@ class Inventaris extends MX_Controller
 		redirect("ga/inventaris/index_spk/edit_succes/$nodoktmp");
 	}
 
+	function final_tambahanspk()
+	{
+		$nodok = strtoupper(trim($this->input->post('nodok')));
+		$nodokref = strtoupper(trim($this->input->post('nodokref')));
+		$nama = $this->session->userdata('nik');
+		$info = array(
+			'status' => 'A2',
+		);
+		$this->db->where("nodok = '$nodok'");
+		$this->db->update('sc_his.perawatanspk', $info);
+
+		$info = array(
+			'status' => 'P',
+		);
+		$this->db->where("nodok = '$nodok'");
+		$this->db->update('sc_his.perawatanspk_tambahan', $info);
+
+		redirect("ga/inventaris/index_spk/add_succes/$nodok");
+	}
+
 	function final_spk_pembayaran()
 	{
 		$nodok = strtoupper(trim($this->input->post('nodok')));
+		$parama1 = " and nodoktmp='$nodok'";
+		$payment_list = $this->m_inventaris->q_hisperawatanspk_pembayaran_tmp($parama1)->result();
+		foreach ($payment_list as $key => $value) {
+			if ($value->nnetto == null or $value->nnetto < 1) {
+				header('Location: ' . $_SERVER['HTTP_REFERER'] . '/error_payment_not_set');
+				exit;
+			}
+		}
 		$nodokref = strtoupper(trim($this->input->post('nodokref')));
 		$nama = $this->session->userdata('nik');
 		$info = array(
@@ -2880,15 +2976,38 @@ class Inventaris extends MX_Controller
 
 	function finalisasi_perawatan($status, $nodok)
 	{
-		$nodok = $this->fiky_encryption->dekript($nodok);
 		$nama = $this->session->userdata('nik');
-		$info = array(
-			'status' => $status,
+			
+		$nodok = $this->fiky_encryption->dekript($nodok);
+		if($status == 'C'){
+			$param2 = " and nodok='$nodok' and status = 'P'";
+			$addonSPK = $this->m_inventaris->q_hisperawatanspk_tambahan($param2);
+			if ($addonSPK->num_rows() > 0) {
+				$info = array(
+					'status' => $status,
+				);
+				$this->db->where('nodok', $nodok);
+				$this->db->update('sc_his.perawatanspk_tambahan', $info);
 
-		);
-		$this->db->where('nodok', $nodok);
-		$this->db->update('sc_his.perawatanspk', $info);
-
+				$info = array(
+					'status' => 'P',
+				);
+				$this->db->where('nodok', $nodok);
+				$this->db->update('sc_his.perawatanspk', $info);
+			} else {
+				$info = array(
+					'status' => $status,
+				);
+				$this->db->where('nodok', $nodok);
+				$this->db->update('sc_his.perawatanspk', $info);
+			}
+		} else {
+			$info = array(
+				'status' => $status,
+			);
+			$this->db->where('nodok', $nodok);
+			$this->db->update('sc_his.perawatanspk', $info);
+		}
 
 		$param = " and modul='PERAWATAN-SPK' and userid='$nama'";
 		$dtltrx = $this->m_inventaris->trxerror($param)->row_array();
@@ -2922,12 +3041,11 @@ class Inventaris extends MX_Controller
 		redirect("ga/inventaris/index_spk/reject_succes/$nodok");
 	}
 
-	function sti_spk_perawatan()
+	function sti_spk_perawatan($nodok, $kdgroup)
 	{
 		$this->db->cache_delete('ga', 'inventaris');
-		$nodok = trim(strtoupper($this->uri->segment(4)));
 		$data['jsonfile'] = "ga/inventaris/json_spk_perawatan/$nodok";
-		$data['report_file'] = 'assets/mrt/sti_spk_perawatanasset.mrt';
+		$data['report_file'] = $kdgroup == 'KDN' ? 'assets/mrt/sti_spk_perawatanasset.mrt' : 'assets/mrt/sti_spk_perawatanasset_brg.mrt';
 		$this->load->view("ga/inventaris/sti_v_spk_perawatan", $data);
 	}
 	function json_spk_perawatan()
@@ -2988,6 +3106,7 @@ class Inventaris extends MX_Controller
 		$data['dtl_mst'] = $this->m_inventaris->q_hisperawatanspk($param2)->row_array();
 		$data['list_spk'] = $this->m_inventaris->q_hisperawatanspk($param2)->result();
 		$data['dtl_spkrow'] = $this->m_inventaris->q_hisperawatanspk($param2)->num_rows();
+		$data['list_spk_tambahan'] = $this->m_inventaris->q_hisperawatanspk_tambahan($param2." and  status = 'P'")->result();
 
 		$dtl_spk = $this->m_inventaris->q_hisperawatanspk($param2)->row_array();
 		$nodokspk = trim($dtl_spk['nodok']);
@@ -3012,91 +3131,7 @@ class Inventaris extends MX_Controller
 		$data['title'] = 'DATA SURAT PERINTAH KERJA DENGAN NOMOR REFERENSI ::  ';
 		$nodok = trim($this->uri->segment(4));
 		$nama = $this->session->userdata('nik');
-
-		if ($this->uri->segment(5) == "inp_succes")
-			$data['message'] = "<div class='alert alert-success'>DATA SPK BERHASIL DITAMBAHKAN</div>";
-		else if ($this->uri->segment(5) == "fail_datakembar")
-			$data['message'] = "<div class='alert alert-danger'>DATA SUDAH ADA SILAHKAN UBAH DATA TERSEBUT </div>";
-		else
-			$data['message'] = '';
-
-		if (empty($nodok)) {
-			redirect("ga/inventaris/index_spk");
-		}
-
-		$param_trxapprov = " and nodok='$nodok' and status in ('P','D','C','H')";
-		$cek_trxapprov = $this->m_inventaris->q_hisperawatanspk($param_trxapprov)->num_rows();
-		if ($cek_trxapprov > 0) {
-			redirect("ga/inventaris/index_spk/process_fail/$nodok");
-		}
-		/* REDIRECT JIKA USER LAIN KALAH CEPAT */
-		$param3_first = " and nodoktmp='$nodok' and nodok<>'$nama'";
-		$param4_first = " and nodok='$nama'";
-		$cek_first = $this->m_inventaris->q_hisperawatanspk_tmp($param3_first)->num_rows();
-		$cek_first_nik = $this->m_inventaris->q_hisperawatanspk_tmp($param4_first)->num_rows();
-		$dtl_first = $this->m_inventaris->q_hisperawatanspk_tmp($param3_first)->row_array();
-
-
-		if ($cek_first > 0) {
-			$nodokfirst = trim($dtl_first['nodok']);
-			redirect("ga/inventaris/index_spk/input_fail");
-		} else {
-			$param_tmp_spk = " and nodok='$nama'";
-			$cek_tmp_spk = $this->m_inventaris->q_hisperawatanspk_tmp($param_tmp_spk)->num_rows();
-			if ($cek_tmp_spk == 0) {
-				$info = array(
-					'status' => 'E',
-					'updateby' => $nama,
-					'updatedate' => date('Y-m-d H:i:s'),
-
-				);
-				$this->db->where('nodok', $nodok);
-				$this->db->update('sc_his.perawatanspk', $info);
-			}
-			/*	$info = array (
-																													'status' => 'E',
-																													'updateby' => $nama,
-																													'updatedate' => date('Y-m-d H:i:s'),
-																												);
-																												$this->db->where('nodok',$nodok);
-																												$this->db->update('sc_his.perawatanasset',$info);*/
-		}
-
-		if (empty($nodok)) {
-			redirect("ga/inventaris/form_spk");
-		}
-		$param1 = " and nodoktmp='$nodok'";
-		$param2 = " and nodok='$nama'";
-		$data['nodok'] = $nodok;
-
-		$data['list_kanwil'] = $this->m_inventaris->q_mstkantor()->result();
-		$data['dtl_mst'] = $this->m_inventaris->q_hisperawatanspk_tmp($param1)->row_array();
-		$data['list_spk'] = $this->m_inventaris->q_hisperawatanspk_tmp($param2)->result();
-		$data['dtl_spkrow'] = $this->m_inventaris->q_hisperawatanspk_tmp($param2)->num_rows();
-
-		$dtl_spk = $this->m_inventaris->q_hisperawatanspk_tmp($param2)->row_array();
-		$nodokspk = trim($dtl_spk['nodok']);
-		$data['nodokspk'] = trim($dtl_spk['nodok']);
-		$data['nodokref'] = trim($dtl_spk['nodokref']);
-		$parama1 = " and nodok='$nodokspk'";
-		$data['perawatan_mst_lampiran'] = $this->m_inventaris->q_hisperawatan_perawatan_mst_lampiran_tmp($parama1)->result();
-		$data['list_barang'] = $this->m_inventaris->q_listbarang()->result();
-		$data['list_bengkel'] = $this->m_inventaris->q_listbengkel()->result();
-		$data['list_subbengkel'] = $this->m_inventaris->q_listsubbengkel()->result();
-		$data['list_scgroup'] = $this->m_inventaris->q_scgroup()->result();
-		$data['list_scsubgroup'] = $this->m_inventaris->q_scsubgroup()->result();
-		$data['list_trxtypespk'] = $this->m_inventaris->q_trxtype_spkasset()->result();
-		//$data['list_perawatan']=$this->m_inventaris->q_hisperawatan()->result();
-		$data['dtllamp_at'] = $this->m_inventaris->q_lampiran_at_tmp($param4_first)->result();
-		$this->template->display('ga/inventaris/v_edit_inputspk', $data);
-	}
-
-	function inputspk_faktur()
-	{
-		$data['title'] = 'DATA SURAT PERINTAH KERJA DENGAN NOMOR REFERENSI ::  ';
-		$nodok = trim($this->uri->segment(4));
-		$nama = $this->session->userdata('nik');
-
+		$data['nama'] = $nama;
 		if ($this->uri->segment(5) == "inp_succes")
 			$data['message'] = "<div class='alert alert-success'>DATA SPK BERHASIL DITAMBAHKAN</div>";
 		else if ($this->uri->segment(5) == "fail_datakembar")
@@ -3143,12 +3178,190 @@ class Inventaris extends MX_Controller
 			redirect("ga/inventaris/form_spk");
 		}
 		$param1 = " and nodoktmp='$nodok'";
-		$param2 = " and nodok='$nama'";
+		$param2 = " and nodok like '%$nama%'";
 		$data['nodok'] = $nodok;
 
 		$data['list_kanwil'] = $this->m_inventaris->q_mstkantor()->result();
 		$data['dtl_mst'] = $this->m_inventaris->q_hisperawatanspk_tmp($param1)->row_array();
 		$data['list_spk'] = $this->m_inventaris->q_hisperawatanspk_tmp($param2)->result();
+		$data['dtl_spkrow'] = $this->m_inventaris->q_hisperawatanspk_tmp($param2)->num_rows();
+
+		$dtl_spk = $this->m_inventaris->q_hisperawatanspk_tmp($param2)->row_array();
+		$nodokspk = trim($dtl_spk['nodok']);
+		$data['nodokspk'] = trim($dtl_spk['nodok']);
+		$data['nodokref'] = trim($dtl_spk['nodokref']);
+		$parama1 = " and nodok='$nodokspk'";
+		$data['perawatan_mst_lampiran'] = $this->m_inventaris->q_hisperawatan_perawatan_mst_lampiran_tmp($parama1)->result();
+		$data['list_barang'] = $this->m_inventaris->q_listbarang()->result();
+		$data['list_bengkel'] = $this->m_inventaris->q_listbengkel()->result();
+		$data['list_subbengkel'] = $this->m_inventaris->q_listsubbengkel()->result();
+		$data['list_scgroup'] = $this->m_inventaris->q_scgroup()->result();
+		$data['list_scsubgroup'] = $this->m_inventaris->q_scsubgroup()->result();
+		$data['list_trxtypespk'] = $this->m_inventaris->q_trxtype_spkasset()->result();
+		//$data['list_perawatan']=$this->m_inventaris->q_hisperawatan()->result();
+		$data['dtllamp_at'] = $this->m_inventaris->q_lampiran_at_tmp($param4_first)->result();
+		$data['userhr'] = $this->m_akses->list_aksesperdepcuti()->num_rows() > 0;
+
+		$this->template->display('ga/inventaris/v_edit_inputspk', $data);
+	}
+
+	function inputspk_tambahan()
+	{
+		$data['title'] = 'DATA SURAT PERINTAH KERJA DENGAN NOMOR REFERENSI ::  ';
+		$nodokref = trim($this->uri->segment(4));
+		$nodok = trim($this->uri->segment(5));
+		$nama = $this->session->userdata('nik');
+
+		if ($this->uri->segment(5) == "inp_succes")
+			$data['message'] = "<div class='alert alert-success'>DATA SPK BERHASIL DITAMBAHKAN</div>";
+		else if ($this->uri->segment(5) == "fail_datakembar")
+			$data['message'] = "<div class='alert alert-danger'>DATA SUDAH ADA SILAHKAN UBAH DATA TERSEBUT </div>";
+		else if ($this->uri->segment(5) == "fail_data_belum_lengkap")
+			$data['message'] = "<div class='alert alert-danger'>PERINGATAN HARAP LENGKAPI DATA - DATA MASTER TERLEBIH DAHULU</div>";
+		else if ($this->uri->segment(4) == "input_fail")
+			$data['message'] = "<div class='alert alert-danger'>DATA SUDAH DI PROSES DIGUNAKAN USER LAIN  </div>";
+		else
+			$data['message'] = '';
+
+		if (empty($nodok)) {
+			redirect("ga/inventaris/form_perawatan");
+		}
+
+		$param_trxapprov = " and nodok='$nodok' and status in ('D','C','H')";
+		$cek_trxapprov = $this->m_inventaris->q_hisperawatanspk($param_trxapprov)->num_rows();
+		if ($cek_trxapprov > 0) {
+			redirect("ga/inventaris/inputspk_view/process_fail/$nodok");
+		}
+		/* REDIRECT JIKA USER LAIN KALAH CEPAT */
+		$param3_first = " and nodokref='$nodokref' and nodok<>'$nama'";
+		$param4_first = " and nodok='$nama'";
+		$param5_first = " and nodok='$nodokref'";
+		$cek_first = $this->m_inventaris->q_hisperawatanspk_tmp($param3_first)->num_rows();
+		$cek_first_nik = $this->m_inventaris->q_hisperawatanspk_tmp($param4_first)->num_rows();
+		$dtl_first = $this->m_inventaris->q_hisperawatanspk_tmp($param3_first)->row_array();
+		$dtl_passet = $this->m_inventaris->q_hisperawatan($param5_first)->row_array();
+
+
+		if ($cek_first > 0) {
+			$nodokfirst = trim($dtl_first['nodok']);
+			redirect("ga/inventaris/index_spk/input_fail");
+		} else {
+			$param_tmp_spk = " and nodok='$nodok' and status = 'I'";
+			$cek_tmp_spk = $this->m_inventaris->q_hisperawatanspk_tambahan($param_tmp_spk)->num_rows();
+			if ($cek_tmp_spk == 0) {
+				$info = array(
+					'nodok' => $nodok,
+					'nodokref' => $nodokref,
+					'status' => 'I',
+					'inputby' => $nama,
+					'inputdate' => date('Y-m-d H:i:s'),
+					'tgldok' => trim($dtl_passet['tgldok']),
+					'keterangan' => trim($dtl_passet['keterangan']),
+					'km_awal' => trim($dtl_passet['km_awal']),
+					'km_akhir' => trim($dtl_passet['km_akhir']),
+
+				);
+				$this->db->insert('sc_his.perawatanspk_tambahan', $info);
+
+				$info = array(
+					'status' => 'IT',
+					'updateby' => $nama,
+					'updatedate' => date('Y-m-d H:i:s'),
+
+				);
+				$this->db->where('nodok', $nodok);
+				$this->db->update('sc_his.perawatanspk', $info);
+			}
+		}
+
+		if (empty($nodok)) {
+			redirect("ga/inventaris/form_spk");
+		}
+		$param1 = " and nodok='$nodokref' and status in ('P','X')";
+		$param2 = " and nodok='$nodok'";
+		$data['nodok'] = $nodok;
+		$data['nodokref'] = $nodokref;
+
+		$data['list_spk_his'] = $this->m_inventaris->q_hisperawatanspk($param2)->result();
+		$data['list_spk'] = $this->m_inventaris->q_hisperawatanspk_tambahan($param2." and status = 'I'")->result();
+
+		$data['list_kanwil'] = $this->m_inventaris->q_mstkantor()->result();
+		$data['dtl_mst'] = $this->m_inventaris->q_hisperawatan($param1)->row_array();
+
+		$dtl_spk = $this->m_inventaris->q_hisperawatanspk_tambahan($param2)->row_array();
+		$nodokspk = trim($dtl_spk['nodok']);
+		$data['nodokspk'] = trim($dtl_spk['nodok']);
+		$parama1 = " and nodok='$nodokspk'";
+		$data['list_barang'] = $this->m_inventaris->q_listbarang()->result();
+		$data['list_bengkel'] = $this->m_inventaris->q_listbengkel()->result();
+		$data['list_subbengkel'] = $this->m_inventaris->q_listsubbengkel()->result();
+		$data['list_scgroup'] = $this->m_inventaris->q_scgroup()->result();
+		$data['list_scsubgroup'] = $this->m_inventaris->q_scsubgroup()->result();
+		$data['list_trxtypespk'] = $this->m_inventaris->q_trxtype_spkasset()->result();
+		$data['dtllamp_at'] = $this->m_inventaris->q_lampiran_at_tmp($param2)->result();
+		$this->template->display('ga/inventaris/v_inputspk_tambahan', $data);
+	}
+
+	function inputspk_faktur()
+	{
+		$data['title'] = 'DATA SURAT PERINTAH KERJA DENGAN NOMOR REFERENSI ::  ';
+		$nodok = trim($this->uri->segment(4));
+		$nama = $this->session->userdata('nik');
+
+		if ($this->uri->segment(5) == "inp_succes")
+			$data['message'] = "<div class='alert alert-success'>DATA SPK BERHASIL DITAMBAHKAN</div>";
+		else if ($this->uri->segment(5) == "fail_datakembar")
+			$data['message'] = "<div class='alert alert-danger'>DATA SUDAH ADA SILAHKAN UBAH DATA TERSEBUT </div>";
+		else
+			$data['message'] = '';
+
+		if (empty($nodok)) {
+			redirect("ga/inventaris/index_spk");
+		}
+
+		$param_trxapprov = " and nodok='$nodok' and status in ('D','C','H')";
+		$cek_trxapprov = $this->m_inventaris->q_hisperawatanspk($param_trxapprov)->num_rows();
+		if ($cek_trxapprov > 0) {
+			redirect("ga/inventaris/index_spk/process_fail/$nodok");
+		}
+		/* REDIRECT JIKA USER LAIN KALAH CEPAT */
+		$param3_first = " and nodoktmp='$nodok' and nodok<>'$nama'";
+		$param4_first = " and nodok='$nama'";
+		$cek_first = $this->m_inventaris->q_hisperawatanspk_tmp($param3_first)->num_rows();
+		$cek_first_nik = $this->m_inventaris->q_hisperawatanspk_tmp($param4_first)->num_rows();
+		$dtl_first = $this->m_inventaris->q_hisperawatanspk_tmp($param3_first)->row_array();
+
+
+		if ($cek_first > 0) {
+			$nodokfirst = trim($dtl_first['nodok']);
+			redirect("ga/inventaris/index_spk/input_fail");
+		} else {
+			$param_tmp_spk = " and nodok='$nama'";
+			$cek_tmp_spk = $this->m_inventaris->q_hisperawatanspk_tmp($param_tmp_spk)->num_rows();
+			if ($cek_tmp_spk == 0) {
+				$info = array(
+					'status' => 'IF',
+					'updateby' => $nama,
+					'updatedate' => date('Y-m-d H:i:s'),
+
+				);
+				$this->db->where('nodok', $nodok);
+				$this->db->update('sc_his.perawatanspk', $info);
+			}
+		}
+
+		if (empty($nodok)) {
+			redirect("ga/inventaris/form_spk");
+		}
+		$param1 = " and nodoktmp='$nodok'";
+		$param2 = " and nodok='$nama'";
+		$param3 = " and nodok='$nodok'";
+		$data['nodok'] = $nodok;
+
+		$data['list_kanwil'] = $this->m_inventaris->q_mstkantor()->result();
+		$data['dtl_mst'] = $this->m_inventaris->q_hisperawatanspk_tmp($param1)->row_array();
+		$data['list_spk'] = $this->m_inventaris->q_hisperawatanspk_tmp($param2)->result();
+		$data['list_spk_tambahan'] = $this->m_inventaris->q_hisperawatanspk_tambahan($param3." and  status = 'P'")->result();
 		$data['dtl_spkrow'] = $this->m_inventaris->q_hisperawatanspk_tmp($param2)->num_rows();
 
 		$dtl_spk = $this->m_inventaris->q_hisperawatanspk_tmp($param2)->row_array();
@@ -3229,6 +3442,7 @@ class Inventaris extends MX_Controller
 		$data['list_kanwil'] = $this->m_inventaris->q_mstkantor()->result();
 		$data['dtl_mst'] = $this->m_inventaris->q_hisperawatanspk_tmp($param1)->row_array();
 		$data['list_spk'] = $this->m_inventaris->q_hisperawatanspk_tmp($param2)->result();
+		$data['list_spk_tambahan'] = $this->m_inventaris->q_hisperawatanspk_tambahan($param2." and  status = 'P'")->result();
 		$data['dtl_spkrow'] = $this->m_inventaris->q_hisperawatanspk_tmp($param2)->num_rows();
 
 		$dtl_spk = $this->m_inventaris->q_hisperawatanspk_tmp($param2)->row_array();
@@ -3258,6 +3472,8 @@ class Inventaris extends MX_Controller
 			$data['message'] = "<div class='alert alert-success'>DATA SPK BERHASIL DITAMBAHKAN</div>";
 		else if ($this->uri->segment(5) == "fail_datakembar")
 			$data['message'] = "<div class='alert alert-danger'>DATA SUDAH ADA SILAHKAN UBAH DATA TERSEBUT </div>";
+		else if ($this->uri->segment(5) == "error_payment_not_set")
+			$data['message'] = "<div class='alert alert-danger'>DATA NOMINAL PEMBAYARAN BELUM DIISI </div>";
 		else
 			$data['message'] = '';
 
@@ -3300,6 +3516,7 @@ class Inventaris extends MX_Controller
 		$data['list_kanwil'] = $this->m_inventaris->q_mstkantor()->result();
 		$data['dtl_mst'] = $this->m_inventaris->q_hisperawatanspk($param3)->row_array();
 		$data['list_spk'] = $this->m_inventaris->q_hisperawatanspk($param3)->result();
+		$data['list_spk_tambahan'] = $this->m_inventaris->q_hisperawatanspk_tambahan($param3." and  status = 'P'")->result();
 		$data['dtl_spkrow'] = $this->m_inventaris->q_hisperawatanspk($param3)->num_rows();
 
 		$dtl_spk = $this->m_inventaris->q_hisperawatanspk($param3)->row_array();
@@ -3379,6 +3596,7 @@ class Inventaris extends MX_Controller
 		$data['list_kanwil'] = $this->m_inventaris->q_mstkantor()->result();
 		$data['dtl_mst'] = $this->m_inventaris->q_hisperawatanspk_tmp($param1)->row_array();
 		$data['list_spk'] = $this->m_inventaris->q_hisperawatanspk_tmp($param2)->result();
+		$data['list_spk_tambahan'] = $this->m_inventaris->q_hisperawatanspk_tambahan($param2." and  status = 'P'")->result();
 		$data['dtl_spkrow'] = $this->m_inventaris->q_hisperawatanspk_tmp($param2)->num_rows();
 
 		$dtl_spk = $this->m_inventaris->q_hisperawatanspk_tmp($param2)->row_array();
@@ -3551,6 +3769,7 @@ class Inventaris extends MX_Controller
 		$data['list_kanwil'] = $this->m_inventaris->q_mstkantor()->result();
 		$data['dtl_mst'] = $this->m_inventaris->q_hisperawatanspk($param2)->row_array();
 		$data['list_spk'] = $this->m_inventaris->q_hisperawatanspk($param2)->result();
+		$data['list_spk_tambahan'] = $this->m_inventaris->q_hisperawatanspk_tambahan($param2." and  status = 'P'")->result();
 		$data['dtl_spkrow'] = $this->m_inventaris->q_hisperawatanspk($param2)->num_rows();
 
 		$dtl_spk = $this->m_inventaris->q_hisperawatanspk($param2)->row_array();
@@ -3606,6 +3825,9 @@ class Inventaris extends MX_Controller
 	{
 		$data['title'] = "FORM MASTER MAPPING SATUAN BARANG & ATK";
 		$kdgroup = strtoupper($this->input->post('kdgroup'));
+        foreach ($kdgroup as $index => $item) {
+
+        }
 		$kdsubgroup = strtoupper($this->input->post('kdsubgroup'));
 		$stockcode = strtoupper($this->input->post('kdbarang'));
 

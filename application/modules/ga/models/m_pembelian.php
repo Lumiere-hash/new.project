@@ -10,6 +10,7 @@ class M_pembelian extends CI_Model
 	{
 		parent::__construct();
 		$this->load->database();
+		$this->load->model('master/m_akses');
 	}
 
 	function q_master_branch()
@@ -158,6 +159,7 @@ class M_pembelian extends CI_Model
 	{
 		$this->db->select('*');
 		$this->db->from('sc_trx.po_mst_view');
+		$this->db->where("status != 'QA'");
 
 		$i = 0;
 
@@ -520,7 +522,7 @@ class M_pembelian extends CI_Model
 
 	function q_dtlref_po_query_param($param_dtlref_query)
 	{
-		return $this->db->query("select * from (
+		return $this->db->query("SELECT * from (
 										select branch,nodok,x.nik,kdgroup,kdsubgroup,stockcode,loccode,desc_barang,(coalesce(qtyminta,0)) as qtyminta,qtybbk as qtyterima,qtyonhand,satkecil,satminta,status,keterangan,inputdate,inputby,qtypo,strtrimref,row_number() over (order by inputdate desc,nodok desc) as rowid,b.nmlengkap,b.nik_atasan,b.nik_atasan2,b.nmatasan,b.nmatasan2,b.bag_dept,b.nmdept,b.subbag_dept,b.nmsubdept,b.jabatan,b.nmjabatan,id,c.uraian as nmsatkecil,d.uraian as nmsatminta,(qtyminta-qtybbk) as qtyforpo from (
 										select a.branch,a.nodok,a.nik,a.kdgroup,a.kdsubgroup,a.stockcode,a.loccode,c.nmbarang as desc_barang,coalesce(a.qtypbk,0)-coalesce(a.qtypo,0) as qtyminta,coalesce(a.qtybbk,0) as qtybbk,a.qtyonhand,b.satkecil,b.satkecil as satminta,a.status,a.keterangan,a.inputdate,a.inputby,coalesce(a.qtypo,0) as qtypo,trim(a.nodok)||trim(a.nik)||trim(c.nmbarang)  as strtrimref,id from sc_trx.stpbk_dtl a
 											left outer join sc_mst.stkgdw b on a.kdgroup=b.kdgroup and a.kdsubgroup=b.kdsubgroup and a.stockcode=b.stockcode and a.loccode=b.loccode
@@ -532,7 +534,7 @@ class M_pembelian extends CI_Model
 										left outer join sc_mst.masterkaryawan b on x.nik=b.nik
 										left outer join sc_mst.trxtype c on x.satkecil=c.kdtrx and c.jenistrx='QTYUNIT'
 										left outer join sc_mst.trxtype d on x.satminta=d.kdtrx and d.jenistrx='QTYUNIT'
-										where /*coalesce(qtypo,0)<coalesce(qtyminta,0)*/  trim(nodok)||trim(x.nik)||trim(desc_barang) not in
+										where trim(nodok)||trim(x.nik)||trim(desc_barang) not in
 										(select trim(nodokref)||trim(nik)||trim(desc_barang) as strtrimref  from sc_tmp.po_dtlref where nodok is not null) 
 										) as a where nodok is not null $param_dtlref_query order by rowid asc");
 	}
@@ -784,63 +786,98 @@ class M_pembelian extends CI_Model
 			->where('po.nodok', $nodok)
 			->get();
 
+		$hrdept = $this->m_akses->hrdept();
+		$nikLogin = $this->session->userdata('nik');
+
 		if ($po->num_rows() > 0) {
+			$sppb = $this->db->select('*')
+				->from('sc_trx.sppb_mst')
+				->where('nodok', trim($po->row()->nodokref))
+				->get();
+
+			$superior1 = trim($po->row()->nik_atasan);
+			$superior2 = trim($po->row()->nik_atasan2);
+			$nikInput = trim($sppb->row()->inputby);
+
+			$isSPVGA = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'C', 'subbag_dept' => $hrdept))->num_rows() > 0;
+			// $isMGR = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B'))->num_rows() > 0;
+			$isMGR = $this->db->query("select * from sc_mst.karyawan where nik='$nikInput' and (nik_atasan in (select nik from sc_mst.karyawan where lvl_jabatan='B' and nik = '$nikLogin') or nik_atasan2 in (select nik from sc_mst.karyawan where lvl_jabatan='B' and nik = '$nikLogin') )")->num_rows() > 0;
+			$isRSM = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'RSM'))->num_rows() > 0;
+			$isGM = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'A02'))->num_rows() > 0;
+			$isMGRKEU = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'FIN01'))->num_rows() > 0;
+			$isDIR = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'A'))->num_rows() > 0;
+			$cekJobLvl = in_array(trim($this->db->get_where('sc_mst.karyawan', array('nik' => $nikInput))->row()->lvl_jabatan), array('B', 'A'));
+
+			if (trim($po->row()->status_spk) == 'AF1') {
+				$statusses = array(
+					'AF1' => $isSPVGA,
+				);
+				foreach ($statusses as $status => $isAllowed) {
+					if ($isAllowed) {
+						return array('approve_access' => true, 'next_status' => 'FP');
+					}
+				}
+			}
+
 			$kode = strlen(trim($po->row()->status)) >= 3 ?
 				substr($po->row()->status, 0, 2) :
 				substr($po->row()->status, 0, 1);
-			$superior1 = trim($po->row()->nik_atasan);
-			$superior2 = trim($po->row()->nik_atasan2);
-
-			$isSPVGA = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'C', 'subbag_dept' => 'HRGA'))->num_rows() > 0;
-			// $isMGR = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B'))->num_rows() > 0;
-			$isRSM = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'RSM'))->num_rows() > 0;
-			$isGM = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'GMN'))->num_rows() > 0;
-			$isMGRKEU = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'B', 'jabatan' => 'MGRKEU'))->num_rows() > 0;
-			$isDIR = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'A'))->num_rows() > 0;
 
 			$isGMIncluded = $this->db->get_where('sc_mst.option', array('kdoption' => 'PO:APPROVAL:GM'))->row()->value1 == 'Y';
+			$isInputBySales = $this->db->select('a.*')
+				->from('sc_mst.karyawan a')
+				->where('nik', trim($po->row()->inputby))
+				->where('jabatan', 'DIS13')
+				->get()->num_rows() > 0;
 
 			$statusses = array(
 				$kode . '1' => $isSPVGA,
-				$kode . '2' => $superior2 == $this->session->userdata('nik'),
-				$kode . '3' => $isRSM,
-				$kode . ($isGMIncluded ? '5' : '4') => $isMGRKEU,
-				$kode . ($isGMIncluded ? '6' : '5') => $isDIR,
+				$kode . '2' => $cekJobLvl ? $superior1 == $this->session->userdata('nik') : $isMGR,
 			);
 
+			if ($isInputBySales) {
+				$statusses[$kode . '3'] = $isRSM;
+			}
 			if ($isGMIncluded) {
 				$statusses[$kode . '4'] = $isGM;
 			}
+
+			$nextStatuses = array(
+				$kode . '1' => $kode . '2',
+				$kode . '2' => $isInputBySales ? $kode . '3' : ((!$isInputBySales && $isGMIncluded) ? $kode . '4' : $kode . '5'),
+			);
+
 			$opt = $this->db->get_where('sc_mst.option', array('kdoption' => 'PO:APPROVAL:LEVEL'))->row()->value3;
 
-			if ($po->row()->ttlnetto <= 1000000) {
-				$statusses = array_slice($statusses, 0, $opt, true);
+			if ($po->row()->ttlnetto >= 1000000) {
+				$statusses[$kode . '5'] = $isMGRKEU;
+				$nextStatuses[$kode . '3'] = $isGMIncluded ? $kode . '4' : $kode . '5';
+				$nextStatuses[$kode . '4'] = $kode . '5';
 			}
-			if ($po->row()->ttlnetto <= 4000000) {
-				$statusses = array_slice($statusses, 0, $opt + ($opt < 3 ? 2 : 1), true);
+			if ($po->row()->ttlnetto > 4000000) {
+				$statusses[$kode . '6'] = $isDIR;
+				$nextStatuses[$kode . '5'] = $kode . '6';
 			}
-			asort($statusses);
 			foreach ($statusses as $status => $isAllowed) {
 				if (trim($po->row()->status) == $status and $isAllowed) {
-					$nextStatus = (int) strlen(trim($po->row()->status)) >= 3 ? str_split($status, 1)[2] + 1 : str_split($status, 1)[1] + 1;
-					$nextStatus = "$kode$nextStatus";
+					$nextStatus = $nextStatuses[$status];
 					$nextStatusExists = array_key_exists($nextStatus, $statusses);
-					return (array('approve_access' => true, 'next_status' => $nextStatusExists ? "$nextStatus" : (strlen(trim($po->row()->status_po)) >= 3 ? 'P' : 'FP')));
+					return array('approve_access' => true, 'next_status' => $nextStatusExists ? $nextStatus : (substr(trim($po->row()->status_po), 0, 2) == 'AF' ? 'P' : 'FP'));
 				}
 			}
 		}
 		return false;
 	}
 
-	function q_po_pembayaran($type,$nodok)
+	function q_po_pembayaran($type, $nodok)
 	{
 		return $this->db->where('nodokref', $nodok)
 			->get("sc_$type.po_pembayaran");
 	}
 
 	function q_po_mst_lampiran($schema, $param)
-    {
-        return $this->db->query("SELECT * 
+	{
+		return $this->db->query("SELECT * 
 			from (select x.*,x2.rowcount 
 				from (select *,trim(nodok)||trim(nodokref)||trim(idfaktur) as strtrimref from sc_$schema.po_mst_lampiran) x 
 				left outer join (select coalesce(count(*),0) as rowcount,strtrimref 
@@ -850,27 +887,27 @@ class M_pembelian extends CI_Model
 						select  trim(nodok)||trim(nodokref)||trim(idfaktur) as strtrimref from sc_$schema.po_lampiran) as x
 				group by strtrimref) x2 on x.strtrimref=x2.strtrimref) as x
 			where nodok is not null $param order by nodok desc");
-    }
+	}
 
 	function q_lampiran_at($schema, $param)
-    {
-        return $this->db->query("SELECT * 
+	{
+		return $this->db->query("SELECT * 
 			from (select *,trim(nodok)||trim(nodokref)||trim(idfaktur) as strtrimref  
 				from sc_$schema.po_lampiran) as x 
 			where nodok is not null 
 				$param  
 			order by id desc");
-    }
+	}
 
 	function insert_attachment_po($data = array())
-    {
-        $insert = $this->db->insert_batch('sc_tmp.po_lampiran', $data);
-        return $insert ? true : false;
-    }
+	{
+		$insert = $this->db->insert_batch('sc_tmp.po_lampiran', $data);
+		return $insert ? true : false;
+	}
 
 	function q_po_dtl_lampiran($schema, $param)
-    {
-        return $this->db->query("SELECT * 
+	{
+		return $this->db->query("SELECT * 
 			from (select *,trim(nodok)||trim(nodokref)||trim(idfaktur) as strtrimref 
 				from sc_$schema.po_detail_lampiran 
 				where nodok is not null  
@@ -878,5 +915,5 @@ class M_pembelian extends CI_Model
 			where nodok is not null 
 			$param 
 			order by nodok desc");
-    }
+	}
 }

@@ -70,18 +70,17 @@
 
 <div class="row">
 	<div class="col-sm-3">
-		<!--div class="container"--->
-		<div class="dropdown ">
-			<button class="btn btn-primary dropdown-toggle " style="margin:10px; color:#ffffff;" id="menu1"
-				type="button" data-toggle="dropdown">Menu Input
-				<span class="caret"></span></button>
-			<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-				<!--li role="presentation"><a role="menuitem" tabindex="-1" data-toggle="modal" data-target="#filter"  href="#">Filter Pencarian</a></li-->
-				<li role="presentation"><a role="menuitem" tabindex="-1"
-						href="<?php echo site_url("ga/inventaris/form_spk") ?>">Input SPK</a></li>
-			</ul>
-		</div>
-		<!--/div-->
+		<?php if ($userhr) { ?>
+			<div class="dropdown ">
+				<button class="btn btn-primary dropdown-toggle " style="margin:10px; color:#ffffff;" id="menu1"
+					type="button" data-toggle="dropdown">Menu Input
+					<span class="caret"></span></button>
+				<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+					<li role="presentation"><a role="menuitem" tabindex="-1"
+							href="<?php echo site_url("ga/inventaris/form_spk") ?>">Input SPK</a></li>
+				</ul>
+			</div>
+		<?php } ?>
 	</div><!-- /.box-header -->
 </div>
 </br>

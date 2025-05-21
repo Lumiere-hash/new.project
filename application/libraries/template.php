@@ -28,8 +28,8 @@ class Template{
         $tmp['_header']=$this->_CI->load->view('template/header_lte',$headerdata,true);
         $tmp['_sidebar']=$this->_CI->load->view('template/sidebar',$menudata,true);
 		$tmp['cek_kontrak']=$this->_CI->m_menu->q_kontrak()->num_rows();
-        $tmp['cek_pensiun']=$this->_CI->m_menu->q_pensiun()->num_rows(); 
-
+        $tmp['cek_pensiun']=$this->_CI->m_menu->q_pensiun()->num_rows();
+		
         $this->_CI->load->view('/template.php',$tmp);
     }
 }

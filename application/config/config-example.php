@@ -366,3 +366,6 @@ $config['composer_autoload'] = TRUE;
 /* Mobile Application ID */
 $config['app_id'] = 'a5f76aea-9d22-4088-a66a-092cfc5c9eb2';
 
+//secret key login dcms
+$config['secret_key'] = 'tM/YNDNN2H351nkaKRfQD321/vEn0ObQbo2EzR0BvQ4=';
+

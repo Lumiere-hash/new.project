@@ -180,12 +180,15 @@
 <div class="row">
 	<div class="col-sm-1">
 		<a href="<?php echo site_url("ga/pembelian/clear_tmp_po/$enc_nik/$oldStatus") ?>"
-			onclick="return confirm('TEKAN (OK) JIKA ANDA SETUJU, JIKA TIDAK TEKAN (BATAL)')" class="btn btn-default"
+			onclick="return confirm('TEKAN (OK) JIKA ANDA SETUJU, JIKA TIDAK TEKAN (CANCEL)')" class="btn btn-default"
 			style="margin:10px; color:#000000;">Kembali</a>
 	</div>
 	<a href="<?php echo site_url("ga/pembelian/final_approval_po/$enc_nik/$nextStatus") ?>"
 		onclick="return confirm('Anda Yakin Dengan Inputan Yang Anda Buat?')" class="btn btn-success pull-right"
 		style="margin:10px; color:#ffffff;">Approval</a>
+	<a href="<?php echo site_url("ga/pembelian/reject_approval_po/$enc_nik/$oldStatus") ?>"
+		onclick="return confirm('TEKAN (OK) JIKA ANDA SETUJU, JIKA TIDAK TEKAN (CANCELs)?')" class="btn btn-warning pull-right"
+		style="margin:10px; color:#ffffff;">Reject</a>
 	<div class="col-xs-12">
 		<div class="box">
 			<div class="box-header" align="center">
@@ -228,9 +231,10 @@
 									<a href="<?php
 									$enc_nodok = bin2hex($this->encrypt->encode(trim($row->nodok)));
 									echo site_url("ga/pembelian/detail_supplier_po_mst_tmp/$enc_nodok"); ?>"
-										onclick="return confirm('Detail Supplier')" class="btn btn-default  btn-sm-1"><i
-											class="fa fa-check-square"></i></a>
+										onclick="return confirm('Detail Supplier')" class="btn btn-default  btn-sm">
+										<i class="fa fa-edit"></i> DETAIL</a>
 								</td>
+								
 							</tr>
 						<?php endforeach; ?>
 					</tbody>
@@ -283,7 +287,8 @@
 									$enc_rowid = bin2hex($this->encrypt->encode(trim($row->id)));
 									echo site_url("ga/pembelian/detail_po_dtl_tmp/$enc_rowid"); ?>"
 										onclick="return confirm('Anda Akan Masuk Ke Menu Mapping Satuan Rekap?')"
-										class="btn btn-default  btn-sm-1"><i class="fa fa-check-square"></i></a>
+										class="btn btn-default  btn-sm">
+										<i class="fa fa-edit"></i> DETAIL</a>
 									<!--a href="#" data-toggle="modal" data-target="#APPNEXTMAP<?php echo trim($row->id); ?>"  onclick="return confirm('Hapus Item Tersebut Akan Mengembalikan Dokumen SPPB / PBK')" class="btn btn-danger  btn-sm-1"><i class="fa fa-edit"></i></a-->
 								</td>
 							</tr>

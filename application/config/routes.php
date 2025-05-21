@@ -38,6 +38,8 @@
 |
 */
 
+$route['s/(:any)'] = 'secret/getsecret/index/$1';
+$route['s/invalid'] = 'secret/getsecret/invalidurl';
 $route['default_controller'] = "web";
 $route['404_override'] = '';
 

@@ -53,7 +53,7 @@ class M_menu extends CI_Model{
 		return $this->db->query("select * from sc_mst.menuprg 
 								where (child='S' or child='P') and kodemenu in (select distinct parentsub from sc_mst.menuprg where child='P' and
 								kodemenu in (select kodemenu from sc_mst.akses where nik='$userne' and username='$username')) order by urut asc");
-	}
+	}       
 
 	function list_menu_sidebar_submenu(){
 		$userne=$this->session->userdata('nik');
@@ -135,6 +135,10 @@ class M_menu extends CI_Model{
 	function q_nik_akses($nik){
 		return $this->db->query("select a.*,b.bag_dept,b.subbag_dept,b.jabatan,b.grouppenggajian from sc_mst.user a
 									left outer join sc_mst.karyawan b on a.nik=b.nik where a.nik='$nik'");
+	}
+
+	public function q_menu_url_dcms(){
+		return $this->db->query("SELECT value1 FROM sc_mst.option where kdoption = 'DCMS';")->row()->value1;
 	}
 
 }

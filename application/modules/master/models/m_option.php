@@ -101,6 +101,14 @@ where coalesce(statuskepegawaian,'')!='KO'");
 	    return $this->db->query("select * from sc_mst.lv_m_karyawan where coalesce(statuskepegawaian,'')!='KO' $param order by nmlengkap asc");
     }
 
+    function exists($where){
+        return $this->db
+                ->select('*')
+                ->where($where)
+                ->get('sc_mst.option')
+                ->num_rows() > 0;
+    }
+
     function read($clause = null){
         return $this->db->query($this->read_txt($clause));
     }
@@ -151,5 +159,41 @@ SQL
                 ) . $clause
             )->row();
         return (isset($setup->value) ? $setup->value : $default);
+    }
+
+	function q_master_read_default_array($clause, $defaults)
+    {
+        /*
+         * HOW TO USE
+         * $defaults = array(
+            'param1' => 'default1',
+            'param2' => 'default2',
+            // Add more parameters and defaults as needed
+        );
+        $clause = " AND parameter IN ('param1','param2') ";*/
+        $query = $this->db->query(
+            sprintf(
+                <<<'SQL'
+SELECT * FROM (
+    SELECT 
+        COALESCE(TRIM(a.kdoption), '') AS parameter,
+        COALESCE(TRIM(a.value1), '0') AS value    
+    FROM sc_mst.option a WHERE TRUE
+    ORDER BY parameter
+) AS a WHERE TRUE 
+SQL
+            ) . $clause
+        );
+
+        $result = $defaults;
+        foreach ($query->result() as $row) {
+            $parameter = isset($row->parameter) ? $row->parameter : null;
+            $value = isset($row->value) ? $row->value : null;
+            if (array_key_exists($parameter, $defaults)) {
+                $result[$parameter] = $value !== null ? $value : $defaults[$parameter];
+            }
+        }
+
+        return $result;
     }
 }

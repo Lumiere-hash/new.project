@@ -70,9 +70,9 @@
 </br>
 <div class="row">                       
 <div class="box col-lg-12">
-	<div class="box-header">
-	 <legend><?php echo $title;?></legend>							
-	</div><!-- /.box-header -->	
+<div class="box-header">
+	 <legend><?php echo 'INPUT SURAT PERINTAH KERJA';?></legend>							
+	</div>
 	<div class="box-body table-responsive" style='overflow-x:scroll;'>
 		<table id="example1" class="table table-bordered table-striped" >
 			<thead>
@@ -134,10 +134,10 @@
 		<!--/div-->
 	</div><!-- /.box-header -->
 </div>	
-<div class="box col-lg-12">
+<!-- <div class="box col-lg-12">
 	<div class="box-header">
 	 <legend><?php echo 'MASTER FAKTUR UPLOAD INVOICE';?></legend>							
-	</div><!-- /.box-header -->	
+	</div>
 	<div class="box-body table-responsive" style='overflow-x:scroll;'>
 		<table id="example2" class="table table-bordered table-striped" >
 			<thead>
@@ -181,9 +181,9 @@
 				<?php endforeach;?>	
 					</tbody>		
 		</table>
-	</div><!-- /.box-body -->
-</div><!-- /.box -->
-</div><!-- /.row -->
+	</div>
+</div>
+</div> -->
 				
 <!-- Modal SURAT PERINTAH KERJA -->
 
