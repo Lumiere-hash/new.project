@@ -1995,14 +1995,14 @@ class Karyawan extends MX_Controller {
                 break;
         }
 
-        $this->load->library('ciqrcode');
-        $qr['string'] = rand(10, 99) . $docno . '.' . date('d-m-Y.H:i:s');
-        $qr['size'] = 2;
-        $qrCode = $this->ciqrcode->generatebase64qr($qr);
+        // $this->load->library('ciqrcode');
+        // $qr['string'] = rand(10, 99) . $docno . '.' . date('d-m-Y.H:i:s');
+        // $qr['size'] = 2;
+        // $qrCode = $this->ciqrcode->generatebase64qr($qr);
 
-        $this->m_stspeg->insert_stspeg_document($docno, $qr['string']);
+        //$this->m_stspeg->insert_stspeg_document($docno, $qr['string']);
 
-        $data['qr_code'] = $qrCode;
+        //$data['qr_code'] = $qrCode;
         $data['nodok'] = $docno;
         $data['jsonfile'] = "index.php/trans/karyawan/api_cetak2/?enc_docno=$enc_docno";
         $data['report_file'] = $reportFile;
