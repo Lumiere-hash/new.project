@@ -46,7 +46,7 @@ class M_Pk extends CI_Model
                                         WHEN '0' THEN CONCAT('62', RIGHT(COALESCE(TRIM(c3.nohp1), '08815574311'), -1))
                                         ELSE COALESCE(TRIM(c3.nohp1), '08815574311')
                                     END, '[^\w]+', '', 'g'), '@s.whatsapp.net')
-                                                            when  coalesce(e.status,'') = 'HRGA' then CONCAT(REGEXP_REPLACE(
+                                                            when  coalesce(e.status,'') = 'HR' then CONCAT(REGEXP_REPLACE(
                                     CASE LEFT(COALESCE(TRIM(c3.nohp1), '08815574311'), 1)
                                         WHEN '0' THEN CONCAT('62', RIGHT(COALESCE(TRIM(c3.nohp1), '08815574311'), -1))
                                         ELSE COALESCE(TRIM(c3.nohp1), '08815574311')
@@ -72,8 +72,8 @@ class M_Pk extends CI_Model
 							left outer join sc_pk.master_pk e on a.nodok=e.kdcontract
 							left outer join sc_pk.master_appr_list appr on trim(
 												CASE 
-												    WHEN e.status = 'A2' THEN 'HRGA'
-												    WHEN e.status = 'HRGA' THEN 'GM'
+												    WHEN e.status = 'A2' THEN 'HR'
+												    WHEN e.status = 'HR' THEN 'GM'
 												    WHEN e.status = 'GM' THEN 'D'
 												    ELSE e.status
 												END
