@@ -1169,32 +1169,118 @@ function q_remind_cuti(){
     }
 	
 	function izin_sakit($periode){
-		return $this->db->query("
-					select * from (
-		select a.nik,b.nmlengkap,c.nmdept,d.nmsubdept,e.nmregu,f.nmjabatan,b.grouppenggajian,b.tglmasukkerja,a.nodok,
-		g.nmijin_absensi,a.tgl_kerja,a.keterangan
-		from sc_trx.ijin_karyawan a 
-		left outer join sc_mst.karyawan b 
-			on a.nik=b.nik
-		left outer join sc_mst.departmen c 
-			on a.kddept=c.kddept
-		left outer join sc_mst.subdepartmen d 
-			on a.kdsubdept=d.kdsubdept and d.kddept=b.bag_dept
-		left outer join
-			(select a.nik,b.nmregu from sc_mst.regu_opr a
-			left outer join sc_mst.regu b on a.kdregu=b.kdregu) e on a.nik=e.nik
-		left outer join sc_mst.jabatan f 
-			on a.kdjabatan=f.kdjabatan  and f.kdsubdept=b.subbag_dept and f.kddept=b.bag_dept
-		left outer join sc_mst.ijin_absensi g 
-			on a.kdijin_absensi=g.kdijin_absensi
-		where coalesce(upper(b.statuskepegawaian),'')!='KO' and to_char(a.tgl_kerja,'YYYYMM')='$periode' and a.status='P'
-		and a.type_ijin='PB' and a.kdijin_absensi='KD'
-		
-	) as x1
-	order by nik asc
+		return $this->db->query("select * from (
+							select a.nik,b.nmlengkap,c.nmdept,d.nmsubdept,e.nmregu,f.nmjabatan,b.grouppenggajian,b.tglmasukkerja,a.nodok,
+							g.nmijin_absensi,a.tgl_kerja,a.keterangan
+							from sc_trx.ijin_karyawan a 
+							left outer join sc_mst.karyawan b 
+								on a.nik=b.nik
+							left outer join sc_mst.departmen c 
+								on a.kddept=c.kddept
+							left outer join sc_mst.subdepartmen d 
+								on a.kdsubdept=d.kdsubdept and d.kddept=b.bag_dept
+							left outer join
+								(select a.nik,b.nmregu from sc_mst.regu_opr a
+								left outer join sc_mst.regu b on a.kdregu=b.kdregu) e on a.nik=e.nik
+							left outer join sc_mst.jabatan f 
+								on a.kdjabatan=f.kdjabatan  and f.kdsubdept=b.subbag_dept and f.kddept=b.bag_dept
+							left outer join sc_mst.ijin_absensi g 
+								on a.kdijin_absensi=g.kdijin_absensi
+							where coalesce(upper(b.statuskepegawaian),'')!='KO' and to_char(a.tgl_kerja,'YYYYMM')='$periode' and a.status='P'
+							and a.type_ijin='PB' and a.kdijin_absensi='KD'
+						
+					) as x1
+					order by nik asc");
 
-		");
+	}
 
+	function q_remind_tl() {
+		return $this->db->query("WITH periode_bulan_ini AS (
+						SELECT TO_CHAR(current_date, 'YYYYMM') AS periode
+					),
+					data_karyawan AS (
+						SELECT 
+							k.nik,
+							k.nmlengkap,
+							p.periode,
+							
+							-- Total Telat (TL)
+							(
+								SELECT COUNT(*) 
+								FROM sc_trx.listlinkjadwalcuti tl
+								WHERE TO_CHAR(tl.tgl, 'YYYYMM') = p.periode
+								AND tl.kdpokok = 'TL'
+								AND tl.nik = k.nik
+							) AS ttlvaluetl,
+							
+							-- Total Izin Telat (ITL)
+							(
+								SELECT COUNT(*) 
+								FROM sc_trx.ijin_karyawan ik
+								WHERE TO_CHAR(ik.tgl_kerja, 'YYYYMM') = p.periode
+								AND ik.kdijin_absensi IN ('DT')
+								AND ik.type_ijin = 'PB'
+								AND COALESCE(ik.status, '') = 'P'
+								AND ik.nik = k.nik
+							) AS ttlvalueitl
+						FROM 
+							sc_mst.karyawan k
+						CROSS JOIN 
+							periode_bulan_ini p
+					)
+					SELECT 
+						nik,
+						nmlengkap,
+						periode,
+						(ttlvaluetl + ttlvalueitl) AS total_terlambat
+					FROM 
+						data_karyawan
+					WHERE 
+						(ttlvaluetl + ttlvalueitl) >= 3
+					ORDER BY 
+						total_terlambat DESC");
+			}
+
+	function q_remind_sp($param = ''){
+		     return $this->db->query("
+            SELECT * 
+            FROM (
+                SELECT 
+                    a.*, 
+                    CASE 
+                        WHEN a.startdate IS NULL OR a.enddate IS NULL THEN '' 
+                        ELSE TO_CHAR(a.startdate, 'DD-MM-YYYY') || ' - ' || TO_CHAR(a.enddate, 'DD-MM-YYYY') 
+                    END AS startdatex, 
+                    b.nmlengkap, 
+                    b.nmdept, 
+                    b.bag_dept, 
+                    b.nmjabatan, 
+                    b.nik_atasan AS nikatasan1, 
+                    b.nmatasan1, 
+                    b.nik_atasan2 AS nikatasan2, 
+                    b.nmatasan2, 
+                    b.nmsubdept, 
+                    b.nmlvljabatan, 
+                    b.alamattinggal, 
+                    COALESCE(b.nohp1, b.nohp2, '-') AS nohp1, 
+                    COALESCE(b.email, '') AS email, 
+                    c.docname AS spname, 
+                    z.uraian AS nmstatus, 
+                    d.docno AS nmdocref,                 
+                    TO_CHAR(a.startdate, 'DD-MM-YYYY') AS startdate1, 
+                    TO_CHAR(a.enddate, 'DD-MM-YYYY') AS enddate1, 
+                    TO_CHAR(a.docdate, 'DD-MM-YYYY') AS docdate2,
+                    CONCAT(COALESCE(TRIM(b.nik_atasan), ''), '.', COALESCE(TRIM(b.nik_atasan2), '')) AS superiors
+                FROM sc_trx.sk_peringatan a
+                LEFT OUTER JOIN sc_mst.lv_m_karyawan b ON a.nik = b.nik
+                LEFT OUTER JOIN sc_mst.sk_peringatan c ON a.tindakan = c.docno
+                LEFT OUTER JOIN sc_trx.berita_acara d ON a.nik = d.nik AND a.docref = d.docno
+                LEFT OUTER JOIN sc_mst.trxtype z ON a.status = z.kdtrx AND z.jenistrx = 'I.T.B.27'
+                ORDER BY a.docdate DESC
+            ) AS x 
+            WHERE COALESCE(docno, '') != '' and trim(status) = 'P'
+            $param
+        ");
 	}
 	
 

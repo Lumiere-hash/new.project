@@ -98,7 +98,7 @@ class M_stspeg extends CI_Model
                                 where to_char(age(a.tgllahir),'YY')>='56' and coalesce(a.statuskepegawaian,'')!='KO'  
 								");
     }
-    function q_list_ojt1($param = null)
+    function q_list_ojt($param = null)
     {
         return $this->db->query("select *,  case 
 	    when valueday<0 then 'TERLEWAT '||(valueday)*-1||' HARI' 
@@ -116,7 +116,7 @@ class M_stspeg extends CI_Model
 	    where coalesce(statuskepegawaian,'') != 'KO' and valueday<=60 and coalesce(statuskepegawaian,'') in ('OJ','PK') and y.status='B' $param order by valueday asc");
     }
 
-        function q_list_ojt($param = null)
+        function q_list_ojt2($param = null)
     {
         return $this->db->query("SELECT *,  
                     CASE 

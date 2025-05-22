@@ -1754,7 +1754,7 @@ class WhatsApp extends MX_Controller
             // var_dump($messages);
             // die();
 
-        foreach ($this->M_Pk->q_whatsapp_collect_where(" and coalesce(a.statuspen,'') != '$status' limit 1")->result() as $item) {
+        foreach ($this->M_Pk->q_whatsapp_collect_where(" and coalesce(a.statuspen,'') != '$status'")->result() as $item) {
              $refurl = base_url('pk/list_pk');
              $url = site_url('s/'.$item->identifier);
               if(empty($item->statuspen) || $item->statuspen == 'C'){
