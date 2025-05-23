@@ -83,10 +83,10 @@
     <Page1 Ref="6" type="Page" isKey="true">
       <Border>None;Black;2;Solid;False;4;Black</Border>
       <Brush>Transparent</Brush>
-      <Components isList="true" count="22">
+      <Components isList="true" count="24">
         <Text1 Ref="7" type="Text" isKey="true">
           <Brush>EmptyBrush</Brush>
-          <ClientRectangle>4.8,4.2,10.2,3.8</ClientRectangle>
+          <ClientRectangle>48,42,102,38</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,14,Bold</Font>
           <HorAlignment>Center</HorAlignment>
@@ -106,7 +106,7 @@ KARYAWAN</Text>
         </Text1>
         <Text2 Ref="8" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>2.6,8.2,7.2,0.6</ClientRectangle>
+          <ClientRectangle>30,84,72,6</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <Margins>0,0,0,0</Margins>
@@ -118,7 +118,7 @@ KARYAWAN</Text>
         </Text2>
         <Text3 Ref="9" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>2.6,17.6,16,1.6</ClientRectangle>
+          <ClientRectangle>30,176,158,16</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <HorAlignment>Width</HorAlignment>
@@ -126,14 +126,14 @@ KARYAWAN</Text>
           <Name>Text3</Name>
           <Page isRef="6" />
           <Parent isRef="6" />
-          <Text>Dalam hal ini bertndak untuk dan atas nama pribadi / sendiri. Selanjutnya disebut PIHAK 
-KEDUA (KARYAWAN).</Text>
+          <Text>Dalam hal ini bertndak untuk dan atas nama pribadi / sendiri. Selanjutnya disebut PIHAK KEDUA (KARYAWAN).</Text>
           <TextBrush>Black</TextBrush>
+          <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
           <Type>Expression</Type>
         </Text3>
         <Text4 Ref="10" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>4,9.4,1.2,0.4</ClientRectangle>
+          <ClientRectangle>42,94,12,4</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <Margins>0,0,0,0</Margins>
@@ -146,7 +146,7 @@ KEDUA (KARYAWAN).</Text>
         </Text4>
         <Text5 Ref="11" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>4,10.2,1.6,0.4</ClientRectangle>
+          <ClientRectangle>42,102,16,4</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <Margins>0,0,0,0</Margins>
@@ -159,7 +159,7 @@ KEDUA (KARYAWAN).</Text>
         </Text5>
         <Text6 Ref="12" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>4,11,1.4,0.4</ClientRectangle>
+          <ClientRectangle>42,110,14,4</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <Margins>0,0,0,0</Margins>
@@ -173,7 +173,7 @@ KEDUA (KARYAWAN).</Text>
         <Text7 Ref="13" type="Text" isKey="true">
           <Brush>Transparent</Brush>
           <CanGrow>True</CanGrow>
-          <ClientRectangle>6.6,9.4,3.6,0.4</ClientRectangle>
+          <ClientRectangle>68,94,36,4</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <Margins>0,0,0,0</Margins>
@@ -187,7 +187,7 @@ KEDUA (KARYAWAN).</Text>
         <Text8 Ref="14" type="Text" isKey="true">
           <Brush>Transparent</Brush>
           <CanGrow>True</CanGrow>
-          <ClientRectangle>6.6,10.2,8.8,0.4</ClientRectangle>
+          <ClientRectangle>68,102,88,4</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <Margins>0,0,0,0</Margins>
@@ -201,7 +201,7 @@ KEDUA (KARYAWAN).</Text>
         <Text9 Ref="15" type="Text" isKey="true">
           <Brush>Transparent</Brush>
           <CanGrow>True</CanGrow>
-          <ClientRectangle>6.6,11,10.4,1</ClientRectangle>
+          <ClientRectangle>68,110,106,12</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <Margins>0,0,0,0</Margins>
@@ -215,7 +215,7 @@ KEDUA (KARYAWAN).</Text>
         </Text9>
         <Text10 Ref="16" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>2.6,12.4,17,1.4</ClientRectangle>
+          <ClientRectangle>30,124,158,16</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <HorAlignment>Width</HorAlignment>
@@ -223,15 +223,14 @@ KEDUA (KARYAWAN).</Text>
           <Name>Text10</Name>
           <Page isRef="6" />
           <Parent isRef="6" />
-          <Text>Dalam hal ini bertndak untuk dan atas nama Direksi PT. Nusa Unggul Sarana Adicipta  yang 
-berkududukan di Jl. Margomulyo Indah II Blok A No. 15 Kota Surabaya dan selanjutnya disebut 
-sebagai PIHAK PERTAMA (PENGUSAHA)</Text>
+          <Text>Dalam hal ini bertndak untuk dan atas nama Direksi PT. Nusa Unggul Sarana Adicipta  yang berkududukan di Jl. Margomulyo Indah II Blok A No. 15 Kota Surabaya dan selanjutnya disebut sebagai PIHAK PERTAMA (PENGUSAHA)</Text>
           <TextBrush>Black</TextBrush>
+          <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
           <Type>Expression</Type>
         </Text10>
         <Text11 Ref="17" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>2.6,19,16.8,1</ClientRectangle>
+          <ClientRectangle>30,192,158,10</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <HorAlignment>Width</HorAlignment>
@@ -239,14 +238,14 @@ sebagai PIHAK PERTAMA (PENGUSAHA)</Text>
           <Name>Text11</Name>
           <Page isRef="6" />
           <Parent isRef="6" />
-          <Text>Masing -  masing pihak telah membaca isi perjanjian ini dan menyetujuinya dengan ketentuan 
-- ketentuan sebagai berikut :</Text>
+          <Text>Masing -  masing pihak telah membaca isi perjanjian ini dan menyetujuinya dengan ketentuan - ketentuan sebagai berikut :</Text>
           <TextBrush>Black</TextBrush>
+          <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
           <Type>Expression</Type>
         </Text11>
         <Text12 Ref="18" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>7.8,20.4,4.8,1.4</ClientRectangle>
+          <ClientRectangle>78,204,48,14</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12,Bold</Font>
           <HorAlignment>Center</HorAlignment>
@@ -261,7 +260,7 @@ Tugas dan Penempatan</Text>
         </Text12>
         <Text13 Ref="19" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>4,14.2,1.2,0.4</ClientRectangle>
+          <ClientRectangle>42,142,12,4</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <Margins>0,0,0,0</Margins>
@@ -274,7 +273,7 @@ Tugas dan Penempatan</Text>
         </Text13>
         <Text14 Ref="20" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>4,15,1.4,0.4</ClientRectangle>
+          <ClientRectangle>42,150,14,4</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <Margins>0,0,0,0</Margins>
@@ -287,7 +286,7 @@ Tugas dan Penempatan</Text>
         </Text14>
         <Text15 Ref="21" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>4,15.8,2.4,0.6</ClientRectangle>
+          <ClientRectangle>42,158,24,6</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <Margins>0,0,0,0</Margins>
@@ -301,7 +300,7 @@ Tugas dan Penempatan</Text>
         <Text16 Ref="22" type="Text" isKey="true">
           <Brush>Transparent</Brush>
           <CanGrow>True</CanGrow>
-          <ClientRectangle>6.8,14.2,8,0.4</ClientRectangle>
+          <ClientRectangle>68,142,80,4</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <Margins>0,0,0,0</Margins>
@@ -315,7 +314,7 @@ Tugas dan Penempatan</Text>
         </Text16>
         <Text19 Ref="23" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>4,16.6,2.4,0.4</ClientRectangle>
+          <ClientRectangle>42,166,24,4</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <Margins>0,0,0,0</Margins>
@@ -328,7 +327,7 @@ Tugas dan Penempatan</Text>
         </Text19>
         <Text21 Ref="24" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>6.8,15,12.4,0.4</ClientRectangle>
+          <ClientRectangle>68,150,124,4</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <Margins>0,0,0,0</Margins>
@@ -342,7 +341,7 @@ Tugas dan Penempatan</Text>
         </Text21>
         <Text17 Ref="25" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>6.8,15.8,4.4,0.6</ClientRectangle>
+          <ClientRectangle>68,158,44,6</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <Margins>0,0,0,0</Margins>
@@ -355,7 +354,7 @@ Tugas dan Penempatan</Text>
         </Text17>
         <Text18 Ref="26" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>6.8,16.6,3.4,0.4</ClientRectangle>
+          <ClientRectangle>68,166,34,4</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <Margins>0,0,0,0</Margins>
@@ -368,42 +367,70 @@ Tugas dan Penempatan</Text>
         </Text18>
         <Text20 Ref="27" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>2.6,22,15,1.2</ClientRectangle>
+          <ClientRectangle>30,220,158,12</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
+          <HorAlignment>Width</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text20</Name>
           <Page isRef="6" />
           <Parent isRef="6" />
-          <Text>1. PIHAK PERTAMA menerima PIHAK KEDUA untuk bekerja di PT. Nusa Unggul Sarana 
-   Adicipta sebagai {pihak2.nmjabatan}.</Text>
+          <Text>PIHAK PERTAMA menerima PIHAK KEDUA untuk bekerja di PT. Nusa Unggul Sarana Adicipta sebagai {pihak2.nmjabatan}.</Text>
           <TextBrush>Black</TextBrush>
+          <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
           <Type>Expression</Type>
         </Text20>
         <Text22 Ref="28" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>2.6,23.4,15.8,1.2</ClientRectangle>
+          <ClientRectangle>30,234,158,12</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
+          <HorAlignment>Width</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text22</Name>
           <Page isRef="6" />
           <Parent isRef="6" />
-          <Text>2. PIHAK PERTAMA berhak untuk memindahkan atau memutasikan PIHAK KEDUA ke bagian
-   lain dengan tidak mengurangi upah / gaji yang diterima oleh PIHAK KEDUA.
+          <Text>PIHAK PERTAMA berhak untuk memindahkan atau memutasikan PIHAK KEDUA ke bagian lain dengan tidak mengurangi upah / gaji yang diterima oleh PIHAK KEDUA.
 </Text>
           <TextBrush>Black</TextBrush>
+          <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
           <Type>Expression</Type>
         </Text22>
+        <Text77 Ref="29" type="Text" isKey="true">
+          <Brush>EmptyBrush</Brush>
+          <ClientRectangle>22,220,6,4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Times New Roman,12</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text77</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+          <Text>1.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text77>
+        <Text78 Ref="30" type="Text" isKey="true">
+          <Brush>EmptyBrush</Brush>
+          <ClientRectangle>22,234,6,4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Times New Roman,12</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text78</Name>
+          <Page isRef="6" />
+          <Parent isRef="6" />
+          <Text>2.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text78>
       </Components>
       <Conditions isList="true" count="0" />
       <Guid>d06a02a8178b400083d7439b35bfd18e</Guid>
-      <Margins>0.5,0.5,0.5,0.5</Margins>
+      <Margins>5,5,5,5</Margins>
       <Name>Page1</Name>
-      <PageHeight>29.7</PageHeight>
-      <PageWidth>21</PageWidth>
+      <PageHeight>297</PageHeight>
+      <PageWidth>210</PageWidth>
       <Report isRef="0" />
-      <Watermark Ref="29" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+      <Watermark Ref="31" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
         <AspectRatio>True</AspectRatio>
         <Font>Arial,100</Font>
         <ImageBytes>iVBORw0KGgoAAAANSUhEUgAABmcAAAkOCAYAAABPl437AAAACXBIWXMAAAsTAAALEwEAmpwYAACA
@@ -3361,168 +3388,321 @@ AAAASUVORK5CYII=</ImageBytes>
         <TextBrush>[50:0:0:0]</TextBrush>
       </Watermark>
     </Page1>
-    <Page2 Ref="30" type="Page" isKey="true">
+    <Page2 Ref="32" type="Page" isKey="true">
       <Border>None;Black;2;Solid;False;4;Black</Border>
       <Brush>Transparent</Brush>
-      <Components isList="true" count="9">
-        <Text23 Ref="31" type="Text" isKey="true">
+      <Components isList="true" count="21">
+        <Text23 Ref="33" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>8.4,4,3.4,1.2</ClientRectangle>
+          <ClientRectangle>84,40,34,12</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12,Bold</Font>
           <HorAlignment>Center</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text23</Name>
-          <Page isRef="30" />
-          <Parent isRef="30" />
+          <Page isRef="32" />
+          <Parent isRef="32" />
           <Text>Pasal 2
 Jangka Waktu</Text>
           <TextBrush>Black</TextBrush>
           <Type>Expression</Type>
         </Text23>
-        <Text24 Ref="32" type="Text" isKey="true">
+        <Text24 Ref="34" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>2.6,5.4,17,1.6</ClientRectangle>
+          <ClientRectangle>30,54,154,20</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <HorAlignment>Width</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text24</Name>
-          <Page isRef="30" />
-          <Parent isRef="30" />
-          <Text>1. PIHAK PERTAMA menerima dan mempekerjakan PIHAK KEDUA sebagai karyawan dengan 
-      status {pihak2.nmkepegawaian} di PT. Nusa Unggul Sarana Adicipta untuk jangka waktu selama {pihak2.masa_kontrak_bln} 
-       bulan, terhitung mulai tanggal {pihak2.tgl_mulai} sampai dengan {pihak2.tgl_selesai}.</Text>
+          <Page isRef="32" />
+          <Parent isRef="32" />
+          <Text>PIHAK PERTAMA menerima dan mempekerjakan PIHAK KEDUA sebagai karyawan dengan status {pihak2.nmkepegawaian} di PT. Nusa Unggul Sarana Adicipta untuk jangka waktu selama {pihak2.masa_kontrak_bln} bulan), terhitung mulai tanggal {pihak2.tgl_mulai} sampai dengan {pihak2.tgl_selesai}.</Text>
           <TextBrush>Black</TextBrush>
+          <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
           <Type>Expression</Type>
         </Text24>
-        <Text25 Ref="33" type="Text" isKey="true">
+        <Text25 Ref="35" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>2.6,7.2,16.4,0.6</ClientRectangle>
+          <ClientRectangle>30,76,154,6</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <HorAlignment>Width</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text25</Name>
-          <Page isRef="30" />
-          <Parent isRef="30" />
-          <Text>2. PIHAK PERTAMA mempunyai kewajiban untuk mengevaluasi kinerja PIHAK KEDUA.
+          <Page isRef="32" />
+          <Parent isRef="32" />
+          <Text>PIHAK PERTAMA mempunyai kewajiban untuk mengevaluasi kinerja PIHAK KEDUA.
 </Text>
           <TextBrush>Black</TextBrush>
+          <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
           <Type>Expression</Type>
         </Text25>
-        <Text26 Ref="34" type="Text" isKey="true">
+        <Text26 Ref="36" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>2.6,8,15.8,1.8</ClientRectangle>
+          <ClientRectangle>30,84,154,18</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <HorAlignment>Width</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text26</Name>
-          <Page isRef="30" />
-          <Parent isRef="30" />
-          <Text>3. PIHAK PERTAMA dan PIHAK KEDUA sepakat bahwa apabila terjadi 
-     perpanjangan/perubahan kontrak dapat dilakukan dengan masa tenggang minimal 7 
-     (tujuh) hari dari tanggal berakhirnya Perjanjian Kerja Waktu Tertentu (PKWT) ini.</Text>
+          <Page isRef="32" />
+          <Parent isRef="32" />
+          <Text>PIHAK PERTAMA dan PIHAK KEDUA sepakat bahwa apabila terjadi perpanjangan/perubahan kontrak dapat dilakukan dengan masa tenggang minimal 7(tujuh) hari dari tanggal berakhirnya Perjanjian Kerja Waktu Tertentu (PKWT) ini.</Text>
           <TextBrush>Black</TextBrush>
+          <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
           <Type>Expression</Type>
         </Text26>
-        <Text27 Ref="35" type="Text" isKey="true">
+        <Text27 Ref="37" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>7.4,10.4,6,1.4</ClientRectangle>
+          <ClientRectangle>74,104,60,14</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12,Bold</Font>
           <HorAlignment>Center</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text27</Name>
-          <Page isRef="30" />
-          <Parent isRef="30" />
+          <Page isRef="32" />
+          <Parent isRef="32" />
           <Text>Pasal 3
 Upah, Fasilitas dan Pembayaran</Text>
           <TextBrush>Black</TextBrush>
           <Type>Expression</Type>
         </Text27>
-        <Text28 Ref="36" type="Text" isKey="true">
+        <Text28 Ref="38" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>2.8,11.8,16.2,1.2</ClientRectangle>
+          <ClientRectangle>30,118,154,12</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <HorAlignment>Width</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text28</Name>
-          <Page isRef="30" />
-          <Parent isRef="30" />
-          <Text>1. PIHAK KEDUA berhak mendapatkan upah dan fasilitas lainnya yang besar dan jumlahnya 
-   telah disepakati bersama sesuai dengan ketentuan perusahaan yang berlaku.
+          <Page isRef="32" />
+          <Parent isRef="32" />
+          <Text>PIHAK KEDUA berhak mendapatkan upah dan fasilitas lainnya yang besar dan jumlahnya telah disepakati bersama sesuai dengan ketentuan perusahaan yang berlaku.
 </Text>
           <TextBrush>Black</TextBrush>
+          <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
           <Type>Expression</Type>
         </Text28>
-        <Text29 Ref="37" type="Text" isKey="true">
+        <Text29 Ref="39" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>2.8,13.2,15.4,1.8</ClientRectangle>
+          <ClientRectangle>30,132,154,10</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <HorAlignment>Width</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text29</Name>
-          <Page isRef="30" />
-          <Parent isRef="30" />
-          <Text>2. Upah akan dibayarkan oleh PIHAK PERTAMA kepada PIHAK KEDUA setiap tanggal 5
-   (maksimal) setiap bulannya.</Text>
+          <Page isRef="32" />
+          <Parent isRef="32" />
+          <Text>Upah akan dibayarkan oleh PIHAK PERTAMA kepada PIHAK KEDUA setiap tanggal 5(maksimal) setiap bulannya.</Text>
           <TextBrush>Black</TextBrush>
+          <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
           <Type>Expression</Type>
         </Text29>
-        <Text30 Ref="38" type="Text" isKey="true">
+        <Text30 Ref="40" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>7.6,14.4,5.6,1</ClientRectangle>
+          <ClientRectangle>76,144,56,10</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12,Bold</Font>
           <HorAlignment>Center</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text30</Name>
-          <Page isRef="30" />
-          <Parent isRef="30" />
+          <Page isRef="32" />
+          <Parent isRef="32" />
           <Text>Pasal 4
-Waktu Kerja dan Cut</Text>
+Waktu Kerja dan Cuti</Text>
           <TextBrush>Black</TextBrush>
           <Type>Expression</Type>
         </Text30>
-        <Text31 Ref="39" type="Text" isKey="true">
+        <Text31 Ref="41" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>2.8,16,15,9.8</ClientRectangle>
+          <ClientRectangle>30,160,154,30</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <HorAlignment>Width</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text31</Name>
-          <Page isRef="30" />
-          <Parent isRef="30" />
-          <Text>1. Waktu kerja PIHAK KEDUA disesuaikan dengan ketentuan yang berlaku di perusahaan 
-   yaitu untuk implementasi 6 (enam) hari kerja atau 7 jam per hari dan atau 40 jam per 
-   minggu dengan rincian sebagai berikut :
-       - Senin s/d Kamis : 08.00 s/d 16.00, istirahat 12.00 s/d 13.00
-       - Jumat : 08.00 s/d 16.30, istirahat 11.30 s/d 13.00
-       - Sabtu : 08.00 s/d 13.00, tanpa istirahat
-2. Dalam kondisi tertentu perusahaan berhak meminta karyawan untuk bekerja melebihi 
-   waktu jam kerja di atas sesuai dengan tugas dan tanggung jawabnya. Kelebihan jam kerja 
-   dibayar sesuai ketentuan yang berlaku.
-3. PIHAK KEDUA yang bekerja terus menerus selama 12 (dua belas) bulan maka berhak atas 
-   cuti tahunan sebanyak 12 hari kerja.
-4. Tata cara pengambilan cuti tahunan dan detail tentang cuti diatur dalam Peraturan 
-   Perusahaan.</Text>
+          <Page isRef="32" />
+          <Parent isRef="32" />
+          <Text>Waktu kerja PIHAK KEDUA disesuaikan dengan ketentuan yang berlaku di perusahaan yaitu untuk implementasi 6 (enam) hari kerja atau 7 jam per hari dan atau 40 jam per minggu dengan rincian sebagai berikut :
+    - Senin s/d Kamis : 08.00 s/d 16.00, istirahat 12.00 s/d 13.00
+    - Jumat : 08.00 s/d 16.30, istirahat 11.30 s/d 13.00
+    - Sabtu : 08.00 s/d 13.00, tanpa istirahat</Text>
           <TextBrush>Black</TextBrush>
+          <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
           <Type>Expression</Type>
         </Text31>
+        <Text46 Ref="42" type="Text" isKey="true">
+          <Brush>EmptyBrush</Brush>
+          <ClientRectangle>22,160,6,4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Times New Roman,12</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text46</Name>
+          <Page isRef="32" />
+          <Parent isRef="32" />
+          <Text>1.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text46>
+        <Text47 Ref="43" type="Text" isKey="true">
+          <Brush>EmptyBrush</Brush>
+          <ClientRectangle>22,192,6,4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Times New Roman,12</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text47</Name>
+          <Page isRef="32" />
+          <Parent isRef="32" />
+          <Text>2.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text47>
+        <Text48 Ref="44" type="Text" isKey="true">
+          <Brush>EmptyBrush</Brush>
+          <ClientRectangle>22,210,6,4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Times New Roman,12</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text48</Name>
+          <Page isRef="32" />
+          <Parent isRef="32" />
+          <Text>3.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text48>
+        <Text49 Ref="45" type="Text" isKey="true">
+          <Brush>EmptyBrush</Brush>
+          <ClientRectangle>22,222,6,4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Times New Roman,12</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text49</Name>
+          <Page isRef="32" />
+          <Parent isRef="32" />
+          <Text>4.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text49>
+        <Text50 Ref="46" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>30,192,154,16</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Calibri,12</Font>
+          <HorAlignment>Width</HorAlignment>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text50</Name>
+          <Page isRef="32" />
+          <Parent isRef="32" />
+          <Text>Dalam kondisi tertentu perusahaan berhak meminta karyawan untuk bekerja melebihi waktu jam kerja di atas sesuai dengan tugas dan tanggung jawabnya. Kelebihan jam kerja dibayar sesuai ketentuan yang berlaku.</Text>
+          <TextBrush>Black</TextBrush>
+          <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+          <Type>Expression</Type>
+        </Text50>
+        <Text51 Ref="47" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>30,210,154,10</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Calibri,12</Font>
+          <HorAlignment>Width</HorAlignment>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text51</Name>
+          <Page isRef="32" />
+          <Parent isRef="32" />
+          <Text>PIHAK KEDUA yang bekerja terus menerus selama 12 (dua belas) bulan maka berhak atas cuti tahunan sebanyak 12 hari kerja.</Text>
+          <TextBrush>Black</TextBrush>
+          <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+          <Type>Expression</Type>
+        </Text51>
+        <Text52 Ref="48" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>30,222,154,10</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Calibri,12</Font>
+          <HorAlignment>Width</HorAlignment>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text52</Name>
+          <Page isRef="32" />
+          <Parent isRef="32" />
+          <Text>Tata cara pengambilan cuti tahunan dan detail tentang cuti diatur dalam Peraturan Perusahaan.</Text>
+          <TextBrush>Black</TextBrush>
+          <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+          <Type>Expression</Type>
+        </Text52>
+        <Text64 Ref="49" type="Text" isKey="true">
+          <Brush>EmptyBrush</Brush>
+          <ClientRectangle>22,118,6,4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Times New Roman,12</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text64</Name>
+          <Page isRef="32" />
+          <Parent isRef="32" />
+          <Text>1.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text64>
+        <Text65 Ref="50" type="Text" isKey="true">
+          <Brush>EmptyBrush</Brush>
+          <ClientRectangle>22,132,6,4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Times New Roman,12</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text65</Name>
+          <Page isRef="32" />
+          <Parent isRef="32" />
+          <Text>2.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text65>
+        <Text66 Ref="51" type="Text" isKey="true">
+          <Brush>EmptyBrush</Brush>
+          <ClientRectangle>22,54,6,4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Times New Roman,12</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text66</Name>
+          <Page isRef="32" />
+          <Parent isRef="32" />
+          <Text>1.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text66>
+        <Text67 Ref="52" type="Text" isKey="true">
+          <Brush>EmptyBrush</Brush>
+          <ClientRectangle>22,76,6,4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Times New Roman,12</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text67</Name>
+          <Page isRef="32" />
+          <Parent isRef="32" />
+          <Text>2.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text67>
+        <Text68 Ref="53" type="Text" isKey="true">
+          <Brush>EmptyBrush</Brush>
+          <ClientRectangle>22,84,6,4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Times New Roman,12</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text68</Name>
+          <Page isRef="32" />
+          <Parent isRef="32" />
+          <Text>3.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text68>
       </Components>
       <Conditions isList="true" count="0" />
       <Guid>36b26b73917c4fa0ae43a0f78fa182bb</Guid>
-      <Margins>0.5,0.5,0.5,0.5</Margins>
+      <Margins>5,5,5,5</Margins>
       <Name>Page2</Name>
-      <PageHeight>29.7</PageHeight>
-      <PageWidth>21</PageWidth>
+      <PageHeight>297</PageHeight>
+      <PageWidth>210</PageWidth>
       <Report isRef="0" />
-      <Watermark Ref="40" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+      <Watermark Ref="54" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
         <AspectRatio>True</AspectRatio>
         <Font>Arial,100</Font>
         <ImageBytes>iVBORw0KGgoAAAANSUhEUgAABmcAAAkOCAYAAABPl437AAAACXBIWXMAAAsTAAALEwEAmpwYAACA
@@ -6480,126 +6660,226 @@ AAAASUVORK5CYII=</ImageBytes>
         <TextBrush>[50:0:0:0]</TextBrush>
       </Watermark>
     </Page2>
-    <Page3 Ref="41" type="Page" isKey="true">
+    <Page3 Ref="55" type="Page" isKey="true">
       <Border>None;Black;2;Solid;False;4;Black</Border>
       <Brush>Transparent</Brush>
-      <Components isList="true" count="6">
-        <Text32 Ref="42" type="Text" isKey="true">
+      <Components isList="true" count="14">
+        <Text32 Ref="56" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>7.4,4,5.4,1.2</ClientRectangle>
+          <ClientRectangle>74,40,54,12</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12,Bold</Font>
           <HorAlignment>Center</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text32</Name>
-          <Page isRef="41" />
-          <Parent isRef="41" />
+          <Page isRef="55" />
+          <Parent isRef="55" />
           <Text>Pasal 5
 Manfaat-manfaat</Text>
           <TextBrush>Black</TextBrush>
           <Type>Expression</Type>
         </Text32>
-        <Text33 Ref="43" type="Text" isKey="true">
+        <Text33 Ref="57" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>2.6,5.6,16.2,4</ClientRectangle>
+          <ClientRectangle>30,56,154,40</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <HorAlignment>Width</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text33</Name>
-          <Page isRef="41" />
-          <Parent isRef="41" />
-          <Text>1. PIHAK PERTAMA mengikutsertakan PIHAK KEDUA ke dalam program BPJS 
-    Ketenagakerjaan yang meliputi :
+          <Page isRef="55" />
+          <Parent isRef="55" />
+          <Text>PIHAK PERTAMA mengikutsertakan PIHAK KEDUA ke dalam program BPJS Ketenagakerjaan yang meliputi :
             1.1 Program Asuransi Kecelakaan Kerja 
             1.2 Program Asuransi Kematian
             1.3 Program Asuransi Tabungan Hari Tua.
-2. Semua Premi asuransi tersebut di atas dibayarkan oleh PIHAK PERTAMA kepada BPJS 
-   Ketenagakerjaan.</Text>
+
+Semua Premi asuransi tersebut di atas dibayarkan oleh PIHAK PERTAMA kepada BPJS Ketenagakerjaan.</Text>
           <TextBrush>Black</TextBrush>
+          <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
           <Type>Expression</Type>
         </Text33>
-        <Text34 Ref="44" type="Text" isKey="true">
+        <Text34 Ref="58" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>7.6,10.2,4.8,1.4</ClientRectangle>
+          <ClientRectangle>76,102,48,14</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12,Bold</Font>
           <HorAlignment>Center</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text34</Name>
-          <Page isRef="41" />
-          <Parent isRef="41" />
+          <Page isRef="55" />
+          <Parent isRef="55" />
           <Text>Pasal 6
 Tunjangan Hari Raya (THR)</Text>
           <TextBrush>Black</TextBrush>
           <Type>Expression</Type>
         </Text34>
-        <Text35 Ref="45" type="Text" isKey="true">
+        <Text35 Ref="59" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>2.6,12,16.6,4</ClientRectangle>
+          <ClientRectangle>30,118,154,22</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <HorAlignment>Width</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text35</Name>
-          <Page isRef="41" />
-          <Parent isRef="41" />
-          <Text>1. PIHAK KEDUA diberikan upah untuk bulan ke 13 sebagai Tunjangan Hari Raya untuk 
-     PIHAK KEDUA yang telah bekerja terus menerus selama 1 tahun atau lebih, atau dihitung 
-     rata rata antara masa kerja PIHAK KEDUA dibagi 12 dikalikan dengan upah PIHAK KEDUA 
-     per bulan, apabila PIHAK KEDUA yang bekerja kurang dari 1 tahun. 
-2. Apabila PIHAK KEDUA diberhentikan sebelum tanggal pembayaran THR, maka PIHAK 
-     PERTAMA tidak berkewajiban membayarkan Tunjangan Hari Raya ini, terkecuali diatur 
-     oleh Peraturan Ketenagakerjaan di Indonesia.
-3. THR akan diberikan sekali dalam setahun yaitu pada Hari Raya Idul Fitri.</Text>
+          <Page isRef="55" />
+          <Parent isRef="55" />
+          <Text>PIHAK KEDUA diberikan upah untuk bulan ke13 sebagai Tunjangan Hari Raya untuk 
+PIHAK KEDUA yang telah bekerja terusmenerus selama 1 tahun atau lebih, atau dihitung rata rata antara masa kerja PIHAK KEDUA dibagi 12 dikalikan dengan upah PIHAK KEDUA per bulan, apabila PIHAK KEDUA yang bekerja kurang dari 1 tahun. </Text>
           <TextBrush>Black</TextBrush>
+          <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
           <Type>Expression</Type>
         </Text35>
-        <Text36 Ref="46" type="Text" isKey="true">
+        <Text36 Ref="60" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>7.2,16.6,6.4,1.2</ClientRectangle>
+          <ClientRectangle>72,166,64,12</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12,Bold</Font>
           <HorAlignment>Center</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text36</Name>
-          <Page isRef="41" />
-          <Parent isRef="41" />
+          <Page isRef="55" />
+          <Parent isRef="55" />
           <Text>Pasal 7
 Berakhirnya Perjanjian Kerja</Text>
           <TextBrush>Black</TextBrush>
           <Type>Expression</Type>
         </Text36>
-        <Text37 Ref="47" type="Text" isKey="true">
+        <Text37 Ref="61" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>2.8,18.2,15,5.2</ClientRectangle>
+          <ClientRectangle>28,182,156,10</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <HorAlignment>Width</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text37</Name>
-          <Page isRef="41" />
-          <Parent isRef="41" />
-          <Text>1. Hubungan kerja berakhir dengan sendirinya setelah masa Perjanjian Kerja Waktu Tertentu 
-   (PKWT) berakhir.
-2. PIHAK PERTAMA dan PIHAK KEDUA sepakat untuk mengakhiri perjanjian kerja ini dengan 
-   alasan atau keadaan sebagai berikut :
-        a. PIHAK KEDUA tidak dapat menjalankan kesepakatan dalam perjanjian ini.
-        b. PIHAK KEDUA meninggal dunia.
-        c. PIHAK KEDUA diputus hubungan kerjanya oleh PIHAK PERTAMA sebelum masa 
-   perjanjian ini berakhir karena suatu alasan atau sebab tertentu.</Text>
+          <Page isRef="55" />
+          <Parent isRef="55" />
+          <Text>Hubungan kerja berakhir dengan sendirinya setelah masa Perjanjian Kerja Waktu Tertentu (PKWT) berakhir.</Text>
           <TextBrush>Black</TextBrush>
+          <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
           <Type>Expression</Type>
         </Text37>
+        <Text69 Ref="62" type="Text" isKey="true">
+          <Brush>EmptyBrush</Brush>
+          <ClientRectangle>22,56,6,4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Times New Roman,12</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text69</Name>
+          <Page isRef="55" />
+          <Parent isRef="55" />
+          <Text>1.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text69>
+        <Text70 Ref="63" type="Text" isKey="true">
+          <Brush>EmptyBrush</Brush>
+          <ClientRectangle>22,86,6,4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Times New Roman,12</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text70</Name>
+          <Page isRef="55" />
+          <Parent isRef="55" />
+          <Text>2.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text70>
+        <Text71 Ref="64" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>30,140,154,22</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Calibri,12</Font>
+          <HorAlignment>Width</HorAlignment>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text71</Name>
+          <Page isRef="55" />
+          <Parent isRef="55" />
+          <Text>Apabila PIHAK KEDUA diberhentikan sebelum tanggal pembayaran THR, maka PIHAK PERTAMA tidak berkewajiban membayarkan Tunjangan Hari Raya ini, terkecuali diatur oleh Peraturan Ketenagakerjaan di Indonesia.</Text>
+          <TextBrush>Black</TextBrush>
+          <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+          <Type>Expression</Type>
+        </Text71>
+        <Text72 Ref="65" type="Text" isKey="true">
+          <Brush>EmptyBrush</Brush>
+          <ClientRectangle>22,140,6,4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Times New Roman,12</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text72</Name>
+          <Page isRef="55" />
+          <Parent isRef="55" />
+          <Text>2.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text72>
+        <Text73 Ref="66" type="Text" isKey="true">
+          <Brush>EmptyBrush</Brush>
+          <ClientRectangle>22,118,6,4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Times New Roman,12</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text73</Name>
+          <Page isRef="55" />
+          <Parent isRef="55" />
+          <Text>1.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text73>
+        <Text74 Ref="67" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>28,194,156,34</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Calibri,12</Font>
+          <HorAlignment>Width</HorAlignment>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text74</Name>
+          <Page isRef="55" />
+          <Parent isRef="55" />
+          <Text>PIHAK PERTAMA dan PIHAK KEDUA sepakat untuk mengakhiri perjanjian kerja ini dengan alasan atau keadaan sebagai berikut :
+  a. PIHAK KEDUA tidak dapat menjalankan kesepakatan dalam perjanjian ini.
+  b. PIHAK KEDUA meninggal dunia.
+ c. PIHAK KEDUA diputus hubungan kerjanya oleh PIHAK PERTAMA sebelum masa perjanjian ini berakhir karena suatu alasan atau sebab tertentu.</Text>
+          <TextBrush>Black</TextBrush>
+          <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+          <Type>Expression</Type>
+        </Text74>
+        <Text75 Ref="68" type="Text" isKey="true">
+          <Brush>EmptyBrush</Brush>
+          <ClientRectangle>22,194,6,4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Times New Roman,12</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text75</Name>
+          <Page isRef="55" />
+          <Parent isRef="55" />
+          <Text>2.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text75>
+        <Text76 Ref="69" type="Text" isKey="true">
+          <Brush>EmptyBrush</Brush>
+          <ClientRectangle>22,182,6,4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Times New Roman,12</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text76</Name>
+          <Page isRef="55" />
+          <Parent isRef="55" />
+          <Text>1.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text76>
       </Components>
       <Conditions isList="true" count="0" />
       <Guid>284ceb338f4141138f137646836e7b1a</Guid>
-      <Margins>0.5,0.5,0.5,0.5</Margins>
+      <Margins>5,5,5,5</Margins>
       <Name>Page3</Name>
-      <PageHeight>29.7</PageHeight>
-      <PageWidth>21</PageWidth>
+      <PageHeight>297</PageHeight>
+      <PageWidth>210</PageWidth>
       <Report isRef="0" />
-      <Watermark Ref="48" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+      <Watermark Ref="70" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
         <AspectRatio>True</AspectRatio>
         <Font>Arial,100</Font>
         <ImageBytes>iVBORw0KGgoAAAANSUhEUgAABmcAAAkOCAYAAABPl437AAAACXBIWXMAAAsTAAALEwEAmpwYAACA
@@ -9557,149 +9837,288 @@ AAAASUVORK5CYII=</ImageBytes>
         <TextBrush>[50:0:0:0]</TextBrush>
       </Watermark>
     </Page3>
-    <Page4 Ref="49" type="Page" isKey="true">
+    <Page4 Ref="71" type="Page" isKey="true">
       <Border>None;Black;2;Solid;False;4;Black</Border>
       <Brush>Transparent</Brush>
-      <Components isList="true" count="8">
-        <Text38 Ref="50" type="Text" isKey="true">
+      <Components isList="true" count="19">
+        <Text38 Ref="72" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>7.6,4,5.2,1</ClientRectangle>
+          <ClientRectangle>76,40,52,10</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12,Bold</Font>
           <HorAlignment>Center</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text38</Name>
-          <Page isRef="49" />
-          <Parent isRef="49" />
+          <Page isRef="71" />
+          <Parent isRef="71" />
           <Text>Pasal 8
 Penyelesaian Perselisihan</Text>
           <TextBrush>Black</TextBrush>
           <Type>Expression</Type>
         </Text38>
-        <Text39 Ref="51" type="Text" isKey="true">
+        <Text39 Ref="73" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>2.6,5.4,16.4,2.4</ClientRectangle>
+          <ClientRectangle>30,54,162,10</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <HorAlignment>Width</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text39</Name>
-          <Page isRef="49" />
-          <Parent isRef="49" />
-          <Text>1. Semua bentuk perselisihan antara PIHAK PERTAMA dan PIHAK KEDUA diupayakan 
-   diselesaikan secara kekeluargaan dengan cara musyawarah mufakat.
-2. Jika tidak terdapat kesepakatan dalam penyelesaian perselisihan antara PIHAK PERTAMA 
-    dan PIHAK KEDUA maka kedua belah pihak sepakat untuk meminta bantuan kepada LPPHI 
-    (Lembaga Penyelesaian Perselisihan Hubungan Industrial) untuk mencari penyelesaian.</Text>
+          <Page isRef="71" />
+          <Parent isRef="71" />
+          <Text>Semua bentuk perselisihan antara PIHAK PERTAMA dan PIHAK KEDUA diupayakan diselesaikan secara kekeluargaan dengan cara musyawarah mufakat.</Text>
           <TextBrush>Black</TextBrush>
+          <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
           <Type>Expression</Type>
         </Text39>
-        <Text40 Ref="52" type="Text" isKey="true">
+        <Text40 Ref="74" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>7.6,9,5.2,1.2</ClientRectangle>
+          <ClientRectangle>76,90,52,12</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12,Bold</Font>
           <HorAlignment>Center</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text40</Name>
-          <Page isRef="49" />
-          <Parent isRef="49" />
+          <Page isRef="71" />
+          <Parent isRef="71" />
           <Text>Pasal 9
 Penandatanganan Perjanjian</Text>
           <TextBrush>Black</TextBrush>
           <Type>Expression</Type>
         </Text40>
-        <Text41 Ref="53" type="Text" isKey="true">
+        <Text41 Ref="75" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>3,10.8,16.2,6</ClientRectangle>
+          <ClientRectangle>30,108,162,16</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <HorAlignment>Width</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text41</Name>
-          <Page isRef="49" />
-          <Parent isRef="49" />
-          <Text>1. Hal-hal lain mengenai syarat kerja, hak, kewajiban, tata tertib dan lain sebagainya yang 
-   belum tercantum dalam perjanjian ini akan diatur tersendiri sesuai dengan Peraturan 
-   Perusahaan dan atau Perundang-undangan yang berlaku.
-2. Perubahan terhadap isi perjanjian ini terlebih dahulu akan dibicarakan oleh kedua pihak.
-3. Perjanjian ini dibuat rangkap dua dan mempunyai kekuatan hukum yang sama serta 
-    disepakati oleh kedua belah pihak dalam keadaan sadar sepenuhnya, sehat jasmani dan 
-    rohani tanpa adanya unsur paksaan dari pihak manapun.
-4. Dengan ditandatanganinya Perjanjian Kerja Waktu Tertentu ini maka kedua belah pihak 
-   sepakat untuk menjalankan atau melaksanakan ketentuan-ketentuan atau syarat-syarat 
-   kerja yang tertuang dalam pasal-pasal perjanjian ini dan kedua belah pihak terikat demi 
-   hukum dalam suatu hubungan kerja.</Text>
+          <Page isRef="71" />
+          <Parent isRef="71" />
+          <Text>Hal-hal lain mengenai syarat kerja, hak, kewajiban, tata tertib dan lain sebagainya yang belum tercantum dalam perjanjian ini akan diatur tersendiri sesuai dengan Peraturan Perusahaan dan atau Perundang-undangan yang berlaku.</Text>
           <TextBrush>Black</TextBrush>
+          <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
           <Type>Expression</Type>
         </Text41>
-        <Text42 Ref="54" type="Text" isKey="true">
+        <Text42 Ref="76" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>3.6,19.6,7,1</ClientRectangle>
+          <ClientRectangle>30,194,68,6</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <HorAlignment>Width</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text42</Name>
-          <Page isRef="49" />
-          <Parent isRef="49" />
-          <Text>{pihak2.wilpen}, {info.nmhari} {info.tgl} {info.bulan} {info.tahun}
-PIHAK PERTAMA</Text>
+          <Page isRef="71" />
+          <Parent isRef="71" />
+          <Text>{pihak2.wilpen}, {info.tgl} {info.bulan} {info.tahun}</Text>
           <TextBrush>Black</TextBrush>
           <Type>Expression</Type>
         </Text42>
-        <Text43 Ref="55" type="Text" isKey="true">
+        <Text43 Ref="77" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>14.8,20.2,3.2,0.8</ClientRectangle>
+          <ClientRectangle>140,200,32,4</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <HorAlignment>Width</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text43</Name>
-          <Page isRef="49" />
-          <Parent isRef="49" />
+          <Page isRef="71" />
+          <Parent isRef="71" />
           <Text>PIHAK KEDUA</Text>
           <TextBrush>Black</TextBrush>
           <Type>Expression</Type>
         </Text43>
-        <Text44 Ref="56" type="Text" isKey="true">
+        <Text44 Ref="78" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>3.6,23,6,1</ClientRectangle>
+          <ClientRectangle>30,230,60,10</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <Margins>0,0,0,0</Margins>
           <Name>Text44</Name>
-          <Page isRef="49" />
-          <Parent isRef="49" />
+          <Page isRef="71" />
+          <Parent isRef="71" />
           <Text>{pihak1.nmlengkap}
 {pihak1.nmjabatan}</Text>
           <TextBrush>Black</TextBrush>
           <Type>Expression</Type>
         </Text44>
-        <Text45 Ref="57" type="Text" isKey="true">
+        <Text45 Ref="79" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>14,23,6,1</ClientRectangle>
+          <ClientRectangle>140,230,58,10</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <HorAlignment>Width</HorAlignment>
           <Margins>0,0,0,0</Margins>
           <Name>Text45</Name>
-          <Page isRef="49" />
-          <Parent isRef="49" />
+          <Page isRef="71" />
+          <Parent isRef="71" />
           <Text>{pihak2.nmlengkap}
-	Karyawan</Text>
+ Karyawan</Text>
           <TextBrush>Black</TextBrush>
           <Type>Expression</Type>
         </Text45>
+        <Text53 Ref="80" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>30,200,32,4</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Calibri,12</Font>
+          <HorAlignment>Width</HorAlignment>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text53</Name>
+          <Page isRef="71" />
+          <Parent isRef="71" />
+          <Text>PIHAK PERTAMA</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text53>
+        <Text54 Ref="81" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <CanGrow>True</CanGrow>
+          <ClientRectangle>30,124,162,6</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Calibri,12</Font>
+          <HorAlignment>Width</HorAlignment>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text54</Name>
+          <Page isRef="71" />
+          <Parent isRef="71" />
+          <Text>Perubahan terhadap isi perjanjian ini terlebih dahulu akan dibicarakan oleh kedua pihak.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text54>
+        <Text55 Ref="82" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>30,130,162,16</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Calibri,12</Font>
+          <HorAlignment>Width</HorAlignment>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text55</Name>
+          <Page isRef="71" />
+          <Parent isRef="71" />
+          <Text>Perjanjian ini dibuat rangkap dua dan mempunyai kekuatan hukum yang sama serta disepakati oleh kedua belah pihak dalam keadaan sadar sepenuhnya, sehat jasmani dan rohani tanpa adanya unsur paksaan dari pihak manapun.</Text>
+          <TextBrush>Black</TextBrush>
+          <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+          <Type>Expression</Type>
+        </Text55>
+        <Text56 Ref="83" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>30,146,162,22</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Calibri,12</Font>
+          <HorAlignment>Width</HorAlignment>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text56</Name>
+          <Page isRef="71" />
+          <Parent isRef="71" />
+          <Text>Dengan ditandatanganinya Perjanjia Kerja Waktu Tertentu ini maka kedua belah pihak sepakat untuk menjalankan atau melaksanakan ketentuan-ketentuan atau syarat-syarat kerja yang tertuang dalam pasal-pasal perjanjian ini dan kedua belah pihak terikat demi hukum dalam suatu hubungan kerja.</Text>
+          <TextBrush>Black</TextBrush>
+          <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+          <Type>Expression</Type>
+        </Text56>
+        <Text59 Ref="84" type="Text" isKey="true">
+          <Brush>EmptyBrush</Brush>
+          <ClientRectangle>22,130,6,6</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Calibri,12</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text59</Name>
+          <Page isRef="71" />
+          <Parent isRef="71" />
+          <Text>3.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text59>
+        <Text60 Ref="85" type="Text" isKey="true">
+          <Brush>EmptyBrush</Brush>
+          <ClientRectangle>22,146,6,6</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Calibri,12</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text60</Name>
+          <Page isRef="71" />
+          <Parent isRef="71" />
+          <Text>4.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text60>
+        <Text61 Ref="86" type="Text" isKey="true">
+          <Brush>Transparent</Brush>
+          <ClientRectangle>30,66,162,10</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Calibri,12</Font>
+          <HorAlignment>Width</HorAlignment>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text61</Name>
+          <Page isRef="71" />
+          <Parent isRef="71" />
+          <Text>Jika tidak terdapat kesepakatan dalam penyelesaian perselisihan antara PIHAK PERTAMA dan PIHAK KEDUA maka kedua belah pihak sepakat untuk meminta bantuan kepada LPPHI (Lembaga Penyelesaian Perselisihan Hubungan Industrial) untuk mencari penyelesaian.</Text>
+          <TextBrush>Black</TextBrush>
+          <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
+          <Type>Expression</Type>
+        </Text61>
+        <Text62 Ref="87" type="Text" isKey="true">
+          <Brush>EmptyBrush</Brush>
+          <ClientRectangle>22,54,6,6</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Calibri,12</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text62</Name>
+          <Page isRef="71" />
+          <Parent isRef="71" />
+          <Text>1.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text62>
+        <Text63 Ref="88" type="Text" isKey="true">
+          <Brush>EmptyBrush</Brush>
+          <ClientRectangle>22,66,6,6</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Calibri,12</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text63</Name>
+          <Page isRef="71" />
+          <Parent isRef="71" />
+          <Text>2.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text63>
+        <Text57 Ref="89" type="Text" isKey="true">
+          <Brush>EmptyBrush</Brush>
+          <ClientRectangle>22,108,6,6</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Calibri,12</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text57</Name>
+          <Page isRef="71" />
+          <Parent isRef="71" />
+          <Text>1.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text57>
+        <Text79 Ref="90" type="Text" isKey="true">
+          <Brush>EmptyBrush</Brush>
+          <ClientRectangle>22,122,6,6</ClientRectangle>
+          <Conditions isList="true" count="0" />
+          <Font>Calibri,12</Font>
+          <Margins>0,0,0,0</Margins>
+          <Name>Text79</Name>
+          <Page isRef="71" />
+          <Parent isRef="71" />
+          <Text>2.</Text>
+          <TextBrush>Black</TextBrush>
+          <Type>Expression</Type>
+        </Text79>
       </Components>
       <Conditions isList="true" count="0" />
       <Guid>f2d29496518345afbd344e10f939746f</Guid>
-      <Margins>0.5,0.5,0.5,0.5</Margins>
+      <Margins>5,5,5,5</Margins>
       <Name>Page4</Name>
-      <PageHeight>29.7</PageHeight>
-      <PageWidth>21</PageWidth>
+      <PageHeight>297</PageHeight>
+      <PageWidth>210</PageWidth>
       <Report isRef="0" />
-      <Watermark Ref="58" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
+      <Watermark Ref="91" type="Stimulsoft.Report.Components.StiWatermark" isKey="true">
         <AspectRatio>True</AspectRatio>
         <Font>Arial,100</Font>
         <ImageBytes>iVBORw0KGgoAAAANSUhEUgAABmcAAAkOCAYAAABPl437AAAACXBIWXMAAAsTAAALEwEAmpwYAACA
@@ -12669,12 +13088,12 @@ AAAASUVORK5CYII=</ImageBytes>
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>4/17/2025 2:39:05 PM</ReportChanged>
+  <ReportChanged>5/22/2025 4:11:54 PM</ReportChanged>
   <ReportCreated>3/15/2025 10:49:50 AM</ReportCreated>
-  <ReportFile>D:\WEB\apache2\htdocs\hrms.nusa.new\assets\mrt\pkwt_nusa.mrt</ReportFile>
-  <ReportGuid>8c073f8bd4ef4592af19677d9d02b15c</ReportGuid>
+  <ReportFile>D:\WEB\apache2\htdocs\hrms.nusa\assets\mrt\pkwt_nusa.mrt</ReportFile>
+  <ReportGuid>e582544123514d3bbdf7ae741fceb44d</ReportGuid>
   <ReportName>Report</ReportName>
-  <ReportUnit>Centimeters</ReportUnit>
+  <ReportUnit>Millimeters</ReportUnit>
   <ReportVersion>2020.2.3.0</ReportVersion>
   <Script>using System;
 using System.Drawing;

@@ -420,6 +420,40 @@ function masa_kontrak($tgl_mulai, $tgl_selesai) {
     return $result;
 }
 
+function masa_kontrak2($tgl_mulai, $tgl_selesai) {
+    // Membuat objek DateTime
+    $date1 = new DateTime($tgl_mulai);
+    $date2 = new DateTime($tgl_selesai);
+
+    // Hitung selisih tahun dan bulan
+    $year_diff = $date2->format('Y') - $date1->format('Y');
+    $month_diff = $date2->format('m') - $date1->format('m');
+
+    // Jika bulan selisihnya negatif, kurangi tahun dan perbaiki bulan
+    if ($month_diff < 0) {
+        $year_diff--;
+        $month_diff += 12;
+    }
+
+    // Total bulan yang dihitung dengan menambah 1 untuk bulan pertama
+    $total_months = ($year_diff * 12) + $month_diff + 1;
+
+    // Adjust total_months if it is 7 or 13
+    if ($total_months == 7) {
+        $total_months = 6;
+    } elseif ($total_months == 13) {
+        $total_months = 12;
+    } elseif ($total_months == 5) {
+        $total_months = 6;
+    } elseif ($total_months == 11) {
+        $total_months = 12;
+    }
+
+    $total_bulan_kata = $this->angka_ke_kata($total_months);
+    $result = $total_months . ' ('. $total_bulan_kata;
+    return $result;
+}
+
 function pkwt_terakhir($nik){
     return $this->db->query("
                 select a.*,b.nmkepegawaian,b.nmkepegawaian,ROW_NUMBER() OVER (ORDER BY tgl_selesai desc) AS row_number,c.nmlengkap,to_char(a.tgl_mulai,'dd-mm-YYYY')as tgl_mulai1,

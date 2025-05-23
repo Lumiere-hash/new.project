@@ -264,50 +264,55 @@
             </div>
         </div>
          <!-- tabel sp -->
-             <div class="col-md-12">
-            <div class="box box-success box-solid">
+          <!-- <?php //var_dump($leveljbt);
+            //die(); ?> -->
+        <script>console.log('leveljbt: <?php echo $leveljbt; ?>');</script>
+        <?php if (!in_array($leveljbt, ['D', 'E', 'F', 'G'])): ?>
+            <div class="col-md-12">
+                <div class="box box-success box-solid">
                 <div class="box-header with-border">
                     <center><h3 class="box-title">Daftar Penilaian Karyawan</h3></center>
                     <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool refresh" data-action="conditee" title="Perbarui data" onclick="refreshData('conditee')"><i class="fa fa-refresh"></i></button>
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
+                    <button type="button" class="btn btn-box-tool refresh" data-action="conditee" title="Perbarui data" onclick="refreshData('conditee')"><i class="fa fa-refresh"></i></button>
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                    </button>
                     </div>
 
                 </div>
 
                 <div class="box-body">
-                        <div class="table-responsive">
-                        <table id="t_pk" class="display nowrap table table-striped no-margin" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th width="1%">No</th>
-                                    <th width="10%">NIK</th>
-                                    <th width="10%">Nama</th>
-                                    <th width="5%">Bagian</th>
-                                    <th width="5%">Jenis</th>
-                                    <th width="10%">Akhir</th>
-                                    <th width="10%">Keterangan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach($list_pk as $k => $v):?>
-                                    <tr>
-                                        <td class="text-nowrap text-center"><?php echo ($k + 1);?></td>
-                                        <td class="text-nowrap"><?php echo trim($v->nik);?></td>
-                                        <td><?php echo trim($v->nmlengkap);?></td>
-                                        <td><?php echo trim($v->nmdept);?></td>
-                                        <td><?php echo trim($v->nmkepegawaian);?></td>
-                                        <td><?php echo trim($v->tgl_selesai1);?></td>
-                                        <td><?php echo empty($v->deskappr) ? 'BELUM DINILAI' : $v->deskappr; ?></td>
-                                    </tr>
-                                <?php endforeach;?>
-                            </tbody>
-                        </table>
+                    <div class="table-responsive">
+                    <table id="t_pk" class="display nowrap table table-striped no-margin" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th width="1%">No</th>
+                            <th width="10%">NIK</th>
+                            <th width="10%">Nama</th>
+                            <th width="5%">Bagian</th>
+                            <th width="5%">Jenis</th>
+                            <th width="10%">Akhir</th>
+                            <th width="10%">Keterangan</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach($list_pk as $k => $v):?>
+                            <tr>
+                            <td class="text-nowrap text-center"><?php echo ($k + 1);?></td>
+                            <td class="text-nowrap"><?php echo trim($v->nik);?></td>
+                            <td><?php echo trim($v->nmlengkap);?></td>
+                            <td><?php echo trim($v->nmdept);?></td>
+                            <td><?php echo trim($v->nmkepegawaian);?></td>
+                            <td><?php echo trim($v->tgl_selesai1);?></td>
+                            <td><?php echo empty($v->deskappr) ? 'BELUM DINILAI' : $v->deskappr; ?></td>
+                            </tr>
+                        <?php endforeach;?>
+                        </tbody>
+                    </table>
                     </div>
                 </div>
+                </div>
             </div>
-        </div>
+        <?php endif; ?>
     </div>
 </div>
 <!-- Modal Edit / Detail-->

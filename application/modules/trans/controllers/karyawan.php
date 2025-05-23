@@ -2048,7 +2048,7 @@ class Karyawan extends MX_Controller {
         ];
         $kdkepegawaian = $transaction->kdkepegawaian;
         if ($kdkepegawaian != 'KT') {
-            $pihak2['masa_kontrak_bln'] = $this->m_karyawan->masa_kontrak($pihak2['tgl_mulai'], $pihak2['tgl_selesai']);
+            $pihak2['masa_kontrak_bln'] = $this->m_karyawan->masa_kontrak2($pihak2['tgl_mulai'], $pihak2['tgl_selesai']);
         }
         $pihak2['wilpen'] = $this->ucstring($this->m_karyawan->penempatan_karyawan(trim($pihak2['nmlengkap']))->row()->cabang);
         $pihak2['nmlengkap'] = $this->ucstring(trim($pihak2['nmlengkap']));
