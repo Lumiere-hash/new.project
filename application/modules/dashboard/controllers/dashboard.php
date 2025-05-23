@@ -11,7 +11,7 @@ class Dashboard extends MX_Controller
     function __construct()
     {
         parent::__construct();
-        $this->load->model(['m_modular', 'm_geografis', 'web/m_user', 'master/m_akses', 'trans/m_stspeg', 'trans/m_report', 'pk/m_pk','trans/m_skperingatan']);
+        $this->load->model(['m_modular', 'm_geografis', 'web/m_user', 'master/m_akses', 'trans/m_stspeg', 'trans/m_report', 'pk/m_pk','trans/m_skperingatan', "ga/m_kendaraan"]);
         $this->load->library(['form_validation', 'template', 'Excel_Generator']);
         if (!$this->session->userdata('nik')) {
             redirect('web');
@@ -28,7 +28,17 @@ class Dashboard extends MX_Controller
         $setupData = $this->m_option->q_master_read(' TRUE AND kdoption = \'DASHBOARD:ACTIVE\' ')->row();
         
         $version = (empty($setupData) ? 1 : ($setupData->value3 == null ? 1 : $setupData->value3));
+        
+        $nik = $this->session->userdata("nik");
+        $hr = trim($this->db->query("select nik from sc_mst.karyawan where bag_dept = 'HA' and nik = '$nik'")
+                                ->row()->nik);
+        if ($hr == $nik) {
+        $version = 3;
+        }
+        else {
         $version = 2;
+
+        }
         $data = array(
             'title' => 'DASHBOARD '.$version,
             'content' => 'dashboard/dashboard/base',
@@ -655,12 +665,91 @@ class Dashboard extends MX_Controller
 //                        ->header('Aksi', '', false, false, true, array('detail'));
                     $this->datatablessp->generateajax();
                 }
-                break;
+                    break;
+                case 3:
+
+            $data["title"] = "Home";
+            $data["rowakses"] = $this->m_akses->list_aksesperdep()->num_rows();
+            $nik = $this->session->userdata("nik");
+          
+            $hr = trim($this->db->query("select nik from sc_mst.karyawan where bag_dept = 'HA' and nik = '$nik'")
+                                    ->row()->nik);
+        
+
+        //if($data["rowakses"] > 0 || $data["level"] == "A") {
+            $data["list_ojt"] = $this->m_stspeg->q_list_ojt()->result();
+            $data["title_ojt"] = "Karyawan OJT (On Job Training)";
+
+            $data["list_kontrak"] = $this->m_stspeg->q_list_karkon()->result();
+            $data["title_kontrak"] = "Karyawan Kontrak";
+
+            $data["list_pensiun"] = $this->m_stspeg->q_list_karpen()->result();
+            $data["title_pensiun"] = "Karyawan Pensiun";
+
+            $data["list_magang"] = $this->m_stspeg->q_list_magang()->result();
+            $data["title_magang"] = "Karyawan Magang";
+
+            $data["list_kendaraan"] = $this->m_kendaraan->q_mstkendaraan()->result();;
+            $data["title_kendaraan"] = "Kendaraan";
+			
+			$data["list_kir_kendaraan"] = $this->m_kendaraan->q_kirkendaraan()->result();;
+            $data["title_kir_kendaraan"] = "KIR Kendaraan";
+
+			$data["list_cuti"] = $this->m_report->q_remind_cuti()->result();
+			$data["title_cuti"] = "Karyawan Cuti / Cuti Khusus Harian";
+
+			$data["list_dinas"] = $this->m_report->q_remind_dinas()->result();
+			$data["title_dinas"] = "Karyawan Dinas";
+
+			$data["list_ijin"] = $this->m_report->q_remind_ijin()->result();
+			$data["title_ijin"] = "Karyawan Ijin";
+
+			$data["list_lembur"] = $this->m_report->q_remind_lembur()->result();
+			$data["title_lembur"] = "Karyawan Lembur";
+
+			if(trim($hr) != trim($nik)){
+			$parampk = "AND c.nik_atasan = '$nik' or c.nik_atasan2 = '$nik'";
+				}
+			$data["list_pk"] = $this->m_pk->q_remind_pk($parampk)->result();
+			$data["title_pk"] = "Penilaian Karyawan kontrak";
+			
+			if(trim($hr) == trim($nik)){
+			$data["list_tl"] = $this->m_report->q_remind_tl()->result();
+			$data["title_tl"] = "Karyawan Terlambat";
+				}
+			
+			if(empty($hr)){
+			$paramsp = "AND nik = '$nik'";
+			}
+			$data["list_sp"] = $this->m_report->q_remind_sp($paramsp)->result();
+			$data["title_sp"] = "informasi sp";
+		//}
+        if ($this->session->userdata('firstuse')){
+            $this->load->model(array('trans/m_karyawan'));
+            $employee = $this->m_karyawan->q_karyawan_read('TRUE AND trim(nik) = \'' . trim($this->session->userdata('nik')) . '\' ')->row();
+            $user = $this->m_user->cekUser(trim($this->session->userdata('nik')))->row();
+            $data['default'] = array(
+                'user'=> trim($user->nik).'|'.trim($user->username),
+                'tipe' => 'edit'
+            );
+            $data['modalTitle'] = 'Selamat datang '.(!empty($employee) ? $employee->callname : 'user');
+        }
+        $day = 4;
+        $data["title_recent"] = "Aktifitas ". $day ." Hari Terakhir (Recent Latest Employee Activity)";
+
+        $data['dtlbroadcast'] = $this->m_modular->q_broadcast_dashboard()->row_array();
+
+		$data['content'] = 'dashboard/dashboard/content/v3';
+        break;
         }
            // data pk
         $nikuser = $this->session->userdata("nik");
         $parampk = "AND c.nik_atasan = '$nikuser' or c.nik_atasan2 = '$nikuser' and a.kdkepegawaian not in('KO', 'KT','MG','PK') and a.status='B' and tgl_selesai - INTERVAL '2 months' <= CURRENT_DATE ";
+        $data["leveljbt"] = trim($this->db->query("select lvl_jabatan from sc_mst.karyawan where nik = '$nikuser'")
+                                    ->row()->lvl_jabatan);   
         $data["list_pk"] = $this->m_pk->q_remind_pk($parampk)->result();
+        
+
 
         $this->load->view($data['content'],$data);
     }
