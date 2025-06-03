@@ -1781,7 +1781,7 @@ class Karyawan extends MX_Controller {
                 'mailstatus' => 'NO_SENT',
             );
             if (!empty ($employee->email)) {
-                $this->db->insert('public.mail_outbox', $info);
+                //$this->db->insert('public.mail_outbox', $info);
             }
             $this->db->trans_complete();
             if ($this->db->trans_status()) {
