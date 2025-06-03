@@ -30,7 +30,7 @@ class Dashboard extends MX_Controller
         $version = (empty($setupData) ? 1 : ($setupData->value3 == null ? 1 : $setupData->value3));
         
         $nik = $this->session->userdata("nik");
-        $hr = trim($this->db->query("select nik from sc_mst.karyawan where bag_dept = 'HA' and nik = '$nik'")
+        $hr = trim($this->db->query("select nik from sc_mst.karyawan where bag_dept = 'HA' and nik = '$nik' and jabatan != 'HR06'")
                                 ->row()->nik);
         if ($hr == $nik) {
         $version = 3;
@@ -677,7 +677,7 @@ class Dashboard extends MX_Controller
         
 
         //if($data["rowakses"] > 0 || $data["level"] == "A") {
-            $data["list_ojt"] = $this->m_stspeg->q_list_ojt()->result();
+            $data["list_ojt"] = $this->m_stspeg->q_list_ojt2()->result();
             $data["title_ojt"] = "Karyawan OJT (On Job Training)";
 
             $data["list_kontrak"] = $this->m_stspeg->q_list_karkon()->result();
@@ -706,12 +706,14 @@ class Dashboard extends MX_Controller
 
 			$data["list_lembur"] = $this->m_report->q_remind_lembur()->result();
 			$data["title_lembur"] = "Karyawan Lembur";
-
+            
+            $data["title_pk"] = "Penilaian Karyawan kontrak HRGA";
 			if(trim($hr) != trim($nik)){
 			$parampk = "AND c.nik_atasan = '$nik' or c.nik_atasan2 = '$nik'";
+            $data["title_pk"] = "Penilaian Karyawan kontrak";
 				}
 			$data["list_pk"] = $this->m_pk->q_remind_pk($parampk)->result();
-			$data["title_pk"] = "Penilaian Karyawan kontrak";
+			
 			
 			if(trim($hr) == trim($nik)){
 			$data["list_tl"] = $this->m_report->q_remind_tl()->result();
@@ -743,11 +745,11 @@ class Dashboard extends MX_Controller
         break;
         }
            // data pk
-        $nikuser = $this->session->userdata("nik");
-        $parampk = "AND c.nik_atasan = '$nikuser' or c.nik_atasan2 = '$nikuser' and a.kdkepegawaian not in('KO', 'KT','MG','PK') and a.status='B' and tgl_selesai - INTERVAL '2 months' <= CURRENT_DATE ";
-        $data["leveljbt"] = trim($this->db->query("select lvl_jabatan from sc_mst.karyawan where nik = '$nikuser'")
-                                    ->row()->lvl_jabatan);   
-        $data["list_pk"] = $this->m_pk->q_remind_pk($parampk)->result();
+        // $nikuser = $this->session->userdata("nik");
+        // $parampk = "AND c.nik_atasan = '$nikuser' or c.nik_atasan2 = '$nikuser' and a.kdkepegawaian not in('KO', 'KT','MG','PK') and a.status='B' and tgl_selesai - INTERVAL '2 months' <= CURRENT_DATE ";
+        // $data["leveljbt"] = trim($this->db->query("select lvl_jabatan from sc_mst.karyawan where nik = '$nikuser'")
+        //                             ->row()->lvl_jabatan);   
+        // $data["list_pk"] = $this->m_pk->q_remind_pk($parampk)->result();
         
 
 

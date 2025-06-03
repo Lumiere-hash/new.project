@@ -563,7 +563,7 @@ class Ijin_karyawan extends MX_Controller
         $nodok = $this->encrypt->decode(hex2bin(trim($this->uri->segment(4))));
         $data['jsonfile'] = "trans/ijin_karyawan/json_ijin_karyawan/$nodok";
         $data['report_file'] = 'assets/mrt/sp_ijin_karyawan.mrt';
-         $this->load->view("trans/dinas/sti_form_dinas", $data);
+        $this->load->view("trans/dinas/sti_form_dinas", $data);
         //$this->load->view("stimulsoft/viewer_new",$data);
     }
 

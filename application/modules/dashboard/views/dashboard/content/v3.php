@@ -288,7 +288,10 @@ if ($this->session->userdata('firstuse')){ ?>
                                     <th width="10%">NIK</th>
                                     <th>Nama</th>
                                     <th>Bagian</th>
-                                    <th width="10%">Akhir</th>
+                                    <th>Sts Kontrak</th>
+                                    <th width="10%">mulai</th>
+                                    <th width="10%">ojt</th>
+                                    <th>Keterangan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -298,7 +301,10 @@ if ($this->session->userdata('firstuse')){ ?>
                                         <td class="text-nowrap"><?php echo trim($v->nik);?></td>
                                         <td><?php echo trim($v->nmlengkap);?></td>
                                         <td><?php echo trim($v->nmdept);?></td>
-                                        <td class="text-nowrap text-center"><?php echo date('d-m-Y',strtotime($v->tgl_selesai));?></td>
+                                        <td><?php echo trim($v->nmkepegawaian);?></td>
+                                        <td class="text-nowrap text-center"><?php echo date('d-m-Y',strtotime($v->tgl_mulai));?></td>
+                                        <td class="text-nowrap text-center"><?php echo date('d-m-Y',strtotime($v->tgl_ojt));?></td>
+                                        <td><?php echo trim($v->eventketerangan);?></td>
                                     </tr>
                                 <?php endforeach;?>
                             </tbody>

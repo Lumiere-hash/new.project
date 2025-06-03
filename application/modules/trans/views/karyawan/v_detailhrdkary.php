@@ -1535,7 +1535,7 @@ error_reporting(0);
 					</div><!-- /.box-body -->
 				</div><!-- /.box -->
 			</div>
-			<div class="col-sm-6">
+						<div class="col-sm-6">
 				<div class="box box-danger">
 					<div class="box-body">
 						<div class="form-horizontal">
@@ -1618,6 +1618,17 @@ error_reporting(0);
 								<label class="col-sm-4">Boleh Cuti</label>
 								<div class="col-sm-8">
 									<select class="form-control input-sm" name="cuti" id="kdbahasa">
+										<option  value="F" >TIDAK</option>
+										<option  value="T" >YA</option>
+									</select>
+								</div>
+							</div>
+							</div>
+							<div class="form-group">
+							<div id="ojt" >
+								<label class="col-sm-4">OJT</label>
+								<div class="col-sm-8">
+									<select class="form-control input-sm" name="ojt" id="kdbahasa">
 										<option  value="F" >TIDAK</option>
 										<option  value="T" >YA</option>
 									</select>

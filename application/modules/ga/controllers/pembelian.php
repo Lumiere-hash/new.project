@@ -2521,14 +2521,11 @@ class Pembelian extends MX_Controller
         $qtyminta = (strtoupper(trim($this->input->post('qtyminta'))) == '' ? '0' : strtoupper(trim($this->input->post('qtyminta'))));
         $satkecil = strtoupper($this->input->post('satkecil'));
         $qtykecil = (strtoupper(trim($this->input->post('qtykecil'))) == '' ? '0' : strtoupper(trim($this->input->post('qtykecil'))));
-<<<<<<< Updated upstream
         $unitprice=(strtoupper(trim($this->input->post('unitprice')))=='' ? '0' : str_replace(',','.',(trim($this->input->post('unitprice')))));
         $unitprice=str_replace(".","",$unitprice);
-=======
         $unitprice = (strtoupper(trim($this->input->post('unitprice'))) == '' ? '0' : str_replace(',', '.', (trim($this->input->post('unitprice')))));
         $unitprice=str_replace('.', '', $unitprice);
         // var_dump($unitprice);die();
->>>>>>> Stashed changes
         $checkdisc = strtoupper($this->input->post('checkdisc'));
         
         if ($checkdisc == 'NO') {
@@ -4831,10 +4828,6 @@ class Pembelian extends MX_Controller
 
     function calculation_remap_detail()
     {
-<<<<<<< Updated upstream
-=======
-        
->>>>>>> Stashed changes
         $nama = $this->session->userdata('nik');
         $request_body = file_get_contents('php://input');
         $data = json_decode($request_body);
@@ -4859,11 +4852,8 @@ class Pembelian extends MX_Controller
                 'pkp' => $dataprocess->checkppn,
                 'exppn' => $dataprocess->exppn,
                 'satminta' => $dataprocess->satminta,
-<<<<<<< Updated upstream
                 'qtyminta' => $dataprocess->qtyminta,
-=======
                 'qtyminta' => 3,
->>>>>>> Stashed changes
                 'status' => ''
             );
             //$this->db->where('id',$rowid);

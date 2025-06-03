@@ -167,6 +167,7 @@ class Stspeg extends MX_Controller{
 			$this->template->display('trans/stspeg/v_detail',$data);
 		}	
 	}
+
 	function edit_stspeg(){
 		//$nik1=explode('|',);
 		$nodok=$this->input->post('nodok');
@@ -179,6 +180,7 @@ class Stspeg extends MX_Controller{
 		}
 		
 		$cuti=$this->input->post('cuti');
+		$ojt=$this->input->post('ojt');
 		$tgl_mulai=$this->input->post('tgl_mulai');
 		if ($tgl_mulai==''){ 
 		$tgl_mulai=null;
@@ -193,6 +195,7 @@ class Stspeg extends MX_Controller{
 			'tgl_mulai'=>($tgl_mulai),
 			'tgl_selesai'=>($tgl_selesai),
 			'cuti'=>strtoupper($cuti),
+			'ojt'=>strtoupper($ojt),
 			'keterangan'=>strtoupper($keterangan),
 			'update_date'=>$tgl_input,
 			'update_by'=>strtoupper($inputby),

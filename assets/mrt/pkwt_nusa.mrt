@@ -327,9 +327,11 @@ Tugas dan Penempatan</Text>
         </Text19>
         <Text21 Ref="24" type="Text" isKey="true">
           <Brush>Transparent</Brush>
+          <CanGrow>True</CanGrow>
           <ClientRectangle>68,150,124,4</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
+          <GrowToHeight>True</GrowToHeight>
           <Margins>0,0,0,0</Margins>
           <Name>Text21</Name>
           <Page isRef="6" />
@@ -3417,7 +3419,7 @@ Jangka Waktu</Text>
           <Name>Text24</Name>
           <Page isRef="32" />
           <Parent isRef="32" />
-          <Text>PIHAK PERTAMA menerima dan mempekerjakan PIHAK KEDUA sebagai karyawan dengan status {pihak2.nmkepegawaian} di PT. Nusa Unggul Sarana Adicipta untuk jangka waktu selama {pihak2.masa_kontrak_bln} bulan), terhitung mulai tanggal {pihak2.tgl_mulai} sampai dengan {pihak2.tgl_selesai}.</Text>
+          <Text>PIHAK PERTAMA menerima dan mempekerjakan PIHAK KEDUA sebagai karyawan dengan status {pihak2.nmkepegawaian} di PT. Nusa Unggul Sarana Adicipta untuk jangka waktu selama {pihak2.masa_kontrak_bln} bulan, terhitung mulai tanggal {pihak2.tgl_mulai} sampai dengan {pihak2.tgl_selesai}.</Text>
           <TextBrush>Black</TextBrush>
           <TextOptions>,,,,WordWrap=True,A=0</TextOptions>
           <Type>Expression</Type>
@@ -9954,7 +9956,7 @@ Penandatanganan Perjanjian</Text>
           <Page isRef="71" />
           <Parent isRef="71" />
           <Text>{pihak2.nmlengkap}
- Karyawan</Text>
+Karyawan</Text>
           <TextBrush>Black</TextBrush>
           <Type>Expression</Type>
         </Text45>
@@ -9975,7 +9977,7 @@ Penandatanganan Perjanjian</Text>
         <Text54 Ref="81" type="Text" isKey="true">
           <Brush>Transparent</Brush>
           <CanGrow>True</CanGrow>
-          <ClientRectangle>30,124,162,6</ClientRectangle>
+          <ClientRectangle>30,126,162,6</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <HorAlignment>Width</HorAlignment>
@@ -9989,7 +9991,7 @@ Penandatanganan Perjanjian</Text>
         </Text54>
         <Text55 Ref="82" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>30,130,162,16</ClientRectangle>
+          <ClientRectangle>30,134,162,16</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <HorAlignment>Width</HorAlignment>
@@ -10004,7 +10006,7 @@ Penandatanganan Perjanjian</Text>
         </Text55>
         <Text56 Ref="83" type="Text" isKey="true">
           <Brush>Transparent</Brush>
-          <ClientRectangle>30,146,162,22</ClientRectangle>
+          <ClientRectangle>30,152,162,22</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <HorAlignment>Width</HorAlignment>
@@ -10019,7 +10021,7 @@ Penandatanganan Perjanjian</Text>
         </Text56>
         <Text59 Ref="84" type="Text" isKey="true">
           <Brush>EmptyBrush</Brush>
-          <ClientRectangle>22,130,6,6</ClientRectangle>
+          <ClientRectangle>22,134,6,6</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <Margins>0,0,0,0</Margins>
@@ -10032,7 +10034,7 @@ Penandatanganan Perjanjian</Text>
         </Text59>
         <Text60 Ref="85" type="Text" isKey="true">
           <Brush>EmptyBrush</Brush>
-          <ClientRectangle>22,146,6,6</ClientRectangle>
+          <ClientRectangle>22,152,6,6</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <Margins>0,0,0,0</Margins>
@@ -10099,7 +10101,7 @@ Penandatanganan Perjanjian</Text>
         </Text57>
         <Text79 Ref="90" type="Text" isKey="true">
           <Brush>EmptyBrush</Brush>
-          <ClientRectangle>22,122,6,6</ClientRectangle>
+          <ClientRectangle>22,126,6,6</ClientRectangle>
           <Conditions isList="true" count="0" />
           <Font>Calibri,12</Font>
           <Margins>0,0,0,0</Margins>
@@ -13088,10 +13090,10 @@ AAAASUVORK5CYII=</ImageBytes>
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>5/22/2025 4:11:54 PM</ReportChanged>
+  <ReportChanged>5/30/2025 9:32:03 AM</ReportChanged>
   <ReportCreated>3/15/2025 10:49:50 AM</ReportCreated>
   <ReportFile>D:\WEB\apache2\htdocs\hrms.nusa\assets\mrt\pkwt_nusa.mrt</ReportFile>
-  <ReportGuid>e582544123514d3bbdf7ae741fceb44d</ReportGuid>
+  <ReportGuid>2941fcec613f45a5894c0df8c20a7a7a</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Millimeters</ReportUnit>
   <ReportVersion>2020.2.3.0</ReportVersion>
