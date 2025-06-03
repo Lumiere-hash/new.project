@@ -334,6 +334,17 @@ function monthmin2($date){
 									</select>	
 								</div>
 							</div>
+							<div class="form-group">
+							<div id="ojt" >
+								<label class="col-sm-4">OJT</label>
+								<div class="col-sm-8">
+									<select class="form-control input-sm" name="ojt" id="kdbahasa">
+										<option  value="F" >TIDAK</option>
+										<option  value="T" >YA</option>
+									</select>
+								</div>
+							</div>
+							</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-4">Keterangan</label>	
@@ -513,6 +524,19 @@ function monthmin2($date){
 										<select class="form-control input-sm" name="cuti" id="kdbahasa">
 											<option <?php if(trim($lb->cuti)=='T'){ echo 'selected';} ?>  value="T" >YA</option>	
 											<option  <?php if(trim($lb->cuti)=='F'){ echo 'selected';} ?>  value="F" >TIDAK</option>
+										</select>	
+									</div>
+								</div>
+							</div>	
+							</div>	
+							<div id="bolehcuti2" class="bolehcutiKO bolehcutiMG" >
+							<div class="form-group">
+								<div id="bolehcuti" class="bolehcuti" >
+									<label class="col-sm-4">OJT</label>	
+									<div class="col-sm-8">    
+										<select class="form-control input-sm" name="ojt" id="kdbahasa">
+											<option <?php if(trim($lb->ojt)=='T'){ echo 'selected';} ?>  value="T" >YA</option>	
+											<option  <?php if(trim($lb->ojt)=='F' || trim($lb->ojt)==''){ echo 'selected';} ?>  value="F" >TIDAK</option>
 										</select>	
 									</div>
 								</div>
@@ -811,6 +835,26 @@ function monthmin2($date){
 															} ?> value="T">YA
 															</option>
 															<option <?php if (trim($ld->cuti) == 'F') {
+																echo 'selected';
+															} ?> value="F">TIDAK
+															</option>
+														</select>
+													</div>
+												</div>
+											</div>
+										</div>
+													<div id="bolehcuti2" class="bolehcutiKO bolehcutiMG">
+											<div class="form-group">
+												<div id="bolehcuti" class="bolehcuti" disabled="">
+													<label class="col-sm-4">karyawan ojt</label>
+													<div class="col-sm-8">
+														<select class="form-control input-sm" name="cuti" id="kdbahasa"
+																disabled>
+															<option <?php if (trim($ld->ojt) == 'T') {
+																echo 'selected';
+															} ?> value="T">YA
+															</option>
+															<option <?php if (trim($ld->ojt) == 'F' || trim($ld->ojt) == '') {
 																echo 'selected';
 															} ?> value="F">TIDAK
 															</option>

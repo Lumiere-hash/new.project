@@ -8,7 +8,8 @@ SELECT * FROM (
     SELECT
         COALESCE(TRIM(a.kdtrx), '') AS id,
         COALESCE(TRIM(a.uraian), '') AS text,
-        COALESCE(TRIM(a.jenistrx), '') AS group
+        COALESCE(TRIM(a.jenistrx), '') AS group,
+        COALESCE(TRIM(a.jenistrx), '') AS type
     FROM sc_mst.trxtype a
     ORDER BY a.jenistrx, a.kdtrx
     ) AS a

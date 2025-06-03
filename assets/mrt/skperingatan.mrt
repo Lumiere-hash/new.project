@@ -132,9 +132,7 @@
           <Name>Text23</Name>
           <Page isRef="6" />
           <Parent isRef="6" />
-          <Text>{(detail.tindakan != null &amp;&amp; (detail.tindakan == "TT" || detail.tindakan == "TL")) 
-    ? "" 
-    : "No. " + detail.docno}
+          <Text>{"No. " + detail.docno}
 
 </Text>
           <TextBrush>Black</TextBrush>
@@ -3504,10 +3502,10 @@ AAAASUVORK5CYII=</ImageBytes>
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>5/16/2025 9:20:53 AM</ReportChanged>
+  <ReportChanged>5/30/2025 9:04:44 AM</ReportChanged>
   <ReportCreated>3/15/2025 10:49:50 AM</ReportCreated>
-  <ReportFile>D:\WEB\apache2\htdocs\hrms.nusa.new\assets\mrt\skperingatan.mrt</ReportFile>
-  <ReportGuid>1ffc9b93c4b945db97cd1ad80dbd9f1c</ReportGuid>
+  <ReportFile>D:\WEB\apache2\htdocs\hrms.nusa\assets\mrt\skperingatan.mrt</ReportFile>
+  <ReportGuid>b148d27c2e424c8099f0897fb0008640</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Centimeters</ReportUnit>
   <ReportVersion>2020.2.3.0</ReportVersion>

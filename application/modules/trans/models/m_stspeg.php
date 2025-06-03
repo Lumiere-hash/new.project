@@ -119,43 +119,50 @@ class M_stspeg extends CI_Model
         function q_list_ojt2($param = null)
     {
         return $this->db->query("SELECT *,  
-                    CASE 
-                        WHEN valueday < 0 THEN 'TERLEWAT ' || (valueday) * -1 || ' HARI' 
-                        WHEN valueday = 0 THEN 'PAS HARI INI' 
-                        WHEN valueday > 0 THEN 'KURANG ' || (valueday) || ' HARI LAGI' 
-                        ELSE '' 
-                    END AS eventketerangan 
-                FROM sc_mst.lv_m_karyawan x
-                LEFT OUTER JOIN (
-                    SELECT a.*, b.nmkepegawaian, tgl_selesai - CAST(NOW() AS DATE) AS valueday 
-                    FROM (
-                        SELECT a.* 
-                        FROM sc_trx.status_kepegawaian a
-                        JOIN (
-                            SELECT nik, kdkepegawaian, MAX(nodok) AS nodok 
-                            FROM sc_trx.status_kepegawaian 
-                            GROUP BY nik, kdkepegawaian
-                        ) b ON a.nik = b.nik AND a.kdkepegawaian = b.kdkepegawaian AND a.nodok = b.nodok
-                    ) a
-                    LEFT OUTER JOIN sc_mst.status_kepegawaian b ON a.kdkepegawaian = b.kdkepegawaian
-                ) y ON x.nik = y.nik AND x.statuskepegawaian = y.kdkepegawaian
-                WHERE 
-                    coalesce(x.statuskepegawaian, '') != 'KO'
-                    AND y.status = 'B'
-                    AND (
-                        (
-                            coalesce(x.statuskepegawaian, '') IN ('OJ', 'PK') 
-                            AND valueday <= 60
-                        ) 
-                        OR (
-                            x.lvl_jabatan = 'D' AND valueday <= 60 AND  coalesce(x.statuskepegawaian, '') IN ('OJ', 'PK', 'P1') 
-                        )
-                        OR (
-                            x.lvl_jabatan = 'C' AND valueday <= 120 AND  coalesce(x.statuskepegawaian, '') IN ('OJ', 'PK', 'P1') 
-                        )
-                    )
-                ORDER BY valueday ASC;
-                ");
+                CASE 
+                WHEN DATE_PART('day', valueday) < 0 THEN 
+                    'TERLEWAT ' || (DATE_PART('day', valueday) * -1)::text || ' HARI'
+                WHEN DATE_PART('day', valueday) = 0 THEN 
+                    'PAS HARI INI'
+                WHEN DATE_PART('day', valueday) > 0 THEN 
+                    'KURANG ' || DATE_PART('day', valueday)::text || ' HARI LAGI'
+                ELSE '' 
+                END AS eventketerangan
+            FROM sc_mst.lv_m_karyawan x
+            LEFT OUTER JOIN (
+                SELECT a.*, b.nmkepegawaian,
+                CASE 
+                WHEN posisi = 'D' THEN (tgl_mulai + INTERVAL '90 day') - CURRENT_DATE
+                WHEN posisi = 'C' THEN (tgl_mulai + INTERVAL '150 day') - CURRENT_DATE
+                ELSE NULL  -- Or another default logic
+                END AS valueday,
+                CASE
+                WHEN posisi = 'D' THEN (tgl_mulai + INTERVAL '90 day')::date 
+                WHEN posisi = 'C' THEN (tgl_mulai + INTERVAL '150 day')::date 
+                ELSE NULL  -- Or another default logic
+                END AS tgl_ojt
+                FROM (
+                SELECT a.*,c.lvl_jabatan as posisi
+                FROM sc_trx.status_kepegawaian a
+                JOIN (
+                    SELECT a.nik, a.kdkepegawaian, MAX(nodok) AS nodok 
+                    FROM sc_trx.status_kepegawaian a
+                    GROUP BY nik, kdkepegawaian
+                ) b ON a.nik = b.nik AND a.kdkepegawaian = b.kdkepegawaian AND a.nodok = b.nodok
+                JOIN sc_mst.karyawan c on a.nik = c.nik
+                ) a
+                LEFT OUTER JOIN sc_mst.status_kepegawaian b ON a.kdkepegawaian = b.kdkepegawaian
+            ) y ON x.nik = y.nik AND x.statuskepegawaian = y.kdkepegawaian
+            WHERE 
+                coalesce(x.statuskepegawaian, '') != 'KO'
+                AND y.status = 'B'
+                AND  
+                (x.lvl_jabatan = 'D' AND EXTRACT(DAY FROM valueday) <= 90  AND y.ojt = 'T')
+                OR 
+                (x.lvl_jabatan = 'C' AND EXTRACT(DAY FROM valueday) <= 150 AND y.ojt = 'T' )
+                
+            ORDER BY valueday ASC;
+            ");
     }
 
     function q_list_magang($param = null)
@@ -296,7 +303,7 @@ SQL
                      a.noktp,
                      a.tglmasukkerja,
                      d.nmagama,
-                     coalesce(a.alamatktp, '-')                                                   as alamatktp,
+                     coalesce(a.alamatktp, '-') as alamatktp,
                      g.nmnikah,
                      e.nmjabatan,
                      e.jabatan_cetak,
@@ -304,27 +311,67 @@ SQL
                      f.dept_cetak,
                      b.nodok,
                      b.kdkepegawaian,
+                     b.tgl_mulai,
+		             b.tgl_selesai,
                      j.nmkepegawaian,
                      h.nmlengkap as nmatasan,
                      i.nmlengkap as nmatasan2,
-                     coalesce(to_char(b.tgl_mulai,'yyyy-mm-dd'),'-') as tgl_mulai,
-                     coalesce(to_char(b.tgl_selesai,'yyyy-mm-dd'),'-') as tgl_selesai,
-                     to_char(now(), 'yyyy-mm-dd')                                                 as tgl_cetak,
-                     ROW_NUMBER() OVER (ORDER BY b.kdkepegawaian)
-              from sc_mst.karyawan a
-                       right outer join sc_trx.status_kepegawaian b on a.nik = b.nik
-                       left outer join sc_mst.kotakab c on a.kotalahir = c.kodekotakab
-                       left outer join sc_mst.agama d on a.kd_agama = d.kdagama
-                       left outer join sc_mst.jabatan e on a.jabatan = e.kdjabatan
-                       left outer join sc_mst.departmen f on a.bag_dept = f.kddept
-                       left outer join sc_mst.status_nikah g on a.status_pernikahan = g.kdnikah
-                       LEFT OUTER JOIN sc_mst.karyawan h ON a.nik_atasan = h.nik
-                       LEFT OUTER JOIN sc_mst.karyawan i ON a.nik_atasan2 = i.nik
-                       LEFT OUTER JOIN sc_mst.status_kepegawaian j ON b.kdkepegawaian = j.kdkepegawaian
-              where a.nik = '$nik' 
-              )
+                REPLACE(
+            REPLACE(
+                REPLACE(
+                REPLACE(
+                REPLACE(
+                REPLACE(k.masakerja1::text,
+                    'years', 'tahun'),
+                    'year', 'tahun'),
+                    'mons', 'bulan'),
+                    'mon', 'bulan'),
+                'days', 'hari'),
+                'day', 'hari') as masakerja,
+                l.kdpendidikan as pendidikan,
+                        to_char(now(), 'yyyy-mm-dd') as tgl_cetak,
+                        ROW_NUMBER() OVER (ORDER BY b.kdkepegawaian)
+                from sc_mst.karyawan a
+                        right outer join sc_trx.status_kepegawaian b on a.nik = b.nik
+                        left outer join sc_mst.kotakab c on a.kotalahir = c.kodekotakab
+                        left outer join sc_mst.agama d on a.kd_agama = d.kdagama
+                        left outer join sc_mst.jabatan e on a.jabatan = e.kdjabatan
+                        left outer join sc_mst.departmen f on a.bag_dept = f.kddept
+                        left outer join sc_mst.status_nikah g on a.status_pernikahan = g.kdnikah
+                        LEFT OUTER JOIN sc_mst.karyawan h ON a.nik_atasan = h.nik
+                        LEFT OUTER JOIN sc_mst.karyawan i ON a.nik_atasan2 = i.nik
+                        LEFT OUTER JOIN sc_mst.status_kepegawaian j ON b.kdkepegawaian = j.kdkepegawaian
+                        LEFT OUTER JOIN sc_mst.lv_m_karyawan k ON a.nik = k.nik
+                        LEFT JOIN (
+                        SELECT *
+                            FROM (
+                                SELECT nik,kdpendidikan,
+                                ROW_NUMBER() OVER (
+                                    PARTITION BY nik
+                                    ORDER BY 
+                                    CASE kdpendidikan
+                                    WHEN 'SD' THEN 1
+                                    WHEN 'SMP' THEN 2
+                                    WHEN 'SMA' THEN 3
+                                    WHEN 'D1' THEN 4
+                                    WHEN 'D2' THEN 5
+                                    WHEN 'D3' THEN 6
+                                    WHEN 'S1' THEN 7
+                                    WHEN 'S2' THEN 8
+                                    WHEN 'S3' THEN 9
+                                    ELSE 0
+                                    END DESC
+                                ) AS rn
+                                FROM sc_trx.riwayat_pendidikan
+                                ) sub
+                            WHERE rn = 1 
+                    ) l ON a.nik = l.nik
+                where a.nik = '$nik' 
+                )
                 select *
-                from data where nodok='$nodok' limit 1");
+                from data 
+                where nodok='$nodok'
+                 limit 1");
     }
 
     function insert_stspeg_document($nodok, $uniquekey)

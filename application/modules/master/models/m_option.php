@@ -196,4 +196,65 @@ SQL
 
         return $result;
     }
+
+    	function q_transaction_read_where($clause = null)
+    {
+        return $this->db->query($this->q_transaction_txt_where($clause));
+    }
+
+    function q_transaction_txt_where($clause = null)
+    {
+        return sprintf(<<<'SQL'
+SELECT *
+FROM (
+	select
+    COALESCE(trim(a.kdoption),'') AS kdoption,
+    COALESCE(trim(a.nmoption),'') AS nmoption,
+    COALESCE(trim(a.value1),'') AS value1,
+    a.value2,
+    a.value3,
+    a.status,
+    COALESCE(trim(a.keterangan),'') AS keterangan,
+    a.input_by,
+    a.update_by,
+    a.input_date,
+    a.update_date,
+    COALESCE(trim(a.group_option),'') AS group_option
+from sc_mst.option a
+	ORDER BY group_option ASC
+     ) as aa
+WHERE TRUE 
+SQL
+            ) . $clause;
+    }
+
+    function q_transaction_exists($where)
+    {
+        return $this->db
+                ->select('*')
+                ->where($where)
+                ->get('sc_mst.option')
+                ->num_rows() > 0;
+    }
+
+        function q_transaction_create($value)
+    {
+        return $this->db
+            ->insert('sc_mst.option', $value);
+    }
+
+    function q_transaction_update($value, $where)
+    {
+        return $this->db
+            ->where($where)
+            ->update('sc_mst.option', $value);
+    }
+
+    function q_transaction_delete($where)
+    {
+        return $this->db
+            ->where($where)
+            ->delete('sc_mst.option');
+    }
+
 }
