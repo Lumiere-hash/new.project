@@ -450,7 +450,7 @@ function masa_kontrak2($tgl_mulai, $tgl_selesai) {
     }
 
     $total_bulan_kata = $this->angka_ke_kata($total_months);
-    $result = $total_months . ' ('. $total_bulan_kata;
+    $result = $total_months . ' ('. $total_bulan_kata .') ';
     return $result;
 }
 

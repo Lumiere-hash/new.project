@@ -86,4 +86,35 @@ class Trxtype extends MX_Controller {
 		echo json_encode(array("status" => TRUE));
 	}
 
+	    public function search()
+    {
+        $this->load->model(array('master/M_TrxType'));
+        header('Content-Type: application/json');
+        $param = (!is_null($this->input->get_post('type')) ? ' AND type = \''.$this->input->get_post('type').'\' ' : '' );
+        $count = $this->M_TrxType->q_master_search_where(' AND TRUE '.$param)->num_rows();
+        $search = $this->input->get_post('search');
+        $search = strtolower(urldecode($search));
+        $perpage = $this->input->get_post('perpage');
+        $perpage = intval($perpage);
+        $perpage = $perpage < 1 ? $count : $perpage;
+        $page = $this->input->get_post('page');
+        $page = intval($page > 0 ? $page : 1);
+        $limit = $perpage * ($page -1);
+        $result = $this->M_TrxType->q_master_search_where($param.'
+            AND ( LOWER(id) LIKE \'%'.$search.'%\'
+            OR LOWER(text) LIKE \'%'.$search.'%\'
+            )
+            ORDER BY text ASC
+            LIMIT '.$perpage.' OFFSET '.$limit.'
+            ')->result();
+        echo json_encode(array(
+            'totalcount' => $count,
+            'search' => $search,
+            'perpage' => $perpage,
+            'page' => $page,
+            'limit' => $limit,
+            'location' => $result
+        ));
+    }
+
 }

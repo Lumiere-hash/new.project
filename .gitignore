@@ -9,6 +9,8 @@ assets/db_absen/
 assets/export_directory/
 assets/files/
 assets/img/profile/
+assets/img/notifpk/
+assets/img/slider/
 assets/import_directory/
 database/*.backup
 **/backup/

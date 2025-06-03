@@ -922,6 +922,7 @@ class Karyawan extends MX_Controller {
             $tgl_selesai=null;
         }
         $cuti=$this->input->post('cuti');
+        $ojt=$this->input->post('ojt');
         $keterangan=$this->input->post('keterangan');
         $tgl_input=$this->input->post('tgl');
         $inputby=$this->input->post('inputby');
@@ -935,10 +936,13 @@ class Karyawan extends MX_Controller {
             'tgl_mulai'=>$tgl_mulai,
             'tgl_selesai'=>$tgl_selesai,
             'cuti'=>strtoupper($cuti),
+            'ojt'=>strtoupper($ojt),
             'keterangan'=>strtoupper($keterangan),
             'input_date'=>$tgl_input,
             'input_by'=>strtoupper($inputby),
         );
+
+        //var_dump($info);
 
         $this->db->insert('sc_tmp.status_kepegawaian',$info);
         if ($this->db->affected_rows() > 0) {
@@ -1777,7 +1781,7 @@ class Karyawan extends MX_Controller {
                 'mailstatus' => 'NO_SENT',
             );
             if (!empty ($employee->email)) {
-                $this->db->insert('public.mail_outbox', $info);
+                //$this->db->insert('public.mail_outbox', $info);
             }
             $this->db->trans_complete();
             if ($this->db->trans_status()) {
