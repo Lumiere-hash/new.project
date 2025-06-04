@@ -304,7 +304,7 @@
                   <Name>Text2</Name>
                   <Page isRef="7" />
                   <Parent isRef="9" />
-                  <Text>PENILAIAN KARYAWAN KONTRAK
+                  <Text>BERITA ACARA
 </Text>
                   <TextBrush>Black</TextBrush>
                   <Type>Expression</Type>
@@ -721,10 +721,10 @@ b35fw1LqdgSKCPRD/tuyeN51FTNsYMiLEZb8XZ7udm8AlZ6sND2Zr0Bws0uvG64gpiNFf9z+ZUxZ
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>5/19/2025 8:39:07 AM</ReportChanged>
+  <ReportChanged>6/4/2025 4:18:38 PM</ReportChanged>
   <ReportCreated>3/14/2025 2:32:35 PM</ReportCreated>
   <ReportFile>D:\WEB\apache2\htdocs\hrms.nusa\assets\mrt\berita_acara.mrt</ReportFile>
-  <ReportGuid>ab6d820171d74cbf83ad475400af1f3d</ReportGuid>
+  <ReportGuid>32f20c7987124f3394a130c20445ef31</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Centimeters</ReportUnit>
   <ReportVersion>2020.2.3.0</ReportVersion>

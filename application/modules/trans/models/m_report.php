@@ -1278,7 +1278,7 @@ function q_remind_cuti(){
                 LEFT OUTER JOIN sc_mst.trxtype z ON a.status = z.kdtrx AND z.jenistrx = 'I.T.B.27'
                 ORDER BY a.docdate DESC
             ) AS x 
-            WHERE COALESCE(docno, '') != '' and trim(status) = 'P'
+            WHERE COALESCE(docno, '') != '' and trim(status) = 'P' and enddate::date >= CURRENT_DATE;
             $param
         ");
 	}
