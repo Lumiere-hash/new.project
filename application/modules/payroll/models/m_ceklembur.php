@@ -57,7 +57,7 @@ class M_ceklembur extends CI_Model{
 								order by tgl asc   
 								");
 	
-	
+
 	}
 	
 	function q_transready_shift($tglawal,$tglakhir,$pkddept){
@@ -88,7 +88,7 @@ class M_ceklembur extends CI_Model{
 	function q_shiftall($tglawal,$tglakhir,$kddept){
 		return $this->db->query("select a.nik,b.nmlengkap,to_char(round(sum(a.nominal),0),'999G999G999G990D00') as  nominal1 from sc_tmp.cek_shift a
 								left outer join sc_mst.karyawan b on a.nik=b.nik
-								where b.bag_dept='$kddept' and to_char(a.tgl_kerja,'YYYY-MM-DD') between '$tglawal' and '$tglakhir'
+								where (b.bag_dept='$kddept' OR b.grouppenggajian='$kddept') and to_char(a.tgl_kerja,'YYYY-MM-DD') between '$tglawal' and '$tglakhir'
 								group by a.nik,b.nmlengkap
 								order by b.nmlengkap");
 	
@@ -285,7 +285,7 @@ class M_ceklembur extends CI_Model{
 		return $this->db->query("select a.* from sc_trx.upah_borong_mst a 
 								left outer join sc_mst.karyawan b on a.nik=b.nik
 								where (to_char(tgl_kerja,'YYYY-MM-DD') between '$tglawal' and '$tglakhir') and a.status='P'
-								and b.bag_dept='$kddept'
+								and (b.bag_dept='$kddept' OR b.grouppenggajian='$kdgroup_pg')
 								");
 	}
 	
@@ -323,7 +323,7 @@ class M_ceklembur extends CI_Model{
 									from sc_tmp.cek_borong a
 									left outer join sc_mst.karyawan b on a.nik=b.nik
 									where nodok='$nodok' and to_char(tgl_kerja,'YYYY-MM-DD') between '$tglawal' and '$tglakhir'
-									and b.bag_dept='$kddept' 
+									and (b.bag_dept='$kddept' OR b.grouppenggajian='$kddept')
 									group by b.nmlengkap,a.nodok,a.nik,a.periode
 									order by b.nmlengkap asc");
 								

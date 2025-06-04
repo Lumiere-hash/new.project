@@ -415,12 +415,21 @@ class Ceklembur extends MX_Controller{
 		$tgl=explode(' - ',$tanggal);
 		
 		$dtlsetup=$this->m_ceklembur->q_setup_option_dept()->row_array();
+//        var_dump($dtlsetup);die();
 		if (trim($dtlsetup['status'])!='T'){
 			$pkddept="  and grouppenggajian='$kdgroup_pg'";
 		} else {
-			
 			$pkddept=" and kddept='$kddept'";
+            if(!$pkddept){
+                $pkddept="  and grouppenggajian='$kdgroup_pg'";
+            }
 		}
+
+
+
+        if (!$kddept){
+            $kddept=$kdgroup_pg;
+        }
 
 
 		if (empty($tanggal)) {
@@ -440,52 +449,58 @@ class Ceklembur extends MX_Controller{
         /*SYSTEM01  SYS01: GENERAL MODE , SYS02: STANDLONE MODE*/
         $optstandlone = $this->m_akses->q_option(" and kdoption='SYSTEM01'")->row_array();
         if (trim($optstandlone['value1']) == 'SYS01') //GENERAL MODE SYS01, STANDELONE MODE SYS01
-        { foreach ($datane as $dta) {
+        {
+            $looping_shiftArr = array();
+            foreach ($datane as $dta) {
 
-            $nik=$dta->nik;
-            /*pengecekan mapping karyawan*/
-            $cek_map_kary=$this->m_ceklembur->q_cek_map($nik)->row_array();
-            $nikmap=null;
-            if(!empty($cek_map_kary['nikmap'])) {
-                $nikmap=trim($cek_map_kary['nikmap']);
+                $nik = $dta->nik;
+                /*pengecekan mapping karyawan*/
+                $cek_map_kary = $this->m_ceklembur->q_cek_map($nik)->row_array();
+                $nikmap = null;
+                if (!empty($cek_map_kary['nikmap'])) {
+                    $nikmap = trim($cek_map_kary['nikmap']);
+                }
+
+                if ($nikmap == $nik) {
+                    $nik = trim($cek_map_kary['nik']);
+                    //$nikmap=trim($cek_map_kary['nikmap']);
+                }
+
+
+                $jam_masuk = $dta->jam_masuk_absen;
+                $jam_pulang = $dta->jam_pulang_absen;
+                $tgl_absen = $dta->tgl;
+                $shiftke = $dta->shiftke;
+
+
+                if ($shiftke == '2') {
+                    $nominal = $tj_shift2;
+                } else {
+                    $nominal = $tj_shift3;
+
+                }
+
+                $looping_shiftArr[] = array(
+                    'nik' => $nik,
+                    'nodok' => $this->session->userdata('nik'),
+                    'jam_mulai_absen' => $jam_masuk,
+                    'jam_selesai_absen' => $jam_pulang,
+                    'tgl_kerja' => $tgl_absen,
+                    'nominal' => $nominal,
+                    'tpshift' => $shiftke,
+
+
+                );
+
+//                $this->db->insert('sc_tmp.cek_shift', $looping_shift);
+
+
             }
-
-            if ($nikmap==$nik){
-                $nik=trim($cek_map_kary['nik']);
-                //$nikmap=trim($cek_map_kary['nikmap']);
+//            var_dump($looping_shiftArr);die();
+            if (!empty($looping_shiftArr)) {
+                $this->db->insert_batch('sc_tmp.cek_shift', $looping_shiftArr);
             }
-
-
-            $jam_masuk=$dta->jam_masuk_absen;
-            $jam_pulang=$dta->jam_pulang_absen;
-            $tgl_absen=$dta->tgl;
-            $shiftke=$dta->shiftke;
-
-
-            if ($shiftke=='2'){
-                $nominal=$tj_shift2;
-            } else {
-                $nominal=$tj_shift3;
-
-            }
-
-            $looping_shift=array(
-                'nik'=>$nik,
-                'nodok'=>$this->session->userdata('nik'),
-                'jam_mulai_absen'=>$jam_masuk,
-                'jam_selesai_absen'=>$jam_pulang,
-                'tgl_kerja'=>$tgl_absen,
-                'nominal'=>$nominal,
-                'tpshift'=>$shiftke,
-
-
-            );
-
-            $this->db->insert('sc_tmp.cek_shift',$looping_shift);
-
-
-
-        } }
+        }
 
 		$this->lihat_shift_all($tglawal,$tglakhir,$kddept);
 	}
@@ -537,7 +552,7 @@ class Ceklembur extends MX_Controller{
 		$tgle=date('d',strtotime($tglawal));
 		$kdgroup_pg=$this->input->post('kdgroup_pg');	
 		$kddept=$this->input->post('kddept');
-		
+
 		$dtlsetup=$this->m_ceklembur->q_setup_option_dept()->row_array();
 		if (trim($dtlsetup['status'])!='T'){
 			$pkddept="  and grouppenggajian='$kdgroup_pg'";
@@ -545,11 +560,16 @@ class Ceklembur extends MX_Controller{
 			
 			$pkddept=" and kddept='$kddept'";
 		};
+
+        if(!$kddept){
+            $kddept = $kdgroup_pg;
+        }
+
 		
 		
 		$this->delete_tmp_borong($tglawal,$tglakhir,$kdgroup_pg,$kddept);
 		$datane4=$this->m_ceklembur->q_upah_borong($tglawal,$tglakhir,$kdgroup_pg,$kddept)->result();
-		
+        $looping_upahborongArr = array();
 		foreach ($datane4 as $dta4){
 			$nik=$dta4->nik;
 			/*pengecekan mapping karyawan*/
@@ -568,8 +588,8 @@ class Ceklembur extends MX_Controller{
 			$periode=$dta4->periode;
 			$tgl_kerja=$dta4->tgl_kerja;
 			$total_upah=$dta4->total_upah;
-			
-			$looping_upahborong=array(
+
+            $looping_upahborongArr[]=array(
 				'nik'=>$nik,
 				'nodok'=>$this->session->userdata('nik'),	
 				'nodok_ref'=>$nodok_ref,
@@ -591,8 +611,12 @@ class Ceklembur extends MX_Controller{
 				//$this->db->insert('sc_tmp.cek_borong',$looping_upahborong);
 			
 			}*/
-			$this->db->insert('sc_tmp.cek_borong',$looping_upahborong);
-		}	
+//			$this->db->insert('sc_tmp.cek_borong',$looping_upahborong);
+		}
+        if (!empty($looping_upahborongArr)){
+            $this->db->insert_batch('sc_tmp.cek_borong',$looping_upahborongArr);
+        }
+
 		$nodok=$this->session->userdata('nik');
 		$this->lihat_borong($tglawal,$tglakhir,$nodok,$kddept);
 	
@@ -639,6 +663,7 @@ class Ceklembur extends MX_Controller{
         {
 
             $this->m_ceklembur->delete_tmp_absen($tglawal,$tglakhir);
+            $looping_absenArr=array();
             foreach ($datane2 as $dta2) {
 
                 $nik = trim($dta2->nik);
@@ -680,7 +705,7 @@ class Ceklembur extends MX_Controller{
                     $this->db->query("insert into sc_his.history_gaji (branch,nik,periode,nominal,inputdate,inputby,updatedate,updateby,gajipokok,gajitj)
 				values ('$branch','$nik','$periodegaji',$gajitetap,'$tglinput','$nama',null,null,$gajipokok,$gajitj);");
                 }
-                $looping_absen = array(
+                $looping_absenArr[] = array(
                     'nik' => $nik,
                     'nodok' => $this->session->userdata('nik'),
                     'tgl_kerja' => $tgl_absen,
@@ -692,9 +717,12 @@ class Ceklembur extends MX_Controller{
                     'jam_masuk_absen' => $dta2->jam_masuk_absen,
                     'jam_pulang_absen' => $dta2->jam_pulang_absen,
                 );
-                $this->db->insert('sc_tmp.cek_absen', $looping_absen);
+//                $this->db->insert('sc_tmp.cek_absen', $looping_absen);
 
 
+            }
+            if (!empty($looping_absenArr)){
+                $this->db->insert_batch('sc_tmp.cek_absen', $looping_absenArr);
             }
         }
 		$nik=$this->session->userdata('nik');
