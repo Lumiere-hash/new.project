@@ -518,6 +518,7 @@ class Skperingatan extends MX_Controller
         $dtl['nmjabatan'] = !empty($dtl['jabatan_cetak']) ? $dtl['jabatan_cetak'] : $this->ucstring(trim($dtl['nmjabatan']));
         $dtl['nmdept'] = !empty($dtl['dept_cetak']) ? $dtl['dept_cetak'] : $this->ucstring(trim($dtl['nmdept']));
         $dtl['enddate1'] = formattgl($dtl['enddate1']);
+        $dtl['description'] = strtoupper($dtl['description']);
         $dataopt['print_date']= formattgl(date('Y-m-d'));
         header("Content-Type: text/json");
         echo json_encode(
