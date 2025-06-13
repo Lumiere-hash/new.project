@@ -270,6 +270,13 @@ class M_ojt extends CI_Model
 				join sc_mst.karyawan b on b.nik = a.nik_panelist
 				where a.nik = '$nik'");
 	}
+
+	function get_notes_panelist($nik){
+		return $this->db->query("select trim(a.notes) as notes, trim(b.nmlengkap) as nmpanelist from sc_pk.master_ojt a 
+					join sc_mst.karyawan b on a.nik_panelist = b.nik
+					where a.nik = '$nik'
+				");
+	}
 	
 
 	}

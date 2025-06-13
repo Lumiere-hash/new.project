@@ -98,22 +98,23 @@ class M_stspeg extends CI_Model
                                 where to_char(age(a.tgllahir),'YY')>='56' and coalesce(a.statuskepegawaian,'')!='KO'  
 								");
     }
-    function q_list_ojt($param = null)
+    function q_list_ojt()
     {
-        return $this->db->query("select *,  case 
+        return $this->db->query("select * ,y.duedate_ojt as tgl_ojt,  case 
 	    when valueday<0 then 'TERLEWAT '||(valueday)*-1||' HARI' 
 	    when valueday=0 then 'PAS HARI INI' 
 	    when valueday>0 then 'KURANG '||(valueday)||' HARI LAGI' 
 	    else '' end as eventketerangan 
 	    from sc_mst.lv_m_karyawan x
-	    left outer join (select a.*,b.nmkepegawaian,tgl_selesai-cast(now() as date) as valueday from (
+	    left outer join (select a.*,b.nmkepegawaian,duedate_ojt-cast(now() as date) as valueday from (
 	    select a.* from sc_trx.status_kepegawaian a, (	
 	    select nik,kdkepegawaian,max(nodok) as nodok from sc_trx.status_kepegawaian 
 	    group by nik,kdkepegawaian)b 
 	    where a.nik=b.nik and a.kdkepegawaian = b.kdkepegawaian and a.nodok=b.nodok) a
 	    left outer join sc_mst.status_kepegawaian b on a.kdkepegawaian=b.kdkepegawaian
+	    where a.ojt = 'T' and status = 'B' order by input_date desc
 	    ) as y on x.nik=y.nik and x.statuskepegawaian=y.kdkepegawaian
-	    where coalesce(statuskepegawaian,'') != 'KO' and valueday<=60 and coalesce(statuskepegawaian,'') in ('OJ','PK') and y.status='B' $param order by valueday asc");
+	    where coalesce(statuskepegawaian,'') != 'KO' and valueday<=120 and y.status='B' order by y.duedate_ojt desc");
     }
 
         function q_list_ojt2($param = null)

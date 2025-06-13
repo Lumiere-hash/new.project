@@ -2357,6 +2357,9 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 					'nik' => (string) $rowData[0][1]
 				);
 
+			
+			
+
 				$this->db->where($data);
 				if ($this->db->get("sc_pk.kpi_trx_mst")->num_rows() < 1) {
 					$data_import = array(
@@ -2371,6 +2374,8 @@ select nik from sc_pk.kondite_tmp_mst where periode between '$startPeriode' and 
 						'inputby' => $this->session->userdata('nik'),
 						'inputdate' => date("Y-m-d H:i:s")
 					);
+					// var_dump($data_import);
+					// exit;
 					$this->db->insert("sc_pk.kpi_tmp_mst", $data_import);
 				} else {
 					$data_import = array(

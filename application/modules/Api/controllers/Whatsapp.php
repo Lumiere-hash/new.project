@@ -41,6 +41,11 @@ class WhatsApp extends MX_Controller
         return $this->wkhtmltoimage->convert($message, 400, 400, $output, false);
     }
 
+        public function imageCreatorojt($message = null, $output = null)
+    {
+        return $this->wkhtmltoimage->convert($message, 620, 620, $output, false);
+    }
+
     public function auth()
     {
         $nama = $this->session->userdata('nik');
@@ -622,6 +627,7 @@ class WhatsApp extends MX_Controller
         }else{
             $filter = '';
         }
+        //$filter .= ' AND to_char(tgl_kerja, \'YYYYMM\') > \'202412\' ';
         $messages = [];
         foreach ($this->m_ijin->q_whatsapp_collect_where($filter.' 
         AND \'WA-SESSION:' . $branch . '\' IN ( SELECT TRIM(kdoption) FROM sc_mst.option WHERE kdoption ILIKE \'%WA-SESSION:%\' )
@@ -1754,11 +1760,12 @@ class WhatsApp extends MX_Controller
             // var_dump($messages);
             // die();
 
-        foreach ($this->M_Pk->q_whatsapp_collect_where(" and coalesce(a.statuspen,'') != '$status'")->result() as $item) {
-             $refurl = base_url('pk/list_pk');
-             $url = site_url('s/'.$item->identifier);
+        foreach ($this->M_Pk->q_whatsapp_collect_where(" and coalesce(a.statuspen,'') != '$status' limit 1")->result() as $item) {
+           $urlsetup = $this->db->query("select value1 from sc_mst.option where trim(kdoption) = 'URL-MSGPK'")->row()->value1;
+			 $refurl = $urlsetup . '/pk/list_pk';
+             $url = $urlsetup . '/s/'.$item->identifier;
               if(empty($item->statuspen) || $item->statuspen == 'C'){
-                    $refurl = base_url('pk/list_pkpen');
+                    $refurl = $urlsetup . '/pk/list_pkpen';
              }
             $ref = $this->shuffle();
             $message = '' .
@@ -1859,7 +1866,7 @@ class WhatsApp extends MX_Controller
                  if (empty($item->statuspen || trim($item->statuspen) == 'C')) {
                      $employee_id = trim($item->nik_atasan1);
                 } elseif (trim($item->statuspen) == 'N') {
-                     $employee_id = trim($item->nik_atasan2);
+                      $employee_id = !empty(trim($item->nik_atasan2)) ? trim($item->nik_atasan2) : null;
                 } else {
                      $employee_id = trim($item->nik_appr);
                 }
@@ -1937,6 +1944,142 @@ class WhatsApp extends MX_Controller
         }
     }
 
+        public function msgojt($status = '')
+    {
+        $this->load->model(array('secret/M_Secret','Api/M_Ojt'));
+        //$status = 'P';
+        $branch = trim($this->m_cabang->q_mst_download_where(' AND UPPER(a.default)::CHAR = \'Y\' '));
+        $messages = array();
+      
+            // var_dump($messages);
+            // die();
+
+        foreach ($this->M_Ojt->q_whatsapp_collect_where()->result() as $item) {
+            $ref = $this->shuffle();
+             $message = '' .
+                        '<table width="600px" background="' . $this->bg . '" border="1" cellpadding="5" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th colspan="3"><b>LIST KARYAWAN OJT YANG AKAN BERAKHIR</b></th>
+                                </tr>
+                                <tr>
+                                    <th width="40%">Nama</th>
+                                    <th width="30%">Tanggal OJT</th>
+                                    <th width="30%">Keterangan</th>
+                                </tr>
+                            </thead>
+                            <tbody>';
+
+                    foreach ($this->M_Ojt->q_ojt()->result() as $ojt) {
+                        $message .= '
+                            <tr>
+                                <td>' . htmlspecialchars(trim($ojt->nmlengkap)) . '</td>
+                                <td text-center>' . htmlspecialchars(trim($ojt->tgl_ojt)) . '</td>
+                                <td>' . htmlspecialchars(trim($ojt->eventketerangan)) . '</td>
+                            </tr>';
+                    }
+
+                    $message .= '
+                            </tbody>
+                        </table>';
+
+                $output = 'assets/img/notifojt/' . date('d-m-Y') . '_' . $ref . '.jpg';
+                $fullpath = (ENVIRONMENT == 'development' ? 'https://dummyimage.com/300/09f/fff.png' : base_url($output));
+                //$fullpath = base_url($output);
+                $this->imageCreatorojt($message, $output);
+
+            // var_dump($item);
+            // exit;
+            
+            array_push(
+                $messages,
+                array(
+                    'message' => json_encode(
+                        array(
+                            'path' => str_replace('\\', '/', $fullpath),
+                            'caption' => 'Yth HRGA' . PHP_EOL . PHP_EOL . '*Harap Segera menindaklanjuti list karyawan OJT diatas sebelum waktu OJT berakhir*' . PHP_EOL . PHP_EOL 
+                            . 'Terima Kasih' . PHP_EOL
+                            . 'Ref:' . $ref . '_' 
+                        )
+                    ),
+                    'message_type' => 'imageMessage',
+                    'is_interactive' => false,
+                    'outbox_for' => trim($item->nohp1),
+                    'retry' => 1,
+                    'session' => $this->m_setup->q_mst_read_value(' AND parameter = \'WA-SESSION:' . $branch . '\'', 'session'),
+                    'properties' => array(
+                        'reference' => $ref,
+                        'employeeid' =>  $item->nik,
+                        //'range' => $after,
+                    ),
+                )
+            );
+          
+        }
+            // var_dump($messages, $employee_id, $item);
+            // die();
+            
+        if (count($messages) > 0) {
+            $curl = curl_init();
+            curl_setopt_array(
+                $curl,
+                array(
+                    CURLOPT_URL => $this->m_setup->q_mst_read_value(' AND parameter = \'WA-BASE-URL:' . $branch . '\'', 'https://syifarahmat.github.io/whatsapp.bot/') . 'whatsapp/api/outbox/',
+                    CURLOPT_RETURNTRANSFER => true,
+                    CURLOPT_SSL_VERIFYPEER => false,
+                    CURLOPT_SSL_VERIFYHOST => false,
+                    CURLOPT_ENCODING => '',
+                    CURLOPT_MAXREDIRS => 10,
+                    CURLOPT_TIMEOUT => 0,
+                    CURLOPT_FOLLOWLOCATION => true,
+                    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                    CURLOPT_CUSTOMREQUEST => 'POST',
+                    CURLOPT_POSTFIELDS => json_encode($messages),
+                    CURLOPT_HTTPHEADER => array(
+                        'Authorization: Bearer ' . $this->m_setup->q_mst_read_value(' AND parameter = \'WA-ACCESS:' . $branch . '\' ', 'access'),
+                        'Content-Type: application/json'
+                    ),
+                )
+            );
+            $response = curl_exec($curl);
+            $info = curl_getinfo($curl);
+            $body = json_decode($response);
+            curl_close($curl);
+            if ($body) {
+                if ($info['http_code'] == 201) {
+                    foreach ($body as $row) {
+                        $this->db->insert(
+                            'sc_log.success_notifications',
+                            array(
+                                'modul' => 'notification',
+                                'message' => json_encode($body),
+                                'properties' => json_encode($info),
+                                'input_by' => 'SYSTEM',
+                                'input_date' => date('Y-m-d H:i:s'),
+                            )
+                        );
+                    }
+                    return true;
+                } else {
+                    $this->db->insert(
+                        'sc_log.error_notifications',
+                        array(
+                            'modul' => 'notification',
+                            'message' => json_encode($body),
+                            'properties' => json_encode($info),
+                            'input_by' => 'SYSTEM',
+                            'input_date' => date('Y-m-d H:i:s'),
+                        )
+                    );
+                }
+            }
+            header('Content-Type: application/json');
+            return true;
+        } else {
+            return false;
+        }
+    }
+
         public function msgba($status = '')
     {
         $this->load->model(array('secret/M_Secret','Api/M_BeritaAcara'));
@@ -1948,8 +2091,9 @@ class WhatsApp extends MX_Controller
             // die();
 
         foreach ($this->M_BeritaAcara->q_whatsapp_collect_where(" and status in $status ")->result() as $item) {
-             $refurl = base_url('trans/sberitaacara');
-             $url = site_url('s/'.$item->identifier);
+             $urlsetup = $this->db->query("select value1 from sc_mst.option where trim(kdoption) = 'URL-MSGPK'")->row()->value1;
+             $refurl = $urlsetup . 'trans/sberitaacara';
+             $url = $urlsetup . $item->identifier;
             $ref = $this->shuffle();
             $message = '' .
                 '<table width=\'400\' background=\'' . $this->bg . '\'>
@@ -2164,6 +2308,20 @@ class WhatsApp extends MX_Controller
         } else {
             if ($this->refresh()) {
                 $this->msgpk();
+            } else {
+                if ($this->auth()) {
+                    $this->msgpk();
+                }
+            }
+        }
+    }
+
+    public function sendnotificationojt()
+    {
+        if ($this->msgojt()) {
+        } else {
+            if ($this->refresh()) {
+                $this->msgojt();
             } else {
                 if ($this->auth()) {
                     $this->msgpk();

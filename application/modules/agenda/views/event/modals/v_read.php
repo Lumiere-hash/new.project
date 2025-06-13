@@ -42,16 +42,18 @@
                             <input type="text" class="form-control text-uppercase" name="organizer_type" id="organizer_type" value="<?php echo $transaction->organizer_type_name ?>" readonly>
                         </div>
                     </div>
+                    <?php if (strtoupper($transaction->agenda_type_name) != 'EVALUASI OJT') { ?>
                     <div class="form-group">
                         <label class="col-sm-4">Nama Penyelenggara</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control text-uppercase" name="organizer_name" id="organizer_name" value="<?php echo $transaction->organizer_name ?>" readonly>
                         </div>
                     </div>
+                    <?php } ?>
                     <div class="form-group">
                         <label class="col-sm-4">Jumlah Peserta</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control text-uppercase" name="organizer_name" id="organizer_name" value="<?php echo $transaction->participant_count ?>" readonly>
+                            <input type="text" class="form-control text-uppercase" name="organizer_name"  value="<?php echo $transaction->participant_count ?>" readonly>
                         </div>
                     </div>
                     <div class="form-group">

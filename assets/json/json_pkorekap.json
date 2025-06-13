@@ -55,5 +55,31 @@
             "nama": "Sheila Rahma Yunita",
             "job": "HRGA"
         }
+    ],
+    "recomendations": [
+        {
+            "nama": "Sheila Rahma Yunita",
+            "status": "Direkomendasikan"
+        },
+        {
+            "nama": "Gilrandy Septiansyah",
+            "status": "Direkomendasikan dengan catatan monitoring"
+        },
+        {
+            "nama": "So,chandra Husodo,ir",
+            "status": "Direkomendasikan"
+        },
+        {
+            "nama": "Sumantri",
+            "status": "Direkomendasikan"
+        },
+        {
+            "nama": "test",
+            "status": "Tidak Direkomendasikan"
+        },
+        {
+            "nama": "test",
+            "status": "Tidak Direkomendasikan"
+        }
     ]
 }

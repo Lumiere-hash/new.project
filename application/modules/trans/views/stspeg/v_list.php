@@ -534,14 +534,55 @@ function monthmin2($date){
 								<div id="bolehcuti" class="bolehcuti" >
 									<label class="col-sm-4">OJT</label>	
 									<div class="col-sm-8">    
-										<select class="form-control input-sm" name="ojt" id="kdbahasa">
+										<select class="form-control input-sm" name="ojt" id="ojt">
 											<option <?php if(trim($lb->ojt)=='T'){ echo 'selected';} ?>  value="T" >YA</option>	
 											<option  <?php if(trim($lb->ojt)=='F' || trim($lb->ojt)==''){ echo 'selected';} ?>  value="F" >TIDAK</option>
 										</select>	
 									</div>
 								</div>
 							</div>	
-							</div>							
+							</div>
+							
+							<script>
+								$(document).ready(function() {
+									$(document).on('change', '#ojt', function(event) {
+										var selectedValue = $(event.target).val();
+										var formDueDate = $(event.target).closest('.modal').find('#form_duedate');
+										if (selectedValue === 'T') {
+											formDueDate.show();
+										} else {
+											formDueDate.hide();
+										}
+									});
+								});
+								
+							</script>
+							<?php if (trim($lb->ojt) == 'T') { ?>
+								<div class="form-group" id="form_duedate" style="display: block;">
+									<div id="duedate_group">
+										<label class="col-sm-4">Due Date OJT</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control" name="duedate_ojt" id="duedate_ojt_<?php echo $lb->nodok; ?>" value="<?php echo $lb->duedate_ojt; ?>" data-date-format="yyyy-mm-dd" placeholder="yyyy-mm-dd">
+										</div>
+									</div>
+								</div>
+							<?php } else { ?>
+								<div class="form-group" id="form_duedate" style="display: none;">
+									<div id="duedate_group">
+										<label class="col-sm-4">Due Date OJT</label>
+										<div class="col-sm-8">
+											<input type="text" class="form-control" name="duedate_ojt" id="duedate_ojt_<?php echo $lb->nodok; ?>" value="" data-date-format="yyyy-mm-dd" placeholder="yyyy-mm-dd">
+										</div>
+									</div>
+								</div>
+							<?php } ?>
+							
+										<script>
+											$(function() {
+												$('#duedate_ojt_<?php echo $lb->nodok; ?>').datepicker();
+											});
+										</script>
+												
 							<div class="form-group">
 								<label class="col-sm-4">Keterangan</label>	
 								<div class="col-sm-8">    
@@ -843,7 +884,7 @@ function monthmin2($date){
 												</div>
 											</div>
 										</div>
-													<div id="bolehcuti2" class="bolehcutiKO bolehcutiMG">
+										<div id="bolehcuti2" class="bolehcutiKO bolehcutiMG">
 											<div class="form-group">
 												<div id="bolehcuti" class="bolehcuti" disabled="">
 													<label class="col-sm-4">karyawan ojt</label>
@@ -863,6 +904,16 @@ function monthmin2($date){
 												</div>
 											</div>
 										</div>
+										<?php if (trim($ld->ojt) == 'T') { ?>
+										<div class="form-group" id="form_duedate">
+											<div id="duedate_group">
+												<label class="col-sm-4">Due Date OJT</label>
+												<div class="col-sm-8">
+													<input type="text" class="form-control" name="duedate_ojt" id="duedate_ojt_<?php echo $ld->nodok; ?>" value="<?php echo $ld->duedate_ojt; ?>" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" disabled>
+												</div>
+											</div>
+										</div>
+										<?php } ?>	
 										<div class="form-group">
 											<label class="col-sm-4">Keterangan</label>
 											<div class="col-sm-8">

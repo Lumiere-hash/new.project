@@ -25,6 +25,7 @@ SELECT *
          WHEN (COALESCE(TRIM(b.nohp1), '') IS NOT NULL OR b.nohp1 = '' ) THEN COALESCE(TRIM(b.nohp1), '')
          ELSE '000000000000'
          END AS phone,
+	    b.email,
         a.action,
         a.status,
         a.properties,

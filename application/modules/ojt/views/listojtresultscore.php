@@ -127,15 +127,37 @@ $(function() {
 					<div class="form-group row">
 						<label for="recommendation" class="col-sm-3 col-form-label">Rekomendasi</label>
 						<div class="col-sm-9">
+							<?php $i = 0; ?>
+							<?php foreach ($datamodal as $item): ?>
+								<!-- Input NIK -->
+								<input type="text" class="form-control mb-2" name="nik_rekomendasi[]" value="<?= htmlspecialchars($item->nmpanelist) ?>" placeholder="Nama" />
+
+								<!-- Input Notes (readonly) -->
+								<input type="text" class="form-control mb-2" name="notes_rekomendasi[]" value="<?= htmlspecialchars($item->notes) ?>" placeholder="Rekomendasi" readonly />
+
+								<div class="input-group-append ml-2">
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="opsi-<?= $i ?>" value="Direkomendasikan">
+										<label class="form-check-label">Direkomendasikan</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="opsi-<?= $i ?>" value="Direkomendasikan dengan catatan monitoring">
+										<label class="form-check-label">Direkomendasikan dengan catatan monitoring</label>
+									</div>
+									<div class="form-check form-check-inline">
+										<input class="form-check-input" type="radio" name="opsi-<?= $i ?>" value="Tidak Direkomendasikan">
+										<label class="form-check-label">Tidak Direkomendasikan</label>
+									</div>
+								</div>
+							<?php $i++; endforeach; ?>
 							<!-- Kontainer input dinamis -->
 							<div id="recommendation-inputs"></div>
+								<!-- Tombol tambah dan gabungkan -->
+								<button type="button" class="btn btn-sm btn-primary mt-2" onclick="addRecommendationInput()">Tambah Rekomendasi</button>
+								<button type="button" class="btn btn-sm btn-success mt-2" onclick="combineRecommendations()">Gabungkan ke Textarea</button>
 
-							<!-- Tombol tambah dan gabungkan -->
-							<button type="button" class="btn btn-sm btn-primary mt-2" onclick="addRecommendationInput()">Tambah Rekomendasi</button>
-							<button type="button" class="btn btn-sm btn-success mt-2" onclick="combineRecommendations()">Gabungkan ke Textarea</button>
-
-							<!-- Textarea hasil gabungan -->
-							<textarea class="form-control mt-3" id="recommendation" name="recommendation" rows="4" required></textarea>
+								<!-- Textarea hasil gabungan -->
+								<textarea class="form-control mt-3" id="recommendation" name="recommendation" rows="4" required></textarea>
 						</div>
 					</div>
 					<div class="form-group row">
@@ -212,66 +234,66 @@ $(document).on('click', '.edit-rekap-btn, #editRekapBtn', function() {
 		}
 	});
 });
+
+
 </script>
 
 <script>
-    let rekomendasiIndex = 0;
+    let rekomendasiIndex = <?= $i ?>;
 
-    function addRecommendationInput() {
-        rekomendasiIndex++;
-        const container = document.getElementById('recommendation-inputs');
+		function addRecommendationInput() {
+		const container = document.getElementById('recommendation-inputs');
 
-        const group = document.createElement('div');
-        group.className = 'input-group mb-2';
-        group.innerHTML = `
-            <input type="text" class="form-control" id="rekomendasi-${rekomendasiIndex}" placeholder="Tulis Nama Panelist...">
-            <div class="input-group-append ml-2">
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="opsi-${rekomendasiIndex}" value="Direkomendasikan">
-                    <label class="form-check-label">Direkomendasikan</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="opsi-${rekomendasiIndex}" value="Direkomendasikan dengan catatan monitoring">
-                    <label class="form-check-label">Direkomendasikan dengan catatan monitoring</label>
-                </div>
-				  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="opsi-${rekomendasiIndex}" value="Tidak Direkomendasikan">
-                    <label class="form-check-label">Tidak Direkomendasikan</label>
-                </div>
-            </div>
-        `;
-        container.appendChild(group);
-    }
+		const wrapper = document.createElement('div');
+		wrapper.classList.add('mb-3');
+		wrapper.innerHTML = `
+			<input type="text" class="form-control mb-2" name="nik_rekomendasi[]" placeholder="Nama" />
 
-function combineRecommendations() {
-		const rekomendasiIndex = 3; // sesuaikan
-		const totalSpacesBeforeColon = 25; // jumlah spasi antara teks kiri dan titik dua
+			<div class="input-group-append ml-2">
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="opsi-${rekomendasiIndex}" value="Direkomendasikan">
+					<label class="form-check-label">Direkomendasikan</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="opsi-${rekomendasiIndex}" value="Direkomendasikan dengan catatan monitoring">
+					<label class="form-check-label">Direkomendasikan dengan catatan monitoring</label>
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="opsi-${rekomendasiIndex}" value="Tidak Direkomendasikan">
+					<label class="form-check-label">Tidak Direkomendasikan</label>
+				</div>
+			</div>
+		`;
 
-		let hasil = '';
-		let list = [];
-
-		for(let i = 1; i <= rekomendasiIndex; i++) {
-			const teksEl = document.getElementById(`rekomendasi-${i}`);
-			if(!teksEl) continue;
-			const teks = teksEl.value.trim();
-			const radio = document.querySelector(`input[name="opsi-${i}"]:checked`);
-			const pilihan = radio ? radio.value : 'Belum dipilih';
-
-			list.push({ teks, pilihan });
+			container.appendChild(wrapper);
+			rekomendasiIndex++; // Naikkan indeks untuk input berikutnya
 		}
 
-		list.forEach(({ teks, pilihan }) => {
-			// Hitung spasi agar total antara teks kiri dan titik dua = 25
-			let spasiBeforeColon = totalSpacesBeforeColon - teks.length;
-			if(spasiBeforeColon < 0) spasiBeforeColon = 0;
 
-			const leftPart = teks + ' '.repeat(spasiBeforeColon) + ': '; // titik dua dan satu spasi setelahnya
+	function combineRecommendations() {
+	const totalSpacesBeforeColon = 25;
+	let hasil = '';
 
+	const namaInputs = document.querySelectorAll('input[name="nik_rekomendasi[]"]');
+	const notesInputs = document.querySelectorAll('input[name="notes_rekomendasi[]"]');
+
+		namaInputs.forEach((namaInput, index) => {
+			const nama = namaInput.value.trim();
+			const radioName = `opsi-${index}`;
+			const radio = document.querySelector(`input[name="${radioName}"]:checked`);
+			const pilihan = radio ? radio.value : 'Belum dipilih';
+
+			let spasiBeforeColon = totalSpacesBeforeColon - nama.length;
+			if (spasiBeforeColon < 0) spasiBeforeColon = 0;
+
+			const leftPart = nama + ' '.repeat(spasiBeforeColon) + ': ';
 			hasil += leftPart + pilihan + '\n';
 		});
 
 		document.getElementById('recommendation').value = hasil.trim();
 	}
+
+
 
 </script>
 

@@ -283,9 +283,15 @@ class Ojt extends MX_Controller
 		foreach ($listpk as &$info) {
 			$info->periode = formattgl($info->tgl_mulai). " - " .formattgl($info->tgl_selesai);
 		}
-		$data['listpk'] = $listpk;
-		//var_dump($data['listpk']);
-
+		$hr = $this->db->query("SELECT nik from sc_pk.master_appr_list where jobposition = 'HRGA'")->row()->nik;
+		if (trim($this->session->userdata('nik')) == trim($hr)) {
+			$data['listpk'] = $listpk;
+		} else {
+			$data['listpk'] = Null;
+		}
+		
+		// var_dump($data['listpk'],$hr, $this->session->userdata('nik'));
+		// exit;
 		$this->template->display('ojt/listojtappr.php', $data);
 	}
 
@@ -307,6 +313,10 @@ class Ojt extends MX_Controller
 		$checkrekap = $this->m_ojt->check_rekap($kddok);
 		$data['title'] = 'Daftar list penilaian karyawan ' . $name;
 		$res = $this->m_ojt->list_result($param)->result();
+		$notepanelist = $this->m_ojt->get_notes_panelist($param)->result();
+		foreach ($notepanelist as &$name) {
+			$name->nmpanelist = $this->ucstring($name->nmpanelist);
+		}
 		$this->load->helper('my_helper');
 		foreach ($res as &$row) {
 			if (isset($row->inputdate)) {
@@ -316,8 +326,9 @@ class Ojt extends MX_Controller
 		$data['list_result']= $res;
 		$data['checkrekap'] = $checkrekap;
 		$data['kddok'] = $kddok;
-		// var_dump($data);
-		// exit;
+		$data['datamodal'] = $notepanelist;
+		//var_dump($data);
+		//exit;
 		$this->template->display('ojt/listojtresultscore.php', $data);
 
 	}
@@ -719,11 +730,27 @@ class Ojt extends MX_Controller
 		
         //data detail
 		$dtl = $this->m_ojt->q_get_detail_lain_cetakrekap($docno)->result();
-
+		
 		foreach ($dtl as &$dtldata) {
 			$dtldata->nama_panelist = $this->ucstring(trim($this->m_ojt->get_name($dtldata->inputby)));
 			$dtldata->presentation_date = isset($dtldata->presentation_date) ? formattgl($dtldata->presentation_date) : null;
 
+			// Parse recommendation for each detail if it exists
+			if (isset($dtldata->recommendation)) {
+				$recomendation = $dtldata->recommendation;
+				$lines = preg_split("/\r\n|\n|\r/", $recomendation);
+				// var_dump($lines); // For debugging
+				$parsed = [];
+			foreach ($lines as $line) {
+				if (strpos($line, ':') !== false) {
+						list($name, $status) = explode(':', $line, 2);
+						$parsed[] = (object)[
+							'nama' => trim($name),
+							'status' => trim($status)
+						];
+					}
+				}
+			}
 		}
 
         //data option
@@ -738,7 +765,8 @@ class Ojt extends MX_Controller
             [   
                 'infoumum' => $infoumum, 
                 'detail' => $dtl,
-                'approval' => $dataopt
+                'approval' => $dataopt,
+				'recomendations' => $parsed
             ],
             JSON_PRETTY_PRINT
         );

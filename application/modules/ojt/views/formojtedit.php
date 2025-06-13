@@ -152,30 +152,26 @@
 
                                     <?php if ($parent['type'] == 't'): ?>
                                     <!-- Radio Button -->
+                                    <?php
+                                        $options = [
+                                            1 => 'Baik',
+                                            2 => 'Cukup',
+                                            3 => 'Kurang'
+                                        ];
+                                        foreach ($options as $val => $label):
+                                    ?>
                                     <tr>
-                                        <td colspan="3">
+                                        <td width="100">
                                             <label>
-                                                <input type="radio" name="aspek[<?= $parent['kd'] ?>]" value="1" required
-                                                    <?= (isset($parent['score']) && $parent['score'] == 1) ? 'checked' : '' ?>> Baik
-                                            </label>&nbsp;&nbsp;
-                                            <label>
-                                                <input type="radio" name="aspek[<?= $parent['kd'] ?>]" value="2" required
-                                                    <?= (isset($parent['score']) && $parent['score'] == 2) ? 'checked' : '' ?>> Cukup
-                                            </label>&nbsp;&nbsp;
-                                            <label>
-                                                <input type="radio" name="aspek[<?= $parent['kd'] ?>]" value="3" required
-                                                    <?= (isset($parent['score']) && $parent['score'] == 3) ? 'checked' : '' ?>> Kurang
+                                                <input type="radio" name="aspek[<?= $parent['kd'] ?>]" value="<?= $val ?>" required
+                                                    <?= (isset($parent['score']) && $parent['score'] == $val) ? 'checked' : '' ?>>
+                                                <strong><?= $label ?></strong>
                                             </label>
                                         </td>
-                                    </tr>
-
-                                    <!-- Deskripsi Pilihan -->
-                                    <?php foreach (['Baik', 'Cukup', 'Kurang'] as $key): ?>
-                                    <tr>
-                                        <td width="100"><strong><?= $key ?></strong></td>
-                                        <td colspan="2"><?= isset($children[$key]) ? $children[$key] : '' ?></td>
+                                        <td colspan="2"><?= isset($children[$label]) ? $children[$label] : '' ?></td>
                                     </tr>
                                     <?php endforeach; ?>
+                                  
 
                                     <?php else: ?>
                                     <!-- Isian Jawaban -->

@@ -16,7 +16,7 @@ class M_Pk extends CI_Model
                             c1.nik as nik_atasan1,
                             c1.nohp1 as nohpa1,
                             c1.nmlengkap as nmlengkapa1,
-                            c2.nik as nik_atasan,
+                            c2.nik as nik_atasan2,
                             c2.nohp1 as nohpa2,
                             c2.nmlengkap as nmlengkapa2,
                             c3.nik as nik_appr,

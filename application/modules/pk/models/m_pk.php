@@ -1354,7 +1354,7 @@ SQL
 							left outer join sc_pk.master_pk e on a.nodok=e.kdcontract
 							left outer join sc_pk.master_appr f on e.status = f.kdappr
 							left outer join sc_mst.departmen g on g.kddept = c.bag_dept
-							where a.kdkepegawaian not in('KO', 'KT','MG','PK') and a.status='B' and tgl_selesai - INTERVAL '2 months' <= CURRENT_DATE 
+							where a.kdkepegawaian not in('KO', 'KT','MG','PK') and a.status='B' and tgl_selesai - INTERVAL '2 months' <= CURRENT_DATE and (e.status != 'P' or e.status is null)
 							$param
 							order by a.tgl_selesai asc ");	
 		}
