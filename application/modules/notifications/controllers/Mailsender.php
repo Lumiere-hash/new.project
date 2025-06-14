@@ -9,12 +9,15 @@ class Mailsender extends CI_Controller
     }
     public function send()
     {
-        $this->load->model(array('agenda/M_Notifications','master/M_Employee'));
+        $this->load->model(array('agenda/M_Notifications','master/M_Employee','mail/m_mailserver'));
         $this->load->helper(array('generate'));
+        $sender = $this->m_mailserver->q_smtp("NSANBI")->row_array();
+        $dari = $sender['primarymail'];
         foreach ($this->M_Notifications->read(' AND status IS NULL AND type = \'email\' LIMIT 1')->result() as $index => $item) {
             $employee = $this->M_Employee->read(' AND nik = \''.$item->send_to.'\' ')->row();
             // vdump($item->content);
             $this->jagoan_mail->clear(true, 'NSANBI')
+                ->setFrom($sender['primarymail'])
                 ->setTo(trim($employee->email))
                 // ->setTo(trim('4mailbot@gmail.com'))
                 ->setSubject(!empty($item->subject) ? $item->subject : 'FOR TRIAL ONLY')
@@ -35,7 +38,7 @@ class Mailsender extends CI_Controller
         }
     }
 
-    public function test_mail($email = ''){
+    public function test_mail($email = 'iqbalkresna.12@gmail.com'){
         $this->jagoan_mail->sendr(
             '4mailbot@gmail.com', 
             $subject, 

@@ -387,37 +387,18 @@ function angka_ke_kata($angka) {
 
 // Fungsi untuk menghitung selisih bulan
 function masa_kontrak($tgl_mulai, $tgl_selesai) {
-    // Membuat objek DateTime
     $date1 = new DateTime($tgl_mulai);
     $date2 = new DateTime($tgl_selesai);
 
-    // Hitung selisih tahun dan bulan
-    $year_diff = $date2->format('Y') - $date1->format('Y');
-    $month_diff = $date2->format('m') - $date1->format('m');
+    // Hitung total hari
+    $interval = $date1->diff($date2);
+    $total_days = $interval->days;
 
-    // Jika bulan selisihnya negatif, kurangi tahun dan perbaiki bulan
-    if ($month_diff < 0) {
-        $year_diff--;
-        $month_diff += 12;
-    }
+    // Konversi ke bulan (rata-rata 30.44 hari per bulan)
+    $approx_months = round($total_days / 30.44);
+	$total_bulan_kata = $this->angka_ke_kata($approx_months);
 
-    // Total bulan yang dihitung dengan menambah 1 untuk bulan pertama
-    $total_months = ($year_diff * 12) + $month_diff + 1;
-
-    // Adjust total_months if it is 7 or 13
-    if ($total_months == 7) {
-        $total_months = 6;
-    } elseif ($total_months == 13) {
-        $total_months = 12;
-    } elseif ($total_months == 5) {
-        $total_months = 6;
-    } elseif ($total_months == 11) {
-        $total_months = 12;
-    }
-
-    $total_bulan_kata = $this->angka_ke_kata($total_months);
-    $result = $total_months . ' '. $total_bulan_kata;
-    return $result;
+    return $approx_months . ' ('. $total_bulan_kata .') ';
 }
 
 function masa_kontrak2($tgl_mulai, $tgl_selesai) {
@@ -510,6 +491,38 @@ function masa_kontrak_cetak1($tgl_mulai, $tgl_selesai) {
     } elseif ($total_months == 11) {
         $total_months = 12;
     }
+
+    return $total_months . ' bulan';
+}
+
+function masa_kontrak_cetak2($tgl_mulai, $tgl_selesai) {
+    $date1 = new DateTime($tgl_mulai);
+    $date2 = new DateTime($tgl_selesai);
+
+    // Hitung selisih tahun dan bulan
+    $year_diff = $date2->format('Y') - $date1->format('Y');
+    $month_diff = $date2->format('m') - $date1->format('m');
+    $day_diff = $date2->format('d') - $date1->format('d');
+
+    // Jika bulan selisihnya negatif, kurangi tahun dan perbaiki bulan
+    if ($month_diff < 0) {
+        $year_diff--;
+        $month_diff += 12;
+    }
+
+    // Jika hari di tanggal akhir lebih kecil dari tanggal mulai, kurangi 1 bulan
+    if ($day_diff < 0) {
+        $month_diff--;
+        if ($month_diff < 0) {
+            $month_diff += 12;
+            $year_diff--;
+        }
+    }
+
+    $total_months = ($year_diff * 12) + $month_diff;
+
+    // Minimal 0 bulan
+    if ($total_months < 0) $total_months = 0;
 
     return $total_months . ' bulan';
 }

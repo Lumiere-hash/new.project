@@ -25,15 +25,17 @@ class Dashboard extends MX_Controller
         $countTemplate = count(glob($directory . "*.{php}",GLOB_BRACE));
 
         $this->load->model(array('master/m_option'));
-        $setupData = $this->m_option->q_master_read(' TRUE AND kdoption = \'DASHBOARD:ACTIVE\' ')->row();
-        
-        $version = (empty($setupData) ? 1 : ($setupData->value3 == null ? 1 : $setupData->value3));
+        // $setupData = $this->m_option->q_master_read(' TRUE AND kdoption = \'DASHBOARD:ACTIVE\' ')->row();
+        // $version = (empty($setupData) ? 1 : ($setupData->value3 == null ? 1 : $setupData->value3));
         
         $nik = $this->session->userdata("nik");
         $hr = trim($this->db->query("select nik from sc_mst.karyawan where bag_dept = 'HA' and nik = '$nik' and jabatan != 'HR06'")
                                 ->row()->nik);
         if ($hr == $nik) {
-        $version = 3;
+            //setup option
+        $versionhr = trim($this->db->query("select value1 from sc_mst.option where trim(kdoption) = 'DEFAULT-DASHBOARD-HR'")
+                                ->row()->value1);
+        $version = $versionhr;
         }
         else {
         $version = 2;
@@ -677,7 +679,7 @@ class Dashboard extends MX_Controller
         
 
         //if($data["rowakses"] > 0 || $data["level"] == "A") {
-            $data["list_ojt"] = $this->m_stspeg->q_list_ojt2()->result();
+            $data["list_ojt"] = $this->m_stspeg->q_list_ojt()->result();
             $data["title_ojt"] = "Karyawan OJT (On Job Training)";
 
             $data["list_kontrak"] = $this->m_stspeg->q_list_karkon()->result();

@@ -487,12 +487,22 @@
                 return repo.text || repo.text;
             },
         }).on('change', function (e) {
-            if ($(this).val() == 'IN'){
-                $('input[name=\'organizer_name\']').val('<?php echo $branch->branchname ?>')
-                $('input[name=\'organizer_name\']').attr('readonly','readonly')
-            }else{
-                $('input[name=\'organizer_name\']').removeAttr('readonly');
-                $('input[name=\'organizer_name\']').val('');
+             var agendaType = $('select[name="agenda_type"]').val();
+            var organizerType = $(this).val();
+            if (agendaType == 'OJT' && organizerType == 'IN') {
+                $('input[name="organizer_name"]').closest('.form-group').hide();
+                $('input[name="organizer_name"]').removeAttr('readonly');
+                $('input[name="organizer_name"]').removeAttr('required'); // Remove required
+                $('input[name="organizer_name"]').val('<?php echo $branch->branchname ?>');
+            } else {
+                $('input[name="organizer_name"]').closest('.form-group').show();
+                if (organizerType == 'IN') {
+                    $('input[name="organizer_name"]').val('<?php echo $branch->branchname ?>')
+                    $('input[name="organizer_name"]').attr('readonly','readonly')
+                } else {
+                    $('input[name="organizer_name"]').removeAttr('readonly');
+                    $('input[name="organizer_name"]').val('');
+                }
             }
             $(this).valid()
         });

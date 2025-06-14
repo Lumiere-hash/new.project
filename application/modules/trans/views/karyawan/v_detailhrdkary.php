@@ -1625,16 +1625,40 @@ error_reporting(0);
 							</div>
 							</div>
 							<div class="form-group">
-							<div id="ojt" >
+							<div id="ojt">
 								<label class="col-sm-4">OJT</label>
 								<div class="col-sm-8">
-									<select class="form-control input-sm" name="ojt" id="kdbahasa">
-										<option  value="F" >TIDAK</option>
-										<option  value="T" >YA</option>
+									<select class="form-control input-sm" name="ojt" id="ojt_select">
+										<option value="F">TIDAK</option>
+										<option value="T">YA</option>
 									</select>
 								</div>
 							</div>
 							</div>
+							<div class="form-group" id="form_duedate" style="display:none;">
+							<div id="duedate_group" >
+								<label class="col-sm-4">Due Date OJT</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control" name="duedate_ojt" id="duedate_ojt" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy">
+								</div>
+							</div>
+							</div>
+							<script>
+								$(function() {
+									$('#ojt_select').change(function() {
+										if ($(this).val() === 'T') {
+											$('#form_duedate').show();
+											$('#duedate_ojt').prop('required', true);
+											$('#duedate_ojt').datepicker();
+										} else {
+											$('#form_duedate').hide();
+											$('#duedate_ojt').prop('required', false);
+											$('#duedate_ojt').val('');
+										}
+									});
+								});
+							</script>
+							
 							<div class="form-group">
 								<label class="col-sm-4">Keterangan</label>
 								<div class="col-sm-8">

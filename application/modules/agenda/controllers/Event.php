@@ -1432,8 +1432,11 @@ class Event extends MX_Controller
                     $this->db->trans_commit();
                     ob_start();
                     $this->load->library('../modules/Notifications/controllers/Whatsapp');
+                    //$this->load->library('../modules/Notifications/controllers/Mailsender');
                     $whatsapp = new WhatsApp;
                     $whatsapp->handle('SBYNSA', $json->agenda_id);
+                    // $email= new Mailsender;
+                    // $email->send();
                     ob_clean();
                     http_response_code(200);
                     echo json_encode(array(
