@@ -1,9 +1,15 @@
 {
-    "info": {
-        "nmhari": "Senin",
-        "tgl": "17",
-        "bulan": "Maret",
-        "tahun": "2025"
+     "info": {
+        "tglkontrak": "2025-03-18",
+        "tglctk": "2025-06-18",
+        "nmhari": "Rabu",
+        "tgl": "18",
+        "bulan": "Juni",
+        "tahun": "2025",
+        "nmhari2": "Selasa",
+        "tgl2": "18",
+        "bulan2": "Maret",
+        "tahun2": "2025"
     },
     "pihak1": {
         "nmlengkap": "Merry Chrissinda",

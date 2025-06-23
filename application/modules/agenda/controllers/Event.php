@@ -59,6 +59,18 @@ class Event extends MX_Controller
         $userhr = strtoupper(trim($this->m_akses->q_user_check()->row()->level_akses)) === 'DIR' or $this->m_akses->userhr();
         $branchData = $this->M_Branch->read(' AND cdefault = \'YES\' ')->row();
         header('Content-Type: application/json');
+        $room_id = $this->input->get_post('location');
+        $room = $this->db->query("select room_name from sc_mst.room where room_id = ?", array($room_id))->row();
+        $location = $room ? $room->room_name : null;
+
+        $calendar = $this->post_google_calendar
+            (strtoupper(strtolower($this->input->get_post('agenda_name'))), 
+                strtoupper(strtolower($this->input->get_post('begin_date'))),
+                strtoupper(strtolower($this->input->get_post('end_date'))),
+                strtoupper(strtolower($location)),
+                trim($this->input->get_post('link')));
+        $calendarId = json_decode($calendar)->id;
+       
         try {
             $this->db->trans_start();
             $this->M_Agenda->tmp_update(array(
@@ -72,7 +84,8 @@ class Event extends MX_Controller
                 'location' => strtoupper(strtolower($this->input->get_post('location'))),
                 'link' => trim($this->input->get_post('link')),
                 'status' => 'F',
-                'branch_id' => $branchData->branch
+                'branch_id' => $branchData->branch,
+                'calendar_id' => $calendarId
             ), array(
                 'agenda_id' => $this->session->userdata('nik'),
                 'input_by' => $this->session->userdata('nik'),
@@ -83,7 +96,8 @@ class Event extends MX_Controller
                 http_response_code(200);
                 echo json_encode(array(
                     'data' => array(),
-                    'message' => 'Data berhasil disimpan'
+                    'message' => 'Data berhasil disimpan',
+                    'calendar_id' => $calendarId
                 ));
             } else {
                 throw new Exception("Error DB", 1);
@@ -103,6 +117,7 @@ class Event extends MX_Controller
 
     public function read($param)
     {
+        $nikuser = trim($this->session->userdata('nik'));
         $json = json_decode(hex2bin($param));
         $this->load->model(array('master/M_Employee', 'trans/M_TrxType', 'agenda/M_Agenda', 'agenda/M_AgendaAttendance'));
         $check = $this->M_Agenda->checkpassedevent($json->agenda_id);
@@ -114,7 +129,8 @@ class Event extends MX_Controller
         }
         $transaction = $paramtrx;
         $userhr = trim($this->q_user_checkhr()->row()->bag_dept) == 'HA';
-        $agendaData = $this->M_AgendaAttendance->read(' AND agenda_id = \'' . $transaction->agenda_id . '\' AND nik = \'' . trim($this->session->userdata('nik')) . '\' ')->row();
+        $agendaData = $this->M_AgendaAttendance->read(" and agenda_id =  '$json->agenda_id'  AND nik = '$nikuser' ")->row();
+        
         $content = (!empty($json->detail) ? 'agenda/event/modals/v_read_only' : 'agenda/event/modals/v_read');
         $data = array(
             'modalTitle' => 'RINCIAN AGENDA <b>' . $transaction->agenda_name . '</b>',
@@ -124,6 +140,7 @@ class Event extends MX_Controller
             'agendaData' => $agendaData,
             'userhr' => $userhr,
             'notificationUrl' => site_url('agenda/event/broadcast/' . bin2hex(json_encode(array('agenda_id' => $transaction->agenda_id)))),
+            'sendcalendarUrl' => site_url('agenda/event/patch_utils' . '?agenda_id=' . $transaction->agenda_id . '&calendar_id=' . $transaction->calendar_id),
             'attendUrl' => site_url('agenda/event/confirmattendance/' . bin2hex(json_encode(array('agenda_id' => $transaction->agenda_id, 'nik' => trim($this->session->userdata('nik')))))),
             'cancelUrl' => site_url('agenda/event/docancel/' . bin2hex(json_encode(array('agenda_id' => $transaction->agenda_id, 'nik' => trim($this->session->userdata('nik')))))),
             // Add eventResult only if agenda_type is 'OJT'
@@ -1414,14 +1431,18 @@ class Event extends MX_Controller
                                         if ($rule->type == 'wa') {
                                             $notif['content'] = $this->load->view('notification_template/event/whatsapp', $data, true);
                                         } else {
-                                            $notif['content'] = $this->load->view('notification_template/event/email', $data, true);
+                                            $emailnotif = $this->load->view('notification_template/event/email', $data, true);
+                                            $notif['content'] = pg_escape_string( $emailnotif);
                                         }
                                         array_push($notifications, $notif);
                                         break;
+                                        
                                 }
                             }
 //                            $countMessage = count($notifications);
                             $this->M_Notifications->createBatch(array_unique($notifications, SORT_REGULAR));
+                            // var_dump($notifications);
+                            // exit;
                             break;
                     }
                 }
@@ -1432,11 +1453,10 @@ class Event extends MX_Controller
                     $this->db->trans_commit();
                     ob_start();
                     $this->load->library('../modules/Notifications/controllers/Whatsapp');
-                    //$this->load->library('../modules/Notifications/controllers/Mailsender');
                     $whatsapp = new WhatsApp;
                     $whatsapp->handle('SBYNSA', $json->agenda_id);
-                    // $email= new Mailsender;
-                    // $email->send();
+                    $email= Modules::load('Api/Mailer');
+                    $email->send_mail_agenda($json->agenda_id);
                     ob_clean();
                     http_response_code(200);
                     echo json_encode(array(
@@ -1882,7 +1902,10 @@ class Event extends MX_Controller
                             array(
                                 'agenda_id' => $transaction->agenda_id
                             )
-                        );
+                        );  
+
+                        //hapus event google calendar                        
+                        $this->delete_google_calendar($transaction->calendar_id);    
 
                         $this->db->trans_complete();
                         if ($this->db->trans_status()) {
@@ -1890,8 +1913,10 @@ class Event extends MX_Controller
                             $transaction = $this->M_Agenda->read(' AND agenda_id = \'' . $json->agenda_id . '\' ')->row();
                             if ((int)$transaction->participant_count > 0) {
                                 $message = "Pemberitahuan: \n\nNama Agenda: $transaction->agenda_name \nStatus : $transaction->status_text. \n\n Alasan pembatalan : \n$reason ";
-                                                             
-
+                                ob_start();
+                                $email= Modules::load('Api/Mailer');
+                                $email->send_cancel_mail_agenda($json->agenda_id);
+                                ob_clean();                  
                                 foreach ($this->M_AgendaAttendance->read(' AND agenda_id = \''.$transaction->agenda_id.'\' ')->result() as $index => $item) {
                                     $outboxFor = $item->employee_phone;
                                     ob_start();
@@ -1902,6 +1927,7 @@ class Event extends MX_Controller
                                         'documentid' => $item->agenda_id,
                                         'message' => $message,
                                     ), $outboxFor);
+                        
                                     //var_dump($whatsapp);exit;
                                     ob_clean();
                                 }
@@ -2062,5 +2088,351 @@ class Event extends MX_Controller
             ));
         }
     }
+
+    public function patch_utils() {
+        $agenda_id = $this->input->get('agenda_id');
+        $calendar_id = $this->input->get('calendar_id');
+
+        if (empty($agenda_id) || empty($calendar_id)) {
+            http_response_code(400);
+            echo json_encode(array(
+            'data' => array(),
+            'message' => 'Agenda ID and Calendar ID cannot be null'
+            ));
+            return;
+        }
+
+        $this->load->model(array('agenda/M_AgendaAttendance', 'M_Notifications'));
+
+        // Ambil data agenda dari DB untuk summary, location, description, start, end
+        $agenda = $this->db->query("SELECT agenda_name, location, link, begin_date, end_date FROM sc_trx.agenda WHERE agenda_id = ?", array($agenda_id))->row();
+        $room = $this->db->query("select room_name from sc_mst.room where room_id = ?", array($agenda->location))->row();
+        $location = $room ? $room->room_name : null;
+
+
+        $event = array(
+            'summary'     => $agenda->agenda_name,
+            'location'    => $location,
+            'description' => $agenda->link,
+            'start' => array(
+            'dateTime' => $this->format_datetime_gcalendar($agenda->begin_date),
+            'timeZone' => 'Asia/Jakarta'
+            ),
+            'end' => array(
+            'dateTime' =>  $this->format_datetime_gcalendar($agenda->end_date),
+            'timeZone' => 'Asia/Jakarta'
+            ),
+            'attendees' => array()
+        );
+        $notifications = array();
+
+        // Ambil daftar attendee dari DB
+        $attendances = $this->M_AgendaAttendance->read_email(" AND agenda_id = '$agenda_id'")->result();
+        foreach ($attendances as $agenda) {
+            if (!empty($agenda->email_calendar && $agenda->email_calendar != '')) {
+                $event['attendees'][] = array('email' => trim(strtolower($agenda->email_calendar)));
+
+                $notifications[] = array(
+                    'reference_id' => $agenda_id,
+                    'type' => 'google_calendar',
+                    'module' => 'EVENT',
+                    'subject' => 'SCHEDULE EVENT',
+                    'action' => null,
+                    'status' => null,
+                    'send_to' => $agenda->nik,
+                    'input_by' => 'SYSTEM',
+                    'input_date' => date('Y-m-d H:i:s'),
+                    'content' => trim(strtolower($agenda->email_calendar))
+                );
+            }
+        }
+
+            //  var_dump($event);
+            //  exit;
+
+        if (!empty($notifications)) {
+            $this->M_Notifications->createBatch(array_unique($notifications, SORT_REGULAR));
+        }
+
+        // Lakukan PATCH ke Google Calendar
+        $result = $this->patch_google_calendar($event, $calendar_id);
+        $responseObj = json_decode($result);
+
+        $emails = [];
+
+        if (json_last_error() !== JSON_ERROR_NONE || empty($responseObj)) {
+            log_message('error', 'Google Calendar response invalid: ' . $result);
+            return show_error('Gagal update Google Calendar. Respons tidak valid.', 500);
+        }
+
+        // Ambil semua email yang berhasil ditambahkan
+        if (!empty($responseObj->attendees) && is_array($responseObj->attendees)) {
+            foreach ($responseObj->attendees as $attendee) {
+                if (!empty($attendee->email)) {
+                    $emails[] = trim($attendee->email);
+                }
+            }
+        }
+
+        // Update status notifikasi
+        if (!empty($emails)) {
+            $escaped_emails = array_map(function ($e) {
+                return $this->db->escape($e);
+            }, $emails);
+
+            $sql = "
+                UPDATE sc_trx.notifications
+                SET status = 'send to calendar'
+                WHERE reference_id = ?
+                AND type = 'google_calendar'
+                AND trim(content) IN (" . implode(',', $escaped_emails) . ")
+            ";
+
+            $this->db->query($sql, array($agenda_id));
+        }
+
+
+
+    http_response_code(200);
+            echo json_encode(array(
+                'data' => array(),
+                'message' => 'Pesan notifikasi telah dikirim'
+            ));
+
+        
+    }
+
+
+    public function post_google_calendar($agendaname, $startdate, $enddate, $location, $link) {
+        $auth = modules::load('api/Auth'); 
+
+        // var_dump($agendaname, $startdate, $enddate, $description, $link);
+        // exit;
+
+        // ✅ Ambil token yang valid
+        $access_token = $this->option['GO:ACCESS-TOKEN']['value1'];
+        if (!$access_token) {
+            $access_token = $auth->get_token_valid(); // Ambil token valid jika tidak ada
+            if (!$access_token) {
+                echo "Gagal ambil token yang valid.";
+                return;
+            }
+        }
+
+        // Lanjut kirim event ke Google Calendar
+        $event = array(
+            'summary'     => $agendaname,
+            'location'  => $location,
+            'description' => $link,
+            'start' => array(
+                'dateTime' => $this->format_datetime_gcalendar($startdate),
+                'timeZone' => 'Asia/Jakarta'
+            ),
+            'end' => array(
+                'dateTime' => $this->format_datetime_gcalendar($enddate),
+                'timeZone' => 'Asia/Jakarta'
+            ),
+            'reminders' => array(
+                'useDefault' => false,
+                'overrides' => array(
+                    array('method' => 'email', 'minutes' => isset($auth->option['GO:EMAILREMIND']['value1']) ? intval($auth->option['GO:EMAILREMIND']['value1']) : 30),
+                    array('method' => 'popup', 'minutes' => isset($auth->option['GO:POPUPREMIND']['value1']) ? intval($auth->option['GO:POPUPREMIND']['value1']) : 10)
+                )
+            )
+        );
+
+        $ch = curl_init('https://www.googleapis.com/calendar/v3/calendars/primary/events');
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Authorization: Bearer ' . $access_token,
+            'Content-Type: application/json'
+        ));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($event));
+        $response = curl_exec($ch);
+
+        // Check if the response indicates an invalid token
+        if (strpos($response, 'Invalid Credentials') !== false || strpos($response, 'invalid_grant') !== false) {
+            $access_token = $auth->get_token_valid(); // Get a new valid token
+            if ($access_token) {
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Authorization: Bearer ' . $access_token,
+                'Content-Type: application/json'
+            ));
+            $response = curl_exec($ch); // Retry the request with the new token
+            }
+        }
+
+        curl_close($ch);
+
+        return $response;
+    }
+
+    public function patch_google_calendar($event,$eventId) {
+        $auth = modules::load('api/Auth'); // Load library atau sesuai struktur kamu
+
+        // ✅ Ambil token yang valid
+        $access_token = $this->option['GO:ACCESS-TOKEN']['value1'];
+        if (!$access_token) {
+            $access_token = $auth->get_token_valid(); 
+            if (!$access_token) {
+                echo "Gagal ambil token yang valid.";
+                return;
+            }
+        }
+        
+        $url = 'https://www.googleapis.com/calendar/v3/calendars/primary/events/' . $eventId . '?sendUpdates=all';
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'PATCH'); // PATCH untuk update
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Authorization: Bearer ' . $access_token,
+            'Content-Type: application/json'
+        ));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($event));
+
+        $response = curl_exec($ch);
+
+        // Cek token invalid, coba ulangi
+        if (strpos($response, 'Invalid Credentials') !== false || strpos($response, 'invalid_grant') !== false) {
+            $access_token = $auth->get_token_valid();
+            if ($access_token) {
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                    'Authorization: Bearer ' . $access_token,
+                    'Content-Type: application/json'
+                ));
+                $response = curl_exec($ch);
+            }
+        }
+
+        curl_close($ch);
+        return $response;
+    }
+
+    public function delete_google_calendar($eventId) {
+        $auth = modules::load('api/Auth'); 
+
+        // ✅ Ambil token akses yang valid
+        $access_token = $this->option['GO:ACCESS-TOKEN']['value1'];
+        if (!$access_token) {
+            $access_token = $auth->get_token_valid();
+            if (!$access_token) {
+                echo "Gagal ambil token yang valid.";
+                return;
+            }
+        }
+
+        $url = 'https://www.googleapis.com/calendar/v3/calendars/primary/events/' . $eventId;
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'DELETE'); // DELETE untuk hapus
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Authorization: Bearer ' . $access_token
+        ));
+
+        $response = curl_exec($ch);
+
+        // Jika token invalid, coba refresh
+        if (strpos($response, 'Invalid Credentials') !== false || strpos($response, 'invalid_grant') !== false) {
+            $access_token = $auth->get_token_valid();
+            if ($access_token) {
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                    'Authorization: Bearer ' . $access_token
+                ));
+                $response = curl_exec($ch);
+            }
+        }
+
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        // Tampilkan hasil
+        if ($http_code == 204) {
+            //echo "Event berhasil dihapus.";
+            return true;
+        } else {
+            echo "Gagal menghapus event. Response: " . $response;
+            return $response;
+        }
+    }
+
+    public function get_google_calendar($eventId) {
+        $auth = modules::load('api/Auth'); 
+
+        // ✅ Ambil token akses yang valid
+        $access_token = $this->option['GO:ACCESS-TOKEN']['value1'];
+        if (!$access_token) {
+            $access_token = $auth->get_token_valid();
+            if (!$access_token) {
+                echo "Gagal ambil token yang valid.";
+                return;
+            }
+        }
+
+        $url = 'https://www.googleapis.com/calendar/v3/calendars/primary/events/' . $eventId;
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'Authorization: Bearer ' . $access_token
+        ));
+
+        $response = curl_exec($ch);
+
+        // Cek token invalid
+        if (strpos($response, 'Invalid Credentials') !== false || strpos($response, 'invalid_grant') !== false) {
+            $access_token = $auth->get_token_valid();
+            if ($access_token) {
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                    'Authorization: Bearer ' . $access_token
+                ));
+                $response = curl_exec($ch);
+            }
+        }
+
+        $http_code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($http_code == 200) {
+            // Event ditemukan
+            echo "Detail Event:<br>";
+            echo "<pre>" . print_r(json_decode($response, true), true) . "</pre>";
+        } else {
+            echo "Gagal mengambil detail event. HTTP Code: $http_code<br>Response: $response";
+        }
+    }
+
+    public function format_datetime_gcalendar($datetimeStr, $timezone = 'Asia/Jakarta') {
+        $tz = new DateTimeZone($timezone);
+        $dt = DateTime::createFromFormat('d-m-Y H:i:s', $datetimeStr, $tz);
+        
+        if ($dt === false) {
+            return null; // Gagal parsing
+        }
+
+        // Format RFC3339 (Y-m-dTH:i:sP) → Contoh: 2025-06-20T11:46:25+07:00
+        return $dt->format('Y-m-d\TH:i:sP');
+    }
+
+    public function test_google($param){
+        $auth = modules::load('api/Auth'); 
+        
+
+        if ($param == 'email'){
+         var_dump(intval($auth->option['GO:EMAILREMIND']['value1']));
+         exit;
+        }
+        else if ($param == 'pop'){
+         echo $auth->option['GO:POPUPREMIND']['value1'];
+        }
+        else if ($param == 'remind'){
+         echo $this->option['GO:EMAILREMIND']['value1'];
+        }
+
+
+    }
+
 
 }

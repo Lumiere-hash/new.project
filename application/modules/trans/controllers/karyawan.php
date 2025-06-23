@@ -232,6 +232,7 @@ class Karyawan extends MX_Controller {
         $data['title'] = "Detail Karyawan";
         //$data['dtl'] = $this->m_karyawan->get_dtl_id($id)->row_array();
         $data['lp'] = $this->m_karyawan->get_dtl_id($id)->row_array();
+
         $this->template->display('trans/karyawan/v_detailhrdkary',$data);
     }
 
@@ -662,6 +663,7 @@ class Karyawan extends MX_Controller {
             'idabsen' => strtoupper($this->input->post('idabsen')),
             'idmesin' => strtoupper($this->input->post('idmesin')),
             'email' => strtoupper($this->input->post('email')),
+            'email2' => strtoupper($this->input->post('email2')),
             //'bolehcuti' => strtoupper($this->input->post('bolehcuti')),
             //'sisacuti' => strtoupper($this->input->post('sisacuti')),
             'inputdate'=>date("d-m-Y H:i:s"),
@@ -2045,10 +2047,16 @@ class Karyawan extends MX_Controller {
         $this->load->helper('my_helper');
         //        var_dump();die();
         $info = [
+            'tglkontrak' => $transaction->tgl_mulai,
+            'tglctk' => $pihak2['tgl_cetak'],
             'nmhari' => nmhari($pihak2['tgl_cetak']),
             'tgl' => date('j', strtotime($pihak2['tgl_cetak'])),
             'bulan' => nmbulan($pihak2['tgl_cetak']),
             'tahun' => date('Y', strtotime($pihak2['tgl_cetak'])),
+            'nmhari2' => nmhari($transaction->tgl_mulai),
+            'tgl2' => date('j', strtotime($transaction->tgl_mulai)),
+            'bulan2' => nmbulan($transaction->tgl_mulai),
+            'tahun2' => date('Y', strtotime($transaction->tgl_mulai)),
         ];
         $kdkepegawaian = $transaction->kdkepegawaian;
         if ($kdkepegawaian != 'KT') {

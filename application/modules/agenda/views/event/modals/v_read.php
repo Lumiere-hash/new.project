@@ -1,3 +1,7 @@
+<?php
+// var_dump($agendaData);
+// die();
+?>
 <style>
     .canceled {
         border: 2px dashed #DD4B39; /* btn-info border color */
@@ -626,25 +630,32 @@
         })
         $('button.send-notification').on('click', function () {
             var row = $(this);
-            Swal.mixin({
-                customClass: {
-                    confirmButton: 'btn btn-sm btn-success ml-3',
-                    cancelButton: 'btn btn-sm btn-warning ml-3',
-                    denyButton: 'btn btn-sm btn-danger ml-3',
-                },
-                buttonsStyling: false,
-            }).fire({
+            Swal.fire({
                 title: 'Konfirmasi',
-                html: `Apakah anda ingin mengirim notifikasi ke semua peserta ?`,
+                html: `Apakah anda ingin mengirim notifikasi Email dan WA ke semua peserta ?`,
                 icon: 'question',
                 showCloseButton: true,
-                closeConfirmButton: true,
                 showConfirmButton: true,
-                confirmButtonText: 'Ya, Lanjutkan',
                 showDenyButton: true,
+                showCancelButton:true,
+                confirmButtonText: 'Ya, Lanjutkan',
                 denyButtonText: `Tidak, Tertentu saja`,
+                cancelButtonText:`tambah kalender`,
+                customClass: {
+                    confirmButton: 'btn btn-sm btn-success ml-3',
+                    denyButton: 'btn btn-sm btn-danger ml-3',
+                    cancelButton: 'btn btn-sm btn-info ml-3'
+                },
+                buttonsStyling: false,
+                didRender: () => {
+                    $('#addCalendar').on('click', function () {
+                        // Aksi ketika tombol tambahan diklik
+                        window.location.href = '<?php echo $sendcalendarUrl ?>'; // Ganti dengan URL sesuai kebutuhan Anda
+                    });
+                }
             }).then(function (result) {
-                if (result.isConfirmed){
+                console.log(result)
+                if (result.isConfirmed) {
                     Swal.fire({
                         icon: 'info',
                         position:'middle',
@@ -656,17 +667,10 @@
                             Swal.showLoading();
                         },
                     });
+
                     $.getJSON(row.attr('data-href'), {})
                         .done(function (data) {
-                            Swal.mixin({
-                                customClass: {
-                                    confirmButton: 'btn btn-sm btn-success ml-3',
-                                    cancelButton: 'btn btn-sm btn-warning ml-3',
-                                    denyButton: 'btn btn-sm btn-danger ml-3',
-                                },
-                                buttonsStyling: false,
-                            }).fire({
-                                position: 'top',
+                            Swal.fire({
                                 icon: 'success',
                                 title: 'Berhasil Disimpan',
                                 html: data.message,
@@ -674,36 +678,78 @@
                                 timerProgressBar: true,
                                 showCloseButton: true,
                                 showConfirmButton: true,
-                                showDenyButton: false,
                                 confirmButtonText: `Tutup`,
-                            }).then(function () {
-                            });
-                        })
-                        .fail(function (xhr, status, thrown) {
-                            Swal.mixin({
                                 customClass: {
-                                    confirmButton: 'btn btn-sm btn-success ml-3',
-                                    cancelButton: 'btn btn-sm btn-warning ml-3',
-                                    denyButton: 'btn btn-sm btn-danger ml-3',
+                                    confirmButton: 'btn btn-sm btn-success ml-3'
                                 },
                                 buttonsStyling: false,
-                            }).fire({
-                                position: 'top',
+                            });
+                        })
+                        .fail(function (xhr) {
+                            Swal.fire({
                                 icon: (xhr.responseJSON && xhr.responseJSON.icon ? 'warning' : 'error'),
                                 title: (xhr.responseJSON && xhr.responseJSON.statusText ? xhr.responseJSON.statusText : 'Terjadi Kesalahan'),
                                 html: (xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : xhr.statusText),
                                 showCloseButton: true,
                                 showConfirmButton: true,
                                 confirmButtonText: `Tutup`,
-                            }).then(function () {
+                                customClass: {
+                                    confirmButton: 'btn btn-sm btn-success ml-3'
+                                },
+                                buttonsStyling: false,
+                            });
+                        });
+                } else if (result.isDenied) {
+                    window.location.replace('<?php echo $participantList ?>');
+                } else if (result.isDismissed === true && result.dismiss === 'cancel' ){
+                    Swal.fire({
+                        icon: 'info',
+                        position:'middle',
+                        title: "Harap tunggu data sedang di proses, jangan tutup halaman ini",
+                        allowEscapeKey: false,
+                        allowOutsideClick:false,
+                        timerProgressBar: true,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        },
+                    });
+
+                    $.getJSON('<?php echo $sendcalendarUrl ?>', {})
+                        .done(function (data) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil Disimpan',
+                                html: data.message,
+                                timer: 3000,
+                                timerProgressBar: true,
+                                showCloseButton: true,
+                                showConfirmButton: true,
+                                confirmButtonText: `Tutup`,
+                                customClass: {
+                                    confirmButton: 'btn btn-sm btn-success ml-3'
+                                },
+                                buttonsStyling: false,
+                            });
+                        })
+                        .fail(function (xhr) {
+                            Swal.fire({
+                                icon: (xhr.responseJSON && xhr.responseJSON.icon ? 'warning' : 'error'),
+                                title: (xhr.responseJSON && xhr.responseJSON.statusText ? xhr.responseJSON.statusText : 'Terjadi Kesalahan'),
+                                html: (xhr.responseJSON && xhr.responseJSON.message ? xhr.responseJSON.message : xhr.statusText),
+                                showCloseButton: true,
+                                showConfirmButton: true,
+                                confirmButtonText: `Tutup`,
+                                customClass: {
+                                    confirmButton: 'btn btn-sm btn-success ml-3'
+                                },
+                                buttonsStyling: false,
                             });
                         });
                 }
-                if (result.isDenied){
-                    window.location.replace('<?php echo $participantList ?>')
-                }
-            })
-        })
+            });
+        });
+
+
         $('button.send-notificationss').on('click', function () {
             var row = $(this);
 

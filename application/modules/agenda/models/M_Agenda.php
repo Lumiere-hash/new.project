@@ -61,6 +61,7 @@ SELECT *,
         a.delete_by,
         a.delete_date,
         a.delete_reason,
+        a.calendar_id,
         e.nmlengkap AS cancel_by_name
     FROM sc_trx.agenda a
     LEFT OUTER JOIN sc_mst.trxtype b ON a.agenda_type = b.kdtrx AND b.jenistrx = 'EVENT'
@@ -104,6 +105,7 @@ SELECT *,
         a.participant_count,
         a.begin_date,
         a.end_date,
+        a.calendar_id,
         to_char(a.begin_date::timestamp,'HH24:MI') AS begin_hour,
         to_char(a.end_date::timestamp,'HH24:MI') AS end_hour,
         COALESCE(TRIM(f.room_name), a.location) AS location,

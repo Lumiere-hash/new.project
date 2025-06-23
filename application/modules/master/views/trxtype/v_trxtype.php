@@ -180,19 +180,19 @@
             <div class="form-group">
               <label class="control-label col-md-3">Kode Trxtype</label>
               <div class="col-md-9">
-                <input name="kdtrx" placeholder="Kode Trxtype" class="form-control" type="text">
+                <input name="kdtrx" placeholder="Kode Trxtype" class="form-control" type="text" maxlength="6">
               </div>
             </div>
 			<div class="form-group">
               <label class="control-label col-md-3">Jenis Trxtype</label>
               <div class="col-md-9">
-                <input name="jenistrx" placeholder="Jenis Trxtype" class="form-control" type="text">
+                <input name="jenistrx" placeholder="Jenis Trxtype" class="form-control" type="text" maxlength="20">
               </div>
             </div>						           
             <div class="form-group">
               <label class="control-label col-md-3">Uraian</label>
               <div class="col-md-9">
-                <textarea name="uraian" placeholder="Uraian"class="form-control"></textarea>
+                <textarea name="uraian" placeholder="Uraian"class="form-control" maxlength="60"></textarea>
               </div>
             </div>
           </div>
@@ -228,13 +228,13 @@
 			<div class="form-group">
               <label class="control-label col-md-3">Jenis Trxtype</label>
               <div class="col-md-9">
-                <input name="jenistrx" placeholder="Jenis Trxtype" class="form-control" type="text">
+                <input name="jenistrx" placeholder="Jenis Trxtype" class="form-control" type="text" maxlength="20">
               </div>
             </div>						           
             <div class="form-group">
               <label class="control-label col-md-3">Uraian</label>
               <div class="col-md-9">
-                <textarea name="uraian" placeholder="Uraian"class="form-control"></textarea>
+                <textarea name="uraian" placeholder="Uraian"class="form-control" maxlength="60"></textarea>
               </div>
             </div>
           </div>

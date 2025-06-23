@@ -472,7 +472,7 @@
                     },
                     title: {
                         align: 'center',
-                        text: 'Kondite <?php echo ucwords(strtolower($default->employee->nmlengkap.' '.$default->period)) ?>'
+                        text: 'Kondite <?php echo addslashes(ucwords(strtolower($default->employee->nmlengkap.' '.$default->period))) ?>'
                     },
                     subtitle: {
                         align: 'left',
@@ -577,7 +577,7 @@
                     },
                     title: {
                         align: 'center',
-                        text: 'KPI <?php echo ucwords(strtolower($default->employee->nmlengkap.' '.$default->period)) ?>'
+                        text: 'KPI <?php echo addslashes(ucwords(strtolower($default->employee->nmlengkap.' '.$default->period))) ?>'
                     },
                     subtitle: {
                         align: 'left',
