@@ -5,7 +5,7 @@
     <Databases isList="true" count="1">
       <json_pkwt_x0026_pkwtt_cetak Ref="2" type="Stimulsoft.Report.Dictionary.StiJsonDatabase" isKey="true">
         <Alias>json_pkwt&amp;pkwtt_cetak</Alias>
-        <Key>fe1de476fb7c43478cd4dc696dd7db93</Key>
+        <Key />
         <Name>json_pkwt&amp;pkwtt_cetak</Name>
         <PathData>D:\WEB\apache2\htdocs\hrms.nusa\assets\json\json_pkwt&amp;pkwtt_cetak.json</PathData>
       </json_pkwt_x0026_pkwtt_cetak>
@@ -13,14 +13,20 @@
     <DataSources isList="true" count="3">
       <info Ref="3" type="DataTableSource" isKey="true">
         <Alias>info</Alias>
-        <Columns isList="true" count="4">
+        <Columns isList="true" count="10">
+          <value>tglkontrak,System.String</value>
+          <value>tglctk,System.String</value>
           <value>nmhari,System.String</value>
           <value>tgl,System.String</value>
           <value>bulan,System.String</value>
           <value>tahun,System.String</value>
+          <value>nmhari2,System.String</value>
+          <value>tgl2,System.String</value>
+          <value>bulan2,System.String</value>
+          <value>tahun2,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>4fde914ebc914ba0bf9d7e0b04ccc5ea</Key>
+        <Key>c8250dff3dd9418e98ac357eb6c4c62d</Key>
         <Name>info</Name>
         <NameInSource>json_pkwt&amp;pkwtt_cetak.info</NameInSource>
       </info>
@@ -32,40 +38,38 @@
           <value>alamatktp,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>142c70ff3dca499d9ee3349c6c8d73be</Key>
+        <Key>511abb85b86548ebb3c3d519a214f319</Key>
         <Name>pihak1</Name>
         <NameInSource>json_pkwt&amp;pkwtt_cetak.pihak1</NameInSource>
       </pihak1>
       <pihak2 Ref="5" type="DataTableSource" isKey="true">
         <Alias>pihak2</Alias>
-        <Columns isList="true" count="24">
-          <value>ORIGINAL,nik,nik,nik,System.String,_x0033_0ec9902d47546e3b05e81e427b2e41a</value>
-          <value>ORIGINAL,nmlengkap,nmlengkap,nmlengkap,System.String,_x0037_bb91fb871f04c669349e8077335a501</value>
-          <value>ORIGINAL,jk,jk,jk,System.String,_x0032_51758eb9b2a41d0a064ba149259525b</value>
-          <value>ORIGINAL,tmptlahir,tmptlahir,tmptlahir,System.String,_x0039_423cb19b05e4c879d06486f8d3c498e</value>
-          <value>ORIGINAL,tgllahir,tgllahir,tgllahir,System.String,_x0033_08d429cd90f4512a838cb2763ba8be1</value>
-          <value>ORIGINAL,noktp,noktp,noktp,System.String,af0a58489f5d4573ae96e48fd625715a</value>
-          <value>ORIGINAL,nmagama,nmagama,nmagama,System.String,_x0034_f66a22d0cc44b45a6180bae91ea3dd1</value>
-          <value>ORIGINAL,alamatktp,alamatktp,alamatktp,System.String,_x0038_9ef8f12a40d4b71b0cb7f74dadbbd1e</value>
-          <value>ORIGINAL,nmnikah,nmnikah,nmnikah,System.String,de50e5fb568a4b3184edd5fa0e9df9e8</value>
-          <value>ORIGINAL,nmjabatan,nmjabatan,nmjabatan,System.String,_x0038_50d52e991a4423faa76a0f27ae84e4e</value>
-          <value>ORIGINAL,nmdept,nmdept,nmdept,System.String,_x0030_1df9692138144e487c4d8c84c555757</value>
-          <value>ORIGINAL,nodok,nodok,nodok,System.String,_x0033_27e24b4d0384fd19d7c106ff8033dd8</value>
-          <value>ORIGINAL,nmkepegawaian,nmkepegawaian,nmkepegawaian,System.String,_x0039_d223031db804f3685eba03382137e0d</value>
-          <value>ORIGINAL,tgl_mulai,tgl_mulai,tgl_mulai,System.String,_x0034_0326691cdb9485f80f944f2cb4c902a</value>
-          <value>ORIGINAL,tgl_selesai,tgl_selesai,tgl_selesai,System.String,f0d8dfd526f24157905c8c5085e0d4e7</value>
-          <value>ORIGINAL,tgl_cetak,tgl_cetak,tgl_cetak,System.String,_x0038_101fd21effc42bb9d9502cddb69ee03</value>
-          <value>ORIGINAL,row_number,row_number,row_number,System.String,bd468f6a1f554eb2b90456db0671c21e</value>
-          <value>ORIGINAL,nmdept_format,nmdept_format,nmdept_format,System.String,_x0031_83d7c9e3189425c93e2643e40fdce14</value>
-          <value>ORIGINAL,wilpen,wilpen,wilpen,System.String,_x0037_fbf06d9340942e6851991135147d90e</value>
-          <value>ORIGINAL,masa_kontrak_bln,masa_kontrak_bln,masa_kontrak_bln,System.String,_x0032_84be63fd7034849ace79a44315d2fc1</value>
-          <value>ORIGINAL,nosk,nosk,nosk,System.String,_x0030_a8f00d2c0764e51b48c81b11fff7fad</value>
-          <value>ORIGINAL,pkwt_ke,pkwt_ke,pkwt_ke,System.String,_x0032_4586b0879d240d88c62a58e954a5f98</value>
-          <value>ORIGINAL,tanggal_pkwt_terakhir,tanggal_pkwt_terakhir,tanggal_pkwt_terakhir,System.String,_x0033_d624197b164452d90b1e51b27306a9f</value>
-          <value>ORIGINAL,kdkepegawaian,kdkepegawaian,kdkepegawaian,System.String,_x0036_b71d899466a454abee99a89a52bc9dd</value>
+        <Columns isList="true" count="22">
+          <value>nik,System.String</value>
+          <value>nmlengkap,System.String</value>
+          <value>jk,System.String</value>
+          <value>tmptlahir,System.String</value>
+          <value>tgllahir,System.String</value>
+          <value>noktp,System.String</value>
+          <value>nmagama,System.String</value>
+          <value>alamatktp,System.String</value>
+          <value>nmnikah,System.String</value>
+          <value>nmjabatan,System.String</value>
+          <value>nmdept,System.String</value>
+          <value>nodok,System.String</value>
+          <value>kdkepegawaian,System.String</value>
+          <value>tgl_mulai,System.String</value>
+          <value>tgl_selesai,System.String</value>
+          <value>tgl_cetak,System.String</value>
+          <value>row_number,System.String</value>
+          <value>nmdept_format,System.String</value>
+          <value>nosk,System.String</value>
+          <value>pkwt_ke,System.String</value>
+          <value>tanggal_pkwt_terakhir,System.String</value>
+          <value>wilpen,System.String</value>
         </Columns>
         <Dictionary isRef="1" />
-        <Key>5b76c408097c48fdbc873d6db96efe19</Key>
+        <Key>d4bf1405acd9449398efb37462d2c149</Key>
         <Name>pihak2</Name>
         <NameInSource>json_pkwt&amp;pkwtt_cetak.pihak2</NameInSource>
       </pihak2>
@@ -9913,7 +9917,7 @@ Penandatanganan Perjanjian</Text>
           <Name>Text42</Name>
           <Page isRef="71" />
           <Parent isRef="71" />
-          <Text>{pihak2.wilpen}, {info.tgl} {info.bulan} {info.tahun}</Text>
+          <Text>SURABAYA, {info.tgl2} {info.bulan2} {info.tahun2}</Text>
           <TextBrush>Black</TextBrush>
           <Type>Expression</Type>
         </Text42>
@@ -13090,10 +13094,10 @@ AAAASUVORK5CYII=</ImageBytes>
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>5/30/2025 9:32:03 AM</ReportChanged>
+  <ReportChanged>6/18/2025 8:30:00 AM</ReportChanged>
   <ReportCreated>3/15/2025 10:49:50 AM</ReportCreated>
   <ReportFile>D:\WEB\apache2\htdocs\hrms.nusa\assets\mrt\pkwt_nusa.mrt</ReportFile>
-  <ReportGuid>2941fcec613f45a5894c0df8c20a7a7a</ReportGuid>
+  <ReportGuid>8797aa1d0e9a475886e84f8727285ca0</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Millimeters</ReportUnit>
   <ReportVersion>2020.2.3.0</ReportVersion>

@@ -276,7 +276,7 @@
                                         </td>
                                         <td style="vertical-align: middle; height: 5px; line-height: 5px;">
                                             <textarea name="keterangan<?php echo $no; ?>" id="keterangan<?php echo $no; ?>" style="width: 100%; resize: none; height: 30px; overflow: hidden;"
-                                                class="form-control capital"><?php echo htmlspecialchars($existing_keterangan); ?></textarea>
+                                                class="form-control capital" maxlength="20" oninput="if(this.value.length > 20) this.value = this.value.slice(0, 20);"><?php echo htmlspecialchars($existing_keterangan); ?></textarea>
                                         </td>
                                     </tr>
                                     <?php endforeach; ?>

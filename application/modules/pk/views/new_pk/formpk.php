@@ -270,7 +270,7 @@
                                         </td>
                                         <td style="height: 27px;">
                                             <textarea name="keterangan<?php echo $no; ?>" id="keterangan<?php echo $no; ?>" style="width: 100%; resize: none; height: 30px; overflow: hidden;"
-                                                class="form-control capital"></textarea>
+                                                class="form-control capital" maxlength="20" oninput="if(this.value.length > 20) this.value = this.value.slice(0, 20);"></textarea>
                                         </td>
                                     </tr>
                                     <?php endforeach; ?>

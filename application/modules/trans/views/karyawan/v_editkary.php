@@ -891,6 +891,12 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="control-label col-sm-3">Email 2</label>
+                                    <div class="col-sm-6">
+                                        <input name="email2" value="<?= trim($dtl['email2']) ?>" style="text-transform: uppercase;" placeholder="Alamat email" class="form-control" type="email">
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="control-label col-sm-3">NPWP</label>
                                     <div class="col-sm-6">
                                         <input name="npwp" value="<?= trim($dtl['npwp']) ?>" style="text-transform: uppercase;" placeholder="Nomor NPWP" class="form-control" type="input">
@@ -1358,7 +1364,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-3">PTKP</label>
                                     <div class="col-sm-6">
-                                        <select class="form-control input-sm" id="status_ptkp" name="status_ptkp" placeholder="--- PTKP ---" required>
+                                        <select class="form-control input-sm" id="status_ptkp" name="status_ptkp" placeholder="--- PTKP ---">
                                             <option value="" class=""></option>
                                             <?php foreach($list_opt_ptkp as $v): ?>
                                                 <?php $row = array_map('trim', (array)$v); ?>

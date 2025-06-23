@@ -45,40 +45,40 @@ function formattgl($param) {
 
 function nmbulan($param) {
     switch (date('m',strtotime($param))){
-        case 01:
+        case '01':
             $bulan='Januari';
             break;
-        case 02:
+        case '02':
             $bulan='Februari';
             break;
-        case 03:
+        case '03':
             $bulan='Maret';
             break;
-        case 04:
+        case '04':
             $bulan='April';
             break;
-        case 05:
+        case '05':
             $bulan='Mei';
             break;
-        case 06:
+        case '06':
             $bulan='Juni';
             break;
-        case 07:
+        case '07':
             $bulan='Juli';
             break;
-        case 08:
+        case '08':
             $bulan='Agustus';
             break;
-        case 09:
+        case '09':
             $bulan='September';
             break;
-        case 10:
+        case '10':
             $bulan='Oktober';
             break;
-        case 11:
+        case '11':
             $bulan='November';
             break;
-        case 12:
+        case '12':
             $bulan='Desember';
             break;
         default;

@@ -1760,7 +1760,7 @@ class WhatsApp extends MX_Controller
             // var_dump($messages);
             // die();
 
-        foreach ($this->M_Pk->q_whatsapp_collect_where(" and coalesce(a.statuspen,'') != '$status' limit 1")->result() as $item) {
+        foreach ($this->M_Pk->q_whatsapp_collect_where(" and coalesce(a.statuspen,'') != '$status'")->result() as $item) {
            $urlsetup = $this->db->query("select value1 from sc_mst.option where trim(kdoption) = 'URL-MSGPK'")->row()->value1;
 			 $refurl = $urlsetup . '/pk/list_pk';
              $url = $urlsetup . '/s/'.$item->identifier;

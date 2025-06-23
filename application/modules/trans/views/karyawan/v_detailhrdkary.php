@@ -302,6 +302,13 @@ error_reporting(0);
                                     </div>
                                     <div class="col-sm-10"></div>
                                 </div>
+								      <div class="form-group">
+                                    <label for="darah" class="col-sm-4 control-label">Email 2</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control input-sm" value="<?php echo $lp['email2'];?>" readonly>
+                                    </div>
+                                    <div class="col-sm-10"></div>
+                                </div>
                                 <div class="form-group">
                                     <label for="darah" class="col-sm-4 control-label">Group Penggajian</label>
                                     <div class="col-sm-8">
@@ -323,13 +330,13 @@ error_reporting(0);
                                     </div>
                                     <div class="col-sm-10"></div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="darah" class="col-sm-4 control-label">Callplan</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control input-sm" value="<?php echo $lp['callplan1'];?>" readonly>
-                                    </div>
-                                    <div class="col-sm-10"></div>
-                                </div>
+								<div class="form-group">
+									<label for="darah" class="col-sm-4 control-label">Callplan</label>
+									<div class="col-sm-8">
+										<input type="text" class="form-control input-sm" value="<?php echo (strtolower(trim($lp['callplan'])) == 't') ? 'YA' : 'TIDAK'; ?>" readonly>
+									</div>
+									<div class="col-sm-10"></div>
+								</div>
                             </div>
                         </div>
                     </div>

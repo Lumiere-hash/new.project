@@ -1,3 +1,9 @@
+<?php
+// var_dump($agendaData);
+// die();
+?>
+
+
 <div class="modal-dialog <?php echo(isset($modalSize) ? $modalSize : 'modal-md') ?>" role="document">
     <div class="modal-content">
         <div class="modal-header">
