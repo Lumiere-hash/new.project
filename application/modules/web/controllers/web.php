@@ -17,14 +17,18 @@ class Web extends MX_Controller{
     }
     
     function index(){
-        $vals = array(
-			'img_path' => './assets/captcha/',
-			'img_url' => base_url().'/assets/captcha/',
+		$img_path = './assets/captcha/';
+		if (!is_dir($img_path)) {
+			mkdir($img_path, 0755, true);
+		}
+		$vals = array(
+			'img_path' => $img_path,
+			'img_url' => base_url().$img_path,
 			'img_width' => 150,
 			'img_height' => 30,
 			'border' => 0, 
-            'expiration' => 7200
-			);
+			'expiration' => 7200
+		);
 		$cap = create_captcha($vals);
 		$capword=md5(strtolower($cap['word']));
 		$this->session->set_userdata('keycode',$capword);
