@@ -4,8 +4,15 @@
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img width="100%" height="80%" src="<?php $imgr = trim($user_menu['image']);
-                                                    echo base_url("assets/img/profile/$imgr"); ?>" class="img-circle" alt="User Image">
+                <?php
+                $imgr = trim($user_menu['image']);
+                if (!empty($imgr) && file_exists(FCPATH . "assets/img/profile/$imgr")) {
+                    $img_src = base_url("assets/img/profile/$imgr");
+                } else {
+                    $img_src = base_url("assets/img/admin.jpg");
+                }
+                ?>
+                <img width="100%" height="80%" src="<?php echo $img_src; ?>" class="img-circle" alt="User Image">
             </div>
             <div class="pull-left info">
                 <p><?php echo $user_menu['nmlengkap'];    ?></p>

@@ -8,16 +8,28 @@ class M_user extends CI_Model{
 		$username=$this->session->userdata('nama');
         $this->db->query("update sc_mst.user a set image=coalesce(b.image,'admin.jpg') from sc_mst.karyawan b
 	    where a.nik=b.nik;");
-		return $this->db->query("select userid,ip_address,username,nik,image from (
-                                select distinct a.userid,ip_address,b.username,b.nik ,b.image
-                                from osin_sessions a
-                                left outer join sc_mst.user b on a.userid=b.username
-                                where a.userid<>'USER' and nik<>'$user'
-                                union all
-                                select distinct a.userid,ip_address,b.username,b.nik,b.image 
-                                from osin_sessions a
-                                left outer join sc_mst.user b on a.userid=b.username
-                                where a.userid<>'USER'	and nik='$user' and username='$username') as x");
+		return $this->db->query("SELECT DISTINCT ON (userid,nik) userid, ip_address, username, nik, image
+			FROM (
+				SELECT 
+					a.userid, 
+					a.ip_address, 
+					b.username, 
+					b.nik, 
+					b.image
+				FROM osin_sessions a
+				LEFT JOIN sc_mst.user b ON a.userid = b.username
+				WHERE a.userid <> 'USER' AND b.nik <> '$user'
+				UNION ALL
+				SELECT 
+					a.userid, 
+					a.ip_address, 
+					b.username, 
+					b.nik, 
+					b.image
+				FROM osin_sessions a
+				LEFT JOIN sc_mst.user b ON a.userid = b.username
+				WHERE a.userid <> 'USER' AND b.nik = '$user' AND b.username = '$username'
+			) AS x;");
 	}
 	
 	function q_user_last_login(){

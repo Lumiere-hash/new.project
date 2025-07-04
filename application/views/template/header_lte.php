@@ -37,7 +37,11 @@
                                             <div class="row">
                                                 <div class="col-xs-2 col-md-2 text-nowrap"> <img src="<?php
                                                     $imo=trim($ull->image);
-                                                    echo base_url("assets/img/profile/$imo");
+                                                    if (!empty($imo) && file_exists(FCPATH . "assets/img/profile/$imo")) {
+                                                        echo base_url("assets/img/profile/$imo");
+                                                    } else {
+                                                        echo base_url("assets/img/admin.jpg");
+                                                    }
                                                     ?>" alt="HTML5 Icon" width="45" height="45"></div>
                                                 <div class="col-xs-2 col-md-5 text-nowrap"><strong><?php echo $ull->userid;?></strong> </div>
                                                 <div class="col-xs-5 col-md-5 text-nowrap"><strong><?php echo $ull->nik;?></strong> </div>
@@ -81,16 +85,23 @@
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="<?php $imgr=trim($user_menu['image']); echo base_url("assets/img/profile/$imgr");?>" class="user-image" alt="User Image">
-                        <span class="hidden-xs"><?php echo $user_menu['username'];	?></span>
+                        <?php
+                            $imgr = trim($user_menu['image']);
+                            if (!empty($imgr) && file_exists(FCPATH . "assets/img/profile/$imgr")) {
+                                $img_url = base_url("assets/img/profile/$imgr");
+                            } else {
+                                $img_url = base_url("assets/img/admin.jpg");
+                            }
+                        ?>
+                        <img src="<?php echo $img_url; ?>" class="user-image" alt="User Image">
+                        <span class="hidden-xs"><?php echo $user_menu['username']; ?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="<?php $imgr=trim($user_menu['image']); echo base_url("assets/img/profile/$imgr");?>" class="img-circle" alt="User Image">
-
+                            <img src="<?php echo $img_url; ?>" class="img-circle" alt="User Image">
                             <p>
-                                <?php echo $user_menu['username'];	?>
+                                <?php echo $user_menu['username']; ?>
                             </p>
                         </li>
                         <!-- Menu Body -->
