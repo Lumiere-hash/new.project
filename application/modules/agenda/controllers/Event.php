@@ -2210,7 +2210,7 @@ class Event extends MX_Controller
         // exit;
 
         // ✅ Ambil token yang valid
-        $access_token = $this->option['GO:ACCESS-TOKEN']['value1'];
+        $access_token = $auth->option['GO:ACCESS-TOKEN']['value1'];
         if (!$access_token) {
             $access_token = $auth->get_token_valid(); // Ambil token valid jika tidak ada
             if (!$access_token) {
@@ -2272,7 +2272,7 @@ class Event extends MX_Controller
         $auth = modules::load('api/Auth'); // Load library atau sesuai struktur kamu
 
         // ✅ Ambil token yang valid
-        $access_token = $this->option['GO:ACCESS-TOKEN']['value1'];
+        $access_token = $auth->option['GO:ACCESS-TOKEN']['value1'];
         if (!$access_token) {
             $access_token = $auth->get_token_valid(); 
             if (!$access_token) {
@@ -2314,7 +2314,7 @@ class Event extends MX_Controller
         $auth = modules::load('api/Auth'); 
 
         // ✅ Ambil token akses yang valid
-        $access_token = $this->option['GO:ACCESS-TOKEN']['value1'];
+        $access_token = $auth->option['GO:ACCESS-TOKEN']['value1'];
         if (!$access_token) {
             $access_token = $auth->get_token_valid();
             if (!$access_token) {
@@ -2362,7 +2362,7 @@ class Event extends MX_Controller
         $auth = modules::load('api/Auth'); 
 
         // ✅ Ambil token akses yang valid
-        $access_token = $this->option['GO:ACCESS-TOKEN']['value1'];
+        $access_token = $auth->option['GO:ACCESS-TOKEN']['value1'];
         if (!$access_token) {
             $access_token = $auth->get_token_valid();
             if (!$access_token) {

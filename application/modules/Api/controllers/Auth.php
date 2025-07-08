@@ -16,7 +16,7 @@ class Auth extends MX_Controller
             'client_id'     => $this->option['GO:CLIENTID']['value1'],
             'redirect_uri'  => $this->option['GO:REDIRECT_URI']['value1'],
             'scope'         => 'https://www.googleapis.com/auth/calendar.events',
-            'approval_prompt'   => 'force',
+            'prompt'        => 'consent',
             'access_type'   => 'offline'
         );
 
