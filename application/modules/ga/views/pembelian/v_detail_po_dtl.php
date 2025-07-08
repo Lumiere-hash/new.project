@@ -124,6 +124,8 @@
 		//	
 		$("#mpkdsubgroup").chained("#mpkdgroup");
 		$("#mpkdbarang").chained("#mpkdsubgroup");
+		$("#mpkdsubgroup").prop("disabled", true);
+		$("#mpkdbarang").prop("disabled", true);
 		////	$("#onhand").chained("#kdbarang");
 		//alert ($('#kdsubgroup').val() != '');
 

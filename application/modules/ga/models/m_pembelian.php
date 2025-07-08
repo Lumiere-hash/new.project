@@ -808,7 +808,7 @@ class M_pembelian extends CI_Model
 			$isDIR = $this->db->get_where('sc_mst.karyawan', array('nik' => $this->session->userdata('nik'), 'lvl_jabatan' => 'A'))->num_rows() > 0;
 			$cekJobLvl = in_array(trim($this->db->get_where('sc_mst.karyawan', array('nik' => $nikInput))->row()->lvl_jabatan), array('B', 'A'));
 
-			if (trim($po->row()->status_spk) == 'AF1') {
+			if (trim($po->row()->status) == 'AF1') {
 				$statusses = array(
 					'AF1' => $isSPVGA,
 				);
@@ -862,7 +862,7 @@ class M_pembelian extends CI_Model
 				if (trim($po->row()->status) == $status and $isAllowed) {
 					$nextStatus = $nextStatuses[$status];
 					$nextStatusExists = array_key_exists($nextStatus, $statusses);
-					return array('approve_access' => true, 'next_status' => $nextStatusExists ? $nextStatus : (substr(trim($po->row()->status_po), 0, 2) == 'AF' ? 'P' : 'FP'));
+					return array('approve_access' => true, 'next_status' => $nextStatusExists ? $nextStatus : (substr(trim($po->row()->status), 0, 2) == 'AF' ? 'P' : 'FP'));
 				}
 			}
 		}

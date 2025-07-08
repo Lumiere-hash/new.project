@@ -230,7 +230,7 @@
 									<!--a href="#" data-toggle="modal" data-target="#APPROVE<?php echo str_replace('.', '', trim($row->nodok)) . trim($row->nodoktmp); ?>" class="btn btn-success  btn-sm"><i class="fa fa-edit"></i> PROSES </a-->
 									<a href="<?php
 									$enc_nodok = bin2hex($this->encrypt->encode(trim($row->nodok)));
-									echo site_url("ga/pembelian/detail_supplier_po_mst_tmp/$enc_nodok"); ?>"
+									echo site_url("ga/pembelian/detail_supplier_po_mst_tmp/$enc_nodok/$oldStatus/$nextStatus"); ?>"
 										onclick="return confirm('Detail Supplier')" class="btn btn-default  btn-sm">
 										<i class="fa fa-edit"></i> DETAIL</a>
 								</td>
@@ -285,7 +285,7 @@
 								<td width="8%">
 									<a href="<?php
 									$enc_rowid = bin2hex($this->encrypt->encode(trim($row->id)));
-									echo site_url("ga/pembelian/detail_po_dtl_tmp/$enc_rowid"); ?>"
+									echo site_url("ga/pembelian/detail_po_dtl_tmp/$enc_rowid/$nextStatus"); ?>"
 										onclick="return confirm('Anda Akan Masuk Ke Menu Mapping Satuan Rekap?')"
 										class="btn btn-default  btn-sm">
 										<i class="fa fa-edit"></i> DETAIL</a>

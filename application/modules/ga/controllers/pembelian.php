@@ -2443,6 +2443,8 @@ class Pembelian extends MX_Controller
     function detail_supplier_po_mst_tmp()
     {
         $nodok = $this->encrypt->decode(hex2bin(trim($this->uri->segment(4))));
+        $data['oldStatus'] = trim($this->uri->segment(5));
+        $data['nextStatus'] = trim($this->uri->segment(6));
         $nama = $this->session->userdata('nik');
         $data['title'] = 'Detail Supplier Master PO';
         $dtlbranch = $this->m_akses->q_branch()->row_array();
@@ -3151,11 +3153,12 @@ class Pembelian extends MX_Controller
         $data = array();
         $no = $_POST['start'];
         foreach ($list as $lpo) {
-            if (substr($lpo->status, 0, 1) == 'A') {
+            if (substr(trim($lpo->status), 0, 1) == 'A') {
                 $approve = $this->m_pembelian->po_approver(trim($lpo->nodok));
             } else {
                 $approve = false;
             }
+
             $enc_nodok = bin2hex($this->encrypt->encode(trim($lpo->nodok)));
             $no++;
             $row = array();
@@ -3177,7 +3180,7 @@ class Pembelian extends MX_Controller
                     <a class="btn btn-sm btn-warning" target="_blank" href="' . site_url('ga/pembelian/sti_po_final') . '/' . trim($lpo->nodok) . '" title="Cetak PO"><i class="fa fa-print" ></i> </a>
                     <a class="btn btn-sm btn-danger" href="' . site_url('ga/pembelian/hangus_po_atk') . '/' . $enc_nodok . '/' . trim($lpo->status) . '" title="Hangus PO"><i class="fa fa-bars"></i> </a>
                     <a class="btn btn-sm btn-success" href="' . site_url('ga/pembelian/pembayaran_po') . '/' . $enc_nodok . '/' . trim($lpo->status) . '" title="Pembayaran PO"><i class="fa fa-money"></i> </a>
-                    <a class="btn btn-sm btn-primary" href="' . site_url('ga/pembelian/inputpo_faktur') . '/' . $enc_nodok . '/' . trim($lpo->status) . '" title="Pembayaran PO"><i class="fa fa-sticky-note"></i> </a>
+                    <a class="btn btn-sm btn-primary" href="' . site_url('ga/pembelian/inputpo_faktur') . '/' . $enc_nodok . '/' . trim($lpo->status) . '" title="Faktur PO"><i class="fa fa-sticky-note"></i> </a>
                     ';
             } else if ($approve) {
                 $row[] = '

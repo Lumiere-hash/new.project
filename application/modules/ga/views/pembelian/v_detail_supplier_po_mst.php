@@ -112,6 +112,10 @@
 		$("#dateinput2").datepicker();
 		$("#dateinput3").datepicker();
 		$("[data-mask]").inputmask();
+		$('#ttlbrutto').val(formatangkavalue($('#ttlbrutto').val()));
+		$('#ttldpp').val(formatangkavalue($('#ttldpp').val()));
+		$('#ttlnetto').val(formatangkavalue($('#ttlnetto').val()));
+		$('#ttlppn').val(formatangkavalue($('#ttlppn').val()));
 			//	$("#kdsupplier").chained("#kdgroupsupplier");
 			//	$("#kdsubsupplier").chained("#kdsupplier");
 
@@ -130,16 +134,16 @@
 			dataType: "JSON",
 				success: function(data) {
 
-			console.log("<?php echo site_url('ga/pembelian/js_supplier') ?>" + '/' + param1 + '/' + param2 + '/' + param3)
-			$('[name="kdcabangsupplier"]').val(data.kdcabang);
-			$('[name="pkp"]').val(data.pkp);
-			$('[name="checkppn"]').val(data.pkp);
-			//$('[name="satkecil"]').val(data.satkecil);                        
-			//$('#mpsatkecil').val(data.satkecil);                             
-			//$('[name="mpnmsatkecil"]').val(data.nmsatkecil);                        
-			//$('[name="loccode"]').val(data.loccode);                                                          
+					console.log("<?php echo site_url('ga/pembelian/js_supplier') ?>" + '/' + param1 + '/' + param2 + '/' + param3)
+					$('[name="kdcabangsupplier"]').val(data.kdcabang);
+					$('[name="pkp"]').val(data.pkp);
+					$('[name="checkppn"]').val(data.pkp);
+					//$('[name="satkecil"]').val(data.satkecil);                        
+					//$('#mpsatkecil').val(data.satkecil);                             
+					//$('[name="mpnmsatkecil"]').val(data.nmsatkecil);                        
+					//$('[name="loccode"]').val(data.loccode);                                                          
 
-		},
+				},
 		error: function (jqXHR, textStatus, errorThrown) {
 			alert('Error get data from ajax');
 		}
@@ -259,8 +263,7 @@
 
 	function formatangkavalue(objek) {
 		a = objek.toString();
-		//  alert(a);
-		// alert(objek);
+		a = a.replace(/\.00$/, "");
 		b = a.replace(/[^\d]/g, "");
 		c = "";
 		panjang = b.length;
@@ -274,9 +277,7 @@
 			}
 		}
 		objek = c;
-		///  alert(objek);
 		return objek;
-
 	}
 
 </script>
@@ -321,7 +322,8 @@
 													<option <?php if (trim($sc->kdtrx) == trim($po_mst['kdgroupsupplier'])) {
 														echo 'selected';
 													} ?> value="<?php echo trim($sc->kdtrx); ?>">
-														<?php echo trim($sc->kdtrx) . ' || ' . trim($sc->uraian); ?></option>
+														<?php echo trim($sc->kdtrx) . ' || ' . trim($sc->uraian); ?>
+													</option>
 												<?php } ?>
 											</select>
 										</div>
@@ -380,8 +382,7 @@
 										<label class="col-sm-4">Harga (Rp)</label>
 										<div class="col-sm-4">
 											<input type="input" id="ttlbrutto" name="ttlbrutto"
-												value="<?php echo trim($po_mst['ttlbrutto']); ?>"
-												onkeyup="formatangkaobjek(this)" placeholder="0"
+												value="<?php echo trim($po_mst['ttlbrutto']); ?>" placeholder="0"
 												class="form-control ratakanan" readonly>
 										</div>
 										<!--span class="col-sm-4"> 
