@@ -718,6 +718,8 @@ class Ojt extends MX_Controller
 		$tglselesaikontrak = date('Ym', strtotime($infoumum[0]->tgl_selesai));
 		foreach ($infoumum as &$info) {
             $info->nmlengkap = $this->ucstring(trim($info->nmlengkap));
+			$info->nmdept = (property_exists($info, 'dept_cetak') && !empty($info->dept_cetak)) ? $info->dept_cetak : $this->ucstring(trim($info->nmdept));
+			$info->nmsubdept = $this->ucstring(trim($info->nmsubdept));
             $info->nmjabatan = (property_exists($info, 'jabatan_cetak') && !empty($info->jabatan_cetak)) ? $info->jabatan_cetak : $this->ucstring(trim($info->nmjabatan));
             $info->nmatasan = ucfirst(strtolower(substr(trim($info->nmatasan), 0, 10)));
             $info->nmatasan2 = ucfirst(strtolower(substr(trim($info->nmatasan2), 0, 10)));

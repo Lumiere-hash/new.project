@@ -5,7 +5,7 @@
     <Databases isList="true" count="1">
       <json_pkorekap Ref="2" type="Stimulsoft.Report.Dictionary.StiJsonDatabase" isKey="true">
         <Alias>json_pkorekap</Alias>
-        <Key />
+        <Key>ea6cd299651148f69a1bd3de7e4e526a</Key>
         <Name>json_pkorekap</Name>
         <PathData>D:\WEB\apache2\htdocs\hrms.nusa\assets\json\json_pkorekap.json</PathData>
       </json_pkorekap>
@@ -47,36 +47,37 @@
       </detail>
       <infoumum Ref="5" type="DataTableSource" isKey="true">
         <Alias>infoumum</Alias>
-        <Columns isList="true" count="29">
-          <value>nik,System.String</value>
-          <value>nmlengkap,System.String</value>
-          <value>jk,System.String</value>
-          <value>tmptlahir,System.String</value>
-          <value>tgllahir,System.String</value>
-          <value>noktp,System.String</value>
-          <value>tglmasukkerja,System.String</value>
-          <value>nmagama,System.String</value>
-          <value>alamatktp,System.String</value>
-          <value>nmnikah,System.String</value>
-          <value>nmjabatan,System.String</value>
-          <value>jabatan_cetak,System.String</value>
-          <value>nmdept,System.String</value>
-          <value>dept_cetak,System.String</value>
-          <value>nodok,System.String</value>
-          <value>kdkepegawaian,System.String</value>
-          <value>tgl_mulai,System.String</value>
-          <value>tgl_selesai,System.String</value>
-          <value>nmkepegawaian,System.String</value>
-          <value>nmatasan,System.String</value>
-          <value>nmatasan2,System.String</value>
-          <value>masakerja,System.String</value>
-          <value>pendidikan,System.String</value>
-          <value>tgl_cetak,System.String</value>
-          <value>row_number,System.String</value>
-          <value>selisih_tgl,System.String</value>
-          <value>tgl_mulai1,System.String</value>
-          <value>tgl_selesai1,System.String</value>
-          <value>tglmasukkerja1,System.String</value>
+        <Columns isList="true" count="30">
+          <value>ORIGINAL,nik,nik,nik,System.String,_x0038_cc18b0383524239b083a4b03b8c2600</value>
+          <value>ORIGINAL,nmlengkap,nmlengkap,nmlengkap,System.String,a21ec9efbea7447eb61023c83c9bd6a1</value>
+          <value>ORIGINAL,jk,jk,jk,System.String,_x0034_d0499a7b29c4a8c982b682b4c4bd9f2</value>
+          <value>ORIGINAL,tmptlahir,tmptlahir,tmptlahir,System.String,b0a4a132e7864369aaa697135217644f</value>
+          <value>ORIGINAL,tgllahir,tgllahir,tgllahir,System.String,c58474a3a5624138a79bb37b68901290</value>
+          <value>ORIGINAL,noktp,noktp,noktp,System.String,ebf002f2aa9946e3a7aaeacbb709a3e9</value>
+          <value>ORIGINAL,tglmasukkerja,tglmasukkerja,tglmasukkerja,System.String,_x0038_c72f5369196438e9d90f9b63117257d</value>
+          <value>ORIGINAL,nmagama,nmagama,nmagama,System.String,_x0037_6b45d15d43b4268925239a3464265ef</value>
+          <value>ORIGINAL,alamatktp,alamatktp,alamatktp,System.String,_x0033_1ea77227e044c8dae3b083391e2e967</value>
+          <value>ORIGINAL,nmnikah,nmnikah,nmnikah,System.String,_x0037_69725188d8240128f79fdebce55546e</value>
+          <value>ORIGINAL,nmjabatan,nmjabatan,nmjabatan,System.String,_x0033_5f472e11da34f12b549a51214a3347b</value>
+          <value>ORIGINAL,jabatan_cetak,jabatan_cetak,jabatan_cetak,System.String,effa4dc5a65941e4bc13190479f98d56</value>
+          <value>ORIGINAL,nmdept,nmdept,nmdept,System.String,_x0036_6898d1b3aef40b68386e880c69a0df2</value>
+          <value>ORIGINAL,dept_cetak,dept_cetak,dept_cetak,System.String,_x0030_9b5a316abae4fcfb1c1f9aeacfd53f4</value>
+          <value>ORIGINAL,nodok,nodok,nodok,System.String,_x0036_e5c985e63b44c949b5418b3968b9ee8</value>
+          <value>ORIGINAL,kdkepegawaian,kdkepegawaian,kdkepegawaian,System.String,af14ae58961441d3b9bf6813fab0ef27</value>
+          <value>ORIGINAL,tgl_mulai,tgl_mulai,tgl_mulai,System.String,d704a8ff2d6b4f509edaa9e887f9510c</value>
+          <value>ORIGINAL,tgl_selesai,tgl_selesai,tgl_selesai,System.String,ec50ab4c6bdb4c35bcae6ce8333e5609</value>
+          <value>ORIGINAL,nmkepegawaian,nmkepegawaian,nmkepegawaian,System.String,_x0034_3991f1352364043ac176aee8cd5fc66</value>
+          <value>ORIGINAL,nmatasan,nmatasan,nmatasan,System.String,_x0035_b622b96eea84e459c6d74ed93b412e4</value>
+          <value>ORIGINAL,nmatasan2,nmatasan2,nmatasan2,System.String,_x0033_0a8eeb42686469f8dc8483056a15186</value>
+          <value>ORIGINAL,masakerja,masakerja,masakerja,System.String,_x0039_2ae054889b84ab1ae34bebf4b3d987a</value>
+          <value>ORIGINAL,pendidikan,pendidikan,pendidikan,System.String,c3394e9ca7184e9ea8fe4df558cc7d45</value>
+          <value>ORIGINAL,tgl_cetak,tgl_cetak,tgl_cetak,System.String,f7db82169ede422f9a547b42b2ff7381</value>
+          <value>ORIGINAL,row_number,row_number,row_number,System.String,c34b8234368244ada53633d9dcb0ad46</value>
+          <value>ORIGINAL,selisih_tgl,selisih_tgl,selisih_tgl,System.String,_x0039_1ba948c35d8465b80061256bfa9ad00</value>
+          <value>ORIGINAL,tgl_mulai1,tgl_mulai1,tgl_mulai1,System.String,_x0038_6d738c236a744bdad2f208d9763a3eb</value>
+          <value>ORIGINAL,tgl_selesai1,tgl_selesai1,tgl_selesai1,System.String,_x0037_2a30cf97653454ca171702c15212d7f</value>
+          <value>ORIGINAL,tglmasukkerja1,tglmasukkerja1,tglmasukkerja1,System.String,_x0034_aca1174280e4e18b027a33d5a6f6ee9</value>
+          <value>ORIGINAL,nmsubdept,nmsubdept,nmsubdept,System.String,_x0036_6bdcbc747a24713990107ca7e407e1a</value>
         </Columns>
         <Dictionary isRef="1" />
         <Key>68db6ca2824a4b7dbe55e50426b44fde</Key>
@@ -178,7 +179,7 @@
                       <Name>Text22</Name>
                       <Page isRef="7" />
                       <Parent isRef="10" />
-                      <Text>{infoumum.nmjabatan}</Text>
+                      <Text>{infoumum.nmsubdept}</Text>
                       <TextBrush>Black</TextBrush>
                       <Type>DataColumn</Type>
                       <VertAlignment>Center</VertAlignment>
@@ -485,7 +486,7 @@
                   <Name>Text131</Name>
                   <Page isRef="7" />
                   <Parent isRef="34" />
-                  <Text> No. F.72/HRGA/01/01</Text>
+                  <Text> F.72/HRGA/01/06</Text>
                   <TextBrush>Black</TextBrush>
                   <Type>Expression</Type>
                   <VertAlignment>Center</VertAlignment>
@@ -725,14 +726,13 @@ b35fw1LqdgSKCPRD/tuyeN51FTNsYMiLEZb8XZ7udm8AlZ6sND2Zr0Bws0uvG64gpiNFf9z+ZUxZ
                   <Brush>EmptyBrush</Brush>
                   <ClientRectangle>10.4,0,9.6,1</ClientRectangle>
                   <Conditions isList="true" count="0" />
-                  <Font>Times New Roman,14,Bold</Font>
+                  <Font>Times New Roman,12,Bold</Font>
                   <HorAlignment>Center</HorAlignment>
                   <Margins>0,0,0,0</Margins>
                   <Name>Text143</Name>
                   <Page isRef="7" />
                   <Parent isRef="34" />
-                  <Text>LEMBAR EVALUASI DAN PRESENTASI
-</Text>
+                  <Text>REKAP HASIL EVALUASI DAN PRESENTASI</Text>
                   <TextBrush>Black</TextBrush>
                   <Type>Expression</Type>
                   <VertAlignment>Center</VertAlignment>
@@ -1172,10 +1172,10 @@ b35fw1LqdgSKCPRD/tuyeN51FTNsYMiLEZb8XZ7udm8AlZ6sND2Zr0Bws0uvG64gpiNFf9z+ZUxZ
     <value>Stimulsoft.Report.Dll</value>
   </ReferencedAssemblies>
   <ReportAlias>Report</ReportAlias>
-  <ReportChanged>6/7/2025 11:51:08 AM</ReportChanged>
+  <ReportChanged>7/15/2025 9:15:27 AM</ReportChanged>
   <ReportCreated>3/14/2025 2:32:35 PM</ReportCreated>
   <ReportFile>D:\WEB\apache2\htdocs\hrms.nusa\assets\mrt\pkorekap.mrt</ReportFile>
-  <ReportGuid>ec5ad60781b14f5f973e60b631f0b570</ReportGuid>
+  <ReportGuid>4ffc42aac2d642f5b17b2aa604701279</ReportGuid>
   <ReportName>Report</ReportName>
   <ReportUnit>Centimeters</ReportUnit>
   <ReportVersion>2020.2.3.0</ReportVersion>
