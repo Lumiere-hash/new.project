@@ -218,7 +218,7 @@ class M_pk extends CI_Model
 					left outer join sc_mst.subdepartmen d on b.subbag_dept=d.kdsubdept and d.kddept=b.bag_dept
 					left outer join sc_mst.lvljabatan e on b.lvl_jabatan=e.kdlvl 
 					left outer join sc_mst.jabatan f on b.jabatan=f.kdjabatan and f.kdsubdept=b.subbag_dept and f.kddept=b.bag_dept
-					left outer join sc_pk.m_bobot g on g.value1::numeric=ceil(a.f_value_ktg::numeric) and g.kdcategory='PA'
+					left outer join sc_pk.m_bobot g on g.value1::numeric=ceil(a.f_value_ktg::numeric) and g.kdcategory='PA:OLD'
 					where nodok is not null $param 
 					$order
 				");

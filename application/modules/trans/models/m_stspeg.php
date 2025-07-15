@@ -317,6 +317,7 @@ SQL
                      j.nmkepegawaian,
                      h.nmlengkap as nmatasan,
                      i.nmlengkap as nmatasan2,
+                     sb.nmsubdept,
                 REPLACE(
             REPLACE(
                 REPLACE(
@@ -343,6 +344,7 @@ SQL
                         LEFT OUTER JOIN sc_mst.karyawan i ON a.nik_atasan2 = i.nik
                         LEFT OUTER JOIN sc_mst.status_kepegawaian j ON b.kdkepegawaian = j.kdkepegawaian
                         LEFT OUTER JOIN sc_mst.lv_m_karyawan k ON a.nik = k.nik
+                        LEFT OUTER JOIN sc_mst.subdepartmen sb ON k.subbag_dept = sb.kdsubdept
                         LEFT JOIN (
                         SELECT *
                             FROM (
