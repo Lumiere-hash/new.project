@@ -387,7 +387,7 @@ class Inventaris extends MX_Controller
 		//echo $tgl;
 		$data['list_msubgroup'] = $this->m_inventaris->q_scsubgroup()->result();
 		$data['list_mgroup'] = $this->m_inventaris->q_scgroup()->result();
-		// $this->template->display('ga/inventaris/v_scsubbarang',$data);
+		$this->template->display('ga/inventaris/v_scsubbarang',$data);
 	}
 
 
@@ -448,6 +448,239 @@ class Inventaris extends MX_Controller
 		}
 	}
 
+	// ============ MASTER TYPE (menu terpisah) ============
+
+function form_type()
+{
+    $data['title']   = "MASTER TYPE";
+    // versi opsional, boleh di-skip
+    $data['version'] = 'I.G.D.6.TYPE/ALPHA.001';
+
+    // pesan (segment 4): ga/inventaris/form_type/<msg>
+    $seg4 = $this->uri->segment(4);
+    if     ($seg4=="inp_kembar")  $data['message'] = "<div class='alert alert-danger'>Kode Type sudah ada</div>";
+    elseif ($seg4=="inp_succes")  $data['message'] = "<div class='alert alert-success'>Data tersimpan</div>";
+    elseif ($seg4=="del_succes")  $data['message'] = "<div class='alert alert-success'>Data terhapus</div>";
+    else                          $data['message'] = '';
+
+    // filter (POST)
+    $f_kdgroup    = $this->input->post('f_kdgroup');
+    $f_kdsubgroup = $this->input->post('f_kdsubgroup');
+
+    $data['f_kdgroup']    = $f_kdgroup;
+    $data['f_kdsubgroup'] = $f_kdsubgroup;
+
+    // dropdowns
+    $data['list_group']    = $this->m_inventaris->q_scgroup()->result();
+    $data['list_subgroup'] = $f_kdgroup ? $this->m_inventaris->q_scsubgroup_by_group($f_kdgroup)->result() : [];
+
+    // data type
+    $data['list_type'] = $this->m_inventaris->q_type_list($f_kdgroup, $f_kdsubgroup)->result();
+
+    $this->template->display('ga/inventaris/v_type', $data);
+}
+
+function input_type()
+{
+    $nama        = $this->session->userdata('nama');
+    $kdgroup     = strtoupper($this->input->post('kdgroup'));
+    $kdsubgroup  = strtoupper($this->input->post('kdsubgroup'));
+    $kdtype      = strtoupper($this->input->post('kdtype'));
+    $nmtype      = strtoupper($this->input->post('nmtype'));
+    $keterangan  = strtoupper($this->input->post('keterangan'));
+    $mode        = strtoupper($this->input->post('type')); // INPUT | EDIT | DELETE
+
+    $dtlbranch = $this->m_akses->q_branch()->row_array();
+    $branch    = strtoupper(trim($dtlbranch['branch']));
+
+    if ($mode==='INPUT'){
+        if ($this->m_inventaris->q_ceksctype_3p($kdgroup,$kdsubgroup,$kdtype)->num_rows()>0){
+            redirect('ga/inventaris/form_type/inp_kembar');
+        }
+        $this->m_inventaris->insert_sctype([
+            'branch'=>$branch,'kdgroup'=>$kdgroup,'kdsubgroup'=>$kdsubgroup,
+            'kdtype'=>$kdtype,'nmtype'=>$nmtype,'keterangan'=>$keterangan,
+            'inputdate'=>date('Y-m-d H:i:s'),'inputby'=>$nama
+        ]);
+        redirect('ga/inventaris/form_type/inp_succes');
+
+    } elseif ($mode==='EDIT'){
+        $this->m_inventaris->update_sctype($kdgroup,$kdsubgroup,$kdtype,[
+            'nmtype'=>$nmtype,'keterangan'=>$keterangan,
+            'updatedate'=>date('Y-m-d H:i:s'),'updateby'=>$nama
+        ]);
+        redirect('ga/inventaris/form_type/inp_succes');
+
+    } elseif ($mode==='DELETE'){
+        // tambahkan pengecekan relasi jika ada
+        $this->m_inventaris->delete_sctype($kdgroup,$kdsubgroup,$kdtype);
+        redirect('ga/inventaris/form_type/del_succes');
+
+    } else {
+        redirect('ga/inventaris/form_type');
+    }
+}
+public function ajax_subgroup_by_group()
+{
+    $kdgroup = $this->input->post('kdgroup');
+    if (!$kdgroup) { echo json_encode([]); return; }
+
+    $rows = $this->m_inventaris->q_scsubgroup_by_group($kdgroup)->result();
+    $out  = [];
+    foreach ($rows as $r) {
+        $out[] = [
+            'kdsubgroup' => trim($r->kdsubgroup),
+            'nmsubgroup' => trim($r->nmsubgroup),
+        ];
+    }
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode($out);
+}
+
+// ============ MASTER MAIN COLOR ============
+public function form_color()
+{
+
+	$data['title'] = "MASTER MAIN COLOR";
+		$dtlbranch = $this->m_akses->q_branch()->row_array();
+		$branch = $dtlbranch['branch'];
+		/* CODE UNTUK VERSI */
+		$kodemenu = 'I.G.D.21';
+		$versirelease = 'I.G.D.6/ALPHA.001';
+		$userid = $this->session->userdata('nama');
+		$vdb = $this->m_akses->q_versidb($kodemenu)->row_array();
+		$versidb = $vdb['vrelease'];
+		if ($versidb <> $versirelease) {
+			$infoversiold = array(
+				'vreleaseold' => $versidb,
+				'vdateold' => $vdb['vdate'],
+				'vauthorold' => $vdb['vauthor'],
+				'vketeranganold' => $vdb['vketerangan'],
+			);
+			$this->db->where('kodemenu', $kodemenu);
+			$this->db->update('sc_mst.version', $infoversiold);
+
+			$infoversi = array(
+				'vrelease' => $versirelease,
+				'vdate' => date('2017-07-10 11:18:00'),
+				'vauthor' => 'FIKY',
+				'vketerangan' => 'PENAMBAHAN VERSION RELEASE',
+				'update_date' => date('Y-m-d H:i:s'),
+				'update_by' => $userid,
+			);
+			$this->db->where('kodemenu', $kodemenu);
+			$this->db->update('sc_mst.version', $infoversi);
+		}
+		$vdb = $this->m_akses->q_versidb($kodemenu)->row_array();
+		$versidb = $vdb['vrelease'];
+		$data['version'] = $versidb;
+		/* END CODE UNTUK VERSI */
+	
+
+    $seg4 = $this->uri->segment(4);
+    if     ($seg4=="inp_kembar") $data['message'] = "<div class='alert alert-danger'>Kode Color sudah ada</div>";
+    elseif ($seg4=="inp_succes") $data['message'] = "<div class='alert alert-success'>Data tersimpan</div>";
+    elseif ($seg4=="del_succes") $data['message'] = "<div class='alert alert-success'>Data terhapus</div>";
+    else                         $data['message'] = '';
+
+    // filter
+    $f_kdgroup    = $this->input->post('f_kdgroup');
+    $f_kdsubgroup = $this->input->post('f_kdsubgroup');
+    $f_kdtype     = $this->input->post('f_kdtype');
+
+    $data['f_kdgroup']    = $f_kdgroup;
+    $data['f_kdsubgroup'] = $f_kdsubgroup;
+    $data['f_kdtype']     = $f_kdtype;
+
+    // dropdown
+    $data['list_group']    = $this->m_inventaris->q_scgroup()->result(); // sudah ada
+    $data['list_subgroup'] = $f_kdgroup ? $this->m_inventaris->q_scsubgroup_by_group($f_kdgroup)->result() : array();
+    $data['list_type']     = ($f_kdgroup && $f_kdsubgroup) ? $this->m_inventaris->q_type_list($f_kdgroup,$f_kdsubgroup)->result() : array();
+
+    // data color
+    $data['list_color'] = $this->m_inventaris->q_color_list($f_kdgroup,$f_kdsubgroup,$f_kdtype)->result();
+
+    $this->template->display('ga/inventaris/v_color', $data);
+}
+
+public function input_color()
+{
+    $nama   = $this->session->userdata('nama');
+    $mode   = strtoupper($this->input->post('type'));
+
+    $dtlbranch = $this->m_akses->q_branch()->row_array();
+    $branch    = strtoupper(trim($dtlbranch['branch']));
+
+    $kdgroup     = strtoupper($this->input->post('kdgroup'));
+    $kdsubgroup  = strtoupper($this->input->post('kdsubgroup'));
+    $kdtype      = strtoupper($this->input->post('kdtype'));
+    $kdcolor     = strtoupper($this->input->post('kdcolor'));
+    $nmcolor     = strtoupper($this->input->post('nmcolor'));
+    $keterangan  = strtoupper($this->input->post('keterangan'));
+    $now         = date('Y-m-d H:i:s');
+
+    if ($mode==='INPUT'){
+        if ($this->m_inventaris->q_cekcolor_4p($kdgroup,$kdsubgroup,$kdtype,$kdcolor)->num_rows()>0){
+            redirect('ga/inventaris/form_color/inp_kembar');
+        }
+        $this->m_inventaris->insert_color(array(
+            'branch'=>$branch,'kdgroup'=>$kdgroup,'kdsubgroup'=>$kdsubgroup,'kdtype'=>$kdtype,
+            'kdcolor'=>$kdcolor,'nmcolor'=>$nmcolor,'keterangan'=>$keterangan,
+            'inputdate'=>$now,'inputby'=>$nama
+        ));
+        redirect('ga/inventaris/form_color/inp_succes');
+
+    } elseif ($mode==='EDIT'){
+        $this->m_inventaris->update_color($kdgroup,$kdsubgroup,$kdtype,$kdcolor, array(
+            'nmcolor'=>$nmcolor,'keterangan'=>$keterangan,'updatedate'=>$now,'updateby'=>$nama
+        ));
+        redirect('ga/inventaris/form_color/inp_succes');
+
+    } elseif ($mode==='DELETE'){
+        $this->m_inventaris->delete_color($kdgroup,$kdsubgroup,$kdtype,$kdcolor);
+        redirect('ga/inventaris/form_color/del_succes');
+
+    } else {
+        redirect('ga/inventaris/form_color');
+    }
+}
+
+// AJAX: isi dropdown main color (sama pola seperti ajax_type_by_subgroup)
+public function ajax_color_by_type()
+{
+    $kdgroup    = $this->input->post('kdgroup');
+    $kdsubgroup = $this->input->post('kdsubgroup');
+    $kdtype     = $this->input->post('kdtype');
+
+    $rows = $this->m_inventaris->q_color_by_type($kdgroup,$kdsubgroup,$kdtype)->result();
+    $out  = [];
+    foreach ($rows as $r) {
+        $out[] = ['kdcolor'=>trim($r->kdcolor), 'nmcolor'=>trim($r->nmcolor)];
+    }
+    header('Content-Type: application/json');
+    echo json_encode($out);
+}
+// === AJAX: ambil daftar TYPE berdasarkan group + subgroup ===
+public function ajax_type_by_subgroup()
+{
+    $kdgroup    = $this->input->post('kdgroup');
+    $kdsubgroup = $this->input->post('kdsubgroup');
+
+    // pastikan ada fungsi model ini (lihat di bawah)
+    $rows = $this->m_inventaris->q_type_list($kdgroup, $kdsubgroup)->result();
+
+    $out = array();
+    foreach ($rows as $r) {
+        $out[] = array(
+            'kdtype' => trim($r->kdtype),
+            'nmtype' => trim($r->nmtype),
+        );
+    }
+    $this->output->set_content_type('application/json')
+                 ->set_output(json_encode($out));
+}
+
+
 
 	/* 01 ---- MASTER BARANG & ATK*/
 	function form_mstbarang()
@@ -501,6 +734,7 @@ class Inventaris extends MX_Controller
 		$data['list_scgroup'] = $this->m_inventaris->q_scgroup_atk()->result();
 		$data['list_scsubgroup'] = $this->m_inventaris->q_scsubgroup_atk()->result();
 		$data['list_kanwil'] = $this->m_inventaris->q_mstkantor()->result();
+		$data['list_type'] = $this->m_inventaris->q_scsubtype()->result();
 		$data['list_asuransi'] = $this->m_inventaris->q_masuransi()->result();
 		$data['list_satuan'] = $this->m_inventaris->q_trxtype_satuan()->result();
 		$this->template->display('ga/inventaris/v_mstbarang', $data);
@@ -709,67 +943,70 @@ class Inventaris extends MX_Controller
 	}
 
 	function input_mstbarang()
-	{
-		$nama = $this->session->userdata('nik');
-		$type = strtoupper($this->input->post('type'));
-		$dtlbranch = $this->m_akses->q_branch()->row_array();
-		$branch = strtoupper(trim($dtlbranch['branch']));
+{
+    $nama = $this->session->userdata('nik');
+    $type = strtoupper($this->input->post('type'));
 
-		$nodok = strtoupper(trim($this->input->post('nodok')));
-		$nmbarang = str_replace('"', ' ', strtoupper(trim($this->input->post('nmbarang'))));
-		$kdgroup = strtoupper(trim($this->input->post('kdgroup')));
-		$kdsubgroup = strtoupper(trim($this->input->post('kdsubgroup')));
+    $dtlbranch = $this->m_akses->q_branch()->row_array();
+    $branch    = strtoupper(trim($dtlbranch['branch']));
 
-		$satkecil = strtoupper(trim($this->input->post('satkecil')));
-		$typebarang = strtoupper(trim($this->input->post('typebarang')));
-		$expdate = strtoupper(trim($this->input->post('expdate')));
+    $nodok      = strtoupper(trim($this->input->post('nodok')));
+    $nmbarang   = str_replace('"',' ', strtoupper(trim($this->input->post('nmbarang'))));
+    $kdgroup    = strtoupper(trim($this->input->post('kdgroup')));
+    $kdsubgroup = strtoupper(trim($this->input->post('kdsubgroup')));
+    $kdtype     = strtoupper(trim($this->input->post('kdtype')));   // <-- BARU
+    $kdcolor    = strtoupper(trim($this->input->post('kdcolor')));  // <-- BARU
+    $satkecil   = strtoupper(trim($this->input->post('satkecil')));
+    $typebarang = strtoupper(trim($this->input->post('typebarang')));
+    $expdate    = trim($this->input->post('expdate')) ?: null;
+    $hold_item  = strtoupper(trim($this->input->post('hold_item')));
+    $keterangan = strtoupper(trim($this->input->post('keterangan')));
+    $now        = date('Y-m-d H:i:s');
 
-		$hold_item = strtoupper(trim($this->input->post('hold_item')));
-		$keterangan = strtoupper(trim($this->input->post('keterangan')));
-		$inputdate = date('Y-m-d H:i:s');
-		$inputby = $nama;
+    if ($type == 'INPUT') {
+        $info = [
+            'branch'     => $branch,
+            'nodok'      => $nodok,     // pastikan benar; kalau auto, hapus field ini
+            'nmbarang'   => $nmbarang,
+            'kdgroup'    => $kdgroup,
+            'kdsubgroup' => $kdsubgroup,
+            'kdtype'     => $kdtype,    // <-- BARU
+            'kdcolor'    => $kdcolor,   // <-- BARU
+            'satkecil'   => $satkecil,
+            'typebarang' => $typebarang,
+            'expdate'    => $expdate,
+            'hold_item'  => $hold_item,
+            'keterangan' => $keterangan,
+            'inputdate'  => $now,
+            'inputby'    => $nama,
+        ];
+        // simpan ke schema master (bukan sc_tmp)
+        $this->db->insert('sc_mst.mbarang', $info);
+        redirect("ga/inventaris/form_mstbarang/inp_succes");
 
+    } else if ($type == 'EDIT') {
+        $info = [
+            'nmbarang'   => $nmbarang,
+            'kdtype'     => $kdtype,    // boleh diubah jika diperlukan
+            'kdcolor'    => $kdcolor,   // <-- BARU
+            'satkecil'   => $satkecil,
+            'typebarang' => $typebarang,
+            'expdate'    => $expdate,
+            'hold_item'  => $hold_item,
+            'keterangan' => $keterangan,
+            'updatedate' => $now,
+            'updateby'   => $nama,
+        ];
+        $this->db->where('nodok', $nodok)->update('sc_mst.mbarang', $info);
+        redirect("ga/inventaris/form_mstbarang/inp_succes");
 
-		if ($type == 'INPUT') {
-			$info = array(
-				'branch' => $branch,
-				'nodok' => $nama,
-				'nmbarang' => $nmbarang,
-				'kdgroup' => $kdgroup,
-				'kdsubgroup' => $kdsubgroup,
-				'satkecil' => $satkecil,
-				'typebarang' => $typebarang,
-				'hold_item' => $hold_item,
-				'keterangan' => $keterangan,
-				'inputdate' => $inputdate,
-				'inputby' => $inputby,
-			);
-			$this->db->insert('sc_tmp.mbarang', $info);
-			redirect("ga/inventaris/form_mstbarang/inp_succes");
-
-		} else if ($type == 'EDIT') {
-			$info = array(
-
-				'nmbarang' => $nmbarang,
-				'typebarang' => $typebarang,
-				'hold_item' => $hold_item,
-				'keterangan' => $keterangan,
-				'updatedate' => $inputdate,
-				'updateby' => $inputby,
-			);
-			$this->db->where('nodok', $nodok);
-			$this->db->update('sc_mst.mbarang', $info);
-			redirect("ga/inventaris/form_mstbarang/inp_succes");
-		} else if ($type == 'HAPUS') {
-			$this->db->where('nodok', $nodok);
-			$this->db->delete('sc_mst.mbarang');
-			redirect("ga/inventaris/form_mstbarang/del_succes");
-		} else {
-			redirect("ga/inventaris/form_mstbarang/fail_data");
-		}
-
-
-	}
+    } else if ($type == 'HAPUS') {
+        $this->db->where('nodok', $nodok)->delete('sc_mst.mbarang');
+        redirect("ga/inventaris/form_mstbarang/del_succes");
+    } else {
+        redirect("ga/inventaris/form_mstbarang/fail_data");
+    }
+}
 
 	/************** FORM PERAWATAN ASET ***********************/
 	function form_perawatan()
@@ -1538,18 +1775,6 @@ class Inventaris extends MX_Controller
 		$data['report_file'] = 'assets/mrt/Report_test.mrt';
 		$this->load->view("ga/inventaris/sti_v_spk_perawatan", $data);
 	}
-<<<<<<< HEAD
-=======
-	
-	function sti_perawatan_asset_brg()
-	{
-		$nodok = trim(strtoupper($this->uri->segment(4)));
-		$data['jsonfile'] = "ga/inventaris/json_perawatan_asset/$nodok";
-		$data['report_file'] = 'assets/mrt/sti_perawatanasset_brg.mrt';
-		$this->load->view("ga/inventaris/sti_v_spk_perawatan", $data);
-	}
-
->>>>>>> c50cc20d40d000da5bac572c3f350440adc319c0
 	function json_perawatan_asset()
 	{
 		$nodok = trim(strtoupper($this->uri->segment(4)));
@@ -4489,6 +4714,593 @@ class Inventaris extends MX_Controller
 		$this->excel_generator->exportTo2007('Master Stock Barang');
 
 	}
+/* =======================
+   MENU: I.G.D.22
+   ======================= */
+
+public function form_rcv()
+{
+    $userid = $this->session->userdata('nama');
+    $kodemenu     = 'I.G.D.22';
+    $versirelease = 'I.G.D.22/ALPHA.001';
+    $this->_ensure_version_and_access($kodemenu, $versirelease, $userid);
+
+    $seg4 = $this->uri->segment(4);
+    if     ($seg4=="save_ok")  $data['message']="<div class='alert alert-success'>Penerimaan tersimpan</div>";
+    elseif ($seg4=="del_ok")   $data['message']="<div class='alert alert-success'>Data terhapus</div>";
+    elseif ($seg4=="save_ng")  $data['message']="<div class='alert alert-danger'>Gagal menyimpan</div>";
+    else                       $data['message']='';
+
+    $this->load->model('ga/m_stock');
+    $this->load->model('ga/m_inventaris');
+
+    $data['title']   = "PENERIMAAN BARANG (KONTAINER)";
+    $data['version'] = $versirelease;
+
+    $data['list_barang'] = $this->m_inventaris->q_mst_barang_param("")->result();
+    $data['list_rcv']    = $this->m_stock->list_rcv()->result();
+
+    $this->template->display('ga/inventaris/v_rcv', $data);
+}
+
+public function input_rcv()
+{
+    $this->load->model('ga/m_stock');
+    $this->load->model('ga/m_akses');
+
+    $nama   = $this->session->userdata('nama');
+    $branch = strtoupper(trim($this->m_akses->q_branch()->row_array()['branch']));
+
+    $rcv_no   = strtoupper(trim($this->input->post('rcv_no')));
+    $rcv_date = $this->input->post('rcv_date');
+    $rcv_date = $rcv_date ? $rcv_date : date('Y-m-d');
+    if ($rcv_no===''){ $rcv_no = 'RCV-'.date('Ymd-His'); }
+
+    $hdr = array(
+        'branch'      => $branch,
+        'rcv_no'      => $rcv_no,
+        'rcv_date'    => $rcv_date,
+        'supplier'    => strtoupper(trim($this->input->post('supplier'))),
+        'container_no'=> strtoupper(trim($this->input->post('container_no'))),
+        'seal_no'     => strtoupper(trim($this->input->post('seal_no'))),
+        'bl_no'       => strtoupper(trim($this->input->post('bl_no'))),
+        'vessel'      => strtoupper(trim($this->input->post('vessel'))),
+        'voyage'      => strtoupper(trim($this->input->post('voyage'))),
+        'eta'         => $this->input->post('eta') ? $this->input->post('eta') : null,
+        'ata'         => $this->input->post('ata') ? $this->input->post('ata') : null,
+        'port_from'   => strtoupper(trim($this->input->post('port_from'))),
+        'port_to'     => strtoupper(trim($this->input->post('port_to'))),
+        'truck_no'    => strtoupper(trim($this->input->post('truck_no'))),
+        'driver_name' => strtoupper(trim($this->input->post('driver_name'))),
+        'wh_loc'      => strtoupper(trim($this->input->post('wh_loc'))),
+        'remark'      => strtoupper(trim($this->input->post('remark'))),
+        'inputby'     => $nama
+    );
+
+    // detail arrays
+    $nodok       = $this->input->post('nodok');        // array
+    $nmbarang    = $this->input->post('nmbarang');     // array
+    $uom         = $this->input->post('uom');          // array
+    $lot_no      = $this->input->post('lot_no');       // array
+    $mfg_date    = $this->input->post('mfg_date');     // array
+    $exp_date    = $this->input->post('exp_date');     // array
+    $qty_good    = $this->input->post('qty_good');     // array
+    $qty_reject  = $this->input->post('qty_reject');   // array
+    $reject_note = $this->input->post('reject_note');  // array
+    $rack_bin    = $this->input->post('rack_bin');     // array
+    $remark_dtl  = $this->input->post('remark_dtl');   // array
+
+    $this->db->trans_begin();
+
+    try {
+        $rcv_id = $this->m_stock->insert_rcv_hdr($hdr);
+
+        $rows_dtl = array();
+        $rows_sc  = array();
+        $n = is_array($nodok) ? count($nodok) : 0;
+        $line = 0;
+
+        for ($i=0; $i<$n; $i++){
+            $code = strtoupper(trim(isset($nodok[$i]) ? $nodok[$i] : ''));
+            if ($code==='') continue;
+
+            $line++;
+            $g  = (int)(isset($qty_good[$i])   ? $qty_good[$i]   : 0);
+            $rj = (int)(isset($qty_reject[$i]) ? $qty_reject[$i] : 0);
+
+            $rows_dtl[] = array(
+                'rcv_id'      => $rcv_id,
+                'line_no'     => $line,
+                'nodok'       => $code,
+                'nmbarang'    => strtoupper(trim(isset($nmbarang[$i]) ? $nmbarang[$i] : '')),
+                'lot_no'      => strtoupper(trim(isset($lot_no[$i]) ? $lot_no[$i] : '')),
+                'mfg_date'    => (isset($mfg_date[$i]) && $mfg_date[$i] !== '') ? $mfg_date[$i] : null,
+                'exp_date'    => (isset($exp_date[$i]) && $exp_date[$i] !== '') ? $exp_date[$i] : null,
+                'uom'         => strtoupper(trim(isset($uom[$i]) ? $uom[$i] : '')),
+                'qty_good'    => $g,
+                'qty_reject'  => $rj,
+                'reject_note' => strtoupper(trim(isset($reject_note[$i]) ? $reject_note[$i] : '')),
+                'rack_bin'    => strtoupper(trim(isset($rack_bin[$i]) ? $rack_bin[$i] : '')),
+                'remark'      => strtoupper(trim(isset($remark_dtl[$i]) ? $remark_dtl[$i] : ''))
+            );
+
+            // stock card GOOD
+            if ($g>0){
+                $rows_sc[] = array(
+                    'branch'      => $hdr['branch'],
+                    'trans_date'  => $hdr['rcv_date'].' 00:00:00',
+                    'trans_type'  => 'RCV',
+                    'ref_type'    => 'RCV',
+                    'ref_id'      => $rcv_id,
+                    'ref_no'      => $hdr['rcv_no'],
+                    'nodok'       => $code,
+                    'wh_loc'      => $hdr['wh_loc'],
+                    'rack_bin'    => strtoupper(trim(isset($rack_bin[$i]) ? $rack_bin[$i] : '')),
+                    'uom'         => strtoupper(trim(isset($uom[$i]) ? $uom[$i] : '')),
+                    'qty_good_in' => $g,
+                    'note'        => 'RCV GOOD'
+                );
+            }
+            // stock card REJECT
+            if ($rj>0){
+                $rows_sc[] = array(
+                    'branch'     => $hdr['branch'],
+                    'trans_date' => $hdr['rcv_date'].' 00:00:00',
+                    'trans_type' => 'RCV',
+                    'ref_type'   => 'RCV',
+                    'ref_id'     => $rcv_id,
+                    'ref_no'     => $hdr['rcv_no'],
+                    'nodok'      => $code,
+                    'wh_loc'     => $hdr['wh_loc'],
+                    'rack_bin'   => strtoupper(trim(isset($rack_bin[$i]) ? $rack_bin[$i] : '')),
+                    'uom'        => strtoupper(trim(isset($uom[$i]) ? $uom[$i] : '')),
+                    'qty_rej_in' => $rj,
+                    'note'       => 'RCV REJECT'
+                );
+            }
+        }
+
+        $this->m_stock->insert_rcv_dtl_batch($rows_dtl);
+        $this->m_stock->insert_stock_card_batch($rows_sc);
+
+        $this->db->trans_commit();
+        redirect('ga/inventaris/form_rcv/save_ok');
+
+    } catch (Exception $e){
+        log_message('error', 'RCV save error: '.$e->getMessage());
+        $this->db->trans_rollback();
+        redirect('ga/inventaris/form_rcv/save_ng');
+    }
+}
+
+public function rcv_delete()
+{
+    $this->load->model('ga/m_stock');
+    $rcv_id = (int)$this->input->post('rcv_id');
+    $this->m_stock->delete_rcv($rcv_id);
+    redirect('ga/inventaris/form_rcv/del_ok');
+}
+
+public function form_onhand()
+{
+    $userid = $this->session->userdata('nama');
+    $kodemenu     = 'I.G.D.22';
+    $versirelease = 'I.G.D.22/ALPHA.001';
+    $this->_ensure_version_and_access($kodemenu, $versirelease, $userid);
+
+    $this->load->model('ga/M_stock', 'm_stock');
+    $this->load->model('ga/m_inventaris');
+
+    $nodok  = strtoupper(trim($this->input->post('f_nodok')));
+    $wh_loc = strtoupper(trim($this->input->post('f_wh_loc')));
+    $dfrom  = $this->input->post('f_dfrom');
+    $dto    = $this->input->post('f_dto');
+
+    // default periode: bulan berjalan
+    if (empty($dfrom) && empty($dto)) {
+        $dfrom = date('Y-m-01');
+        $dto   = date('Y-m-d');
+    }
+
+    $data['title']    = "STOK ON-HAND & REJECT";
+    $data['version']  = $versirelease;
+    $data['f_nodok']  = $nodok ?: '';
+    $data['f_wh_loc'] = $wh_loc ?: '';
+    $data['f_dfrom']  = $dfrom ?: '';
+    $data['f_dto']    = $dto   ?: '';
+
+    $data['list_barang'] = $this->m_inventaris->q_mst_barang_param("")->result();
+    $data['rows']        = $this->m_stock->onhand($nodok, $wh_loc, $dfrom, $dto)->result();
+
+    $this->template->display('ga/inventaris/v_onhand', $data);
+}
+
+// application/modules/ga/controllers/Inventaris.php
+
+// application/modules/ga/controllers/Inventaris.php
+
+public function onhand_detail()
+{
+    $this->load->model('ga/M_stock', 'm_stock');
+
+    $nodok  = strtoupper(trim($this->input->post('nodok')));
+    $wh_loc = strtoupper(trim($this->input->post('wh_loc')));
+    $dfrom  = $this->input->post('dfrom') ?: null;
+    $dto    = $this->input->post('dto')   ?: null;
+
+    $q = $this->m_stock->stock_card($nodok, $wh_loc, $dfrom, $dto);
+
+    if ($q === false) {
+        // tulis ke log supaya mudah dilihat di application/logs
+        $err = $this->db->error();
+        log_message('error', 'onhand_detail() DB error: '.json_encode($err));
+        show_error('Gagal memuat data mutasi.');  // akan jadi 500 tapi dengan pesan jelas
+        return;
+    }
+
+    $data = [
+        'nodok'  => $nodok,
+        'wh_loc' => $wh_loc,
+        'rows'   => $q->result(),
+        'dfrom'  => $dfrom,
+        'dto'    => $dto,
+    ];
+    $this->load->view('ga/inventaris/_mutasi_onhand', $data);
+}
+
+
+// public function onhand_detail()
+// {
+//     $this->load->model('ga/M_stock', 'm_stock');
+
+//     $nodok   = strtoupper(trim($this->input->post('nodok')));
+//     $wh_loc  = strtoupper(trim($this->input->post('wh_loc')));
+//     $dfrom   = $this->input->post('dfrom');
+//     $dto     = $this->input->post('dto');
+
+//     if ($nodok==='' || $wh_loc===''){
+//         $this->output->set_status_header(400);
+//         echo '<div class="alert alert-danger">Parameter tidak lengkap.</div>';
+//         return;
+//     }
+
+//     $opening = $this->m_stock->onhand_opening($nodok, $wh_loc, $dfrom);
+//     $rows    = $this->m_stock->stock_card_detail($nodok, $wh_loc, $dfrom, $dto)->result();
+
+//     $data = array(
+//         'nodok'   => $nodok,
+//         'wh_loc'  => $wh_loc,
+//         'dfrom'   => $dfrom,
+//         'dto'     => $dto,
+//         'opening' => $opening,
+//         'rows'    => $rows
+//     );
+
+//     // partial (tanpa layout)
+//     $html = $this->load->view('ga/inventaris/_onhand_detail', $data, true);
+//     $this->output->set_content_type('text/html')->set_output($html);
+// }
+
+private function _ensure_version_and_access($kodemenu, $versirelease, $userid)
+{
+    $this->load->model('ga/m_akses');
+
+    // ===== (opsional) Cek hak akses berdasarkan kodemenu =====
+    // Jika Anda sudah punya fungsi cek hak menu di m_akses, pakai salah satu di bawah.
+    // Kalau tidak ada, blok ini akan dilewati tanpa error.
+    if (method_exists($this->m_akses, 'cek_hakmenu')) {
+        // ekspektasi: return query; pakai num_rows()
+        $allow = $this->m_akses->cek_hakmenu($userid, $kodemenu);
+        $allowed = is_object($allow) && method_exists($allow,'num_rows') ? ($allow->num_rows() > 0) : (bool)$allow;
+        if (!$allowed) {
+            // bisa redirect ke halaman "wrong_param" jika Anda punya
+            // redirect('ga/inventaris/form_rcv/wrong_param'); exit;
+            show_error('Akses ditolak untuk menu '.$kodemenu, 403);
+        }
+    } elseif (method_exists($this->m_akses, 'q_hakakses_menu')) {
+        $allow = $this->m_akses->q_hakakses_menu($userid, $kodemenu)->num_rows();
+        if (!$allow) { show_error('Akses ditolak untuk menu '.$kodemenu, 403); }
+    }
+    // =========================================================
+
+    // ===== Sinkronkan record versi di sc_mst.version =========
+    $vdb = $this->m_akses->q_versidb($kodemenu)->row_array();
+
+    if (!$vdb) {
+        // Jika belum ada barisnya, insert baru
+        $this->db->insert('sc_mst.version', array(
+            'kodemenu'   => $kodemenu,
+            'vrelease'   => $versirelease,
+            'vdate'      => date('Y-m-d H:i:s'),
+            'vauthor'    => $userid ? $userid : 'SYSTEM',
+            'vketerangan'=> 'INIT MENU',
+            'update_date'=> date('Y-m-d H:i:s'),
+            'update_by'  => $userid ? $userid : 'SYSTEM'
+        ));
+    } else {
+        // Jika versi berubah, simpan old_* lalu update versi baru
+        if (trim($vdb['vrelease']) !== trim($versirelease)) {
+            $infoversiold = array(
+                'vreleaseold'   => $vdb['vrelease'],
+                'vdateold'      => $vdb['vdate'],
+                'vauthorold'    => $vdb['vauthor'],
+                'vketeranganold'=> $vdb['vketerangan'],
+            );
+            $this->db->where('kodemenu', $kodemenu)->update('sc_mst.version', $infoversiold);
+
+            $infoversi = array(
+                'vrelease'    => $versirelease,
+                'vdate'       => date('Y-m-d H:i:s'),
+                'vauthor'     => $userid ? $userid : 'SYSTEM',
+                'vketerangan' => 'PENAMBAHAN VERSION RELEASE',
+                'update_date' => date('Y-m-d H:i:s'),
+                'update_by'   => $userid ? $userid : 'SYSTEM',
+            );
+            $this->db->where('kodemenu', $kodemenu)->update('sc_mst.version', $infoversi);
+        }
+    }
+    // =========================================================
+}
+public function rcv_detail()
+{
+    $this->load->model('ga/M_stock', 'm_stock');
+
+    $rcv_id   = (int)$this->input->post('rcv_id'); // dari data-rcv-id tombol Detail
+    $rcv_no   = $this->input->post('rcv_no');      // opsional: untuk judul modal
+
+    // get_rcv() SUDAH return row_array(), jadi JANGAN ->row_array() lagi
+    $hdr = $this->m_stock->get_rcv($rcv_id);
+    if (!$hdr) {
+        $this->output->set_status_header(404);
+        echo "<div class='alert alert-danger'>Data RCV tidak ditemukan.</div>";
+        return;
+    }
+
+    // get_rcv_dtl() SUDAH return result(), jadi JANGAN ->result() lagi
+    $dtl = $this->m_stock->get_rcv_dtl($rcv_id);
+
+    $data = [
+        'hdr'    => $hdr,   // array
+        'dtl'    => $dtl,   // array of objects
+        'rcv_no' => $rcv_no // opsional untuk judul
+    ];
+
+    $html = $this->load->view('ga/inventaris/_rcv_detail', $data, true);
+    $this->output->set_content_type('text/html')->set_output($html);
+}
+
+/* ==================== SURAT JALAN (OUTBOUND) ==================== */
+
+public function form_sj()
+{
+    $userid = $this->session->userdata('nama');
+    $kodemenu     = 'I.G.D.24';
+    $versirelease = 'I.G.D.24/SJ.001';
+    $this->_ensure_version_and_access($kodemenu, $versirelease, $userid);
+
+    $this->load->model('ga/m_sj');
+    $this->load->model('ga/m_inventaris');
+    $this->load->model('ga/m_stock');
+
+    $seg4 = $this->uri->segment(4);
+    if     ($seg4=='save_ok') $data['message']="<div class='alert alert-success'>SJ tersimpan (menunggu approval)</div>";
+    elseif ($seg4=='app_ok')  $data['message']="<div class='alert alert-success'>SJ disetujui & stok terpotong</div>";
+    elseif ($seg4=='rej_ok')  $data['message']="<div class='alert alert-warning'>SJ ditolak</div>";
+    elseif ($seg4=='del_ok')  $data['message']="<div class='alert alert-success'>SJ terhapus</div>";
+    else                      $data['message']='';
+
+    $data['title']   = 'SURAT JALAN BARANG KELUAR';
+    $data['version'] = $versirelease;
+    $data['list_sj'] = $this->m_sj->list_hdr()->result();
+    $data['list_barang'] = $this->m_inventaris->q_mst_barang_param("")->result();
+
+    $this->template->display('ga/inventaris/v_sj', $data);
+}
+
+public function input_sj()
+{
+    $this->load->model('ga/m_sj');
+    $this->load->model('ga/m_stock');
+    $this->load->model('ga/m_akses');
+
+    $nick   = $this->session->userdata('nik');    // pembuat
+    $nama   = $this->session->userdata('nama');
+    $branch = strtoupper(trim($this->m_akses->q_branch()->row_array()['branch']));
+
+    // cari atasan langsung
+    $q = $this->db->query("SELECT nik_atasan FROM sc_mst.karyawan WHERE nik=?", [$nick]);
+    $atasan = trim($q->row('nik_atasan'));
+
+    $hdr = [
+        'branch'        => $branch,
+        'sj_no'         => $this->input->post('sj_no') ?: null,  // boleh kosong; akan diisi saat approve kalau mau
+        'sj_date'       => $this->input->post('sj_date') ?: date('Y-m-d'),
+        'customer_nm'   => strtoupper(trim($this->input->post('customer_nm'))),
+        'ship_to'       => strtoupper(trim($this->input->post('ship_to'))),
+        'wh_loc'        => strtoupper(trim($this->input->post('wh_loc'))),
+        'vehicle_no'    => strtoupper(trim($this->input->post('vehicle_no'))),
+        'driver_name'   => strtoupper(trim($this->input->post('driver_name'))),
+        'remark'        => strtoupper(trim($this->input->post('remark'))),
+        'status'        => 'SUBMITTED',
+        'requested_nik' => $nick,
+        'approver1_nik' => $atasan ?: $nick,   // fallback kalau kosong
+        'inputby'       => $nama
+    ];
+    $sj_id = $this->m_sj->insert_hdr($hdr);
+
+    // detail
+    $nodok  = $this->input->post('nodok');   // array
+    $nm     = $this->input->post('nmbarang');
+    $uom    = $this->input->post('uom');
+    $qty    = $this->input->post('qty');
+    $rack   = $this->input->post('rack_bin');
+    $note   = $this->input->post('note');
+
+    $rows = [];
+    $n = is_array($nodok) ? count($nodok) : 0;
+    $line=0;
+    for($i=0;$i<$n;$i++){
+        $code = strtoupper(trim($nodok[$i] ?? '')); if($code==='') continue;
+        $line++;
+        $rows[] = [
+            'sj_id'=>$sj_id,'line_no'=>$line,'nodok'=>$code,
+            'nmbarang'=>strtoupper(trim($nm[$i] ?? '')),
+            'uom'=>strtoupper(trim($uom[$i] ?? '')),
+            'qty'=>(float)($qty[$i] ?? 0),
+            'rack_bin'=>strtoupper(trim($rack[$i] ?? '')),
+            'note'=>strtoupper(trim($note[$i] ?? ''))
+        ];
+    }
+    if ($rows) $this->m_sj->insert_dtl_batch($rows);
+
+    redirect('ga/inventaris/form_sj/save_ok');
+}
+
+/* approval 1: atasan langsung */
+public function sj_approve()
+{
+    $this->load->model('ga/m_sj');
+    $this->load->model('ga/m_stock');
+    $this->load->model('ga/m_akses');
+
+    $sj_id = (int)$this->input->post('sj_id');
+    $note  = strtoupper(trim($this->input->post('note')));
+
+    $hdr = $this->m_sj->hdr($sj_id)->row_array();
+    if (!$hdr){ show_error('SJ tidak ditemukan'); return; }
+
+    $usernik = $this->session->userdata('nik');
+
+    // cek wewenang
+    if (trim($hdr['approver1_nik']) !== trim($usernik)) {
+        show_error('Anda bukan approver SJ ini');
+        return;
+    }
+
+    // generate sj_no kalau kosong
+    $sj_no = $hdr['sj_no'] ?: $this->m_sj->gen_sj_no($hdr['branch']);
+
+    // potong stok (GOOD OUT) per detail
+    $dtl = $this->m_sj->dtl($sj_id)->result();
+    $rows_sc = [];
+    foreach($dtl as $d){
+        if ($d->qty <= 0) continue;
+        $rows_sc[] = [
+            'branch'      => $hdr['branch'],
+            'trans_date'  => $hdr['sj_date'].' 00:00:00',
+            'trans_type'  => 'SJ',
+            'ref_type'    => 'SJ',
+            'ref_id'      => $sj_id,
+            'ref_no'      => $sj_no,
+            'nodok'       => $d->nodok,
+            'wh_loc'      => $hdr['wh_loc'],
+            'rack_bin'    => $d->rack_bin,
+            'uom'         => $d->uom,
+            'qty_good_out'=> (float)$d->qty,
+            'note'        => 'SURAT JALAN'
+        ];
+    }
+
+    $this->db->trans_begin();
+    if ($rows_sc) $this->m_stock->insert_stock_card_batch($rows_sc);
+
+    $this->m_sj->update_hdr($sj_id, [
+        'status'=>'APPROVED',
+        'sj_no'=>$sj_no,
+        'approver1_dt'=>date('Y-m-d H:i:s'),
+        'approver1_note'=>$note,
+        'updatedate'=>date('Y-m-d H:i:s'),
+        'updateby'=>$this->session->userdata('nama')
+    ]);
+    $this->m_sj->applog($sj_id, $usernik, 'APPROVE', $note);
+
+    if ($this->db->trans_status()===FALSE){
+        $this->db->trans_rollback();
+        show_error('Gagal approve SJ');
+        return;
+    }
+    $this->db->trans_commit();
+
+    redirect('ga/inventaris/form_sj/app_ok');
+}
+
+public function sj_reject()
+{
+    $this->load->model('ga/m_sj');
+    $sj_id = (int)$this->input->post('sj_id');
+    $note  = strtoupper(trim($this->input->post('note')));
+
+    $hdr = $this->m_sj->hdr($sj_id)->row_array();
+    if (!$hdr){ show_error('SJ tidak ditemukan'); return; }
+
+    $usernik = $this->session->userdata('nik');
+    if (trim($hdr['approver1_nik']) !== trim($usernik)) {
+        show_error('Anda bukan approver SJ ini'); return;
+    }
+
+    $this->m_sj->update_hdr($sj_id, [
+        'status'=>'REJECTED',
+        'approver1_dt'=>date('Y-m-d H:i:s'),
+        'approver1_note'=>$note
+    ]);
+    $this->m_sj->applog($sj_id, $usernik, 'REJECT', $note);
+    redirect('ga/inventaris/form_sj/rej_ok');
+}
+
+public function sj_delete()
+{
+    $this->load->model('ga/m_sj');
+    $sj_id = (int)$this->input->post('sj_id');
+    // hanya boleh hapus kalau belum approved
+    $hdr = $this->m_sj->hdr($sj_id)->row_array();
+    if ($hdr && $hdr['status']!=='APPROVED'){
+        $this->m_sj->delete_sj($sj_id);
+    }
+    redirect('ga/inventaris/form_sj/del_ok');
+}
+
+public function sj_print($sj_id_hex)
+{
+    $this->load->model('ga/m_sj');
+    $sj_id = (int)$this->encrypt->decode(hex2bin(trim($sj_id_hex)));
+
+    $hdr = $this->m_sj->hdr($sj_id)->row_array();
+    if (!$hdr) show_error('SJ tidak ditemukan');
+    if ($hdr['status']!=='APPROVED') show_error('SJ belum di-approve');
+
+    $dtl = $this->m_sj->dtl($sj_id)->result();
+
+    // naikkan counter print
+    $this->m_sj->update_hdr($sj_id, [
+        'print_count'=> ((int)$hdr['print_count'])+1,
+        'updatedate'=>date('Y-m-d H:i:s'),
+        'updateby'=>$this->session->userdata('nama')
+    ]);
+
+    $data = ['hdr'=>$hdr,'dtl'=>$dtl,'title'=>'CETAK SURAT JALAN'];
+    $this->load->view('ga/inventaris/v_sj_print', $data);
+}
+
+/* ajax untuk cek on-hand saat input */
+public function ajax_onhand_item()
+{
+    $this->load->model('ga/m_stock');
+
+    $nodok = strtoupper(trim($this->input->post('nodok')));
+    $wh    = strtoupper(trim($this->input->post('wh_loc')));
+
+    $q = $this->m_stock->onhand($nodok, $wh);
+    $row = $q ? $q->row() : null;
+
+    $good   = (is_object($row) && isset($row->onhand_good))   ? (float)$row->onhand_good   : 0;
+    $reject = (is_object($row) && isset($row->onhand_reject)) ? (float)$row->onhand_reject : 0;
+
+    $out = array('good' => $good, 'reject' => $reject);
+
+    $this->output
+         ->set_content_type('application/json')
+         ->set_output(json_encode($out));
+}
 
 
 }

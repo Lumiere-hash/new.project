@@ -1,227 +1,161 @@
 <?php echo $this->fiky_ddos_protector->protect(); ?>
 <!doctype html>
-<html>
-
+<html lang="id">
 <head>
-    <title>OSIN</title>
-    <link href="<?php echo base_url('assets/css/bootstrap.min.css');?>" rel="stylesheet">
-    <link href="<?php //echo base_url('assets/font-awesome/css/font-awesome.css');?>" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo base_url('assets/fontawesome/css/font-awesome.min.css') ?>" >
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OSIN · Log in</title>
 
-    <link href="<?php echo base_url('assets/css/plugins/morris/morris-0.4.3.min.css');?>" rel="stylesheet">
-    <link href="<?php echo base_url('assets/css/plugins/timeline/timeline.css');?>" rel="stylesheet">
+  <!-- Tailwind + DaisyUI -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { theme:{ extend:{ fontFamily:{ sans:['Inter','ui-sans-serif','system-ui'] } } } }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css">
 
+  <!-- FontAwesome -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/fontawesome/css/font-awesome.min.css'); ?>">
 
-    <script src="<?php echo base_url('assets/js/jquery.js');?>"></script>
-    <script src="<?php echo base_url('assets/js/bootstrap.js');?>"></script>
-    <script src="<?php echo base_url('assets/js/tinymce/tinymce.min.js');?>"></script>
-    <script>
-        tinymce.init({selector:'textarea'});
-    </script>
+  <!-- TinyMCE (opsional) -->
+  <script src="<?php echo base_url('assets/js/tinymce/tinymce.min.js');?>"></script>
+  <script>if(window.tinymce){ tinymce.init({ selector:'textarea' }); }</script>
 
-    <meta charset="UTF-8">
-    <title> Online Sistem Informasi | Log in</title>
-    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <!-- bootstrap 3.0.2 -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <!-- font Awesome -->
-    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <!-- Theme style -->
-    <link href="css/AdminLTE.css" rel="stylesheet" type="text/css" />
+  <?php echo isset($_lchecking)?$_lchecking:''; ?>
+  <?php echo isset($_checking)?$_checking:''; ?>
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-
-    <?php echo $_lchecking; ?>
-    <?php echo $_checking; ?>
-    <style>
-        .eye-icon {
-            cursor: pointer;
-            position: absolute;
-        }
-
-        .eye-icon i {
-            position: absolute;
-            right: 5px;
-            top: 5px;
-        }
-        .footer {
-            background-color: #449d44;
-            /*background-color:#063;*/
-            border: none;
-            padding: 30px 0;
-            margin-top: 197px
-        }
-        body {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .footer {
-            margin-top: auto;
-        }
-
-        .text-white{
-            color: whitesmoke;
-        }
-        .text-white:hover{
-            color: whitesmoke;
-        }
-
-    </style>
-    <script language="Javascript">
-        <?php echo $this->fiky_encryption->keyAccess('PAGE_LOGIN'); ?>
-        $(document).ready(function(){
-            $('input').keypress(function(e) {
-                var s = String.fromCharCode( e.which );
-
-                if((s.toUpperCase() === s && s.toLowerCase() !== s && !e.shiftKey) ||
-                    (s.toUpperCase() !== s && s.toLowerCase() === s && e.shiftKey)){
-                    if($('#capsalert').length < 1) $(this).after('<b id="capsalert">CapsLock is on!</b>');
-                } else {
-                    if($('#capsalert').length > 0 ) $('#capsalert').remove();
-                }
-            });
-
-
-        });
-
-
-    </script>
+  <style>
+    html,body{height:100%}
+    body{font-family:Inter,ui-sans-serif,system-ui}
+  </style>
 </head>
-<body style="background-color: #ffffff" >
+<body class="min-h-screen bg-base-200 flex flex-col">
 
-<?php echo $coldown; ?>
-<div class="container">
+  <?php echo isset($coldown)?$coldown:''; ?>
+  <?php echo isset($xvw)?$xvw:''; ?>
 
-    <?php echo $xvw; ?>
-    <div class="row clearfix" style="margin-top: 10px;">
-        <div class="col-md-2">
+  <!-- Header -->
+  <header class="pt-5 pb-1">
+    <h1 class="text-center text-sm font-semibold tracking-wide md:text-xl">
+      ONLINE SYSTEM &amp; MANAGEMENT STOCK
+    </h1>
+  </header>
+
+  <!-- Main -->
+  <main class="flex-1">
+    <div class="mx-auto w-full max-w-screen-lg px-4 py-6">
+      <!-- Flex mobile (form atas, logo bawah), Grid desktop (logo kiri, form kanan) -->
+      <div class="flex flex-col gap-6 md:grid md:grid-cols-2 md:items-center">
+        
+        <!-- Logo di kiri (desktop), di bawah (mobile) -->
+        <div class="order-2 md:order-1 w-full flex items-center justify-center md:justify-start">
+          <img
+            src="<?php echo base_url('assets/img/desle.png'); ?>"
+            alt="Logo"
+            class="h-20 w-auto md:h-auto md:max-w-md lg:max-w-lg object-contain rounded-2xl"
+          />
         </div>
-        <div class="col-md-8">
-            <legend><center>SELAMAT DATANG DI ONLINE SISTEM INFORMASI HR & GA NUSA</center></legend>
+
+        <!-- Form login di kanan (desktop), di atas (mobile) -->
+        <div class="order-1 md:order-2 w-full">
+          <div class="card bg-base-100 shadow-xl">
+            <div class="card-body p-4 md:p-6">
+              <h2 class="card-title mb-2">Masuk</h2>
+              <?php echo $this->session->flashdata('message');?>
+
+              <form action="<?php echo site_url('web/proses');?>" method="post" class="space-y-3">
+                <!-- Username -->
+                <label class="form-control w-full">
+                  <div class="label py-1"><span class="label-text">Username</span></div>
+                  <input name="username" type="text" placeholder="Username"
+                         class="input input-bordered w-full h-10 md:h-11" required />
+                </label>
+
+                <!-- Password -->
+                <label class="form-control w-full">
+                  <div class="label py-1"><span class="label-text">Password</span></div>
+                  <div class="relative">
+                    <input id="password" name="password" type="password"
+                           placeholder="Password"
+                           class="input input-bordered w-full h-10 pr-12 md:h-11 password-input" required />
+                    <button type="button" id="togglePass"
+                            class="btn btn-ghost btn-xs absolute right-1 top-1/2 -translate-y-1/2">
+                      <i class="fa fa-eye-slash text-base"></i>
+                    </button>
+                  </div>
+                </label>
+
+                <!-- Captcha -->
+                <div>
+                  <div class="mb-2"><?php echo $captcha_img; ?></div>
+                  <label class="form-control w-full">
+                    <div class="label py-1"><span class="label-text">Kode</span></div>
+                    <input type="text" name="captcha"
+                           value="<?php echo (strtoupper(ENVIRONMENT)=='DEVELOPMENT'?(isset($cap)?$cap:''):''); ?>"
+                           placeholder="Masukkan kode di atas"
+                           class="input input-bordered w-full h-10 md:h-11" required />
+                  </label>
+                  <?php if($this->input->get('cap_error')): ?>
+                    <p class="text-error text-xs mt-1">Captcha salah, silakan coba lagi.</p>
+                  <?php endif; ?>
+                </div>
+
+                <!-- Remember me -->
+                <label class="label cursor-pointer justify-start gap-2 py-1">
+                  <input type="checkbox" class="checkbox checkbox-sm" />
+                  <span class="label-text text-sm">Remember me</span>
+                </label>
+
+                <!-- Tombol -->
+                <div class="flex flex-col gap-2 pt-2 md:flex-row">
+                  <button type="submit" class="btn btn-success w-full md:w-auto">Sign in</button>
+                  <button type="reset" class="btn w-full md:w-auto">Reset</button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
+
+      </div>
     </div>
-    <div class="row clearfix">
-        <div class="col-md-2">
-        </div>
-        <div class="col-md-5">
-            <!--img src="<?php echo base_url('assets/img/nusa-logo.jpg');?>" width="100%" class="img-rounded"-->
-            <img src="<?php echo base_url('assets/img/logo-depan/logo_depan.png');?>" width="100%" class="img-rounded" style="padding-top: 75px;">
-            <!--img src="<?php echo base_url('assets/img/logo-depan/logo_depan2.png');?>" width="100%" class="img-rounded"-->
-            <!--img src="<?php echo base_url('assets/img/logo-depan/logo_depan3!--.png');?>" width="100%" class="img-rounded"-->
-        </div>
-        <div class="col-md-4 ">
-            <!--atas-->
-            <form class="form-horizontal" role="form" action="<?php echo site_url('web/proses');?>" method="post">
-                <?php echo $this->session->flashdata('message');?>
-                <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-3 control-label">
-                        Username</label>
-                    <div class="col-sm-9">
-                        <input type="text" name="username" class="form-control" id="inputEmail3" placeholder="Username" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-3 control-label">
-                        Password</label>
-                    <div class="col-sm-9">
-                        <div class="eye-icon">
-                            <input type="password" name="password" class="form-control password-input" id="inputPassword3" style="float:left;display:block;width:260px;" placeholder="Password" required>
-                            <i class="fa fa-eye-slash" style="font-size: 20px"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-3 control-label">
-                    </label>
-                    <div class="col-sm-9">
-                        <?php echo $captcha_img;?>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-3 control-label">
-                        Kode</label>
-                    <div class="col-sm-9">
-                        <input type="text" name="captcha" class="form-control" value="<?php echo (strtoupper(ENVIRONMENT) == 'DEVELOPMENT' ? $cap : null) ?>" placeholder="masukan Kode"  required	>
-                        <?php
-                        $wrong = $this->input->get('cap_error');
-                        if($wrong){
-                            echo '<span style="color:red;">Captcha yang kamu masukan salah, silahkan ulangi lagi</span>';
-                        }
-                        ?>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-sm-offset-3 col-sm-9">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"/>
-                                Remember me
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group last">
-                    <div class="col-sm-offset-3 col-sm-9">
-                        <button type="submit" class="btn btn-success btn-sm">
-                            Sign in</button>
-                        <button type="reset" class="btn btn-default btn-sm">
-                            Reset</button>
-                    </div>
-                </div>
-            </form>
-            <!--bwah-->
-        </div>
+  </main>
+
+  <!-- Footer
+  <footer class="mt-6">
+    <div class="py-4 md:py-6 bg-green-600 text-center">
+      <p class="text-white text-sm md:text-base">
+        Copyright ©
+        <a class="link link-hover text-white font-semibold" href="https://nusaboard.co.id/" target="_blank" rel="noopener">
+          IT NUSANTARA
+        </a>
+        <?php echo isset($currentYear)?$currentYear:date('Y'); ?>
+      </p>
     </div>
-</div>
+  </footer> -->
 
+  <!-- Script -->
+  <script src="<?php echo base_url('assets/js/jquery.js');?>"></script>
+  <?php echo $this->fiky_encryption->getAccessPage('PAGE_LOGIN'); ?>
+  <?php echo isset($_checking_)?$_checking_:''; ?>
 
-<footer class="footer">
-    <div class="container">
-        <p align="center" >Copyright © <a class="text-white" href="https://nusaboard.co.id/">IT
-                NUSANTARA </a> <?php echo $currentYear ?></p>
-
-    </div>
-</footer>
-
-<!-- jQuery 2.0.2 -->
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-<!-- Bootstrap -->
-<!-- Core Scripts - Include with every page -->
-<script src="<?php echo base_url('assets/js/holder.js');?>"></script>
-
-<script src="<?php echo base_url('assets/js/application.js');?>"></script>
-<script src="<?php echo base_url('assets/js/jquery-1.10.2.js');?>"></script>
-<script src="<?php echo base_url('assets/js/bootstrap.min.js');?>"></script>
-<script src="<?php echo base_url('assets/js/plugins/metisMenu/jquery.metisMenu.js');?>"></script>
-<script src="<?php echo base_url('assets/js/plugins/morris/raphael-2.1.0.min.js');?>"></script>
-<script src="<?php echo base_url('assets/js/plugins/morris/morris.js');?>"></script>
-<script src="<?php echo base_url('assets/js/sb-admin.js');?>"></script>
-<script src="<?php echo base_url('assets/js/demo/dashboard-demo.js');?>"></script>
-<?php echo $this->fiky_encryption->getAccessPage('PAGE_LOGIN'); ?>
-<?php echo $_checking_; ?>
-<script>
-    $(document).ready(function () {
-        $('.eye-icon i').click(function () {
-            var passwordField = $(this).siblings('.password-input');
-            var passwordFieldType = passwordField.attr('type');
-
-            if (passwordFieldType === 'password') {
-                passwordField.attr('type', 'text');
-                $(this).removeClass('fa fa-eye-slash').addClass('fa fa-eye');
-            } else {
-                passwordField.attr('type', 'password');
-                $(this).removeClass('fa fa-eye').addClass('fa fa-eye-slash');
-            }
+  <script>
+    // Toggle show/hide password
+    (function(){
+      var btn=document.getElementById('togglePass');
+      var input=document.getElementById('password');
+      var icon=btn?btn.querySelector('i'):null;
+      if(btn){
+        btn.addEventListener('click',function(){
+          var t=input.getAttribute('type')==='password'?'text':'password';
+          input.setAttribute('type',t);
+          if(icon){
+            icon.classList.toggle('fa-eye');
+            icon.classList.toggle('fa-eye-slash');
+          }
         });
-    });
-</script>
+      }
+    })();
+  </script>
 </body>
 </html>
-	

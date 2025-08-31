@@ -56,7 +56,7 @@
 </style>
 
 <!---p><strong> Laporan Uang Makan Wilayah <?php echo $cabang;?> </strong></p></br>Periode: <!?php echo $tgl1.' hingga '.$tgl2;?-->
-<p><img src="http://www.nusaboard.co.id/wp-content/uploads/2015/02/newlogo-nusaboard.jpg" width="200" height="45" /><strong> Laporan Uang Makan Wilayah <?php echo $cabang;?> </strong></p></br>Periode: <?php echo $tgl1.' hingga '.$tgl2;?>
+<p><img src="https://nusantarajaya.co.id/wp-content/uploads/2024/10/cropped-TWO-TONE-HOROZONTAL-600x117.png" width="200" height="45" /><strong> Laporan Uang Makan Wilayah <?php echo $cabang;?> </strong></p></br>Periode: <?php echo $tgl1.' hingga '.$tgl2;?>
 </br>
 <div class="row">
     <table >
@@ -76,7 +76,7 @@
             <th bgcolor="#CCCCCC"><div align="center">Uang Makan</div></th>
             <?php if($callplan == "t"): ?>
             <th bgcolor="#CCCCCC"><div align="center">BBM</div></th>
-            <th bgcolor="#CCCCCC"><div align="center">Sewa Kendaraan</div></th>
+            <th bgcolor="#CCCCCC"><div align="center">BIAYA PERAWATAN</div></th>
             <?php endif; ?>
         </tr>
         </thead>

@@ -19,7 +19,7 @@ class M_inventaris extends CI_Model
     }
     function q_trxtype_satuan()
     {
-        return $this->db->query("select * from sc_mst.trxtype where jenistrx='QTYUNIT' order by uraian asc");
+        return $this->db->query("select * from sc_mst.trxtype where jenistrx='SIZE' order by uraian asc");
     }
     function q_trxtype_spkasset()
     {
@@ -48,7 +48,7 @@ class M_inventaris extends CI_Model
     }
     function q_scgroup_atk()
     {
-        return $this->db->query("select * from sc_mst.mgroup where kdgroup in ('BRG','JSA') order by nmgroup");
+        return $this->db->query("select * from sc_mst.mgroup order by nmgroup");
     }
 
     function q_scgroup_ast()
@@ -65,9 +65,13 @@ class M_inventaris extends CI_Model
 									order by nmsubgroup");
     }
 
+    function q_scsubtype()
+    {
+        return $this->db->query("select * from sc_mst.msubtype ");
+    }
     function q_scsubgroup_atk()
     {
-        return $this->db->query("select * from sc_mst.msubgroup where kdgroup in ('BRG','JSA') order by nmsubgroup");
+        return $this->db->query("select * from sc_mst.msubgroup order by nmsubgroup");
     }
 
     function q_mstbarang()
@@ -76,7 +80,7 @@ class M_inventaris extends CI_Model
 				when a.typebarang='SP' then 'SEKALI PAKAI' end as nmtypebarang from sc_mst.mbarang a
 				left outer join (select count(stockcode) as rowstock,trim(stockcode) as stockcode from sc_mst.stkgdw 
 				group by stockcode) b on a.nodok=b.stockcode
-				where a.kdgroup in ('BRG','AST')  order by a.nmbarang");
+				where a.kdgroup in ('INS') order by a.nmbarang");
     }
 
     function q_mst_barang_param($param)
@@ -88,7 +92,7 @@ class M_inventaris extends CI_Model
 				group by stockcode) b on a.nodok=b.stockcode
 				left outer join sc_mst.mgroup c on a.kdgroup=c.kdgroup
 				left outer join sc_mst.msubgroup d on a.kdgroup=d.kdgroup and a.kdsubgroup=d.kdsubgroup
-				where a.kdgroup in ('BRG','AST','JSA')  ) as x where nodok is not null $param order by coalesce(inputdate,'2011-02-02 00:57:51'::timestamp) desc $limit
+				where a.kdgroup in ('INS')  ) as x where nodok is not null $param order by coalesce(inputdate,'2011-02-02 00:57:51'::timestamp) desc $limit
 				");
     }
 
@@ -712,15 +716,16 @@ class M_inventaris extends CI_Model
     }
 
     function q_master_satuan_barang_param($param)
-    {
-        return $this->db->query("select a.*,count(b.kdsatuan) as kdmaprow from sc_mst.trxtype a
-                                        left outer join (
-                                        select distinct satkecil as kdsatuan from sc_mst.mapping_satuan_brg
-                                        union all
-                                        select distinct satbesar as kdsatuan from sc_mst.mapping_satuan_brg) b on a.kdtrx=b.kdsatuan
-                                        where jenistrx='QTYUNIT' $param
-                                        group by a.kdtrx,jenistrx,uraian
-                                        order by uraian asc ");
+    {  return $this->db->query("select * from sc_mst.trxtype where jenistrx='SIZE' order by uraian asc");
+    //     return $this->db->query("select a.*,count(b.kdsatuan) as kdmaprow from sc_mst.trxtype a
+    //                                     left outer join (
+    //                                     select distinct satkecil as kdsatuan from sc_mst.mapping_satuan_brg
+    //                                     union all
+    //                                     select distinct satbesar as kdsatuan from sc_mst.mapping_satuan_brg) b on a.kdtrx=b.kdsatuan
+    //                                     where jenistrx='SIZE' $param
+    //                                     group by a.kdtrx,jenistrx,uraian
+    //                                     order by uraian asc ");
+    // }
     }
 
     function q_mbarang_param($param1)
@@ -945,4 +950,97 @@ class M_inventaris extends CI_Model
             ) a WHERE TRUE
         ".$clause);
     }
+public function q_scsubgroup_by_group($kdgroup){
+    return $this->db->where('kdgroup',$kdgroup)->order_by('kdsubgroup','ASC')->get('sc_mst.msubgroup');
+}
+
+// public function q_type_list($kdgroup=null,$kdsubgroup=null){
+//     if ($kdgroup)     $this->db->where('t.kdgroup',$kdgroup);
+//     if ($kdsubgroup)  $this->db->where('t.kdsubgroup',$kdsubgroup);
+//     return $this->db
+//       ->select('t.*, sg.nmsubgroup, g.nmgroup')
+//       ->from('sc_mst.msubtype t')
+//       ->join('sc_mst.msubgroup sg','sg.kdgroup=t.kdgroup AND sg.kdsubgroup=t.kdsubgroup','left')
+//       ->join('sc_mst.mgroup g','g.kdgroup=t.kdgroup','left')
+//       ->order_by('t.kdgroup, t.kdsubgroup, t.kdtype','ASC')
+//       ->get();
+// }
+public function q_ceksctype_3p($kdgroup,$kdsubgroup,$kdtype){
+    return $this->db->where('kdgroup',$kdgroup)
+      ->where('kdsubgroup',$kdsubgroup)
+      ->where('kdtype',$kdtype)
+      ->get('sc_mst.msubtype');
+}
+public function insert_sctype($data){ return $this->db->insert('sc_mst.msubtype',$data); }
+public function update_sctype($kdgroup,$kdsubgroup,$kdtype,$data){
+    return $this->db->where('kdgroup',$kdgroup)->where('kdsubgroup',$kdsubgroup)->where('kdtype',$kdtype)->update('sc_mst.msubtype',$data);
+}
+public function delete_sctype($kdgroup,$kdsubgroup,$kdtype){
+    return $this->db->where('kdgroup',$kdgroup)->where('kdsubgroup',$kdsubgroup)->where('kdtype',$kdtype)->delete('sc_mst.msubtype');
+}
+
+// ===== MAIN COLOR =====
+public function q_color_list($kdgroup=null, $kdsubgroup=null, $kdtype=null)
+{
+    if ($kdgroup)    $this->db->where('c.kdgroup', $kdgroup);
+    if ($kdsubgroup) $this->db->where('c.kdsubgroup', $kdsubgroup);
+    if ($kdtype)     $this->db->where('c.kdtype', $kdtype);
+
+    return $this->db
+        ->select('c.*, g.nmgroup, sg.nmsubgroup, t.nmtype')
+        ->from('sc_mst.mmaincolor c')
+        ->join('sc_mst.mgroup g', 'g.kdgroup=c.kdgroup', 'left')
+        ->join('sc_mst.msubgroup sg', 'sg.kdgroup=c.kdgroup AND sg.kdsubgroup=c.kdsubgroup', 'left')
+        ->join('sc_mst.msubtype t', 't.kdgroup=c.kdgroup AND t.kdsubgroup=c.kdsubgroup AND t.kdtype=c.kdtype', 'left')
+        ->order_by('c.kdgroup, c.kdsubgroup, c.kdtype, c.kdcolor', 'ASC')
+        ->get();
+}
+
+public function q_cekcolor_4p($kdgroup,$kdsubgroup,$kdtype,$kdcolor)
+{
+    return $this->db->where('kdgroup',$kdgroup)
+        ->where('kdsubgroup',$kdsubgroup)
+        ->where('kdtype',$kdtype)
+        ->where('kdcolor',$kdcolor)
+        ->get('sc_mst.mmaincolor');
+}
+
+public function insert_color($data){ return $this->db->insert('sc_mst.mmaincolor', $data); }
+public function update_color($kdgroup,$kdsubgroup,$kdtype,$kdcolor,$data){
+    return $this->db->where('kdgroup',$kdgroup)->where('kdsubgroup',$kdsubgroup)
+        ->where('kdtype',$kdtype)->where('kdcolor',$kdcolor)
+        ->update('sc_mst.mmaincolor', $data);
+}
+public function delete_color($kdgroup,$kdsubgroup,$kdtype,$kdcolor){
+    return $this->db->where('kdgroup',$kdgroup)->where('kdsubgroup',$kdsubgroup)
+        ->where('kdtype',$kdtype)->where('kdcolor',$kdcolor)
+        ->delete('sc_mst.mmaincolor');
+}
+// ambil color berdasarkan group+subgroup+type
+public function q_color_by_type($kdgroup,$kdsubgroup,$kdtype){
+    return $this->db
+        ->where('kdgroup',    $kdgroup)
+        ->where('kdsubgroup', $kdsubgroup)
+        ->where('kdtype',     $kdtype)
+        ->order_by('kdcolor','ASC')
+        ->get('sc_mst.mmaincolor'); // tabel main color
+}
+// ambil type per group + subgroup (dipakai oleh AJAX di atas)
+// Ambil daftar type dengan filter opsional
+public function q_type_list($kdgroup = null, $kdsubgroup = null)
+{
+    $this->db->from('sc_mst.msubtype');
+
+    if (!is_null($kdgroup) && $kdgroup !== '') {
+        $this->db->where('kdgroup', strtoupper(trim($kdgroup)));
+    }
+    if (!is_null($kdsubgroup) && $kdsubgroup !== '') {
+        $this->db->where('kdsubgroup', strtoupper(trim($kdsubgroup)));
+    }
+
+    $this->db->order_by('kdtype', 'ASC');
+    return $this->db->get();
+}
+
+
 }

@@ -188,11 +188,11 @@ class Uang_makan extends MX_Controller
         $this->excel_generator->set_query($datane);
 
         if ($callplan == "t") {
-            $this->excel_generator->set_header(array('NO', 'NIK', 'NAMA', 'DEPARTEMEN', 'JABATAN', 'TANGGAL', 'CHECKTIME', 'CALLPLAN', 'REALISASI', 'KETERANGAN', 'UANG MAKAN', 'BBM', 'SEWA KENDARAAN', 'SUB TOTAL'));
+            $this->excel_generator->set_header(array('NO', 'NIK', 'NAMA', 'DEPARTEMEN', 'JABATAN', 'TANGGAL', 'CHECKTIME', 'CALLPLAN', 'REALISASI', 'KETERANGAN', 'UANG MAKAN', 'BBM', 'BIAYA PERAWATAN', 'SUB TOTAL'));
             $this->excel_generator->set_column(array('no', 'nik', 'nmlengkap', 'nmdept', 'nmjabatan', 'tglhari', 'checktime', 'rencanacallplan', 'realisasicallplan', 'keterangan', 'nominalrp', 'bbm', 'sewa_kendaraan', 'subtotal'));
             $this->excel_generator->set_width(array(5, 12, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25));
         } else {
-            $this->excel_generator->set_header(array('NO', 'NIK', 'NAMA', 'DEPARTEMEN', 'JABATAN', 'TANGGAL', 'CHECKTIME', 'KETERANGAN', 'UANG MAKAN', 'BBM', 'SEWA KENDARAAN', 'SUB TOTAL'));
+            $this->excel_generator->set_header(array('NO', 'NIK', 'NAMA', 'DEPARTEMEN', 'JABATAN', 'TANGGAL', 'CHECKTIME', 'KETERANGAN', 'UANG MAKAN', 'BBM', 'BIAYA PERAWATAN', 'SUB TOTAL'));
             $this->excel_generator->set_column(array('no', 'nik', 'nmlengkap', 'nmdept', 'nmjabatan', 'tglhari', 'checktime', 'keterangan', 'nominalrp', 'bbm', 'sewa_kendaraan', 'subtotal'));
             $this->excel_generator->set_width(array(5, 12, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25));
         }

@@ -137,13 +137,13 @@
 			<label for="inputsm">Nama Skema</label>
 			<input type="text" class="form-control input-sm" id="nmgroup" style="text-transform:uppercase" name="nmgroup" placeholder="Input Nama Group Schema Barang & Asset" required>
 		  </div>
-		<div class="form-group">
+		<!-- <div class="form-group">
 			<label for="inputsm">Uji KIR</label>	
 				<select class="form-control input-sm" name="ujikir" id="ujikir" required>
 				  <option value="NO">TIDAK</option>						  
 				  <option value="YES">YA</option>	
 				</select>
-		</div>
+		</div> -->
 		<div class="form-group">
 			<label for="inputsm">Hold Schema</label>	
 				<select class="form-control input-sm" name="grouphold" id="grouphold" required>

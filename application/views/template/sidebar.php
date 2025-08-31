@@ -1,3 +1,92 @@
+<style>
+  /* ================================
+     THEME OVERRIDES (warna saja)
+     Palet:
+       --sb-bg:      #0f172a  (navy gelap)
+       --sb-hover:   #1f2937
+       --sb-border:  #334155
+       --sb-text:    #e5e7eb
+       --sb-dim:     #9ca3af
+       --accent:     #10b981  (emerald)
+  ==================================*/
+  :root{
+    --sb-bg:#0f172a; --sb-hover:#1f2937; --sb-border:#334155;
+    --sb-text:#e5e7eb; --sb-dim:#9ca3af; --accent:#10b981;
+  }
+
+  /* ===== Sidebar (kiri) ===== */
+  .main-sidebar{
+    background: var(--sb-bg) !important;
+    color: var(--sb-text) !important;
+    border-right: 1px solid var(--sb-border);
+  }
+  .sidebar a{ color: var(--sb-text) !important; }
+  .sidebar .user-panel>.info, .sidebar .user-panel>.info a{
+    color: var(--sb-text) !important;
+  }
+  .sidebar-form .form-control{
+    background: rgba(255,255,255,.06); border-color: var(--sb-border); color: var(--sb-text);
+  }
+  .sidebar-form .btn{ background: rgba(255,255,255,.06); color: var(--sb-dim); border-color: var(--sb-border); }
+  .sidebar-form .form-control::placeholder{ color: var(--sb-dim); }
+
+  /* Item menu level-1 */
+  .sidebar-menu>li>a{
+    border-left: 3px solid transparent;
+    color: var(--sb-text) !important;
+  }
+  .sidebar-menu>li:hover>a{ background: var(--sb-hover) !important; }
+  .sidebar-menu>li.active>a{
+    background: var(--sb-hover) !important;
+    border-left-color: var(--accent) !important;
+    color: #fff !important;
+  }
+
+  /* Submenu (treeview) */
+  .treeview-menu{
+    background: transparent !important;
+    border-left: 1px dashed var(--sb-border);
+    margin-left: .5rem;
+  }
+  .treeview-menu>li>a{
+    color: var(--sb-dim) !important;
+    padding-left: 20px;
+  }
+  .treeview-menu>li>a:hover{ color:#fff !important; background: rgba(255,255,255,.04) !important; }
+
+  /* Ikon panah */
+  .sidebar-menu .fa-angle-left, .treeview-menu .fa-angle-left{
+    color: var(--sb-dim) !important;
+  }
+
+  /* Garis pemisah bawah sidebar (opsional) */
+  .sidebar .sidebar-menu, .sidebar .user-panel{
+    border-color: var(--sb-border) !important;
+  }
+
+  /* ===== Header / Navbar =====
+     (kalau ingin header senada dark; jika ingin tetap hijau lama, hapus blok ini)
+  */
+  .skin-green .main-header .navbar,
+  .skin-green .main-header .logo{
+    background: var(--sb-bg) !important;
+    color: var(--sb-text) !important;
+    border-bottom: 1px solid var(--sb-border);
+  }
+  .skin-green .main-header .navbar .nav>li>a{
+    color: var(--sb-text) !important;
+  }
+  .skin-green .main-header .navbar .nav>li>a:hover,
+  .skin-green .main-header .navbar .nav>li.open>a{
+    background: var(--sb-hover) !important;
+  }
+  /* badge label biar kontras */
+  .label-warning{ background:#f59e0b !important; color:#111827 !important; }
+
+  /* ===== Konten ===== */
+  .content-wrapper, .right-side{ background:#f5f7fb !important; } /* abu muda lembut */
+</style>
+
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">

@@ -151,7 +151,7 @@
                             <th>Keterangan</th>
                             <th>Uang Makan</th>
                             <th>BBM</th>
-                            <th>Sewa Kendaraan</th>
+                            <th>BIAYA PERAWATAN</th>
                             <th>Sub Total</th>
                         </tr>
                     </thead>
