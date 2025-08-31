@@ -1,3 +1,0 @@
-# file: nixpacks.toml
-[start]
-cmd = "php -S 0.0.0.0:8080"

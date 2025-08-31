@@ -62,13 +62,6 @@ class M_sj extends CI_Model
         ]);
     }
 
-    public function gen_sj_no($branch)
-    {
-        // contoh: SJ-SBY-YYYYMMDD-HHMMSS
-        return 'SJ-'.trim($branch).'-'.date('Ymd-His');
-    }
-
-    // application/modules/ga/models/m_sj.php
 public function gen_sj_no($branch = '')
 {
     // Format: SJ-YYYYMMDD-####  (contoh: SJ-20250831-0001)
