@@ -5105,16 +5105,20 @@ public function input_sj()
 
     $nick   = $this->session->userdata('nik');    // pembuat
     $nama   = $this->session->userdata('nama');
-    $branch = strtoupper(trim($this->m_akses->q_branch()->row_array()['branch']));
+    $rowBr  = $this->m_akses->q_branch()->row_array();
+    $branch = strtoupper(trim(isset($rowBr['branch']) ? $rowBr['branch'] : ''));
 
     // cari atasan langsung
-    $q = $this->db->query("SELECT nik_atasan FROM sc_mst.karyawan WHERE nik=?", [$nick]);
-    $atasan = trim($q->row('nik_atasan'));
+    $q = $this->db->query("SELECT nik_atasan FROM sc_mst.karyawan WHERE nik=?", array($nick));
+    $atasan = $q->num_rows() > 0 ? trim($q->row('nik_atasan')) : '';
 
-    $hdr = [
+    $sj_no   = $this->input->post('sj_no');
+    $sj_date = $this->input->post('sj_date');
+
+    $hdr = array(
         'branch'        => $branch,
-        'sj_no'         => $this->input->post('sj_no') ?: null,  // boleh kosong; akan diisi saat approve kalau mau
-        'sj_date'       => $this->input->post('sj_date') ?: date('Y-m-d'),
+        'sj_no'         => ($sj_no != '' ? $sj_no : null),                   // boleh kosong
+        'sj_date'       => ($sj_date != '' ? $sj_date : date('Y-m-d')),
         'customer_nm'   => strtoupper(trim($this->input->post('customer_nm'))),
         'ship_to'       => strtoupper(trim($this->input->post('ship_to'))),
         'wh_loc'        => strtoupper(trim($this->input->post('wh_loc'))),
@@ -5123,35 +5127,40 @@ public function input_sj()
         'remark'        => strtoupper(trim($this->input->post('remark'))),
         'status'        => 'SUBMITTED',
         'requested_nik' => $nick,
-        'approver1_nik' => $atasan ?: $nick,   // fallback kalau kosong
+        'approver1_nik' => ($atasan != '' ? $atasan : $nick),                // fallback kalau kosong
         'inputby'       => $nama
-    ];
+    );
     $sj_id = $this->m_sj->insert_hdr($hdr);
 
     // detail
-    $nodok  = $this->input->post('nodok');   // array
-    $nm     = $this->input->post('nmbarang');
-    $uom    = $this->input->post('uom');
-    $qty    = $this->input->post('qty');
-    $rack   = $this->input->post('rack_bin');
-    $note   = $this->input->post('note');
+    $nodok = $this->input->post('nodok');   // array
+    $nm    = $this->input->post('nmbarang');
+    $uom   = $this->input->post('uom');
+    $qty   = $this->input->post('qty');
+    $rack  = $this->input->post('rack_bin');
+    $note  = $this->input->post('note');
 
-    $rows = [];
-    $n = is_array($nodok) ? count($nodok) : 0;
-    $line=0;
-    for($i=0;$i<$n;$i++){
-        $code = strtoupper(trim($nodok[$i] ?? '')); if($code==='') continue;
+    $rows = array();
+    $n = (is_array($nodok) ? count($nodok) : 0);
+    $line = 0;
+
+    for ($i=0; $i<$n; $i++) {
+        $code = strtoupper(trim(isset($nodok[$i]) ? $nodok[$i] : ''));
+        if ($code === '') continue;
+
         $line++;
-        $rows[] = [
-            'sj_id'=>$sj_id,'line_no'=>$line,'nodok'=>$code,
-            'nmbarang'=>strtoupper(trim($nm[$i] ?? '')),
-            'uom'=>strtoupper(trim($uom[$i] ?? '')),
-            'qty'=>(float)($qty[$i] ?? 0),
-            'rack_bin'=>strtoupper(trim($rack[$i] ?? '')),
-            'note'=>strtoupper(trim($note[$i] ?? ''))
-        ];
+        $rows[] = array(
+            'sj_id'    => $sj_id,
+            'line_no'  => $line,
+            'nodok'    => $code,
+            'nmbarang' => strtoupper(trim(isset($nm[$i])   ? $nm[$i]   : '')),
+            'uom'      => strtoupper(trim(isset($uom[$i])  ? $uom[$i]  : '')),
+            'qty'      => (float)(isset($qty[$i])  ? $qty[$i]  : 0),
+            'rack_bin' => strtoupper(trim(isset($rack[$i]) ? $rack[$i] : '')),
+            'note'     => strtoupper(trim(isset($note[$i]) ? $note[$i] : ''))
+        );
     }
-    if ($rows) $this->m_sj->insert_dtl_batch($rows);
+    if (!empty($rows)) $this->m_sj->insert_dtl_batch($rows);
 
     redirect('ga/inventaris/form_sj/save_ok');
 }

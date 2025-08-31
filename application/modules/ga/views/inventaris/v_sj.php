@@ -63,7 +63,7 @@
         <div class="form-group"><label>Tanggal</label>
           <input type="date" name="sj_date" class="form-control input-sm" value="<?=date('Y-m-d')?>"></div>
         <div class="form-group"><label>Warehouse (WH Loc)</label>
-          <input type="text" name="wh_loc" class="form-control input-sm" required></div>
+          <input type="text" name="wh_loc" class="form-control input-sm" ></div>
         <div class="form-group"><label>No Kendaraan</label>
           <input type="text" name="vehicle_no" class="form-control input-sm"></div>
         <div class="form-group"><label>Driver</label>
