@@ -5105,20 +5105,22 @@ public function input_sj()
 
     $nick   = $this->session->userdata('nik');    // pembuat
     $nama   = $this->session->userdata('nama');
-    $rowBr  = $this->m_akses->q_branch()->row_array();
-    $branch = strtoupper(trim(isset($rowBr['branch']) ? $rowBr['branch'] : ''));
+    $branch = strtoupper(trim($this->m_akses->q_branch()->row_array()['branch']));
 
     // cari atasan langsung
-    $q = $this->db->query("SELECT nik_atasan FROM sc_mst.karyawan WHERE nik=?", array($nick));
-    $atasan = $q->num_rows() > 0 ? trim($q->row('nik_atasan')) : '';
+    $atasan = trim($this->db->query(
+        "SELECT nik_atasan FROM sc_mst.karyawan WHERE nik=?",
+        [$nick]
+    )->row('nik_atasan'));
 
-    $sj_no   = $this->input->post('sj_no');
-    $sj_date = $this->input->post('sj_date');
+    // >>>> generate SJ No disini <<<<
+    $sj_no_input = trim($this->input->post('sj_no'));
+    $sj_no = $sj_no_input !== '' ? $sj_no_input : $this->m_sj->gen_sj_no($branch);
 
-    $hdr = array(
+    $hdr = [
         'branch'        => $branch,
-        'sj_no'         => ($sj_no != '' ? $sj_no : null),                   // boleh kosong
-        'sj_date'       => ($sj_date != '' ? $sj_date : date('Y-m-d')),
+        'sj_no'         => $sj_no,                               // <-- sudah terisi
+        'sj_date'       => $this->input->post('sj_date') ?: date('Y-m-d'),
         'customer_nm'   => strtoupper(trim($this->input->post('customer_nm'))),
         'ship_to'       => strtoupper(trim($this->input->post('ship_to'))),
         'wh_loc'        => strtoupper(trim($this->input->post('wh_loc'))),
@@ -5127,10 +5129,11 @@ public function input_sj()
         'remark'        => strtoupper(trim($this->input->post('remark'))),
         'status'        => 'SUBMITTED',
         'requested_nik' => $nick,
-        'approver1_nik' => ($atasan != '' ? $atasan : $nick),                // fallback kalau kosong
+        'approver1_nik' => $atasan ?: $nick,   // fallback
         'inputby'       => $nama
-    );
+    ];
     $sj_id = $this->m_sj->insert_hdr($hdr);
+
 
     // detail
     $nodok = $this->input->post('nodok');   // array
@@ -5186,8 +5189,12 @@ public function sj_approve()
         return;
     }
 
-    // generate sj_no kalau kosong
-    $sj_no = $hdr['sj_no'] ?: $this->m_sj->gen_sj_no($hdr['branch']);
+   // generate sj_no kalau kosong -> sekarang jarang terjadi, tapi tetap jaga-jaga
+$sj_no = $hdr['sj_no'];
+if ($sj_no == '' || $sj_no == null) {
+    $sj_no = $this->m_sj->gen_sj_no($hdr['branch']);
+}
+
 
     // potong stok (GOOD OUT) per detail
     $dtl = $this->m_sj->dtl($sj_id)->result();
@@ -5255,6 +5262,35 @@ public function sj_reject()
     $this->m_sj->applog($sj_id, $usernik, 'REJECT', $note);
     redirect('ga/inventaris/form_sj/rej_ok');
 }
+
+// application/modules/ga/controllers/Inventaris.php
+
+public function sj_detail()
+{
+    // muat model
+    $this->load->model('ga/m_sj');
+
+    // ambil id dari POST
+    $sj_id = (int)$this->input->post('sj_id');
+    if ($sj_id <= 0) {
+        show_error('Parameter tidak valid.');
+        return;
+    }
+
+    // header & detail
+    $hdr_q = $this->m_sj->hdr($sj_id);
+    $hdr   = $hdr_q ? $hdr_q->row_array() : null;
+
+    $dtl_q = $this->m_sj->dtl($sj_id);
+    $dtl   = $dtl_q ? $dtl_q->result() : array();
+
+    // render partial
+    $this->load->view('ga/inventaris/_sj_detail', array(
+        'hdr' => $hdr,
+        'dtl' => $dtl,
+    ));
+}
+
 
 public function sj_delete()
 {

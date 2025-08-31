@@ -67,4 +67,26 @@ class M_sj extends CI_Model
         // contoh: SJ-SBY-YYYYMMDD-HHMMSS
         return 'SJ-'.trim($branch).'-'.date('Ymd-His');
     }
+
+    // application/modules/ga/models/m_sj.php
+public function gen_sj_no($branch = '')
+{
+    // Format: SJ-YYYYMMDD-####  (contoh: SJ-20250831-0001)
+    // Coba pakai sequence Postgres jika ada, kalau tidak fallback ke timestamp.
+    $ymd = date('Ymd');
+
+    // >>> jika punya sequence, ini paling aman/stabil:
+    $run = null;
+    $q = $this->db->query("SELECT nextval('sc_trx.sj_no_seq') AS run");
+    if ($q && $q->num_rows() > 0) {
+        $n = (int)$q->row()->run;
+        $run = str_pad(($n % 10000), 4, '0', STR_PAD_LEFT);
+    } else {
+        // fallback: jam-menit-detik (tetap unik per detik)
+        $run = date('His');
+    }
+
+    return 'SJ-' . $ymd . '-' . $run;
+}
+
 }
