@@ -53,7 +53,9 @@
               <span class="label label-default">SUBMITTED</span>
             <?php endif; ?>
           </td>
-          <td class="text-right"><?=number_format((float)($r->qty_total ?? 0))?></td>
+          <td class="text-right">
+  <?= number_format( isset($r->qty_total) ? (float)$r->qty_total : 0 ) ?>
+</td>
           <td><?=htmlspecialchars(trim($r->approver1_nik))?></td>
           <td class="nowrap">
             <a href="#" class="btn btn-info btn-xs btn-detail" data-id="<?=$r->sj_id?>">
@@ -73,12 +75,16 @@
               <button class="btn btn-danger btn-xs btn-del" data-id="<?=$r->sj_id?>">
                 <i class="fa fa-trash"></i> Hapus
               </button>
-            <?php else: 
-              $sid = bin2hex($this->encrypt->encode($r->sj_id)); ?>
-              <a target="_blank" class="btn btn-default btn-xs" href="<?=site_url('ga/inventaris/sj_print/'.$sid)?>">
-                <i class="fa fa-print"></i> Print
-              </a>
-            <?php endif; ?>
+           <?php else:
+  $sid = bin2hex($this->encrypt->encode($r->sj_id)); ?>
+  <!-- <a target="_blank" class="btn btn-default btn-xs" href="<?=site_url('ga/inventaris/sj_print/'.$sid)?>">
+    <i class="fa fa-print"></i> Print
+  </a> -->
+  <a target="_blank" class="btn btn-default btn-xs" href="<?=site_url('ga/inventaris/sj_print_dot/'.$sid)?>">
+    <i class="fa fa-print"></i> Print (Dot)
+  </a>
+<?php endif; ?>
+
           </td>
         </tr>
         <?php endforeach; if(empty($list_sj)){ ?>
@@ -271,7 +277,7 @@
       var id = $(this).data('id');
       $('#detailBody').html('<div class="text-center">Memuat...</div>');
       $('#mdlDetail').modal('show');
-      $.post('<?=site_url('ga/inventaris/_sj_detail')?>', {sj_id:id}, function(html){
+      $.post('<?=site_url('ga/inventaris/sj_detail')?>', {sj_id:id}, function(html){
         $('#detailBody').html(html);
       }).fail(function(){
         $('#detailBody').html('<div class="alert alert-danger">Gagal memuat data.</div>');

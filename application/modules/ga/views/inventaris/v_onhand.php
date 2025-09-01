@@ -1,9 +1,9 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
 
 <style>
-  .modal-backdrop { opacity:.45 !important; }
-  .modal-content  { background:#fff; }
-  .nowrap { white-space:nowrap; }
+  .modal-backdrop{opacity:.45!important}
+  .nowrap{white-space:nowrap}
+  .table td,.table th{vertical-align:middle!important}
 </style>
 
 <div class="pull-right">Versi: <?=htmlspecialchars($version)?></div>
@@ -13,31 +13,38 @@
   <div class="box-header"><h4 class="box-title">Filter</h4></div>
   <div class="box-body">
     <form method="post" class="form-inline">
-      <div class="form-group" style="min-width:340px">
+      <!-- Kode stok -->
+      <div class="form-group" style="min-width:340px;margin-right:18px">
         <label style="margin-right:8px">Kode Stock (NODOK)</label>
         <select name="f_nodok" class="form-control input-sm" style="min-width:240px">
           <option value="">-- semua --</option>
-          <?php foreach($list_barang as $b): ?>
-          <option value="<?=trim($b->nodok)?>" <?=($f_nodok==trim($b->nodok)?'selected':'')?>>
-            <?=trim($b->nodok).' — '.trim($b->nmbarang)?>
-          </option>
-          <?php endforeach;?>
+          <?php foreach ($list_barang as $b): 
+            $opt_nodok = trim($b->nodok);
+            $opt_nm    = trim($b->nmbarang);
+            $sel = ($f_nodok === $opt_nodok) ? 'selected' : '';
+          ?>
+            <option value="<?=htmlspecialchars($opt_nodok)?>" <?=$sel?>>
+              <?=htmlspecialchars($opt_nodok)?> — <?=htmlspecialchars($opt_nm)?>
+            </option>
+          <?php endforeach; ?>
         </select>
       </div>
 
-      <div class="form-group" style="margin-left:20px">
+      <!-- WH Loc -->
+      <div class="form-group" style="margin-right:18px">
         <label style="margin-right:8px">WH Loc</label>
         <input type="text" name="f_wh_loc" value="<?=htmlspecialchars($f_wh_loc)?>" class="form-control input-sm" style="width:200px">
       </div>
 
-      <div class="form-group" style="margin-left:20px">
+      <!-- Periode -->
+      <div class="form-group">
         <label style="margin-right:8px">Periode</label>
         <input type="date" name="f_dfrom" value="<?=htmlspecialchars($f_dfrom)?>" class="form-control input-sm">
         <span> s/d </span>
         <input type="date" name="f_dto" value="<?=htmlspecialchars($f_dto)?>" class="form-control input-sm">
       </div>
 
-      <button type="submit" class="btn btn-primary btn-sm" style="margin-left:20px">Terapkan</button>
+      <button type="submit" class="btn btn-primary btn-sm" style="margin-left:18px">Terapkan</button>
     </form>
   </div>
 </div>
@@ -57,24 +64,34 @@
         </tr>
       </thead>
       <tbody>
-        <?php $no=0; foreach($rows as $r): $no++; ?>
-        <tr>
-          <td class="text-center"><?=$no?></td>
-          <td><?=htmlspecialchars($r->nodok)?></td>
-          <td><?=htmlspecialchars($r->wh_loc)?></td>
-          <td class="text-right"><?=number_format((float)$r->onhand_good)?></td>
-          <td class="text-right"><?=number_format((float)$r->onhand_reject)?></td>
-          <td class="nowrap">
-            <a href="#" class="btn btn-info btn-xs btn-detail"
-               data-nodok="<?=htmlspecialchars(trim($r->nodok))?>"
-               data-wh="<?=htmlspecialchars(trim($r->wh_loc))?>">
-              <i class="fa fa-search"></i> Detail
-            </a>
-          </td>
-        </tr>
-        <?php endforeach; if(!$rows){ ?>
-        <tr><td colspan="6" class="text-center text-muted">Tidak ada data.</td></tr>
-        <?php } ?>
+        <?php
+          if (!empty($rows)) {
+            $no = 0;
+            foreach ($rows as $r) {
+              $no++;
+              $nodok = isset($r->nodok) ? $r->nodok : '';
+              $wh    = isset($r->wh_loc) ? $r->wh_loc : '';
+              $og    = isset($r->onhand_good)   ? (float)$r->onhand_good   : 0;
+              $orj   = isset($r->onhand_reject) ? (float)$r->onhand_reject : 0;
+        ?>
+          <tr>
+            <td class="text-center"><?=$no?></td>
+            <td><?=htmlspecialchars($nodok)?></td>
+            <td><?=htmlspecialchars($wh)?></td>
+            <td class="text-right"><?=number_format($og)?></td>
+            <td class="text-right"><?=number_format($orj)?></td>
+            <td class="nowrap">
+              <a href="#" class="btn btn-info btn-xs btn-detail"
+                 data-nodok="<?=htmlspecialchars($nodok)?>"
+                 data-wh="<?=htmlspecialchars($wh)?>">
+                <i class="fa fa-search"></i> Detail
+              </a>
+            </td>
+          </tr>
+        <?php
+            }
+          }
+        ?>
       </tbody>
     </table>
   </div>
@@ -91,7 +108,7 @@
         </h4>
       </div>
       <div class="modal-body" id="md-body">
-        <div class="text-center p-3">Memuat...</div>
+        <div class="text-center" style="padding:12px">Memuat...</div>
       </div>
     </div>
   </div>
@@ -100,17 +117,24 @@
 <script>
 (function($){
   $(function(){
-    if ($.fn.dataTable) $('#tbl_onhand').dataTable();
 
-    // buka modal detail + load partial
-    $(document).on('click','.btn-detail',function(e){
+    // Inisialisasi DataTables — TANPA baris placeholder di tbody
+    if ($.fn.dataTable) {
+      $('#tbl_onhand').DataTable({
+        language: { emptyTable: "Tidak ada data." },
+        columnDefs: [{ orderable:false, targets:[5] }]
+      });
+    }
+
+    // Detail mutasi (modal)
+    $(document).on('click','.btn-detail', function(e){
       e.preventDefault();
       var nodok = $(this).data('nodok');
       var wh    = $(this).data('wh');
 
-      $('#md-nodok').text(nodok);
-      $('#md-wh').text(wh);
-      $('#md-body').html('<div class="text-center p-3">Memuat...</div>');
+      $('#md-nodok').text(nodok || '');
+      $('#md-wh').text(wh || '');
+      $('#md-body').html('<div class="text-center" style="padding:12px">Memuat...</div>');
       $('#modalDetail').modal('show');
 
       $.ajax({
@@ -123,9 +147,10 @@
           dto:   '<?=htmlspecialchars($f_dto)?>'
         },
         success: function(html){ $('#md-body').html(html); },
-        error: function(){ $('#md-body').html('<div class="alert alert-danger">Gagal memuat data.</div>'); }
+        error:   function(){ $('#md-body').html('<div class="alert alert-danger">Gagal memuat data.</div>'); }
       });
     });
+
   });
 })(jQuery);
 </script>

@@ -26,9 +26,22 @@
   <?php echo isset($_checking)?$_checking:''; ?>
 
   <style>
-    html,body{height:100%}
-    body{font-family:Inter,ui-sans-serif,system-ui}
-  </style>
+  html,body{height:100%}
+  body{
+    font-family:Inter,ui-sans-serif,system-ui;
+    background-color:#0f172a !important;
+  }
+  .card {
+  background-color: #ffffff; /* atau #1e293b untuk dark */
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+header h1 {
+  color: #fff;
+}
+x
+</style>
+
 </head>
 <body class="min-h-screen bg-base-200 flex flex-col">
 
@@ -37,10 +50,11 @@
 
   <!-- Header -->
   <header class="pt-5 pb-1">
-    <h1 class="text-center text-sm font-semibold tracking-wide md:text-xl">
-      ONLINE SYSTEM &amp; MANAGEMENT STOCK
-    </h1>
-  </header>
+  <h1 class="text-center text-sm font-semibold tracking-wide md:text-xl text-white">
+    ONLINE SYSTEM &amp; MANAGEMENT STOCK
+  </h1>
+</header>
+
 
   <!-- Main -->
   <main class="flex-1">

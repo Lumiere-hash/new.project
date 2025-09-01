@@ -1,9 +1,10 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
 
 <style>
+  /* bikin modal tidak transparan */
   .modal-backdrop { opacity:.45 !important; }
   .modal-content  { background:#fff; }
-  .nowrap{ white-space:nowrap; }
+  .nowrap { white-space:nowrap; }
   .table tfoot th { font-weight:600; }
 </style>
 
@@ -38,7 +39,7 @@
           <th>WH Loc</th>
           <th class="text-right">Good</th>
           <th class="text-right">Reject</th>
-          <th style="width:160px">Aksi</th>
+          <th style="width:140px">Aksi</th>
         </tr>
       </thead>
       <tbody>
@@ -67,7 +68,7 @@
             </a>
           </td>
         </tr>
-        <?php endforeach; if(empty($list_rcv)){ ?>
+        <?php endforeach; if(!$list_rcv){ ?>
         <tr><td colspan="12" class="text-center text-muted">Belum ada penerimaan.</td></tr>
         <?php } ?>
       </tbody>
@@ -75,6 +76,9 @@
   </div>
 </div>
 
+<!-- =======================================
+     MODAL TAMBAH PENERIMAAN
+     ======================================= -->
 <div class="modal fade" id="mdlAdd" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg" style="width:96%;">
     <div class="modal-content">
@@ -85,11 +89,12 @@
       <form action="<?=site_url('ga/inventaris/input_rcv')?>" method="post" id="frm-rcv">
       <div class="modal-body">
 
+        <!-- HEADER -->
         <div class="row">
           <div class="col-sm-3">
             <div class="form-group">
               <label>RCV No (opsional)</label>
-              <input type="text" name="rcv_no" class="form-control input-sm" placeholder="Kosongkan untuk auto">
+              <input type="text" name="rcv_no" class="form-control input-sm" placeholder="Kosongkan untuk auto-generate">
             </div>
           </div>
           <div class="col-sm-3">
@@ -191,6 +196,7 @@
 
         <hr>
 
+        <!-- DETAIL -->
         <div class="row">
           <div class="col-sm-12">
             <h4 style="margin-top:0">Detail Barang</h4>
@@ -217,7 +223,7 @@
                     <th style="width:60px">Aksi</th>
                   </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody><!-- baris akan ditambah via JS --></tbody>
               </table>
             </div>
           </div>
@@ -233,6 +239,7 @@
   </div>
 </div>
 
+<!-- MODAL DETAIL -->
 <div class="modal fade" id="modalRcv" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-lg" style="width:96%;">
     <div class="modal-content">
@@ -256,11 +263,13 @@
   $(function(){
     if ($.fn.dataTable) $('#tbl_rcv').dataTable();
 
+    // ===== master barang untuk auto-fill nama & uom =====
     var BARANG = {
-      <?php foreach($list_barang as $b):
+      <?php foreach($list_barang as $b): 
             $key = trim($b->nodok);
             $nm  = isset($b->nmbarang) ? trim($b->nmbarang) : '';
-            $uom = isset($b->satkecil) ? trim($b->satkecil) : (isset($b->uom)?trim($b->uom):''); ?>
+            $uom = isset($b->satkecil) ? trim($b->satkecil) : (isset($b->uom)?trim($b->uom):'');
+      ?>
       "<?=addslashes($key)?>": {nm:"<?=addslashes($nm)?>", uom:"<?=addslashes($uom)?>"},
       <?php endforeach; ?>
     };
@@ -304,6 +313,7 @@
       renumber();
     });
 
+    // auto-fill nama & uom saat pilih nodok
     $(document).on('change','.sel-nodok',function(){
       var code = ($(this).val() || '').trim();
       var $tr  = $(this).closest('tr');
@@ -316,6 +326,7 @@
       }
     });
 
+    // tombol DETAIL
     $(document).on('click','.btn-rcv-detail',function(e){
       e.preventDefault();
       var id = $(this).data('rcv-id');
@@ -326,9 +337,10 @@
 
       $.post('<?=site_url('ga/inventaris/rcv_detail')?>', { rcv_id:id, rcv_no:no })
         .done(function(html){ $('#modalRcvBody').html(html); })
-        .fail(function(){ $('#modalRcvBody').html('<div class="alert alert-danger">Gagal memuat data.</div>'); });
+        .fail(function(){ $('#modalRcvBody').html('<div class="alert alert-danger">Gagal memuat detail.</div>'); });
     });
 
+    // tombol HAPUS
     $(document).on('click','.btn-rcv-del',function(e){
       e.preventDefault();
       var id = $(this).data('rcv-id');
@@ -337,6 +349,7 @@
       $('#frm-del').submit();
     });
 
+    // default: siapkan 1 baris detail
     $('#btnAddRow').trigger('click');
   });
 })(jQuery);

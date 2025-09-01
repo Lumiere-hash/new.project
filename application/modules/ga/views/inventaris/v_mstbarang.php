@@ -218,7 +218,7 @@
         <div class="form-group">
           <label>Kode Barang (otomatis)</label>
           <input type="text" id="nodok_view" class="form-control input-sm" placeholder="Akan tergenerate otomatis" readonly>
-          <small class="text-muted">Format: KDGROUP-KDSUBGROUP-KDTYPE-KDCOLOR-SATUAN</small>
+          <small class="text-muted">Format: KDGROUP.KDSUBGROUP.KDTYPE.KDCOLOR.SATUAN</small>
         </div>
 
         <div class="row">
@@ -353,18 +353,20 @@ $(function(){
 
   // generator NODOK dengan strip
   function genNodok(){
-    var g = ($('#kdgroup').val()||'').toUpperCase().trim();
-    var s = ($('#kdsubgroup').val()||'').toUpperCase().trim();
-    var t = ($('#kdtype').val()||'').toUpperCase().trim();
-    var c = ($('#kdcolor').val()||'').toUpperCase().trim();
-    var u = ($('#satkecil').val()||'').toUpperCase().trim(); // satuan dasar
+  var g = ($('#kdgroup').val()||'').toUpperCase().trim();
+  var s = ($('#kdsubgroup').val()||'').toUpperCase().trim();
+  var t = ($('#kdtype').val()||'').toUpperCase().trim();
+  var c = ($('#kdcolor').val()||'').toUpperCase().trim();
+  var u = ($('#satkecil').val()||'').toUpperCase().trim(); // satuan dasar
 
-    var ok   = g && s && t && c && u;
-    var code = ok ? [g, s, t, c, u].join('-') : '';
+  var ok   = g && s && t && c && u;
+  // semula: var code = ok ? [g, s, t, c, u].join('-') : '';
+  var code = ok ? [g, s, t, c, u].join('.') : '';
 
-    $('#nodok').val(code);
-    $('#nodok_view').val(code);
-  }
+  $('#nodok').val(code);
+  $('#nodok_view').val(code);
+}
+
 
   // ADD: Group -> Subgroup
   $('#kdgroup').on('change', function(){

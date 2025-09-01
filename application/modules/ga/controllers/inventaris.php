@@ -5041,32 +5041,63 @@ private function _ensure_version_and_access($kodemenu, $versirelease, $userid)
     }
     // =========================================================
 }
-public function rcv_detail()
+
+public function _rcv_detail()
 {
     $this->load->model('ga/M_stock', 'm_stock');
 
-    $rcv_id   = (int)$this->input->post('rcv_id'); // dari data-rcv-id tombol Detail
-    $rcv_no   = $this->input->post('rcv_no');      // opsional: untuk judul modal
+    $rcv_id = (int)$this->input->post('rcv_id');
+    $rcv_no = trim((string)$this->input->post('rcv_no'));
 
-    // get_rcv() SUDAH return row_array(), jadi JANGAN ->row_array() lagi
-    $hdr = $this->m_stock->get_rcv($rcv_id);
-    if (!$hdr) {
-        $this->output->set_status_header(404);
-        echo "<div class='alert alert-danger'>Data RCV tidak ditemukan.</div>";
+    if ($rcv_id <= 0 && $rcv_no !== '') {
+        $rcv_id = $this->m_stock->find_rcv_id_by_no($rcv_no);
+    }
+
+    $hdr = array();
+    $dtl = array();
+    if ($rcv_id > 0) {
+        $qh = $this->m_stock->rcv_detail_hdr($rcv_id);
+        if ($qh && $qh->num_rows() > 0) $hdr = $qh->row_array();
+
+        $qd = $this->m_stock->rcv_detail_dtl($rcv_id);
+        if ($qd) $dtl = $qd->result();
+    }
+
+    $this->load->view('ga/inventaris/_rcv_detail', array('hdr'=>$hdr,'dtl'=>$dtl));
+}
+
+public function rcv_detail()
+{
+    $this->load->model('ga/m_stock');
+
+    $rcv_id = (int)$this->input->post('rcv_id');
+    $rcv_no = trim($this->input->post('rcv_no'));
+
+    if (!$rcv_id) {
+        $this->output->set_status_header(400);
+        echo '<div class="alert alert-danger">Parameter rcv_id kosong.</div>';
         return;
     }
 
-    // get_rcv_dtl() SUDAH return result(), jadi JANGAN ->result() lagi
-    $dtl = $this->m_stock->get_rcv_dtl($rcv_id);
+    // Boleh pakai nama baru / lama – dua2nya ada
+    $qhdr = $this->m_stock->rcv_detail_hdr($rcv_id);
+    if (!$qhdr || $qhdr->num_rows() === 0) {
+        $this->output->set_status_header(404);
+        echo '<div class="alert alert-warning">Data header RCV tidak ditemukan.</div>';
+        return;
+    }
+    $hdr = $qhdr->row_array();
 
-    $data = [
-        'hdr'    => $hdr,   // array
-        'dtl'    => $dtl,   // array of objects
-        'rcv_no' => $rcv_no // opsional untuk judul
-    ];
+    $qdtl = $this->m_stock->rcv_detail_dtl($rcv_id);
+    $dtl  = $qdtl ? $qdtl->result() : array();
 
-    $html = $this->load->view('ga/inventaris/_rcv_detail', $data, true);
-    $this->output->set_content_type('text/html')->set_output($html);
+    $data = array(
+        'rcv_no' => $rcv_no !== '' ? $rcv_no : (isset($hdr['rcv_no']) ? $hdr['rcv_no'] : ''),
+        'hdr'    => $hdr,
+        'dtl'    => $dtl
+    );
+
+    $this->load->view('ga/inventaris/_rcv_detail', $data);
 }
 
 /* ==================== SURAT JALAN (OUTBOUND) ==================== */
@@ -5345,6 +5376,93 @@ public function ajax_onhand_item()
     $this->output
          ->set_content_type('application/json')
          ->set_output(json_encode($out));
+}
+public function sj_print_dot($sj_id_hex)
+{
+    $this->load->model('ga/m_sj');
+
+    // --- decode id: boleh hex-encoded atau numeric langsung
+    $sj_id = 0;
+    $param = trim($sj_id_hex);
+    if (ctype_xdigit($param)) {
+        $bin = @hex2bin($param);
+        $dec = $bin !== false ? $this->encrypt->decode($bin) : '';
+        $sj_id = (int)$dec;
+    } else {
+        $sj_id = (int)$param;
+    }
+
+    // --- ambil header
+    $hdr = $this->m_sj->hdr($sj_id)->row_array();
+    if (!$hdr) { show_error('Surat Jalan tidak ditemukan.'); return; }
+    if (isset($hdr['status']) && $hdr['status'] !== 'APPROVED') {
+        show_error('Surat Jalan belum di-approve.'); return;
+    }
+
+    // --- ambil detail
+    $dtl = $this->m_sj->dtl($sj_id)->result();
+
+    // --- helper ambil nama karyawan dari NIK
+    $nameByNik = function($nik){
+        $nik = trim((string)$nik);
+        if ($nik === '') return '';
+        $row = $this->db->select('nmlengkap')
+                        ->from('sc_mst.karyawan')
+                        ->where('nik', $nik)->limit(1)->get()->row();
+        return $row ? trim($row->nmlengkap) : $nik;
+    };
+
+    $req_nm = $nameByNik(isset($hdr['requested_nik']) ? $hdr['requested_nik'] : '');
+    $app_nm = $nameByNik(isset($hdr['approver1_nik']) ? $hdr['approver1_nik'] : '');
+
+    // --- naikkan counter print
+    $this->m_sj->update_hdr($sj_id, array(
+        'print_count' => (int)(isset($hdr['print_count']) ? $hdr['print_count'] : 0) + 1,
+        'updatedate'  => date('Y-m-d H:i:s'),
+        'updateby'    => $this->session->userdata('nama')
+    ));
+
+    // --- baca option company & mengetahui
+    $keys = array(
+        'COM_NAME','COM_ADDR1','COM_ADDR2','COM_CITY','COM_PHONE','COM_NPWP','COM_WIDTH',
+        'SJ_KNOW_TITLE','SJ_KNOW_NAME'
+    );
+    $this->db->select('kdoption, value1');
+    $this->db->from('sc_mst."option"');
+    $this->db->where_in('kdoption', $keys);
+    $optRows = $this->db->get()->result();
+
+    $opt = array();
+    foreach ($optRows as $r) { $opt[trim($r->kdoption)] = trim($r->value1); }
+
+    $company = array(
+        'name'  => isset($opt['COM_NAME'])  ? $opt['COM_NAME']  : 'PT. PERUSAHAAN ANDA',
+        'addr1' => isset($opt['COM_ADDR1']) ? $opt['COM_ADDR1'] : '',
+        'addr2' => isset($opt['COM_ADDR2']) ? $opt['COM_ADDR2'] : '',
+        'city'  => isset($opt['COM_CITY'])  ? $opt['COM_CITY']  : '',
+        'phone' => isset($opt['COM_PHONE']) ? $opt['COM_PHONE'] : '',
+        'npwp'  => isset($opt['COM_NPWP'])  ? $opt['COM_NPWP']  : '',
+        'width' => (int)(isset($opt['COM_WIDTH']) ? $opt['COM_WIDTH'] : 132),
+    );
+
+    $kn_title = isset($opt['SJ_KNOW_TITLE']) ? $opt['SJ_KNOW_TITLE'] : 'Mengetahui,';
+    $kn_name  = isset($opt['SJ_KNOW_NAME'])  ? $opt['SJ_KNOW_NAME']  : '';
+
+    // --- data ke view
+    $data = array(
+        'hdr'      => $hdr,
+        'dtl'      => $dtl,
+        'company'  => $company,
+        'req_nm'   => $req_nm,   // Dibuat
+        'app_nm'   => $app_nm,   // Disetujui
+        'customer' => isset($hdr['customer_nm']) ? trim($hdr['customer_nm']) : '',
+        'ship_to'  => isset($hdr['ship_to'])     ? trim($hdr['ship_to'])     : '',
+        'kn_title' => $kn_title, // label Mengetahui
+        'kn_name'  => $kn_name,  // nama Mengetahui
+    );
+
+    // --- render dot-matrix view
+    $this->load->view('ga/inventaris/v_sj_print_dot', $data);
 }
 
 
